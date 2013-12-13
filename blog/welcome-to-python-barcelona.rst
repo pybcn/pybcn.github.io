@@ -7,7 +7,7 @@
 
 This is a first blog post to welcome you to the Python Barcelona Group.
 
-We will start by sharing some general info about our Python Group.
+We will start by sharing some general information about our Python Group.
 
 
 .. topic:: When do we meet?
