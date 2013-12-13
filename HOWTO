@@ -1,0 +1,62 @@
+
+
+!this is a draft, it needs to be improved!
+
+
+How to update the website
+-------------------------
+
+github.com/pybcn is organized in 2 branch, the master branch which contains only the static files (html, css, images) and the sources branch which contains all the sources files needed by Nikola to generate the website, this is mainly a conf.py with rst files and images.
+
+It's very easy to get started with Nikola, please follow the handbook : http://getnikola.com/handbook.html
+
+
+First, you will need to get your environment ready,
+
+1) create a virtualenv :
+
+    $ mkvirtualenv pybcn
+
+
+2) clone the github repo & switch on the sources branch :
+
+    $ git clone git@github.com:pybcn/pybcn.github.io.git
+    $ git checkout sources
+
+
+3) install nikola and python-requests :
+
+    $ pip install requirements.txt
+
+
+4) From here, you should be able to rebuild the static files with the following command:
+
+    $ nikola build
+
+
+5) and serve them locally to test:
+
+    $ nikola serve
+
+
+The main page is stored in stories/index.rst, so you can update this file and then run : nikola build ; nikola serve
+
+6) commit and push your changes
+
+
+
+Now the git stuff / git subtree merge
+-------------------------------------
+
+Interesting article how to use subtree merge with github :
+http://rachbelaid.com/how-to-build-a-github-page-with-git-subtree-merge.html
+
+7) following the step #6, the following should work:
+
+    (sources)$ git checkout master
+    (master)$ git merge -s ours --no-commit origin/sources
+    (master)$ git read-tree -m -u source:output
+    (master)$ git commit -m "Merge folder output of branch source"
+
+
+8) That's it!
