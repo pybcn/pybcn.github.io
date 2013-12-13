@@ -1,0 +1,2 @@
+Nikola==6.2.1
+requests==2.1.0
