@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Python Barcelona</title><link>http://pybcn.prg/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.prg/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Fri, 13 Dec 2013 19:27:05 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Welcome to Python Barcelona</title><link>http://pybcn.prg/blog/welcome-to-python-barcelona.html</link><description>&lt;p&gt;This is a first blog post to welcome you to the Python Barcelona Group.&lt;/p&gt;
+&lt;p&gt;We will start by sharing some general info about our Python Group.&lt;/p&gt;
+&lt;div class="topic"&gt;
+&lt;p class="topic-title first"&gt;When do we meet?&lt;/p&gt;
+&lt;p&gt;We meet once a month and the date should be the 3rd Thrusday of the month.
+For instance, the next event will take place on the 16th of January 2014.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="topic"&gt;
+&lt;p class="topic-title first"&gt;How do I get in touch with Barcelona Python Group?&lt;/p&gt;
+&lt;p&gt;Via our mailing-list, this is where we will discuss upcoming events and matters about the meetup organization.&lt;/p&gt;
+&lt;p&gt;Mailing-list : &lt;a class="reference external" href="https://groups.google.com/forum/#!forum/barcelona-python"&gt;https://groups.google.com/forum/#!forum/barcelona-python&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="topic"&gt;
+&lt;p class="topic-title first"&gt;How do I can updated about the next event?&lt;/p&gt;
+&lt;p&gt;All events will be published on the website : &lt;a class="reference external" href="http://pybcn.org"&gt;http://pybcn.org&lt;/a&gt; and on the meetup page.&lt;/p&gt;
+&lt;p&gt;Find us on Meetup : &lt;a class="reference external" href="http://www.meetup.com/python-185/"&gt;http://www.meetup.com/python-185/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There is also twitter account : &lt;a class="reference external" href="http://twitter.com/pybcn"&gt;http://twitter.com/pybcn&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Bon Python!&lt;/p&gt;
+&lt;img src="http://pybcn.prg/blog/images/Python_logo_1000px.png" alt="Python Logo"&gt;</description><guid>http://pybcn.prg/blog/welcome-to-python-barcelona.html</guid><pubDate>Fri, 13 Dec 2013 14:08:54 GMT</pubDate></item></channel></rss>
