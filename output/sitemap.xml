@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+ <url>
+  <loc>http://pybcn.prg/2013/index.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/Python Barcelona Meetup.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/archive.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/blog/index.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/blog/welcome-to-python-barcelona.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/categories/index.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/galleries/index.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/galleries/rss.xml</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/index.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/listings/index.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/rss.xml</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/test-page-here.html</loc>
+  <lastmod>2013-12-13</lastmod>
+ </url>
+</urlset>
