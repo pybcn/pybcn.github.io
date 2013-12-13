@@ -40,6 +40,8 @@ Next Topic : Python & Robotics
 Python & Arduino
 ****************
 
+**SPEAKER NAME**
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non nunc turpis.
 Phasellus a ullamcorper leo. Sed fringilla dapibus orci eu ornare. Quisque
 gravida quam a mi dignissim consequat. Morbi sed iaculis mi.
@@ -50,6 +52,8 @@ gravida quam a mi dignissim consequat. Morbi sed iaculis mi.
 Python & Robotics
 *****************
 
+**SPEAKER NAME**
+
 Vivamus ultrices mattis euismod. Mauris aliquet magna eget mauris volutpat a egestas leo rhoncus.
 In hac habitasse platea dictumst. Ut sed mi arcu. Nullam id massa eu orci
 convallis accumsan. Nunc faucibus sodales justo ac ornare. In eu congue eros.
@@ -59,6 +63,8 @@ convallis accumsan. Nunc faucibus sodales justo ac ornare. In eu congue eros.
 
 Free Slot for a sloth
 *********************
+
+**SPEAKER NAME**
 
 Pellentesque iaculis risus urna. Proin est lorem, scelerisque non elementum at,
 semper vel velit. Phasellus consectetur orci vel tortor tempus imperdiet. Class
