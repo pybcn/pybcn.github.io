@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Python Barcelona</title><link>http://pybcn.prg/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.prg/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Fri, 13 Dec 2013 20:26:35 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Welcome to Python Barcelona</title><link>http://pybcn.prg/blog/welcome-to-python-barcelona.html</link><description>&lt;p&gt;This is a first blog post to welcome you to the Python Barcelona Group.&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Python Barcelona</title><link>http://pybcn.prg/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.prg/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Wed, 01 Jan 2014 20:16:43 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Happy New Year 2014</title><link>http://pybcn.prg/blog/happy-new-year-2014.html</link><description>&lt;p&gt;We want 2014 to be a great year for our Python Meetup and the
+organizers will try to set a monthly meetup to take place on the 3rd
+Thursday of every month, the events will be announced via the meetup
+group as always and also via our website PyBCN (&lt;a class="reference external" href="http://pybcn.org/"&gt;http://pybcn.org/&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Our first meetup of the year will be on the 16th of January and the
+topic will be "Python &amp;amp; Robotics".We are looking for extra speakers on
+this topic, so if you know about robotics, arduino, etc... please get
+in touch via our mailing-list &lt;a class="reference external" href="mailto:barcelona-python@googlegroups.com"&gt;barcelona-python@googlegroups.com&lt;/a&gt; or
+simply reply to this message.&lt;/p&gt;
+&lt;p&gt;We will need speakers to prepare a 15-20 min presentation, but
+lightning talks or other contributions are welcome. I&lt;/p&gt;
+&lt;p&gt;There is a google group: &lt;a class="reference external" href="mailto:barcelona-python@googlegroups.com"&gt;barcelona-python@googlegroups.com&lt;/a&gt; which we
+will use to organize and discuss upcoming events, you are welcome to
+join up and get in touch with us.&lt;/p&gt;
+&lt;p&gt;See you soon!&lt;/p&gt;</description><guid>http://pybcn.prg/blog/happy-new-year-2014.html</guid><pubDate>Wed, 01 Jan 2014 20:16:06 GMT</pubDate></item><item><title>Welcome to Python Barcelona</title><link>http://pybcn.prg/blog/welcome-to-python-barcelona.html</link><description>&lt;p&gt;This is a first blog post to welcome you to the Python Barcelona Group.&lt;/p&gt;
 &lt;p&gt;We will start by sharing some general information about our Python Group.&lt;/p&gt;
 &lt;div class="topic"&gt;
 &lt;p class="topic-title first"&gt;When do we meet?&lt;/p&gt;
