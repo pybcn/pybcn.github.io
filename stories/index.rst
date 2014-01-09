@@ -74,10 +74,6 @@ himenaeos.
 
 |br|
 
-Sponsors
-========
-
-    List of Sponsors...
 
 
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
