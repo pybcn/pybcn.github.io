@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Python-Barcelona</title><link>http://pybcn.prg/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.prg/ca/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>ca</language><lastBuildDate>Thu, 09 Jan 2014 17:07:21 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Dóna una xerrada o proposa'n una a Python Meetup de Barcelona!</title><link>http://pybcn.prg/ca/blog/dona-una-xerrada-o-proposan-una-a-python-meetup-de-barcelona.html</link><description>&lt;div class="section" id="proposa-idees-per-xerrades"&gt;
+&lt;h2&gt;Proposa idees per xerrades&lt;/h2&gt;
+&lt;p&gt;T'agradaria que un tema en concret es tractés en el Python Barcelona Meetup?
+Si és així,siusplau envia'ns les teves propostes a través del sigüent formulari:
+&lt;a class="reference external" href="https://docs.google.com/forms/d/17-C9BGZst2HnrZ7SgR_cl97aJSw4hD2Ib3HARr-ztRE/viewform"&gt;https://docs.google.com/forms/d/17-C9BGZst2HnrZ7SgR_cl97aJSw4hD2Ib3HARr-ztRE/viewform&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Intentarem trobar les persones adequades per aquests temes.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="proposa-una-xerrada"&gt;
+&lt;h2&gt;Proposa una xerrada&lt;/h2&gt;
+&lt;p&gt;Qualsevol persona amb qualsevol nivell i coneixements de Python és un bon candidat a donar una xerrada. El públic que sol asistir-hi és molt eterogeni i, per tant, necessitem oradors de tot tipus.
+Si et ve de gust donar una xerrada (o vàries) fes-nos arribar els temes dels que t'agradaria parlar a través del formulari. Això ens serà de gran ajuda para a organizar els futurs Meetup.
+Sigues lliure de donar la teva xerrada en l'idioma que prefereixis: Anglès, Català o Castellà.&lt;/p&gt;
+&lt;p&gt;Proposa una xerrada:
+&lt;a class="reference external" href="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform"&gt;https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Si tens qualsevol pregunta, per favor posa't en contacte amb nosaltres a través de la nostra llista de correu:
+&lt;a class="reference external" href="https://groups.google.com/forum/#!forum/barcelona-python"&gt;https://groups.google.com/forum/#!forum/barcelona-python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Grácies per la teva ajuda!
+Bon Python ! ;)&lt;/p&gt;
+&lt;/div&gt;</description><guid>http://pybcn.prg/ca/blog/dona-una-xerrada-o-proposan-una-a-python-meetup-de-barcelona.html</guid><pubDate>Thu, 09 Jan 2014 13:51:41 GMT</pubDate></item><item><title>Happy New Year 2014</title><link>http://pybcn.prg/ca/blog/happy-new-year-2014.html</link><description>&lt;p&gt;We want 2014 to be a great year for our Python Meetup and the
+organizers will try to set a monthly meetup to take place on the 3rd
+Thursday of every month, the events will be announced via the meetup
+group as always and also via our website PyBCN (&lt;a class="reference external" href="http://pybcn.org/"&gt;http://pybcn.org/&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Our first meetup of the year will be on the 16th of January and the
+topic will be "Python &amp;amp; Robotics".We are looking for extra speakers on
+this topic, so if you know about robotics, arduino, etc... please get
+in touch via our mailing-list &lt;a class="reference external" href="mailto:barcelona-python@googlegroups.com"&gt;barcelona-python@googlegroups.com&lt;/a&gt; or
+simply reply to this message.&lt;/p&gt;
+&lt;p&gt;We will need speakers to prepare a 15-20 min presentation, but
+lightning talks or other contributions are welcome. I&lt;/p&gt;
+&lt;p&gt;There is a google group: &lt;a class="reference external" href="mailto:barcelona-python@googlegroups.com"&gt;barcelona-python@googlegroups.com&lt;/a&gt; which we
+will use to organize and discuss upcoming events, you are welcome to
+join up and get in touch with us.&lt;/p&gt;
+&lt;p&gt;See you soon!&lt;/p&gt;</description><guid>http://pybcn.prg/ca/blog/happy-new-year-2014.html</guid><pubDate>Wed, 01 Jan 2014 20:16:06 GMT</pubDate></item><item><title>Welcome to Python Barcelona</title><link>http://pybcn.prg/ca/blog/welcome-to-python-barcelona.html</link><description>&lt;p&gt;This is a first blog post to welcome you to the Python Barcelona Group.&lt;/p&gt;
+&lt;p&gt;We will start by sharing some general information about our Python Group.&lt;/p&gt;
+&lt;div class="topic"&gt;
+&lt;p class="topic-title first"&gt;When do we meet?&lt;/p&gt;
+&lt;p&gt;We meet once a month and the date should be the 3rd Thrusday of the month.
+For instance, the next event will take place on the 16th of January 2014.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="topic"&gt;
+&lt;p class="topic-title first"&gt;How do I get in touch with Barcelona Python Group?&lt;/p&gt;
+&lt;p&gt;Via our mailing-list, this is where we will discuss upcoming events and matters about the meetup organization.&lt;/p&gt;
+&lt;p&gt;Mailing-list : &lt;a class="reference external" href="https://groups.google.com/forum/#!forum/barcelona-python"&gt;https://groups.google.com/forum/#!forum/barcelona-python&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="topic"&gt;
+&lt;p class="topic-title first"&gt;How do I can updated about the next event?&lt;/p&gt;
+&lt;p&gt;All events will be published on the website : &lt;a class="reference external" href="http://pybcn.org"&gt;http://pybcn.org&lt;/a&gt; and on the meetup page.&lt;/p&gt;
+&lt;p&gt;Find us on Meetup : &lt;a class="reference external" href="http://www.meetup.com/python-185/"&gt;http://www.meetup.com/python-185/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There is also twitter account : &lt;a class="reference external" href="http://twitter.com/pybcn"&gt;http://twitter.com/pybcn&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Bon Python!&lt;/p&gt;
+&lt;img src="http://pybcn.prg/ca/blog/images/Python_logo_1000px.png" alt="Python Logo"&gt;</description><guid>http://pybcn.prg/ca/blog/welcome-to-python-barcelona.html</guid><pubDate>Fri, 13 Dec 2013 14:08:54 GMT</pubDate></item></channel></rss>

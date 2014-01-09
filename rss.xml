@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Python Barcelona</title><link>http://pybcn.prg/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.prg/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Wed, 01 Jan 2014 20:16:43 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Happy New Year 2014</title><link>http://pybcn.prg/blog/happy-new-year-2014.html</link><description>&lt;p&gt;We want 2014 to be a great year for our Python Meetup and the
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Python-Barcelona</title><link>http://pybcn.prg/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.prg/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Thu, 09 Jan 2014 15:57:14 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Suggest a talk or give one at Python Meetup Barcelona!</title><link>http://pybcn.prg/blog/suggest-a-talk-or-give-one-at-python-meetup-barcelona.html</link><description>&lt;div class="section" id="suggest-ideas-for-talks"&gt;
+&lt;h2&gt;Suggest ideas for talks&lt;/h2&gt;
+&lt;p&gt;Would you like a subject to be covered at Python Barcelona Meetup, please submit one or more talk ideas here:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://docs.google.com/forms/d/17-C9BGZst2HnrZ7SgR_cl97aJSw4hD2Ib3HARr-ztRE/viewform"&gt;https://docs.google.com/forms/d/17-C9BGZst2HnrZ7SgR_cl97aJSw4hD2Ib3HARr-ztRE/viewform&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;We will try to find suitable speakers for those talks.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="propose-a-talk-duration-20-minutes"&gt;
+&lt;h2&gt;Propose a Talk (Duration: 20 minutes)&lt;/h2&gt;
+&lt;p&gt;Anyone with any level of Python knowledge is a candidate for a great
+talk. As there is attendees of all kinds, we need speakers of all
+kinds.
+So if you could give a talk (or a few), then please share those
+subjects with us, this will help us to organize future Meetup events.
+Feel free to give your talk in your preferred language: English,
+Catalan or Spanish.&lt;/p&gt;
+&lt;p&gt;To propose a talk: &lt;a class="reference external" href="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform"&gt;https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;If you have any questions, please get in touch with us via our mailing-list: &lt;a class="reference external" href="https://groups.google.com/forum/#!forum/barcelona-python"&gt;https://groups.google.com/forum/#!forum/barcelona-python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thanks in advance for your help!&lt;/p&gt;
+&lt;p&gt;Bon Python! ;)&lt;/p&gt;
+&lt;/div&gt;</description><guid>http://pybcn.prg/blog/suggest-a-talk-or-give-one-at-python-meetup-barcelona.html</guid><pubDate>Thu, 09 Jan 2014 13:51:41 GMT</pubDate></item><item><title>Happy New Year 2014</title><link>http://pybcn.prg/blog/happy-new-year-2014.html</link><description>&lt;p&gt;We want 2014 to be a great year for our Python Meetup and the
 organizers will try to set a monthly meetup to take place on the 3rd
 Thursday of every month, the events will be announced via the meetup
 group as always and also via our website PyBCN (&lt;a class="reference external" href="http://pybcn.org/"&gt;http://pybcn.org/&lt;/a&gt;).&lt;/p&gt;

@@ -3,3 +3,13 @@
     color: #FFFFFF;
     text-decoration: none;
 }
+
+footer {
+    color: #1C4B42;
+    text-align: center;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
