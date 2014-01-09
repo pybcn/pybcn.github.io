@@ -6,58 +6,66 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://pybcn.prg/2013/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/2014/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/Python Barcelona Meetup.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/archive.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/blog/happy-new-year-2014.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/blog/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/blog/suggest-a-talk-or-give-one-at-python-meetup-barcelona.html</loc>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/blog/welcome-to-python-barcelona.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/categories/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/galleries/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/galleries/rss.xml</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/listings/index.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/rss.xml</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
  </url>
  <url>
   <loc>http://pybcn.prg/test-page-here.html</loc>
-  <lastmod>2014-01-01</lastmod>
+  <lastmod>2014-01-09</lastmod>
+ </url>
+ <url>
+  <loc>http://pybcn.prg/venue.html</loc>
+  <lastmod>2014-01-09</lastmod>
  </url>
 </urlset>

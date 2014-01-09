@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Event will be the 16th of January 2014!
+.. admonition:: Python & Robotics on the 16th of January 2014!
 
 
     .. raw:: html
@@ -22,7 +22,9 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    The next upcoming Python Barcelona event will take place on the 16th of January 2014, the venue and the speakers will be confirmed.
+    The next upcoming Python Barcelona event will take place on the 16th of January 2014, it will take place at
+    Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
+    Room : "Ramón y Cajal"
 
     .. class:: btn btn-info
 
@@ -30,50 +32,48 @@
 
 
 
-Next Topic : Python & Robotics
-==============================
+Talks & Speakers
+================
 
 .. class:: row
 
-.. class:: col-md-3 col-sm-3 col-lg-3 .col-md-offset-1
+.. class:: col-md-4
 
-Python & Arduino
-****************
+1) Easy GPS Tracker using Arduino & Python
+******************************************
 
-**SPEAKER NAME**
+**Speaker: Núria Pujol**
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non nunc turpis.
-Phasellus a ullamcorper leo. Sed fringilla dapibus orci eu ornare. Quisque
-gravida quam a mi dignissim consequat. Morbi sed iaculis mi.
-
-
-.. class:: col-md-3 col-sm-3 col-lg-3 .col-md-offset-1
-
-Python & Robotics
-*****************
-
-**SPEAKER NAME**
-
-Vivamus ultrices mattis euismod. Mauris aliquet magna eget mauris volutpat a egestas leo rhoncus.
-In hac habitasse platea dictumst. Ut sed mi arcu. Nullam id massa eu orci
-convallis accumsan. Nunc faucibus sodales justo ac ornare. In eu congue eros.
+Easy GPS Tracker using Arduino and Python. Se hablara de arduino, xbee y python centrandome
+en el ejemplo de desarrollar un gps tracker.
 
 
-.. class:: col-md-3 col-sm-3 col-lg-3 .col-md-offset-1
+.. class:: col-md-4
 
-Free Slot for a sloth
-*********************
+2) El ecosistema ROS y Python
+*****************************
 
-**SPEAKER NAME**
+|br|
+**Speaker: Esteve Fernandez**
+
+Introducción a los proyectos que desarrollamos en la Open Source Robotics Foundation (ROS, CloudSim y Gazebo)
+
+
+.. class:: col-md-4
+
+3) Pal Robotics
+***************
+
+|br|
+**Speaker: Sam Pfeiffer**
 
 Pellentesque iaculis risus urna. Proin est lorem, scelerisque non elementum at,
-semper vel velit. Phasellus consectetur orci vel tortor tempus imperdiet. Class
-aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-himenaeos.
+semper vel velit. Phasellus consectetur orci vel tortor tempus imperdiet.
 
 
 |br|
-
+|br|
+|br|
 
 
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
