@@ -61,8 +61,8 @@ http://rachbelaid.com/how-to-build-a-github-page-with-git-subtree-merge.html
 
     (sources)$ git checkout master
     (master)$ git merge -s ours --no-commit origin/sources
-    (master)$ git read-tree -m -u source:output
-    (master)$ git commit -m "Merge folder output of branch source"
+    (master)$ git read-tree -m -u sources:output
+    (master)$ git commit -m "Merge folder output of branch sources"
 
 
 8) That's it!
