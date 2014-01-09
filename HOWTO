@@ -4,15 +4,16 @@
 
 
 Note:
-In order to build correctly the menu on multilanguage you will need to apply this patch on nikola 6.2.1
+-----
+In order to build the static multi-languages website correctly you will need to apply this patch on nikola 6.2.1
 https://github.com/getnikola/nikola/commit/dac7b5f38d1f584f3495f08626e377569c58becf
-or install development version of Nikola
+or you can also install the development version of Nikola (https://github.com/getnikola/nikola)
 
 
 How to update the website
 -------------------------
 
-github.com/pybcn is organized in 2 branch, the master branch which contains only the static files (html, css, images) and the sources branch which contains all the sources files needed by Nikola to generate the website, this is mainly a conf.py with rst files and images.
+https://github.com/pybcn is organized in 2 branch, the master branch which contains only the static files (html, css, images) and the sources branch which contains all the sources files needed by Nikola to generate the website, this is mainly a conf.py with rst files and images.
 
 It's very easy to get started with Nikola, please follow the handbook : http://getnikola.com/handbook.html
 
@@ -50,9 +51,7 @@ The main page is stored in stories/index.rst, so you can update this file and th
 6) commit and push your changes
 
 
-
-Now the git stuff / git subtree merge
--------------------------------------
+**Now the git stuff / git subtree merge**
 
 Interesting article how to use subtree merge with github :
 http://rachbelaid.com/how-to-build-a-github-page-with-git-subtree-merge.html
