@@ -1,0 +1,44 @@
+.. link:
+.. description: Suggest a talk or give one at Python Meetup Barcelona
+.. tags:
+.. date: 2014/01/09 13:51:41
+.. title: Dóna una xerrada o proposa'n una a Python Meetup de Barcelona!
+.. slug: dona-una-xerrada-o-proposan-una-a-python-meetup-de-barcelona
+
+
+.. |br| raw:: html
+
+   <br />
+
+
+Proposa idees per xerrades
+--------------------------
+
+T'agradaria que un tema en concret es tractés en el Python Barcelona Meetup?
+Si és així,siusplau envia'ns les teves propostes a través del sigüent formulari:
+https://docs.google.com/forms/d/17-C9BGZst2HnrZ7SgR_cl97aJSw4hD2Ib3HARr-ztRE/viewform
+
+Intentarem trobar les persones adequades per aquests temes.
+
+|br|
+
+
+Proposa una xerrada
+-------------------
+
+Qualsevol persona amb qualsevol nivell i coneixements de Python és un bon candidat a donar una xerrada. El públic que sol asistir-hi és molt eterogeni i, per tant, necessitem oradors de tot tipus.
+Si et ve de gust donar una xerrada (o vàries) fes-nos arribar els temes dels que t'agradaria parlar a través del formulari. Això ens serà de gran ajuda para a organizar els futurs Meetup.
+Sigues lliure de donar la teva xerrada en l'idioma que prefereixis: Anglès, Català o Castellà.
+
+Proposa una xerrada:
+https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform
+
+|br|
+
+Si tens qualsevol pregunta, per favor posa't en contacte amb nosaltres a través de la nostra llista de correu:
+https://groups.google.com/forum/#!forum/barcelona-python
+
+
+Grácies per la teva ajuda!
+Bon Python ! ;)
+

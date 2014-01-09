@@ -3,6 +3,12 @@
 !this is a draft, it needs to be improved!
 
 
+Note:
+In order to build correctly the menu on multilanguage you will need to apply this patch on nikola 6.2.1
+https://github.com/getnikola/nikola/commit/dac7b5f38d1f584f3495f08626e377569c58becf
+or install development version of Nikola
+
+
 How to update the website
 -------------------------
 

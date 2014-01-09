@@ -56,7 +56,8 @@ DEFAULT_LANG = "en"
 TRANSLATIONS = {
     DEFAULT_LANG: "",
     # Example for another language:
-    # "es": "./es",
+    "es": "./es",
+    "ca": "./ca",
 }
 
 # Links for the sidebar / navigation bar.
@@ -67,6 +68,18 @@ NAVIGATION_LINKS = {
         ('/venue.html', 'Venue'),
         ('/archive.html', 'Archives'),
         ('/rss.xml', 'RSS'),
+    ),
+    "es": (
+        ('/es/blog/', 'Blog'),
+        ('/es/venue.html', 'Venue'),
+        ('/es/archive.html', 'Archives'),
+        ('/es/rss.xml', 'RSS'),
+    ),
+    "ca": (
+        ('/ca/blog/', 'Blog'),
+        ('/ca/venue.html', 'Venue'),
+        ('/ca/archive.html', 'Archives'),
+        ('/ca/rss.xml', 'RSS'),
     ),
 }
 
@@ -108,6 +121,7 @@ NAVIGATION_LINKS = {
 
 POSTS = (
     ("posts/*.rst", "blog", "post.tmpl"),
+    ("posts/*.txt", "blog", "post.tmpl"),
 )
 PAGES = (
     ("stories/*.rst", "", "story.tmpl"),

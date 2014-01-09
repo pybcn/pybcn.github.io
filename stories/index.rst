@@ -39,13 +39,13 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) Easy GPS Tracker using Arduino & Python
+1) Easy GPS Tracker using Python & Arduino
 ******************************************
 
-**Speaker: Núria Pujol**
+**Speaker: Núria Pujol Vilanova**
 
-Easy GPS Tracker using Arduino and Python. Se hablara de arduino, xbee y python centrandome
-en el ejemplo de desarrollar un gps tracker.
+Language: Presentation(ES) / Slides(EN)
+Las diferentes partes del desarrollo de un senzillo GPS Tracker nos servirán para introducir diferentes aspectos de Arduino y Python. Se hablará de Xbee, de tramas GPS, de imágenes georeferenciadas y sobretodo, sobre Python!
 
 
 .. class:: col-md-4

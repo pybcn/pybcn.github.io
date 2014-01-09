@@ -10,9 +10,6 @@
    <br />
 
 
-Suggest a talk or give one at Python Meetup Barcelona!
-======================================================
-
 Suggest ideas for talks
 -----------------------
 
