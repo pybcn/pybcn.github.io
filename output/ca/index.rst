@@ -42,10 +42,10 @@ Talks & Speakers
 1) Easy GPS Tracker using Python & Arduino
 ******************************************
 
+|br|
 **Speaker: Núria Pujol Vilanova**
 
-Language: Presentation(ES) / Slides(EN)
-Las diferentes partes del desarrollo de un senzillo GPS Tracker nos servirán para introducir diferentes aspectos de Arduino y Python. Se hablará de Xbee, de tramas GPS, de imágenes georeferenciadas y sobretodo, sobre Python!
+Las diferentes partes del desarrollo de un senCillo GPS Tracker nos servirán para introducir diferentes aspectos de Arduino y Python. Se hablará de Xbee, de tramas GPS, de imágenes georeferenciadas y sobretodo, sobre Python!
 
 
 .. class:: col-md-4
@@ -54,6 +54,7 @@ Las diferentes partes del desarrollo de un senzillo GPS Tracker nos servirán pa
 *****************************
 
 |br|
+|br|
 **Speaker: Esteve Fernandez**
 
 Introducción a los proyectos que desarrollamos en la Open Source Robotics Foundation (ROS, CloudSim y Gazebo)
@@ -61,14 +62,13 @@ Introducción a los proyectos que desarrollamos en la Open Source Robotics Found
 
 .. class:: col-md-4
 
-3) Pal Robotics
-***************
+3) Interfacing with ROS via Python
+**********************************
 
 |br|
 **Speaker: Sam Pfeiffer**
 
-Pellentesque iaculis risus urna. Proin est lorem, scelerisque non elementum at,
-semper vel velit. Phasellus consectetur orci vel tortor tempus imperdiet.
+Introducción al Sistema Operativo Robótico (ROS) desde el punto de vista de un desarrollador en Python en un caso real: REEM
 
 
 |br|
