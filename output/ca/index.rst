@@ -45,7 +45,7 @@ Talks & Speakers
 |br|
 **Speaker: Núria Pujol Vilanova**
 
-Las diferentes partes del desarrollo de un senCillo GPS Tracker nos servirán para introducir diferentes aspectos de Arduino y Python. Se hablará de Xbee, de tramas GPS, de imágenes georeferenciadas y sobretodo, sobre Python!
+Las diferentes partes del desarrollo de un sencillo GPS Tracker nos servirán para introducir diferentes aspectos de Arduino y Python. Se hablará de Xbee, de tramas GPS, de imágenes georeferenciadas y sobretodo, sobre Python!
 
 
 .. class:: col-md-4
