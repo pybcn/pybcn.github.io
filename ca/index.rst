@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python & Robotics on the 16th of January 2014!
+.. admonition:: Python on the Web - the 20th of February 2014!
 
 
     .. raw:: html
@@ -22,7 +22,7 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    The next upcoming Python Barcelona event will take place on the 16th of January 2014, it will take place at
+    The next upcoming Python Barcelona event will take place on the 20th of February 2014, it will take place at
     Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
     Room : "Ramón y Cajal"
 
@@ -39,36 +39,35 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) Easy GPS Tracker using Python & Arduino
-******************************************
+1) Django Django!
+*****************
 
 |br|
-**Speaker: Núria Pujol Vilanova**
+**Speaker: David Arcos**
 
-Las diferentes partes del desarrollo de un sencillo GPS Tracker nos servirán para introducir diferentes aspectos de Arduino y Python. Se hablará de Xbee, de tramas GPS, de imágenes georeferenciadas y sobretodo, sobre Python!
+Dev Team Leader at Catchoom will talk about Django... description and title to come!
 
 
 .. class:: col-md-4
 
-2) El ecosistema ROS y Python
-*****************************
+2) Nikola for Static Website
+****************************
 
 |br|
-|br|
-**Speaker: Esteve Fernandez**
+**Speaker: Areski Belaid**
 
-Introducción a los proyectos que desarrollamos en la Open Source Robotics Foundation (ROS, CloudSim y Gazebo)
+We will introduce the pybcn.org website and Nikola, we will explain how the website is powered by Nikola, how to update and create your own static website.
 
 
 .. class:: col-md-4
 
-3) Interfacing with ROS via Python
-**********************************
+3) Free Sloth
+*************
 
 |br|
-**Speaker: Sam Pfeiffer**
+**Speaker: Maybe YOU?**
 
-Introducción al Sistema Operativo Robótico (ROS) desde el punto de vista de un desarrollador en Python en un caso real: REEM
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
 
 
 |br|
