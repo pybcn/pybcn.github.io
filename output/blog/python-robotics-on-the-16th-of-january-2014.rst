@@ -13,7 +13,9 @@
 Summary of Python & Robotics
 ----------------------------
 
-Our Python Meetup from Thrusday 16th has definitely been a success, we had the chance to receive 3 high levels speakers with expertise in the robotics & Python. Please find bellow the slides of each of the speakers.
+Our Python Meetup from Thrusday 16th has definitely been a success, we had the chance to receive 3 high levels speakers with expertise in Robotics & Python.
+
+Please find bellow the slides of each of the speakers:
 
 
 1) Easy GPS Tracker using Python & Arduino
