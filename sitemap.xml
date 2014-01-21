@@ -6,23 +6,23 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://pybcn.org/2013/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/2014/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/Python Barcelona Meetup.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/archive.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/blog/happy-new-year-2014.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/blog/index.html</loc>
@@ -38,19 +38,19 @@
  </url>
  <url>
   <loc>http://pybcn.org/blog/welcome-to-python-barcelona.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/2013/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/2014/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/archive.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/dona-una-xerrada-o-proposan-una-a-python-meetup-de-barcelona.html</loc>
@@ -58,7 +58,7 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/happy-new-year-2014.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/index.html</loc>
@@ -70,11 +70,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/suggest-a-talk-or-give-one-at-python-meetup-barcelona.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/welcome-to-python-barcelona.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/categories/index.html</loc>
@@ -90,11 +90,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/galleries/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/galleries/rss.xml</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/index.html</loc>
@@ -106,11 +106,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/test-page-here.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/venue.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/categories/index.html</loc>
@@ -126,15 +126,15 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/2013/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/2014/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/archive.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/dar-una-charla-o-sugerir-una-a-python-meetup-de-barcelona.html</loc>
@@ -142,7 +142,7 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/happy-new-year-2014.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/index.html</loc>
@@ -154,11 +154,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/suggest-a-talk-or-give-one-at-python-meetup-barcelona.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/welcome-to-python-barcelona.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/categories/index.html</loc>
@@ -174,11 +174,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/galleries/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/galleries/rss.xml</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/index.html</loc>
@@ -190,19 +190,19 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/test-page-here.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/venue.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/galleries/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/galleries/rss.xml</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/index.html</loc>
@@ -210,7 +210,7 @@
  </url>
  <url>
   <loc>http://pybcn.org/listings/index.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/rss.xml</loc>
@@ -218,10 +218,10 @@
  </url>
  <url>
   <loc>http://pybcn.org/test-page-here.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/venue.html</loc>
-  <lastmod>2014-01-17</lastmod>
+  <lastmod>2014-01-21</lastmod>
  </url>
 </urlset>
