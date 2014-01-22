@@ -70,9 +70,26 @@ We will introduce the pybcn.org website and Nikola, we will explain how the webs
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
 
 
-|br|
-|br|
-|br|
 
+.. raw:: html
+
+   </div>
+
+
+.. class:: row
+
+.. class:: col-md-12
+
+    .. raw:: html
+
+        <br/><br/><br/><img src="images/python_folks.jpg" alt="Python Folks" class="image-center">
+
+
+.. raw:: html
+
+   </div>
+
+
+|br|
 
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185

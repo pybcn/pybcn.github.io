@@ -13,3 +13,9 @@ footer {
     margin-right: 0px;
     margin-left: 0px;
 }
+
+.image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}

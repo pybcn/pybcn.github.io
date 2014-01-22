@@ -6,8 +6,8 @@ import time
 # Configuration, please edit
 
 # Data about this site
-BLOG_AUTHOR = "Python-Barcelona Group"
-BLOG_TITLE = "Python-Barcelona"
+BLOG_AUTHOR = "Barcelona Python User Group"
+BLOG_TITLE = "Barcelona Python User Group"
 # This is the main URL for your site. It will be used
 # in a prominent link
 SITE_URL = "http://pybcn.org/"
@@ -347,7 +347,7 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # Default is ''
-CONTENT_FOOTER = 'Contents &copy; {date}         {author} - <a target="_blank" href="https://twitter.com/pybcn">Follow us on twitter</a>        {license}<br/><br/>'
+CONTENT_FOOTER = '<br/>Contents &copy; {date}         {author} - <a target="_blank" href="https://twitter.com/pybcn">Follow us on twitter</a>        {license}<br/><br/><br/>'
 CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
                                        author=BLOG_AUTHOR,
                                        date=time.gmtime().tm_year,
