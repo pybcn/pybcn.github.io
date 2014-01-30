@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python on the Web - the 20th of February 2014!
+.. admonition:: Python Web Microframeworks - the 20th of February 2014!
 
 
     .. raw:: html
@@ -37,38 +37,47 @@ Talks & Speakers
 
 .. class:: row
 
-.. class:: col-md-4
+.. class:: col-md-3
 
-1) Django Django!
-*****************
+1) Pyramid Python WebFramework
+******************************
 
 |br|
-**Speaker: David Arcos**
+**Speaker: Ramon Navarro Bosch**
 
-Dev Team Leader at Catchoom will talk about Django... description and title to come!
+Pyramid is a small, fast, down-to-earth Python web application development framework. It is developed as part of the Pylons Project.
 
 
-.. class:: col-md-4
+.. class:: col-md-3
 
-2) Nikola for Static Website
-****************************
+2) Simple webapps with nginx + uWSGI emperor + Bottle
+*****************************************************
+
+**Speaker: Jordi Soucheiron**
+
+Bottle is a small microframework that lets you build simple python webapps in a few minutes. This talk will explain how to build simple webapp from scratch and configure your system to deploy many other apps concurrently with a rock solid and scalable setup.
+
+
+.. class:: col-md-3
+
+3) Rapid web development with Web2py
+************************************
+
+**Speaker: Giorgio Zoppi**
+
+A full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications
+
+
+.. class:: col-md-3
+
+4) Pybcn.org website powered by Nikola
+**************************************
 
 |br|
 **Speaker: Areski Belaid**
 
-We will introduce the pybcn.org website and Nikola, we will explain how the website is powered by Nikola, how to update and create your own static website.
-
-
-.. class:: col-md-4
-
-3) Free Sloth
-*************
-
-|br|
-**Speaker: Maybe YOU?**
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.
-
+This talk will introduce Nikola, a static site and blog generator.
+Static websites are safer, use fewer resources, and avoid vendor and platform lock-in.
 
 
 .. raw:: html
