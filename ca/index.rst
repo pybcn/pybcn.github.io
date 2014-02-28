@@ -24,7 +24,7 @@
 
     The next upcoming Python Barcelona event will take place on the 20th of March 2014, it will take place at
     Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
-    Room : "Charles Darwin"
+    Room : "Ramón y Cajal"
 
     .. class:: btn btn-info
 
