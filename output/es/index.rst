@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python Web Microframeworks - the 20th of February 2014!
+.. admonition:: Python for beginners / Learn some python - the 20th of March 2014!
 
 
     .. raw:: html
@@ -22,7 +22,7 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    The next upcoming Python Barcelona event will take place on the 20th of February 2014, it will take place at
+    The next upcoming Python Barcelona event will take place on the 20th of March 2014, it will take place at
     Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
     Room : "Charles Darwin"
 
@@ -37,47 +37,35 @@ Talks & Speakers
 
 .. class:: row
 
-.. class:: col-md-3
+.. class:: col-md-6
 
-1) Pyramid Python WebFramework
-******************************
-
-|br|
-**Speaker: Ramon Navarro Bosch**
-
-Pyramid is a small, fast, down-to-earth Python web application development framework. It is developed as part of the Pylons Project.
-
-
-.. class:: col-md-3
-
-2) Simple webapps with nginx + uWSGI emperor + Bottle
-*****************************************************
-
-**Speaker: Jordi Soucheiron**
-
-Bottle is a small microframework that lets you build simple python webapps in a few minutes. This talk will explain how to build simple webapp from scratch and configure your system to deploy many other apps concurrently with a rock solid and scalable setup.
-
-
-.. class:: col-md-3
-
-3) Rapid web development with Web2py
-************************************
-
-**Speaker: Giorgio Zoppi**
-
-A full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications
-
-
-.. class:: col-md-3
-
-4) Pybcn.org website powered by Nikola
-**************************************
+1) Introduction to Python
+*************************
 
 |br|
-**Speaker: Areski Belaid**
+**Speaker: Pablo Enfedaque Vidal**
 
-This talk will introduce Nikola, a static site and blog generator.
-Static websites are safer, use fewer resources, and avoid vendor and platform lock-in.
+Modelo de ejecución, operadores booleanos,
+todo son punteros, objetos mutables vs. inmutables,
+encoding, python 2 vs. python 3,
+generadores y corutinas.
+
+
+.. class:: col-md-6
+
+2) Lightning talks
+******************
+
+**Speakers: List to be announced**
+
+Temporary list:
+
+  - Zen of Python
+  - General concepts
+  - List comprehensions and generator expressions
+  - Modules & Packages
+  - Object-oriented programming
+  - Code Style
 
 
 .. raw:: html
