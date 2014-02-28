@@ -2,7 +2,7 @@
 .. description: Location
 .. tags: venue
 .. date: 2013/12/13 14:50:53
-.. title: Venue Python Barcelona Meetup
+.. title: Venue
 .. slug: venue
 
 
@@ -21,7 +21,7 @@ Python Barcelona Meetup event are taking place at Parc de Recerca Biomèdica de 
 
 Address: c/ Dr. Aiguader, 88, Barcelona.
 
-**Room : "Charles Darwin"
+**Room : "Charles Darwin"**
 
 https://maps.google.com/maps?q=PRBB
 
