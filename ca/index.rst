@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python for beginners / Learn some python - the 20th of March 2014!
+.. admonition:: Python & Sciences - the 24th of April 2014!
 
 
     .. raw:: html
@@ -22,7 +22,7 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    The next upcoming Python Barcelona event will take place on the 20th of March 2014, it will take place at
+    The next upcoming Python Barcelona event will take place on the 24th of April 2014, it will take place at
     Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
     Room : "Ramón y Cajal"
 
@@ -37,21 +37,28 @@ Talks & Speakers
 
 .. class:: row
 
-.. class:: col-md-6
+.. class:: col-md-4
 
-1) Introduction to Python
-*************************
+1) Introduction to Python for Data analysis
+*******************************************
 
 |br|
-**Speaker: Pablo Enfedaque Vidal**
+**Speaker: Christine Doig**
 
-Modelo de ejecución, operadores booleanos,
-todo son punteros, objetos mutables vs. inmutables,
-encoding, python 2 vs. python 3,
-generadores y corutinas.
+An Introduction to Python for Data analysis: numpy, scipy and pandas
+
+.. class:: col-md-4
+
+1) IPython & Notebook
+*********************
+
+|br|
+**Speaker: Loris Mularoni**
+
+Presentation of IPython & Notebook, description to follow...
 
 
-.. class:: col-md-6
+.. class:: col-md-4
 
 2) Lightning talks
 ******************
@@ -60,12 +67,9 @@ generadores y corutinas.
 
 Temporary list:
 
-  - Zen of Python
-  - General concepts
-  - List comprehensions and generator expressions
-  - Modules & Packages
-  - Object-oriented programming
-  - Code Style
+  - IPython
+  - Pandas
+  - Numpy
 
 
 .. raw:: html
