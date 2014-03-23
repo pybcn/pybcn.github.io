@@ -1,7 +1,7 @@
 .. link:
 .. description: Python & Web Frameworks on the 20th of February 2014
 .. tags: Web, Python, Frameworks
-.. date: 2014/01/21 17:19:38
+.. date: 2014/02/20 17:19:38
 .. title: Python & Web Frameworks on the 20th of February 2014
 .. slug: python-web-frameworks-on-the-20th-of-february-2014
 
