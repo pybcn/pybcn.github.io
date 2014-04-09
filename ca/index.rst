@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python & Sciences - the 24th of April 2014!
+.. admonition:: Python & Sciences - the 24th of April 2014 at 8 PM !!!
 
 
     .. raw:: html
@@ -39,7 +39,18 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) Introduction to Python for Data analysis
+1) IPython & Notebook
+*********************
+
+|br|
+**Speaker: Loris Mularoni**
+
+Introduction to Ipython Notebook -  a web-based interactive computational environment
+
+
+.. class:: col-md-4
+
+2) Introduction to Python for Data analysis
 *******************************************
 
 |br|
@@ -47,29 +58,17 @@ Talks & Speakers
 
 An Introduction to Python for Data analysis: numpy, scipy and pandas
 
+
 .. class:: col-md-4
 
-1) IPython & Notebook
-*********************
+3) Introduction to Pandas
+*************************
 
 |br|
-**Speaker: Loris Mularoni**
+**Speaker: Piotr Migdal**
 
-Presentation of IPython & Notebook, description to follow...
+Pandas is a Python library providing high-performance, easy-to-use data structures and data analysis tools
 
-
-.. class:: col-md-4
-
-2) Lightning talks
-******************
-
-**Speakers: List to be announced**
-
-Temporary list:
-
-  - IPython
-  - Pandas
-  - Numpy
 
 
 .. raw:: html
