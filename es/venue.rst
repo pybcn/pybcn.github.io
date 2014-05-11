@@ -21,7 +21,7 @@ Python Barcelona Meetup event are taking place at Parc de Recerca Biomèdica de 
 
 Address: c/ Dr. Aiguader, 88, Barcelona.
 
-**Room : "Ramón y Cajal"**
+**Room : "Charles Darwin"**
 
 https://maps.google.com/maps?q=PRBB
 
