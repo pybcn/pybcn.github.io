@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python & Sciences - the 24th of April 2014 at 8 PM !!!
+.. admonition:: Python & Sciences - the 22th of May 2014 at 7 PM
 
 
     .. raw:: html
@@ -22,9 +22,9 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    The next upcoming Python Barcelona event will take place on the 24th of April 2014, it will take place at
+    The next upcoming Python Barcelona event will take place on the 22th of May 2014, it will take place at
     Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
-    Room : "Ramón y Cajal"
+    Room : "Charles Darwin"
 
     .. class:: btn btn-info
 
@@ -37,38 +37,46 @@ Talks & Speakers
 
 .. class:: row
 
-.. class:: col-md-4
+.. class:: col-md-3
 
-1) IPython & Notebook
-*********************
-
-|br|
-**Speaker: Loris Mularoni**
-
-Introduction to Ipython Notebook -  a web-based interactive computational environment
-
-
-.. class:: col-md-4
-
-2) Introduction to Python for Data analysis
-*******************************************
+1) Python with MySQL
+********************
 
 |br|
-**Speaker: Christine Doig**
+**Speaker: Miquel Camprodon**
 
-An Introduction to Python for Data analysis: numpy, scipy and pandas
+Python with MySQL
 
+.. class:: col-md-3
 
-.. class:: col-md-4
-
-3) Introduction to Pandas
-*************************
+2) MongoDB
+**********
 
 |br|
-**Speaker: Piotr Migdal**
+**Speaker: Javier arias**
 
-Pandas is a Python library providing high-performance, easy-to-use data structures and data analysis tools
+Python and MongoDB
 
+.. class:: col-md-3
+
+3) Introducción a SQLAlchemy
+****************************
+
+|br|
+**Speaker: Jorge Medina**
+
+Introducción a SQLAlchemy
+
+
+.. class:: col-md-3
+
+4) TitanDB ; Scalable Graph Database
+************************************
+
+|br|
+**Speaker: Andrés Correa Casablanca**
+
+Scalable Graph Database
 
 
 .. raw:: html

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group (Sciences)</title><link>http://pybcn.org/</link><description></description><atom:link href="http://pybcn.org/categories/sciences.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Sun, 11 May 2014 20:07:28 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python and Sciences on the 24th of April 2014</title><link>http://pybcn.org/blog/python-and-sciences-on-the-24th-of-april-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+&lt;div class="section" id="ipython-notebook"&gt;
+&lt;h2&gt;1) IPython &amp;amp; Notebook&lt;/h2&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Loris Mularoni&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Introduction to Ipython Notebook -  a web-based interactive computational environment&lt;/p&gt;
+&lt;p&gt;Github: &lt;a class="reference external" href="https://github.com/batterio/intro_ipython_notebook"&gt;https://github.com/batterio/intro_ipython_notebook&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For visioning the code people can also use the nbviewer website:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://nbviewer.ipython.org/github/batterio/intro_ipython_notebook/blob/master/notebooks/index.ipynb"&gt;http://nbviewer.ipython.org/github/batterio/intro_ipython_notebook/blob/master/notebooks/index.ipynb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The latter link is pretty cool because it lets you exploring the code without the need of downloading it nor installing the ipython notebook.&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Introduction to IPython Notebook, by Loris Mularoni (&lt;a href="https://twitter.com/LorisMularoni"&gt;@LorisMularoni&lt;/a&gt;) &lt;a href="https://twitter.com/search?q=%23pybcn&amp;amp;src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/ZxvSS7SDgE"&gt;pic.twitter.com/ZxvSS7SDgE&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/statuses/459394310275084289"&gt;April 24, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="introduction-to-python-for-data-analysis"&gt;
+&lt;h2&gt;2) Introduction to Python for Data analysis&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Speaker: Christine Doig&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;An Introduction to Python for Data analysis: numpy, scipy and pandas&lt;/p&gt;
+&lt;iframe src="http://www.slideshare.net/slideshow/embed_code/32570467" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/DZPM/the-zen-ofpython" title="The Zen of Python" target="_blank"&gt;The Zen of Python&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/DZPM" target="_blank"&gt;David Arcos&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Introduction to Python for Data Analysis, by Christine Doig (&lt;a href="https://twitter.com/ch_doig"&gt;@ch_doig&lt;/a&gt;) &lt;a href="https://twitter.com/search?q=%23pybcn&amp;amp;src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/ut2JCZkkbm"&gt;pic.twitter.com/ut2JCZkkbm&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/statuses/459406658519961600"&gt;April 24, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="introduction-to-pandas"&gt;
+&lt;h2&gt;3) Introduction to Pandas&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Speaker: Piotr Migdal&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Pandas is a Python library providing high-performance, easy-to-use data structures and data analysis tools&lt;/p&gt;
+&lt;iframe src="http://www.slideshare.net/slideshow/embed_code/32540164" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/amaneu/pip-and-virtualenv-32540164" title="pip and virtualenv" target="_blank"&gt;pip and virtualenv&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/amaneu" target="_blank"&gt;amaneu&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Introduction to Pandas, by Piotr Migdal (&lt;a href="https://twitter.com/pmigdal"&gt;@pmigdal&lt;/a&gt;) &lt;a href="https://twitter.com/search?q=%23pybcn&amp;amp;src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/OeVg971Rsx"&gt;pic.twitter.com/OeVg971Rsx&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/statuses/459412929951985664"&gt;April 24, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;</description><category>Python</category><category>Sciences</category><guid>http://pybcn.org/blog/python-and-sciences-on-the-24th-of-april-2014.html</guid><pubDate>Thu, 24 Apr 2014 17:19:38 GMT</pubDate></item></channel></rss>
