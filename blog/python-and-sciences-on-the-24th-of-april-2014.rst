@@ -52,9 +52,7 @@ The latter link is pretty cool because it lets you exploring the code without th
 
 An Introduction to Python for Data analysis: numpy, scipy and pandas
 
-.. raw:: html
-
-    <iframe src="http://www.slideshare.net/slideshow/embed_code/32570467" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/DZPM/the-zen-ofpython" title="The Zen of Python" target="_blank">The Zen of Python</a> </strong> from <strong><a href="http://www.slideshare.net/DZPM" target="_blank">David Arcos</a></strong> </div>
+http://chdoig.github.io/pybcn-python4science/
 
 .. raw:: html
 
@@ -68,11 +66,9 @@ An Introduction to Python for Data analysis: numpy, scipy and pandas
 
 **Speaker: Piotr Migdal**
 
-Pandas is a Python library providing high-performance, easy-to-use data structures and data analysis tools
+Pandas is an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming language.
 
-.. raw:: html
-
-    <iframe src="http://www.slideshare.net/slideshow/embed_code/32540164" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/amaneu/pip-and-virtualenv-32540164" title="pip and virtualenv" target="_blank">pip and virtualenv</a> </strong> from <strong><a href="http://www.slideshare.net/amaneu" target="_blank">amaneu</a></strong> </div>
+http://nbviewer.ipython.org/gist/stared/6dc90471f0154c697c8b
 
 .. raw:: html
 
