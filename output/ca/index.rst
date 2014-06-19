@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python & DevOps - the XYth of June 2014 at 7 PM
+.. admonition:: Python & DevOps - the 26th of June 2014 at 7 PM
 
 
     .. raw:: html
@@ -22,9 +22,7 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    The next upcoming Python Barcelona event will take place on the XYth of June 2014, it will take place at
-    Parc de Recerca Biomèdica de Barcelona (PRBB) c/ Dr. Aiguader, 88, Barcelona.
-    Room : "Charles Darwin"
+    Python Barcelona will take place on the 26th of June 2014 at `PRBB`_ (Room : "Ramón y Cajal")
 
     .. class:: btn btn-info
 
@@ -34,6 +32,9 @@
 
 Talks & Speakers
 ================
+
+DevOps is a software development method that stresses communication, collaboration and integration between software developers and IT operations professionals.
+
 
 .. class:: row
 
@@ -45,7 +46,7 @@ Talks & Speakers
 |br|
 **Speaker: Ignasi Fosch Alonso**
 
-Ansible is the simplest way to automate apps and IT infrastructure. Application Deployment + Configuration Management + Continuous Delivery
+Ansible is the simplest way to automate apps and IT infrastructure. Application Deployment, configuration Management and continuous Delivery.
 
 
 .. class:: col-md-4
@@ -54,20 +55,20 @@ Ansible is the simplest way to automate apps and IT infrastructure. Application 
 ************
 
 |br|
-**Speaker: LastName**
+**Speaker: Xavier Queralt**
 
 OpenStack Software delivers a massively scalable cloud operating system
 
 
 .. class:: col-md-4
 
-3) Fabric & ...
-***************
+3) Fabric
+*********
 
 |br|
-**Speaker: David Arcos**
+**Speaker: Pablo Enfedaque**
 
-Django Deployment...
+Fabric is a library and command-line tool for streamlining the use of SSH for application deployment or systems administration tasks".
 
 
 .. raw:: html
@@ -92,3 +93,4 @@ Django Deployment...
 |br|
 
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
+.. _PRBB: /venue.html
