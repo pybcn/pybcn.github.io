@@ -22,7 +22,7 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    Python Barcelona will take place on the 26th of June 2014 at `PRBB`_ (Room : "Ramón y Cajal")
+    Python Barcelona will take place on the 26th of June 2014 at `PRBB`_ (Room : "Marie Curie")
 
     .. class:: btn btn-info
 
