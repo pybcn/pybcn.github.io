@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python & DevOps - the 26th of June 2014 at 7 PM
+.. admonition:: Python Meetup - the 25th of September 2014 at 7 PM
 
 
     .. raw:: html
@@ -22,7 +22,7 @@
         <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
-    Python Barcelona will take place on the 26th of June 2014 at `PRBB`_ (Room : "Marie Curie")
+    Python Barcelona will take place on the 26th of June 2014 at `PRBB`_ (Room : "Ramón y Cajal")
 
     .. class:: btn btn-info
 
@@ -33,42 +33,51 @@
 Talks & Speakers
 ================
 
-DevOps is a software development method that stresses communication, collaboration and integration between software developers and IT operations professionals.
+We will have speakers talking about a mix of topics: Artificial Intelligence, Panstamp & TitanDB
 
 
 .. class:: row
 
-.. class:: col-md-4
+.. class:: col-md-6
 
-1) Ansible
+1) TitanDB
 **********
 
 |br|
-**Speaker: Ignasi Fosch Alonso**
+**Speaker: Andrés Correa Casablanca**
 
-Ansible is the simplest way to automate apps and IT infrastructure. Application Deployment, configuration Management and continuous Delivery.
-
-
-.. class:: col-md-4
-
-2) OpenStack
-************
-
-|br|
-**Speaker: Xavier Queralt**
-
-OpenStack Software delivers a massively scalable cloud operating system
+TitanDB ; Scalable Graph Database
 
 
-.. class:: col-md-4
+.. class:: col-md-6
 
-3) Fabric
-*********
+2) Machine learning
+*******************
 
 |br|
-**Speaker: Pablo Enfedaque**
+**Speaker: Xavier Arrufat**
 
-Fabric is a library and command-line tool for streamlining the use of SSH for application deployment or systems administration tasks".
+Basic concepts; What do I need to do ML-NN in Python?
+
+
+.. class:: row
+
+.. class:: col-md-6
+
+3) Heating solution using panstamp
+**********************************
+
+|br|
+**Speaker: Oriol Rius**
+
+
+.. class:: col-md-6
+
+4) Application of dynamical systems in AI
+*****************************************
+
+|br|
+**Speaker: Bac Ko**
 
 
 .. raw:: html
