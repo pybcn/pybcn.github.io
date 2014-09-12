@@ -66,18 +66,21 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ('/blog/', 'Blog'),
         ('/venue.html', 'Venue'),
+        ('/call-for-speakers.html', 'Call 4 Speakers'),
         ('/archive.html', 'Archives'),
         ('/rss.xml', 'RSS'),
     ),
     "es": (
         ('/es/blog/', 'Blog'),
         ('/es/venue.html', 'Venue'),
+        ('/es/call-for-speakers.html', 'Call 4 Speakers'),
         ('/es/archive.html', 'Archives'),
         ('/es/rss.xml', 'RSS'),
     ),
     "ca": (
         ('/ca/blog/', 'Blog'),
         ('/ca/venue.html', 'Venue'),
+        ('/ca/call-for-speakers.html', 'Call 4 Speakers'),
         ('/ca/archive.html', 'Archives'),
         ('/ca/rss.xml', 'RSS'),
     ),
