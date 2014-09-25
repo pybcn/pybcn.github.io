@@ -14,19 +14,17 @@
 
 .. class:: jumbotron
 
-.. admonition:: Python Meetup - the 25th of September 2014 at 7 PM
+.. admonition:: The Next Python Barcelona Meetup will take place on the 25th of September 2014
 
-
-    .. raw:: html
-
-        <img src="images/Python_logo_500px.png" alt="Python Logo">
-
-
-    Python Barcelona will take place on the 26th of June 2014 at `PRBB`_ (Room : "Ramón y Cajal")
+    Time/Location: 7PM at `PRBB`_ (Room : "Ramón y Cajal")
 
     .. class:: btn btn-info
 
     `Sign in on the Meetup Page`_
+
+    .. raw:: html
+
+        <img src="images/Python_logo_500px.png" alt="Python Logo">
 
 
 
@@ -38,20 +36,9 @@ We will have speakers talking about a mix of topics: Artificial Intelligence, Pa
 
 .. class:: row
 
-.. class:: col-md-6
+.. class:: col-md-4
 
-1) TitanDB
-**********
-
-|br|
-**Speaker: Andrés Correa Casablanca**
-
-TitanDB ; Scalable Graph Database
-
-
-.. class:: col-md-6
-
-2) Machine learning
+1) Machine learning
 *******************
 
 |br|
@@ -62,18 +49,18 @@ Basic concepts; What do I need to do ML-NN in Python?
 
 .. class:: row
 
-.. class:: col-md-6
+.. class:: col-md-4
 
-3) Heating solution using panstamp
+2) Heating solution using panstamp
 **********************************
 
 |br|
 **Speaker: Oriol Rius**
 
 
-.. class:: col-md-6
+.. class:: col-md-4
 
-4) Application of dynamical systems in AI
+3) Application of dynamical systems in AI
 *****************************************
 
 |br|
