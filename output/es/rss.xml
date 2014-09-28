@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group</title><link>http://pybcn.org/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.org/es/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Fri, 12 Sep 2014 00:37:20 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python and DevOps on the 26th of June 2014</title><link>http://pybcn.org/es/blog/python-and-devops-on-the-26th-of-june-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group</title><link>http://pybcn.org/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.org/es/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Sun, 28 Sep 2014 21:50:57 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python Meetup September 2014</title><link>http://pybcn.org/es/blog/python-meetup-september-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+&lt;div class="section" id="machine-learning"&gt;
+&lt;h2&gt;1) Machine learning&lt;/h2&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Xavier Arrufat&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Basic concepts of Artificial intelligence.
+Do I need to do ML-NN in Python?&lt;/p&gt;
+&lt;iframe src="http://www.slideshare.net/slideshow/embed_code/39517938" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/XavierArrufat/20140925-python-bcnaimlrev02" title="Python and Machine Learning - BCN Python Meetup - 25th Sep 2014" target="_blank"&gt;Python and Machine Learning - BCN Python Meetup - 25th Sep 2014&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/XavierArrufat" target="_blank"&gt;XavierArrufat&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Machine learning at &lt;a href="https://twitter.com/pybcn"&gt;@pybcn&lt;/a&gt; by xavier Arrufat &lt;a href="https://twitter.com/xavier_arrufat"&gt;@xavier_arrufat&lt;/a&gt; &lt;a href="http://t.co/dsIBkF6b6R"&gt;pic.twitter.com/dsIBkF6b6R&lt;/a&gt;&lt;/p&gt;— Areski Belaid (@areskib) &lt;a href="https://twitter.com/areskib/status/515190089979531264"&gt;September 25, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="heating-solution-using-panstamp"&gt;
+&lt;h2&gt;2) Heating solution using panstamp&lt;/h2&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Oriol Rius&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Heating solution using panstamp.&lt;/p&gt;
+&lt;iframe width="560" height="315" src="http://www.youtube.com/embed/NA2fmZYHfmw" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;p&gt;.&lt;/p&gt;
+&lt;iframe src="http://www.slideshare.net/slideshow/embed_code/39462511" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/oriolrius/heating-solution-using-panstamp-and-python-39462511" title="Heating solution using Panstamp and Python" target="_blank"&gt;Heating solution using Panstamp and Python&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/oriolrius" target="_blank"&gt;Oriol Rius&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;p&gt;.&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Heating solution using Panstamp and Python, by Oriol Rius &lt;a href="https://twitter.com/oriolrius"&gt;@oriolrius&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/pybcn?src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/Vun5SSq3Pl"&gt;pic.twitter.com/Vun5SSq3Pl&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/status/515198678844596224"&gt;September 25, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="application-of-dynamical-systems-in-ai"&gt;
+&lt;h2&gt;3) Application of dynamical systems in AI&lt;/h2&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Vassil Tzanov&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Controlled inverted pendulum, Controlled walking robot.&lt;/p&gt;
+&lt;iframe src="https://docs.google.com/file/d/0B6mlnZcmKMS1U1dhbTRMelVTcmc/preview" width="640" height="480"&gt;&lt;/iframe&gt;&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Application of dynamical systems in artificial intelligence by &lt;a href="https://twitter.com/boarOircle"&gt;@boarOircle&lt;/a&gt; at &lt;a href="https://twitter.com/pybcn"&gt;@pybcn&lt;/a&gt; &lt;a href="http://t.co/tuXj2mJAqx"&gt;pic.twitter.com/tuXj2mJAqx&lt;/a&gt;&lt;/p&gt;— Areski Belaid (@areskib) &lt;a href="https://twitter.com/areskib/status/515210162236583936"&gt;September 25, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;</description><guid>http://pybcn.org/es/blog/python-meetup-september-2014.html</guid><pubDate>Fri, 26 Sep 2014 17:19:38 GMT</pubDate></item><item><title>Python and DevOps on the 26th of June 2014</title><link>http://pybcn.org/es/blog/python-and-devops-on-the-26th-of-june-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
 &lt;div class="section" id="ansible"&gt;
 &lt;h2&gt;1) Ansible&lt;/h2&gt;
 &lt;p&gt;&lt;br&gt;

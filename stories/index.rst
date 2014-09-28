@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: The Next Python Barcelona Meetup will take place on the 25th of September 2014
+.. admonition:: The Next Python Barcelona Meetup will take place on the 13th of October 2014
 
     Time/Location: 7PM at `PRBB`_ (Room : "Ramón y Cajal")
 
@@ -31,40 +31,43 @@
 Talks & Speakers
 ================
 
-We will have speakers talking about a mix of topics: Artificial Intelligence, Panstamp & TitanDB
+We will have speakers talking about Golang
 
 
 .. class:: row
 
-.. class:: col-md-4
+.. class:: col-md-6
 
-1) Machine learning
-*******************
+1) Differences and common aspects of Go
+***************************************
 
 |br|
-**Speaker: Xavier Arrufat**
+**Speaker: Francesc Campoy**
 
-Basic concepts; What do I need to do ML-NN in Python?
+http://www.campoy.cat/
 
 
 .. class:: row
 
-.. class:: col-md-4
+.. class:: col-md-6
 
-2) Heating solution using panstamp
-**********************************
-
-|br|
-**Speaker: Oriol Rius**
-
-
-.. class:: col-md-4
-
-3) Application of dynamical systems in AI
-*****************************************
+2) GythonJS translator to compile a subset of Python to Go
+**********************************************************
 
 |br|
-**Speaker: Bac Ko**
+**Speaker: Brett Hartshorn**
+
+http://gython.blogspot.com.es/
+
+
+.. class:: row
+
+.. class:: col-md-12
+
+.. raw:: html
+
+        <br/><img src="images/golang.png" height="300" alt="Golang" class="image-center">
+
 
 
 .. raw:: html
