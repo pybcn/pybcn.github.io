@@ -14,7 +14,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: The Next Python Barcelona Meetup will take place on the 13th of October 2014
+.. admonition:: The Next Python Barcelona Meetup will take place on the 20th of November 2014
 
     Time/Location: 7PM at `PRBB`_ (Room : "Ramón y Cajal")
 
@@ -36,37 +36,40 @@ We will have speakers talking about Golang
 
 .. class:: row
 
-.. class:: col-md-6
+.. class:: col-md-4
 
-1) Differences and common aspects of Go
+1) Conda
+********
+
+Cross-platform, Python-agnostic binary package manager http://conda.pydata.org
+
+**Speaker: Christine Doig**
+
+[talk in English - 20min]
+
+
+.. class:: col-md-4
+
+2) Putting Python inside PostgreSQL
+***********************************
+
+Practical guide to writing triggers and stored procedures for PostgreSQL in Python.
+
+**Speaker: Brian Sutherland**
+
+[talk in English - 20min]
+
+
+.. class:: col-md-4
+
+3) Inside the Artificial Neural Network
 ***************************************
 
-|br|
-**Speaker: Francesc Campoy**
+A visual and intuitive journey to understand how it stores knowledge and how it takes decisions.
 
-http://www.campoy.cat/
+**Speaker: Xavier Arrufa**
 
-
-.. class:: row
-
-.. class:: col-md-6
-
-2) GythonJS translator to compile a subset of Python to Go
-**********************************************************
-
-|br|
-**Speaker: Brett Hartshorn**
-
-http://gython.blogspot.com.es/
-
-
-.. class:: row
-
-.. class:: col-md-12
-
-.. raw:: html
-
-        <br/><img src="images/golang.png" height="300" alt="Golang" class="image-center">
+[talk in English - 40min]
 
 
 
