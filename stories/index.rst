@@ -31,7 +31,7 @@
 Talks & Speakers
 ================
 
-We will have speakers talking about Golang
+We will have 3 speakers:
 
 
 .. class:: row
@@ -67,7 +67,7 @@ Practical guide to writing triggers and stored procedures for PostgreSQL in Pyth
 
 A visual and intuitive journey to understand how it stores knowledge and how it takes decisions.
 
-**Speaker: Xavier Arrufa**
+**Speaker: Xavier Arrufat**
 
 [talk in English - 40min]
 
