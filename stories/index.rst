@@ -71,11 +71,24 @@ A visual and intuitive journey to understand how it stores knowledge and how it 
 
 [talk in English - 40min]
 
-
-
 .. raw:: html
 
    </div>
+
+
+.. class:: row
+
+.. class:: col-md-12
+
+    .. raw:: html
+
+        <br/><br/><img src="http://photos2.meetupstatic.com/photos/event/c/1/2/4/600_431389444.jpeg" alt="Strata Conf" class="image-center"><br /><br />
+
+
+    Meetup members get 20% off Strata this year using this link http://oreil.ly/UGSEU14 and discount code **ugbpmg20**
+
+    There is also a Strata Ticket raffle for our group, here is the form to sign up for the raffle Here is your form: http://oreil.ly/ZJLpMQ
+
 
 
 .. class:: row
