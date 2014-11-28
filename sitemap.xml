@@ -10,7 +10,7 @@
  </url>
  <url>
   <loc>http://pybcn.org/2014/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/Python Barcelona Meetup.html</loc>
@@ -26,11 +26,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/blog/index-1.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/blog/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/blog/python-and-databases-on-the-22th-of-may-2014.html</loc>
@@ -53,8 +53,12 @@
   <lastmod>2014-11-10</lastmod>
  </url>
  <url>
+  <loc>http://pybcn.org/blog/python-meetup-November-2014.html</loc>
+  <lastmod>2014-11-28</lastmod>
+ </url>
+ <url>
   <loc>http://pybcn.org/blog/python-meetup-October-2014.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/blog/python-meetup-september-2014.html</loc>
@@ -98,11 +102,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/index-1.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/python-and-databases-on-the-22th-of-may-2014.html</loc>
@@ -125,8 +129,12 @@
   <lastmod>2014-11-10</lastmod>
  </url>
  <url>
+  <loc>http://pybcn.org/ca/blog/python-meetup-November-2014.html</loc>
+  <lastmod>2014-11-28</lastmod>
+ </url>
+ <url>
   <loc>http://pybcn.org/ca/blog/python-meetup-October-2014.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/blog/python-meetup-september-2014.html</loc>
@@ -186,11 +194,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/categories/golang.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/categories/golang.xml</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/categories/index.html</loc>
@@ -238,11 +246,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/ca/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/rss.xml</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/ca/test-page-here.html</loc>
@@ -290,11 +298,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/categories/golang.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/categories/golang.xml</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/categories/index.html</loc>
@@ -354,11 +362,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/index-1.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/python-and-databases-on-the-22th-of-may-2014.html</loc>
@@ -381,8 +389,12 @@
   <lastmod>2014-11-10</lastmod>
  </url>
  <url>
+  <loc>http://pybcn.org/es/blog/python-meetup-November-2014.html</loc>
+  <lastmod>2014-11-28</lastmod>
+ </url>
+ <url>
   <loc>http://pybcn.org/es/blog/python-meetup-October-2014.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/blog/python-meetup-september-2014.html</loc>
@@ -442,11 +454,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/categories/golang.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/categories/golang.xml</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/categories/index.html</loc>
@@ -494,11 +506,11 @@
  </url>
  <url>
   <loc>http://pybcn.org/es/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/rss.xml</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/es/test-page-here.html</loc>
@@ -518,7 +530,7 @@
  </url>
  <url>
   <loc>http://pybcn.org/index.html</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/listings/index.html</loc>
@@ -526,7 +538,7 @@
  </url>
  <url>
   <loc>http://pybcn.org/rss.xml</loc>
-  <lastmod>2014-11-10</lastmod>
+  <lastmod>2014-11-28</lastmod>
  </url>
  <url>
   <loc>http://pybcn.org/test-page-here.html</loc>

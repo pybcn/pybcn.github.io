@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group</title><link>http://pybcn.org/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.org/es/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Thu, 06 Nov 2014 11:28:03 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python Meetup October 2014</title><link>http://pybcn.org/es/blog/python-meetup-October-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group</title><link>http://pybcn.org/</link><description>This is a site for Python Barcelona Group.</description><atom:link href="http://pybcn.org/es/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Fri, 28 Nov 2014 13:56:16 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python Meetup November 2014</title><link>http://pybcn.org/es/blog/python-meetup-November-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;div class="section" id="conda"&gt;
+&lt;h2&gt;1) Conda&lt;/h2&gt;
+&lt;p&gt;Cross-platform, Python-agnostic binary package manager &lt;a class="reference external" href="http://conda.pydata.org"&gt;http://conda.pydata.org&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Christine Doig&lt;/strong&gt;&lt;/p&gt;
+&lt;script async class="speakerdeck-embed" data-id="ea61a980580101325d0832c09a5c5970" data-ratio="1.29456384323641" src="http://speakerdeck.com/assets/embed.js"&gt;&lt;/script&gt;&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Python meetup just started with &lt;a href="https://twitter.com/ch_doig"&gt;@ch_doig&lt;/a&gt; presenting Conda &lt;a href="https://twitter.com/pybcn"&gt;@pybcn&lt;/a&gt; &lt;a href="http://t.co/NaNCGVlfVW"&gt;pic.twitter.com/NaNCGVlfVW&lt;/a&gt;&lt;/p&gt;— Areski Belaid (@areskib) &lt;a href="https://twitter.com/areskib/status/535497264689852417"&gt;November 20, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="putting-python-inside-postgresql"&gt;
+&lt;h2&gt;2) Putting Python inside PostgreSQL&lt;/h2&gt;
+&lt;p&gt;Practical guide to writing triggers and stored procedures for PostgreSQL in Python.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Brian Sutherland&lt;/strong&gt;&lt;/p&gt;
+&lt;iframe src="http://www.slideshare.net/slideshow/embed_code/42128256" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"&gt;&lt;/iframe&gt;&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;&lt;a href="https://twitter.com/pybcn"&gt;@pybcn&lt;/a&gt; python triggered into &lt;a href="https://twitter.com/postgresql"&gt;@postgresql&lt;/a&gt; &lt;a href="http://t.co/wsJbu0n7eJ"&gt;pic.twitter.com/wsJbu0n7eJ&lt;/a&gt;&lt;/p&gt;— Jorge A. Medina (@mnothic) &lt;a href="https://twitter.com/mnothic/status/535505778124525568"&gt;November 20, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="inside-the-artificial-neural-network"&gt;
+&lt;h2&gt;3) Inside the Artificial Neural Network&lt;/h2&gt;
+&lt;p&gt;A visual and intuitive journey to understand how it stores knowledge and how it takes decisions.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;strong&gt;Speaker: Xavier Arrufat&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Inside the Artificial Neural Network, by Xavier Arrufat &lt;a href="https://twitter.com/hashtag/pybcn?src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/dS87pcjDTM"&gt;pic.twitter.com/dS87pcjDTM&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/status/535509138097188865"&gt;November 20, 2014&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;</description><guid>http://pybcn.org/es/blog/python-meetup-November-2014.html</guid><pubDate>Thu, 20 Nov 2014 17:19:38 GMT</pubDate></item><item><title>Python Meetup October 2014</title><link>http://pybcn.org/es/blog/python-meetup-October-2014.html</link><description>&lt;script async src="http://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;div class="section" id="differences-and-common-aspects-of-go"&gt;
@@ -252,18 +278,4 @@ Siéntete libre de dar tu charla en el idioma que prefieras : Inglés, Catalán 
 &lt;a class="reference external" href="https://groups.google.com/forum/#!forum/barcelona-python"&gt;https://groups.google.com/forum/#!forum/barcelona-python&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Gracias por tu ayuda!
 Bon Python ! ;)&lt;/p&gt;
-&lt;/div&gt;</description><guid>http://pybcn.org/es/blog/dar-una-charla-o-sugerir-una-a-python-meetup-de-barcelona.html</guid><pubDate>Thu, 09 Jan 2014 13:51:41 GMT</pubDate></item><item><title>Happy New Year 2014</title><link>http://pybcn.org/es/blog/happy-new-year-2014.html</link><description>&lt;p&gt;We want 2014 to be a great year for our Python Meetup and the
-organizers will try to set a monthly meetup to take place on the 3rd
-Thursday of every month, the events will be announced via the meetup
-group as always and also via our website PyBCN (&lt;a class="reference external" href="http://pybcn.org/"&gt;http://pybcn.org/&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;Our first meetup of the year will be on the 16th of January and the
-topic will be "Python &amp;amp; Robotics".We are looking for extra speakers on
-this topic, so if you know about robotics, arduino, etc... please get
-in touch via our mailing-list &lt;a class="reference external" href="mailto:barcelona-python@googlegroups.com"&gt;barcelona-python@googlegroups.com&lt;/a&gt; or
-simply reply to this message.&lt;/p&gt;
-&lt;p&gt;We will need speakers to prepare a 15-20 min presentation, but
-lightning talks or other contributions are welcome. I&lt;/p&gt;
-&lt;p&gt;There is a google group: &lt;a class="reference external" href="mailto:barcelona-python@googlegroups.com"&gt;barcelona-python@googlegroups.com&lt;/a&gt; which we
-will use to organize and discuss upcoming events, you are welcome to
-join up and get in touch with us.&lt;/p&gt;
-&lt;p&gt;See you soon!&lt;/p&gt;</description><guid>http://pybcn.org/es/blog/happy-new-year-2014.html</guid><pubDate>Wed, 01 Jan 2014 20:16:06 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><guid>http://pybcn.org/es/blog/dar-una-charla-o-sugerir-una-a-python-meetup-de-barcelona.html</guid><pubDate>Thu, 09 Jan 2014 13:51:41 GMT</pubDate></item></channel></rss>
