@@ -14,16 +14,14 @@
 
 .. |map| raw:: html
 
-   <iframe width="800" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=PRBB&amp;ie=UTF8&amp;hq=&amp;hnear=&amp;t=m&amp;ll=41.385406,2.19394&amp;spn=0.007245,0.017145&amp;z=16&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?q=PRBB&amp;ie=UTF8&amp;hq=&amp;hnear=&amp;t=m&amp;ll=41.385406,2.19394&amp;spn=0.007245,0.017145&amp;z=16&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+   <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11971.910735608362!2d2.194019!3d41.396291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a319e22c6965%3A0xf062f22abfe9cbe3!2sCarrer+d&#39;%C3%80laba%2C+61%2C+08005+Barcelona%2C+Spain!5e0!3m2!1sen!2sus!4v1420730196988" width="600" height="450" frameborder="0" style="border:0"></iframe>
 
 
-Python Barcelona Meetup event are taking place at Parc de Recerca Biomèdica de Barcelona (PRBB)
+Python Barcelona Meetup event are taking place at Itnig (http://itnig.net)
 
-Address: c/ Dr. Aiguader, 88, Barcelona.
+Address: Carrer d'Àlaba, 61, 08005 Barcelona
 
-**Room : "Ramón y Cajal"**
-
-https://maps.google.com/maps?q=PRBB
+https://maps.google.com/maps?q=Itnig
 
 |br|
 
@@ -31,3 +29,9 @@ https://maps.google.com/maps?q=PRBB
 
 |br|
 
+
+Venue partner:
+
+.. raw:: html
+
+    <a href="http://itnig.net"><img src="images/itnig.png" alt="Itnig"></a>

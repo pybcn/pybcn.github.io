@@ -14,9 +14,9 @@
 
 .. class:: jumbotron
 
-.. admonition:: The Next Python Barcelona Meetup will take place on the 18th of December 2014
+.. admonition:: Next Python Barcelona Meetup on the 22th of January 2015
 
-    Time/Location: 7PM at `PRBB`_ (Room : "Ramón y Cajal")
+    Time/Location: 7PM at `Itnig`_
 
     .. class:: btn btn-info
 
@@ -38,43 +38,49 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) Python tips, tricks and dark magic
-*************************************
+1) SQLAlchemy
+*************
 
-Python has a lot of awesome features hidden in plain sight. This talk will try to uncover some of them.
+An introduction to SQLAlchemy and ORM in Python
 
-**Speaker: Jordi Soucheiron**
+**Speaker: Oriol Andrés (@Oriol_And)**
 
 [Duration: 20min]
 
 .. class:: col-md-4
 
-2) Buildbot
-***********
+2) How to open a bar in Python
+******************************
 
-Buildbot: The Continuous Integration Python framework
+We decided to do everything our bar (http://alexanderbar.co.za) needs (POS, Stock, Theatre Tickets, Access control and a rotary dial antique telephone system between tables using arduinos) in Python.
 
-**Speaker: Carles San Agustin**
+**Speaker: Edward van Kuik (@AlexanderBarCT)**
 
-[talk in English - 20min]
+[talk in English - 40min]
 
 
 .. class:: col-md-4
 
-3) Unit-Test-Based Programming
-******************************
+3) Continuous Integration on a large open source software: Plone & Plone 5 is here!
+***********************************************************************************
 
-See this article for further information: DownloadPDF_
+**Speaker: Ramon Navarro Bosch (@bloodbare) - Plone Framework Team member**
 
-.. _DownloadPDF: https://github.com/debiatan/utbp/blob/master/doc/article.pdf?raw=true
-
-**Speaker: Miguel Lechon**
-
-[talk in English - 30min]
+[talk in English - 40min]
 
 .. raw:: html
 
    </div>
+   </br>&nbsp;</hr>
+
+
+|br|
+
+Venue partner:
+
+.. raw:: html
+
+    <a href="http://itnig.net"><img src="images/itnig.png" alt="Itnig"></a>
 
 
 
@@ -96,3 +102,4 @@ See this article for further information: DownloadPDF_
 
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
 .. _PRBB: /venue.html
+.. _Itnig: /venue.html
