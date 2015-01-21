@@ -1,20 +1,20 @@
 
-List of task to organize Python Meetups
----------------------------------------
+List of tasks to organize a Python Meetup
+-----------------------------------------
 
-1. Import new proprosed talk from [Submit Spreadsheet][3] to [Speaker list spreadsheet][4]
+1. Import new suggested talks from [Submit Spreadsheet][3] to [Speaker list spreadsheet][4]
 
-2. Check venue availability: Coordinate with Loris if Meetup is held at PRBB or Maria if held at Itnig
+2. Check the venues availability: Coordinate with Loris if Meetup is held at PRBB or Maria if held at Itnig.
 
 3. Decide a date for the Meetup and open a new event on [Meetup.com][2]
 
-4. Check if we got 3 new speakers in the [Speaker list spreadsheet][4].
+4. Check if we got 3 new speakers in the [Speaker list spreadsheet][4]. (feel free to organize lightnighting talks too but try to make the meetup event 2h max)
 
-    4.1. If #4 is False, Send a mail to request for new Speakers (see [mail template][1]):
+    4.1. If #4 is False, send a mail to request for new Speakers (see [mail template][1])
 
     * if #4.1 is not successful, contact previous speakers. if still no one is available, the organizer should give a talk :)
 
-    4.2. If #4 is True, decide the talks and then contact the speakers and ensure they are available for Meetup date
+    4.2. If #4 is True, decide/select the talks and then contact the speakers to ensure they are available for Meetup date.
 
 5. Update [Meetup page][2] and [Pybcn Website][6] with Speakers program.
 
@@ -22,12 +22,12 @@ List of task to organize Python Meetups
 
 7. On the day of the Meetup:
       - Ensure the venue is open (get keys)
-      - Present the talks, make a call for speakers for the next Meetup event
+      - Present the talks, make a call for speakers to recruit for the next meetups
       - Tweet about the talk / take pictures
 
-8. Post-Meetup, thanks the speakers and request slides to be uploaded.
+8. Post-Meetup: Thanks the speakers and request them to upload their slides.
 
-9. Update [Website archive section][7] with slides of the previous talks link pictures from twitter
+9. Update [Website archive section][7] with the talks slides and add links twitted pictures.
 
 10. Enjoy a well deserved beer!
 
