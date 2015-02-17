@@ -12,11 +12,16 @@
    <br />
 
 
+.. |itnig-partner| raw:: html
+
+   Venue partner:<br/><a href="http://itnig.net"><img src="images/itnig.png" alt="Itnig"></a><br/>
+
+
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 22th of January 2015
+.. admonition:: Next Python Barcelona Meetup on the 19th of February 2015
 
-    Time/Location: 7PM at `Itnig`_
+    Time/Location: 7PM at `PRBB`_
 
     .. class:: btn btn-info
 
@@ -38,35 +43,36 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) SQLAlchemy
-*************
+1) High Performance Python
+**************************
 
-An introduction to SQLAlchemy and ORM in Python
+**Speaker: Marc Garcia  (@__mgarcia__)**
 
-**Speaker: Oriol Andrés (@Oriol_And)**
+[Duration: 40min]
+
+
+.. class:: col-md-4
+
+2) Natural Language Processing with Python and NLTK
+***************************************************
+
+**Speaker: Lyudmila Vaseva**
 
 [Duration: 20min]
 
-.. class:: col-md-4
-
-2) How to open a bar in Python
-******************************
-
-We decided to do everything our bar (http://alexanderbar.co.za) needs (POS, Stock, Theatre Tickets, Access control and a rotary dial antique telephone system between tables using arduinos) in Python.
-
-**Speaker: Edward van Kuik (@AlexanderBarCT)**
-
-[talk in English - 40min]
-
 
 .. class:: col-md-4
 
-3) Continuous Integration on a large open source software: Plone & Plone 5 is here!
-***********************************************************************************
+3) LIGHTNING TALKS
+******************
 
-**Speaker: Ramon Navarro Bosch (@bloodbare) - Plone Framework Team member**
+Zipline, a powerful algorithmic trading simulator by Jesús Corrius (@jcorrius)
 
-[talk in English - 40min]
+[Duration: 5min]
+
+Issue certificates with Python to build a trust relationship by Pau Freixes (@pfreixes)
+
+[Duration: 5min]
 
 .. raw:: html
 
@@ -75,13 +81,6 @@ We decided to do everything our bar (http://alexanderbar.co.za) needs (POS, Stoc
 
 
 |br|
-
-Venue partner:
-
-.. raw:: html
-
-    <a href="http://itnig.net"><img src="images/itnig.png" alt="Itnig"></a>
-
 
 
 .. class:: row
