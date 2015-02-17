@@ -2,8 +2,8 @@
 .. description: Location
 .. tags: venue
 .. date: 2013/12/13 14:50:53
-.. title: Venue
-.. slug: venue
+.. title: Venue Itnig
+.. slug: venue-itnig
 
 
 
