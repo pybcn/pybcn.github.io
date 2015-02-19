@@ -100,5 +100,5 @@ Issue certificates with Python to build a trust relationship by Pau Freixes (@pf
 |br|
 
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
-.. _PRBB: /venue.html
-.. _Itnig: /venue.html
+.. _PRBB: /venue-prbb.html
+.. _Itnig: /venue-itnig.html
