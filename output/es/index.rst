@@ -56,7 +56,7 @@ Talks & Speakers
 2) Natural Language Processing with Python and NLTK
 ***************************************************
 
-**Speaker: Lyudmila Vaseva**
+**Speaker: Lusy**
 
 [Duration: 20min]
 
