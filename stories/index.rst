@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2014/05/26 14:50:53
+.. date: 2015/03/17 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
@@ -19,9 +19,9 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 19th of February 2015
+.. admonition:: Next Python Barcelona Meetup on the 26th of March 2015
 
-    Time/Location: 7PM at `PRBB`_
+    Time/Location: 7PM at `Itnig`_
 
     .. class:: btn btn-info
 
@@ -36,43 +36,33 @@
 Talks & Speakers
 ================
 
-3 Talks/Speakers are confirmed for the next Meetup:
+2 Talks/Speakers are confirmed for the next Meetup:
 
 
 .. class:: row
 
 .. class:: col-md-4
 
-1) High Performance Python
-**************************
+1) Spark + iPython
+******************
 
-**Speaker: Marc Garcia  (@__mgarcia__)**
+**Speaker: Guillermo Blasco (@GBlascoJ)**
 
 [Duration: 40min]
 
 
 .. class:: col-md-4
 
-2) Natural Language Processing with Python and NLTK
-***************************************************
+2) Concurrency in Python
+************************
 
-**Speaker: Lusy**
+**Speaker: Aitor Guevara (@aitorciki)**
 
-[Duration: 20min]
+[Duration: 40min]
 
 
 .. class:: col-md-4
 
-3) LIGHTNING TALKS
-******************
-
-Zipline, a powerful algorithmic trading simulator by Jesús Corrius (@jcorrius)
-
-[Duration: 5min]
-
-Issue certificates with Python to build a trust relationship by Pau Freixes (@pfreixes)
-
-[Duration: 5min]
 
 .. raw:: html
 
