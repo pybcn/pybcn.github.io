@@ -46,7 +46,7 @@ Talks & Speakers
 1) Spark + iPython
 ******************
 
-**Speaker: Guillermo Blasco (@GBlascoJ)**
+**Speaker: Guillermo Blasco (@theblackboxio)**
 
 [Duration: 40min]
 
