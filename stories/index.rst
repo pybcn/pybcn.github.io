@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2015/03/17 19:00:00
+.. date: 2015/04/16 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
@@ -19,9 +19,9 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 26th of March 2015
+.. admonition:: Next Python Barcelona Meetup on the 16th of April 2015
 
-    Time/Location: 7PM at `Itnig`_
+    Time/Location: 7PM at `PRBB`_
 
     .. class:: btn btn-info
 
@@ -36,39 +36,7 @@
 Talks & Speakers
 ================
 
-2 Talks/Speakers are confirmed for the next Meetup:
-
-
-.. class:: row
-
-.. class:: col-md-4
-
-1) Spark + iPython
-******************
-
-**Speaker: Guillermo Blasco (@theblackboxio)**
-
-[Duration: 40min]
-
-
-.. class:: col-md-4
-
-2) Concurrency in Python
-************************
-
-**Speaker: Aitor Guevara (@aitorciki)**
-
-[Duration: 40min]
-
-
-.. class:: col-md-4
-
-
-.. raw:: html
-
-   </div>
-   </br>&nbsp;</hr>
-
+Speakers TBA
 
 |br|
 
