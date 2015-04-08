@@ -38,6 +38,7 @@ Talks & Speakers
 
 3 Talks/Speakers are confirmed for the next Meetup:
 
+
 .. class:: row
 
 .. class:: col-md-4
@@ -70,14 +71,10 @@ Talks & Speakers
 [Duration: 30min]
 
 
-.. class:: col-md-4
-
 
 .. raw:: html
 
    </div>
-   </br>&nbsp;</hr>
-|br|
 
 
 .. class:: row
