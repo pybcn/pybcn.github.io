@@ -36,8 +36,47 @@
 Talks & Speakers
 ================
 
-Speakers TBA
+3 Talks/Speakers are confirmed for the next Meetup:
 
+.. class:: row
+
+.. class:: col-md-4
+
+1) Mutable vs Immutable objects and typical mistakes
+****************************************************
+
+**Speaker: Pablo Enfedaque Vidal (@pablitoev56)**
+
+[Duration: 30min]
+
+
+.. class:: col-md-4
+
+2) 15 fails in 15 minutes: An interactive guide to shooting yourself in the foot.
+*********************************************************************************
+
+**Speaker: Manuel Ebert (@maebert)**
+
+[Duration: 15min]
+
+
+.. class:: col-md-4
+
+3) Practical webcrawling with Scrapy
+************************************
+
+**Speaker: Iván Compañy (@pyivanc)**
+
+[Duration: 30min]
+
+
+.. class:: col-md-4
+
+
+.. raw:: html
+
+   </div>
+   </br>&nbsp;</hr>
 |br|
 
 
