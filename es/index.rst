@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2015/04/16 19:00:00
+.. date: 2015/04/21 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
@@ -19,7 +19,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 16th of April 2015
+.. admonition:: Next Python Barcelona Meetup on the 21st of May 2015
 
     Time/Location: 7PM at `PRBB`_
 
@@ -43,33 +43,32 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) Mutable vs Immutable objects and typical mistakes
-****************************************************
+1) Python Decorators.
+*********************
 
-**Speaker: Pablo Enfedaque Vidal (@pablitoev56)**
+**Speaker: Guillermo Blasco Jimenez**
 
-[Duration: 30min]
-
-
-.. class:: col-md-4
-
-2) 15 fails in 15 minutes: An interactive guide to shooting yourself in the foot.
-*********************************************************************************
-
-**Speaker: Manuel Ebert (@maebert)**
-
-[Duration: 15min]
+[Duration: 40min]
 
 
 .. class:: col-md-4
 
-3) Practical webcrawling with Scrapy
-************************************
+2) Python for Data Analysis.
+****************************
 
-**Speaker: Iván Compañy (@pyivanc)**
+**Speaker: Juan Gonzales-Vallinas**
+
+[Duration: 40min]
+
+
+.. class:: col-md-4
+
+3) Machine Learning with scikit-learn.
+**************************************
+
+**Speaker: Christopher Bonnett (@cbonnett)**
 
 [Duration: 30min]
-
 
 
 .. raw:: html
