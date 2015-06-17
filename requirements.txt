@@ -1,2 +1,2 @@
-Nikola==6.2.1
-requests==2.1.0
+Nikola==7.5.1
+ws4py==0.3.4
