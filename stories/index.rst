@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2015/06/17 19:00:00
+.. date: 2015/06/16 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
