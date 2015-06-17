@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2015/04/21 19:00:00
+.. date: 2015/06/16 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
@@ -19,7 +19,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 21st of May 2015
+.. admonition:: Next Python Barcelona Meetup on the 18th of June 2015
 
     Time/Location: 7PM at `PRBB`_
 
@@ -43,32 +43,33 @@ Talks & Speakers
 
 .. class:: col-md-4
 
-1) Python Decorators.
-*********************
+1) An introduction to the Flask Web framework and a recipe for the Google's App Engine
+**************************************************************************************
 
-**Speaker: Guillermo Blasco Jimenez**
+**Speaker: Gabriel de Maeztu**
 
-[Duration: 40min]
-
-
-.. class:: col-md-4
-
-2) Python for Data Analysis.
-****************************
-
-**Speaker: Juan Gonzales-Vallinas**
-
-[Duration: 40min]
+[Duration: 20-25min]
 
 
 .. class:: col-md-4
 
-3) Machine Learning with scikit-learn.
-**************************************
+2) Real-time KPI metrics with Django and Statsd
+***********************************************
 
-**Speaker: Christopher Bonnett (@cbonnett)**
+**Speaker: Israel Saeta Pérez**
 
-[Duration: 30min]
+[Duration: 20min]
+
+
+.. class:: col-md-4
+
+3) Python and Cancer Genomics
+******************************
+
+**Speaker: Loris Mularoni**
+
+[Duration: 20min]
+
 
 
 .. raw:: html
