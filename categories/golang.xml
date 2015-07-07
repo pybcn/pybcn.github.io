@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group (Golang)</title><link>http://pybcn.org/</link><description></description><atom:link href="http://pybcn.org/categories/golang.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Wed, 17 Jun 2015 10:44:04 GMT</lastBuildDate><generator>http://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python Meetup January 2015</title><link>http://pybcn.org/blog/python-meetup-january-2015.html</link><dc:creator>Barcelona Python User Group</dc:creator><description>&lt;div&gt;&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Barcelona Python User Group (Golang)</title><link>http://pybcn.org/</link><description></description><atom:link href="http://pybcn.org/categories/golang.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Tue, 07 Jul 2015 14:38:04 GMT</lastBuildDate><generator>http://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python Meetup January 2015</title><link>http://pybcn.org/blog/python-meetup-january-2015.html</link><dc:creator>Barcelona Python User Group</dc:creator><description>&lt;div&gt;&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;div class="section" id="sqlalchemy"&gt;
@@ -25,7 +25,30 @@
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p&gt;Continuous Integration on a large open source software: Plone, by Ramon Navarro Bosch (&lt;a href="https://twitter.com/bloodbare"&gt;@bloodbare&lt;/a&gt;) &lt;a href="https://twitter.com/hashtag/pybcn?src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/RcebnPlEMO"&gt;pic.twitter.com/RcebnPlEMO&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/status/558341847735869440"&gt;January 22, 2015&lt;/a&gt;&lt;/blockquote&gt;&lt;iframe src="//www.slideshare.net/slideshow/embed_code/43891622" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="//www.slideshare.net/bloodbare/ci-on-large-open-source-software-plone-plone-5-is-here" title="CI on large open source software : Plone &amp;amp; Plone 5 is here!" target="_blank"&gt;CI on large open source software : Plone &amp;amp; Plone 5 is here!&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="//www.slideshare.net/bloodbare" target="_blank"&gt;Ramon Bosch&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>Golang</category><guid>http://pybcn.org/blog/python-meetup-january-2015.html</guid><pubDate>Sun, 18 Jan 2015 17:19:38 GMT</pubDate></item><item><title>Python Meetup December 2014</title><link>http://pybcn.org/blog/python-meetup-december-2014.html</link><dc:creator>Barcelona Python User Group</dc:creator><description>&lt;div&gt;&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><category>Golang</category><guid>http://pybcn.org/blog/python-meetup-january-2015.html</guid><pubDate>Sun, 18 Jan 2015 17:19:38 GMT</pubDate></item><item><title>Python Meetup June 2015</title><link>http://pybcn.org/blog/python-meetup-june-2015.html</link><dc:creator>Barcelona Python User Group</dc:creator><description>&lt;div&gt;&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;div class="section" id="an-introduction-to-the-flask-web-framework-and-a-recipe-for-the-google-s-app-engine"&gt;
+&lt;h2&gt;1) An introduction to the Flask Web framework and a recipe for the Google's App Engine&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Speaker: Gabriel de Maeztu&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;"An introduction to the Flask Web framework and a recipe for the Google's App Engine" by Gabriel de Maeztu &lt;a href="https://twitter.com/hashtag/pybcn?src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/u1QOxdcC1v"&gt;pic.twitter.com/u1QOxdcC1v&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/status/611581671289307136"&gt;June 18, 2015&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="real-time-kpi-metrics-with-django-and-statsd"&gt;
+&lt;h2&gt;2) Real-time KPI metrics with Django and Statsd&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Speaker: Israel Saeta Pérez&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="ht" dir="ltr"&gt;"Real-time KPI metrics with Django, Graphite and Statsd" by Israel Saeta Pérez (&lt;a href="https://twitter.com/dukebody"&gt;@dukebody&lt;/a&gt;) &lt;a href="https://twitter.com/hashtag/pybcn?src=hash"&gt;#pybcn&lt;/a&gt; &lt;a href="http://t.co/wEfrTkNY8l"&gt;pic.twitter.com/wEfrTkNY8l&lt;/a&gt;&lt;/p&gt;— Python Barcelona (@pybcn) &lt;a href="https://twitter.com/pybcn/status/611591342364446720"&gt;June 18, 2015&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="python-and-cancer-genomics"&gt;
+&lt;h2&gt;3) Python and Cancer Genomics&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Speaker: Loris Mularoni&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Bioinformaric and Cancer Genomics by Loris Mularoni at &lt;a href="https://twitter.com/pybcn"&gt;@pybcn&lt;/a&gt; &lt;a href="http://t.co/TgHJpoVwfX"&gt;pic.twitter.com/TgHJpoVwfX&lt;/a&gt;&lt;/p&gt;— Areski Belaid (@areskib) &lt;a href="https://twitter.com/areskib/status/611599945431412738"&gt;June 18, 2015&lt;/a&gt;&lt;/blockquote&gt;&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><category>Golang</category><guid>http://pybcn.org/blog/python-meetup-june-2015.html</guid><pubDate>Sun, 18 Jan 2015 17:19:38 GMT</pubDate></item><item><title>Python Meetup December 2014</title><link>http://pybcn.org/blog/python-meetup-december-2014.html</link><dc:creator>Barcelona Python User Group</dc:creator><description>&lt;div&gt;&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;&lt;p&gt;Please find bellow the slides of each of the speakers:&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;div class="section" id="python-tips-tricks-and-dark-magic"&gt;
