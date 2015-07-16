@@ -19,7 +19,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 18th of June 2015
+.. admonition:: Next Python Barcelona Meetup on the 16th of July 2015
 
     Time/Location: 7PM at `PRBB`_
 
