@@ -33,42 +33,36 @@
 
 
 
-Talks & Speakers
-================
-
-3 Talks/Speakers are confirmed for the next Meetup:
-
-
 .. class:: row
 
 .. class:: col-md-4
 
-1) An introduction to the Flask Web framework and a recipe for the Google's App Engine
-**************************************************************************************
+1) Cliquet, a toolkit to build HTTP microservices
+*************************************************
 
-**Speaker: Gabriel de Maeztu**
+**Speaker: Mathieu Lepatre (@leplatrem)**
 
-[Duration: 20-25min]
-
-
-.. class:: col-md-4
-
-2) Real-time KPI metrics with Django and Statsd
-***********************************************
-
-**Speaker: Israel Saeta Pérez**
-
-[Duration: 20min]
+[Duration: 30min] - English
 
 
 .. class:: col-md-4
 
-3) Python and Cancer Genomics
-******************************
+2) #include < Python.h >
+************************
 
-**Speaker: Loris Mularoni**
+**Speaker: Gustavo Chaín (@gchaincl)**
 
-[Duration: 20min]
+[Duration: 30min] - Spanish
+
+
+.. class:: col-md-4
+
+3) Factories, mocks, spies and other tester's little helpers
+************************************************************
+
+**Speaker: Carles Barrobes (@technomilk)**
+
+[Duration: 30min] - English
 
 
 
