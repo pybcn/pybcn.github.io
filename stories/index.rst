@@ -19,9 +19,9 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 16th of July 2015
+.. admonition:: Next Python Barcelona Meetup on the 22nd of September 2015
 
-    Time/Location: 7PM at `PRBB`_
+    Time/Location: 7PM at `Skyscanner`_
 
     .. class:: btn btn-info
 
@@ -37,30 +37,30 @@
 
 .. class:: col-md-4
 
-1) Cliquet, a toolkit to build HTTP microservices
-*************************************************
+1) Hacking the BCN housing market (Scrapy) 
+******************************************
 
-**Speaker: Mathieu Lepatre (@leplatrem)**
+**Speaker: Tudor Barbu (@motanelu)**
 
-[Duration: 30min] - English
+[Duration: 10min] - English
 
 
 .. class:: col-md-4
 
-2) #include < Python.h >
-************************
+2) Técnicas OSINT & Python
+**************************
 
-**Speaker: Gustavo Chaín (@gchaincl)**
+**Speaker: Albert Sanchez (@State_X)**
 
 [Duration: 30min] - Spanish
 
 
 .. class:: col-md-4
 
-3) Factories, mocks, spies and other tester's little helpers
-************************************************************
+3) Image processing for beginners
+*********************************
 
-**Speaker: Carles Barrobes (@technomilk)**
+**Speaker: Prassanna Ganesh**
 
 [Duration: 30min] - English
 
@@ -90,3 +90,4 @@
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
 .. _PRBB: /venue-prbb.html
 .. _Itnig: /venue-itnig.html
+.. _Skyscanner: /venue-itnig.html
