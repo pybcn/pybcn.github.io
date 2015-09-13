@@ -90,4 +90,4 @@
 .. _Sign in on the Meetup Page: http://www.meetup.com/python-185
 .. _PRBB: /venue-prbb.html
 .. _Itnig: /venue-itnig.html
-.. _Skyscanner: /venue-itnig.html
+.. _Skyscanner: /venue-skyscanner.html
