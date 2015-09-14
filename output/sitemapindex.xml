@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>http://pybcn.org/categories/ai.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/beginners.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/devops.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/frameworks.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/golang.xml</loc>
-  <lastmod>2015-07-16</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/python.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/robotics.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/sciences.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/categories/web.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/galleries/rss.xml</loc>
-  <lastmod>2015-06-17</lastmod>
+  <lastmod>2015-09-10T23:28:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/rss.xml</loc>
-  <lastmod>2015-07-16</lastmod>
+  <lastmod>2015-09-11T10:58:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://pybcn.org/sitemap.xml</loc>
-  <lastmod>2015-07-16</lastmod>
+  <lastmod>2015-09-11T23:35:00Z</lastmod>
  </sitemap>
 </sitemapindex>
