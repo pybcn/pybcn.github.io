@@ -19,9 +19,9 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 22nd of September 2015
+.. admonition:: Next Python Barcelona Meetup on the 22nd of October 2015
 
-    Time/Location: 7PM at `Skyscanner`_
+    Time/Location: 19:00 at `Skyscanner`_
 
     .. class:: btn btn-info
 
@@ -35,34 +35,44 @@
 
 .. class:: row
 
-.. class:: col-md-4
+.. class:: col-md-3
 
-1) Hacking the BCN housing market (Scrapy) 
+1) Api By Example
+*****************
+
+**Speaker: Carles Barrobés (@technomilk)**
+
+[Duration: 10 min] - English
+
+
+.. class:: col-md-3
+
+2) ofxPython: embedding Python into C++
+***************************************
+
+**Speaker: Carles F. Julià (@chaosct)**
+
+[Duration: 25 min] - English
+
+
+.. class:: col-md-3
+
+3) Web crawling with Notebook and Selenium
 ******************************************
 
-**Speaker: Tudor Barbu (@motanelu)**
+**Speaker: Silvia Puglisi**
 
-[Duration: 10min] - English
-
-
-.. class:: col-md-4
-
-2) Técnicas OSINT & Python
-**************************
-
-**Speaker: Albert Sanchez (@State_X)**
-
-[Duration: 30min] - Spanish
+[Duration: 20 min] - English
 
 
-.. class:: col-md-4
+.. class:: col-md-3
 
-3) Image processing for beginners
-*********************************
+4) Data structures beyond dicts and lists
+*****************************************
 
-**Speaker: Prassanna Ganesh**
+**Speaker: Sergi Sorribas**
 
-[Duration: 30min] - English
+[Duration: 25 min] - English
 
 
 
