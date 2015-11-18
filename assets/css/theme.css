@@ -1,3 +1,7 @@
+body {
+    margin-top: 60px;
+}
+
 #container {
     width: 960px;
     margin: 0 auto;
@@ -169,9 +173,4 @@ article.post-micro {
 
 .row {
     margin: 0;
-}
-
-/* for alignment with Bootstrap's .entry-content styling */
-.entry-summary {
-  margin-top: 1em;
 }
