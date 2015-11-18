@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2015/06/16 19:00:00
+.. date: 2015/11/13 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
@@ -19,7 +19,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 22nd of October 2015
+.. admonition:: Next Python Barcelona Meetup on the 26th of November of 2015
 
     Time/Location: 19:00 at `Skyscanner`_
 
@@ -35,44 +35,34 @@
 
 .. class:: row
 
-.. class:: col-md-3
+.. class:: col-md-4
 
-1) Api By Example
-*****************
+1) Theano: High performance computing using GPUs in Python
+**********************************************************
 
-**Speaker: Carles Barrobés (@technomilk)**
+**Speaker: Amir Hossein Bakhtiary Davijani (@amirhbakhtiary)**
 
-[Duration: 10 min] - English
-
-
-.. class:: col-md-3
-
-2) ofxPython: embedding Python into C++
-***************************************
-
-**Speaker: Carles F. Julià (@chaosct)**
-
-[Duration: 25 min] - English
+[Duration: 30 min]
 
 
-.. class:: col-md-3
+.. class:: col-md-4
 
-3) Web crawling with Notebook and Selenium
-******************************************
+2) Using Telegram as an interface for an LED wall
+*************************************************
 
-**Speaker: Silvia Puglisi**
+**Speaker: Xavier Orduña (@xorduna)**
 
-[Duration: 20 min] - English
+[Duration: 30 min]
 
 
-.. class:: col-md-3
+.. class:: col-md-4
 
-4) Data structures beyond dicts and lists
-*****************************************
+3) Python descriptors in detail
+*******************************
 
-**Speaker: Sergi Sorribas**
+**Speaker: Pablo Enfedaque (@pablitoev56)**
 
-[Duration: 25 min] - English
+[Duration: 30 min]
 
 
 
