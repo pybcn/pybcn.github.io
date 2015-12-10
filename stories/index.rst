@@ -1,7 +1,7 @@
 .. link: Welcome To Barcelona Python Group
 .. description: Barcelona Python Group Website
 .. tags: Python, Meetup, Barcelona
-.. date: 2015/11/13 19:00:00
+.. date: 2015/12/17 19:00:00
 .. title: Python Barcelona Meetup
 .. slug: index
 
@@ -19,7 +19,7 @@
 
 .. class:: jumbotron
 
-.. admonition:: Next Python Barcelona Meetup on the 26th of November of 2015
+.. admonition:: Next Python Barcelona Meetup on the 17th of December of 2015
 
     Time/Location: 19:00 at `Skyscanner`_
 
@@ -37,30 +37,30 @@
 
 .. class:: col-md-4
 
-1) Theano: High performance computing using GPUs in Python
-**********************************************************
+1) Functional programming
+*************************
 
-**Speaker: Amir Hossein Bakhtiary Davijani (@amirhbakhtiary)**
+**Speaker: Guillermo Blasco Jimenez (@theblackboxio)**
 
 [Duration: 30 min]
 
 
 .. class:: col-md-4
 
-2) Using Telegram as an interface for an LED wall
+2) Ipython parallel
 *************************************************
 
-**Speaker: Xavier Orduña (@xorduna)**
+**Speaker: Jordi Deu-Pons (@elbioc)**
 
 [Duration: 30 min]
 
 
 .. class:: col-md-4
 
-3) Python descriptors in detail
+3) Python for porn
 *******************************
 
-**Speaker: Pablo Enfedaque (@pablitoev56)**
+**Speaker: Gabriel Gavilan (@gabriicom)**
 
 [Duration: 30 min]
 
