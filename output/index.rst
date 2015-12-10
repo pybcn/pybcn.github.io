@@ -47,7 +47,7 @@
 
 .. class:: col-md-4
 
-2) Ipython parallel
+2) IPython parallel
 *************************************************
 
 **Speaker: Jordi Deu-Pons (@elbioc)**
