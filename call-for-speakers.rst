@@ -21,11 +21,11 @@ So if you could give a talk (or a few), then please share those subjects with us
 Feel free to give your talk in your preferred language: English, Catalan or Spanish.
 
 
-To propose a talk: http://tiny.cc/pybcn-propose-talk
+To propose a talk: https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform
 
 .. raw:: html
 
-    <iframe src="http://tiny.cc/pybcn-propose-talk" width="750" height="420" scrolling="yes" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <iframe src="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform" width="750" height="420" scrolling="yes" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 
 |br|
