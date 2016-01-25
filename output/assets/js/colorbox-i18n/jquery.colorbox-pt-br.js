@@ -1,6 +1,6 @@
 /*
 	jQuery Colorbox language configuration
-	language: Brazilian Portuguese (pt-BR)
+	language: Brazilian Portuguese (pt-br)
 	translated by: ReinaldoMT
 */
 jQuery.extend(jQuery.colorbox.settings, {

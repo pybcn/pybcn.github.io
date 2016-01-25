@@ -1,8 +1,8 @@
 /*
 	jQuery Colorbox language configuration
 	language: Hebrew (he)
-	translated by: David Cohen
-	site: dav.co.il
+	translated by: DavidCo
+	site: DavidCo.me
 */
 jQuery.extend(jQuery.colorbox.settings, {
 	current: "תמונה {current} מתוך {total}",

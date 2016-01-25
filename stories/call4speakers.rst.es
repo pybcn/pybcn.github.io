@@ -21,11 +21,11 @@ Así que si te apetece dar una charla (o varias) haznos llegar los temas de los 
 Siéntete libre de dar tu charla en el idioma que prefieras : Inglés, Catalán o español.
 
 
-Proponer una charla: http://tiny.cc/pybcn-propose-talk
+Proponer una charla: https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform
 
 .. raw:: html
 
-    <iframe src="http://tiny.cc/pybcn-propose-talk" width="750" height="420" scrolling="yes" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <iframe src="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform" width="750" height="420" scrolling="yes" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 
 |br|
