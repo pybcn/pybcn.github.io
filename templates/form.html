@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+  <div class="form">
+      <h2>
+        <span class="icon-documentation"></span>
+        {{ this.title }}
+      </h2>
+    <iframe class="form" src="{{ this.url }}"></iframe>
+  </div>
+{% endblock %}

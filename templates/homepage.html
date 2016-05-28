@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+<script src="/static/js/meetup.js"></script>
+<script> updateUpcoming(); updatePast(); </script>
+<div class="widget" >
+    <h2 class="widget-title">
+        <span class="icon-calendar"></span>
+        Upcoming Events
+    </h2>
+    <ul id="upcoming" class="calendar" >
+        <li>
+            There are no upcoming events scheduled... Stay tuned!
+        </li>
+    </ul>
+</div>
+<div class="widget" >
+    <h2 class="widget-title">
+        <span class="icon-calendar"></span>
+        Past Events
+    </h2>
+    <ul id="past" class="calendar" >
+        <li>
+            There are no past events scheduled... Stay tuned!
+        </li>
+    </ul>
+</div>
+{% endblock %}

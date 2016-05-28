@@ -1,0 +1,58 @@
+<!--
+/**
+ * @license
+ * MyFonts Webfont Build ID 3192920, 2016-03-27T16:57:52-0400
+ *
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ *
+ * You may obtain a valid license at the URLs below.
+ *
+ * Webfont: Flux-Regular by T-26
+ * URL: http://www.myfonts.com/fonts/t26/flux/regular/
+ * Copyright: Copyright (c) 1996 by Monib Mahdavi. All rights reserved.
+ * Licensed pageviews: 10,000
+ *
+ *
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3192920
+ *
+ * © 2016 MyFonts Inc
+*/
+
+-->
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="{{ '/static/fonts/30B858_0_0.css'|url }}">
+<link rel="stylesheet" href="{{ '/static/style.css'|url }}">
+<title>{% block title %}Welcome{% endblock %} — PyBCN</title>
+<body>
+  <header>
+    <div class="container">
+      <img src="/static/images/logo.png" /><h1>pyBCN</h1>
+      <h2>BARCELONA PYTHON MEETUP</h2>
+      <nav>
+        <ul class="nav navbar-nav">
+          <li{% if this._path == '/' %} class="active"{% endif
+          %}><a href="{{ '/'|url }}">Welcome</a></li>
+          {% for href, title in [
+          ['/call-for-proposals', 'Call for Proposals'],
+          ] %}
+          <li{% if this.is_child_of(href) %} class="active"{% endif
+              %}><a href="{{ href|url }}">{{ title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="page">
+    <div class="container">
+      {% block body %}{% endblock %}
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <p>&copy; Copyright 2016 by pyBCN Barcelona Python Meetup.</p>
+    </div>
+  </footer>
+</body>
