@@ -2,4 +2,4 @@
 name = PyBCN
 
 [servers.ghpages]
-target = ghpages+https://pybcn2/pybcn2.github.io?cname=pybcn.org
+target = ghpages+https://pybcn/pybcn.github.io?cname=pybcn.org
