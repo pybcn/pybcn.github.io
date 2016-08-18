@@ -22,41 +22,144 @@
 
 -->
 <!doctype html>
-<meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="../static/fonts/30B858_0_0.css">
-<link rel="stylesheet" href="../static/style.css">
-<title>Call for Proposals — PyBCN</title>
+
+<head>
+    <link rel="icon" type="image/png" href="/static/images/python-icon.png">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/e19927ebb1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/fonts/30B858_0_0.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/pybcn_style.css">
+
+    <title>Call for Proposals — PyBCN</title>
+</head>
+
 <body>
-  <header>
-    <div class="container">
-      <img src="/static/images/logo.png" /><h1>pyBCN</h1>
-      <h2>BARCELONA PYTHON MEETUP</h2>
-      <nav>
-        <ul class="nav navbar-nav">
-          <li><a href="../">Welcome</a></li>
-          
-          <li class="active"><a href="../call-for-proposals/">Call for Proposals</a></li>
-          
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="page">
-    <div class="container">
-      
+
+    <header class="header fixed clearfix navbar navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 logo_slogan">
+                    <div class="header-left clearfix">
+                        <div class="logo">
+                            <a href="/"><img src="/static/images/logo.png" alt="pyBCN Barcelona Python meetup group" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="header-right clearfix">
+                        <div class="main-navigation animated">
+                            <nav class="navbar navbar-default" role="navigation">
+                                <div class="container-fluid">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+                                        <ul class="nav navbar-nav navbar-right">
+                                          <li><a href="../">Welcome</a></li>
+                                          
+                                          <li class="active"><a href="../call-for-proposals/">Call for Proposals</a></li>
+                                          
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="container">
+            <div class="row main_content">
+                
+                <div class="col-md-9 main_column">
+                    
   <div class="form">
-      <h2>
-        <span class="icon-documentation"></span>
+      <h1>
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         Call for Proposals
-      </h2>
+      </h1>
     <iframe class="form" src="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform"></iframe>
   </div>
 
-    </div>
-  </div>
-  <footer>
-    <div class="container">
-      <p>&copy; Copyright 2016 by pyBCN Barcelona Python Meetup.</p>
-    </div>
-  </footer>
+                </div>
+
+                <div class="col-md-3 right_column">
+                    
+                    <div class="widget" >
+                        <h3 class="widget-title">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            Upcoming Events
+                        </h3>
+                        <ul id="upcoming" class="calendar">
+                            <li>
+                                There are no upcoming events scheduled... Stay tuned!
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="widget" >
+                        <h3 class="widget-title">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            Past Events
+                        </h3>
+                        <ul id="past" class="calendar">
+                            <li>
+                                There are no past events scheduled... Stay tuned!
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="widget" id="twitter"></div>
+
+                    <a class="twitter-timeline" data-lang="en" data-height="600" data-theme="dark" href="https://twitter.com/pybcn">Tweets by pybcn</a>
+                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <section id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1 col">
+                        <h4><strong>pyBCN</strong></h4>
+                        <p>&copy; Copyright 2016 Barcelona Python Meetup.</p>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1 col">
+                        <h4><strong>CONTACT</strong></h4>
+                        <p>Contact us through our <a href="http://www.meetup.com/python-185/" target="_blank">meetup group</a></p>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1 col">
+                        <h4><strong>SOCIAL LINKS</strong></h4>
+                        <p>
+                            <a href="https://twitter.com/pybcn" target="_blank"><i class="fa fa-twitter-square fa-4x"></i></a>
+                            <a href="https://www.youtube.com/channel/UCEhI2CfdT5--TYq47K4en4A/videos" target="_blank"><i class="fa fa-youtube-square fa-4x"></i></a>  
+                            <a href="http://www.meetup.com/python-185/" target="_blank"><img id="meetup_icon" src="/static/images/meetup-icon.png" /></a>  
+                            <a href="https://github.com/pybcn" target="_blank"><i class="fa fa-github-square fa-4x"></i></a>  
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/meetup.js"></script>
+    <script> updateUpcoming(); updatePast(); </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </body>
