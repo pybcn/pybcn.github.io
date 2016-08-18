@@ -1,0 +1,255 @@
+@import "bootstrap/less/bootstrap.less";
+@import url("//fonts.googleapis.com/css?family=Source+Sans+Pro"); 
+
+
+/* variables
+----------------------------------------------------------------------------- */
+
+@darkblue: #2b5b84;
+@blue: #2a99b6;
+@lightblue: #337ab7;
+
+@transition_time: all 0.2s ease-in-out;
+
+@grid-float-breakpoint: 1200px;  // Point at which the navbar becomes uncollapsed.
+
+
+/* mixins
+----------------------------------------------------------------------------- */
+
+.transition () {
+    -webkit-transition: @transition_time;  
+    -moz-transition:    @transition_time;
+    -ms-transition:     @transition_time; 
+    -o-transition:      @transition_time;  
+}
+
+
+/* general
+----------------------------------------------------------------------------- */
+
+html, body {
+    font: normal 100%/1.625 SourceSansProRegular,Arial,sans-serif;
+}
+
+a {
+    color: @blue;
+    &:hover {
+        color: @lightblue;
+    }
+}
+
+section.content {
+    padding: 180px 0 20px 0;
+}
+
+@media (max-width:@screen-xs) {
+    section.content {
+        padding: 85px 0;
+    }
+}
+
+.right_column {
+    padding-top: 28px;
+}
+
+h1 {
+    color: @darkblue;
+}
+
+/* logo
+----------------------------------------------------------------------------- */
+
+.header {
+    color: #ffffff;
+    background-color: darken(@darkblue, 5%);
+    padding: 10px 0;
+    .transition();
+}
+
+.logo_slogan {
+    .logo {
+        float: left;
+    }
+}
+
+
+.fixed-header-on {
+
+    .header {
+        background-color: darken(@darkblue, 10%);
+        .transition();
+
+        .navbar {
+            margin-top: 15px;
+            min-height: 0;
+            .transition();
+
+        }
+    }
+
+    .logo {
+        height: 70px;
+        .transition();
+
+        img {
+            transform: scale(0.5);
+            margin-top: -30px;
+            margin-left: -120px;
+            .transition();
+        }
+    }
+
+}
+
+
+@media (max-width:@screen-xs) {
+    .logo {
+        img {
+            width: 240px !important;
+        }
+    }
+}
+
+
+/* navbar
+----------------------------------------------------------------------------- */
+
+.header {
+    .navbar {
+        margin-bottom: 0;
+        margin-top: 40px;
+    }
+    .main-navigation {
+        .navbar-default {
+            background-color: transparent;
+            border: none;
+        }
+        .navbar-default {
+            .navbar-nav > li,
+            .dropdown-menu > li {
+                & > a {
+                    color: #fff;
+                    padding: 9px 9px;
+                    font-size: 18px;
+                    font-weight: 300;
+                    background-color: transparent !important;
+                }
+                &.ancestor > a, 
+                &.active > a {
+                    background-color: transparent;
+                    color: @lightblue;
+                }
+                & > a:hover,
+                &.active > a:hover {
+                    color: @lightblue;
+                }
+            }
+        }
+        .dropdown-menu {
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+    }
+}
+
+@media (max-width:@grid-float-breakpoint) {
+    .header-right {
+        height: 0;
+        .navbar-collapse {
+            margin-top: -30px;
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+    }
+    .header.navbar-fixed-top {
+        button {
+            margin-right: 0;
+            margin-top: -90px;
+        }
+    }
+
+    .fixed-header-on {
+        .header.navbar-fixed-top {
+            button {
+                margin-top: -50px;
+                .transition();
+            }
+        }
+    }
+
+}
+
+@media (max-width:@screen-xs) {
+    .header.navbar-fixed-top {
+        button {
+            margin-top: -80px;
+        }
+    }
+}
+
+
+/* footer
+----------------------------------------------------------------------------- */
+
+footer {
+    padding: 10px 0;
+    background: @darkblue;
+    background-image: linear-gradient(@darkblue 10%,#2b5b84 90%);
+    color: white;
+    
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+
+    #meetup_icon {
+        width: 63px;
+        margin-top: -32px;
+        margin-left: -2px;
+    }
+}
+
+
+/* Right column
+----------------------------------------------------------------------------- */
+
+.widget {
+    // padding: 20px 20px 20px 20px;
+    border-top: 4px solid #75a8d3;
+    padding: 10px 10px 20px 10px;
+
+    .widget-title {
+        color: @darkblue;
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    ul.calendar {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        li {
+            color: #999;
+            
+            time {
+                margin-right: .25em;
+            }
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+
+/* Call for Proposals form
+----------------------------------------------------------------------------- */
+
+iframe.form {
+    width: 100%;
+    height: 1050px;
+    border: 0;
+    margin: 0;
+}
