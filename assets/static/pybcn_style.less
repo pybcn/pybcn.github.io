@@ -32,6 +32,10 @@ html, body {
     font: normal 100%/1.625 SourceSansProRegular,Arial,sans-serif;
 }
 
+.container {
+    // padding: 0 100px;
+}
+
 a {
     color: @blue;
     &:hover {
@@ -47,10 +51,6 @@ section.content {
     section.content {
         padding: 85px 0;
     }
-}
-
-.right_column {
-    padding-top: 28px;
 }
 
 h1 {
@@ -202,9 +202,10 @@ footer {
     }
 
     #meetup_icon {
-        width: 63px;
-        margin-top: -32px;
-        margin-left: -2px;
+        width: 50px;
+        margin-top: -23px;
+        margin-left: -3px;
+        margin-right: -2px
     }
 }
 
@@ -239,6 +240,90 @@ footer {
             a {
                 text-decoration: none;
             }
+        }
+    }
+}
+
+
+/* Homepage: sponsors
+----------------------------------------------------------------------------- */
+
+.sponsors {
+    .sponsor-skyscanner {
+        .description {
+            margin-top: 16px;
+        }
+    }
+}
+
+
+/* Homepage: carousel
+----------------------------------------------------------------------------- */
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    width: 100%;
+}
+
+.carousel {
+
+    a {
+        color: white;
+    }
+
+    .carousel-inner {
+
+        margin-bottom: 50px;
+
+        .back-light {
+          background-color: rgba(0, 0, 0, 0.50);
+          padding: 10px;
+        }
+
+        .item {
+            font-size: @font-size-large;
+            // padding: 0 10%;
+            // min-height: 290px;
+
+            a.btn {
+                margin: 20px 0;
+            }
+
+            img {
+                max-height: 400px;
+            }
+        }
+    }
+
+    .carousel-control {
+        &.left, &.right {
+            background-image: none !important;
+            margin-top: 165px !important;
+            color: #000;
+        }
+    }
+}
+
+@media (max-width:@grid-float-breakpoint) {
+    .carousel-inner {
+        .item {
+            text-align: center;
+            font-size: @font-size-base * 1.1;
+            line-height: @font-size-base * 1.3;
+            padding: 0 10%;
+            // min-height: 650px;
+
+            h1 {
+                font-size: 25px;
+            }
+            img {
+                display: inline;
+            }
+        }
+    }
+
+    .carousel-control {
+        &.left, &.right {
+            width: 5%;
         }
     }
 }
