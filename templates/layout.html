@@ -62,15 +62,18 @@
                                     </div>
                                     <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
                                         <ul class="nav navbar-nav navbar-right">
-                                          <li{% if this._path == '/' %} class="active"{% endif
-                                          %}><a href="{{ '/'|url }}">Welcome</a></li>
-                                          {% for href, title in [
-                                          ['/call-for-proposals', 'Call for Proposals'],
-                                          ['/pyladiesbcn', 'PyLadies BCN'],
-                                          ] %}
-                                          <li{% if this.is_child_of(href) %} class="active"{% endif
-                                              %}><a href="{{ href|url }}">{{ title }}</a></li>
-                                          {% endfor %}
+                                            <!-- <li{% if this._path == '/' %} class="active"{% endif %}>
+                                                <a href="{{ '/'|url }}">Welcome</a>
+                                            </li> -->
+                                            {% for href, title in [
+                                                ['/call-for-proposals', 'Call for Proposals'],
+                                                ['/coding-dojos', 'Coding Dojos'],
+                                                ['/pyladies-bcn', 'PyLadies BCN'],
+                                            ] %}
+                                                <li{% if this.is_child_of(href) %} class="active"{% endif %}>
+                                                    <a href="{{ href|url }}">{{ title }}</a>
+                                                </li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>

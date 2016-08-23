@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+    <h1>{{ this.name }}</h1>
+    <h2>{{ this.description }}</h2>
+    <a href="{{ this.url }}" target="_blank">
+        <img src="{{ this.image}}" alt="{{ this.description }}" />
+    </a>
+{% endblock %}

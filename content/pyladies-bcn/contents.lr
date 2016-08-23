@@ -1,4 +1,4 @@
-_model: page
+_model: carousel-page
 ---
 title: PyLadies BCN
 ---
@@ -8,6 +8,8 @@ We are an international mentorship group with a focus on helping more women beco
 
 PyLadies also aims to provide a friendly support network for women and a bridge to the larger Python world. Anyone with an interest in Python is encouraged to participate!
 
-And if you'd like to get some more information about our parent organization, check out the web site: http://www.pyladies.com
+Check out all our activities in out <a href="https://twitter.com/PyLadiesBCN" target="_blank">twitter account</a> and in our <a href="http://www.meetup.com/PyLadies-BCN/" target="_blank">meetup page</a>. Furthermore, all our workshops are available at our <a href="https://github.com/pyladies-bcn" target="_blank">github</a> account!
+
+And if you'd like to get some more information about our parent organisation, check out the web site: http://www.pyladies.com
 
 Our Code of Conduct: http://www.pyladies.com/CodeOfConduct/
