@@ -313,26 +313,36 @@ footer {
 }
 
 @media (max-width:@grid-float-breakpoint) {
-    .carousel-inner {
-        .item {
-            text-align: center;
-            font-size: @font-size-base * 1.1;
-            line-height: @font-size-base * 1.3;
-            padding: 0 10%;
-            // min-height: 650px;
+    .carousel {
+        .carousel-inner {
+            .item {
+                text-align: center;
+                font-size: @font-size-base * 1.1;
+                line-height: @font-size-base * 1.3;
+                // padding: 0 10%;
+                // min-height: 650px;
 
-            h1 {
-                font-size: 25px;
+                h1 {
+                    font-size: 25px;
+                }
+                img {
+                    display: inline;
+                }
             }
-            img {
-                display: inline;
+
+            .carousel-caption {
+                bottom: -20px;
+                h4 {
+                    font-size: 15px;
+                }
             }
         }
-    }
 
-    .carousel-control {
-        &.left, &.right {
-            width: 5%;
+        .carousel-control {
+            &.left, &.right {
+                margin-top: 100px !important;
+                width: 5%;
+            }
         }
     }
 }
