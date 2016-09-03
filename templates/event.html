@@ -1,0 +1,11 @@
+{% extends "layout-event.html" %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+  <h1>{{ this.title }}</h1>
+  {{ this.body }}
+  <ul>
+  {% for child in this.children %}
+      <li><a href="{{ child|url }}">{{ child.title }}</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}
