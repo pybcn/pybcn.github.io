@@ -32,6 +32,11 @@ html, body {
     font: normal 100%/1.625 SourceSansProRegular,Arial,sans-serif;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 .container {
     // padding: 0 100px;
 }
@@ -44,7 +49,7 @@ a {
 }
 
 section.content {
-    padding: 180px 0 20px 0;
+    padding: 180px 0 220px 0;
 }
 
 @media (max-width:@screen-xs) {
@@ -192,6 +197,9 @@ h1 {
 ----------------------------------------------------------------------------- */
 
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     padding: 10px 0;
     background: @darkblue;
     background-image: linear-gradient(@darkblue 10%,#2b5b84 90%);
