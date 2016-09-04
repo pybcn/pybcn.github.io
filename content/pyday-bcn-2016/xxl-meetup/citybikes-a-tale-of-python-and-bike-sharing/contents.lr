@@ -1,0 +1,19 @@
+_model: activity
+---
+title: Citybikes: a tale of python and bike sharing
+---
+abstract:
+
+An interesting talk about [Citybikes], a global site about bike sharing networks in many cities around the globe.
+
+[Citybikes]: http://citibik.es "Citibikes' homepage"
+---
+moment: 20:15
+---
+speaker_background:
+
+Lluís Esquerda is the talented engineer behind [Citybikes].
+
+[Citybikes]: http://citibik.es "Citibikes' homepage"
+---
+speaker_name: Lluís Esquerda

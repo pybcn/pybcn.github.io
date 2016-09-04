@@ -1,0 +1,10 @@
+{% extends "layout-event-info.html" %}
+{% block title %}{{ this.parent.title }} | {{ this.name }}{% endblock %}
+{% block body %}
+    <dl>
+        <dt>Time:</dt> <dd>{{ this.moment }}</dd>
+        <dt>Abstract:</dt> <dd>{{ this.abstract }}</dd>
+        <dt>Speaker:</dt> <dd>{{ this.speaker_name }}</dd>
+        <dt>Speaker background:</dt> <dd>{{ this.speaker_background }}</dd>
+    </dl>
+{% endblock %}

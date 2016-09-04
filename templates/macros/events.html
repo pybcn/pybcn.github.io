@@ -9,7 +9,7 @@
             <li>
                 <a href="{{ event_info|url }}">{{ event_info.title }}</a>
                 <ul class="toc-subentries">
-                {% for child in event_info.children %}
+                {% for child in event_info.children.filter(F._model == 'event-info') %}
                     <li><a href="{{ child|url }}">{{ child.title }}</a></li>
                 {% endfor %}
                 </ul>
@@ -39,8 +39,17 @@
         <i class="fa fa-cog"></i>
         Activities
     </h3>
-    {% if node.children.filter(F._model == 'activity').first().name is defined %}
-        The activities are {{ node.children.filter(F._model == 'activity').first().name }}}
+    {% if node.children.filter(F._model == 'activity').first().title is defined %}
+        The activities are :
+        <ul>
+        {% for activity in node.children.filter(F._model == 'activity').order_by('moment') %}
+            <li>
+                <b>{{ activity.moment }}</b>
+                <a href="{{activity._slug}}">{{ activity.title }}</a>,
+                by {{ activity.speaker_name }}
+            </li>
+        {% endfor %}
+        </ul>
     {% else %}
         The activities for this event are not published, yet...
     {% endif %}
