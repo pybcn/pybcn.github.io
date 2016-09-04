@@ -26,9 +26,10 @@
         <i class="fa fa-university"></i>
         Venue
     </h3>
-    {% if node.children is defined %}
+    {% if node.children.filter(F._model == 'venue').first().name is defined %}
+        The venue is {{ node.children.filter(F.model == 'venue').first().name }}}
     {% else %}
-        Contents are not published yet...
+        The venue for this event is not published, yet...
     {% endif %}
 {% endmacro %}
 
@@ -37,4 +38,9 @@
         <i class="fa fa-cog"></i>
         Activities
     </h3>
+    {% if node.children.filter(F._model == 'activity').first().name is defined %}
+        The activities are {{ node.children.filter(F.model == 'activity').first().name }}}
+    {% else %}
+        The activities for this event are not published, yet...
+    {% endif %}
 {% endmacro %}
