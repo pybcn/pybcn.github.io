@@ -1,0 +1,10 @@
+{% extends "layout-event-info.html" %}
+{% block title %}{{ this.parent.title }} | {{ this.name }}{% endblock %}
+{% block body %}
+    <h1>
+        <i class="fa fa-university"></i>
+        {{ this.name }}
+    </h1>
+    Description: {{ this.description }}
+    <iframe width="655" height="550" src="{{ this.map_link }}"></iframe>
+{% endblock %}

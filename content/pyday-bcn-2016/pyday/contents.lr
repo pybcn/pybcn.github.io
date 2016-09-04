@@ -4,13 +4,4 @@ title: PyDay
 ---
 order: 3
 ---
-content:
-
-The PyDay will be a set of activities and workshops for all people interested in Python and its local community, in Barcelona.
-This will be held at [Punt Multimèdia], where usually all our [Coding Dojos] happen.
-The contents will be published soon in this page.
-
-[Punt Multimèdia]: http://www.puntmultimedia.org/?lang=en "Punt Multimèdia homepage"
-[Coding Dojos]: http://www.es.python.org/pyday2016/ "Other PyDays happening in Spain in 2016"
-[Facultat de Matemàtiques i Informàtica]: http://mat.ub.edu/ "Facultat de Matemàtiques i Informàtica homepage"
-[Universitat de Barcelona]: https://www.ub.edu "Universitat de Barcelona homepage"
+content: The PyDay will be a set of activities and workshops for all people interested in Python and its local community, in Barcelona.
