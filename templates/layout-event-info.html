@@ -123,6 +123,18 @@
                 {% endif %}
             </div>
             {% endif %}
+            {% if this.attachments.filter(F._attachment_type == 'document').first()._id is defined %}
+            <div class="row">
+                {% for attachment in this.attachments.filter(F._attachment_type == 'document') %}
+                <div class="col-md-12 main_column">
+                    <a href="{{ attachment._slug }}">
+                        <i class="fa fa-download"></i>
+                        Download attachment
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </section>
 
