@@ -1,11 +1,14 @@
 {% macro toc(node) %}
     {% if node.parent._model == 'event' %}
-        <h3> <a href="{{ node.parent|url }}">{{ node.parent.title }}</a> </h3>
-        <ul>
+        <h3 class="widget-title">
+            <i class="fa fa-hand-o-right"></i>
+            <a href="{{ node.parent|url }}">{{ node.parent.title }}</a>
+        </h3>
+        <ul id="toc" class="toc_entries">
         {% for event_info in site.query(node.parent.path) %}
             <li>
                 <a href="{{ event_info|url }}">{{ event_info.title }}</a>
-                <ul>
+                <ul class="toc_subentries">
                 {% for child in event_info.children %}
                     <li><a href="{{ child|url }}">{{ child.title }}</a></li>
                 {% endfor %}
