@@ -1,0 +1,22 @@
+_model: activity
+---
+title: Introduction to Jupyter
+---
+abstract:
+
+[Jupyter] is a code development tool, very good for prototyping, with support for many programming languages, very used in scientific and data science environments.
+
+[Jupyter]: http://jupyter.org/ "Project Jupyter's jomepage"
+---
+moment: 15:30
+---
+room: Sala Multimèdia
+---
+speaker_background:
+
+[Ignasi Fosch] is an Operations and Infrastructure Engineer, who usually drives our [Coding Dojos].
+
+[Ignasi Fosch]: https://twitter.com/ifosch "Ignasi Fosch's Twitter account"
+[Coding Dojos]: /coding-dojos "PyBCN's Coding Dojos page"
+---
+speaker_name: Ignasi Fosch

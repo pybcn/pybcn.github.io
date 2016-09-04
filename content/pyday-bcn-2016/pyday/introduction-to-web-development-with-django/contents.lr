@@ -1,0 +1,22 @@
+_model: activity
+---
+title: Introduction to web development with Django
+---
+abstract:
+
+A hands-on session on web development, using [Django], one of the most known and complete web frameworks in Python.
+
+[Django]: http://djangoproject.org "Django's homepage"
+---
+moment: 17:30
+---
+room: Sala Multimèdia
+---
+speaker_background:
+
+[Natàlia Padilla] is a Biologist using Python for research, and a usual [PyBCN] collaborator.
+
+[Natàlia Padilla]: https://twitter.com/NataliaBioIT "Natàlia Padilla's Twitter account"
+[PyBCN]: https://pybcn.org
+---
+speaker_name: Natàlia Padilla

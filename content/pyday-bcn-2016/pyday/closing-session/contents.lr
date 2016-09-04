@@ -1,0 +1,11 @@
+_model: activity
+---
+title: Closing session
+---
+abstract: A small review of [PyDay BCN 2016].
+---
+moment: 19:00
+---
+room: Hall
+---
+speaker_name: PyBCN organisers

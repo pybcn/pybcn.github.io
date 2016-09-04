@@ -46,7 +46,10 @@
             <li>
                 <b>{{ activity.moment }}</b>
                 <a href="{{activity._slug}}">{{ activity.title }}</a>,
-                by {{ activity.speaker_name }}
+                {% if activity.speaker_name is defined %}
+                    by {{ activity.speaker_name }},
+                {% endif %}
+                at {{ activity.room }}
             </li>
         {% endfor %}
         </ul>

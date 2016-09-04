@@ -1,0 +1,17 @@
+_model: activity
+---
+title: Testing
+---
+abstract: A session on software testing.
+---
+moment: 11:15
+---
+room: Sala Polivalent
+---
+speaker_background:
+
+[Carles Barrobés] is a skilled Software Engineer, charmed by the Python programming language.
+
+[Carles Barrobés]: https://twitter.com/technomilk "Carles Barrobés' Twitter account"
+---
+speaker_name: Carles Barrobés

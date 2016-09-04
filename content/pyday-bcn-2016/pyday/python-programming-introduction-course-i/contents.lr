@@ -1,0 +1,20 @@
+_model: activity
+---
+title: Python Programming Introduction Course (I)
+---
+abstract: A beginner to Python programming course.
+---
+moment: 11:15
+---
+room: Sala Multimèdia
+---
+speaker_background:
+
+[Eloi Puertas] is a Computing Science Professor at [Facultat de Matemàtiques i Informàtica] of [Universitat de Barcelona], and a collaborator at [PyBCN].
+
+[Eloi Puertas]: https://twitter.com/eloipuertas "Eloi Puertas' Twitter account"
+[Facultat de Matemàtiques i Informàtica]: http://mat.ub.edu "Facultat de Matemàtiques i Informàtica's homepage"
+[Universitat de Barcelona]: http://www.ub.edu "Universitat de Barcelona's homepage"
+[PyBCN]: http://pybcn.org "PyBCN's homepage"
+---
+speaker_name: Eloi Puertas

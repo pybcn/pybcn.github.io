@@ -1,0 +1,15 @@
+_model: activity
+---
+title: Serverless deployment on AWS with chalice
+---
+abstract:
+
+A workshop on serverless deployment on AWS, by Claranet's Engineering Operations Team.
+
+**Requirement**: This activity will require attendees to create an AWS account, which will require a credit card, though no amount will be charged.
+---
+moment: 13:00
+---
+room: Sala Polivalent
+---
+speaker_name: Claranet's Engineering Operations Team

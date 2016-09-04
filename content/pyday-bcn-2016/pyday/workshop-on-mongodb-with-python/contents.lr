@@ -1,0 +1,23 @@
+_model: activity
+---
+title: Workshop on MongoDB with Python
+---
+abstract:
+
+A workshop on [MongoDB] and Python by MongoDB's Engineers.
+
+[MongoDB]: http://mongodb.com "MongoDB's homepage"
+---
+moment: 17:30
+---
+room: Sala Polivalent
+---
+speaker_background:
+
+[Raúl Marín] is a Senior Consulting Engineer, and [Rubén Terceño] is a Senior Solutions Architect, both working at MongoDB.
+
+[Raúl Marín]: https://twitter.com/raulempi "Raúl Marín's Twitter account"
+[Rubén Terceño]: https://twitter.com/rubenterceno "Rubén Terceño's Twitter account"
+[MongoDB]: http://mongodb.com "MongoDB's homepage"
+---
+speaker_name: Raúl Marín and Rubén Terceño
