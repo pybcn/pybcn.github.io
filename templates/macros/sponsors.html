@@ -1,0 +1,11 @@
+{% macro sponsors(node, level, size = 320) %}
+    <ul class="sponsors">
+    {% for child in node.children.filter((F._model == 'sponsor').and(F.level == level)) %}
+        <li>
+            <a href="{{ child|url }}">
+                <img src="{{ child.attachments.images.first().thumbnail(size)|url }}" alt="{{ child.name }}" />
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}

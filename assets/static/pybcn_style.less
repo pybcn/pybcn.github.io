@@ -58,7 +58,7 @@ section.content {
     }
 }
 
-h1 {
+h1, h2, h3 {
     color: @darkblue;
 }
 
@@ -238,9 +238,15 @@ footer {
     }
 
     ul.calendar,
+    ul.event_infos,
     ul.toc_entries,
     ul.toc_subentries {
         list-style: none;
+    }
+
+    ul.calendar,
+    ul.toc_entries,
+    ul.toc_subentries {
         padding: 0;
         margin: 0;
         
@@ -281,6 +287,23 @@ footer {
         .description {
             margin-top: 32px;
         }
+    }
+}
+
+h3.venues,
+h3.platinum,
+h3.collaborators {
+    text-align: center;
+}
+
+ul.sponsors {
+    list-style: none;
+    text-align: center;
+
+    li {
+        display: inline;
+        margin-right: 20px;
+        padding-right: 20px;
     }
 }
 
