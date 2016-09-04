@@ -4,4 +4,14 @@ name: Python Software Foundation
 ---
 level: platinum
 ---
-sponsorizes: Python Software Foundation sponsorized our PyDay BCN 2016 event to pay some expenses.
+sponsorizes:
+
+[Python Software Foundation] sponsorizes our PyDay BCN 2016 event to pay some expenses.
+
+[Python Software Foundation]: http://python.org/psf "Python Software Foundation homepage"
+---
+description:
+
+[Python Software Foundation] is a non-profit organization devoted to Python programming language, launched in 2001, which mission is to foster development of the Python community.
+
+[Python Software Foundation]: http://python.org/psf "Python Software Foundation homepage"

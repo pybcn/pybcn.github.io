@@ -4,4 +4,14 @@ name: Claranet
 ---
 level: platinum
 ---
-sponsorizes: Claranet sponsorized our PyDay BCN 2016 event to pay some expenses.
+sponsorizes:
+
+[Claranet] sponsorizes our PyDay BCN 2016 event to pay expenses, like coffees, and refreshments.
+
+[Claranet]: https://claranet.es "Claranet homepage"
+---
+description:
+
+[Claranet] is a provider of managed ICT services in Western Europe.
+
+[Claranet]: https://claranet.es "Claranet homepage"

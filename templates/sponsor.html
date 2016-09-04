@@ -1,10 +1,9 @@
 {% extends "layout-event-info.html" %}
 {% block title %}{{ this.parent.title }} | {{ this.name }}{% endblock %}
 {% block body %}
-  <h1>{{ this.name }}</h1>
+    <h1>
+        <img src="{{ this.attachments.images.first().thumbnail(320)|url }}">
+    </h1>
   {{ this.description }}
   {{ this.sponsorizes }}
-  {% for image in this.attachments.images %}
-      <img src="{{ image|url }}">
-  {% endfor %}
 {% endblock %}

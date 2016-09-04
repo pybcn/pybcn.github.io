@@ -4,4 +4,14 @@ name: MongoDB
 ---
 level: collaborator
 ---
-sponsorizes: MongoDB collaborates by providing one workshop for PyDay.
+sponsorizes:
+
+[MongoDB] collaborates by providing one workshop for PyDay.
+
+[MongoDB]: https://mongodb.com "MongoDB homepage"
+---
+description:
+
+[MongoDB Inc.]'s primary technology product is the open source, NoSQL database MongoDB. [MongoDB Inc.] employs most of the developers of MongoDB.
+
+[MongoDB Inc.]: https://mongodb.com "MongoDB homepage"

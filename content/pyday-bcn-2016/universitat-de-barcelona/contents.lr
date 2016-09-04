@@ -4,4 +4,10 @@ name: Universitat de Barcelona
 ---
 level: venue
 ---
-sponsorizes: Universitat de Barcelona sponsorizes our PyDay BCN 2016 by providing the XXL meetup
+sponsorizes:
+
+[Universitat de Barcelona] sponsorizes our PyDay BCN 2016 by hosting the XXL meetup.
+
+[Universitat de Barcelona]: http://www.ub.edu "Ubiversitat de Barcelona homepage"
+---
+description: [Universitat de Barcelona] is one of the best public universities in Barcelona area, with 75 undergraduate programs, more than 350 graduate programs, close to 100 doctorate programs, and around 64,000 students.
