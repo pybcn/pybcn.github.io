@@ -1,12 +1,14 @@
 _model: activity
 ---
-title: CodeFight's Tournaments
+title: CodeFights' Tournaments
 ---
 abstract:
 
-During the whole day, we'll be having CodeFight's Tournaments.
+During the whole day, we'll be having [CodeFights]' Tournaments.
 
 By the end of the day, we'll announce the winner.
+
+[CodeFights]: http://codefights.com "CodeFights' homepage"
 ---
 moment: 11:15
 ---
