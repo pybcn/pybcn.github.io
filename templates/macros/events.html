@@ -4,11 +4,11 @@
             <i class="fa fa-hand-o-right"></i>
             <a href="{{ node.parent|url }}">{{ node.parent.title }}</a>
         </h3>
-        <ul id="toc" class="toc_entries">
+        <ul id="toc" class="toc-entries">
         {% for event_info in site.query(node.parent.path).order_by('order') %}
             <li>
                 <a href="{{ event_info|url }}">{{ event_info.title }}</a>
-                <ul class="toc_subentries">
+                <ul class="toc-subentries">
                 {% for child in event_info.children %}
                     <li><a href="{{ child|url }}">{{ child.title }}</a></li>
                 {% endfor %}
@@ -19,4 +19,22 @@
     {% else %}
         {{ toc(node.parent) }}
     {% endif %}
+{% endmacro %}
+
+{% macro venue(node) %}
+    <h3 class="widget-title">
+        <i class="fa fa-university"></i>
+        Venue
+    </h3>
+    {% if node.children is defined %}
+    {% else %}
+        Contents are not published yet...
+    {% endif %}
+{% endmacro %}
+
+{% macro activities(node) %}
+    <h3 class="widget-title">
+        <i class="fa fa-cog"></i>
+        Activities
+    </h3>
 {% endmacro %}

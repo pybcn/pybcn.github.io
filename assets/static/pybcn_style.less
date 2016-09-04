@@ -1,7 +1,6 @@
 @import "bootstrap/less/bootstrap.less";
 @import url("//fonts.googleapis.com/css?family=Source+Sans+Pro"); 
 
-
 /* variables
 ----------------------------------------------------------------------------- */
 
@@ -13,7 +12,6 @@
 
 @grid-float-breakpoint: 1200px;  // Point at which the navbar becomes uncollapsed.
 
-
 /* mixins
 ----------------------------------------------------------------------------- */
 
@@ -23,7 +21,6 @@
     -ms-transition:     @transition_time; 
     -o-transition:      @transition_time;  
 }
-
 
 /* general
 ----------------------------------------------------------------------------- */
@@ -62,7 +59,6 @@ h1, h2, h3 {
     color: @darkblue;
 }
 
-
 /* logo
 ----------------------------------------------------------------------------- */
 
@@ -78,7 +74,6 @@ h1, h2, h3 {
         float: left;
     }
 }
-
 
 .fixed-header-on {
 
@@ -108,7 +103,6 @@ h1, h2, h3 {
 
 }
 
-
 @media (max-width:@screen-xs) {
     .logo {
         img {
@@ -116,7 +110,6 @@ h1, h2, h3 {
         }
     }
 }
-
 
 /* navbar
 ----------------------------------------------------------------------------- */
@@ -192,7 +185,6 @@ h1, h2, h3 {
     }
 }
 
-
 /* footer
 ----------------------------------------------------------------------------- */
 
@@ -218,7 +210,6 @@ footer {
     }
 }
 
-
 /* Right column
 ----------------------------------------------------------------------------- */
 
@@ -238,15 +229,15 @@ footer {
     }
 
     ul.calendar,
-    ul.event_infos,
-    ul.toc_entries,
-    ul.toc_subentries {
+    ul.event-infos,
+    ul.toc-entries,
+    ul.toc-subentries {
         list-style: none;
     }
 
     ul.calendar,
-    ul.toc_entries,
-    ul.toc_subentries {
+    ul.toc-entries,
+    ul.toc-subentries {
         padding: 0;
         margin: 0;
         
@@ -263,11 +254,14 @@ footer {
         }
     }
 
-    ul.toc_subentries {
-        margin-left: 10px;
+    ul.toc-entries {
+        margin-left: 45px;
+    }
+
+    ul.toc-subentries {
+        margin-left: 90px;
     }
 }
-
 
 /* Homepage: sponsors
 ----------------------------------------------------------------------------- */
@@ -290,6 +284,9 @@ footer {
     }
 }
 
+/* Event: sponsors
+----------------------------------------------------------------------------- */
+
 h3.venues,
 h3.platinum,
 h3.collaborators {
@@ -306,7 +303,6 @@ ul.sponsors {
         padding-right: 20px;
     }
 }
-
 
 /* Homepage: carousel
 ----------------------------------------------------------------------------- */
@@ -387,7 +383,6 @@ ul.sponsors {
     }
 }
 
-
 /* Call for Proposals form
 ----------------------------------------------------------------------------- */
 
@@ -396,4 +391,10 @@ iframe.form {
     height: 1050px;
     border: 0;
     margin: 0;
+}
+
+/* Event-info
+----------------------------------------------------------------------------- */
+.event-info-title {
+    margin-left: .25em;
 }

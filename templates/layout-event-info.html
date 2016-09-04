@@ -22,7 +22,7 @@
 
 -->
 <!doctype html>
-{% from "macros/events.html" import toc %}
+{% from "macros/events.html" import toc, venue, activities %}
 
 <head>
     <link rel="icon" type="image/png" href="/static/images/python-icon.png">
@@ -88,17 +88,41 @@
 
     <section class="content">
         <div class="container">
-            <div class="row main_content">
+            <div class="row event-info-title">
+                <h1>
+                    {{ this.title }}
+                </h1>
+            </div>
+            <div class="row">
                 <div class="col-md-9 main_column">
-                    {% block body %}{% endblock %}
+                    <div class="widget">
+                        {% block body %}{% endblock %}
+                    </div>
                 </div>
-
                 <div class="col-md-3 right_column">
                     <div class="widget" >
                         {{ toc(this) }}
                     </div>
                 </div>
             </div>
+            {% if not this.hide_venues or not this.hide_activities %}
+            <div class="row">
+                {% if not this.hide_venues %}
+                <div class="col-md-6 main_column">
+                    <div class="widget">
+                        {{ venue(this) }}
+                    </div>
+                </div>
+                {% endif %}
+                {% if not this.hide_activities %}
+                <div class="col-md-6 main_column">
+                    <div class="widget">
+                        {{ activities(this) }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
     </section>
 

@@ -55,11 +55,11 @@
         </div>
         <div class="col-md-3">
             <div class="widget">
-                <h2>
+                <h3 class="widget-title">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                     More information
-                </h2>
-                <ul class="event_infos"">
+                </h3>
+                <ul class="event-infos"">
                 {% for child in this.children.filter(F._model == 'event-info').order_by('order') %}
                     <li><a href="{{ child|url }}">{{ child.title }}</a></li>
                 {% endfor %}

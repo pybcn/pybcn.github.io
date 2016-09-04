@@ -1,6 +1,6 @@
 _model: event-info
 ---
-title: What PyDay BCN 2016 is?
+title: About PyDay BCN 2016
 ---
 content:
 
@@ -34,3 +34,7 @@ For the first time, now we want to organise a bigger event, not only for the Bar
 [Punt Multimèdia]: http://www.puntmultimedia.org/punt-multimedia-casa-del-mig/where-we-are/?lang=en "Punt Multimèdia location"
 ---
 order: 0
+---
+hide_activities: yes
+---
+hide_venues: yes
