@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            {% if not this.hide_venues or not this.hide_activities %}
+            {% if this._model == 'event-info' and (not this.hide_venues or not this.hide_activities) %}
             <div class="row">
                 {% if not this.hide_venues %}
                 <div class="col-md-6 main_column">
