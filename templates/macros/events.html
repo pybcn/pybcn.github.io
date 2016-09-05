@@ -37,21 +37,24 @@
 {% endmacro %}
 
 {% macro activities(node) %}
+    {% set activities = node.children.filter(F._model == 'activity') %}
     <h3 class="widget-title">
         <i class="fa fa-cog"></i>
         Activities
     </h3>
-    {% if node.children.filter(F._model == 'activity').first().title is defined %}
+    {% if activities.first().title is defined %}
         The activities are :
         <ul>
-        {% for activity in node.children.filter(F._model == 'activity').order_by('moment') %}
+        {% for activity in activities.order_by('moment', 'room') %}
             <li>
                 <b>{{ activity.moment }}</b>
-                <a href="{{activity._slug}}">{{ activity.title }}</a>,
+                <a href="{{activity._slug}}">{{ activity.title }}</a>
                 {% if activity.speaker_name is defined %}
-                    by {{ activity.speaker_name }},
+                    by {{ activity.speaker_name }}
                 {% endif %}
-                at {{ activity.room }}
+                {% if activity.room is defined %}
+                    at {{ activity.room }}
+                {% endif %}
             </li>
         {% endfor %}
         </ul>
