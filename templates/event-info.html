@@ -1,5 +1,58 @@
 {% extends "layout-event-info.html" %}
+{% from "macros/sponsors.html" import sponsors %}
 {% block title %}{{ this.parent.title }} | {{ this.title }}{% endblock %}
 {% block body %}
-  {{ this.content }}
+    {% if this._id == 'sponsorship' %}
+        <div class="row event-sponsors">
+            <div class="col-md-12">
+                <div>
+                    <h2>
+                        <i class="fa fa-rocket" aria-hidden="true"></i>
+                        Sponsors and collaborators
+                    </h2>
+                    <div class="col-md-12">
+                        <h3 class="venues"">
+                            <i class="fa fa-university" aria-hidden="true"></i>
+                            Venues
+                        </h3>
+                        {{ sponsors(this.parent, 'venue') }}
+                    </div>
+                    <div class="col-md-12">
+                        <h3 class="platinum">
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                            Platinum
+                        </h3>
+                        {{ sponsors(this.parent, 'platinum') }}
+                    </div>
+                    <div class="col-md-12">
+                        <h3 class="collaborators">
+                            <i class="fa fa-cube" aria-hidden="true"></i>
+                            Collaborators
+                        </h3>
+                        {{ sponsors(this.parent, 'collaborator', 160) }}
+                    </div>
+                    <div class="col-md-12">
+                        <h3 class="thanks-to">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            Thanks to ...
+                        </h3>
+                        {{ sponsors(this.parent, 'thanks', 160) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget">
+                    <h2>
+                        <i class="fa fa-hand-o-right"></i>
+                        Willing to see your company here?
+                    </h2>
+                    {{ this.content }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {{ this.content }}
+    {% endif %}
 {% endblock %}
