@@ -22,13 +22,15 @@
 {% endmacro %}
 
 {% macro venue(node) %}
+    {% set venue = node.children.filter(F._model == 'venue').first() %}
     <h3 class="widget-title">
         <i class="fa fa-university"></i>
         Venue
     </h3>
-    {% if node.children.filter(F._model == 'venue').first().name is defined %}
-        {{ node.children.filter(F._model == 'venue').first().description }}
-        <iframe width="100%" height="250" src="{{ node.children.filter(F._model == 'venue').first().map_link }}"></iframe>
+    {% if venue.name is defined %}
+        <img src="{{ venue.parent.parent.children.filter(F._id == venue.sponsor_id).first().attachments.images.first().thumbnail(160)|url }}" />
+        {{ venue.description }}
+        <iframe width="100%" height="250" src="{{ venue.map_link }}"></iframe>
     {% else %}
         The venue for this event is not published, yet...
     {% endif %}

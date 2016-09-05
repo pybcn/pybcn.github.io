@@ -5,6 +5,19 @@
         <i class="fa fa-university"></i>
         {{ this.name }}
     </h1>
-    Description: {{ this.description }}
+    <dl>
+        <dt>
+            Description:
+        </dt>
+        <dd>
+            {{ this.description }}
+        </dd>
+        <dt>
+            Venue provided by:
+        </dt>
+        <dd>
+            <img src="{{ this.parent.parent.children.filter(F._id == this.sponsor_id).first().attachments.images.first().thumbnail(320)|url }}" />
+        </dd>
+    </dl>
     <iframe width="655" height="550" src="{{ this.map_link }}"></iframe>
 {% endblock %}
