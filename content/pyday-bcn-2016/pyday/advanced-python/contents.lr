@@ -9,3 +9,5 @@ moment: 15:30
 room: Sala Polivalent
 ---
 speaker_name: Skyscanner's Engineering Team
+---
+sponsor_id: skyscanner
