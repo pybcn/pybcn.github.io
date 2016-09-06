@@ -2,7 +2,11 @@ _model: activity
 ---
 title: Python Programming Introduction Course (I)
 ---
-abstract: A beginner to Python programming course.
+abstract:
+
+A beginner to Python programming course.
+
+**NOTICE**: This workshop will be given in Spanish or Catalan, depending on audience.
 ---
 moment: 11:15
 ---
