@@ -4,17 +4,21 @@ title: Serverless deployment on AWS with chalice
 ---
 abstract:
 
-A workshop on serverless deployment on AWS using [chalice], AWS' serverless tool, by [Claranet]'s Engineering Operations Team.
+A workshop on serverless deployment on AWS using [Chalice], a Python serverless microframework for AWS, by [Claranet]'s Public Cloud DevOps Team.
 
-**Requirement**: This activity will require attendees to create an AWS account, which will require a credit card, though no amount will be charged.
-
-[chalice]: https://github.com/awslabs/chalice/ "AWS' chalice tool"
-[Claranet]: http://claranet.es "Claranet's homepage"
+[Chalice]: https://github.com/awslabs/chalice/ "AWS' chalice tool"
+[Claranet]: http://www.claranet.es "Claranet's homepage"
 ---
 moment: 13:00
 ---
 room: Sala Polivalent
 ---
-speaker_name: Claranet's Engineering Operations Team
+speaker_name: Matthieu Boret and David Rivera
 ---
 sponsor_id: claranet
+---
+speaker_background:
+
+Both Matthieu Boret and David Rivera are members of [Claranet]'s Public Cloud DevOps Team.
+
+[Claranet]: http://www.claranet.es "Claranet's homepage"
