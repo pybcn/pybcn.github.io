@@ -2,7 +2,7 @@
 {% block title %}{{ this.parent.title }} | {{ this.name }}{% endblock %}
 {% block body %}
     <h1>
-        <img src="{{ this.attachments.images.first().thumbnail(320)|url }}">
+        <img src="{{ this.attachments.images.first().thumbnail(320)|url }}" alt="{{ this.name }}}">
     </h1>
   {{ this.description }}
   {{ this.sponsorizes }}
