@@ -2,7 +2,7 @@ _model: activity
 ---
 title: Testing
 ---
-abstract: A session on software testing.
+abstract: Get up to speed into writing valuable automated test suites using Python.
 ---
 moment: 11:15
 ---
@@ -10,7 +10,7 @@ room: Sala Polivalent
 ---
 speaker_background:
 
-[Carles Barrobés] is a skilled Software Engineer, charmed by the Python programming language.
+[Carles Barrobés] has been developing software for more than 30 years, writing some form of automated tests for at least the last half of his career, in at least three different languages and using a variety of tools.
 
 [Carles Barrobés]: https://twitter.com/technomilk "Carles Barrobés' Twitter account"
 ---
