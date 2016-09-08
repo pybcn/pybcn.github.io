@@ -1,12 +1,12 @@
 _model: activity
 ---
-title: Serverless deployment on AWS with chalice
+title: Serverless deployment on AWS with Zappa
 ---
 abstract:
 
-A workshop on serverless deployment on AWS using [Chalice], a Python serverless microframework for AWS, by [Claranet]'s Public Cloud DevOps Team.
+A workshop on serverless deployment on AWS using [Zappa], a Python serverless microframework for AWS, by [Claranet]'s Public Cloud DevOps Team.
 
-[Chalice]: https://github.com/awslabs/chalice/ "AWS' chalice tool"
+[Zappa]: https://github.com/Miserlou/Zappa/ "Zappa tool"
 [Claranet]: http://www.claranet.es "Claranet's homepage"
 ---
 moment: 13:00
