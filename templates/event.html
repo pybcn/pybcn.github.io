@@ -1,5 +1,5 @@
 {% extends "layout-event.html" %}
-{% from "macros/sponsors.html" import sponsors %}
+{% from "macros/sponsors.html" import sponsors, jobs_from_sponsors %}
 {% block title %}{{ this.title }}{% endblock %}
 {% block body %}
     <div class="row carousel">
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-md-12">
                     <h3 class="platinum">
-                        <i class="fa fa-diamond" aria-hidden="true"></i>
+                        <i class="fa fa-certificate" aria-hidden="true"></i>
                         Platinum
                     </h3>
                     {{ sponsors(this, 'platinum') }}
