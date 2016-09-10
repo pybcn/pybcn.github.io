@@ -1,4 +1,5 @@
 {% extends "layout-event-info.html" %}
+{% from "macros/sponsors.html" import sponsor_has_jobs, jobs_from_sponsor %}
 {% block title %}{{ this.parent.title }} | {{ this.name }}{% endblock %}
 {% block body %}
     <h1>
@@ -6,4 +7,15 @@
     </h1>
   {{ this.description }}
   {{ this.sponsorizes }}
+    {% if sponsor_has_jobs(this)|trim %}
+        <div class="col-md-12">
+            <div class="widget">
+                <h2>
+                    <i class="fa fa-industry" aria-hidden="true"></i>
+                    Job offers from this sponsor
+                </h2>
+                {{ jobs_from_sponsor(this, this) }}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
