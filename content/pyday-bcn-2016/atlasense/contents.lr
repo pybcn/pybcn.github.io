@@ -1,0 +1,17 @@
+_model: sponsor
+---
+name: AtlaSense
+---
+description:
+
+[AtlaSense] is an AI platform for modern legal departments who want to take control of their data.
+
+[AtlaSense]: http://atlasense.com "AtlaSense's homepage"
+---
+level: silver
+---
+sponsorizes:
+
+[AtlaSense] sponsorizes our PyDay BCN 2016 event to pay expenses, like coffees, refreshments, etc.
+
+[AtlaSense]: http://atlasense.com "AtlaSense's homepage"

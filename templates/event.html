@@ -70,38 +70,7 @@
     <div class="row event-sponsors">
         <div class="col-md-12">
             <div class="widget">
-                <h2>
-                    <i class="fa fa-rocket" aria-hidden="true"></i>
-                    Sponsors and collaborators
-                </h2>
-                <div class="col-md-12">
-                    <h3 class="venues"">
-                        <i class="fa fa-university" aria-hidden="true"></i>
-                        Venues
-                    </h3>
-                    {{ sponsors(this, 'venue') }}
-                </div>
-                <div class="col-md-12">
-                    <h3 class="platinum">
-                        <i class="fa fa-certificate" aria-hidden="true"></i>
-                        Platinum
-                    </h3>
-                    {{ sponsors(this, 'platinum') }}
-                </div>
-                <div class="col-md-12">
-                    <h3 class="collaborators">
-                        <i class="fa fa-cube" aria-hidden="true"></i>
-                        Collaborators
-                    </h3>
-                    {{ sponsors(this, 'collaborator', 160) }}
-                </div>
-                <div class="col-md-12">
-                    <h3 class="thanks-to">
-                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                        Thanks to ...
-                    </h3>
-                    {{ sponsors(this, 'thanks', 160) }}
-                </div>
+                {{ sponsors(this) }}
             </div>
         </div>
     </div>

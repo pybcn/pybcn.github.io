@@ -1,0 +1,17 @@
+_model: sponsor
+---
+name: Schibsted Spain
+---
+level: gold
+---
+description:
+
+[Schibsted Spain] is the company running some of the biggest classified advertising for buying, selling, renting and getting a job online in Spain.
+
+[Schibsted Spain]: http://www.schibsted.es "Schibsted Spain's homepage"
+---
+sponsorizes:
+
+[Schibsted Spain] sponsorizes our PyDay BCN 2016 event to pay expenses like coffees, refreshments, etc.
+
+[Schibsted Spain]: http://www.schibsted.es "Schibsted Spain's homepage"
