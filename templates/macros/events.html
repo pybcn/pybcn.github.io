@@ -5,7 +5,7 @@
             <a href="{{ node.parent|url }}">{{ node.parent.title }}</a>
         </h3>
         <ul id="toc" class="toc-entries">
-        {% for event_info in site.query(node.parent.path).order_by('order') %}
+        {% for event_info in site.query(node.parent.path).filter(F._id != 'sponsors').order_by('order') %}
             <li>
                 <a href="{{ event_info|url }}">{{ event_info.title }}</a>
                 <ul class="toc-subentries">

@@ -60,7 +60,7 @@
                     More information
                 </h3>
                 <ul class="event-infos"">
-                {% for child in this.children.filter(F._model == 'event-info').order_by('order') %}
+                {% for child in this.children.filter(F._model == 'event-info' and F._id != 'sponsors').order_by('order') %}
                     <li><a href="{{ child|url }}">{{ child.title }}</a></li>
                 {% endfor %}
                 </ul>
