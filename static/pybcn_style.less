@@ -8,6 +8,8 @@
 @blue: #2a99b6;
 @lightblue: #337ab7;
 @platinum: #a5a4a2;
+@gold: #ffd700;
+@silver: #c0c0c0;
 
 @transition_time: all 0.2s ease-in-out;
 
@@ -290,6 +292,8 @@ footer {
 
 h3.venues,
 h3.platinum,
+h3.gold,
+h3.silver,
 h3.collaborators,
 h3.thanks-to,
 h3.event-sponsorship {
@@ -302,6 +306,18 @@ h3.platinum {
     }
 }
 
+h3.gold {
+    i.fa-certificate {
+        color: @gold;
+    }
+}
+
+h3.silver {
+    i.fa-certificate {
+        color: @silver;
+    }
+}
+
 ul.sponsors {
     list-style: none;
     text-align: center;
@@ -311,6 +327,13 @@ ul.sponsors {
         margin-right: 20px;
         padding-right: 20px;
     }
+}
+
+/* Sponsors page: sponsors
+----------------------------------------------------------------------------- */
+
+section.sponsors {
+    text-align: center;
 }
 
 /* Homepage: carousel
