@@ -6,6 +6,8 @@ abstract:
 
 A workshop on [MongoDB] and Python by MongoDB's Engineers.
 
+**REQUIREMENTS**: For this workshop you should bring your own laptop.
+
 [MongoDB]: http://mongodb.com "MongoDB's homepage"
 ---
 moment: 17:30

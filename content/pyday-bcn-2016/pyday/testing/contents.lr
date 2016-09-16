@@ -6,7 +6,7 @@ abstract:
 
 Get up to speed into writing valuable automated test suites using Python.
 
-**IMPORTANT**: Please ensure your computer is setup with Python 3 and git, at least, in some environment.
+**REQUIREMENTS**: Please ensure your computer is setup with Python 3 and git, at least, in some environment.
 ---
 moment: 11:15
 ---

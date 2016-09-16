@@ -6,6 +6,8 @@ abstract:
 
 [Jupyter] is a code development tool, very good for prototyping, with support for many programming languages, very used in scientific and data science environments.
 
+**REQUIREMENTS**: You don't need laptop for this workshop, but you may need a USB stick to save your files. If you bring your laptop, you will need to get Python 2.7, Jupyter, NumPy, Matplotlib, and Bokeh.
+
 [Jupyter]: http://jupyter.org/ "Project Jupyter's jomepage"
 ---
 moment: 15:30

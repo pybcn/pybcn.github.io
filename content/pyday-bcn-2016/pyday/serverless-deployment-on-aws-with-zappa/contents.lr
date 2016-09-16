@@ -6,6 +6,8 @@ abstract:
 
 A workshop on serverless deployment on AWS using [Zappa], a Python serverless microframework for AWS, by [Claranet]'s Public Cloud DevOps Team.
 
+**REQUIREMENTS**: For this workshop you should bring your own laptop.
+
 [Zappa]: https://github.com/Miserlou/Zappa/ "Zappa tool"
 [Claranet]: http://www.claranet.es "Claranet's homepage"
 ---
