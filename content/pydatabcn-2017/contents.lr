@@ -8,7 +8,7 @@ The [PyDataBCN 2017](http://pydata.org/barcelona2017/) took place from May 19th 
 
 ### Media
 
-You can see all the [photos](https://www.flickr.com/photos/pydata/sets/72157684439580266/) from the event. The videos will be published soon.
+You can see all the [photos](https://www.flickr.com/photos/pydata/sets/72157684439580266/) and [videos](https://www.youtube.com/playlist?list=PLGVZCDnMOq0oieXy92cJBwSirA3G2MCU1) from the event.
 
 ### Slides
 
@@ -17,6 +17,7 @@ This is the list of the slides talks and workshops you can find from the event:
 2. [An introduction to the tidyverse](https://github.com/cimentadaj/PyData_2017) by Jorge Cimentada
 3. [Analyzing code contributions to the CPython project using NetworkX and Matplotlib](https://github.com/jtorrents/thesis/blob/master/presentations/pydata_bcn/cpython_code_contributions.pdf) by Jordi Torrents
 4. [Data science for lazy people... genetics will work for you!](http://slides.com/j-diegohueltesvega/data-science-lazy-people#/) by Diego Hueltes
+17. [DeepCare Chatbot - Generating answers to customers using a hybrid approach of Deep Learning and NLP](https://www.slideshare.net/PascalvanKooten/deepcare-chatbot-generating-answers-to-customers-using-a-hybrid-approach-of-deep-learning-and-nlp) by Pascal van Kooten
 5. [Guillotina - An Async REST Resource DB to manage millions of objects](https://www.slideshare.net/bloodbare/guillotina-76266421) by Ramon Navarro Bosch
 6. [Happyness inside a job: a social network analysis](https://github.com/Guillem-db/Happiness-inside-a-job-PyDataBcn17) by Guillem Duran Ballester
 7. [Increasing the trading prediction by mining aggregated human texting messages](https://drive.google.com/open?id=0B19Xo1zu3JtgZmVDaWVyTk1uN3M) by Yang Liu
@@ -29,4 +30,3 @@ This is the list of the slides talks and workshops you can find from the event:
 14. [Squeeze (gently) your data](https://speakerdeck.com/francescalted/squeeze-gently-your-big-data) by Francesc Alted
 15. [TensorFlow Wide & Deep: Advanced Classification the easy way](https://storage.googleapis.com/yufengg-slides/pydataBCNslides.pdf) by Yufeng Guo
 16. [Using network community clustering algorithms to aid determination of protein structures](https://drive.google.com/file/d/0Bzli2ZOV2beTd01ZdHBkWHc5b2M/view) by Claudia Millán
-17. [xtoy - going from X (raw input) to y (prediction), smoothly](https://www.slideshare.net/PascalvanKooten/deepcare-chatbot-generating-answers-to-customers-using-a-hybrid-approach-of-deep-learning-and-nlp) by Pascal van Kooten
