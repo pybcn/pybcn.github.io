@@ -56,6 +56,7 @@
                         </h3>
                     </div>
 
+                    {% if not this.is_child_of('/') %}
                     <div class="widget" >
                         <h3 class="widget-title">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -79,6 +80,7 @@
                             </li>
                         </ul>
                     </div>
+                    {% endif %}
 
                     <div class="widget" id="twitter"></div>
 
