@@ -6,7 +6,8 @@
 
 ```
 mkvirtualenv pybcn-web --python=/usr/bin/python3
-pip install requirements.txt
+source activate pybcn-web
+pip install -r requirements.txt
 ```
 
 3. Run the development server with:
