@@ -18,3 +18,17 @@ The site will be available at `http://localhost:5000/`.
 
 You can edit the files in the folder `content` to change the content of the site. Alternatively, head to `http://localhost:5000/admin/` to edit the contents using the lektor web interface.
 
+
+# Compile .less files into .css
+
+We use [LessJS](http://lesscss.org/usage/) to ease the management of CSS assets.
+
+1. Install LessJS:
+```
+npm install less -g
+```
+2. Get to the static assets folder and compile:
+```
+cd assets/static/
+lessc pybcn_style.less pybcn_style.css
+```
