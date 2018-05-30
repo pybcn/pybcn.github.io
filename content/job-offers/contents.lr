@@ -1,0 +1,32 @@
+
+_model: page
+---
+title: Job Offers
+---
+body:
+
+
+All job offers are sent to the subscribers of the mailing list.
+
+To **check** past job offers, go to the
+[Mailing List Archive](https://www.meetup.com/python-185/messages/archive/).
+
+To **publish** a new job offer:
+- Send it to _pybcn+jobs at googlegroups.com_.
+- Subject: "_Job offer: {POSITION} at {COMPANY}_".
+- For the body, feel free to check other job offers as inspiration.
+- If the rules are met, we'll publish the offer!
+
+All job offers **must** follow these rules:
+
+1. Be related to Python.
+2. Contain a good job description.
+3. Provide the name of the company, and direct company contact info.
+4. Provide a _salary range_.
+
+To get more visibility of what you do, consider
+[giving a talk](https://pybcn.org/call-for-proposals/) or offering to
+host the meetup!
+
+**Disclaimer:** We ban cheaters. Don't post offers in comments, events, or
+discussions!
