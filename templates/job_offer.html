@@ -1,25 +1,6 @@
-{% extends "layout-event-info.html" %}
-{% block title %}{{ this.parent.title }} | {{ this.name }}{% endblock %}
+{% extends "layout.html" %}
+{% block title %}{{ this.title }}{% endblock %}
 {% block body %}
-    <dl>
-        <dt>
-            Title:
-        </dt>
-        <dd>
-            {{ this.title }}
-        </dd>
-        <dt>
-            Description:
-        </dt>
-        <dd>
-            {{ this.description }}
-        </dd>
-        {% set sponsor_logo = this.parent.attachments.images.first() %}
-        <dt>
-            Job offer published by:
-        </dt>
-        <dd>
-            <img src="{{ sponsor_logo.thumbnail(160)|url }}" />
-        </dd>
-    </dl>
+  <h1>{{ this.title }}</h1>
+  {{ this.description }}
 {% endblock %}

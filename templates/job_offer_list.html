@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+  <h1>{{ this.title }}</h1>
+  {{ this.body }}
+
+  <h2>Last job offers</h2>
+  {% for child in this.children %}
+  <h3><a href="{{ child | url }}">{{ child.title }}</a></h3>
+  <p><em>{{ child.pub_date }}</em></p>
+  <p>{{ child.description.html | truncate }}</p>
+  {% endfor %}
+{% endblock %}
