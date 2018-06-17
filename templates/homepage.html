@@ -4,7 +4,7 @@
 
     <div class="row carousel">
         <div class="col-md-12">
-            
+
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
                 <div class="carousel-inner" role="listbox">
@@ -50,7 +50,21 @@
         </div>
     </div>
     <div class="col-md-6 right_column">
-
+        <div class="widget" >
+            <h3 class="widget-title">
+                Latest Posts
+            </h3>
+            <ul>
+                {% set posts = site.query('/blog').include_undiscoverable(true).all() %}
+                {% for post in posts %}
+                <li>
+                    <a href="{{ post | url}}">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6 right_column">
         <div class="widget" >
             <h3 class="widget-title">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -62,9 +76,6 @@
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="col-md-6 right_column">
-
         <div class="widget" >
             <h3 class="widget-title">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
