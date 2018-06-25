@@ -50,18 +50,18 @@
         </div>
     </div>
     <div class="col-md-6 right_column">
-        <div class="widget" >
+        <div class="widget" id="posts">
             <h3 class="widget-title">
                 Latest Posts
             </h3>
-            <ul>
-                {% set posts = site.query('/blog').include_undiscoverable(true).all() %}
-                {% for post in posts %}
-                <li>
-                    <a href="{{ post | url}}">{{ post.title }}</a>
-                </li>
-                {% endfor %}
-            </ul>
+            {% set posts = site.query('/blog').include_undiscoverable(true).limit(3) %}
+            {% for post in posts %}
+            <div class="post-box">
+                <h4><a href="{{ post | url}}">{{ post.title }}</a></h4>
+                <p class=".excerpt">{{ post.excerpt }}</p>
+            </div>
+            {% endfor %}
+            <p class="text-right"><a href="/blog/">More...</a></p>
         </div>
     </div>
     <div class="col-md-6 right_column">

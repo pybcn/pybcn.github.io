@@ -6694,6 +6694,14 @@ footer #meetup_icon {
   margin-left: -3px;
   margin-right: -2px;
 }
+#posts h4 {
+  font-weight: bold;
+}
+#posts .post-box {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #75a8d3;
+}
 /* Right column
 ----------------------------------------------------------------------------- */
 .widget {
