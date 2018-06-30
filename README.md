@@ -32,3 +32,23 @@ npm install less -g
 cd assets/static/
 lessc pybcn_style.less pybcn_style.css
 ```
+
+# Send tweets about events
+
+1. Go to the `scripts` folder and install/activate the last NodeJS version:
+```
+cd scripts/
+nvm use
+```
+
+2. Install all required node packages:
+```
+npm install
+```
+
+3. Set the environment variables `TWITTER_CONSUMER_KEY`, `TWITTER_CONSUMER_SECRET`,
+`TWITTER_ACCESS_TOKEN` and  `TWITTER_ACCESS_TOKEN_SECRET` (e.g. using a
+`.env` file) and run:
+```
+npm run main
+```
