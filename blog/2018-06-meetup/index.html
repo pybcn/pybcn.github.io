@@ -28,11 +28,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/e19927ebb1.js"></script>
-    <link rel="stylesheet" type="text/css" href="./static/fonts/30B858_0_0.css">
-    <link rel="stylesheet" href="./static/style.css">
-    <link rel="stylesheet" href="./static/pybcn_style.css">
+    <link rel="stylesheet" type="text/css" href="../../static/fonts/30B858_0_0.css">
+    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="../../static/pybcn_style.css">
 
-    <title>Python Barcelona Meetup — PyBCN</title>
+    <title>Python June Meetup — PyBCN</title>
 </head>
 
 <body>
@@ -85,36 +85,36 @@
                                     </div>
                                     <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
                                         <ul class="nav navbar-nav navbar-right">
-                                            <!-- <li class="active">
-                                                <a href="./">Welcome</a>
+                                            <!-- <li>
+                                                <a href="../../">Welcome</a>
                                             </li> -->
                                             
                                                 <li>
-                                                    <a href="./monthly-meetups/">Monthly Meetups</a>
+                                                    <a href="../../monthly-meetups/">Monthly Meetups</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="./coding-dojos/">Coding Dojos</a>
+                                                    <a href="../../coding-dojos/">Coding Dojos</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="./pyladies-bcn/">PyLadies BCN</a>
+                                                    <a href="../../pyladies-bcn/">PyLadies BCN</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="./pydatabcn-2017/">PyDataBCN 2017</a>
+                                                    <a href="../../pydatabcn-2017/">PyDataBCN 2017</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="./pyday-bcn-2016/">PyDay BCN 2016</a>
+                                                    <a href="../../pyday-bcn-2016/">PyDay BCN 2016</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="./coc/">Code of Conduct</a>
+                                                    <a href="../../coc/">Code of Conduct</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="./job-offers/">Job Offers</a>
+                                                    <a href="../../job-offers/">Job Offers</a>
                                                 </li>
                                             
                                                 <li>
@@ -138,96 +138,39 @@
                 
                 <div class="col-md-9 main_column">
                     
+  
+  <div class="blog-post">
+  
+    <h1>Python June Meetup</h1>
+  
+  <p class="meta">
+    written by
+    
+      <a href="https://twitter.com/dukebody">Israel Saeta Pérez</a>
+    
+    on 2018-06-21
+  </p>
+  
+    <h2>Talks</h2>
+<h3>How does that PySpark thing work? And why Arrow makes it faster?</h3>
+<p>by Rubén Berenguel (@berenguel) (English, 45 min)</p>
+<p>Back in ye olde days of Spark, using Python with Spark was an exercise in patience. Data was moving up and down from Python to Scala, being serialised constantly. Leveraging SparkSQL and avoiding UDFs made things better, as well as the constant improvement of the optimisers (Catalyst and Tungsten). But, with Spark 2.3 PySpark has speed up tremendously thanks to the (still experimental) addition of the Arrow serialisers.</p>
+<p>In this talk we will learn how PySpark has improved its performance in Apache Spark 2.3 by using Apache Arrow. To do this, we will travel through the internals of Spark to find how Python interacts with the Scala core, and some of the internals of Pandas to see how data moves from Python to Scala via Arrow.</p>
+<p>Slides available at: <a href="https://github.com/rberenguel/pyspark-arrow-pandas">https://github.com/rberenguel/pyspark-arrow-pandas</a></p>
+<h3>Frozen Python: satice ice dataloggers</h3>
+<p>by Oriol Sánchez (English, 35 min)</p>
+<p>Project website: <a href="https://headingnorthweb.wordpress.com/tag/en-us/" title="https://headingnorthweb.wordpress.com/tag/en-us/">https://headingnorthweb.wordpress.com/tag/en-us/</a></p>
+<p>In this talk we will be about Sea Ice buoys and embedded scientific observation platforms in extreme environments.</p>
+<p>We will learn how to use python to write drivers, custom data protocols, sensors and GPS integration. Also we will take a look on data visualisation and other painful engineering stories to bring data from field to your server.</p>
+<h2>More</h2>
+<ul>
+<li>We need talk proposals! Send yours: <a href="http://pybcn.org/call-for-proposals/" title="http://pybcn.org/call-for-proposals/">http://pybcn.org/call-for-proposals/</a></li>
+<li>Wanna publish a job offer? <a href="https://www.meetup.com/python-185/pages/24606847/Job_offers/" title="https://www.meetup.com/python-185/pages/24606847/Job_offers/">https://www.meetup.com/python-185/pages/24606847/Job_offers/</a></li>
+<li>Follow @PyBCN for pictures, slides and more: <a href="https://twitter.com/pybcn" title="https://twitter.com/pybcn">https://twitter.com/pybcn</a></li>
+</ul>
 
-    <div class="row carousel">
-        <div class="col-md-12">
-
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-                <div class="carousel-inner" role="listbox">
-
-                    <div class="item active">
-                        <img src="/static/images/carousel_home/meetup.jpg" class="img-responsive" alt="PyBCN meetup" />
-                        <div class="carousel-caption ">
-                            <a href="/monthly-meetups"><h4 class="back-light">PyBCN Monthly Meetups</h4></a>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="/static/images/carousel_home/pyladiesbcn.jpg" class="img-responsive" alt="PyLadies BCN" />
-                        <div class="carousel-caption ">
-                            <a href="/pyladiesbcn"><h4 class="back-light">PyLadies BCN</h4></a>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="/static/images/carousel_home/coding-dojo.jpg" class="img-responsive" alt="PyBCN Coding Dojos" />
-                        <div class="carousel-caption ">
-                            <a href="/coding-dojos"><h4 class="back-light">PyBCN Coding Dojos</h4></a>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="/static/images/carousel_home/djangogirlsbcn.jpg" class="img-responsive" alt="DjangoGirls BCN" />
-                        <div class="carousel-caption ">
-                            <h4 class="back-light">DjangoGirls BCN</h4>
-                        </div>
-                    </div>
-
-                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                        <i class="fa fa-chevron-left pr-10"></i>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                        <i class="fa fa-chevron-right pr-10"></i>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 right_column">
-        <div class="widget" id="posts">
-            <h3 class="widget-title">
-                Latest Posts
-            </h3>
-            
-            
-            <div class="post-box">
-                <h4><a href="./blog/2018-06-meetup/">Python June Meetup</a></h4>
-                <p class=".excerpt">&#34;How does that PySpark thing work? And why Arrow makes it faster?&#34;
-by Rubén Berenguel. &#34;Frozen Python: satice ice dataloggers&#34;
-by Oriol Sánchez</p>
-            </div>
-            
-            <p class="text-right"><a href="/blog/">More...</a></p>
-        </div>
-    </div>
-    <div class="col-md-6 right_column">
-        <div class="widget" >
-            <h3 class="widget-title">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                Upcoming Events
-            </h3>
-            <ul id="upcoming" class="calendar">
-                <li>
-                    There are no upcoming events scheduled... Stay tuned!
-                </li>
-            </ul>
-        </div>
-        <div class="widget" >
-            <h3 class="widget-title">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                Past Events
-            </h3>
-            <ul id="past" class="calendar">
-                <li>
-                    There are no past events scheduled... Stay tuned!
-                </li>
-            </ul>
-        </div>
-
-    </div>
+  
+  </div>
 
 
                 </div>
