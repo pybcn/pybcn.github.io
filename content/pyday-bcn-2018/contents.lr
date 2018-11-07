@@ -28,16 +28,21 @@ sponsoring companies: coffee breaks, open spaces, etc.
 # Join the event
 Registration will open about two weeks before the event. Stay tuned!
 
-# Agenda (to be confirmed)
-- 09:30 - 10:00: Registration and breakfast
-- 10:00 - 10:30: Welcome session
-- 10:30 - 12:00: Workshop Beginner 1 and Intermediate 1
-- 12:00 - 12:30: Coffee break
-- 12:30 - 14:00: Workshop Beginner 2 and Intermediate 2
-- 14:00 - 15:00: Lunch
-- 15:00 - 16:30: Workshop Beginner 3 and Intermediate 3
-- 16:30 - 18:00: Workshop Beginner 4 and Intermediate 4
-- 18:00 - 18:30: Closing session, prizes and awards
+# Agenda
+
+|  |                                                                |                                                                           |   |   |
+|---------------|----------------------------------------------------------------------------------------|---------------------------------------------------------------------------|---|---|
+| 09:30 - 10:00 | <b>Registration & Breakfast</b>                                                               |                                                                           |   |   |
+| 10:00 - 10:30 | Welcome session -  Laura Pérez Mayos                                                     |                                                                           |   |   |
+|               | <b>PyBCN Introductory Workshops</b>                                                           | <b>Data and Python Track (I)</b>                                                 |   |   |
+| 10:30 - 12:00 | Developing a small application with git - Ignasi Fosch                                   | Introduction to pytorch - Bartek Skorulski                                  |   |   |
+| 12:00 - 12:30 | <b>Coffee break</b>                                                                           |                                                                           |   |   |
+| 12:30 - 14:00 | Data analysis with Jupyter Notebook, Pandas and Plotly - Natàlia Padilla and Laura Pérez | Mirror, mirror on the wall, who is the fairest of them all? - Ismael Benito |   |   |
+| 14:00 - 15:00 | <b>Lunch</b>                                                                                  |                                                                           |   |   |
+|               | <b>Web Track</b>                                                                              | <b>Data and Python Track (II)</b>                                                |   |   |
+| 15:00 - 16:30 | Python and Elasticsearch - Artur Mindiyarov                                              | Intro to NoSQL DB with PyMongo - Jordi Guix                                 |   |   |
+| 16:30 - 18:00 | Guillotina - Data framework - Ramon Navarro Bosch                                        | Organizando chistes con NLP - Julio Martínez                                |   |   |
+| 18:00 - 19:00 | Closing session: Kahoot &- Code Fights Awards                                          |                                                                           |   |   |
 
 # Call for Proposals
 The call for proposals is closed! The final agenda will be published shortly.
