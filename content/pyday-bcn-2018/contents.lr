@@ -44,6 +44,68 @@ sponsoring companies: coffee breaks, open spaces, etc.
 | 16:30 | Guillotina - Data framework - Ramon Navarro Bosch                                        | Organizando chistes con NLP - Julio Martínez                                |   |   |
 | 18:00 | Closing session: Kahoot &- Code Fights Awards                                          |                                                                           |   |   |
 
+# Workshops descriptions
+
+<b>Developing a small application with git</b>
+Speaker: Ignasi Fosch (@ifosch)<br/>
+Description: In this workshop, the attendees will participate in collaborative developing a small simple application using git and GitHub for the workflow. The goals of the exercise is to practice some simple concepts about contributing code.<br/>
+Level: Beginner<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+<b>Introduction to pytorch</b>
+Speaker: Bartek Skorulski<br/>
+Description: Why is it worth to know pytorch? Pytorch is a machine/deep learning library for python mainly developed by Facebooks’s AI Team. Pytorch's models are just like other python programs, so it quite easy to write and debug them. Hence pytorch is great for research and experiments. Moreover, with new version 1.0, pytorch introduce ""script mode"" that aims to become also a tool for writing production code.<br/>In this short workshop we give a quick and dirty introduction to pytorch. If you came with a laptop with access to python, jupyter and pytorch, then you will have an opportunity to build, train and evaluate few forward feed neural networks. We start with a simple single layer neural network and finish with convolutional one. We assume that you are familiar with python and have some basic knowledge about neural network. Before the workshop, we will provide information how one can get an access to programs and dataset used.<br/>
+Level: Intermediate<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+<b>Data analysis with Jupyter Notebook, Pandas and Plotly</b>
+Speaker: Natàlia Padilla (@nataliasirera) and Laura Pérez (@lpmayos) (@PyLadiesBCN)  <br/>
+Description: A hands-on session where you will learn how to analyze data with Jupyter Notebook, Pandas and Plotly. This will be a guided workshop, suitable for both experienced users and beginners with an interest in data analysis.<br/>
+Level: Beginner<br/>
+Requirements: a laptop + Jupyter + Pandas + Plotly +  an appetite for learning!<br/>
+Installation:<br/>
+• Option 1: Install Anaconda https://www.anaconda.com/download/
+• Option 2: Execute on the terminal: pip install jupyter pandas plotly
+<br/><br/>
+
+<b>Mirror, mirror on the wall, who is the fairest of them all? (Introduction to OpenCV)</b>
+Speaker: Ismael Benito (@ismansiete)<br/>
+Description: An introduction to OpenCV for NumPy-Scipy-Matplotlib stack users. Starting with Anaconda pre-compiled versions, specially from Menpo project (https://anaconda.org/menpo/opencv3). Covering inputs and outputs, from basic image handling, such as: 'imread', 'imshow', 'imwrite', etc; to video streams. Some basics in color treatment and thresholding techniques. Also, fundamentals of image warping and cropping. Finally, a small project to be able to find a specific object, for example a QR Code, in a scene and trimmed it.<br/>
+Level: Intermediate<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+<b>Python and Elasticsearch</b>
+Speaker: Artur Mindiyarov <br/>
+Description: Elasticsearch is one of the best open-source, cross-platform, distributed and scalable search engine. In this workshop we are going to learn basics of Elasticsearch and use it to built our own search solution.<br/>
+Level: Intermediate<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+<b>Intro to NoSQL DB with PyMongo</b>
+Speaker: Jordi Guix<br/>
+Description: Learn how to access and manage big data with Python. How to access to DB, basic CRUD operations (Create, Read, Update, Delete) and overview of advance operations.<br/>
+Level: Beginner<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+<b>Guillotina - Data framework</b>
+Speaker: Ramon Navarro Bosch (@bloodbare)<br/>
+Description: A walkthrough from creating a data REST API with your custom model and structure to an interactive interface to consume and manage it. Security and custom rich object models to create micro-services that handles large volume information. We also will cover how to interact with it to compute models using its internal API and Jupyter.<br/>
+Level: Intermediate<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+<b>Organizando chistes con NLP</b>
+Speaker: Julio Martínez (@liopic)<br/>
+Description: Haciendo un repaso global de diferentes técnicas de NLP clásicas y modernas, vamos a organizar una colección de chistes en castellano.<br/>
+Level: Intermediate<br/>
+Requirements: (to bo announced)<br/>
+<br/><br/>
+
+
 # Sponsors
 Do you want to sponsor this event?
 Contact us at [pyday-bcn-2018@googlegroups.com](mailto:pyday-bcn-2018@googlegroups.com).
