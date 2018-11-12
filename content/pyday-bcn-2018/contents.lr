@@ -50,14 +50,22 @@ sponsoring companies: coffee breaks, open spaces, etc.
 <b>Speaker:</b> Ignasi Fosch (@ifosch)<br/>
 <b>Description:</b> In this workshop, the attendees will participate in collaborative developing a small simple application using git and GitHub for the workflow. The goals of the exercise is to practice some simple concepts about contributing code.<br/>
 <b>Level:</b> Beginner<br/>
-<b>Requirements:</b> (to be announced)<br/>
+<b>Requirements:</b>
+* Git installed
+* Some virtual environment with Python 3.6 and pytest setup
+* GitHub account created<br/>
 <br/><br/>
 
 <b>Introduction to pytorch</b><br/>
 <b>Speaker:</b> Bartek Skorulski<br/>
-<b>Description:</b> Why is it worth to know pytorch? Pytorch is a machine/deep learning library for python mainly developed by Facebooks’s AI Team. Pytorch's models are just like other python programs, so it quite easy to write and debug them. Hence pytorch is great for research and experiments. Moreover, with new version 1.0, pytorch introduce ""script mode"" that aims to become also a tool for writing production code.<br/>In this short workshop we give a quick and dirty introduction to pytorch. If you came with a laptop with access to python, jupyter and pytorch, then you will have an opportunity to build, train and evaluate few forward feed neural networks. We start with a simple single layer neural network and finish with convolutional one. We assume that you are familiar with python and have some basic knowledge about neural network. Before the workshop, we will provide information how one can get an access to programs and dataset used.<br/>
+<b>Description:</b>
+Why is it worth to know pytorch? Pytorch is a machine/deep learning library for python mainly developed by Facebooks’s AI Research Group. SInce pytorch's models are just like other python programs, it quite easy to write and debug them. Hence pytorch is great for research and experiments. Moreover, with new version 1.0, pytorch introduce "script mode" that aims to become also a tool for writing production code.
+
+In this short workshop we give a quick and dirty introduction to pytorch. You will have an opportunity to build, train and evaluate few forward feed neural networks. We start with a simple single layer neural networks and finish with convolutional ones.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)<br/>
+<b>Requirements:</b>
+* We assume that you are familiar with python, have some basic knowledge about neural network.
+* You will get the best experience if you bring a notebook with access to python (I'll use version 3.6) with numpy, pandas, jupyter, pytorch, matplotlib, pillow and opencv.
 <br/><br/>
 
 <b>Data analysis with Jupyter Notebook, Pandas and Plotly</b><br/>
