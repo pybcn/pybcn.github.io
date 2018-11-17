@@ -46,17 +46,16 @@ sponsoring companies: coffee breaks, open spaces, etc.
 
 # Workshops descriptions
 
-<b>Developing a small application with git</b><br/>
+## Developing a small application with git
 <b>Speaker:</b> Ignasi Fosch (@ifosch)<br/>
 <b>Description:</b> In this workshop, the attendees will participate in collaborative developing a small simple application using git and GitHub for the workflow. The goals of the exercise is to practice some simple concepts about contributing code.<br/>
 <b>Level:</b> Beginner<br/>
 <b>Requirements:</b>
 * Git installed
 * Some virtual environment with Python 3.6 and pytest setup
-* GitHub account created<br/>
-<br/><br/>
+* GitHub account created
 
-<b>Introduction to pytorch</b><br/>
+## Introduction to pytorch
 <b>Speaker:</b> Bartek Skorulski<br/>
 <b>Description:</b>
 Why is it worth to know pytorch? Pytorch is a machine/deep learning library for python mainly developed by Facebooks’s AI Research Group. SInce pytorch's models are just like other python programs, it quite easy to write and debug them. Hence pytorch is great for research and experiments. Moreover, with new version 1.0, pytorch introduce "script mode" that aims to become also a tool for writing production code.
@@ -66,9 +65,8 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 <b>Requirements:</b>
 * We assume that you are familiar with python, have some basic knowledge about neural network.
 * You will get the best experience if you bring a notebook with access to python (I'll use version 3.6) with numpy, pandas, jupyter, pytorch, matplotlib, pillow and opencv.
-<br/><br/>
 
-<b>Data analysis with Jupyter Notebook, Pandas and Plotly</b><br/>
+## Data analysis with Jupyter Notebook, Pandas and Plotly
 <b>Speaker:</b> Natàlia Padilla (@nataliasirera) and Laura Pérez (@lpmayos) (@PyLadiesBCN)  <br/>
 <b>Description:</b> A hands-on session where you will learn how to analyze data with Jupyter Notebook, Pandas and Plotly. This will be a guided workshop, suitable for both experienced users and beginners with an interest in data analysis.<br/>
 <b>Level:</b> Beginner<br/>
@@ -76,42 +74,36 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 <b>Installation:</b><br/>
 • Option 1: Install Anaconda https://www.anaconda.com/download/<br/>
 • Option 2: Execute on the terminal: pip install jupyter pandas plotly
-<br/><br/>
 
-<b>Mirror, mirror on the wall, who is the fairest of them all? (Introduction to OpenCV)</b><br/>
+## Mirror, mirror on the wall, who is the fairest of them all? (Introduction to OpenCV)
 <b>Speaker:</b> Ismael Benito (@ismansiete)<br/>
 <b>Description:</b> An introduction to OpenCV for NumPy-Scipy-Matplotlib stack users. Starting with Anaconda pre-compiled versions, specially from Menpo project (https://anaconda.org/menpo/opencv3). Covering inputs and outputs, from basic image handling, such as: 'imread', 'imshow', 'imwrite', etc; to video streams. Some basics in color treatment and thresholding techniques. Also, fundamentals of image warping and cropping. Finally, a small project to be able to find a specific object, for example a QR Code, in a scene and trimmed it.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)<br/>
-<br/><br/>
+<b>Requirements:</b> (to be announced)
 
-<b>Python and Elasticsearch</b><br/>
+## Python and Elasticsearch
 <b>Speaker:</b> Artur Mindiyarov <br/>
 <b>Description:</b> Elasticsearch is one of the best open-source, cross-platform, distributed and scalable search engine. In this workshop we are going to learn basics of Elasticsearch and use it to built our own search solution.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)<br/>
-<br/><br/>
+<b>Requirements:</b> (to be announced)
 
-<b>Intro to NoSQL DB with PyMongo</b><br/>
+## Intro to NoSQL DB with PyMongo
 <b>Speaker:</b> Jordi Guix<br/>
 <b>Description:</b> Learn how to access and manage big data with Python. How to access to DB, basic CRUD operations (Create, Read, Update, Delete) and overview of advance operations.<br/>
 <b>Level:</b> Beginner<br/>
-<b>Requirements:</b> (to be announced)<br/>
-<br/><br/>
+<b>Requirements:</b> (to be announced)
 
-<b>Guillotina - Data framework</b><br/>
+## Guillotina - Data framework
 <b>Speaker:</b> Ramon Navarro Bosch (@bloodbare)<br/>
 <b>Description:</b> A walkthrough from creating a data REST API with your custom model and structure to an interactive interface to consume and manage it. Security and custom rich object models to create micro-services that handles large volume information. We also will cover how to interact with it to compute models using its internal API and Jupyter.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)<br/>
-<br/><br/>
+<b>Requirements:</b> (to be announced)
 
-<b>Organizando chistes con NLP</b><br/>
+## Organizando chistes con NLP
 <b>Speaker:</b> Julio Martínez (@liopic)<br/>
 <b>Description:</b> Haciendo un repaso global de diferentes técnicas de NLP clásicas y modernas, vamos a organizar una colección de chistes en castellano.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)<br/>
-<br/><br/>
+<b>Requirements:</b> (to be announced)
 
 
 # Sponsors
