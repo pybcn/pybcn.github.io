@@ -65,6 +65,7 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 <b>Requirements:</b>
 * We assume that you are familiar with python, have some basic knowledge about neural network.
 * You will get the best experience if you bring a notebook with access to python (I'll use version 3.6) with numpy, pandas, jupyter, pytorch, matplotlib, pillow and opencv.
+* [Guide to install Pytorch](http://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html).
 
 ## Data analysis with Jupyter Notebook, Pandas and Plotly
 <b>Speaker:</b> Natàlia Padilla (@nataliasirera) and Laura Pérez (@lpmayos) (@PyLadiesBCN)  <br/>
