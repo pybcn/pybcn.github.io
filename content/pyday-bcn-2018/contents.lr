@@ -90,9 +90,32 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 
 ## Intro to NoSQL DB with PyMongo
 <b>Speaker:</b> Jordi Guix<br/>
+<b>Language:</b> English<br/>
 <b>Description:</b> Learn how to access and manage big data with Python. How to access to DB, basic CRUD operations (Create, Read, Update, Delete) and overview of advance operations.<br/>
+1. Presentació   (5 min)
+2. Breu introducció de:  (10 - 15 min)
+    - Bases de dades relacionals i no relacionals
+    - Que es mongoDB y links de com instal·lar-lo
+    - Característiques de Mongo i perquè tasques es recomanable
+    - Punts forts i febles
+    - Enllaços d'interes
+3. Workshop - (40 min ) (la meva intenció es fer la pràctica amb Google Colab, accedint al notebook des de Github)
+    - Instal·lació (execució del notebook) explicaré les opcions bàsiques de execució
+    - PyMongo (llibreria per accedir a Mongo)
+        -  Com connectar-se a la base de dades
+        -  Visualització de la estructura de la base de dades
+        -  Accions de Creacio, Lectura, Actualització i Esborrar (CRUD)
+        -  Consultes típiques
+4. Cas practic (30 min)  ( Estic considerant una de 2 possibles opcions)
+    - Opció 1 :  Consultar dades sobre telefonia mòbil.  Amb Dades Obertes de la Generalitat, consultar dades i crear mapes de calor per veure concentracions de gent a Barcelona a un dia i hora determinat.
+    - Opció 2 : Consulta dades sobre Bicing.  Amb Dades de l'ajuntament de Barcelona, consultar l'us del bicing.
+
 <b>Level:</b> Beginner<br/>
 <b>Requirements:</b> (to be announced)
+- Laptop with Internet access
+- Google Account (to use Google Colab)
+- Jupyter Notebook to run the code locally (optional, Anaconda is recommended)
+
 
 ## Guillotina - Data framework
 <b>Speaker:</b> Ramon Navarro Bosch (@bloodbare)<br/>
