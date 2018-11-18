@@ -285,7 +285,20 @@ Why is it worth to know pytorch? Pytorch is a machine/deep learning library for 
 <b>Language:</b> English<br/>
 <b>Description:</b> An introduction to OpenCV for NumPy-Scipy-Matplotlib stack users. Starting with Anaconda pre-compiled versions, specially from Menpo project (<a href="https://anaconda.org/menpo/opencv3">https://anaconda.org/menpo/opencv3</a>). Covering inputs and outputs, from basic image handling, such as: 'imread', 'imshow', 'imwrite', etc; to video streams. Some basics in color treatment and thresholding techniques. Also, fundamentals of image warping and cropping. Finally, a small project to be able to find a specific object, for example a QR Code, in a scene and trimmed it.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)</p>
+<b>Requirements:</b>
+A laptop with a Miniconda/Anaconda distribution. You must create an environment:</p>
+<pre><code>conda create -n opencv python=3.5 anaconda
+
+activate opencv (Windows)
+source activate opencv (Linux|Mac)
+
+conda install -y --channel menpo matplotlib scipy numpy pandas Pillow scikit-learn imageio opencv3=3.1.0
+pip install pyzbar qrcode scikit-video
+</code></pre>
+<p>On Linux systems you might need to install this dependencies:</p>
+<pre><code>apt install -y libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+apt install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+</code></pre>
 <h2>Python and Elasticsearch</h2>
 <p><b>Speaker:</b> Artur Mindiyarov <br/>
 <b>Language:</b> English<br/>
