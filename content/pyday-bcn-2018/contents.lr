@@ -127,7 +127,11 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 <b>Language:</b> English<br/>
 <b>Description:</b> A walkthrough from creating a data REST API with your custom model and structure to an interactive interface to consume and manage it. Security and custom rich object models to create micro-services that handles large volume information. We also will cover how to interact with it to compute models using its internal API and Jupyter.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)
+<b>Requirements:</b>
+- Docker with elasticsearch, postgres and redis images
+- Python packages: guillotina, guillotina_elasticsearch, guillotina_rediscache
+- https://github.com/guillotinaweb/guillotina_processing repo downloaded and docker image built
+
 
 ## Organizando chistes con NLP
 <b>Speaker:</b> Julio Martínez (@liopic)<br/>
