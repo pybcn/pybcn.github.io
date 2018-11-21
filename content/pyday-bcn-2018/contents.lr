@@ -108,7 +108,9 @@ apt install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-d
 <b>Language:</b> English<br/>
 <b>Description:</b> Elasticsearch is one of the best open-source, cross-platform, distributed and scalable search engine. In this workshop we are going to learn basics of Elasticsearch and use it to built our own search solution.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)
+<b>Requirements:</b>
+- Google account to use Google Colaboratory
+- Knowledge of Python
 
 ## Intro to NoSQL DB with PyMongo
 <b>Speaker:</b> Jordi Guix<br/>
