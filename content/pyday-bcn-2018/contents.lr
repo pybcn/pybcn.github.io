@@ -153,9 +153,13 @@ apt install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-d
 ## Organizando chistes con NLP
 <b>Speaker:</b> Julio Martínez (@liopic)<br/>
 <b>Language:</b> Spanish<br/>
-<b>Description:</b> Haciendo un repaso global de diferentes técnicas de NLP clásicas y modernas, vamos a organizar una colección de chistes en castellano.<br/>
+<b>Description:</b> Haciendo un repaso global de diferentes técnicas de NLP clásicas y modernas, vamos a organizar una colección de chistes en castellano. Habrá una introducción general con slides (30 minutos) y luego una serie de ejercicios con un notebook de Jupyter.<br/>
 <b>Level:</b> Intermediate<br/>
-<b>Requirements:</b> (to be announced)
+<b>Requirements:</b>
+- Python 3
+- jupyter
+- scikit-learn
+- spacy (with Spanish model installed)
 
 
 # Sponsors
