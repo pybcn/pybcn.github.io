@@ -1,0 +1,69 @@
+_model: page
+---
+title: PyDay BCN 2019
+---
+body:
+
+(Checkout the archived pages for our past editions:
+[2016](https://pybcn.org/pyday-bcn-2016/) and
+[2018](https://pybcn.org/pyday-bcn-2018/)
+and [see some photos](https://goo.gl/photos/RtgBeZqHHjcRDSnX9).)
+
+We are excited to announce that we are organizing the third edition of PyDay in Barcelona!
+
+PyDay Barcelona 2019 is going to take place on *October 19th in Universitat de Barcelona*, a full day full of FREE python-related activities for the Python community. Over the last two editions, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
+
+We count with an incredible group of volunteers and contributing entities but we still need your help to make this event not only possible but awesome! For information about the past editions, please visit [PyDay 2016](https://pybcn.org/pyday-bcn-2016/) (you can also see some photos) and [PyDay 2018](https://pybcn.org/pyday-bcn-2018/) web pages.
+
+# What is PyDay Barcelona 2019 about?
+## Hands-on workshops
+We are planning to have different thematic tracks --i.e. data science, web development, security, beginners-- with hands-on guided workshops of about 2 hours in which participants will learn how to use different libraries, tools and techniques.
+
+## Django Girls workshop
+This year we are planning to host a parallel DjangoGirls workshop! 
+
+A Django Girls event is a one-day workshop with an installation party the evening before or remotely via Google Hangout/Skype. During the whole day participants work in small groups (3 attendees + 1 coach) and go through the tutorial to successfully create a blog application and deploy it to the internet.
+
+Django Girls events are always non-profit and free for participants. We do not pay coaches, speakers or organizers. Attendees don't need any previous knowledge about programming and there is no age limitation. All the attendees need is a laptop and some curiosity.
+
+## Other activities
+Hackathons, quizzes, contests, lightning talks… We want PyDay BCN 2019 to be as enlightening and fun as possible!
+
+# Stay tuned
+If you want to keep up to date with all the news related to this event, follow us on Twitter at [@pybcn](https://twitter.com/pybcn).
+
+# Calling for Proposals
+Are you interested in giving a workshop?
+We want YOU!
+
+Please, fill [this form](https://docs.google.com/forms/d/e/1FAIpQLScfa8zBhs2awGZwqmQ68Wa9kGQVZ_2qvZMefvotJpCBGtG8EA/viewform) with your proposal details. We will contact you regarding the status of your proposal as soon as possible after closing the Call for Papers (around the first week of September).
+
+# Agenda
+<img src="/static/images/tba.png" style="height: 50px; margin: auto;">
+
+# Sponsors
+Do you want to sponsor this event?
+Check out [our sponsoring document](https://drive.google.com/file/d/1qRUUnO-DskQAZ3dfkDGKCOwc5V6DOwIV/view?usp=sharing) and contact us at [pyday-bcn-2019@googlegroups.com](mailto:pyday-bcn-2019@googlegroups.com).
+
+## Platinum
+<center>
+<img src="upcloud.png" style="width: 150px; margin: 20px 20px auto;">
+<img src="kiwicom.png" style="width: 150px; margin: 20px 20px auto;">
+<img src="invisiblebits.png" style="width: 150px; margin: 20px 20px auto;">
+<img src="chartboost.png" style="width: 150px; margin: 20px 20px auto;">
+</center>
+
+## Gold
+<center>
+<img src="thoughtworks.png" style="width: 150px; margin: 20px 20px auto;">
+<img src="bmat.png" style="width: 70px; margin: 20px 20px auto;">
+<img src="holaluz.png" style="width: 80px; margin: 20px 20px auto;">
+<img src="travelperk.png" style="width: 150px; margin: 20px 20px auto;">
+</center>
+
+## Silver
+<center>
+<img src="kschool.png" style="width: 100px; margin: 20px 20px auto;">
+<img src="satellogic.png" style="width: 100px; margin: 20px 20px auto;">
+<img src="blueliv.png" style="width: 100px; margin: 20px 20px auto;">
+</center>
