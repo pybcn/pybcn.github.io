@@ -23,17 +23,16 @@
 -->
 <!doctype html>
 
-
 <head>
     <link rel="icon" type="image/png" href="/static/images/python-icon.png">
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/e19927ebb1.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../../static/fonts/30B858_0_0.css">
-    <link rel="stylesheet" href="../../../static/style.css">
-    <link rel="stylesheet" href="../../../static/pybcn_style.css">
+    <link rel="stylesheet" type="text/css" href="../static/fonts/30B858_0_0.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/pybcn_style.css">
 
-    <title>PyDay |  — PyBCN</title>
+    <title>Community Slack — PyBCN</title>
 </head>
 
 <body>
@@ -87,43 +86,43 @@
                                     <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
                                         <ul class="nav navbar-nav navbar-right">
                                             <!-- <li>
-                                                 <a href="../../../">Welcome</a>
+                                                 <a href="../">Welcome</a>
                                                  </li> -->
                                             
                                                 <li>
-                                                    <a href="../../../monthly-meetups/">Monthly Meetups</a>
+                                                    <a href="../monthly-meetups/">Monthly Meetups</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../coding-dojos/">Coding Dojos</a>
+                                                    <a href="../coding-dojos/">Coding Dojos</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../pyladies-bcn/">PyLadies BCN</a>
+                                                    <a href="../pyladies-bcn/">PyLadies BCN</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../pydatabcn-2017/">PyDataBCN 2017</a>
+                                                    <a href="../pydatabcn-2017/">PyDataBCN 2017</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../pyday-bcn-2019/">PyDay BCN 2019</a>
+                                                    <a href="../pyday-bcn-2019/">PyDay BCN 2019</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../coc/">Code of Conduct</a>
+                                                    <a href="../coc/">Code of Conduct</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../job-offers/">Job Offers</a>
+                                                    <a href="../job-offers/">Job Offers</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="../../../association/info/">Association</a>
+                                                    <a href="../association/info/">Association</a>
                                                 </li>
                                             
-                                                <li>
-                                                    <a href="../../../slack/">Community Slack</a>
+                                                <li class="active">
+                                                    <a href="../slack/">Community Slack</a>
                                                 </li>
                                             
                                                 <li>
@@ -143,189 +142,55 @@
 
     <section class="content">
         <div class="container">
-            <div class="row event-info-title">
-                <h1>
-                    Python Programming Introduction Course (II)
-                </h1>
-            </div>
-            <div class="row">
+            <div class="row main_content">
+
                 <div class="col-md-9 main_column">
-                    <div class="widget">
-                        
-    <dl>
-        <dt>
-            Time:
-        </dt>
-        <dd>
-            13:00
-        </dd>
-        <dt>
-            Room:
-        </dt>
-        <dd>
-            Sala Multimèdia
-        </dd>
-        <dt>
-            Abstract:
-        </dt>
-        <dd>
-            <p>A beginner to Python programming course, continued.</p>
-<p><strong>NOTICE</strong>: This workshop will be given in Spanish or Catalan, depending on audience.
-<strong>REQUIREMENTS</strong>: You don't need laptop for this workshop, but you may need a USB stick to save your files. If you bring your laptop, you will need to get Python 2.7, Sublime Text 2.</p>
+                    
+  <h1>Community Slack</h1>
+  <p>You can join the association <a href="../slack/pybcn.slack.com">Slack</a> by visiting the link below. By joining you agree to adhere to the <a href="../coc/">Code of Conduct</a> of the PyBCN association.</p>
+<p><a id="slack-join-ref">
+<img src="join-slack-disabled.png" id="slack-join" style="width: 150px; margin: 20px 20px auto;">
+</a></p>
+<script>
+function setJoin(thingy){
+  if(thingy.checked){
+    document.getElementById("slack-join").src="join-slack.png";
+    document.getElementById("slack-join-ref").href="https://join.slack.com/t/pybcn/shared_invite/enQtNzE3MDYzNDQwNjE1LTcwZTVmNjJkZTZmNWUwMmQ2YjQzYWZlZjk2MmE0ODZjYWEzZmE4ZjYyOTY1MGMwODRmZjBlOGEzZDBlZWVjNTk";
+   } else {
+     document.getElementById("slack-join").src="join-slack-disabled.png";
+     document.getElementById("slack-join-ref").removeAttribute("href")
+   }
+}
+</script><p><input type="checkbox" name="accept" onchange="setJoin(this)"> By clicking here I agree to adhere to the <a href="../coc/">Code of Conduct</a> of the PyBCN association. <br></p>
 
-        </dd>
-        <dt>
-            Speaker:
-        </dt>
-        <dd>
-            Eloi Puertas
-        </dd>
-        <dt>
-            Speaker background:
-        </dt>
-        <dd>
-            <p><a href="https://twitter.com/eloipuertas" title="Eloi Puertas&#39; Twitter account">Eloi Puertas</a> is a Computing Science Professor at <a href="http://mat.ub.edu" title="Facultat de Matemàtiques i Informàtica&#39;s homepage">Facultat de Matemàtiques i Informàtica</a> of <a href="http://www.ub.edu" title="Universitat de Barcelona&#39;s homepage">Universitat de Barcelona</a></p>
 
-        </dd>
-        
-    </dl>
-
-                    </div>
                 </div>
+
                 <div class="col-md-3 right_column">
+
                     <div class="widget" >
-                        
-    
-        
-    
-        <h3 class="widget-title">
-            <i class="fa fa-hand-o-right"></i>
-            <a href="../../../pyday-bcn-2016/">PyDay BCN 2016</a>
-        </h3>
-        <ul id="toc" class="toc-entries">
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/skyscanner/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/schibsted-spain/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/pyladies-bcn/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/asociacion-python-espana/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/punt-multimedia/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/python-software-foundation/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/mongodb/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/bmat-music-innovation/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/claranet/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/atlasense/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/facultat-matematiques-informatica/"></a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/about-pyday-bcn-2016/">About PyDay BCN 2016</a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/xxl-meetup/">XXL Meetup</a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/pyday/">PyDay</a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/sponsorship/">Sponsorship</a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-            <li>
-                <a href="../../../pyday-bcn-2016/code-of-conduct/">Code Of Conduct</a>
-                <ul class="toc-subentries">
-                
-                </ul>
-            </li>
-        
-        </ul>
-    
-
-    
-
+                        <h3 class="widget-title" style="text-align: center">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            <a href="/call-for-proposals/">Call for Proposals <span style="font-size: small">PyBCN Meetups</span></a>
+                        </h3>
                     </div>
+
+                    <div class="widget" >
+			<h3 class="widget-title" style="text-align: center">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <a href="/association/become-a-member/">Become a member</a>
+			</h3>
+		    </div>
+                    
+
+                    <div class="widget" id="twitter"></div>
+
+                    <a class="twitter-timeline" data-lang="en" data-height="600" data-theme="dark" href="https://twitter.com/pybcn">Tweets by pybcn</a>
+                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
                 </div>
+
             </div>
-            
-            
         </div>
     </section>
 
@@ -339,14 +204,14 @@
                     </div>
                     <div class="col-md-3 col-md-offset-1 col">
                         <h4><strong>CONTACT</strong></h4>
-                        <p>Contact us through our <a href="http://www.meetup.com/python-185/" target="_blank">meetup group</a></p>
+                        <p>Contact us through our <a href="https://www.meetup.com/python-185/" target="_blank">meetup group</a></p>
                     </div>
                     <div class="col-md-3 col-md-offset-1 col">
                         <h4><strong>SOCIAL LINKS</strong></h4>
                         <p>
                             <a href="https://twitter.com/pybcn" target="_blank"><i class="fa fa-twitter-square fa-3x"></i></a>
                             <a href="https://www.youtube.com/channel/UCEhI2CfdT5--TYq47K4en4A/videos" target="_blank"><i class="fa fa-youtube-square fa-3x"></i></a>
-                            <a href="http://www.meetup.com/python-185/" target="_blank"><img id="meetup_icon" src="/static/images/meetup-icon.png" /></a>
+                            <a href="https://www.meetup.com/python-185/" target="_blank"><img id="meetup_icon" src="/static/images/meetup-icon.png" /></a>
                             <a href="https://github.com/pybcn" target="_blank"><i class="fa fa-github-square fa-3x"></i></a>
                         </p>
                     </div>
@@ -359,5 +224,6 @@
     <script src="/static/js/meetup.js"></script>
     <script> updateUpcoming(); updatePast(); </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="/static/js/external_links.js"></script>
 
 </body>
