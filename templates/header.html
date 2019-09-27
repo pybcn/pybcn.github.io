@@ -47,17 +47,18 @@
                                     <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
                                         <ul class="nav navbar-nav navbar-right">
                                             <!-- <li{% if this._path == '/' %} class="active"{% endif %}>
-                                                <a href="{{ '/'|url }}">Welcome</a>
-                                            </li> -->
+                                                 <a href="{{ '/'|url }}">Welcome</a>
+                                                 </li> -->
                                             {% for href, title in [
-                                                ['/monthly-meetups', 'Monthly Meetups'],
-                                                ['/coding-dojos', 'Coding Dojos'],
-                                                ['/pyladies-bcn', 'PyLadies BCN'],
-                                                ['/pydatabcn-2017', 'PyDataBCN 2017'],
-                                                ['/pyday-bcn-2019', 'PyDay BCN 2019'],
-                                                ['/coc', 'Code of Conduct'],
-                                                ['/job-offers', 'Job Offers'],
-					        ['/association/info', 'Association'],
+                                            ['/monthly-meetups', 'Monthly Meetups'],
+                                            ['/coding-dojos', 'Coding Dojos'],
+                                            ['/pyladies-bcn', 'PyLadies BCN'],
+                                            ['/pydatabcn-2017', 'PyDataBCN 2017'],
+                                            ['/pyday-bcn-2019', 'PyDay BCN 2019'],
+                                            ['/coc', 'Code of Conduct'],
+                                            ['/job-offers', 'Job Offers'],
+                              					    ['/association/info', 'Association'],
+                                            ['/slack', 'Community Slack'],
                                             ] %}
                                                 <li{% if this.is_child_of(href) %} class="active"{% endif %}>
                                                     <a href="{{ href|url }}">{{ title }}</a>
