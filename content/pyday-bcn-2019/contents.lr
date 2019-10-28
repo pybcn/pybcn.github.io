@@ -1,20 +1,86 @@
 _model: page
 ---
-title: PyDay BCN 2019 postponement announcement
+title: PyDay BCN 2019
 ---
 body:
 
-Dear speakers, sponsors, volunteers and attendees,
+(Checkout the archived pages for our past editions:
+[2016](https://pybcn.org/pyday-bcn-2016/) and
+[2018](https://pybcn.org/pyday-bcn-2018/)
+and [see some photos](https://goo.gl/photos/RtgBeZqHHjcRDSnX9).)
 
-Due to events and circumstances beyond the organizers’ control, PyDay BCN 2019, originally scheduled for October 19, 2019, has been postponed.
+We are excited to announce that we are organizing the third edition of PyDay in Barcelona!
 
-As a response to the Spanish Supreme Court sentence from last Monday, which condemns Catalan politicians and pro-referendum leaders to prison, big demonstrations are taking place in the streets of Barcelona all week. For security reasons, the University of Barcelona has suspended all activities in their facilities this weekend, and thus we are forced to postpone the event. **A new date for the conference will be announced soon**.
+PyDay Barcelona 2019 is going to take place on *October 19th in Universitat de Barcelona*, a full day full of FREE python-related activities for the Python community. Over the last two editions, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
 
-Thank you for your patience as we work to set a new date for the event. We hope to have an update on the event status within the next two weeks. 
+We count with an incredible group of volunteers and contributing entities but we still need your help to make this event not only possible but awesome! For information about the past editions, please visit [PyDay 2016](https://pybcn.org/pyday-bcn-2016/) (you can also see some photos) and [PyDay 2018](https://pybcn.org/pyday-bcn-2018/) web pages.
 
-If you have already registered for the conference, your registration will be applied to the new conference date. Should you have any further questions, please contact us at <a href="mailto:pyday-bcn-2019@googlegroups.com">pyday-bcn-2019@googlegroups.com</a>.
+# What is PyDay Barcelona 2019 about?
+## Hands-on workshops
+We are planning to have different thematic tracks --i.e. data science, web development, security, beginners-- with hands-on guided workshops of about 2 hours in which participants will learn how to use different libraries, tools and techniques.
 
-We apologize for any inconvenience that this postponement may cause you. 
+## Django Girls workshop
+This year we are planning to host a parallel DjangoGirls workshop! 
 
-Best regards, <br/>
-PyBCN Team
+A Django Girls event is a one-day workshop with an installation party the evening before or remotely via Google Hangout/Skype. During the whole day participants work in small groups (3 attendees + 1 coach) and go through the tutorial to successfully create a blog application and deploy it to the internet.
+
+Django Girls events are always non-profit and free for participants. We do not pay coaches, speakers or organizers. Attendees don't need any previous knowledge about programming and there is no age limitation. All the attendees need is a laptop and some curiosity.
+
+[Registration is now open for Django Girls Barcelona](https://djangogirls.org/barcelona/)
+
+## Other activities
+Hackathons, quizzes, contests, lightning talks… We want PyDay BCN 2019 to be as enlightening and fun as possible!
+
+# Stay tuned
+If you want to keep up to date with all the news related to this event, follow us on Twitter at [@pybcn](https://twitter.com/pybcn).
+
+# Register
+<a href="https://www.eventbrite.es/e/entradas-pyday-barcelona-2019-75722749783?aff=" target="_blank"><img src="https://www.eventbrite.es/custombutton?eid=50585714233" alt="Eventbrite - PyDay Barcelona 2019" /></a>
+
+# Agenda
+<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FMadrid&amp;mode=AGENDA&amp;showNav=0&amp;showDate=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;src=eTEway53c19pdWMxYW00c2Y5c3V2NGtqcjV0YXZuYzEzY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23F09300&amp;title=Agenda%20del%20evento&amp;showTitle=0" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+# Sponsors
+Do you want to sponsor this event?
+Check out [our sponsoring document](https://drive.google.com/file/d/1qRUUnO-DskQAZ3dfkDGKCOwc5V6DOwIV/view?usp=sharing) and contact us at [pyday-bcn-2019@googlegroups.com](mailto:pyday-bcn-2019@googlegroups.com).
+
+## Venue
+<center>
+<img src="ub.jpg" style="width: 350px; margin: 20px 20px auto;">
+<img src="psf.png" style="width: 350px; margin: 20px 20px auto;">
+</center>
+
+## Platinum
+<center>
+<img src="upcloud.png" style="width: 180px; margin: 20px 20px auto;">
+<img src="kiwicom.png" style="width: 150px; margin: 20px 20px auto;">
+<img src="invisiblebits.png" style="width: 180px; margin: 20px 20px auto;">
+<img src="chartboost.png" style="width: 180px; margin: 20px 20px auto;">
+<img src="king.png" style="width: 130px; margin: 20px 20px auto;">
+<img src="qustodio.png" style="width: 190px; margin: 20px 20px auto;">
+</center>
+
+## Coffee Sponsor
+<center>
+<img src="affectv.png" style="width: 100px; margin: 20px 20px auto;">
+</center>
+
+## Gold
+<center>
+<img src="thoughtworks.png" style="width: 150px; margin: 20px 0px auto;">
+<img src="bmat.png" style="width: 70px; margin: 20px 20px auto;">
+<img src="holaluz.png" style="width: 80px; margin: 20px 20px auto;">
+<br />
+<img src="travelperk.png" style="width: 150px; margin: 20px 20px auto;">
+<img src="elastic.png" style="width: 110px; margin: 20px 10px auto;">
+<img src="verse.png" style="width: 110px; margin: 20px 20px auto;">
+<br />
+<img src="fundacion-ci.jpg" style="width: 110px; margin: 20px 20px auto;">
+</center>
+
+## Silver
+<center>
+<img src="kschool.png" style="width: 100px; margin: 20px 20px auto;">
+<img src="satellogic.png" style="width: 100px; margin: 20px 20px auto;">
+<img src="blueliv.png" style="width: 100px; margin: 20px 20px auto;">
+</center>
