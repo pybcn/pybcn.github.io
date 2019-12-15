@@ -2,7 +2,7 @@ argh==0.26.2
 asn1crypto==0.24.0
 Babel==2.5.3
 certifi==2018.4.16
-cffi==1.11.5
+cffi==1.13.2
 chardet==3.0.4
 click==6.7
 cryptography==2.2.2
