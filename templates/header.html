@@ -59,14 +59,12 @@
                                             ['/job-offers', 'Job Offers'],
                               					    ['/association/info', 'Association'],
                                             ['/slack', 'Community Slack'],
+                                            ['/sponsors', 'Sponsors'],
                                             ] %}
                                                 <li{% if this.is_child_of(href) %} class="active"{% endif %}>
                                                     <a href="{{ href|url }}">{{ title }}</a>
                                                 </li>
                                             {% endfor %}
-                                                <li>
-                                                    <a href="https://meetup.com/python-185/sponsors/">Sponsors</a>
-                                                </li>
                                         </ul>
                                     </div>
                                 </div>

@@ -1,0 +1,29 @@
+_model: page
+---
+title: Our sponsors
+---
+body:
+
+Do you want to become one? [Contact us!](mailto:pybcn@googlegroups.com)
+
+
+<section class="sponsors-page">
+<img src="psf.png" style="width: 180px;">
+<img src="kiwicom.png" style="width: 150px;">
+<img src="travelperk.png" style="width: 150px;">
+<img src="verse.png" style="width: 150px;">
+<img src="satellogic.png" style="width: 150px;">
+<img src="skyscanner_logo.png" style="width: 150px;">
+<img src="21-buttons.png" style="width: 180px;">
+<img src="bitphy.png" style="width: 150px;">
+<img src="holaluz.png" style="width: 150px;">
+<img src="letgo.png" style="width: 100px;">
+<img src="typeform.png" style="width: 150px;">
+<img src="marfeel.png" style="width: 150px;">
+<img src="ub.jpg" style="width: 150px;">
+<img src="colorsensing.svg" style="width: 150px;">
+<img src="codely.png" style="width: 160px;">
+<img src="gesco.jpg" style="width: 100px;">
+<img src="punt-multimedia.jpg" style="width: 100px;">
+<img src="upf.png" style="width: 150px;">
+</section>
