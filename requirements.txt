@@ -19,7 +19,7 @@ pathtools==0.1.2
 pycparser==2.18
 pyOpenSSL==17.5.0
 pytz==2018.4
-PyYAML==3.12
+PyYAML==5.2
 requests==2.18.4
 six==1.11.0
 urllib3==1.22
