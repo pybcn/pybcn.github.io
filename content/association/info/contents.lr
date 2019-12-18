@@ -1,15 +1,15 @@
 
 _model: page
 ---
-title: Association info
+title: Association Python Barcelona
 ---
 body:
 
 **Python Barcelona (PyBCN)** is a registered non-profit association.
 
 Our objectives are:
-- Aiming to spread the use and knowledge of the Python programming language.
-- Being a meeting point for all the Barcelona Python community.
+- To spread the use and knowledge of the Python programming language.
+- To be a meeting point for all the Barcelona Python community.
 
 We organize different monthly activities: [Python Meetups](/monthly-meetups/), [practice sessions](/coding-dojos/), [PyLadiesBCN workshops](/pyladies-bcn/), along with special annual events like [PyDataBCN](/pydatabcn-2017/), [PyDayBCN](/pyday-bcn-2018/) and [DjangoGirlsBCN](https://twitter.com/DjangoGirlsBCN).
 
@@ -17,24 +17,40 @@ The association was born in 2018. After 10 years of experience conducting these 
 
 If you want to help us grow, [join us as a member](/association/become-a-member)! We are looking forward to hearing from you!
 
+## How the Association operates
+* Structure:
+ * Management Board
+   * President: Laura Pérez-Mayos
+   * Secretary: Natàlia Padilla
+   * Treasurer: Mireia Álvarez
+ * Standing Committee: It is mostly a consultive board and help coordinate the workgroups.
+ * [Workgroups](https://docs.google.com/spreadsheets/d/1ptmymYA5R4vJ4H38Fm7mo_yMooZI39sdLD9DRXxyfaE): These are the groups to drive all the association activity:
+   * Meetup: This workgroup organizes, prepares, coordinates and runs the PyBCN meetups every month.
+   * PyLadies: They have been running the monthly PyLadies BCN workshops and activities.
+   * Practice Sessions: This workgroup have been running the monthly PyBCN workshops and dojos.
+   * Communication: They handle our communication channels, publishing of content, and collaboration with sponsors.
+   * Web: This workgroup cares about our web page and its publishing process.
+   * Podcast: They record and publish the [official PyBCN Podcast](https://www.ivoox.com/escuchar-pybcn_nq_450998_1.html).
+   * Video: This workgroup is responsible for the recording of the talks in our meetups and activities and the publishing in our [Youtube channel](https://www.youtube.com/channel/UCEhI2CfdT5--TYq47K4en4A).
+   * Other workgroups: Some workgroups are formed to run a specific event, like the PyDays.
+
+   All these workgroups follow some rules:
+   * Every workgroup must have Chair, who will be accountable for the workgroup work to the Standing Committee.
+   * The Chair is chosen by the workgroup members, who must be member of the Standing Committee.
+   * At least, two members of the Standing Committee must be part of every workgroup.
+   * Nobody can be member in more than three workgroups.
+   * There's no other requirement to be a member of any workgroup.
+
+## Association documentation
+* [PyBCN Association Statutes](https://docs.google.com/document/d/1F0VzZPrBsTtBl-U7PkA6IerFHnLqjTDspUaNQfu1vCU/edit?usp=sharing)
+* [Internal Regulations](https://docs.google.com/document/d/1xd36jkdcT3s3zGjNrSMnGuuk5xgodAos2fLDyJMLE30/edit?usp=sharing)
+* [Code of Conduct](/coc/)
+* Acts
+ * [Founding Act](https://docs.google.com/document/d/1_fTbgT-Bw25aaGLb9O9vCMi1Gkxhb3FiY-S7yeZLq6k/edit?usp=sharing)
+
+You can contact us by DM to our [Twitter account](https://twitter.com/pybcn)
+
 ## Fiscal data
 Associació Python Barcelona
 
 CIF G67254045
-
-## Management board
-- President: Laura Pérez-Mayos
-- Secretary: Natalia Padilla
-- Treasurer: Mireia Álvarez
-
-## Documentation
-* About Python Barcelona
- * Board
- * History
-* [PyBCN Association Statutes](https://docs.google.com/document/d/1F0VzZPrBsTtBl-U7PkA6IerFHnLqjTDspUaNQfu1vCU/edit?usp=sharing)
-* [Internal Regulations](https://docs.google.com/document/d/1xd36jkdcT3s3zGjNrSMnGuuk5xgodAos2fLDyJMLE30/edit?usp=sharing)
-*   [Code of Conduct](/coc/)
-* Acts
- * [Founding Act](https://docs.google.com/document/d/1_fTbgT-Bw25aaGLb9O9vCMi1Gkxhb3FiY-S7yeZLq6k/edit?usp=sharing)
-
-Contact: [e-mail](mailto:pybcn@googlegroups.com)
