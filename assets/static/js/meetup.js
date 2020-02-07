@@ -59,7 +59,7 @@ function processEvents(events, node, status) {
 }
 
 function updateUpcoming() {
-    baseUrl = "https://api.meetup.com/python-185/events?status=upcoming";
+    baseUrl = "https://api.meetup.com/python-barcelona/events?status=upcoming";
     jsonp(baseUrl, function (events) {
         var status = "upcoming";
         var node = document.getElementById(status);
@@ -68,7 +68,7 @@ function updateUpcoming() {
 }
 
 function updatePast() {
-    baseUrl = "https://api.meetup.com/python-185/events?status=past";
+    baseUrl = "https://api.meetup.com/python-barcelona/events?status=past";
     jsonp(baseUrl,function (events) {
         var status = "past";
         var node = document.getElementById(status);
