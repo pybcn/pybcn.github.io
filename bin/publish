@@ -16,4 +16,4 @@ git rm -rf archetypes/ bin/ config.toml content/ README.md resources/ static/ th
 rm -rf docs
 git add .
 git commit -m "Publishing: ${log}"
-git push "https://${GH_TOKEN}@github.com/pybcn/pybcn-site.git" master -f
+git push "https://${GH_TOKEN}@github.com/pybcn/pybcn.github.io.git" master -f

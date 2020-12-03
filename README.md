@@ -1,4 +1,4 @@
-# pybcn-site
+# PyBCN site
 
 This repository contains the Python Barcelona Association page
 deployed using [Hugo](https://gohugo.io).
@@ -17,7 +17,7 @@ You can bring a hugo hot reload server using the `bin/serve` script. This will b
 
 ### Publishing process
 
-During current implementation phase, the way to publish is to push new commits to the `publish` branch. However this will change in the future, to provide some review step in the publishing process.
+During current implementation phase, the way to publish is to push new commits to the `edition` branch. However this will change in the future, to provide some review step in the publishing process.
 
 
 ### How to add a new sponsor
