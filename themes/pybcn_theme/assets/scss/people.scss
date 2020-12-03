@@ -1,0 +1,106 @@
+// Sponsors CSS
+
+#people_grid {
+    .person_wrapper {
+
+        margin-bottom: 20px;
+
+        .person_item {
+
+            border: 1px solid black;
+            padding: 10px;
+            min-height: 100%;
+
+            .img-wrap {
+                margin-bottom: 25px;
+                position:relative;
+                overflow:hidden;
+                padding-bottom:100%;
+
+                img {
+                    position:absolute;
+                    width: 100%;
+                    filter: grayscale(100%);
+                }
+            }
+
+            .person_data {
+                line-height: 1rem;
+                margin-bottom: 35px;
+
+                h3 {
+                    color: black;
+                    font-size: 1.2em;
+                    margin-bottom: 5px;
+                }
+            }
+
+            .social_links {
+                i {
+                    color: black;
+                    &:hover {
+                        color: $blue-pybcn;
+                    }
+                }
+
+                position: absolute;
+                bottom: 5px;
+                left: 25px;
+                padding-top: 10px;
+            }
+
+            &:hover {
+                .img-wrap {
+                    img {
+                        transform: scale(1.2);
+                        -webkit-transition: -webkit-transform .2s linear;
+                        transition: transform .2s linear;
+                        filter: none;
+                    }
+                }
+                h3 {
+                    color: $blue-pybcn;
+                }
+            }
+
+            .modal {
+                .modal-dialog {
+                    max-width: 70%;
+
+                    img {
+                        max-width: 400px;
+                        margin: 0 15px 15px 0;
+                    }
+
+                    h3 {
+                        a:first-child {
+                            margin-left: 10px;
+                        }
+                        i {
+                            color: $blue-pybcn;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    #people_grid {
+        .person_wrapper {
+            .person_item {
+                .modal {
+                    .modal-dialog {
+                        max-width: 100%;
+                        img {
+                            max-width: 100%;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

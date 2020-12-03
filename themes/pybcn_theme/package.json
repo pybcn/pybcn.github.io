@@ -1,0 +1,32 @@
+{
+  "name": "pybcn_theme",
+  "version": "0.1",
+  "description": "PyBCN Hugo theam based on https://github.com/alanorth/hugo-theme-bootstrap4-blog.",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "css:build": "node-sass --output-style expanded --precision 6 source/scss/style.scss assets/css/style.css.tmp && cleancss --level 1 assets/css/style.css.tmp -o assets/css/style.css",
+    "css:watch": "onchange 'source/scss' -- npm run css:build",
+    "build:cookieconsent": "cp node_modules/cookieconsent/build/cookieconsent.min.css assets/css && cp node_modules/cookieconsent/build/cookieconsent.min.js assets/js",
+    "build:js": "webpack",
+    "build": "npm run css:build && npm run build:rtlcss && npm run build:js && npm run build:cookieconsent && npm run clean",
+    "clean": "rm assets/css/style.css.tmp"
+  },
+  "keywords": "hugo",
+  "author": "PyBCN",
+  "license": "MIT License",
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-brands-svg-icons": "^5.12.1",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "bootstrap": "~4.4.1",
+    "clean-css-cli": "^4.3.0",
+    "cookieconsent": "^3.1.1",
+    "node-sass": "^4.13.1",
+    "rtlcss": "^2.5.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

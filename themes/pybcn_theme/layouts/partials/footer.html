@@ -1,0 +1,17 @@
+{{ block "footer" . }}
+<footer class="py-4">
+    <div class="container">
+       <div class="row">
+            <div class="col-md-8">
+                {{ $logo := resources.Get "images/favicon.png" }}
+                <h6><img class="logo_icon" src="{{ $logo.Permalink | absURL }}"> <strong>{{ $.Site.Params.short_name }}</strong> · {{ $.Site.Params.extended_name }}</h6>
+            </div>
+            <div class="col-md-4 social_links">
+                {{ range $.Site.Params.social_items }}
+                    <a href="{{ .link }}" target="_blank"><i class="{{ .icon }}"></i></a>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</footer>
+{{ end }}

@@ -1,0 +1,68 @@
+{{ define "main" }}
+
+<div class="container" id="event_page">
+    <div class="row">
+
+        <div class="col-md-3">
+            <div id="index_sections" class="list-group position-sticky">
+                {{ if .Content }}<a class="list-group-item list-group-item-action" href="#content_section">About the event</a>{{ end }}
+                {{ if .Params.events }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
+                {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
+                {{ if .Params.organizers_levels }}<a class="list-group-item list-group-item-action" href="#organizers_section">Organizers</a>{{ end }}
+                {{ if .Params.speakers_levels }}<a class="list-group-item list-group-item-action" href="#speakers_section">Speakers</a>{{ end }}
+                {{ if .Params.previous_editions }}<a class="list-group-item list-group-item-action" href="#previous_editions_section">Previous editions</a>{{ end }}
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            {{ if .Content }}
+            <div class="link_anchor" id="content_section">
+                {{ .Content }}
+            </div>
+            {{ end }}
+
+            {{ if .Params.events }}
+            <div class="link_anchor" id="agenda_section">
+                <h1>Schedule</h1>
+                {{ partial "agenda.html" (dict "Site" .Site "spansDuration" .Params.spansDuration "numTracks" .Params.numTracks "eventTimes" .Params.eventTimes "events" .Params.events)}}
+            </div>
+            {{ end }}
+
+            {{ if .Params.sponsor_levels }}
+            <div class="link_anchor" id="sponsors_section">
+                <h1>Sponsors</h1>
+                {{ partial "sponsors-grid.html" (dict "levels" .Params.sponsor_levels "Site" .Site)}}
+            </div>
+            {{ end }}
+
+            {{ if .Params.organizers_levels }}
+            <div class="link_anchor" id="organizers_section">
+                <h1>Organizers</h1>
+                {{ partial "people-grid.html" (dict "levels" .Params.organizers_levels "Site" .Site)}}
+            </div>
+            {{ end }}
+
+            {{ if .Params.speakers_levels }}
+            <div class="link_anchor" id="speakers_section">
+                <h1>Speakers</h1>
+                {{ partial "people-grid.html" (dict "levels" .Params.speakers_levels "Site" .Site)}}
+            </div>
+            {{ end }}
+
+            {{ if .Params.previous_editions }}
+            <div class="link_anchor" id="previous_editions_section">
+                <h1>Previous editions</h1>
+                <ul>
+                {{ range $edition := .Params.previous_editions }}
+                    <li><a href="{{ $edition.url }}">{{ $edition.name }}</a></li>
+                {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+
+        </div>
+    </div>
+</div>
+
+{{ end }}

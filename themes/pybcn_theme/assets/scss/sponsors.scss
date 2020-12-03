@@ -1,0 +1,19 @@
+// Sponsors CSS
+
+#sponsors_grid {
+    .sponsor {
+        text-align: center;
+
+        .img-logo {
+            max-height: 150px;
+            max-width: 90%;
+            margin-bottom: 30px;
+        }
+
+        &.col-md-12 {
+            .img-logo {
+                max-width: 70%;
+            }
+        }
+    }
+}

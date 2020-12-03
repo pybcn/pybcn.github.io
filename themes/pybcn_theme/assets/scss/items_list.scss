@@ -1,0 +1,93 @@
+.items-title {
+    border-bottom: 1px solid rgb(230,230,230);
+    h1 {
+        padding-top: 12px;
+        padding-bottom: 25px;
+        color: rgb(41,47,51);
+        font-family: Helvetica, Roboto, "Segoe UI", Calibri, sans-serif;
+        font-size: 27px;
+        background-color: transparent;
+        text-align: left;
+        margin-bottom: 0;
+    }
+}
+
+.items-list{
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .items-entry {
+        .items-entry-title {
+            font-size: medium;
+            font-weight: 700;
+        }
+        a {
+            color: rgb(41,47,51);
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        p, ul li {
+            font-size: large;
+        }
+        .publish-date {
+            width: 100%;
+            text-align: right;
+            font-size: small;
+            color: rgb(126,143,156);
+        }
+        padding-top: 5px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        border-bottom: 1px solid rgb(230,230,230);
+        font-family: Helvetica, Roboto, "Segoe UI", Calibri, sans-serif;
+        color: rgb(41,47,51);
+
+        &:hover {
+            background-color: rgb(240,250,255);
+        }
+    }
+    li.spinner {
+        height: 50px;
+        width: 100%;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+            margin: 20px 20px;
+            padding: 10px 10px;
+            color: $primary;
+        }
+    }
+}
+
+.item-button {
+    height: 50px;
+    width: 100%;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+        border: 1px solid $primary;
+        margin: 20px 20px;
+        padding: 10px 10px;
+        color: $primary;
+        font-family: Helvetica, Roboto, "Segoe UI", Calibri, sans-serif;
+        font-size: 20px;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .item-button {
+        a {
+            font-size: 1rem;
+        }
+    }
+}

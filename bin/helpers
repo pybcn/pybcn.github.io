@@ -1,0 +1,14 @@
+set -euo pipefail
+
+function generate_config() {
+  BASE_URL=${1:-${URL}}
+  sed \
+      -e "s#@@URL@@#${BASE_URL}#" \
+      config.tmpl > config.toml
+}
+
+function eval_right_hugo() {
+  ${HUGO_BIN} version 2>&1 | grep extended &>/dev/null && echo Using $HUGO_BIN
+}
+
+HUGO_BIN=$(which hugo || echo "${ROOT}/bin/hugo")

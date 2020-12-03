@@ -1,0 +1,150 @@
+$navbar-color: #FFFFFF;
+$blue-pybcn: #006c9b;
+$yellow-pybcn-OLD: #ffdc39;
+$yellow-pybcn: #fdbf2e;
+$dark-grey: #343a40;
+
+$primary: $blue-pybcn;
+
+
+.semitransparent {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.yellow_text {
+    color: $yellow-pybcn;
+    &:hover {
+        color: $yellow-pybcn;
+    }
+}
+
+.btn-primary {
+    background-color: $blue-pybcn;
+    border-color: $blue-pybcn;
+    &:hover {
+        background-color: $yellow-pybcn;
+        border-color: $yellow-pybcn;
+    }
+}
+
+.flex_box {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+
+    & > [class*='col-'] {
+      display: flex;
+      flex-direction: column;
+    }
+}
+
+ul.buttons {
+    width: 100%;
+    padding: 10px;
+    list-style-type: none;
+    font-size: 1.4em;
+    li {
+        width: 100%;
+        margin-bottom: 5px;
+        &.last {
+            margin-bottom: 0;
+        }
+        a {
+            text-decoration: none;
+            i.fas {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+
+
+.h1, h1 {
+    background-color: $blue-pybcn;
+    text-align: center;
+    padding: 30px 0;
+    color: white;
+    font-weight: normal;
+    margin-bottom: 50px;
+}
+
+a, a:hover {
+    color: $blue-pybcn;
+}
+
+#main_content {
+    margin-top: 80px;
+    padding-top: 0;
+}
+
+.oov {
+    min-height: 400px;
+    padding: 50px;
+
+    &::after {
+        background-image: url(https://upload.wikimedia.org/wikipedia/commons/f/fa/%D7%A2%D7%A9%D7%A8%D7%AA_%D7%94%D7%A2%D7%A7%D7%A8%D7%95%D7%A0%D7%95%D7%AA_%D7%A9%D7%9C_%D7%98%D7%99%D7%9D_%D7%A4%D7%99%D7%98%D7%A8%D7%A1_%D7%9C%D7%9B%D7%AA%D7%99%D7%91%D7%94_%D7%91%D7%A4%D7%99%D7%99%D7%AA%D7%95%D7%9F.png);
+        background-size: cover;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        opacity: 0.2;
+    }
+}
+
+.objects_grid {
+    .row.level {
+        margin-bottom: 30px;
+    }
+
+    .level_name {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        h2 {
+            overflow: hidden;
+            text-align: center;
+
+            &:before,
+            &:after {
+                background-color: #000;
+                content: "";
+                display: inline-block;
+                height: 1px;
+                position: relative;
+                vertical-align: middle;
+                width: 50%;
+            }
+
+            &:before {
+                right: 0.5em;
+                margin-left: -50%;
+            }
+            &:after {
+                left: 0.5em;
+                margin-right: -50%;
+            }
+        }
+    }
+}
+
+
+.bordered_col {
+    border: 1px solid #000;
+    padding: 30px;
+}
+
+@media (max-width: 768px) {
+    .bordered_col {
+        margin-bottom: 20px;
+    }
+}

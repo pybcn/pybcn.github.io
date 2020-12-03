@@ -1,0 +1,108 @@
+$blockTimes30: 700,730,800,830,900,930,1000,1030,1100,1130,1200,1230,1300,1330,1400,1430,1500,1530,1600,1630,1700,1730,1800,1830,1900,1930,2000,2030,2100,2130,2200,2230,2300;
+$blockTimes20: 700,720,740,800,820,840,900,920,940,1000,1020,1040,1100,1120,1140,1200,1220,1240,1300,1320,1340,1400,1420,1440,1500,1520,1540,1600,1620,1640,1700,1720,1740,1800,1820,1840,1900,1920,1940,2000,2020,2040,2100,2120,2140,2200,2220,2240,2300;
+
+.scheduleContainer {
+	display: grid;
+	grid-gap: 0.2rem;
+	margin-bottom: 3em;
+
+    /**
+     * Time
+     */
+    .time {
+        display: flex;
+        align-items: top;
+        justify-content: flex-end;
+        border-top: thin dotted #ccc;
+        height: 100%;
+        padding: 0 0.5rem;
+    }
+    &.span30min {
+        .time {
+            @each $time in $blockTimes30 {
+                &.start-#{$time} {grid-area: time#{$time} }
+            }
+            &[class*="30"]:not(.start-1300) {
+                font-size: 0.8rem;
+                color: #ccc;
+            }
+        }
+    }
+    &.span20min {
+        .time {
+            @each $time in $blockTimes20 {
+                &.start-#{$time} {grid-area: time#{$time} }
+            }
+            &[class*="20"]:not(.start-2000), &[class*="40"] {
+                font-size: 0.8rem;
+                color: #ccc;
+            }
+        }
+    }
+
+
+    /**
+     * Event
+     */
+    .event {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0.5rem 1rem;
+        background-color: orange;
+        border-radius: 0.2rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        line-height: 1.4;
+        color: white;
+
+        h3 {
+            font-size: 1.1rem;
+            i {
+                margin-left: 5px;
+            }
+        }
+
+        span {
+            display: block;
+            width: 100%;
+            font-weight: normal;
+        }
+        a {
+            color: white;
+        }
+
+        /* Source: https://javier.xyz/cohesive-colors/ */
+        &.green {background-color: #a3a948}; /* green */
+        &.yellow {background-color: #edb92e}; /* yellow */
+        &.orange {background-color: #FF7900}; /* orange */
+        &.red {background-color: #ce1836}; /* red */
+        &.blue {background-color: #009989}; /* blue */
+        &.purple {background-color: #672493}; /* purple */
+    }
+
+    &.span30min {
+        .event {
+            @each $time in $blockTimes30 {
+                &.start-#{$time} {grid-row-start: time#{$time} }
+            }
+
+            @each $time in $blockTimes30 {
+                &.end-#{$time} {grid-row-end: time#{$time} }
+            }
+        }
+    }
+
+    &.span20min {
+        .event {
+            @each $time in $blockTimes20 {
+                &.start-#{$time} {grid-row-start: time#{$time} }
+            }
+
+            @each $time in $blockTimes20 {
+                &.end-#{$time} {grid-row-end: time#{$time} }
+            }
+        }
+    }
+
+}

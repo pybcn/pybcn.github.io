@@ -1,0 +1,21 @@
+<div class="container objects_grid" id="people_grid">
+
+    {{ $pages := where .Site.Pages "Section" "people" }}
+    {{ range $idx, $level := .levels }}
+        <div class="row justify-content-md-center level" id="level_{{$idx}}">
+            {{ if $level.name }}
+                <div class="col-md-12 level_name">
+                    <h2>{{ $level.name }}</h2>
+                </div>
+            {{ end }}
+            {{ range $person := $level.people }}
+                {{ range $page := where $pages ".Params.id" "eq" $person }}
+                <div class="col-md-{{ div 12 (int $level.people_per_line) }} person_wrapper">
+                    {{ partial "people_summary.html" (dict "person" $page) }}
+                </div>
+                {{ end }}
+            {{ end }}
+        </div>
+    {{ end }}
+
+</div>

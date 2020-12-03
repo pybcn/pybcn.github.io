@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+. ${ROOT}/bin/helpers
+
+(eval_right_hugo && ${HUGO_BIN} server) || echo "Please run the install script"

@@ -1,0 +1,28 @@
+{{ $cookieConsentStyle := resources.Get "css/cookieconsent.min.css" | resources.Fingerprint }}
+<link href="{{ $cookieConsentStyle.Permalink }}" rel="stylesheet" type="text/css"{{ if not .Site.Params.disable_sri }} integrity="{{ $cookieConsentStyle.Data.Integrity }}" crossorigin="anonymous"{{ end }}>
+{{ $cookieConsentScript := resources.Get "js/cookieconsent.min.js" | resources.Fingerprint }}
+<script src="{{ $cookieConsentScript.Permalink }}"{{ if not .Site.Params.disable_sri }} integrity="{{ $cookieConsentScript.Data.Integrity }}" crossorigin="anonymous"{{ end }} async></script>
+
+<script>
+window.addEventListener("load", function(){
+  window.cookieconsent.initialise({
+    "palette": {
+      "popup": {
+        "background": "#428bca",
+        "text": "#ffffff"
+      },
+      "button": {
+        "background": "#f71559"
+      }
+    },
+    "content": {
+      "message": '{{ "cookieMessage" }}',
+      "dismiss": '{{ "cookieDismiss" }}',
+      "link": '{{  "cookieLink" }}',
+      "href": "{{ .Site.Params.cookie_consent_info_url | absURL}}"
+    },
+    "position": "bottom-right"
+  })});
+</script>
+
+{{- /* vim: set ts=2 sw=2 et: */}}

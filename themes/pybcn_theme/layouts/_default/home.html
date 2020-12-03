@@ -1,0 +1,101 @@
+{{ define "requiredJS" }}
+{{ $meetupJS := resources.Get "js/meetup.js" }}
+<script type="text/javascript" src="{{ $meetupJS.Permalink }}"></script>
+{{ end }}
+
+{{ define "main" }}
+
+<div class="container" id="home_top_section">
+    <div class="row flex_box">
+        <div class="col-md-9">
+            <div class="row flex_box" id="meetup_events">
+	        {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "width" 6 "max_events" 4 "meetup_link" false)}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="color_box">
+                <h1>COLLABORATE</h1>
+                <a class="btn btn-info" href="pybcn_association/membership/"><i class="fas fa-sign-in-alt"></i> Become a member</a>
+                <a class="btn btn-info" href="pybcn_association/organize-with-us/"><i class="fas fa-calendar-day"></i> Organize with us</a>
+                <a class="btn btn-info" href="pybcn_association/propose-a-talk/"><i class="fas fa-comment"></i> Propose a talk</a>
+                <a class="btn btn-info" href="pybcn_association/sponsor-us/"><i class="fas fa-money-bill-wave"></i> Become a sponsor</a>
+                <a class="btn btn-info" href="pybcn_association/job-offers/"><i class="fas fa-scroll"></i> Share job offers</a>
+                <a class="btn btn-info" href="pybcn_association/promote-your-event/"><i class="fas fa-bullhorn"></i> Promote your event</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center rounded semitransparent">
+                        <h1>PyDay BCN 2020</h1>
+                        <h3>The fourth edition!</h3>
+                        <h4>Have a look at the <a class="blue_text" href="events/pyday_bcn/pyday_bcn_2020">agenda</a> and don't miss out!</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+<section id="highlights">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="section-title">Highlights</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="item">
+                            <h4><i class="fas fa-user-friends"></i> Organizers</h4>
+                            <p class="text-muted">Get to know us!</p>
+                            <a class="btn btn-primary" href="pybcn_association/organizers">Read more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="item">
+                            <h4><i class="fas fa-info-circle"></i> Information</h4>
+                            <p class="text-muted">The PyBCN association</p>
+                            <a class="btn btn-primary" href="pybcn_association/information/">Read more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="item">
+                            <h4><i class="fas fa-envelope"></i> Contact</h4>
+                            <p class="text-muted">Get in touch!</p>
+                            <a class="btn btn-primary" href="contact/">Read more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="item">
+                            <h4><i class="fas fa-file-alt"></i> Code of Conduct</h4>
+                            <p class="text-muted">Because we care</p>
+                            <a class="btn btn-primary" href="pybcn_association/coc/">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+	        <div class="row">
+                {{ $pages := where .Site.Pages "Section" "news" }}
+                {{ partial "posts.html" (dict "list" $pages "width" 8 "max_posts" 2)}}
+		        {{ partial "twitter-timeline.html" (dict "list" .Params.twitterLists "height" 500 "width" 4)}}
+            </div>
+	    </div>
+    </div>
+</div>
+
+{{ end }}

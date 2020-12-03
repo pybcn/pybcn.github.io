@@ -1,0 +1,66 @@
+<!-- Source: https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/ -->
+
+<style type="text/css">
+	.scheduleContainer {
+		grid-template-columns: 5rem repeat({{ .numTracks }}, 1fr);
+		grid-template-rows: repeat({{len .eventTimes}}, 1fr) !important;
+		grid-template-areas:
+			{{ $num := (int .numTracks) }}
+			{{ range $time := .eventTimes }}
+				"time{{ replace $time ":" "" }}{{ strings.Repeat $num " stage" }}"
+			{{ end }};
+	}
+
+	{{ range $ids, $num := (seq (int .numTracks)) }}
+		.scheduleContainer .event.length-{{ $num }} {
+			grid-column-end: span {{ $num }};
+		}
+	{{ end }}
+
+
+</style>
+
+<div class="scheduleContainer span{{ .spansDuration }}min">
+
+	{{ range $time := .eventTimes }}
+		<div class="time start-{{ replace $time ":" "" }}">{{$time}}</div>
+	{{ end }}
+
+	{{ range $event := .events }}
+		<div class="event {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
+			<h3>
+				{{ $event.title }}
+				{{ if eq $event.type "talk" }}
+					<i class="fas fa-comment"></i>
+				{{ else if eq $event.type "coffee" }}
+					<i class="fas fa-mug-hot"></i>
+				{{ else if eq $event.type "lunch" }}
+					<i class="fas fa-utensils"></i>
+				{{ else if eq $event.type "workshop" }}
+					<i class="fas fa-laptop"></i>
+				{{ else if eq $event.type "group" }}
+					<i class="fas fa-users"></i>
+				{{ else if eq $event.type "qa" }}
+					<i class="fas fa-question-circle"></i>
+				{{ else if eq $event.type "lightning" }}
+					<i class="fas fa-bolt"></i>
+				{{ end }}
+			</h3>
+			{{ if $event.location }}
+				<p>
+					{{ if or (in $event.location "www") (in $event.location "http") }}
+						<a class="event_location" href="{{ $event.location }}" target="_blank">{{ $event.location }}</a>
+					{{ else }}
+						<span>{{ $event.location }}</span>
+					{{ end }}
+				</p>
+			{{ end }}
+			{{ if $event.topic }}
+				<span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ $event.topic }}</span>
+			{{ end }}
+			{{ if $event.level }}
+				<span class="event_level"><i class="fas fa-terminal"></i> Level: {{ $event.level }}</span>
+			{{ end }}
+		</div>
+	{{ end }}
+</div>

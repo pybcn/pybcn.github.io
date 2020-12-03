@@ -1,0 +1,71 @@
+<div class="person_item">
+
+    <div class="img-wrap">
+        <a href="" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}">
+            {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
+                <img class="img-fluid img-people" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+            {{ else }}
+                {{ $anon_member := resources.Get "images/anon_member.png" }}
+                <img class="img-fluid img-people" src="{{ $anon_member.Permalink | absURL }}" />
+            {{ end }}
+        </a>
+    </div>
+    <div class="person_data">
+        <h3>{{ $.person.Params.name }}</h3>
+        <p>{{ $.person.Params.pybcn_position }}</p>
+    </div>
+    <div class="social_links">
+        {{ if $.person.Params.twitter }}
+            <a href="{{ $.person.Params.twitter }}" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
+        {{ end }}
+        {{ if $.person.Params.github }}
+            <a href="{{ $.person.Params.github}}" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+        {{ end }}
+        {{ if $.person.Params.linkedin }}
+            <a href="{{ $.person.Params.linkedin}}" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+        {{ end }}
+        {{ if $.person.Params.site }}
+            <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe fa-2x"></i></a>
+        {{ end }}
+    </div>
+
+    <div class="modal fade" id="modal_{{ $.person.Params.id }}" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
+                        <img class="rounded float-left" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+                    {{ else }}
+                        {{ $anon_member := resources.Get "images/anon_member.png" }}
+                        <img class="rounded float-left" src="{{ $anon_member.Permalink | absURL }}" />
+                    {{ end }}
+                    <h3 class="modal-title" id="exampleModalLabel">
+                        {{ $.person.Params.name }}
+                        {{ if $.person.Params.twitter }}
+                            <a href="{{ $.person.Params.twitter }}" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                        {{ end }}
+                        {{ if $.person.Params.github }}
+                            <a href="{{ $.person.Params.github}}" target="_blank"><i class="fab fa-github"></i></a>
+                        {{ end }}
+                        {{ if $.person.Params.linkedin }}
+                            <a href="{{ $.person.Params.linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        {{ end }}
+                        {{ if $.person.Params.site }}
+                            <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe"></i></a>
+                        {{ end }}
+                    </h3>
+                    <span>{{ $.person.Params.short_bio }}</span>
+                    <p class="font-weight-bold">{{ $.person.Params.pybcn_position }}</p>
+                    {{ $.person.Content }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

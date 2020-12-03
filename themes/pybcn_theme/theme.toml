@@ -1,0 +1,9 @@
+name = "PyBCN Theme"
+license = "MIT License"
+description = "A simple Hugo theme based on the Bootstrap v4 blog example."
+tags = ["bootstrap", "font awesome"]
+features = ["responsive"]
+
+[author]
+  name = "PyBCN"
+  homepage = "https://pybcn.org"

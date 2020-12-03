@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}" {{ if or (eq .Lang "ar") (eq .Lang "fa") }}dir="rtl"{{ end }}>
+
+    <head>
+        {{ partial "head.html" . }}
+        {{ block "requiredJS" . }}
+        {{ end }}
+	{{ if .Site.GoogleAnalytics }}
+	{{ partial "google_tag_manager.html" . }}
+	{{ end }}
+    </head>
+
+    <body class="scrollspy-area" data-spy="scroll" data-target="#index_sections" data-offset="280">
+
+        {{ partial "nav.html" . }}
+
+        <section id="main_content">
+	    {{ partial "hero_header.html" . }}
+            {{ block "main" . }}
+                <!-- The part of the page that begins to differ between templates -->
+            {{ end }}
+        </section>
+
+        {{ partial "footer.html" . }}
+
+        {{ partial "js.html" . }}
+
+        {{ block "extraJS" . }}
+        {{ end }}
+
+    </body>
+
+</html>

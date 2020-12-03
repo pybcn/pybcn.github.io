@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+. ${ROOT}/bin/helpers
+
+URL=${1}
+BASE_URL=$(grep baseURL ${ROOT}/config.toml | cut -d: -f 2)
+LAST_NAME=$(echo $URL | awk -F/ '{print $NF}')
+
+echo "Archiving $URL to ${ROOT}/static/archives/${LAST_NAME}"
+
+wget -mpck --html-extension -np --user-agent="Wget (PyBCN archiver)" -e robots=off --wait 10 --base ${BASE_URL}/archives/$LAST_NAME -P ${ROOT}/static/archives/ $URL

@@ -1,0 +1,31 @@
+  {{ partial "head-meta.html" . }}
+
+  {{ block "schema-dot-org" . }}
+   <!-- schema.org metadata differs for Nodes and Pages -->
+  {{ end }}
+
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <link rel="icon" href="{{ .Site.BaseURL }}/favicon.png">
+
+  <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+
+  {{ $style := resources.Get "css/bootstrap.min.css" }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+  {{ $style := resources.Get "scss/style.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+  {{ "<!-- RSS 2.0 feed -->" | safeHTML }}
+  {{ with .OutputFormats.Get "rss" -}}
+   {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
+
+  {{ template "_internal/google_analytics_async.html" . }}
+
+  {{ if .Site.Params.cookie_consent_info_url }}
+    {{ partial "cookie-consent.html" . }}
+  {{ end }}

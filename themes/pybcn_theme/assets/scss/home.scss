@@ -1,0 +1,145 @@
+#home_top_section {
+    margin-top: 50px;
+}
+
+.color_box {
+
+    height: 100%;
+    padding: 25px;
+    background-color: $blue-pybcn;
+    background-image: url("../images/backgrounds/logo_mini_white.png");
+    background-position: 140% 107%;
+    background-repeat: no-repeat;
+    background-size: 67%;
+
+
+    h1 {
+        color: white;
+        background-color: transparent;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1.8rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    a.btn {
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        color: $blue-pybcn;
+        background-color: white;
+        border-color: $blue-pybcn;
+        font-weight: bold;
+        text-align: left;
+
+        &:hover {
+            background-color: $dark-grey;
+            color: white;
+        }
+
+        i {
+            margin-right: 5px;
+        }
+    }
+
+}
+#highlights {
+
+    margin: 50px 0;
+    padding: 50px;
+    background-color: $yellow-pybcn; /* $dark-grey; */
+
+    h3 {
+        color: white;
+        text-transform: uppercase;
+    }
+
+    h4 {
+        i {
+            margin-right: 10px;
+        }
+    }
+
+    .item {
+        background-color: white;
+        padding: 10px;
+
+        .btn-primary {
+            background-color: $dark-grey;
+        }
+    }
+
+}
+
+.banner {
+    color: white;
+    background-color: $blue-pybcn;
+    background-image: url("https://pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 5px;
+    margin-top: 50px;
+    padding: 20px;
+
+    h1 {
+        margin: 0;
+        padding-top: 10px;
+        background-color: transparent;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #highlights {
+        .item {
+            margin-bottom: 20px;
+        }
+    }
+
+    #meetup_events {
+        .events_list {
+            margin-bottom: 20px;
+        }
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    #home_top_section {
+        margin-top: 20px;
+    }
+
+    .home_carousel {
+
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 15px;
+
+        .transparent_caption {
+
+            margin-bottom: -6px;
+
+            h1 {
+                font-size: 1rem;
+                line-height: 1rem;
+                padding: 8px;
+            }
+
+            a.btn {
+                font-size: 0.7rem;
+                line-height: 0.7rem;
+                padding: .275rem .65rem
+            }
+        }
+        .carousel-indicators {
+            margin-bottom: 0;
+            bottom: 6px;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+<div class="col-md-{{ $.width }}">
+    <div class="items-title">
+	<h1>Latest posts</h1>
+    </div>
+    <ul class="items-list">
+        {{ range $i, $val := $.list }}
+            {{ if (and (ne $val.Kind "section") (le $i $.max_posts)) }}
+	    <li class="items-entry">
+	        <a href="{{ $val.Permalink }}">
+	            <div class="items-entry-title">{{ $val.Title }}</div>
+	            <p>{{ or .Params.excerpt (htmlUnescape ($val.Content | truncate 180 " ..." | plainify)) }}</p>
+	            <div class="publish-date">{{ $val.PublishDate.Format "Jan 2, 2006" }}</div>
+	         </a>
+	    </li>
+	    {{ end }}
+	{{ end }}
+    </ul>
+</div>

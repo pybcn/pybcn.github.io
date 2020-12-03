@@ -1,0 +1,17 @@
+<!-- Bootstrap core JavaScript -->
+{{ $jquery := resources.Get "vendor/jquery/jquery.min.js" | resources.Fingerprint }}
+<script defer src="{{ $jquery.Permalink }}" integrity="{{ $jquery.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ $bootstrap := resources.Get "vendor/bootstrap/js/bootstrap.bundle.min.js" | resources.Fingerprint }}
+<script defer src="{{ $bootstrap.Permalink }}" integrity="{{ $bootstrap.Data.Integrity }}" crossorigin="anonymous"></script>
+
+<!-- Plugin JavaScript -->
+{{ $easing := resources.Get "vendor/jquery-easing/jquery.easing.min.js" | resources.Fingerprint }}
+<script defer src="{{ $easing.Permalink }}" integrity="{{ $easing.Data.Integrity }}" crossorigin="anonymous"></script>
+
+<!-- Scrolling nav JavaScript -->
+{{ $scrolling := resources.Get "js/scrolling-nav.js" | resources.Fingerprint }}
+<script defer src="{{ $scrolling.Permalink }}" integrity="{{ $scrolling.Data.Integrity }}" crossorigin="anonymous"></script>
+
+<!-- navbar -->
+{{ $navbar := resources.Get "js/navbar.js" | resources.Fingerprint }}
+<script defer src="{{ $navbar.Permalink }}" integrity="{{ $navbar.Data.Integrity }}" crossorigin="anonymous"></script>

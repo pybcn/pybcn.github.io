@@ -1,0 +1,74 @@
+@mixin transition($speed) {
+    transition: all $speed linear 0s;
+}
+
+#mainNav {
+    background-color: $navbar_color !important;
+    font-size: 1rem;
+    border-bottom: 1px solid $blue-pybcn;
+
+    #logo {
+        max-width: 230px;
+        max-height: 100px;
+        margin: 5px 5px 5px 0;
+        @include transition(0.4s);
+    }
+
+    &.navbar_small {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        @include transition(0.2s);
+
+        #logo {
+            max-width: 200px;
+            max-height: 40px;
+            @include transition(0.4s);
+        }
+    }
+
+    i {
+        margin-right: 10px;
+    }
+
+    li {
+        a {
+            font-size: 1em;
+            text-transform: uppercase;
+            color: $blue-pybcn;
+            margin-right: 2px;
+
+            &:hover {
+                color: white;
+                background-color: $blue-pybcn;
+            }
+            &.active {
+                color: white;
+                background-color: $blue-pybcn;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        .submenu {
+            &.hidden {
+                display: none;
+            }
+            margin-left: 20px;
+            a {
+                font-size: 0.8em;
+                text-transform: none;
+            }
+        }
+    }
+}
+
+.home_top_section {
+
+    margin-top: 70px;
+    @include transition(0.4s);
+
+    &.navbar_small {
+        margin-top: 50px;
+        @include transition(0.4s);
+    }
+}

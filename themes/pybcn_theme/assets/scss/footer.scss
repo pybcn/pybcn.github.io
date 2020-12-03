@@ -1,0 +1,35 @@
+footer {
+    background-color: black;
+    font-size: 0.9rem;
+    color: white;
+    margin-top: 30px;
+
+    img.logo_icon {
+        width: 30px;
+        margin-right: 10px;
+    }
+
+    h4, a {
+        color: white;
+    }
+
+    .social_links {
+        text-align: right;
+        a {
+            margin-right: 5px;
+        }
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    footer {
+        text-align: center;
+
+        .social_links {
+            text-align: center;
+        }
+    }
+
+}

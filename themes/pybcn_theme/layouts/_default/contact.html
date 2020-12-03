@@ -1,0 +1,31 @@
+{{ define "main" }}
+
+<div class="container" id="contact">
+    <div class="row flex_box">
+        <div class="col-md-4 general_contact">
+            <div class="bordered_col">
+
+                {{ if .Params.show_pybcn }}
+                <h4><i class="fas fa-chevron-right"></i> PyBCN</h4>
+                <p>
+                    <a href="mailto:{{ $.Site.Params.main_contact_email }}"><i class="fa fa-2x fa-envelope" aria-hidden="true"></i></a>
+                    {{ range $.Site.Params.social_items }}
+                        <a href="{{ .link }}" target="_blank"><i class="{{ .icon }}"></i></a>
+                    {{ end }}
+                </p><br/>
+                {{ end }}
+
+                <h4><i class="fas fa-chevron-right"></i> PyLadiesBCN</h4>
+                <p>
+                    <a href="mailto:{{ $.Site.Params.main_contact_email_pyladies }}"><i class="fa fa-2x fa-envelope" aria-hidden="true"></i></a>
+                    {{ range $.Site.Params.social_items_pyladies }}
+                        <a href="{{ .link }}" target="_blank"><i class="{{ .icon }}"></i></a>
+                    {{ end }}
+                </p>
+            </div>
+        </div>
+        {{ .Content }}
+    </div>
+</div>
+
+{{ end }}
