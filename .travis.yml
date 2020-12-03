@@ -1,0 +1,15 @@
+language: go
+sudo: required
+
+branches:
+  only:
+    edition
+
+go:
+    - 1.14
+
+install:
+    - bin/install
+
+script:
+    - bin/publish
