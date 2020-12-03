@@ -145,5 +145,8 @@ We are planning to have different **thematic tracks** --e.g. data science, web d
 ### Participate in Kahoot and win prizes!
  We will host a Kahoot game with questions about PyBCN and Python in general, with prizes for the fastest players. Will you miss it?!
  
+ 
+### Sponsor us!
+Would you like to sponsor PyDay BCN 2020? Have a look at the <a href="https://drive.google.com/file/d/1LHwc11lArnjBQD-cNroUIMfUYHEZcNYq/view?usp=sharing" target="_blank">sponsorship brochure</a>!
 
 <br/>Please notice that <span style="color:red; font-weight:bold">the Schedule is provisional</span> and will be updated soon.
