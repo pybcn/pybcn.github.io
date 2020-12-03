@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+. ${ROOT}/bin/helpers
+
+OLD_SITE_PATH=${1:-../../pybcn/pybcn.github.io}
+OLD_BLOG=${OLD_SITE_PATH}/content/blog
+
+for entry in $(ls -F ${OLD_BLOG} | egrep "/$" | cut -d/ -f1); do
+  old_file=${OLD_BLOG}/${entry}/contents.lr
+  new_file=${ROOT}/content/news/${entry}.md
+  echo "Migrating ${old_file} to ${new_file}"
+  title=$(cat ${old_file} | egrep "^title: " | sed -e 's/title: \(.*\)/\1/')
+  pub_date=$(cat ${old_file} | egrep "^pub_date: " | sed -e 's/pub_date: \(.*\)/\1/')
+  body=$(cat ${old_file} | egrep -v "^---$|author:|excerpt:|body:|title:|pub_date:|twitter_handle:|^$")
+  cat <<EOF | tr -d "#" > ${new_file}
+---
+title: ${title}
+date: ${pub_date}
+draft: false
+---
+${body}
+EOF
+done

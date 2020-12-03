@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function eval_platform() {
+  case ${OSTYPE} in
+    "linux-gnu")
+      echo Linux
+    ;;
+    "darwin")
+      echo macOS
+    ;;
+    *)
+      echo Unknown platform ${OSTYPE} >&2
+      exit 1
+    ;;
+  esac
+}
+
+function install_hugo() {
+  PLATFORM=$(eval_platform)
+  echo -n "Installing Hugo for ${PLATFORM}... "
+  curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
+    | grep -E "url.*hugo_extended.*${PLATFORM}.*tar.gz" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | wget -qi - -O- | tar xzf - -C ${ROOT}/bin hugo
+  echo "OK!"
+}
+
+function install_theme() {
+  echo -n "Installing theme... "
+  wget -qO- https://github.com/ifosch/pybcn-theme/tarball/master \
+    | tar xzf - -C ${ROOT}/themes
+  mv ${ROOT}/themes/ifosch-pybcn-theme-* ${ROOT}/themes/pybcn
+  echo "OK!"
+}
+
+function eval_theme_present() {
+  file -d ${ROOT}/themes/pybcn &> /dev/null && echo Theme already present
+}
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+. ${ROOT}/bin/helpers
+
+eval_right_hugo || install_hugo
+# eval_theme_present || install_theme

@@ -1,0 +1,16 @@
+{{ if .Params.carousel_header }}
+    {{ partial "carousel.html" . }}
+{{ else }}
+    {{ if .Params.heroBackground }}
+<div id="hero" class="hero-image hero-image-setheight" style="background-image: url('{{ .Params.heroBackground | relURL }}')">
+  <div class="container ">
+    <div class="hero-text">
+      <h1>{{ .Params.title }}</h1>
+      <p>{{ .Params.description }}</p>
+    </div>
+  </div>
+</div>
+    {{ else }}
+<h1>{{ .Title }}</h1>
+    {{ end }}
+{{ end }}

@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<div class="container">
+    <div class="row">
+
+            {{ $content_columns := sub 12 .Params.carousel_columns }}
+
+
+            {{ if .Content }}
+                <div class="col-md-{{ $content_columns }}">
+                    {{ .Content }}
+                </div>
+            {{ end }}
+
+	    {{ partial "carousel.html" . }}
+
+        </div>
+    </div>
+</div>
+
+{{ end }}

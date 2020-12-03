@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 10
+  - 12
+  - 13
+script: npm run build
+dist: bionic
+
+# vim: ts=2 sw=2 et

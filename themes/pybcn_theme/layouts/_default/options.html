@@ -1,0 +1,41 @@
+{{ define "main" }}
+
+<div class="container" id="options">
+    <div class="row">
+        <div class="col">
+            {{.Content}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ range $option := .Params.options }}
+            <h2 class="h1">{{ $option.name }}</h2>
+            <div class="row">
+                {{ range $block := $option.blocks }}
+                <div class="col-md-{{ div 12 (len $option.blocks) }} block">
+                    <div class="bordered_col">
+                        <h4><i class="fas fa-info-circle"></i> {{ $block.name }}</h4>
+                        <dl class="collapsable-group">
+                            {{ range $description := $block.descriptions }}
+                            <dt class="collapsable-control">
+                                <a class="collapsed" data-toggle="collapse" href="#{{$block.id}}-{{$description.id}}" role="button" aria-expanded="false" aria-controls="{{$block.id}}-{{$description.id}}">
+                                    {{ $description.name }}
+                                </a>
+                            </dt>
+                            <dd class="collapse" id="{{$block.id}}-{{$description.id}}"><ul>
+                                {{ range $content := $description.content }}
+                                <li>{{ $content | markdownify }}</li>
+                                {{ end }}
+                            </ul></dd>
+                            {{ end }}
+                        </dl>
+                    </div>
+                </div>
+                {{ end}}
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+
+{{ end }}

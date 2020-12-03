@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+. ${ROOT}/bin/helpers
+
+export log=$(git log | head -5 | tail -1 | tr -s ' ')
+echo "Building..."
+(eval_right_hugo && ${HUGO_BIN} -d docs) || echo "Please run the install script"
+echo "Build done"
+git branch -d master || echo "Master branch not present..."
+git checkout --orphan master
+cp -R docs/* .
+git rm -rf archetypes/ bin/ config.toml content/ README.md resources/ static/ themes .gitignore
+rm -rf docs
+git add .
+git commit -m "Publishing: ${log}"
+git push "https://${GH_TOKEN}@github.com/pybcn/pybcn-site.git" master -f

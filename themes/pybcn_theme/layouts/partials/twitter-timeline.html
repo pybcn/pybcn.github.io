@@ -1,0 +1,6 @@
+{{ range .list }}
+<div class="col-md-{{ $.width }}">
+    <a class="twitter-timeline" data-height="{{ $.height }}" href="https://twitter.com/{{ . }}">Loading...</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+{{ end }}

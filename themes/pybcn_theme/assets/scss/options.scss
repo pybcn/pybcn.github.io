@@ -1,0 +1,58 @@
+// Options CSS
+
+#options {
+
+    h2 {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .block {
+        .bordered_col {
+            border: 1px solid #000;
+            padding: 20px;
+
+        }
+
+        h4 {
+            margin-bottom: 20px;
+            i {
+                margin-right: 10px;
+            }
+        }
+
+        dt.collapsable-control {
+            background: #fff;
+            padding: 5px 0;
+            border: none;
+            font-weight: bold;
+            margin-bottom: 2px;
+            a {
+                text-decoration: none;
+                font-weight: bold;
+            }
+            > a:before {
+                font-family: 'Font Awesome\ 5 Free';
+                content: "\f077";
+                padding-right: 5px;
+            }
+            > a.collapsed:before {
+                font-family: 'Font Awesome\ 5 Free';
+                content: "\f078";
+            }
+        }
+
+        dd {
+            ul {
+                margin-bottom: 0;
+                padding-left: 24px;
+
+                li {
+                    p {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

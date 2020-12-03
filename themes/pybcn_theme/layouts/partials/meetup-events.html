@@ -1,0 +1,28 @@
+{{ range .list }}
+<div class="col-md-{{ $.width }}">
+    <div class='events_list {{ replace .name " " ""}}-events'>
+        <div class="upcoming_events">
+            <div class="items-title">
+                <h1><i class="fab fa-meetup"></i> Upcoming {{ .name }} events</h1>
+            </div>
+            <ul class="items-list" id="{{ .id }}-upcoming">
+                <li class="spinner"><i class="fas fa-spinner fa-spin"></i></li>
+            </ul>
+        </div>
+        <div class="past_events">
+            <div class="items-title">
+                <h1>Past {{ .name }} events</h1>
+            </div>
+            <ul class="items-list" id="{{ .id }}-past">
+                <li class="spinner"><i class="fas fa-spinner fa-spin"></i></li>
+            </ul>
+            {{ if $.meetup_link }}
+            <div class="item-button">
+                <a href="https://meetup.com/{{ .id }}" target="_blank">Visit the {{ .name }} Meetup page</a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">updateEventList({{ .id }}, {{ $.max_events }});</script>
+{{ end }}

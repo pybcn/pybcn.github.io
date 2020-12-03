@@ -1,0 +1,36 @@
+#contact {
+
+    a {
+        color: $blue-pybcn;
+        &:hover {
+            color: #333;
+        }
+    }
+
+    h4 {
+        margin-bottom: 20px;
+        i {
+            margin-right: 10px;
+        }
+    }
+
+    .general_contact {
+
+        .bordered_col {
+            border-color: $blue-pybcn;
+            color: white;
+            background-color: $blue-pybcn;
+            height: 100%;
+
+            a {
+                color: white;
+                margin-right: 5px;
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+    }
+
+}
+

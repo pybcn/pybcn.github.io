@@ -1,0 +1,27 @@
+#event_page {
+
+    margin-bottom: 2em;
+
+    #index_sections {
+        top:100px;
+    }
+
+    .list-group-item {
+        &.active {
+            background-color: $blue-pybcn;
+            border-color: $blue-pybcn;
+        }
+    }
+
+    .link_anchor {
+        padding-top: 80px;
+        margin-top: -80px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    #index_sections {
+        margin-bottom: 2em;
+    }
+}

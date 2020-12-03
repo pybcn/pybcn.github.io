@@ -1,0 +1,61 @@
+.carousel {
+
+    .transparent_caption {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        margin-bottom: 40px;
+
+        h1 {
+            background-color: transparent;
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+.col {
+    .carousel {
+
+        h1 {
+            padding: 10px;
+            font-size: 1.1em;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        a.btn {
+            line-height: 1rem;
+        }
+
+        .transparent_caption {
+            margin-bottom: 20px;
+        }
+
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel {
+
+        h1 {
+            padding: 10px;
+            font-size: 1.1em;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        a.btn {
+            line-height: 1rem;
+        }
+
+        .transparent_caption {
+            margin-bottom: 20px;
+        }
+
+    }
+
+}

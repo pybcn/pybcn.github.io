@@ -1,0 +1,38 @@
+{{ define "requiredJS" }}
+{{ $meetupJS := resources.Get "js/meetup.js" }}
+<script type="text/javascript" src="{{ $meetupJS.Permalink }}"></script>
+{{ end }}
+
+{{ define "main" }}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            {{ if .Content }}
+            <div class="container pt-6 pt-md-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-intro">
+                            {{ .Content }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+
+            {{ $columnWidth := 12 }}
+            {{ if .Params.meetupEvents }}
+            {{ $columnWidth = div 12 (add (len .Params.meetupEvents) 0) }}
+            {{ end }}
+            <div class="container pb-6 pt-6 pb-md-12 pt-md-12">
+                <div class="row flex_box" id="meetup_events">
+                    {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "height" 1250 "width" $columnWidth "max_events" 5 "meetup_link" true)}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{ end }}

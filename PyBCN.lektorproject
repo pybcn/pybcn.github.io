@@ -1,5 +1,0 @@
-[project]
-name = PyBCN
-
-[servers.ghpages]
-target = ghpages+https://pybcn/pybcn.github.io?cname=pybcn.org

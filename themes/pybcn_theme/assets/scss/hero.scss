@@ -1,0 +1,50 @@
+.hero-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: overlay;
+  background-color: $primary;
+  height: 400px;
+  position: relative;
+  padding-top: 50px;
+  margin-bottom: 20px;
+  .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .hero-text {
+    color: #ffffff;
+    h1 {
+      font-size: 3rem;
+      color: $yellow-pybcn;
+      background-color: transparent;
+      text-align: left;
+      margin-bottom: 0;
+      padding: 0;
+    }
+    h2 {
+      font-size: 2.2rem;
+
+    }
+    p {
+      font-size: 1.6rem;
+      line-height: 1.3;
+      width: 60%;
+    }
+  }
+
+}
+
+
+@media (max-width: 768px) {
+    .hero-image {
+        height: 250px;
+        .hero-text {
+            p {
+                font-size: 1.3rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+#meetup_events {
+
+    .events_list {
+
+        height: 100%;
+
+        &.PyLadiesBCN-events {
+            background-image: url("../images/backgrounds/pyladiesbcn_head_transparent.png");
+            background-repeat: no-repeat;
+            background-position: top right;
+            background-size: 50%;
+        }
+        &.PyBCN-events {
+            background-image: url("../images/backgrounds/pybcn_cut_transparent.png");
+            background-repeat: no-repeat;
+            background-position: top right;
+            background-size: 50%;
+        }
+
+        border: 1px solid $dark-grey;
+        padding: 10px;
+
+        .items-list {
+
+
+            .items-entry {
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        .upcoming_events,
+        .past_events {
+            z-index: 1000;
+            position: relative;
+        }
+
+        .past_events {
+            .items-title {
+                h1 {
+                    font-size: 1.3em;
+                }
+            }
+            .items-list {
+                .items-entry {
+                    .items-entry-title {
+                        font-size: 0.8em;
+                        font-weight: normal;
+                    }
+                }
+            }
+	    .item-button {
+		a {
+		border-color: $blue-pybcn;
+		background: $blue-pybcn;
+		    color: white;
+		}
+	    }
+        }
+    }
+}
+
+
+@media (max-width: 768px) {
+
+}
