@@ -11,12 +11,15 @@ layout: event
 
 sponsor_levels:
     - sponsors_per_line: 2
+      sponsors: [cloudblue]
+      name: Gold
+    - sponsors_per_line: 2
       sponsors: [preply, qida]
-      name: 
+      name: Supporting
       
 organizers_levels:
     - people_per_line: 4
-      people: [david, eloi, lpmayos, mireia, natalia, nuria, rberenguel, xavi]
+      people: [david, eloi, lpmayos, mireia, natalia, nuria, rberenguel]
       name: 
 
 previous_editions:
