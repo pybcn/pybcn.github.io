@@ -37,7 +37,15 @@ speakers_levels:
 
 organizers_levels:
     - people_per_line: 4
-      people: [david, eloi, lpmayos, mireia, natalia, nuria, rberenguel]
+      people:
+      - david
+      - eloi
+      - lpmayos
+      - mireia
+      - natalia
+      - nuria
+      - rberenguel
+      - ifosch
       name: 
 
 previous_editions:
