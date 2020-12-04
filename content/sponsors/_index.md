@@ -12,6 +12,7 @@ sponsor_levels:
   - 21buttons
   - bitphy
   - casadelmig
+  - cloudblue
   - codelytv
   - colorsensing
   - gesco
