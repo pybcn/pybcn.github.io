@@ -19,10 +19,33 @@ sponsor_levels:
     - sponsors_per_line: 2
       sponsors: [preply, qida]
       name: Supporting
-      
+
+speakers_levels:
+    - people_per_line: 4
+      people: 
+      - christian-adell-querol
+      - gajendra-deshpande
+      - ferran-fabregas
+      - francesco-faraone
+      - joan-fontanals-martinez
+      - maria-teresa-grifa
+      - ankit-mahato
+      - julio-martinez
+      - elisabeth-ortega-carrasco
+      - marc-pous
+      - edgar-riba
+
 organizers_levels:
     - people_per_line: 4
-      people: [david, eloi, lpmayos, mireia, natalia, nuria, rberenguel]
+      people:
+      - david
+      - eloi
+      - lpmayos
+      - mireia
+      - natalia
+      - nuria
+      - rberenguel
+      - ifosch
       name: 
 
 previous_editions:
