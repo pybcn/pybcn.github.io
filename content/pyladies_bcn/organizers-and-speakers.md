@@ -14,6 +14,8 @@ people_levels:
       people: [lpmayos, natalia, nuria]
       name: Main organizers
     - people_per_line: 4
-      people: [esteve]
+      people: 
+      - esteve
+      - elisabeth-ortega-carrasco
       name: Collaborators
 ---
