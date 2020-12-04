@@ -12,7 +12,7 @@ heroBackground: /images/photos/people-pyday-2019.jpg
             <div class="row main_content">
                 <div class="col-md-9 main_column">
   <p><strong>This event has ended!</strong> You can see some photos <a href="https://drive.google.com/drive/folders/1kODXtBARnTbZmQwVW1Qx2EvBCDSqhZjX?usp=sharing" target="_blank">here</a>.</p>
-<p><img src="/archives/pybcn.org/pyday-bcn-2019/Foto&#32;de&#32;grup&#32;-&#32;small.jpg" style="width:100%"/></p>
+<p><img src="/archives/pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg" style="width:100%"/></p>
 <h2>Archived content</h2>
 <p>We are excited to announce that we are organizing the third edition of PyDay in Barcelona!</p>
 <p>PyDay Barcelona 2019 is going to take place on <strong>November 16th</strong> <em>fgin Universitat de Barcelona</em>, a full day full of FREE python-related activities for the Python community. Over the last two editions, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!</p>

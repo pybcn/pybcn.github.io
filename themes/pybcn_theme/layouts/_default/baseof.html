@@ -5,9 +5,6 @@
         {{ partial "head.html" . }}
         {{ block "requiredJS" . }}
         {{ end }}
-	{{ if .Site.GoogleAnalytics }}
-	{{ partial "google_tag_manager.html" . }}
-	{{ end }}
     </head>
 
     <body class="scrollspy-area" data-spy="scroll" data-target="#index_sections" data-offset="280">
