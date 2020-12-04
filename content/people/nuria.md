@@ -1,6 +1,6 @@
 ---
 id: nuria
-name: "Nuria Pujol Vilanova"
+name: "Núria Pujol Vilanova"
 short_bio: ""
 photo: "nuria.jpeg"
 
