@@ -6,6 +6,7 @@
         <div class="col-md-3">
             <div id="index_sections" class="list-group position-sticky">
                 {{ if .Content }}<a class="list-group-item list-group-item-action" href="#content_section">About the event</a>{{ end }}
+                {{ if .Params.registration }}<a class="list-group-item list-group-item-action" href="#registration_section">Registration</a>{{ end }}
                 {{ if .Params.events }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
                 {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
                 {{ if .Params.organizers_levels }}<a class="list-group-item list-group-item-action" href="#organizers_section">Organizers</a>{{ end }}
@@ -19,6 +20,13 @@
             {{ if .Content }}
             <div class="link_anchor" id="content_section">
                 {{ .Content }}
+            </div>
+            {{ end }}
+
+            {{ if .Params.registration }}
+            <div class="link_anchor" id="registration_section">
+                <h1>Registration</h1>
+                {{ .Params.registration  | markdownify }}
             </div>
             {{ end }}
 

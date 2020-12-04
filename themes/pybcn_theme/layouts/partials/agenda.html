@@ -29,7 +29,7 @@
 	{{ range $event := .events }}
 		<div class="event {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
 			<h3>
-				{{ $event.title }}
+
 				{{ if eq $event.type "talk" }}
 					<i class="fas fa-comment"></i>
 				{{ else if eq $event.type "coffee" }}
@@ -45,15 +45,19 @@
 				{{ else if eq $event.type "lightning" }}
 					<i class="fas fa-bolt"></i>
 				{{ end }}
+				{{ $event.title }}
 			</h3>
+			{{ if $event.speaker }}
+				<p><span>{{ $event.speaker }}</span></p>
+			{{ end }}
 			{{ if $event.location }}
-				<p>
+				<span class="event_topic"><i class="fas fa-terminal"></i>
 					{{ if or (in $event.location "www") (in $event.location "http") }}
 						<a class="event_location" href="{{ $event.location }}" target="_blank">{{ $event.location }}</a>
 					{{ else }}
-						<span>{{ $event.location }}</span>
+						{{ $event.location }}
 					{{ end }}
-				</p>
+				</span>
 			{{ end }}
 			{{ if $event.topic }}
 				<span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ $event.topic }}</span>
