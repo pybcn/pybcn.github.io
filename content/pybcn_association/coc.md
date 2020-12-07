@@ -5,6 +5,8 @@ menu:
   main:
     parent: 'The association'
 weight: 4
+aliases:
+- /coc
 
 layout: single
 heroBackground: https://source.unsplash.com/LjqARJaJotc/1600x400

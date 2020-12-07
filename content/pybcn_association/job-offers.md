@@ -5,6 +5,8 @@ menu:
   main:
     parent: 'How to collaborate'
 weight: 5
+aliases:
+- /job-offers
 heroBackground: https://source.unsplash.com/vzfgh3RAPzM/1600x400
 ---
 
