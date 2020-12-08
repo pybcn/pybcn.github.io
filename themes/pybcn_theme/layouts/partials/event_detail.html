@@ -1,0 +1,55 @@
+<div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <h3 class="modal-title" id="exampleModalLabel">
+
+                    {{ if eq $.event.type "talk" }}
+                        <i class="fas fa-comment"></i>
+                    {{ else if eq $.event.type "coffee" }}
+                        <i class="fas fa-mug-hot"></i>
+                    {{ else if eq $.event.type "lunch" }}
+                        <i class="fas fa-utensils"></i>
+                    {{ else if eq $.event.type "workshop" }}
+                        <i class="fas fa-laptop"></i>
+                    {{ else if eq $.event.type "group" }}
+                        <i class="fas fa-users"></i>
+                    {{ else if eq $.event.type "qa" }}
+                        <i class="fas fa-question-circle"></i>
+                    {{ else if eq $.event.type "lightning" }}
+                        <i class="fas fa-bolt"></i>
+                    {{ end }}
+                    {{ $.event.title }}
+                </h3>
+                {{ if $.event.speaker }}
+                    <p><span>{{ $.event.speaker }}</span></p><br/>
+                {{ end }}
+                {{ if $.event.location }}
+                    <span class="event_topic"><i class="fas fa-terminal"></i>
+                        {{ if or (in $.event.location "www") (in $.event.location "http") }}
+                            <a class="event_location" href="{{ $.event.location }}" target="_blank">{{ $.event.location }}</a><br/>
+                        {{ else }}
+                            {{ $.event.location }}<br/>
+                        {{ end }}
+                    </span>
+                {{ end }}
+                {{ if $.event.language }}
+                    <span class="event_language"><i class="fas fa-terminal"></i> Language: {{ $.event.language }}</span><br/>
+                {{ end }}
+                {{ if $.event.topic }}
+                    <span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ $.event.topic }}</span><br/>
+                {{ end }}
+                {{ if $.event.level }}
+                    <span class="event_level"><i class="fas fa-terminal"></i> Level: {{ $.event.level }}</span><br/>
+                {{ end }}
+
+                <br/><p>{{ $.event.description | markdownify}}</p>
+
+            </div>
+        </div>
+    </div>
+</div>
