@@ -26,7 +26,7 @@
 		<div class="time start-{{ replace $time ":" "" }}">{{$time}}</div>
 	{{ end }}
 
-	{{ range $event := .events }}
+	{{ range $index, $event := .events }}
 		<div class="event {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
 			<h3>
 
@@ -45,7 +45,20 @@
 				{{ else if eq $event.type "lightning" }}
 					<i class="fas fa-bolt"></i>
 				{{ end }}
+
+				{{ if $event.description }}
+					<a href="" data-toggle="modal" data-target="#modal_{{ $index }}">
+				{{ end }}
 				{{ $event.title }}
+				{{ if $event.description }}
+					</a>
+				{{ end }}
+
+				{{ if $event.description }}
+					<a href="" data-toggle="modal" data-target="#modal_{{ $index }}">
+						<i class="fas fa-plus-square"></i>
+					</a>
+				{{ end }}
 			</h3>
 			{{ if $event.speaker }}
 				<p><span>{{ $event.speaker }}</span></p>
@@ -59,6 +72,9 @@
 					{{ end }}
 				</span>
 			{{ end }}
+			{{ if $event.language }}
+				<span class="event_language"><i class="fas fa-terminal"></i> Language: {{ $event.language }}</span>
+			{{ end }}
 			{{ if $event.topic }}
 				<span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ $event.topic }}</span>
 			{{ end }}
@@ -66,5 +82,8 @@
 				<span class="event_level"><i class="fas fa-terminal"></i> Level: {{ $event.level }}</span>
 			{{ end }}
 		</div>
+		{{ if $event.description }}
+			{{ partial "event_detail.html" (dict "event" $event "index" $index) }}
+		{{ end }}
 	{{ end }}
 </div>
