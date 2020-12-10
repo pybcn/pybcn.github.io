@@ -9,8 +9,8 @@
                 {{ if .Params.registration }}<a class="list-group-item list-group-item-action" href="#registration_section">Registration</a>{{ end }}
                 {{ if .Params.events }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
                 {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
-                {{ if .Params.organizers_levels }}<a class="list-group-item list-group-item-action" href="#organizers_section">Organizers</a>{{ end }}
                 {{ if .Params.speakers_levels }}<a class="list-group-item list-group-item-action" href="#speakers_section">Speakers</a>{{ end }}
+                {{ if .Params.organizers_levels }}<a class="list-group-item list-group-item-action" href="#organizers_section">Organizers</a>{{ end }}
                 {{ if .Params.previous_editions }}<a class="list-group-item list-group-item-action" href="#previous_editions_section">Previous editions</a>{{ end }}
             </div>
         </div>
@@ -44,17 +44,17 @@
             </div>
             {{ end }}
 
-            {{ if .Params.organizers_levels }}
-            <div class="link_anchor" id="organizers_section">
-                <h1>Organizers</h1>
-                {{ partial "people-grid.html" (dict "levels" .Params.organizers_levels "Site" .Site)}}
-            </div>
-            {{ end }}
-
             {{ if .Params.speakers_levels }}
             <div class="link_anchor" id="speakers_section">
                 <h1>Speakers</h1>
                 {{ partial "people-grid.html" (dict "levels" .Params.speakers_levels "Site" .Site)}}
+            </div>
+            {{ end }}
+
+            {{ if .Params.organizers_levels }}
+            <div class="link_anchor" id="organizers_section">
+                <h1>Organizers</h1>
+                {{ partial "people-grid.html" (dict "levels" .Params.organizers_levels "Site" .Site)}}
             </div>
             {{ end }}
 
