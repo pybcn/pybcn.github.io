@@ -231,7 +231,7 @@ events:
       track_length: 1
       color: orange
       title: "Counting votes: analyzing a large dataset with Dask"
-      description: "We will explain how to switch from Pandas to Dask in order to analyze a large dataset that does not fit into single-machine memory."
+      description: "We will explain how to switch from Pandas to Dask in order to analyze a large dataset that does not fit into single-machine memory.<br/><br/>Repository: <a href='https://github.com/ber2/pyday2020-counting-votes-with-dask' target='_blank'>https://github.com/ber2/pyday2020-counting-votes-with-dask</a>"
       language: "English"
       speaker: "Alberto Camara"
       type: talk
