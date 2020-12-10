@@ -57,7 +57,7 @@
                             <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe"></i></a>
                         {{ end }}
                     </h3>
-                    <span>{{ $.person.Params.short_bio }}</span>
+                    <span>{{ $.person.Params.short_bio | markdownify }}</span>
                     <p class="font-weight-bold">{{ $.person.Params.pybcn_position }}</p>
                     {{ $.person.Content }}
                 </div>
