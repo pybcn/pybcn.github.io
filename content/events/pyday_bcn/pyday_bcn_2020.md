@@ -24,14 +24,20 @@ sponsor_levels:
 speakers_levels:
     - people_per_line: 4
       people: 
+      - alberto
+      - alvaro_duran
       - ankit-mahato
+      - carles_barrobes
       - christian-adell-querol
+      - daniel_mesejo
       - edgar-riba
+      - eduard_cespedes
       - elisabeth-ortega-carrasco
       - ferran-fabregas
       - francesco-faraone
       - gajendra-deshpande
       - joan-fontanals-martinez
+      - jose_haro
       - julio-martinez
       - marc-pous
       - maria-teresa-grifa
