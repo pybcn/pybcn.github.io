@@ -203,9 +203,13 @@ events:
       end_time_slot: 18:00
       track_length: 1
       color: green
-      title: "CloudBlue sponsored talk"
+      title: "Efficiently share data on a true microservices architecture using django-cqrs (CloudBlue sponsored talk)"
       type: talk
       location: YouTube track2
+      topic: Web development, microservices
+      language: "English"
+      level: Intermediate
+      speaker: Francesco Faraone
 
     - start_time_slot: 18:15
       end_time_slot: 18:15
