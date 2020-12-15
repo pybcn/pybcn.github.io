@@ -86,6 +86,10 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             color: white;
         }
 
+        .event_video {
+            margin-top: 5%;
+        }
+
         /* Source: https://javier.xyz/cohesive-colors/ */
         &.green {background-color: #a3a948}; /* green */
         &.yellow {background-color: #edb92e}; /* yellow */

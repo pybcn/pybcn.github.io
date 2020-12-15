@@ -60,27 +60,30 @@
 					</a>
 				{{ end }}
 			</h3>
-			{{ if $event.speaker }}
-				<p><span>{{ $event.speaker }}</span></p>
+			{{ with $event.speaker }}
+			<p><span>{{ . }}</span></p>
 			{{ end }}
-			{{ if $event.location }}
+			{{ with $event.location }}
 				<span class="event_topic"><i class="fas fa-terminal"></i>
-					{{ if or (in $event.location "www") (in $event.location "http") }}
-						<a class="event_location" href="{{ $event.location }}" target="_blank">{{ $event.location }}</a>
+					{{ if or (in . "www") (in . "http") }}
+						<a class="event_location" href="{{ $event.location }}" target="_blank">{{ . }}</a>
 					{{ else }}
-						{{ $event.location }}
+						{{ . }}
 					{{ end }}
 				</span>
 			{{ end }}
-			{{ if $event.language }}
-				<span class="event_language"><i class="fas fa-terminal"></i> Language: {{ $event.language }}</span>
+			{{ with $event.language }}
+				<span class="event_language"><i class="fas fa-terminal"></i> Language: {{ . }}</span>
 			{{ end }}
-			{{ if $event.topic }}
-				<span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ $event.topic }}</span>
+			{{ with $event.topic }}
+				<span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ . }}</span>
 			{{ end }}
-			{{ if $event.level }}
-				<span class="event_level"><i class="fas fa-terminal"></i> Level: {{ $event.level }}</span>
+			{{ with $event.level }}
+				<span class="event_level"><i class="fas fa-terminal"></i> Level: {{ . }}</span>
 			{{ end }}
+			{{ with $event.video }}
+			<span class="event_video"><i class="fas fa-film"></i> <a target="_blank" href="{{ . }}">Video</a></span>
+		    {{ end }}
 		</div>
 		{{ if $event.description }}
 			{{ partial "event_detail.html" (dict "event" $event "index" $index) }}
