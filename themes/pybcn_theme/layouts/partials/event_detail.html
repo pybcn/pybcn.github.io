@@ -25,28 +25,31 @@
                     {{ end }}
                     {{ $.event.title }}
                 </h3>
-                {{ if $.event.speaker }}
-                    <p><span>{{ $.event.speaker }}</span></p><br/>
+                {{ with $.event.speaker }}
+                    <p><span>{{ . }}</span></p><br/>
                 {{ end }}
-                {{ if $.event.location }}
+                {{ with $.event.location }}
                     <span class="event_topic"><i class="fas fa-terminal"></i>
-                        {{ if or (in $.event.location "www") (in $.event.location "http") }}
-                            <a class="event_location" href="{{ $.event.location }}" target="_blank">{{ $.event.location }}</a><br/>
+                        {{ if or (in . "www") (in . "http") }}
+                            <a class="event_location" href="{{ . }}" target="_blank">{{ . }}</a><br/>
                         {{ else }}
-                            {{ $.event.location }}<br/>
+                            {{ . }}<br/>
                         {{ end }}
                     </span>
                 {{ end }}
-                {{ if $.event.language }}
-                    <span class="event_language"><i class="fas fa-terminal"></i> Language: {{ $.event.language }}</span><br/>
+                {{ with $.event.language }}
+                    <span class="event_language"><i class="fas fa-terminal"></i> Language: {{ . }}</span><br/>
                 {{ end }}
-                {{ if $.event.topic }}
-                    <span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ $.event.topic }}</span><br/>
+                {{ with $.event.topic }}
+                    <span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ . }}</span><br/>
                 {{ end }}
-                {{ if $.event.level }}
-                    <span class="event_level"><i class="fas fa-terminal"></i> Level: {{ $.event.level }}</span><br/>
+                {{ with $.event.level }}
+                    <span class="event_level"><i class="fas fa-terminal"></i> Level: {{ . }}</span><br/>
                 {{ end }}
-
+                {{ with $.event.video }}
+                <span class="event_video"><i class="fas fa-film"></i> <a href="{{ . }}" target="_blank">Video</a></span>
+                {{ end }}
+                <br/>
                 <br/><p>{{ $.event.description | markdownify}}</p>
 
             </div>

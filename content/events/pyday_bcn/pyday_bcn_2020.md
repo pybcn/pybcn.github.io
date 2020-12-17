@@ -71,6 +71,7 @@ events:
     - start_time_slot: 16:00
       end_time_slot: 16:00
       track_length: 2
+      video: https://www.youtube.com/watch?v=oLB0eo7tpj0
       color: purple
       title: "Welcome Session"
       speaker: "Laura Pérez-Mayos"
@@ -81,6 +82,7 @@ events:
     - start_time_slot: 16:15
       end_time_slot: 16:30
       track_length: 1
+      video: https://www.youtube.com/watch?v=w9cYczex79M
       color: orange
       title: "Ready, Set, Go with Numba"
       description: "The prominent reasons for the wide adoption of Python is the ease of learning, usability and readability coupled with the powerful ecosystem of Python packages. This often makes Python an attractive language for researchers & scholars to undertake computational projects and thesis. The ease of prototyping and tinkering allows for higher number of iterations and customization, leading to an increase in research output. But, a major pain point of using Python is its speed when compared to languages like C++ or FORTRAN which are still widely used in research.<br/><br/>Developers, when hit by the performance bottleneck of python code, often come across some methods to increase their code performance like using PyMPI, Numpy or CPython. But, the learning curve is steep and APIs get less familiar. <br/><br/>If learning Python is so easy, why should increasing the performance of Python code be so difficult?<br/><br/>This talk will address this question and get us up and running with Numba, an open source JIT compiler that translates Python and NumPy code into fast machine code. We will delve into real world exercises which will demonstrate the core concepts, ease and effectiveness of using Numba and how it can be useful in lowering the barrier to achieve code performance in Python."
@@ -93,6 +95,7 @@ events:
     - start_time_slot: 16:45
       end_time_slot: 17:00
       track_length: 1
+      video: https://www.youtube.com/watch?v=uzjlrbqq26M
       color: orange
       title: "Working with Text Data in Pandas"
       description: "I'll will present some tips, tricks and libraries to speed up text processing with pandas."
@@ -105,6 +108,7 @@ events:
     - start_time_slot: 17:15
       end_time_slot: 17:15
       track_length: 1
+      video: https://www.youtube.com/watch?v=Hnr7MH9Pd5s
       color: orange
       title: "Lifebox: a virtual ecosystem"
       description: "Lifebox is a project about a virtual ecosystem created using Python. Inside the Lifebox you can find two different kind of species, the ‘species’ and the ‘mana’. Each of the ‘species’ have a set of parameters that defines how they evolve inside the virtual ecosystem, and you can change all the parameter of species in real-time. The goal of the project is to offer the possibility to learn the basic concepts of biology through the experimentation, viewing the consequences of your actions and trying to find the way to balance the ecosystem through changing the Lifebox parameters."
@@ -117,6 +121,7 @@ events:
     - start_time_slot: 17:30
       end_time_slot: 17:30
       track_length: 1
+      video: https://www.youtube.com/watch?v=4oc0OTkks0k
       color: orange
       title: "Transformers: the all-in-one tool for NLP"
       description: "NLP has been evolving from classic bag of words to embedding methods. But in 2017 finally a new model that can be used for all kind of NLP tasks emerged: transformers. Let's review its general ideas, and a practical example of its use."
@@ -128,6 +133,7 @@ events:
       location: YouTube track1
     - start_time_slot: 17:45
       end_time_slot: 17:45
+      video: https://www.youtube.com/watch?v=4-OPxy4CLAw
       track_length: 1
       color: blue
       title: "A Day Has Only 24±1 Hours"
@@ -140,6 +146,7 @@ events:
       location: YouTube track1
     - start_time_slot: 18:00
       end_time_slot: 18:00
+      video: https://www.youtube.com/watch?v=B0YM3XkNkQs
       track_length: 1
       color: blue
       title: "Ho sento, no ets el meu tipus"
@@ -154,6 +161,7 @@ events:
     - start_time_slot: 16:15
       end_time_slot: 16:30
       track_length: 1
+      video: https://www.youtube.com/watch?v=8UjkfOKh6jA
       color: yellow
       title: "Alexa, te elijo a ti"
       description: "Algunos de nosotros tenemos un aparatito en casa escuchándonos 24/7 que usamos para escuchar música, preguntarle la hora y pedirle un temporizador o un chiste malo. En esta charla os voy a enseñar como programar a Alexa usando Python para que os ayude en vuestras tareas usando dos ejemplos: una skill que nos calculará equivalencias para ayudarnos en las recetas de cocina (entre otras cosas) y otra que nos aconsejará sobre qué tipo de Pokémon elegir para enfrentarnos a un oponente."
@@ -165,6 +173,7 @@ events:
       location: YouTube track2
     - start_time_slot: 16:45
       end_time_slot: 17:00
+      video: https://www.youtube.com/watch?v=Se3FmYvn6sM
       track_length: 1
       color: green
       title: "Network automation using Python"
@@ -178,6 +187,7 @@ events:
     - start_time_slot: 17:15
       end_time_slot: 17:15
       track_length: 1
+      video: https://www.youtube.com/watch?v=kwa58dEhPNY
       color: blue
       title: "Retrying, a better way"
       description: "Python have a lot of libraries, for multiple purposes, and among them there are a lot of hidden gems, such as the Backoff library (https://github.com/litl/backoff) which will make retrying operations based on exceptions or predicates an easy game.<br/>Handling retries have never been so simple."
@@ -189,6 +199,7 @@ events:
       location: YouTube track2
     - start_time_slot: 17:30
       end_time_slot: 17:30
+      video: https://www.youtube.com/watch?v=S3ebYJxXBRU
       track_length: 1
       color: blue
       title: "Antifragile Software: Code that gains from disorder"
@@ -202,6 +213,7 @@ events:
     - start_time_slot: 17:45
       end_time_slot: 18:00
       track_length: 1
+      video: https://www.youtube.com/watch?v=cmi4B41oOd8
       color: green
       title: "Efficiently share data on a true microservices architecture using django-cqrs (CloudBlue sponsored talk)"
       type: talk
@@ -221,6 +233,7 @@ events:
     - start_time_slot: 18:30
       end_time_slot: 18:45
       track_length: 1
+      video: https://www.youtube.com/watch?v=v75bTfShH-M
       color: orange
       title: "Performing Sentiment Analysis on Video with Serverless Architectures"
       description: "In this talk we will explain how to create video processing pipelines using an event-driven and fully Serverless Architecture in AWS. We will use AWS Chalice, a Python framework from AWS, for managing the serverless Lambda Functions and a range variety of AWS services for the video manipulation like AWS Elastic Transcoder, Amazon Transcribe, Amazon Comprehend. And of course the more common architectural and traditional services like S3, DynamoDB, Gateway, SQS, SNS and SES."
@@ -232,6 +245,7 @@ events:
       location: YouTube track1
     - start_time_slot: 19:00
       end_time_slot: 19:15
+      video: https://www.youtube.com/watch?v=KOpW86J56CU
       track_length: 1
       color: orange
       title: "Counting votes: analyzing a large dataset with Dask"
@@ -245,6 +259,7 @@ events:
     - start_time_slot: 19:30
       end_time_slot: 19:45
       track_length: 1
+      video: https://www.youtube.com/watch?v=uUwmknHAIhU
       color: orange
       title: "Kornia: differentiable Computer Vision with Pytorch"
       description: "The talk is an introduction to Kornia which is a library that implements classical Computer Vision algorithms in PyTorch that got a lot of attention within the open source community during the last year. The core of the library is written from scratch using pure PyTorch operators and uses the auto-reverse differentiable engine to allow to the user to plug any function within neural networks with a transparent API for high performance devices such as GPUs and TPUs. During the talk I'll go through the different principle designs and the functionalities found in each of the modules, practical examples, basic usage of the library and more. Information about the project in the website: www.kornia.org"
@@ -257,6 +272,7 @@ events:
     - start_time_slot: 20:00
       end_time_slot: 20:15
       track_length: 1
+      video: https://www.youtube.com/watch?v=UtK-npeVsH0
       color: orange
       title: "JINA AI: An Open Source Neural Search Framework"
       description: "What is neural or semantic search? How is it different from traditional symbolic search? Jina AI is an open source framework for AI-powered search."
@@ -270,6 +286,7 @@ events:
     - start_time_slot: 18:30
       end_time_slot: 18:45
       track_length: 1
+      video: https://www.youtube.com/watch?v=nWVJ7HfFC5E
       color: yellow
       title: "Building My First Python IoT Device with Containers (in 20 minutes)"
       description: "This workshop is designed for developers who are coming from Web development and other technologies into the Internet of Things. This session will guide assistants how to connect an Arm-powered device such as a Raspberry Pi to the Internet with balena and open source tools."
@@ -282,6 +299,7 @@ events:
     - start_time_slot: 19:00
       end_time_slot: 19:15
       track_length: 1
+      video: https://www.youtube.com/watch?v=BoaGrcmfVH8
       color: green
       title: "Documentation-driven development for Python web APIs"
       description: "In this presentation, I want to show how developers can minimise the risk of API integration failures by using documentation-driven development. Documentation-driven development is an approach where we first write the API documentation, and then we validate the API implementation against the specification. This approach helps us create a more robust software delivery process for our APIs. I’ll show useful tools and frameworks, such as Dredd, that can help us automatically generate tests that validate our APIs. "
@@ -293,6 +311,7 @@ events:
       location: YouTube track2
     - start_time_slot: 19:30
       end_time_slot: 19:45
+      video: https://www.youtube.com/watch?v=LvvwLYk9aIo
       track_length: 1
       color: blue
       title: "Alice in Pythonland: Object oriented programming in Lewis Carroll games"
@@ -306,6 +325,7 @@ events:
     - start_time_slot: 20:00
       end_time_slot: 20:15
       track_length: 1
+      video: https://www.youtube.com/watch?v=LAQY4ucheQA
       color: green
       title: "Investigating Digital Crimes using Python"
       description: "A recent study by CheckPoint Research has recorded over 1,50,000 cyber-attacks every week during the COVID-19 pandemic. There has been an increase of 30% in cyber-attacks compared to previous weeks. The pandemic has been the main reason for job loss and pay cuts of people and has led to an increase in cybercrimes. Examples of cyber-attacks include phishing, ransomware, fake news, fake medicine, extortion, and insider frauds. Cyber forensics is a field that deals with the investigation of digital crimes by analyzing, examining, identifying, and recovering digital evidence from electronic devices and producing them in the court of law. Python has a great collection of built-in modules for digital forensics tasks. The talk begins with an introduction to digital crimes, digital forensics, the process of investigation, and the collection of evidence. Next, I will discuss report creation using CSV and Excel reports, investigation of acquisition media using the pyscreenshot module. Finally, I will conclude the talk with the investigation of embedded metadata, emails, and log files. In this talk, I will cover mutagen, mailbox, tqdm, argparser, yara python modules, and utilities which are used for the above-mentioned tasks.<br/><br/>In this talk, the audience will learn the procedure to be followed while investigating digital crimes and most importantly how to develop their own digital forensic tools using Python. I believe that the attendees will learn about the new exciting field where there are lots of opportunities with respect to their careers. Basic understanding of Python language or any other scripting language will be helpful in understanding the concepts.<br/><br/>Outline 1. Introduction to digital crimes, digital forensics, the process of investigation, and collection of evidence. [05 Minutes] 2. Report creation using CSV and Excel reports [04 Minutes] 3. Investigation of acquisition media using the pyscreenshot module [03 Minutes] 4. Investigation of embedded metadata [05 Minutes] 5. Investigation of emails [05 Minutes] 6. Investigation of log files [05 Minutes] 7. Conclusion and Questions [03 Minutes]"
