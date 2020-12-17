@@ -19,9 +19,9 @@ unsafe=true
     [params.social_items]
         [params.social_items.twitter]
             icon = "fab fa-twitter-square fa-2x"
-            link = "https://twitter.com/pybcn"
+            link = "https://twitter.com/PyBCN"
         [params.social_items.youtube]
-            link = "https://www.youtube.com/channel/UCEhI2CfdT5--TYq47K4en4A/videos"
+            link = "https://www.youtube.com/c/PythonBarcelona"
             icon = "fab fa-youtube-square fa-2x"
         [params.social_items.meetup]
             link = "https://www.meetup.com/python-barcelona/"
@@ -30,7 +30,7 @@ unsafe=true
             link = "https://github.com/pybcn"
             icon = "fab fa-github fa-2x"
         [params.social_items.linkedin]
-            link = "https://www.linkedin.com/company/14840728"
+            link = "https://linkedin.com/company/pybcn"
             icon = "fab fa-linkedin fa-2x"
         [params.social_items.slack]
             link = "https://pybcn.slack.com"
