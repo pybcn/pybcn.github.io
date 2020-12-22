@@ -20,6 +20,7 @@ sponsor_levels:
   - kiwi
   - letgo
   - marfeel
+  - preply
   - psf
   - qida
   - satellogic
