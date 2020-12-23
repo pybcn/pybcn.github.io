@@ -28,6 +28,8 @@ All job offers **must** follow these rules:
 3. Provide the name of the company, and direct company contact info.
 4. Provide a salary range.
 
+As your email will be sent to the Meetup.com's mailing list, it's important to notice it removes all mail addresses and attachments, so, please avoid these.
+
 To get more visibility of what you do, consider [giving a talk](/pybcn_association/propose-a-talk/) or offering to host the meetup!
 
 **Disclaimer**: We ban cheaters. Don't post offers in comments, events, or discussions!
