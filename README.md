@@ -139,7 +139,17 @@ carousel_photos:
 
 This page is designed for events like PyDay, and allows to display the description of the event as well as its sponsors, organizers, speakers, previous editions and the agenda.
 
-All elements except the agenda are components of other pages. 
+It allows for different sections to be added, that are displayed in a floating menu:
+- Content: textual content
+- important_dates: textual content
+- call_for_proposals: textual content 
+- registration: textual content
+- events (special component, see description below)
+- call_for_sponsors: textual content 
+- sponsor_levels 
+- speakers_levels 
+- organizers_levels 
+- previous_editions 
 
 The agenda is based on the code in [https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/](https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/) and requires to define the duration of the time spans in which we want to divide the slots (e.g. 30 minutes slots), how many parallel tracks does the event have, a list of the time slots and a list of the events.
 
