@@ -6,8 +6,11 @@
         <div class="col-md-3">
             <div id="index_sections" class="list-group position-sticky">
                 {{ if .Content }}<a class="list-group-item list-group-item-action" href="#content_section">About the event</a>{{ end }}
+                {{ if .Params.important_dates }}<a class="list-group-item list-group-item-action" href="#important_dates_section">Important dates</a>{{ end }}
+                {{ if .Params.call_for_proposals }}<a class="list-group-item list-group-item-action" href="#call_for_proposals_section">Call for proposals</a>{{ end }}
                 {{ if .Params.registration }}<a class="list-group-item list-group-item-action" href="#registration_section">Registration</a>{{ end }}
                 {{ if .Params.events }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
+                {{ if .Params.call_for_sponsors }}<a class="list-group-item list-group-item-action" href="#call_for_sponsors_section">Call for sponsors</a>{{ end }}
                 {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
                 {{ if .Params.speakers_levels }}<a class="list-group-item list-group-item-action" href="#speakers_section">Speakers</a>{{ end }}
                 {{ if .Params.organizers_levels }}<a class="list-group-item list-group-item-action" href="#organizers_section">Organizers</a>{{ end }}
@@ -20,6 +23,23 @@
             {{ if .Content }}
             <div class="link_anchor" id="content_section">
                 {{ .Content }}
+                <br/><br/>
+            </div>
+            {{ end }}
+
+            {{ if .Params.important_dates}}
+            <div class="link_anchor" id="important_dates_section">
+                <h1>Important dates</h1>
+                {{ .Params.important_dates  | markdownify }}
+                <br/><br/><br/>
+            </div>
+            {{ end }}
+
+            {{ if .Params.call_for_proposals}}
+            <div class="link_anchor" id="call_for_proposals_section">
+                <h1>Call for proposals</h1>
+                {{ .Params.call_for_proposals  | markdownify }}
+                <br/><br/><br/>
             </div>
             {{ end }}
 
@@ -27,6 +47,7 @@
             <div class="link_anchor" id="registration_section">
                 <h1>Registration</h1>
                 {{ .Params.registration  | markdownify }}
+                <br/><br/><br/>
             </div>
             {{ end }}
 
@@ -37,10 +58,19 @@
             </div>
             {{ end }}
 
+            {{ if .Params.call_for_sponsors }}
+            <div class="link_anchor" id="call_for_sponsors_section">
+                <h1>Call for sponsors</h1>
+                {{ .Params.call_for_sponsors  | markdownify }}
+                <br/><br/><br/>
+            </div>
+            {{ end }}
+
             {{ if .Params.sponsor_levels }}
             <div class="link_anchor" id="sponsors_section">
                 <h1>Sponsors</h1>
                 {{ partial "sponsors-grid.html" (dict "levels" .Params.sponsor_levels "Site" .Site)}}
+                <br/><br/><br/>
             </div>
             {{ end }}
 
