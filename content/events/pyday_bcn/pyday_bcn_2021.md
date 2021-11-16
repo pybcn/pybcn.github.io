@@ -13,11 +13,11 @@ layout: event
 
 important_dates: "<b>11th October</b>: Call for proposals opening<br/>
     <b>24th October</b>: Call for proposals closing<br/>
-    <b>14th November</b>: Program available<br/>
-    <b>15th November</b>: Registration open<br/>
+    <b>This week</b>: Program available<br/>
+    <b>Next week</b>: Registration open<br/>
     <b>27th November</b>: PyDay BCN 2021"
 
-call_for_proposals: "Would you like to offer a workshop at PyDay BCN 2021? <b>Send your proposal by filling <a href='https://docs.google.com/forms/d/1qv_HDQPpvg6k6BM3wteWkOZgB1nIvgO517VG5VZ5L5o/viewform?edit_requested=true' target='_blank'>this form!!</a></b> PyDay is a community-driven event, and <b>it wouldn't be possible without you!</b><br/><br/>Remember that this will be an in-person event, and workshops must be hands-on and fully guided."
+call_for_proposals: "The CFP is already closed, thank you for your awesome proposals!<br/>PyDay is a community-driven event, and <b>it wouldn't be possible without you!</b>"
 
 call_for_sponsors: "Become a sponsor! Have a look at the <b>different <a href='https://drive.google.com/file/d/1Dl1Orh25RR0PzkJ_7E7EPmfs-pZOHILo/view' target='_blank'>sponsorship levels</a></b> starting from 99€ and choose the one that better adjusts to your wills and needs :) Do you fancy something that is not on the menu? No worries! <a href='mailto:pydaybcn2021@googlegroups.com'>Contact us</a> and we will work it out together."
 
