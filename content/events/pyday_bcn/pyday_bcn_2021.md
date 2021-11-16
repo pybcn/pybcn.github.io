@@ -21,6 +21,14 @@ call_for_proposals: "Would you like to offer a workshop at PyDay BCN 2021? <b>Se
 
 call_for_sponsors: "Become a sponsor! Have a look at the <b>different <a href='https://drive.google.com/file/d/1Dl1Orh25RR0PzkJ_7E7EPmfs-pZOHILo/view' target='_blank'>sponsorship levels</a></b> starting from 99€ and choose the one that better adjusts to your wills and needs :) Do you fancy something that is not on the menu? No worries! <a href='mailto:pydaybcn2021@googlegroups.com'>Contact us</a> and we will work it out together."
 
+sponsor_levels:
+    - sponsors_per_line: 3
+      sponsors: [bling, cloudblue, hybridtheory, iomed, onna, preply, qustodio, rover, typeform]
+      name: Gold
+    - sponsors_per_line: 4
+      sponsors: [bmat, digitalfems, orpheus, verse]
+      name: Supporting
+
 organizers_levels:
     - people_per_line: 4
       people:

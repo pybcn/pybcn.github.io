@@ -11,18 +11,27 @@ sponsor_levels:
   sponsors:
   - 21buttons
   - bitphy
+  - bling
+  - bmat
   - casadelmig
   - cloudblue
   - codelytv
   - colorsensing
+  - digitalfems
   - gesco
   - holaluz
+  - hybridtheory
+  - iomed
   - kiwi
   - letgo
   - marfeel
+  - onna
+  - orpheus
   - preply
   - psf
   - qida
+  - qustodio
+  - rover
   - satellogic
   - skyscanner
   - travelperk
