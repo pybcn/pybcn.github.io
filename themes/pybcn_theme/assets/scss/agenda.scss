@@ -47,7 +47,7 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             @each $time in $blockTimes15 {
                 &.start-#{$time} {grid-area: time#{$time} }
             }
-            &[class*="15"]:not(.start-1500) {
+            &[class*="15"]:not(.start-1500):not(.start-1530), &[class*="45"] {
                 font-size: 0.8rem;
                 color: #ccc;
             }
@@ -60,7 +60,7 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
      */
     .event {
         display: flex;
-        justify-content: center;
+        justify-content: start;
         flex-direction: column;
         padding: 0.5rem 1rem;
         background-color: orange;
@@ -70,8 +70,16 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
         line-height: 1.4;
         color: white;
 
+        &.middle {
+            justify-content: center;
+        }
+
+        .detail_link {
+            text-align: right;
+        }
+
         h3 {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             i {
                 margin-right: 5px;
             }
@@ -90,13 +98,14 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             margin-top: 5%;
         }
 
-        /* Source: https://javier.xyz/cohesive-colors/ */
-        &.green {background-color: #a3a948}; /* green */
+        &.green {background-color: #2E7D32}; /* green */
         &.yellow {background-color: #edb92e}; /* yellow */
         &.orange {background-color: #FF7900}; /* orange */
         &.red {background-color: #ce1836}; /* red */
         &.blue {background-color: #009989}; /* blue */
         &.purple {background-color: #672493}; /* purple */
+        &.grey{background-color: #666666}; /* grey */
+        &.pink{background-color:#FF1493};
     }
 
     &.span30min {
@@ -136,3 +145,19 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
     }
 
 }
+
+.legend {
+    font-size: 0.9em;
+    opacity: 0.7;
+    text-align: right;
+    margin-bottom: 25px;
+    margin-right: 5px;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+i.green { color: #6CC417 }
+i.yellow{ color: #FFFF33 }
+i.red { color: red }
+i.gold { color: #FFD700 }

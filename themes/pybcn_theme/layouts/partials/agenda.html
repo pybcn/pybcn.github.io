@@ -20,6 +20,12 @@
 
 </style>
 
+{{ if .legend }}
+	<div class="legend">
+		{{ .legend  | safeHTML }}
+	</div>
+{{ end }}
+
 <div class="scheduleContainer span{{ .spansDuration }}min">
 
 	{{ range $time := .eventTimes }}
@@ -27,15 +33,24 @@
 	{{ end }}
 
 	{{ range $index, $event := .events }}
-		<div class="event {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
-			<h3>
+		<div class="event {{ $event.class }} {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
 
+			{{ if $event.description }}
+				<a href="" class="detail_link" data-toggle="modal" data-target="#modal_{{ $index }}">
+					<i class="fas fa-plus-square"></i>
+				</a>
+			{{ end }}
+
+
+			<h3>
 				{{ if eq $event.type "talk" }}
 					<i class="fas fa-comment"></i>
 				{{ else if eq $event.type "coffee" }}
 					<i class="fas fa-mug-hot"></i>
 				{{ else if eq $event.type "lunch" }}
 					<i class="fas fa-utensils"></i>
+				{{ else if eq $event.type "photo" }}
+					<i class="fas fa-camera"></i>
 				{{ else if eq $event.type "workshop" }}
 					<i class="fas fa-laptop"></i>
 				{{ else if eq $event.type "group" }}
@@ -53,18 +68,21 @@
 				{{ if $event.description }}
 					</a>
 				{{ end }}
-
-				{{ if $event.description }}
-					<a href="" data-toggle="modal" data-target="#modal_{{ $index }}">
-						<i class="fas fa-plus-square"></i>
-					</a>
-				{{ end }}
 			</h3>
+
 			{{ with $event.speaker }}
-			<p><span>{{ . }}</span></p>
+			<span>{{ . }}</span>
 			{{ end }}
+
+			{{ if $event.sponsor }}
+			{{ with $event.sponsor }}
+			<span><i class="fas fa-star gold"></i> {{ . }}</span>
+			{{ end }}
+			{{ end }}
+
+
 			{{ with $event.location }}
-				<span class="event_topic"><i class="fas fa-terminal"></i>
+				<br/><span class="event_topic"><i class="fas fa-terminal"></i>
 					{{ if or (in . "www") (in . "http") }}
 						<a class="event_location" href="{{ $event.location }}" target="_blank">{{ . }}</a>
 					{{ else }}
@@ -78,8 +96,11 @@
 			{{ with $event.topic }}
 				<span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ . }}</span>
 			{{ end }}
-			{{ with $event.level }}
-				<span class="event_level"><i class="fas fa-terminal"></i> Level: {{ . }}</span>
+			{{ with $event.python_level }}
+				<span class="event_level"><i class="fas fa-terminal"></i> Python level: {{ .  | safeHTML }}</span>
+			{{ end }}
+			{{ with $event.topic_level }}
+				<span class="event_level"><i class="fas fa-terminal"></i> Topic level: {{ .  | safeHTML }}</span>
 			{{ end }}
 			{{ with $event.video }}
 			<span class="event_video"><i class="fas fa-film"></i> <a target="_blank" href="{{ . }}">Video</a></span>
