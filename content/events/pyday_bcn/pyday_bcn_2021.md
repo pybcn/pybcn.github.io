@@ -13,11 +13,9 @@ layout: event
 
 important_dates: "<b>11th October</b>: Call for proposals opening<br/>
     <b>24th October</b>: Call for proposals closing<br/>
-    <b>This week</b>: Program available<br/>
-    <b>Next week</b>: Registration open<br/>
+    <b>17th November</b>: Program available<br/>
+    <b>22nd November, 9AM</b>: Registration open<br/>
     <b>27th November</b>: PyDay BCN 2021"
-
-call_for_proposals: "The CFP is already closed, thank you for your awesome proposals!<br/>PyDay is a community-driven event, and <b>it wouldn't be possible without you!</b>"
 
 call_for_sponsors: "Become a sponsor! Have a look at the <b>different <a href='https://drive.google.com/file/d/1Dl1Orh25RR0PzkJ_7E7EPmfs-pZOHILo/view' target='_blank'>sponsorship levels</a></b> starting from 99€ and choose the one that better adjusts to your wills and needs :) Do you fancy something that is not on the menu? No worries! <a href='mailto:pydaybcn2021@googlegroups.com'>Contact us</a> and we will work it out together."
 
@@ -28,6 +26,25 @@ sponsor_levels:
     - sponsors_per_line: 4
       sponsors: [bmat, digitalfems, orpheus, verse]
       name: Supporting
+
+speakers_levels:
+    - people_per_line: 4
+      people: 
+      - antonio-molina
+      - alejandro-nicolas
+      - anton-caceres
+      - christian-adell-querol
+      - david-de-la-iglesia-castro
+      - diego-gonzalez
+      - elisabeth-ortega-carrasco
+      - esperanza-buitrago
+      - gabriel-de-maeztu
+      - jordi-mur
+      - marc-pous
+      - mariana-meireles
+      - sergi-ortiz
+      - vincent-choubard
+      - vivek-sharma
 
 organizers_levels:
     - people_per_line: 4
@@ -52,7 +69,286 @@ previous_editions:
     - name: PyDay BCN 2016
       url: /events/pyday_bcn/pyday_bcn_2016/
 
+spansDuration: 15
+numTracks: 4
+eventTimes: [9:00, 9:15, 9:30, 9:45, 10:00, 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45, 12:00, 12:15, 12:30, 12:45, 13:00, 13:15, 13:30, 13:45, 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45, 16:00, 16:15, 16:30, 16:45, 17:00, 17:15, 17:30, 17:45]
+legend: "<i class=\"fas fa-laptop\"></i> Workshop &nbsp;&nbsp;&nbsp; <i class=\"fas fa-comment\"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class=\"fas fa-circle green\"></i> Beginner &nbsp;&nbsp;&nbsp; <i class=\"fas fa-circle yellow\"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class=\"fas fa-circle red\"></i> Advanced &nbsp;&nbsp; | &nbsp;&nbsp; <i class=\"fas fa-star gold\"></i> Sponsored event"
+events:
+    - start_time_slot: 9:00
+      end_time_slot: 9:15
+      track_length: 4
+      color: purple
+      title: "Registration & Welcome"
+      speaker: "PyDay BCN 2021 Organising Committee"
+      type: group
+      location: Open-air terrace
+      class: middle
 
+    - speaker: "Sergi Ortiz"
+      title: "How to create Data apps with Python"
+      description: "Data products are the future of data. And Data Apps (and AI Apps) are an important chunk of this future. For Python coders there are many frictions to create Data Apps nowadays, we will try to address them all and create a Data App (FE - BE and DevOps) during the hands on session"
+      start_time_slot: 9:30
+      end_time_slot: 10:45
+      track_length: 1
+      color: green
+      language: "Spanish"
+      type: workshop
+      topic: Data Apps
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Actes
+    - speaker: "Diego Gonzalez"
+      sponsor: Preply
+      title: "Build a chat application that lets you speak multiple languages"
+      description: "Learn how to build a chat application that can translate messages across multiple languages using only a few technologies (Python among them, of course!)"
+      start_time_slot: 9:30
+      end_time_slot: 10:45
+      track_length: 1
+      color: orange
+      language: "English"
+      type: workshop
+      topic: Web development
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      location: Room Guinardó
+    - speaker: "Esperanza Buitrago"
+      title: "Implementing your API with FASTAPI"
+      description: "Implement your API with FastAPI from scratch and make it run in local."
+      start_time_slot: 9:30
+      end_time_slot: 10:45
+      track_length: 1
+      color: green
+      language: "English"
+      type: workshop
+      topic: Software Engineering
+      python_level: "<i class=\"fas fa-circle green\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Gòtica
+    - speaker: "Anton Caceres"
+      title: "Building the Cloud with Python: getting started with AWS CDK"
+      description: "With emerging cloud technologies it is just a matter of time until most backends run in serverless or container-based environments. This workshop is showcasing a recently released open-source Cloud Development Kit by Amazon, which lets us control cloud resources just like we control our application logic - in pure Python.
+                    CDK offers high-level abstraction to define AWS resources imperatively as customizable and reusable Python classes. Unfortunately, there are not many tutorials available yet and the documentation is limited. So we will be happy to share with you how to: 1) Break down AWS infrastructure into reusable constructs represented by Python classes; 2) Combine own and public constructs into Stack applications; 3) Deploy CDK apps to AWS cloud"
+      start_time_slot: 9:30
+      end_time_slot: 10:45
+      track_length: 1
+      color: red
+      language: "English"
+      type: workshop
+      topic: Cloud-native Python applications
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Raval
+
+    - start_time_slot: 11:00
+      end_time_slot: 11:15
+      track_length: 4
+      color: purple
+      title: "Coffee Break"
+      sponsor: Bling
+      type: coffee
+      location: Open-air terrace
+      class: middle
+
+    - speaker: "Elisabeth Ortega"
+      title: "Creating cute user interfaces in python with Qt"
+      description: "Most of us learn to use python as a command line tool, asking information to the users and passing them to the code as arguments. Some of us later moved to Django and related web development tools, to have a better interaction with the user paying the cost of fighting against the web layout in different languages. Few of us faced tkinter to build our first user interfaces with more or less success, but almost none of us were happy with the result of the user interfaces created in pure python.<br/>In \"Creating cute user interfaces in python with Qt\" I will show you how to enjoy creating user interfaces interactively with some clicks and few lines of code using the PySide6 library with all the Qt potential behind it."
+      requirements: "PySide6 (https://pypi.org/project/PySide6/)<br/><br/>Course repo:<br/>Empty and private until some days before the meeting but it will be this: https://github.com/draentropia/pyside-pyday21"
+      start_time_slot: 11:30
+      end_time_slot: 12:45
+      track_length: 1
+      color: green
+      language: "Spanish"
+      type: workshop
+      topic: User interfaces
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Actes
+    - speaker: "Gabriel de Maeztu"
+      sponsor: IOMED
+      title: "Vector search engines with Python: from embeddings to similarity search"
+      description: "I would cover the following topics, providing to anyone familiar with Python an overall idea about embeddings and similarity search in addition to a tutorial with with a use cases:<br/><ul><li>What are Vector Embeddings?</li><li>What is a Vector Database?</li><li>What is Vector Similarity Search?</li><li>So what do I do with my vector embedding?</li><li>Efficient Filtering of Vectors</li><li>Use cases: text, image, video, audio, graph and relational data</li><li>Let's build a search engine: Semantic textual search with vector embeddings<ol><li>Get the data</li><li>Create the embeddings</li><li>Upload the embeddings</li> <li>Query the data</li></ol></li></ul>"
+      start_time_slot: 11:30
+      end_time_slot: 12:45
+      track_length: 1
+      color: blue
+      language: "English"
+      type: workshop
+      topic: Data Science
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      location: Room Guinardó
+    - speaker: "Vincent Choubard"
+      sponsor: Rover
+      title: "Introduction to Django"
+      description: "We are going to build a web app using Django to create a pet profile and store it."
+      start_time_slot: 11:30
+      end_time_slot: 12:45
+      track_length: 1
+      color: orange
+      language: "English"
+      type: workshop
+      topic: Web Development
+      python_level: "<i class=\"fas fa-circle green\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Gòtica
+    - speaker: "Antonio Molina"
+      sponsor: Qustodio
+      title: "Microservicios en la vida moderna. Un enfoque python-centrico."
+      description: "Las arquitecturas distribuidas y los microservicios están en boca de todos. Unos defienden que son la cura para todos los males mientras que otros advierten que la complejidad añadida puede desembocar en frustraciones y malos sueños. En este workshop, proponemos una reflexión sobre arquitecturas distribuidas a través de un ejercicio práctico. Aunque orientado a desarrollos basados en nuestro querido python, proponemos salir de nuestra zona de confort para profundizar juntos en eso que llamamos dev/ops y de cómo los equipos podemos operar nuestros servicios asi como un primer contacto con las herramientas que nos ayudarán a minimizar los riesgos y las complejidades (tales como Helm, MiniKubes, Istio, GRPC, Prometheus, etc). Acompañanos en este rato a pensar y entender algunos de los problemas, soluciones y buenas prácticas en este tipo de arquitecturas."
+      start_time_slot: 11:30
+      end_time_slot: 12:45
+      track_length: 1
+      color: red
+      language: "Spanish"
+      type: workshop
+      topic: Architecture
+      python_level: "<i class=\"fas fa-circle green\"></i>"
+      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      location: Room Raval
+
+    - start_time_slot: 13:00
+      end_time_slot: 13:45
+      track_length: 4
+      color: purple
+      title: "Lunch"
+      type: lunch
+      location: Open-air terrace
+      class: middle
+
+    - speaker: "David de la Iglesia Castro"
+      title: "Making MLOps uncool again"
+      description: "In this workshop we will learn how to build an \"MLOps workflow\" by extending the power of Git and GitHub. Using only open source tools and without the need of external platfforms or complicated infrastructure. <br/><br/>We will use [HuggingFace] (https://huggingface.co/) to train a model that automatically adds labels to GitHub issues and we will extend the power of Git with [DVC](https://dvc.org/) and [CML](https://cml.dev/) in order to build a living Data Registry and set up a Continuous Training and Deployment loop for our model."
+      start_time_slot: 14:00
+      end_time_slot: 15:15
+      track_length: 1
+      color: blue
+      language: "Spanish"
+      type: workshop
+      topic: Data science
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      location: Room Actes
+    - speaker: "Jordi Mur"
+      title: "Causal Data Science workshop"
+      description: "Causal data science is a hot topic in the business applications of machine learning that go beyond predicting a value to actually deciding the best intervention to take based on such a prediction. We will briefly provide the key concepts and methods of causal inference (the topic of this year's Nobel prize in economics!), and then move on to some hands-on practice with Jupyter notebooks based on business use cases. No prior knowledge of causal inference is required."
+      requirements: "Bring your own laptop<br/>Libraries: Jupyter notebooks will use DoWhy: https://microsoft.github.io/dowhy/index.html"
+      start_time_slot: 14:00
+      end_time_slot: 15:15
+      track_length: 1
+      color: blue
+      language: "English"
+      type: workshop
+      topic: Data science
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Guinardó
+    - speaker: "TBA"
+      sponsor: Onna
+      title: "TBA"
+      description: "TBA"
+      start_time_slot: 14:00
+      end_time_slot: 15:15
+      track_length: 1
+      color: grey
+      type: workshop
+      location: Room Gòtica
+    - speaker: "TBA"
+      sponsor: Typeform
+      title: "Building a DAG Factory"
+      description: "TBA"
+      start_time_slot: 14:00
+      end_time_slot: 14:30
+      track_length: 1
+      color: red
+      language: "English"
+      type: talk
+      location: Room Raval
+    - speaker: "Alejandro Nicolás"
+      sponsor: Hybrid Theory
+      title: "Burnout Paradise: buenas prácticas para evitar el burnout en desarrollo"
+      description: "Durante la conferencia se tratará la programación desde el punto de vista psicológico, tanto a nivel individual como a nivel de equipo. Se presentarán los posibles efectos de una rutina de trabajo mal llevada, se evaluarán las causas y se propondrán sistemas o hábitos que afectarían positivamente al bienestar de un desarrollador en un mundo en el que el trabajo en remoto se ha implantado de manera inesperada en nuestro día a día."
+      start_time_slot: 14:45
+      end_time_slot: 15:15
+      track_length: 1
+      color: yellow
+      language: "Spanish"
+      type: talk
+      topic: Burnout
+      location: Room Raval
+
+    - start_time_slot: 15:30
+      end_time_slot: 15:45
+      track_length: 4
+      color: purple
+      title: "Coffee Break"
+      sponsor: CloudBlue
+      type: coffee
+      location: Open-air terrace
+      class: middle
+
+    - speaker: "Marc Pous"
+      title: "Build a Machine Learning IoT Device running Python"
+      description: "Learn on this workshop how to create a fleet of edge AI devices in a simple way using Python, Edge Impulse and balena.<br/><br/>During the workshop attendants will learn how to create a Bird Watcher using a Raspberry Pi and a USB camera (or Pi Camera). Using Python we will get the feed from the camera, apply machine learning models from Edge Impulse and send telegram messages. Finally we will be able to deploy a fleet of Bird Watchers in a simple way all around the world.<br/><br/>The goal of this session is to introduce IoT and AI topics to Python developers. Topics such as the Internet of Things, Artificial Intelligence and citizen science are consistently united in a single project. "
+      requirements: "Bring your own Raspberry Pi (3 or 4) with camera (USB or Pi Camera) with your laptop to try to deploy together a ML edge device."
+      start_time_slot: 16:00
+      end_time_slot: 17:15
+      track_length: 1
+      color: blue
+      language: "English"
+      type: workshop
+      topic: IOT, ML, Edge AI
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Actes
+    - speaker: "Mariana Meireles"
+      title: "The moons of Jupyter: widgets ecosystem"
+      description: "Jupyter has much more to offer than an interface for notebooks, the widgets ecosystem can leverage your research, dashboards, data visualization and much more!<br/>In the moons of Jupyter workshop we aim to give an overview of the standard widget library as well the expanded ecosystem created by contributors."
+      start_time_slot: 16:00
+      end_time_slot: 17:15
+      track_length: 1
+      color: blue
+      language: "English"
+      type: workshop
+      topic: Data science, scientific computing
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Guinardó
+    - speaker: "Vivek Sharma"
+      title: "Signal Processing - From Neurons to Mars!"
+      description: "What we see around us with time as its one dimension is a Signal! and to comprehend we just need to analyze it. This workshop is all about the last pit. We'll begin by examining some brain impulses, then move on to our environment, and lastly, Mars! Let's see what's going on over there.<br/>You'll learn how to make a frequency-specific filter, how to use the Fourier transform, and how to visualize data. <br/>Don't forget to bring your sense of wonder."
+      start_time_slot: 16:00
+      end_time_slot: 17:15
+      track_length: 1
+      color: blue
+      language: "English"
+      type: workshop
+      topic: Signal Processing
+      python_level: "<i class=\"fas fa-circle green\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Gòtica
+    - speaker: "Christian Adell"
+      title: "Keeping sync between datasets with Diffsync"
+      description: "Working with multiple data models (and data inventories) while keeping a common state is a problem that involves a diff calculation first and then a synchronisation in one direction or another, sometimes solving the mapping between the data models.<br/>Diffsync (https://github.com/networktocode/diffsync) library helps with this common problem by providing an easy data modeling and structured CRUD operations to update the state."
+      start_time_slot: 16:00
+      end_time_slot: 17:15
+      track_length: 1
+      color: green
+      language: "English"
+      type: workshop
+      topic: Data set synchronisation
+      python_level: "<i class=\"fas fa-circle green\"></i>"
+      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      location: Room Raval
+
+    - start_time_slot: 17:30
+      end_time_slot: 17:45
+      track_length: 4
+      color: purple
+      title: "Closing session & Kahoot"
+      speaker: "PyDay BCN 2021 Organising Committee"
+      type: group
+      location: All rooms
+      class: middle
 
         
 ---
