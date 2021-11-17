@@ -54,7 +54,7 @@
             {{ if .Params.events }}
             <div class="link_anchor" id="agenda_section">
                 <h1>Schedule</h1>
-                {{ partial "agenda.html" (dict "Site" .Site "spansDuration" .Params.spansDuration "numTracks" .Params.numTracks "eventTimes" .Params.eventTimes "events" .Params.events)}}
+                {{ partial "agenda.html" (dict "Site" .Site "legend" .Params.legend "spansDuration" .Params.spansDuration "numTracks" .Params.numTracks "eventTimes" .Params.eventTimes "events" .Params.events)}}
             </div>
             {{ end }}
 

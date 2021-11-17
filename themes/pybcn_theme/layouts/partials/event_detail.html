@@ -25,11 +25,20 @@
                     {{ end }}
                     {{ $.event.title }}
                 </h3>
+
                 {{ with $.event.speaker }}
-                    <p><span>{{ . }}</span></p><br/>
+                <span>{{ . }}</span>
                 {{ end }}
+
+                {{ if $.event.sponsor }}
+                {{ with $.event.sponsor }}
+                <br/><span><i class="fas fa-star gold"></i> {{ . }}</span>
+                {{ end }}
+                {{ end }}
+
+
                 {{ with $.event.location }}
-                    <span class="event_topic"><i class="fas fa-terminal"></i>
+                    <br/><br/><span class="event_topic"><i class="fas fa-terminal"></i>
                         {{ if or (in . "www") (in . "http") }}
                             <a class="event_location" href="{{ . }}" target="_blank">{{ . }}</a><br/>
                         {{ else }}
@@ -43,14 +52,20 @@
                 {{ with $.event.topic }}
                     <span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ . }}</span><br/>
                 {{ end }}
-                {{ with $.event.level }}
-                    <span class="event_level"><i class="fas fa-terminal"></i> Level: {{ . }}</span><br/>
+                {{ with $.event.python_level }}
+                    <span class="event_level"><i class="fas fa-terminal"></i> Python level: {{ .  | safeHTML }}</span><br/>
+                {{ end }}
+                {{ with $.event.topic_level }}
+                    <span class="event_level"><i class="fas fa-terminal"></i> Topic level: {{ .  | safeHTML }}</span><br/>
                 {{ end }}
                 {{ with $.event.video }}
                 <span class="event_video"><i class="fas fa-film"></i> <a href="{{ . }}" target="_blank">Video</a></span>
                 {{ end }}
                 <br/>
                 <br/><p>{{ $.event.description | markdownify}}</p>
+                {{ if $.event.requirements }}
+                <br/><b>Requirements:</b></b><p>{{ $.event.requirements | markdownify}}</p>
+                {{ end }}
 
             </div>
         </div>
