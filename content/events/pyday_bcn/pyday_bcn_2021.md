@@ -207,6 +207,15 @@ events:
       location: Room Raval
 
     - start_time_slot: 13:00
+      end_time_slot: 13:00
+      track_length: 4
+      color: pink
+      title: "Group photo"
+      type: photo
+      location: Open-air terrace
+      class: middle
+
+    - start_time_slot: 13:15
       end_time_slot: 13:45
       track_length: 4
       color: purple
