@@ -270,6 +270,7 @@ events:
     - speaker: "Albert Franzi Cros"
       sponsor: Typeform
       title: "Building a DAG Factory"
+      description: "At Typeform there are several teams that interact with data. Machine learning engineers, data scientists, data analysts, insights teams. None of them should have to worry about Airflow operators, upstream tasks, downstream tasks and all the million ways that writing Airflow DAGs by hand makes you miserable.<br/><br/>This is where the Data Platform teams comes to save the day and create Chester, a DAG factory, powered by a set of API connectors handled by us. Other teams only need to worry about where the data comes from and where it goes to, and write some YAML that describes it. All the rest is handled by Chester's superpowers."
       start_time_slot: 14:00
       end_time_slot: 14:30
       track_length: 1
