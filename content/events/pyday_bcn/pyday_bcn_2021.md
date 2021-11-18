@@ -14,11 +14,11 @@ layout: event
 important_dates: "<b>11th October</b>: Call for proposals opening<br/>
     <b>24th October</b>: Call for proposals closing<br/>
     <b>17th November</b>: Program available<br/>
-    <b>19th November, 9AM</b>: Early registration open for PyBCN memebers, PyDay speakers and sponsors<br/>
-    <b>22nd November, 9AM</b>: General registration open<br/>
+    <b>19th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
+    <b>22nd November, 9AM</b>: General registration open through <a href=\"https://www.eventbrite.es/e/entradas-pydaybcn-2021-212686419807\" target=\"_blank\">eventbrite</a><br/>
     <b>27th November</b>: PyDay BCN 2021"
 
-call_for_sponsors: "Become a sponsor! Have a look at the <b>different <a href='https://drive.google.com/file/d/1Dl1Orh25RR0PzkJ_7E7EPmfs-pZOHILo/view' target='_blank'>sponsorship levels</a></b> starting from 99€ and choose the one that better adjusts to your wills and needs :) Do you fancy something that is not on the menu? No worries! <a href='mailto:pydaybcn2021@googlegroups.com'>Contact us</a> and we will work it out together."
+registration: "Registration to the general public will be open on <b>Monday 22nd November, 9AM</b>, through <a href=\"https://www.eventbrite.es/e/entradas-pydaybcn-2021-212686419807\" target=\"_blank\">eventbrite</a>.<br/><br/>Please have a look at the schedule below and choose which talks you would like to attend beforehand."
 
 sponsor_levels:
     - sponsors_per_line: 3
