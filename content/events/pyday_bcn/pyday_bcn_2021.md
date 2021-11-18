@@ -14,7 +14,7 @@ layout: event
 important_dates: "<b>11th October</b>: Call for proposals opening<br/>
     <b>24th October</b>: Call for proposals closing<br/>
     <b>17th November</b>: Program available<br/>
-    <b>19th November, 9AM</b>: Early registration open for PyBCN memebers, PyDay speakers and sponsors<br/>
+    <b>19th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
     <b>22nd November, 9AM</b>: General registration open<br/>
     <b>27th November</b>: PyDay BCN 2021"
 
