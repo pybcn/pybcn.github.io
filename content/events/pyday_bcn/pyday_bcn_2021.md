@@ -31,9 +31,10 @@ sponsor_levels:
 speakers_levels:
     - people_per_line: 4
       people: 
-      - antonio-molina
+      - albert-franzi
       - alejandro-nicolas
       - anton-caceres
+      - antonio-molina
       - christian-adell-querol
       - david-de-la-iglesia-castro
       - diego-gonzalez
@@ -43,6 +44,7 @@ speakers_levels:
       - jordi-mur
       - marc-pous
       - mariana-meireles
+      - matteo-bruno
       - sergi-ortiz
       - vincent-choubard
       - vivek-sharma
@@ -192,6 +194,7 @@ events:
       python_level: "<i class=\"fas fa-circle green\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Gòtica
+      requirements: "Ideally have python and django installed on your machine by following <a href=\"https://docs.djangoproject.com/en/3.2/intro/install/\">https://docs.djangoproject.com/en/3.2/intro/install/</a>"
     - speaker: "Antonio Molina"
       sponsor: Qustodio
       title: "Microservicios en la vida moderna. Un enfoque python-centrico."
@@ -238,6 +241,7 @@ events:
       python_level: "<i class=\"fas fa-circle yellow\"></i>"
       topic_level: "<i class=\"fas fa-circle yellow\"></i>"
       location: Room Actes
+      requirements: "A browser (preferably Google Chrome)<br/>Github account."
     - speaker: "Jordi Mur"
       title: "Causal Data Science workshop"
       description: "Causal data science is a hot topic in the business applications of machine learning that go beyond predicting a value to actually deciding the best intervention to take based on such a prediction. We will briefly provide the key concepts and methods of causal inference (the topic of this year's Nobel prize in economics!), and then move on to some hands-on practice with Jupyter notebooks based on business use cases. No prior knowledge of causal inference is required."
@@ -252,20 +256,20 @@ events:
       python_level: "<i class=\"fas fa-circle yellow\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Guinardó
-    - speaker: "TBA"
+    - speaker: "Matteo Bruno"
       sponsor: Onna
-      title: "TBA"
-      description: "TBA"
+      title: "How to beat imposter syndrome: confessions of a developer"
+      description: "Do you feel like you don’t belong, you don’t deserve what you’ve achieved, everyone in your office is more talented than you? Do you have imposter syndrome… too?<br/><br/>Impostor syndrome is a psychological pattern in which people doubt their accomplishments or talents and have a persistent internalized fear of being exposed as a \"fraud\".<br/><br/>Imposter syndrome is common across all industries, but the increasing pressure to be successful in your professional career is taking its toll on employees, affecting more than half workers, including our speaker :)<br/><br/>After many years working in tech for a lot of companies, (from startups to big corporations) in many business fields, Matteo discovered a way to overcome self-doubt and turn this weird feeling into a booster for greater achievements.<br/><br/>He’d like to share all his experience with everyone, making you understand that feeling inadequate is quite common and that there are ways to approach it in a proactive way."
       start_time_slot: 14:00
       end_time_slot: 15:15
       track_length: 1
-      color: grey
-      type: workshop
+      color: yellow
+      language: "English"
+      type: talk
       location: Room Gòtica
-    - speaker: "TBA"
+    - speaker: "Albert Franzi Cros"
       sponsor: Typeform
       title: "Building a DAG Factory"
-      description: "TBA"
       start_time_slot: 14:00
       end_time_slot: 14:30
       track_length: 1
@@ -283,7 +287,6 @@ events:
       color: yellow
       language: "Spanish"
       type: talk
-      topic: Burnout
       location: Room Raval
 
     - start_time_slot: 15:30
