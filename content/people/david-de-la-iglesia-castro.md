@@ -1,6 +1,10 @@
 ---
 id: david-de-la-iglesia-castro
 name: David de la Iglesia Castro
-short_bio: Actualmente soy `Software Engineer` en https://iterative.ai/ , trabajando principalmente en herramientas open source como [DVC](https://github.com/iterative/dvc) y [DVCLive](https://github.com/iterative/dvclive). Anteriormente trabajaba como `Senior Computer Vision Researcher` en [Gradiant](https://www.gradiant.org/) como miembro del equipo de Procesado de Señales Multimedia.
+short_bio: "David is a `Software Engineer` at https://iterative.ai/, where he mainly works on open source tools like [DVC](https://github.com/iterative/dvc) and [DVCLive](https://github.com/iterative/dvclive). Before that, he was a `Senior Computer Vision Researcher` at [Gradiant](https://www.gradiant.org/)"
 photo: david-de-la-iglesia-castro.jpg
+
+twitter: https://twitter.com/daviddelachurch
+github: https://github.com/daavoo
+linkedin: https://www.linkedin.com/in/david-de-la-iglesia-castro-b4b67b20a/
 ---
