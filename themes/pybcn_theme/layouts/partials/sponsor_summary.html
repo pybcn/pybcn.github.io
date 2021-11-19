@@ -1,1 +1,3 @@
-<a href="{{$.sponsor.Params.web}}" target="_blank"><img class="img-fluid img-logo" src="{{ or $.sponsor.Params.logo (relURL (printf "/images/sponsors/%s" $.sponsor.Params.logo_image)) }}" /></a>
+<a href="{{$.sponsor.Params.web}}" target="_blank">
+    <img class="img-fluid img-logo" src="{{ or $.sponsor.Params.logo (relURL (printf "/images/sponsors/%s" $.sponsor.Params.logo_image)) }}" alt="{{$.sponsor.Params.name}}" />
+</a>

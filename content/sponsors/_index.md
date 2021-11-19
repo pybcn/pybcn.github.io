@@ -13,6 +13,7 @@ sponsor_levels:
   - bitphy
   - bling
   - bmat
+  - canodrom
   - casadelmig
   - cloudblue
   - codelytv
