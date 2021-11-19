@@ -21,6 +21,9 @@ important_dates: "<b>11th October</b>: Call for proposals opening<br/>
 registration: "Registration to the general public will be open on <b>Monday 22nd November, 9AM</b>, through <a href=\"https://www.eventbrite.es/e/entradas-pydaybcn-2021-212686419807\" target=\"_blank\">eventbrite</a>.<br/><br/>Please have a look at the schedule below and choose which talks you would like to attend beforehand."
 
 sponsor_levels:
+    - sponsors_per_line: 2
+      sponsors: [canodrom]
+      name: Venue
     - sponsors_per_line: 3
       sponsors: [bling, cloudblue, hybridtheory, iomed, onna, preply, qustodio, rover, typeform]
       name: Gold
