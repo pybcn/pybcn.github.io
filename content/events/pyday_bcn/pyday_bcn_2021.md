@@ -42,6 +42,7 @@ speakers_levels:
       - esperanza-buitrago
       - gabriel-de-maeztu
       - jordi-mur
+      - laysa-uchoa
       - marc-pous
       - mariana-meireles
       - matteo-bruno
@@ -127,6 +128,8 @@ events:
       python_level: "<i class=\"fas fa-circle green\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Gòtica
+      requirements: "<ul><li>Python3</li><li>Visual Studio Code</li><li>Pip3</li><li>Conda</li><li>We'll do everything from scratch: such as installing FastAPI, uvicorn and typing</li></ul>"
+
     - speaker: "Anton Caceres"
       title: "Building the Cloud with Python: getting started with AWS CDK"
       description: "With emerging cloud technologies it is just a matter of time until most backends run in serverless or container-based environments. This workshop is showcasing a recently released open-source Cloud Development Kit by Amazon, which lets us control cloud resources just like we control our application logic - in pure Python.
@@ -195,7 +198,7 @@ events:
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Gòtica
       requirements: "Ideally have python and django installed on your machine by following <a href=\"https://docs.djangoproject.com/en/3.2/intro/install/\">https://docs.djangoproject.com/en/3.2/intro/install/</a>"
-    - speaker: "Antonio Molina"
+    - speaker: "Antonio Molina, Erik Tordera, Pablo Fernández"
       sponsor: Qustodio
       title: "Microservicios en la vida moderna. Un enfoque python-centrico."
       description: "Las arquitecturas distribuidas y los microservicios están en boca de todos. Unos defienden que son la cura para todos los males mientras que otros advierten que la complejidad añadida puede desembocar en frustraciones y malos sueños. En este workshop, proponemos una reflexión sobre arquitecturas distribuidas a través de un ejercicio práctico. Aunque orientado a desarrollos basados en nuestro querido python, proponemos salir de nuestra zona de confort para profundizar juntos en eso que llamamos dev/ops y de cómo los equipos podemos operar nuestros servicios asi como un primer contacto con las herramientas que nos ayudarán a minimizar los riesgos y las complejidades (tales como Helm, MiniKubes, Istio, GRPC, Prometheus, etc). Acompañanos en este rato a pensar y entender algunos de los problemas, soluciones y buenas prácticas en este tipo de arquitecturas."
@@ -314,7 +317,7 @@ events:
       python_level: "<i class=\"fas fa-circle yellow\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Actes
-    - speaker: "Mariana Meireles"
+    - speaker: "Mariana Meireles, Laysa Uchoa"
       title: "The moons of Jupyter: widgets ecosystem"
       description: "Jupyter has much more to offer than an interface for notebooks, the widgets ecosystem can leverage your research, dashboards, data visualization and much more!<br/>In the moons of Jupyter workshop we aim to give an overview of the standard widget library as well the expanded ecosystem created by contributors."
       start_time_slot: 16:00
@@ -327,6 +330,7 @@ events:
       python_level: "<i class=\"fas fa-circle yellow\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Guinardó
+      requirements: "https://github.com/jupyter-widgets/tutorial#readme<br/><br/>But a link to a Binder project where you can run the workshop without installing anything on your machine will also be provided. It’s recommendable to install requirements locally, though."
     - speaker: "Vivek Sharma"
       title: "Signal Processing - From Neurons to Mars!"
       description: "What we see around us with time as its one dimension is a Signal! and to comprehend we just need to analyze it. This workshop is all about the last pit. We'll begin by examining some brain impulses, then move on to our environment, and lastly, Mars! Let's see what's going on over there.<br/>You'll learn how to make a frequency-specific filter, how to use the Fourier transform, and how to visualize data. <br/>Don't forget to bring your sense of wonder."
