@@ -350,6 +350,7 @@ events:
     - speaker: "Christian Adell"
       title: "Keeping sync between datasets with Diffsync"
       description: "Working with multiple data models (and data inventories) while keeping a common state is a problem that involves a diff calculation first and then a synchronisation in one direction or another, sometimes solving the mapping between the data models.<br/>Diffsync (https://github.com/networktocode/diffsync) library helps with this common problem by providing an easy data modeling and structured CRUD operations to update the state."
+      requirements: "Try to run Nautobot Lab (https://github.com/nautobot/nautobot-lab) in Docker, as we'll use it as support during the workshop."
       start_time_slot: 16:00
       end_time_slot: 17:15
       track_length: 1
@@ -357,7 +358,7 @@ events:
       language: "English"
       type: workshop
       topic: Data set synchronisation
-      python_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: "<i class=\"fas fa-circle yellow\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Raval
 
