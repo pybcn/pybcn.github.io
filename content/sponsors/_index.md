@@ -19,6 +19,7 @@ sponsor_levels:
   - codelytv
   - colorsensing
   - digitalfems
+  - edgetier
   - gesco
   - holaluz
   - hybridtheory

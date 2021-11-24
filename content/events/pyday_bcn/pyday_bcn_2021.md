@@ -27,8 +27,8 @@ sponsor_levels:
     - sponsors_per_line: 3
       sponsors: [bling, cloudblue, hybridtheory, iomed, onna, preply, qustodio, rover, typeform]
       name: Gold
-    - sponsors_per_line: 4
-      sponsors: [bmat, digitalfems, orpheus, verse]
+    - sponsors_per_line: 3
+      sponsors: [bmat, digitalfems, edgetier, orpheus, verse]
       name: Supporting
 
 speakers_levels:
