@@ -1,6 +1,8 @@
 ---
 id: diego-gonzalez
 name: Diego González
-xxxshort_bio: xxx
-xxxphoto: diego-gonzalez.jpg
+short_bio: "Diego is a Tech Lead at the Growth Tribe at Preply (https://preply.com). He has been very fortunate to work on several industries across the entire stack: from embedded devices and drivers, to frameworks for web services, all the way up to web applications and platforms. Diego started his career working for larger companies (e.g. Microsoft and Hewlett-Packard), whereas he spent the last few years working at several early stage startups. <br/><br/>At Preply, he is one of the Tech Leads in the Growth Tribe, responsible for experimenting with new business bets. His main role is making sure the team has all the support they need on the technical side of things. But he also works closely with other disciplines such as Product or Design. Due to the nature of the work, the team often needs to make changes across the entire platform and work with several different teams. Which means Diego also gets to write some code himself here and there (which is always fun!). <br/><br/>He’s always enjoyed learning languages (currently studying Catalan) and being exposed to other cultures, so working on a product that makes that happen was immediately of interest. Another motivating factor is working on a platform that is used by so many people around the world - this makes work very rewarding, both because of the impact and the technical challenges that come up. In addition, Diego enjoys working with his talented and passionate team, who also happen to be very nice human beings, so what's not to like? :)"
+photo: diego-gonzalez.jpeg
+
+linkedin: https://www.linkedin.com/in/diegoglez
 ---
