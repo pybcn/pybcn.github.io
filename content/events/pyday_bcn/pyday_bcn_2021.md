@@ -36,6 +36,7 @@ speakers_levels:
       people: 
       - albert-franzi
       - alejandro-nicolas
+      - alexandre-savio
       - anton-caceres
       - antonio-molina
       - christian-adell-querol
@@ -133,7 +134,7 @@ events:
       location: Room Gòtica
       requirements: "<ul><li>Python3</li><li>Visual Studio Code</li><li>Pip3</li><li>Conda</li><li>We'll do everything from scratch: such as installing FastAPI, uvicorn and typing</li></ul>"
 
-    - speaker: "Anton Caceres"
+    - speaker: "Anton Caceres, Alexandre Savio"
       title: "Building the Cloud with Python: getting started with AWS CDK"
       description: "With emerging cloud technologies it is just a matter of time until most backends run in serverless or container-based environments. This workshop is showcasing a recently released open-source Cloud Development Kit by Amazon, which lets us control cloud resources just like we control our application logic - in pure Python.
                     CDK offers high-level abstraction to define AWS resources imperatively as customizable and reusable Python classes. Unfortunately, there are not many tutorials available yet and the documentation is limited. So we will be happy to share with you how to: 1) Break down AWS infrastructure into reusable constructs represented by Python classes; 2) Combine own and public constructs into Stack applications; 3) Deploy CDK apps to AWS cloud"
@@ -147,6 +148,7 @@ events:
       python_level: "<i class=\"fas fa-circle yellow\"></i>"
       topic_level: "<i class=\"fas fa-circle green\"></i>"
       location: Room Raval
+      requirements: "Python 3.8+"
 
     - start_time_slot: 11:00
       end_time_slot: 11:15
