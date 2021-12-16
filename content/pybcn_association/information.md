@@ -54,6 +54,7 @@ All the work groups must follow some rules:
 * <a href="https://docs.google.com/document/d/1_fTbgT-Bw25aaGLb9O9vCMi1Gkxhb3FiY-S7yeZLq6k/edit?usp=sharing" target="_blank">Founding Act</a>
 * <a href="https://docs.google.com/document/d/1mJuuoymGJe4ayO5y08yN0bHBSqrPPyRZW2QLQSXXuYg/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2019</a>
 * <a href="https://docs.google.com/document/d/1yLR9p_vDKZPs0NlVMaKtrBMooqHdDyY0Lk5cPmcGs5I/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2020</a>
+* <a href="https://docs.google.com/document/d/1Qi0efxdC7T2bk2oVT2z6tTrrJ3UONwCK3Vnf3cL4KFA/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2021</a>
 
 ## Fiscal data
 Associació Python Barcelona
