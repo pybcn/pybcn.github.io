@@ -137,15 +137,13 @@ carousel_photos:
 
 ### Event page
 
-This page is designed for events like PyDay, and allows to display the description of the event as well as its sponsors, organizers, speakers, previous editions and the agenda.
+This page is designed for events like PyDay or DjangoGirls, and allows to display the description of the event as well as a carousel with images, its sponsors, organizers, speakers, previous editions and the agenda. It also offers the possibility to add as many free text elements as desired.
 
 It allows for different sections to be added, that are displayed in a floating menu:
 - Content: textual content
-- important_dates: textual content
-- call_for_proposals: textual content 
-- registration: textual content
+- carousel_photos: list of photos to appear in a carousel next to (if content_columns and carousel_columns are indicated) or below the main content.
+- free_text_sections: list of sections (title, id, content) containing textual content
 - events (special component, see description below)
-- call_for_sponsors: textual content 
 - sponsor_levels 
 - speakers_levels 
 - organizers_levels 
