@@ -46,10 +46,6 @@ free_text_sections:
     - title: Call for Sponsors
       id: call_for_sponsors
       content: "<center><h3>HELP US CREATE AN UNFORGETTABLE EXPERIENCE!!</h3><br/>
-        <h4>300€ - GOLD SPONSOR</h4>
-        Supporter benefits + send us your physical banner or branded swag the day of the event.<br/><br/>
-        <h4>100€ - SUPPORTER SPONSOR</h4>
-        Your logo in the event website, mention in all communications and social networks.<br/><br/>
         Contact us in pyladies-bcn@googlegroups.com</center>"
 
     - title: Call for speakers
