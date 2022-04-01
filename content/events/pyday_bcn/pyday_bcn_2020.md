@@ -13,7 +13,7 @@ layout: event
 
 free_text_sections:
     - title: Registration
-      id: resgistration
+      id: registration
       content: "All attendeed must **<a href='https://www.meetup.com/python-barcelona/events/274983461/' target='_blank'>register to the event through Meetup</a>**, which will be the main communication channel with attendees before the event. All registered attendees will receive the links to the YouTube playlists and Slack channels through Meetup."
 
 sponsor_levels:

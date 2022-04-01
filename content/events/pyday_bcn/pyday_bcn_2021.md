@@ -21,7 +21,7 @@ free_text_sections:
         <b>22nd November, 9AM</b>: General registration open through <a href=\"https://www.eventbrite.es/e/entradas-pydaybcn-2021-212686419807\" target=\"_blank\">eventbrite</a><br/>
         <b>27th November</b>: PyDay BCN 2021"
     - title: Registration
-      id: resgistration
+      id: registration
       content: "Registration to the general public will be open on <b>Monday 22nd November, 9AM</b>, through <a href=\"https://www.eventbrite.es/e/entradas-pydaybcn-2021-212686419807\" target=\"_blank\">eventbrite</a>.<br/><br/>Please have a look at the schedule below and choose which talks you would like to attend beforehand."
 
 sponsor_levels:
