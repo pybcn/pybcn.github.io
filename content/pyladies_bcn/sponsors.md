@@ -10,7 +10,7 @@ layout: "sponsors"
 heroBackground: /images/photos/sponsors-area-pyday-2019.jpg
 sponsor_levels:
     - sponsors_per_line: 4
-      sponsors: [codeop, holaluz, kiwi, letgo, marfeel, psf, travelperk, verse, ub, upf]
+      sponsors: [canodrom, codeop, holaluz, kiwi, letgo, marfeel, psf, travelperk, verse, ub, upf]
 ---
 
 Lorem ipsum
