@@ -1,44 +1,46 @@
-{{ if .Params.carousel_columns }}
-	<div class="col col-md-{{.Params.carousel_columns}}">
-{{ end }}
+{{ if .Params.carousel_photos }}
+	{{ if .Params.carousel_columns }}
+		<div class="col col-md-{{.Params.carousel_columns}}">
+	{{ end }}
 
-    <div id="carousel" class="carousel slide {{.Params.carousel_class}}" data-ride="carousel">
-		{{ if .Params.carousel_indicators }}
-		<ol class="carousel-indicators">
-			<li data-target="#carousel" data-slide-to="0" class="active"></li>
-			<li data-target="#carousel" data-slide-to="1"></li>
-			<li data-target="#carousel" data-slide-to="2"></li>
-		</ol>
-		{{ end }}
-		<div class="carousel-inner">
-			{{ range $i, $item := .Params.carousel_photos }}
-				{{ $class := "carousel-item" }}
-				{{ if eq $i 0}}
-					{{ $class = "carousel-item active" }}
-				{{ end }}
-				<div class="{{ $class }}">
-					<img class="d-block w-100" src="{{ relURL (printf "/images/%s" $item.photo) }}" alt="{{ $item.caption }}"/>
-					{{ if $item.caption }}
-						<div class="carousel-caption transparent_caption">
-							<h1>{{ $item.caption }}</h1>
-							{{ if $item.link }}
-								<p><a class="btn btn-primary" href="{{ $item.link }}">More info</a></p>
-							{{ end }}
-						</div>
-					{{ end }}
-				</div>
+		<div id="carousel" class="carousel slide {{.Params.carousel_class}}" data-ride="carousel">
+			{{ if .Params.carousel_indicators }}
+			<ol class="carousel-indicators">
+				<li data-target="#carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel" data-slide-to="1"></li>
+				<li data-target="#carousel" data-slide-to="2"></li>
+			</ol>
 			{{ end }}
+			<div class="carousel-inner">
+				{{ range $i, $item := .Params.carousel_photos }}
+					{{ $class := "carousel-item" }}
+					{{ if eq $i 0}}
+						{{ $class = "carousel-item active" }}
+					{{ end }}
+					<div class="{{ $class }}">
+						<img class="d-block w-100" src="{{ relURL (printf "/images/%s" $item.photo) }}" alt="{{ $item.caption }}"/>
+						{{ if $item.caption }}
+							<div class="carousel-caption transparent_caption">
+								<h1>{{ $item.caption }}</h1>
+								{{ if $item.link }}
+									<p><a class="btn btn-primary" href="{{ $item.link }}">More info</a></p>
+								{{ end }}
+							</div>
+						{{ end }}
+					</div>
+				{{ end }}
+			</div>
+			<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
 		</div>
-		<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
-		</a>
-    </div>
 
-{{ if .Params.carousel_columns }}
-	</div>
+	{{ if .Params.carousel_columns }}
+		</div>
+	{{ end }}
 {{ end }}
