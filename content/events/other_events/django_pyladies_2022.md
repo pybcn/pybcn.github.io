@@ -34,7 +34,7 @@ free_text_sections:
 
     - title: When and where
       id: when_and_where
-      content: It is scheduled for **Saturday 11th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from  9:00pm to 18:30pm CET, approx.
+      content: It is scheduled for **Saturday 11th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from  9:00pm to 18:30pm CET.
 
     - title: Important dates
       id: important_dates
@@ -54,16 +54,16 @@ free_text_sections:
 
     - title: Call for speakers
       id: call_for_speakers
-      content: "We are looking for women and members of the LGBTIQ+ community involved in tech that want to share their story with us in lightning talks of about 5 minutes. From junior to senior, all expertise levels are welcome!<br/>You'll have the opportunity to share your experience and inspire other women that are just starting their path in tech. We'll have a lot of fun 🤩<br/><br/>Apply here: <a href='https://forms.gle/3X4PxobBgZqjtFpw9' target='_blank'>call for speakers form</a>"
+      content: "We are looking for women and members of the LGBTIQ+ community involved in tech that want to share their story with us in lightning talks of about 5 minutes. From junior to senior, all expertise levels are welcome!<br/>You'll have the opportunity to share your experience and inspire other women that are just starting their path in tech. We'll have a lot of fun 🤩<br/><br/>Apply here: <a href='https://forms.gle/3X4PxobBgZqjtFpw9' target='_blank'>call for speakers form</a><br/>Acceptance notification date: 18th May"
 
     - title: Call for mentors
       id: call_for_mentors
-      content: "<b>Hands-on Django with PyLadiesBCN</b> is a guided workshop, and we need mentors to make it possible. As a mentor, you'll help a group of 4 attendees to learn as much as possible and have a lot of fun 🥳️ You'll be assigned a group before the event, so you can help them get their setups ready beforehand, and you'll guide them through the workshop and will answer any questions that they may have.<br/><br/>Everybody is welcome to apply, regardless of their gender and any other characteristic. No previous mentorship experience is required, but ideally you should have some Python/Django knowledge and you should enjoy sharing your knowledge with others.<br/><br/>Apply here: <a href='https://forms.gle/9Q83e9euyDQPHj3R7' target='_blank'>call for mentors form</a>"
+      content: "<b>Hands-on Django with PyLadiesBCN</b> is a guided workshop, and we need mentors to make it possible. As a mentor, you'll help a group of 4 attendees to learn as much as possible and have a lot of fun 🥳️ You'll be assigned a group before the event, so you can help them get their setups ready beforehand, and you'll guide them through the workshop and will answer any questions that they may have.<br/><br/>Everybody is welcome to apply, regardless of their gender and any other characteristic. No previous mentorship experience is required, but ideally you should have some Python/Django knowledge and you should enjoy sharing your knowledge with others.<br/><br/>Apply here: <a href='https://forms.gle/9Q83e9euyDQPHj3R7' target='_blank'>call for mentors form</a><br/>Acceptance notification date: 18th May"
 
 
     - title: Registration
       id: registration
-      content: "This workshop is limited to 32 attendees, who will be selected from all applicants. Please notice that <b>we'll prioritise non-experienced women and members of the LGBTIQ+ community</b>.<br/><br/>Apply here: <a href=\"https://forms.gle/fVPLn3SZ8Tqrzpfa6\" target=\"_blank\">call for attendees form</a>"
+      content: "This workshop is limited to 32 attendees, who will be selected from all applicants. Please notice that <b>we'll prioritise non-experienced women and members of the LGBTIQ+ community</b>.<br/><br/>Apply here: <a href=\"https://forms.gle/fVPLn3SZ8Tqrzpfa6\" target=\"_blank\">call for attendees form</a><br/>Acceptance notification date: 18th May"
 
 sponsor_levels:
     - sponsors_per_line: 2
