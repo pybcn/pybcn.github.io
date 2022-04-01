@@ -11,7 +11,10 @@ heroBackground: https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixl
 
 layout: event
 
-registration: "All attendeed must **<a href='https://www.meetup.com/python-barcelona/events/274983461/' target='_blank'>register to the event through Meetup</a>**, which will be the main communication channel with attendees before the event. All registered attendees will receive the links to the YouTube playlists and Slack channels through Meetup.<br/><br/><br/>"
+free_text_sections:
+    - title: Registration
+      id: resgistration
+      content: "All attendeed must **<a href='https://www.meetup.com/python-barcelona/events/274983461/' target='_blank'>register to the event through Meetup</a>**, which will be the main communication channel with attendees before the event. All registered attendees will receive the links to the YouTube playlists and Slack channels through Meetup."
 
 sponsor_levels:
     - sponsors_per_line: 2
