@@ -66,10 +66,10 @@ sponsor_levels:
       sponsors: [canodrom]
       name: Venue
     - sponsors_per_line: 3
-      sponsors: 
+      sponsors: [rover]
       name: Gold
     - sponsors_per_line: 3
-      sponsors: 
+      sponsors: [digitalfems]
       name: Supporting
 
 organizers_levels:
