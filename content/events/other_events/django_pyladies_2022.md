@@ -69,7 +69,7 @@ sponsor_levels:
       sponsors: [rover]
       name: Gold
     - sponsors_per_line: 3
-      sponsors: [digitalfems]
+      sponsors: [tecnologas]
       name: Supporting
 
 organizers_levels:
