@@ -66,7 +66,7 @@ sponsor_levels:
       sponsors: [canodrom]
       name: Venue
     - sponsors_per_line: 3
-      sponsors: [europython_society, rover]
+      sponsors: [backmarket, europython_society, rover]
       name: Gold
     - sponsors_per_line: 3
       sponsors: [tecnologas]
