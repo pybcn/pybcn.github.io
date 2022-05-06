@@ -1,6 +1,6 @@
 ---
 title: "Sponsors"
-description: "The companies and universities behind our events"
+description: "The companies, organizations and universities behind our events"
 menu: "main"
 weight: 5
 
@@ -10,6 +10,7 @@ sponsor_levels:
 - sponsors_per_line: 4
   sponsors:
   - 21buttons
+  - backmarket
   - bitphy
   - bling
   - bmat
@@ -20,6 +21,7 @@ sponsor_levels:
   - colorsensing
   - digitalfems
   - edgetier
+  - europython_society
   - gesco
   - holaluz
   - hybridtheory
@@ -36,6 +38,7 @@ sponsor_levels:
   - rover
   - satellogic
   - skyscanner
+  - tecnologas
   - travelperk
   - typeform
   - ub
