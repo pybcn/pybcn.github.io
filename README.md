@@ -145,11 +145,10 @@ It allows for different sections to be added, that are displayed in a floating m
 - free_text_sections: list of sections (title, id, content) containing textual content
 - events (special component, see description below)
 - sponsor_levels 
-- speakers_levels 
-- organizers_levels 
+- people_sections (special component, see description below)  
 - previous_editions 
 
-The agenda is based on the code in [https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/](https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/) and requires to define the duration of the time spans in which we want to divide the slots (e.g. 30 minutes slots), how many parallel tracks does the event have, a list of the time slots and a list of the events.
+The **agenda** is based on the code in [https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/](https://www.liquidlight.co.uk/blog/create-an-event-schedule-with-html-table/) and requires to define the duration of the time spans in which we want to divide the slots (e.g. 30 minutes slots), how many parallel tracks does the event have, a list of the time slots and a list of the events.
 
 Each event in the list must indicate:
 - the starting and ending time slots (may be the same if the event only spans for one time slot)
@@ -200,4 +199,47 @@ events:
       topic: Data Science
       type: workshop
     - ...
+```
+
+
+The **people_sections** option allows to add a list of sections displaying people, such as organizers, speakers and mentors. 
+Each section can have subsections (e.g. in organizers, we could have 'main organizers' and 'volunteers').
+Example:
+
+```
+people_sections:
+    - title: Organizers
+      id: organizers
+      levels:
+        - people_per_line: 4
+          people:
+              - elisabeth-ortega-carrasco
+              - lpmayos
+              - natalia
+              - nuria
+    - title: Mentors, speakers & volunteers
+      id: main_organizers
+      levels:
+        - name: Mentors
+          people_per_line: 4
+          people:
+              - esperanza
+              - eli
+              - sandra
+              - alex
+        - name: Speakers
+          people_per_line: 4
+          people:
+              - alberto
+              - cristina
+              - magda
+              - cris-lopez
+              - maria
+              - martina
+              - violeta
+        - name: Volunteers
+          people_per_line: 4
+          people:
+              - mireia
+              - josep
 ```
