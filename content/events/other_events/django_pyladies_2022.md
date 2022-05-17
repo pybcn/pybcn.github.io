@@ -69,7 +69,7 @@ sponsor_levels:
       sponsors: [backmarket, europython_society, rover]
       name: Gold
     - sponsors_per_line: 3
-      sponsors: [tecnologas]
+      sponsors: [orpheus, tecnologas]
       name: Supporting
 
 organizers_levels:
