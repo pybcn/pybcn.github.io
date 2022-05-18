@@ -35,41 +35,44 @@ sponsor_levels:
       sponsors: [bmat, digitalfems, edgetier, orpheus, verse]
       name: Supporting
 
-speakers_levels:
-    - people_per_line: 4
-      people: 
-      - albert-franzi
-      - alejandro-nicolas
-      - alexandre-savio
-      - anton-caceres
-      - antonio-molina
-      - christian-adell-querol
-      - david-de-la-iglesia-castro
-      - diego-gonzalez
-      - elisabeth-ortega-carrasco
-      - esperanza-buitrago
-      - gabriel-de-maeztu
-      - jordi-mur
-      - laysa-uchoa
-      - marc-pous
-      - mariana-meireles
-      - matteo-bruno
-      - sergi-ortiz
-      - vincent-choubard
-      - vivek-sharma
-
-organizers_levels:
-    - people_per_line: 4
-      people:
-      - lpmayos
-      - natalia
-      - david
-      - nuria
-      - xavi
-      - rberenguel
-      - eloi
-      - mireia
-      name: 
+people_sections:
+    - title: Speakers
+      id: speakers
+      levels:
+        - people_per_line: 4
+          people:
+              - albert-franzi
+              - alejandro-nicolas
+              - alexandre-savio
+              - anton-caceres
+              - antonio-molina
+              - christian-adell-querol
+              - david-de-la-iglesia-castro
+              - diego-gonzalez
+              - elisabeth-ortega-carrasco
+              - esperanza-buitrago
+              - gabriel-de-maeztu
+              - jordi-mur
+              - laysa-uchoa
+              - marc-pous
+              - mariana-meireles
+              - matteo-bruno
+              - sergi-ortiz
+              - vincent-choubard
+              - vivek-sharma
+    - title: Organizers
+      id: organizers
+      levels:
+        - people_per_line: 4
+          people:
+              - lpmayos
+              - natalia
+              - david
+              - nuria
+              - xavi
+              - rberenguel
+              - eloi
+              - mireia
 
 previous_editions:
     - name: PyDay BCN 2020

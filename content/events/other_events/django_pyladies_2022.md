@@ -48,6 +48,13 @@ free_text_sections:
       content: "<center><h3>HELP US CREATE AN UNFORGETTABLE EXPERIENCE!!</h3><br/>
         Contact us in pyladies-bcn@googlegroups.com</center>"
 
+    - title: Registration
+      id: registration
+      content: "This workshop is limited to 32 attendees, who will be selected from all applicants. Please notice that <b>we'll prioritise non-experienced women and members of the LGBTIQ+ community</b>.<br/><br/>Applications are already closed.<br/>Acceptance notification date: 18th May"
+
+
+hidden_setions:
+
     - title: Call for speakers
       id: call_for_speakers
       content: "We are looking for women and members of the LGBTIQ+ community involved in tech that want to share their story with us in lightning talks of about 5 minutes. From junior to senior, all expertise levels are welcome!<br/>You'll have the opportunity to share your experience and inspire other women that are just starting their path in tech. We'll have a lot of fun 🤩<br/><br/>Apply here: <a href='https://forms.gle/3X4PxobBgZqjtFpw9' target='_blank'>call for speakers form</a><br/>Acceptance notification date: 18th May"
@@ -56,10 +63,10 @@ free_text_sections:
       id: call_for_mentors
       content: "<b>Hands-on Django with PyLadiesBCN</b> is a guided workshop, and we need mentors to make it possible. As a mentor, you'll help a group of 4 attendees to learn as much as possible and have a lot of fun 🥳️ You'll be assigned a group before the event, so you can help them get their setups ready beforehand, and you'll guide them through the workshop and will answer any questions that they may have.<br/><br/>Everybody is welcome to apply, regardless of their gender and any other characteristic. No previous mentorship experience is required, but ideally you should have some Python/Django knowledge and you should enjoy sharing your knowledge with others.<br/><br/>Apply here: <a href='https://forms.gle/9Q83e9euyDQPHj3R7' target='_blank'>call for mentors form</a><br/>Acceptance notification date: 18th May"
 
-
     - title: Registration
       id: registration
       content: "This workshop is limited to 32 attendees, who will be selected from all applicants. Please notice that <b>we'll prioritise non-experienced women and members of the LGBTIQ+ community</b>.<br/><br/>Apply here: <a href=\"https://forms.gle/fVPLn3SZ8Tqrzpfa6\" target=\"_blank\">call for attendees form</a><br/>Acceptance notification date: 18th May"
+
 
 sponsor_levels:
     - sponsors_per_line: 2
@@ -69,22 +76,49 @@ sponsor_levels:
       sponsors: [backmarket, europython_society, rover]
       name: Gold
     - sponsors_per_line: 3
-      sponsors: [tecnologas]
+      sponsors: [orpheus, tecnologas]
       name: Supporting
 
-organizers_levels:
-    - people_per_line: 4
-      people:
-      - natalia
-      - nuria
-      - elisabeth-ortega-carrasco
-      - lpmayos
-      name: Main organizers
-    - people_per_line: 4
-      people:
-      - david
-      - mireia
-      name: Volunteers
+people_sections:
+    - title: Organizers
+      id: organizers
+      levels:
+        - people_per_line: 4
+          people:
+              - elisabeth-ortega-carrasco
+              - lpmayos
+              - natalia
+              - nuria
+    - title: Mentors, speakers & volunteers
+      id: main_organizers
+      levels:
+        - name: Mentors
+          people_per_line: 4
+          people:
+              - carlton-gibson 
+              - david
+              - elisabeth-ortega-carrasco
+              - ferran-jovell 
+              - israel-saeta
+              - johanna-sanchez
+              - natalia
+              - nuria
+              - selen-ozkan
+              - xavi
+        - name: Speakers
+          people_per_line: 4
+          people:
+              - afra-llado
+              - ferran-jovell
+              - johanna-sanchez
+              - nakchidil-melisse-chaumont
+              - roser-parellada
+              - sonia-estrade
+        - name: Volunteers
+          people_per_line: 4
+          people:
+              - mireia
+
 
 previous_editions:
     - name: DjangoGirls workshop in PyDay BCN 2019
