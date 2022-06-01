@@ -73,7 +73,7 @@ sponsor_levels:
       sponsors: [canodrom]
       name: Venue
     - sponsors_per_line: 3
-      sponsors: [backmarket, europython_society, rover]
+      sponsors: [backmarket, cloudblue, europython_society, mundimoto, rover]
       name: Gold
     - sponsors_per_line: 3
       sponsors: [orpheus, tecnologas]

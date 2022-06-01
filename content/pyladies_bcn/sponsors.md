@@ -10,7 +10,7 @@ layout: "sponsors"
 heroBackground: /images/photos/sponsors-area-pyday-2019.jpg
 sponsor_levels:
     - sponsors_per_line: 4
-      sponsors: [backmarket, canodrom, codeop, digitalfems, europython_society, holaluz, kiwi, letgo, marfeel, orpheus, psf, rover, tecnologas, travelperk, verse, ub, upf]
+      sponsors: [backmarket, canodrom, codeop, digitalfems, europython_society, holaluz, kiwi, letgo, marfeel, mundimoto, orpheus, psf, rover, tecnologas, travelperk, verse, ub, upf]
 ---
 
 Lorem ipsum
