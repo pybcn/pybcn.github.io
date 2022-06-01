@@ -29,6 +29,7 @@ sponsor_levels:
   - kiwi
   - letgo
   - marfeel
+  - mundimoto
   - onna
   - orpheus
   - preply
