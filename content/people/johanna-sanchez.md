@@ -1,6 +1,7 @@
 ---
 id: johanna-sanchez
 name: "Johanna Sanchez"
+photo: johanna-sanchez.jpg
 twitter: "https://twitter.com/EllaQuimica"
 ---
 
