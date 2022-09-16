@@ -7,7 +7,7 @@ menu:
 weight: 1
 aliases:
 - /pyday-bcn-2022
-heroBackground: https://comunitat.canodrom.barcelona/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDRG9JYTJWNVNTSWhkMjVpYW1acGNuRnRiV2czYkhGNWRuRXpOWEJrYmpkdU5XSnRkd1k2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpTzJsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW1obGNtOHVjRzVuSWpzZ1ptbHNaVzVoYldVcVBWVlVSaTA0Snlkb1pYSnZMbkJ1WndZN0JsUTZFV052Ym5SbGJuUmZkSGx3WlVraURtbHRZV2RsTDNCdVp3WTdCbFE9IiwiZXhwIjoiMjAyMi0wOS0xNlQwODowMzozNi41MThaIiwicHVyIjoiYmxvYl9rZXkifX0=--86aacebfdd47bb4bfb77ef9d73377d4d1be720fd/hero.png?content_type=image%2Fpng&disposition=inline%3B+filename%3D%22hero.png%22%3B+filename%2A%3DUTF-8%27%27hero.png
+heroBackground: /images/photos/canodrom.png
 
 layout: event
 
