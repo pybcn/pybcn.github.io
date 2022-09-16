@@ -17,9 +17,9 @@ carousel_header: true
 carousel_indicators: true
 carousel_class: home_carousel
 carousel_photos:
-- photo: /photos/pyday2021.jpeg
-  caption: Hands-on Django with PyLadiesBCN
-  link: events/other_events/django_pyladies_2022/
+- photo: /photos/pyday/workshop_photo.jpg
+  caption: PyDay BCN 2022
+  link: events/pyday_bcn/pyday_bcn_2022/
 - photo: /photos/meetups.jpg
   caption: PyBCN Meetups
   link: events/monthly_events
