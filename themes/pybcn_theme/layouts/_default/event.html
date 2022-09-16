@@ -58,6 +58,13 @@
             {{ if .Params.sponsor_levels }}
             <div class="link_anchor" id="sponsors_section">
                 <h1>Sponsors</h1>
+                {{ if .Params.sponsors_text }}
+                    <div class="row" id="sponsors_text">
+                        <div class="col-12">
+                            {{ .Params.sponsors_text | markdownify }}
+                        </div>
+                    </div>
+                {{ end }}
                 {{ partial "sponsors-grid.html" (dict "levels" .Params.sponsor_levels "Site" .Site)}}
                 <br/><br/><br/>
             </div>
