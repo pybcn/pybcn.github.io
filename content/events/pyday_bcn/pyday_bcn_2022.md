@@ -43,7 +43,9 @@ people_sections:
         - people_per_line: 4
           people:
               - lpmayos
+              - mireia
               - natalia
+              - xavi
 
 previous_editions:
     - name: PyDay BCN 2021
