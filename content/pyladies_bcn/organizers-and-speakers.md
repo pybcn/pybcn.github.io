@@ -11,11 +11,6 @@ heroBackground: /images/photos/pyladies/header/header2.jpeg
 
 people_levels:
     - people_per_line: 4
-      people: [lpmayos, natalia, nuria]
+      people: [nuria, lpmayos, natalia, elisabeth-ortega-carrasco]
       name: Main organizers
-    - people_per_line: 4
-      people: 
-      - esteve
-      - elisabeth-ortega-carrasco
-      name: Collaborators
 ---
