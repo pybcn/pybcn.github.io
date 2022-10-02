@@ -20,6 +20,12 @@ free_text_sections:
         <b>18th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
         <b>21nd November, 9AM</b>: General registration open through Eventbrite<br/>
         <b>26th November</b>: PyDay BCN 2022"
+    - title: Call for Proposals
+      id: call_for_proposals
+      content: "Are you interested in giving a <b>workshop</b>? We want YOU!<br/> 
+                Please, fill [this form](https://forms.gle/gDVxV1HGWvzvCtVe7) with your proposal details. We will contact you regarding the status of your proposal as soon as possible after closing the Call for Proposals (October 31st).<br/><br/>
+                Are you interested in giving a <b>5’ lightning talk</b>? We want you!<br/>
+                Please, fill [this form](https://forms.gle/ev68GWKZ7XuwRu8p6) with your proposal details. We will contact you regarding the status of your proposal as soon as possible after closing the Call for Proposals (October 31st)."
 
 sponsors_text: "Would you like to sponsor this event? Please contact us at pydaybcn2022@googlegroups.com<br/><br/>"
 sponsor_levels:
@@ -42,10 +48,10 @@ people_sections:
       levels:
         - people_per_line: 4
           people:
-              - lpmayos
-              - mireia
               - natalia
+              - lpmayos
               - xavi
+              - mireia
 
 previous_editions:
     - name: PyDay BCN 2021
@@ -71,7 +77,7 @@ events:
       title: "Registration & Welcome"
       speaker: "PyDay BCN 2022 Organising Committee"
       type: group
-      location: Open-air terrace
+      location: Sala d'actes Ada Lovelace
       class: middle
 
     - speaker: "Speaker TBA"
@@ -234,9 +240,9 @@ events:
       end_time_slot: 15:45
       track_length: 4
       color: purple
-      title: "Coffee break"
-      type: coffee
-      location: Open-air terrace
+      title: "Lightning talks & coffee"
+      type: talk
+      location: Sala d'actes Ada Lovelace
       class: middle
 
     - speaker: "Speaker TBA"
