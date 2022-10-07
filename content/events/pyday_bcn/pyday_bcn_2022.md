@@ -32,12 +32,12 @@ sponsor_levels:
     - sponsors_per_line: 2
       sponsors: [canodrom]
       name: Venue
-    - sponsors_per_line: 3
-      sponsors: ['?']
-      name: Platinum
-    - sponsors_per_line: 3
-      sponsors: ['?']
+    - sponsors_per_line: 2
+      sponsors: [veriff]
       name: Gold
+    - sponsors_per_line: 2
+      sponsors: [coopdevs]
+      name: Silver
     - sponsors_per_line: 3
       sponsors: ['?']
       name: Supporting
