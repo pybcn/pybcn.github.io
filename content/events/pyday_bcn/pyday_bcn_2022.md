@@ -33,10 +33,10 @@ sponsor_levels:
       sponsors: [canodrom]
       name: Venue
     - sponsors_per_line: 2
-      sponsors: [veriff]
+      sponsors: [veriff, qustodio]
       name: Gold
     - sponsors_per_line: 2
-      sponsors: [coopdevs]
+      sponsors: [coopdevs, somenergia]
       name: Silver
     - sponsors_per_line: 3
       sponsors: ['?']
