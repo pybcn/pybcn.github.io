@@ -32,8 +32,8 @@ sponsor_levels:
     - sponsors_per_line: 2
       sponsors: [canodrom]
       name: Venue
-    - sponsors_per_line: 3
-      sponsors: [qustodio, veriff, rover]
+    - sponsors_per_line: 2
+      sponsors: [cloudblue, rover, qustodio, veriff]
       name: Gold
     - sponsors_per_line: 2
       sponsors: [coopdevs, somenergia]
