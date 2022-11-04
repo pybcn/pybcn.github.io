@@ -39,7 +39,7 @@ sponsor_levels:
       sponsors: [coopdevs, somenergia]
       name: Silver
     - sponsors_per_line: 3
-      sponsors: [hybridtheory]
+      sponsors: [hybridtheory, preply]
       name: Supporting
 
 people_sections:
