@@ -72,6 +72,7 @@ people_sections:
           - lpmayos
           - xavi
           - mireia
+          - patricio-reyes
 
 previous_editions:
   - name: PyDay BCN 2021
