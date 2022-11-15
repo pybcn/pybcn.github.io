@@ -41,6 +41,9 @@ sponsor_levels:
   - sponsors_per_line: 3
     sponsors: [hybridtheory, preply, pythones]
     name: Supporting
+  - sponsors_per_line: 2
+    sponsors: [pybcn, pyladiesbcn]
+    name: Organizers
 
 people_sections:
   - title: Organizers
