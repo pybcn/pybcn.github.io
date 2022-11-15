@@ -45,7 +45,24 @@ sponsor_levels:
     sponsors: [pybcn, pyladiesbcn]
     name: Organizers
 
+
 people_sections:
+  - title: Speakers
+    id: speakers
+    levels:
+      - people_per_line: 4
+        people:
+            - alberto-labarga
+            - antonio-molina
+            - biel-stela-ballester
+            - cheuk-ting-ho
+            - eva-martin-del-pico
+            - gema-parreno
+            - jimena-escobar
+            - kemalcan-bora
+            - marc-pous
+            - pavel-lonkin
+            - pere-miquel-brull
   - title: Organizers
     id: organizers
     levels:
