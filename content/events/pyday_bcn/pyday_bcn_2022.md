@@ -29,8 +29,8 @@ sponsor_levels:
   - sponsors_per_line: 2
     sponsors: [cloudblue, rover, qustodio, veriff, apsl]
     name: Gold
-  - sponsors_per_line: 2
-    sponsors: [coopdevs, somenergia]
+  - sponsors_per_line: 3
+    sponsors: [coopdevs, somenergia, jobfluent]
     name: Silver
   - sponsors_per_line: 3
     sponsors: [hybridtheory, preply, pythones]
