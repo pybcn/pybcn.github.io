@@ -297,7 +297,7 @@ events:
     end_time_slot: 15:45
     track_length: 3
     color: purple
-    title: "Lightning talks & coffee"
+    title: "Lightning talks (session 1) & coffee"
     type: talk
     location: Sala d'actes Ada Lovelace
     class: middle
@@ -348,9 +348,9 @@ events:
     end_time_slot: 17:45
     track_length: 3
     color: purple
-    title: "Closing session & Kahoot"
+    title: "Lightning talks (session 2) + closing session & Kahoot"
     speaker: "PyDay BCN 2022 Organising Committee"
-    type: group
+    type: talk
     location: Sala d'actes Ada Lovelace
     class: middle
 ---
