@@ -359,7 +359,7 @@ events:
     requirements: "For the folks who would like to follow along, a laptop with docker compose"
   - speaker: "Ana Eliza Barbosa"
     title: "TDD Coding Dojo"
-    description: "This is a small workshop where participants will solve one coding challenge using TDD and pair programming.<br/>The workshop has one main computer, connected to a projector for the audience to follow up, where 2 participants will try to solve the challenge as much as possible in 5 minutes.<br/>Every 5 minutes the pairs will rotate amongst the participants until they solve the challenge or the workshop time is up.<br/>The goal is to practice TDD with a collaborative approach."
+    description: "Nowadays software products are becoming so complex that is unimaginable that one software engineer would develop it alone without any sort of automated testing, so let’s get together to practice Test Driven Development while pair programming with the other workshop participants. We will solve some code challenges together, under a bit of friendly time pressure and changing development hats every 5 minutes. If you are interested in knowing how it all looks like then join the workshop!"
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
