@@ -298,6 +298,33 @@ events:
     track_length: 3
     color: purple
     title: "Lightning talks (session 1) & coffee"
+    description: "
+<h2>Lightning talks</h2>
+
+<b>How to beat your friends in fantasy football</b></br>
+<i>Alex Molas</i>
+<p><q>Have you ever wondered how to win your friends in a football fantasy league? In this talk I will show how to use python to get the best performant team by using web scraping, operations research, and machine learning!</q></p> 
+
+<b>Measuring media bias</b></br>
+<i>Luis Ignacio Menéndez</i>
+<p><q>We'd like to talk about a research project (working progress)  trying to measure media bias in Spanish TV news. For this, we employ techniques of speech recognition, speaker diarization and text analysis. This project is carried on by PhD students of the Economics department at Universitat Autònoma de Barcelona.</q></p> 
+
+<b>Astropy 5.X: astronomical tools for everybody</b></br>
+<i>Francesc Vilardell Sallés</i>
+<p><q>Astropy is now a mature python library with over 34.000 commits on Github and hundreds of contributors. Astropy is still little known beyond the astronomical community, but offers several powerful tools that are useful to all python developers. In this lightning talk I will present some of these tools. </q></p> 
+
+<b>Fighting climate change the Python way</b></br>
+<i>Rafael Giménez</i>
+<p><q>The Digital Team at Cetaqua works in bringing state of the art AI (Computer Vision, Reinforcement Learning) to one of the most crucial issues of our time: water and environmental management. The talk aims to briefly showcase how we use Python for that.</q></p> 
+
+<b>PyCamp España </b></br>
+<i>Johanna Sanchez</i>
+<p><q>Invitación a la comunidad para participar de un evento diferente</q></p> 
+
+<b>PyLadies España y PyCon ES 2023</b></br>
+<i>Johanna Sanchez</i>
+<p><q>Invitación a la comunidad para participar en conferencia y comunidades</q></p>
+"
     type: talk
     location: Sala d'actes Ada Lovelace
     class: middle
@@ -332,7 +359,7 @@ events:
     requirements: "For the folks who would like to follow along, a laptop with docker compose"
   - speaker: "Ana Eliza Barbosa"
     title: "TDD Coding Dojo"
-    description: "This is a small workshop where participants will solve one coding challenge using TDD and pair programming.<br/>The workshop has one main computer, connected to a projector for the audience to follow up, where 2 participants will try to solve the challenge as much as possible in 5 minutes.<br/>Every 5 minutes the pairs will rotate amongst the participants until they solve the challenge or the workshop time is up.<br/>The goal is to practice TDD with a collaborative approach."
+    description: "Nowadays software products are becoming so complex that is unimaginable that one software engineer would develop it alone without any sort of automated testing, so let’s get together to practice Test Driven Development while pair programming with the other workshop participants. We will solve some code challenges together, under a bit of friendly time pressure and changing development hats every 5 minutes. If you are interested in knowing how it all looks like then join the workshop!"
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
@@ -349,7 +376,29 @@ events:
     track_length: 3
     color: purple
     title: "Lightning talks (session 2) + closing session & Kahoot"
-    speaker: "PyDay BCN 2022 Organising Committee"
+    description: "
+<h2>Lightning talks</h2>
+
+<b>Intenciones ganadoras: Cómo implementar la arquitectura de un chatbot basado en intenciones</b></br>
+<i>Nadal Llabrés Belmar</i>
+<p><q>En esta charla explicaremos los aspectos fundamentales de cómo diseñar e implementar  un chatbot basado en el reconocimiento de intenciones desde el punto de vista de la ingeniería de Software. Mediante un caso de uso, exploramos cómo diseñar e implementar una arquitectura que nos permita integrar y gestionar la base de conocimiento que requiere el bot para su aprendizaje, integrar un motor de reconocimiento de intenciones que sea capaz de entender a los usuarios a partir de un entendimiento contextual de una conversación e  integrar un sistema de respuestas en distintos formatos (voz, texto, imágenes, vídeos).</q></p>
+
+<b>Satellite super-resolution and 3d scenes</b></br>
+<i>Biel Stela</i>
+<p><q>Match the resolution of Landsat imagery to fine grained Sentinel using Deep Learning, then create dynamic evolving scenes with blender. </q></p>
+
+<b>trrex: Efficient keyword extraction with regex</b></br>
+<i>Daniel Mesejo</i>
+<p><q>In this talk I’m going to introduce the trrex package, for performing efficient keyword extraction with regular expressions. Additionally I'll show how to integrate it with pandas for text cleaning, how to use it with spacy to build a gazetteer and how to perform fuzzy matching with the regex library.</q></p>
+
+<b>Transactions</b></br>
+<i>Christian Barra</i>
+<p><q>The goal of the LT is to give to the audience a brief overview about DB transactions, why there are important and how to leverage them for some specific use cases where they play a critical role.</q></p>
+
+<b>Optimal binning using Python</b></br>
+<i>Guillermo Navas Palencia</i>
+<p><q>Presentation of the OptBinning library, a Python library to perform optimal binning and scorecard modelling. Description of main features, current roadmap and applications.</q></p>
+"
     type: talk
     location: Sala d'actes Ada Lovelace
     class: middle
