@@ -36,7 +36,7 @@ sponsor_levels:
     sponsors: [coopdevs, somenergia, jobfluent]
     name: Silver
   - sponsors_per_line: 3
-    sponsors: [hybridtheory, preply, pythones]
+    sponsors: [hybridtheory, preply, pythones, digitalfems]
     name: Supporting
   - sponsors_per_line: 2
     sponsors: [pybcn, pyladiesbcn]
