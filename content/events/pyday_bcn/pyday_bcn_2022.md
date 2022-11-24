@@ -263,7 +263,7 @@ events:
     topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic: "Data engineering"
     location: Sala d'actes Ada Lovelace
-    requirements: "Laptop"
+    requirements: "Follow the installation steps in https://github.com/alabarga/pybcn22-modern-data-stack"
   - speaker: "Jimena Escobar Bermúdez"
     title: "Cuando los precios suben: Scrapy"
     description: "Criptomonedas, la guerra en Ucrania, la pandemia, la falta de componentes y toda la serie de catastróficas desdichas que estamos sufriendo nos ha llevado a un punto en el que el precio de todo ha subido. En este taller aprenderemos a usar Scrapy para conseguir descargar, almacenar y comparar los precios de los productos que queramos."
