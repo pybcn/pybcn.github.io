@@ -8,4 +8,4 @@ weight: 4
 heroBackground: /images/photos/propose-a-talk.jpg
 ---
 
-<div data-tf-widget="PM4CKfJj" data-tf-iframe-props="title=PyBCN PyLadies talk proposal" style="width:100%;height:700px;"></div><script src="//embed.typeform.com/next/embed.js"></script>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfEnxT7IrbsFvVbofwcFVqO_uKy9n74STbnfC_zCP_prvJIKA/viewform" class="w-100"  style="height:550px" scrolling="yes" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
