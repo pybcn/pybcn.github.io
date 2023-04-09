@@ -1,5 +1,5 @@
 ---
-title: "PyData BCN 2017"
+title: "PyData 2017 - Barcelona edition"
 description: "The Data Science conference from NumFOCUS"
 menu:
   main:
@@ -11,7 +11,7 @@ heroBackground: /images/photos/pydata_badges.jpg
 <div class="container">
             <div class="row main_content">
                 <div class="col-md-9 main_column">
-  <p>The <a href="http://pydata.org/barcelona2017/" target="_blank">PyDataBCN 2017</a> took place from May 19th to 21th at <a href="http://www.esade.edu/homesite/esp/esadeforum" target="_blank">ESADE</a>.</p>
+  <p>The <a href="http://pydata.org/barcelona2017/" target="_blank">PyData 2017 - Barcelona edition</a> took place from May 19th to 21th at <a href="http://www.esade.edu/homesite/esp/esadeforum" target="_blank">ESADE</a>.</p>
 <h3>Media</h3>
 <p>You can see all the <a href="https://www.flickr.com/photos/pydata/sets/72157684439580266/" target="_blank">photos</a> and <a href="https://www.youtube.com/playlist?list=PLGVZCDnMOq0oieXy92cJBwSirA3G2MCU1" target="_blank">videos</a> from the event.</p>
 <h3>Slides</h3>
