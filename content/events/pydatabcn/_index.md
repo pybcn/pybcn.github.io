@@ -1,8 +1,8 @@
 ---
-title: "PyDay BCN"
+title: "PyDataBCN"
 description: ""
 menu:
   main:
     parent: 'Events'
-weight: 3
+weight: 2
 ---

@@ -11,7 +11,7 @@ heroBackground: https://source.unsplash.com/5cFwQ-WMcJU/1600x400
 
 ---
 
-After 10 years of experience organizing python-related events and more than 3000 members on Meetup, **Python Barcelona (PyBCN)** was officially registered as a non-profit association in 2018. PyBCN is a meeting point for all the Barcelona Python community, and we organize different monthly activities like [PyBCN and PyLadiesBCN meetups and practice sessions](../../events/monthly_events), along with some annual events like [PyDay BCN](../../events/pyday_bcn/pyday_bcn_2020) or [PyDataBCN](../../events/other_events/pydata_bcn_2017/).
+After 10 years of experience organizing python-related events and more than 3000 members on Meetup, **Python Barcelona (PyBCN)** was officially registered as a non-profit association in 2018. PyBCN is a meeting point for all the Barcelona Python community, and we organize different monthly activities like [PyBCN and PyLadiesBCN meetups and practice sessions](../../events/monthly_events), along with some annual events like [PyDay BCN](../../events/pyday_bcn/pyday_bcn_2022) or [PyDataBCN](../../events/pydatabcn/pydatabcn_2023/).
 
 
 Would you like to be a part of PyBCN? We are looking forward to hearing from you!
@@ -55,6 +55,7 @@ All the work groups must follow some rules:
 * <a href="https://docs.google.com/document/d/1mJuuoymGJe4ayO5y08yN0bHBSqrPPyRZW2QLQSXXuYg/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2019</a>
 * <a href="https://docs.google.com/document/d/1yLR9p_vDKZPs0NlVMaKtrBMooqHdDyY0Lk5cPmcGs5I/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2020</a>
 * <a href="https://docs.google.com/document/d/1Qi0efxdC7T2bk2oVT2z6tTrrJ3UONwCK3Vnf3cL4KFA/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2021</a>
+* <a href="https://docs.google.com/document/d/13xiLuUGIzT8kyZWGTkA6T-dbUO7Y_Z6hlUjakkwlSGM/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2022</a>
 
 ## Fiscal data
 Associació Python Barcelona
