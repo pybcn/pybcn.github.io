@@ -13,4 +13,4 @@ github: "https://www.github.com/lpmayos"
 
 ---
 
-Bookworm. Scuba diver. Mountain lover. Photography enthusiast. Urban cyclist. Data Scientist. Engineer.
+Bookworm. Scuba diver. Mountain lover. Photography enthusiast. Urban cyclist. Research Scientist. Engineer.

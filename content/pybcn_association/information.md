@@ -11,7 +11,7 @@ heroBackground: https://source.unsplash.com/5cFwQ-WMcJU/1600x400
 
 ---
 
-After 10 years of experience organizing python-related events and more than 3000 members on Meetup, **Python Barcelona (PyBCN)** was officially registered as a non-profit association in 2018. PyBCN is a meeting point for all the Barcelona Python community, and we organize different monthly activities like [PyBCN and PyLadiesBCN meetups and practice sessions](../../events/monthly_events), along with some annual events like [PyDay BCN](../../events/pyday_bcn/pyday_bcn_2020) or [PyDataBCN](../../events/other_events/pydata_bcn_2017/).
+After 10 years of experience organizing python-related events and more than 3000 members on Meetup, **Python Barcelona (PyBCN)** was officially registered as a non-profit association in 2018. PyBCN is a meeting point for all the Barcelona Python community, and we organize different monthly activities like [PyBCN and PyLadiesBCN meetups and practice sessions](../../events/monthly_events), along with some annual events like [PyDay BCN](../../events/pyday_bcn/pyday_bcn_2022) or [PyDataBCN](../../events/pydatabcn/pydatabcn_2023/).
 
 
 Would you like to be a part of PyBCN? We are looking forward to hearing from you!

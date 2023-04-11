@@ -17,9 +17,9 @@ carousel_header: true
 carousel_indicators: true
 carousel_class: home_carousel
 carousel_photos:
-- photo: /photos/pyday/workshop_photo.jpg
-  caption: PyDay BCN 2022
-  link: events/pyday_bcn/pyday_bcn_2022/
+- photo: /photos/canodrom_header.png
+  caption: PyDataBCN 2023
+  link: events/pydatabcn/pydatabcn_2023/
 - photo: /photos/meetups.jpg
   caption: PyBCN Meetups
   link: events/monthly_events
