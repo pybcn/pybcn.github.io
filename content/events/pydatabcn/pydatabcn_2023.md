@@ -317,4 +317,4 @@ We look forward to seeing you at PyDataBCN and sharing our passion for Python, d
 
 #### `When and where`
 
-It is scheduled for **Saturday 10th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from 9:00pm to 19:00pm CET, aprox.
+It is scheduled for **Saturday 10th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from 9:00pm to 18:00pm CET, aprox.
