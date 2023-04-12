@@ -7,4 +7,4 @@ short_bio: "MLOps Engineer"
 linkedin: "https://www.linkedin.com/in/ariadna-fernandez-estevez/"
 github: "https://github.com/afernaes"
 ---
-Applied phyisicist converted into Machine Learning Engineer. Great interest into Cloud Computing
+Applied physicist converted into Machine Learning Engineer. Great interest into Cloud Computing
