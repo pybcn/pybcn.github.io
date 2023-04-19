@@ -43,7 +43,7 @@ sponsor_levels:
     sponsors: ['?']
     name: Silver
   - sponsors_per_line: 3
-    sponsors: ['?']
+    sponsors: ['apsl']
     name: Supporting
   - sponsors_per_line: 2
     sponsors: [pyladiesbcn, pybcn]
