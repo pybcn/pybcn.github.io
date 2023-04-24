@@ -40,7 +40,7 @@ sponsor_levels:
     sponsors: ['?']
     name: Gold
   - sponsors_per_line: 3
-    sponsors: ['?']
+    sponsors: ['aimsun']
     name: Silver
   - sponsors_per_line: 3
     sponsors: ['apsl']
