@@ -37,7 +37,7 @@ sponsor_levels:
     sponsors: [canodrom]
     name: Venue
   - sponsors_per_line: 2
-    sponsors: ['?']
+    sponsors: ['iomed']
     name: Gold
   - sponsors_per_line: 3
     sponsors: ['aimsun', 'nuclia']

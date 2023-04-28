@@ -2,5 +2,5 @@
 id: iomed
 name: IOMED
 logo_image: iomed.png
-web: https://iomed.es
+web: https://iomed.health
 ---
