@@ -40,10 +40,10 @@ sponsor_levels:
     sponsors: ['iomed']
     name: Gold
   - sponsors_per_line: 3
-    sponsors: ['aimsun', 'nuclia']
+    sponsors: ['aimsun', 'nuclia', 'somenergia']
     name: Silver
   - sponsors_per_line: 3
-    sponsors: ['apsl']
+    sponsors: ['apsl', 'digitalfems', 'rakuten']
     name: Supporting
   - sponsors_per_line: 2
     sponsors: [pyladiesbcn, pybcn]
