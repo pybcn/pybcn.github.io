@@ -318,3 +318,8 @@ We look forward to seeing you at PyDataBCN and sharing our passion for Python, d
 #### `When and where`
 
 It is scheduled for **Saturday 10th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from 9:00pm to 18:00pm CET, aprox.
+
+
+#### `Disclaimer`
+
+PyDataBCN would like to expressly clarify that it is an independent event and is not associated or affiliated with the PyData events organized by NumFOCUS. PyDataBCN operates autonomously with its own distinct goals, structure, and organization.
