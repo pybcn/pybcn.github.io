@@ -43,7 +43,7 @@ sponsor_levels:
     sponsors: ['aimsun', 'nuclia', 'somenergia']
     name: Silver
   - sponsors_per_line: 3
-    sponsors: ['apsl', 'digitalfems', 'rakuten']
+    sponsors: ['apsl', 'digitalfems', 'rakuten', 'pythones']
     name: Supporting
   - sponsors_per_line: 2
     sponsors: [pyladiesbcn, pybcn]
