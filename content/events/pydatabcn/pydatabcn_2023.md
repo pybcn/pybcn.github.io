@@ -51,19 +51,44 @@ sponsor_levels:
 
 
 people_sections:
-  - title: Organizers
-    id: organizers
-    levels:
-      - people_per_line: 4
-        people:
-          - lpmayos
-          - natalia
-          - elisabeth-ortega-carrasco
-          - amalia_vradi
-          - ariadna_fernandez_estevez
-          - paula_szewach
-          - nuria
-          - mireia
+    - title: Speakers
+      id: speakers
+      levels:
+        - people_per_line: 4
+          people:
+            - adrian-garcia-riber
+            - albert-pujol-torras
+            - alvaro-duran-barata
+            - amalia_vradi
+            - carmen-iniesta-lopez
+            - daniel-sanchez-santolaya
+            - diego-quintana
+            - edgar-sarria-tenes
+            - fiorella-piriz-sapio
+            - juan-bernardo-lince
+            - juan-luis-cano
+            - miquel-sarrias
+            - monica-dominguez
+            - nikita-polovinkin
+            - oriol-abril-pla
+            - rajdeep-pal
+            - ricardo-ander-egg
+            - ruben-afonso
+            - sergi-baena-miret
+            - thais-ruiz-de-alda
+    - title: Organizers
+      id: organizers
+      levels:
+        - people_per_line: 4
+          people:
+            - lpmayos
+            - natalia
+            - elisabeth-ortega-carrasco
+            - amalia_vradi
+            - ariadna_fernandez_estevez
+            - paula_szewach
+            - nuria
+            - mireia
 
 spansDuration: 15
 numTracks: 4
