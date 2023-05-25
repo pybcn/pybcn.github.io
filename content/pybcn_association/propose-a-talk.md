@@ -3,7 +3,7 @@ title: "Propose a talk"
 description: Propose a talk for one of our meetups
 menu:
   main:
-    parent: 'How to collaborate'
+    parent: "How to collaborate"
 weight: 4
 heroBackground: /images/photos/propose-a-talk.jpg
 ---
