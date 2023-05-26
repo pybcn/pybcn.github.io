@@ -37,7 +37,7 @@ sponsor_levels:
     sponsors: ['iomed']
     name: Gold
   - sponsors_per_line: 3
-    sponsors: ['aimsun', 'nuclia', 'somenergia']
+    sponsors: ['aimsun', 'nuclia', 'somenergia', 'shimoku']
     name: Silver
   - sponsors_per_line: 3
     sponsors: ['apsl', 'digitalfems', 'rakuten', 'pythones']
