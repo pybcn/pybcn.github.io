@@ -45,4 +45,14 @@ sponsor_levels:
   - ub
   - upf
   - verse
+  - veriff
+  - apsl
+  - coopdevs
+  - somenergia
+  - jobfluent
+  - pythones
+  - aimsun
+  - nuclia
+  - shimoku
+  - rakuten
 ---
