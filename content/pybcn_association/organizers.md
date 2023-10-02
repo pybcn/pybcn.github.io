@@ -17,6 +17,6 @@ people_levels:
       people: [alberto, david, ifosch, josep, lpmayos, loris, mireia, natalia, nuria, rberenguel, xavi]
       name: The Permanent Committee
     - people_per_line: 6
-      people: [angel, elisabeth-ortega-carrasco, esteve, ricardo]
+      people: [angel, elisabeth-ortega-carrasco, esteve, ricardo, alicia-morales, patricia-lamadrid]
       name: Our collaborators
 ---

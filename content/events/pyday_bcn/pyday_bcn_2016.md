@@ -4,7 +4,7 @@ description: ""
 menu:
   main:
     parent: 'PyDay BCN'
-weight: 6
+weight: 7
 heroBackground: /images/photos/people-pyday-2016.jpg
 ---
 

@@ -4,7 +4,7 @@ description: "The annual gathering for Pythonists in love with data!"
 menu:
   main:
     parent: "PyDataBCN"
-weight: 1
+weight: 2
 aliases:
   - /pydatabcn-2023
 heroBackground: /images/photos/canodrom.png

@@ -11,5 +11,5 @@ meetupEvents:
     id: python-barcelona
   - name: PyLadies BCN
     id: pyladies-bcn
-weight: 1
+weight: 3
 ---
