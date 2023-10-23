@@ -30,7 +30,7 @@ sponsor_levels:
     sponsors: [qustodio, travelperk]
     name: Gold
   - sponsors_per_line: 3
-    sponsors: [aimsun]
+    sponsors: [aimsun, coopdevs]
     name: Silver
   - sponsors_per_line: 3
     sponsors: []
