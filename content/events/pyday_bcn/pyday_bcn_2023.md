@@ -33,7 +33,7 @@ sponsor_levels:
     sponsors: [aimsun, coopdevs, apsl]
     name: Silver
   - sponsors_per_line: 3
-    sponsors: []
+    sponsors: [pythones]
     name: Supporting
   - sponsors_per_line: 2
     sponsors: [pybcn, pyladiesbcn]
