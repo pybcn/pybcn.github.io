@@ -27,7 +27,7 @@ free_text_sections:
 sponsors_text: "Would you like to sponsor this event? Please contact us at pydaybcn2023@googlegroups.com<br/><br/>"
 sponsor_levels:
   - sponsors_per_line: 2
-    sponsors: [qustodio, travelperk]
+    sponsors: [qustodio, travelperk, iomed]
     name: Gold
   - sponsors_per_line: 3
     sponsors: [aimsun, coopdevs]
