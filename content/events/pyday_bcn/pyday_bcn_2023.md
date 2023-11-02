@@ -47,6 +47,10 @@ people_sections:
       - people_per_line: 4
         people:
             - noe-casas
+            - vyron-vasileiadis
+            - adria-blanco
+            - guille-abad
+            - javier-sabariego
             - christian-adell
             - pavel-sulimov
             - ferran-jovell
@@ -355,7 +359,46 @@ events:
     track_length: 3
     color: purple
     title: "Lightning talks + closing session & Kahoot"
-    description: ""
+    description: "
+<h2>Lightning talks</h2>
+
+<b>Data Visualization using Blender</b></br>
+<i>Muhammad Usman</i>
+<p><q>Welcome to the 'Data Visualization using Python in Blender' adventure – where your data turns into a magic carpet ride through enchanted forests and talking teapots! Just like a certain enchanted rose or a friendly blue genie, we'll use Python scripting in Blender to bring your data to life in whimsical 3D visualizations, animated charts, and interactive scenes that would make any animated teapot dance with joy!</q></p>
+
+<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b></br>
+<i>Álvaro Durán </i>
+<p><q>ChatGPT has taken the world by storm. Self-proclaimed futurists such as Chamath Palihapitiya have predicted the disruption of many multi-million dollar companies as a result. The role of data scientists, as a result, will be diminished if a machine can understand unstructured text.</q></p>
+
+<b>PyCamp 2024</b></br>
+<i>Israel Saeta</i>
+<p><q>We will present the PyCamp 2024 event that will take place in Girona next spring.</q></p>
+
+<b>Algorithmic Fairness (Ethics in Data)</b></br>
+<i>Neema Balolebwami Nelly</i>
+<p><q>Gain a profound understanding of the ethical dimensions in data-driven systems, focusing on algorithmic fairness. Discover how to implement fairness principles to promote just and equitable outcomes in your software projects.</q></p>
+
+<b>Demystifying LLM deployments in AWS SageMaker</b></br>
+<i>Guillermo Blasco</i>
+<p><q>OS LLMs (falcon, lama, mistral,…) can be challenging to deploy for production, but they are not! We will deploy lince-zero (fine tune of falcon7b by clibrain) in AWS SageMaker in 3 minutes from sage maker studio notebooks with python!</q></p>
+
+<b>Creación de APIs con Python y manejo de datos</b></br>
+<i>Diego Giaquinta</i>
+<p><q>Implementación sencilla de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones.</q></p>
+
+<b>Common Security Vulnerabilities for Developers</b></br>
+<i>Dan Neciu</i>
+<p><q>Best practices for developers to protect themselves from scams and hacking attempts</q></p>
+
+<b>Machine Learning for time-series analysis in the context of IoT</b></br>
+<i>Raziel Amador</i>
+<p><q>In this light talk, I would like to present my implementation of temperature and humidity monitoring using Iot (Raspberry Pi, DHT22 sensor, all in Docker services), and Machine learning for time series analysis.</q></p>
+
+<b>How to support the Python open source ecosytem</b></br>
+<i>Oriol Abril</i>
+<p><q>I will showcase a wide array of ways for anyone to support the Python open source ecosystem, with a special focus on financial support. I won't have any special focus on special communities or libraries but will aim for a general overview: including open source contributions as part of one's job description, sponsoring events and/or libraries, donating to foundations that act as umbrella for the exisiting projects...</q></p>
+
+"
     type: talk
     location: Room B5
     class: middle
