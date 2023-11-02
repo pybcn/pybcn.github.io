@@ -304,9 +304,32 @@ events:
     end_time_slot: 15:45
     track_length: 3
     color: purple
-    title: "Coffee break"
-    type: coffee
-    location: Claustre
+    title: "Lightning talks (session 1) & Coffee break"
+    description: "
+<h2>Lightning talks</h2>
+
+<b>Data Visualization using Blender</b></br>
+<i>Muhammad Usman</i>
+<p><q>Welcome to the 'Data Visualization using Python in Blender' adventure – where your data turns into a magic carpet ride through enchanted forests and talking teapots! Just like a certain enchanted rose or a friendly blue genie, we'll use Python scripting in Blender to bring your data to life in whimsical 3D visualizations, animated charts, and interactive scenes that would make any animated teapot dance with joy!</q></p>
+
+<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b></br>
+<i>Álvaro Durán </i>
+<p><q>ChatGPT has taken the world by storm. Self-proclaimed futurists such as Chamath Palihapitiya have predicted the disruption of many multi-million dollar companies as a result. The role of data scientists, as a result, will be diminished if a machine can understand unstructured text.</q></p>
+
+<b>PyCamp 2024</b></br>
+<i>Israel Saeta</i>
+<p><q>We will present the PyCamp 2024 event that will take place in Girona next spring.</q></p>
+
+<b>Algorithmic Fairness (Ethics in Data)</b></br>
+<i>Neema Balolebwami Nelly</i>
+<p><q>Gain a profound understanding of the ethical dimensions in data-driven systems, focusing on algorithmic fairness. Discover how to implement fairness principles to promote just and equitable outcomes in your software projects.</q></p>
+
+<b>Demystifying LLM deployments in AWS SageMaker</b></br>
+<i>Guillermo Blasco</i>
+<p><q>OS LLMs (falcon, lama, mistral,…) can be challenging to deploy for production, but they are not! We will deploy lince-zero (fine tune of falcon7b by clibrain) in AWS SageMaker in 3 minutes from sage maker studio notebooks with python!</q></p>
+"
+    type: talk
+    location: Room B5
     class: middle
 
   - speaker: "Gabriel de Maeztu"
@@ -358,29 +381,9 @@ events:
     end_time_slot: 17:45
     track_length: 3
     color: purple
-    title: "Lightning talks + closing session & Kahoot"
+    title: "Lightning talks (session 2) & Closing session & Kahoot"
     description: "
 <h2>Lightning talks</h2>
-
-<b>Data Visualization using Blender</b></br>
-<i>Muhammad Usman</i>
-<p><q>Welcome to the 'Data Visualization using Python in Blender' adventure – where your data turns into a magic carpet ride through enchanted forests and talking teapots! Just like a certain enchanted rose or a friendly blue genie, we'll use Python scripting in Blender to bring your data to life in whimsical 3D visualizations, animated charts, and interactive scenes that would make any animated teapot dance with joy!</q></p>
-
-<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b></br>
-<i>Álvaro Durán </i>
-<p><q>ChatGPT has taken the world by storm. Self-proclaimed futurists such as Chamath Palihapitiya have predicted the disruption of many multi-million dollar companies as a result. The role of data scientists, as a result, will be diminished if a machine can understand unstructured text.</q></p>
-
-<b>PyCamp 2024</b></br>
-<i>Israel Saeta</i>
-<p><q>We will present the PyCamp 2024 event that will take place in Girona next spring.</q></p>
-
-<b>Algorithmic Fairness (Ethics in Data)</b></br>
-<i>Neema Balolebwami Nelly</i>
-<p><q>Gain a profound understanding of the ethical dimensions in data-driven systems, focusing on algorithmic fairness. Discover how to implement fairness principles to promote just and equitable outcomes in your software projects.</q></p>
-
-<b>Demystifying LLM deployments in AWS SageMaker</b></br>
-<i>Guillermo Blasco</i>
-<p><q>OS LLMs (falcon, lama, mistral,…) can be challenging to deploy for production, but they are not! We will deploy lince-zero (fine tune of falcon7b by clibrain) in AWS SageMaker in 3 minutes from sage maker studio notebooks with python!</q></p>
 
 <b>Creación de APIs con Python y manejo de datos</b></br>
 <i>Diego Giaquinta</i>
