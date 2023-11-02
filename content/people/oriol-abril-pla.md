@@ -9,4 +9,4 @@ linkedin: https://www.linkedin.com/in/oriol-abril-pla-1b9123180/
 github: https://github.com/OriolAbril/
 ---
 
-Sóc estadístic computacional. Actualment sóc un dels mantenidors d'ArviZ i de PyMC, dos projectes de programari lliure per fer modelització Bayesiana de les quals fa 4 anys que en sóc membre i un parell que formo part dels seus òrgans de govern. També ensenyo i preparo cursos a IntuitiveBayes i intento aconseguir finançament per tal de fer més sostenible tot l'ecosistema PyData.
+I am a computational statistician with a passion for open source, teaching and community building. I am currently working as open source maintainer of ArviZ and PyMC, both Python libraries related to Bayesian modeling and sponsored by NumFOCUS. I try to ensure that my open source work targets all areas of the projects and is not code-centric. Among other things for example, I do extensive documentation work and led ArviZ's and PyMC's participation in Google Season of Docs. I am also an instructor at IntuitiveBayes and I have taught undergrad courses on maths and statistics as external lecturer.

@@ -5,4 +5,9 @@ photo: "ferran-jovell.jpg"
 twitter: "https://twitter.com/mrswats"
 ---
 
-After several long years at uni studying physics, a master in applied mathematics and later a PhD in Electronic Engineering, I started programming more seriously in my later years of my studies to analyse some data which later turned into a programming career which now has turned into Full Stack Developer. 
+Ferran Jovell is a physicist with Ph.D. in Electronic Engineering. His interests
+lie in mathematics, programming and food. In the later stages
+of the doctorate, he started programming more seriously to analyze some data
+which later turned into a programming career that now has turned into Sofware
+Engineering. Currently working as a Senior Backend and Infrastructure engineer
+at izi record.
