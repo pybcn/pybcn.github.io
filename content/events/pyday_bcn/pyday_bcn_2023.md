@@ -184,7 +184,7 @@ events:
     topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic: "Network/Infrastructure Automation"
     location: Room B3
-    requirements: "You should have Docker installed."
+    requirements: ""
 
   - start_time_slot: 11:00
     end_time_slot: 11:15
