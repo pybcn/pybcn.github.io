@@ -401,6 +401,9 @@ events:
 <i>Oriol Abril</i>
 <p><q>I will showcase a wide array of ways for anyone to support the Python open source ecosystem, with a special focus on financial support. I won't have any special focus on special communities or libraries but will aim for a general overview: including open source contributions as part of one's job description, sponsoring events and/or libraries, donating to foundations that act as umbrella for the exisiting projects...</q></p>
 
+<b>Tinymem: a game under 40 lines and under 30mm</b></br>
+<i>Isaac Bernat</i>
+<p><q>We'll go through <a href='https://github.com/isaacbernat/tinymem' target='_blank'>tinymem</a>, a working example of a game programmed in MicroPython which has menus, audio, sprites, text, button inputs... All this under 40 lines of code available for the <a href='https://thumby.us/' target='_blank'>Thumby</a> hardware, which is a miniature Raspberry Pi Pico based console.</q></p>
 "
     type: talk
     location: Room B5
