@@ -30,7 +30,7 @@ sponsor_levels:
     sponsors: [qustodio, travelperk, iomed, flanks, preply]
     name: Gold
   - sponsors_per_line: 3
-    sponsors: [aimsun, coopdevs, apsl]
+    sponsors: [aimsun, coopdevs, apsl, somenergia]
     name: Silver
   - sponsors_per_line: 3
     sponsors: [pythones, ikigai]
@@ -235,7 +235,7 @@ events:
     language: "English"
     python_level: "<i class=\"fas fa-circle green\"></i>"
     topic_level: "<i class=\"fas fa-circle green\"></i>"
-    requirements: "Laptop with latest Python version available"
+    requirements: "Laptop with latest Python version available and git installed"
     topic: "Python Packaging"
     location: Room B3
 
