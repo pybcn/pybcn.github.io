@@ -389,6 +389,10 @@ events:
 <i>Diego Giaquinta</i>
 <p><q>Implementación sencilla de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones.</q></p>
 
+<b>Step4ward: Empowering Women in Tech</b>
+<i>Susana Vázquez y Coral Olivares</i>
+<p><q>Come explore step4ward, a non-profit organization passionately crafted BY and FOR women. In just 5 minutes, learn how we're all about supporting women in the tech job market. We provide advice, build a community, and help with interview prep and early career steps. Let's break barriers and boost women in tech together!</q></p>
+
 <b>Common Security Vulnerabilities for Developers</b></br>
 <i>Dan Neciu</i>
 <p><q>Best practices for developers to protect themselves from scams and hacking attempts</q></p>
