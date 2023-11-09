@@ -60,6 +60,7 @@ people_sections:
             - gabriel-de-maeztu
             - camilo-chacon
             - israel-saeta
+            - emanuel-frazao
 
   - title: Organizers
     id: organizers
@@ -195,7 +196,7 @@ events:
     location: Claustre
     class: middle
 
-  - speaker: ""
+  - speaker: "Emanuel Frazao"
     title: "Introduction to Artificial [Emotional] Intelligence: Decode emotions with Deep Learning and Facial Recognition"
     description: "One of the most interesting applications of artificial intelligence is Deep Learning, which involves using unstructured data such as images or text in conjunction with mathematical algorithms to create predictive models that will help us make more accurate decisions and enhance our analytical capabilities."
     start_time_slot: 11:30
