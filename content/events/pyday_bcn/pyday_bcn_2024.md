@@ -36,11 +36,12 @@ people_sections:
     levels:
       - people_per_line: 4
         people:
-          - lpmayos
           - david
           - ferran-jovell
-          - jose-riera
+          - lpmayos
           - alicia-morales
+          - jose-riera
+          
 
 previous_editions:
   - name: PyDay BCN 2023
@@ -334,17 +335,17 @@ events:
 
 ## About PyDay BCN 2024
 
-We are organizing the **the 8th edition** of PyDay in Barcelona!
+We are excited to announce the **8th edition** of PyDay in Barcelona!
 
-PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the <a href="#previous_editions_section">last six editions</a>, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
+PyDay is an event packed with FREE **python-related workshops** and activities for the Python community. It is organized once per year. Over the <a href="#previous_editions_section">last seven editions</a>, PyDay has become a fantastic opportunity to share our love for Python and engage users, companies, and newcomers in it!
 
 #### When and where
 
-It is scheduled for **Saturday 9th November** in <a href="https://maps.app.goo.gl/Uxiao2Dr7uio9o3v9" target="_blank">Canòdrom</a>, from 9:00am to 18:00pm CET, aprox.
+It is scheduled for **Saturday 9th November** at <a href="https://maps.app.goo.gl/Uxiao2Dr7uio9o3v9" target="_blank">Canòdrom</a>, from 9:00 a.m. to 18:00 p.m. CET, approximately.
 
-#### A full day of in-person hands-on workshops
+#### A full day of in-person, hands-on workshops
 
-PyDay BCN 2024 will have different **thematic tracks** --e.g. data science, web development, security-- with hands-on workshops of about 90 minutes in which participants will learn how to use different libraries, tools and techniques, fully guided by members of the community and support volunteers.
+PyDay BCN 2024 will have different **thematic tracks** --e.g. data science, web development, security-- with hands-on workshops lasting about 90 minutes. Participants will learn how to use different libraries, tools and techniques, fully guided by community members and support volunteers.
 
 #### Participate in Kahoot and win prizes!
 

@@ -1,5 +1,5 @@
 ---
 id: jose-riera
-name: "Jose Riera"
+name: "José Riera Sánchez"
 ---
 
