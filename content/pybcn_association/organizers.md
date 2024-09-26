@@ -14,9 +14,9 @@ people_levels:
       people: [lpmayos, mireia, natalia]
       name: The Management Board
     - people_per_line: 4
-      people: [alberto, david, ifosch, josep, lpmayos, loris, mireia, natalia, nuria, rberenguel, xavi]
+      people: [alberto, david, ifosch, josep, lpmayos, loris, mireia, natalia, nuria, rberenguel, xavi, alicia-morales, ferran-jovell]
       name: The Permanent Committee
     - people_per_line: 6
-      people: [angel, elisabeth-ortega-carrasco, esteve, ricardo, alicia-morales, patricia-lamadrid]
+      people: [angel, elisabeth-ortega-carrasco, esteve, ricardo, patricia-lamadrid, jose-riera]
       name: Our collaborators
 ---
