@@ -17,9 +17,9 @@ carousel_header: true
 carousel_indicators: true
 carousel_class: home_carousel
 carousel_photos:
-- photo: /photos/people-pyday-2019_1600_450.png
-  caption: PyDay 2023
-  link: events/pyday_bcn/pyday_bcn_2023/
+- photo: /photos/canodrom_header.png
+  caption: PyDay 2024
+  link: events/pyday_bcn/pyday_bcn_2024/
 - photo: /photos/meetups.jpg
   caption: PyBCN Meetups
   link: events/monthly_events

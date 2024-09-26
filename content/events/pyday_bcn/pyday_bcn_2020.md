@@ -4,7 +4,7 @@ description: "The fourth edition!"
 menu:
   main:
     parent: 'PyDay BCN'
-weight: 4
+weight: 5
 aliases:
 - /pyday-bcn-2020
 heroBackground: https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80

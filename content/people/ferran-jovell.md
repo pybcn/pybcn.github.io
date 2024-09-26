@@ -3,6 +3,8 @@ id: ferran-jovell
 name: "Ferran Jovell"
 photo: "ferran-jovell.jpg"
 twitter: "https://twitter.com/mrswats"
+
+pybcn_position: PyBCN Organizer
 ---
 
 Ferran Jovell is a physicist with Ph.D. in Electronic Engineering. His interests
