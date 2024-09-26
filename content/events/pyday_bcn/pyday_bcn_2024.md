@@ -337,7 +337,7 @@ events:
 
 We are excited to announce the **8th edition** of PyDay in Barcelona!
 
-PyDay is an event packed with FREE **python-related workshops** and activities for the Python community. It is organized once per year. Over the <a href="#previous_editions_section">last seven editions</a>, PyDay has become a fantastic opportunity to share our love for Python and engage users, companies, and newcomers in it!
+PyDay is an event packed with FREE **python-related workshops** and activities for the Python community. It is organized once per year. Over the <a href="#previous_editions_section">last seven editions</a>, PyDay has become a fantastic opportunity to share our love for Python and engage users, companies, and newcomers!
 
 #### When and where
 
