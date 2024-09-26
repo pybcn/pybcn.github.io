@@ -5,7 +5,7 @@ short_bio: Data Engineer - Data enthusiast - Python and Scala lover - Home Autom
 
 photo: alicia-morales.jpeg
 
-pybcn_position: PyBCN Collaborator
+pybcn_position: PyBCN Organizer
 
 twitter: https://twitter.com/amoralca16
 github: https://github.com/amoralca16

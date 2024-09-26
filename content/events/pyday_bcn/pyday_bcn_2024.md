@@ -4,7 +4,7 @@ description: "For the community, by the community!"
 menu:
   main:
     parent: "PyDay BCN"
-weight: 2
+weight: 1
 aliases:
   - /pyday-bcn-2024
 heroBackground: /images/photos/canodrom.png
@@ -22,7 +22,7 @@ free_text_sections:
       <b>9th November</b>: PyDay BCN 2024"
   - title: Registration
     id: registration
-    content: "General registration will open on Monday 5th of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/entradas-pydaybcn-2023-751258453257?aff=oddtdtcreator'>Eventbrite</a>."
+    content: "General registration will open on Monday 5th of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/o/associacio-python-barcelona-pybcn-17886618981'>Eventbrite</a>."
 
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2024@googlegroups.com<br/><br/>"
 sponsor_levels:
