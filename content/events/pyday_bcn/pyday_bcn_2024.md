@@ -107,7 +107,7 @@ events:
     track_length: 3
     color: purple
     title: "Registration & Welcome"
-    speaker: "PyDay BCN 2024 Organising Committee"
+    speaker: "PyDay BCN 2024 Organizing Committee"
     type: group
     location: TBD
     class: middle
@@ -161,7 +161,7 @@ events:
     color: purple
     title: "Coffee break"
     type: coffee
-    location: Claustre
+    location: Grades
     class: middle
 
   - speaker: ""
@@ -213,7 +213,7 @@ events:
     color: pink
     title: "Group photo"
     type: photo
-    location: Claustre
+    location: Grades
     class: middle
 
   - start_time_slot: 13:15
@@ -222,7 +222,7 @@ events:
     color: purple
     title: "Lunch break"
     type: lunch
-    location: Claustre
+    location: Grades
     class: middle
 
   - speaker: ""
@@ -274,7 +274,7 @@ events:
     color: purple
     title: "Coffee break"
     type: coffee
-    location: Claustre
+    location: Grades
     class: middle
 
   - speaker: ""
