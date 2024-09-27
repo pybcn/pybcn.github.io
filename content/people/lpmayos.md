@@ -7,7 +7,6 @@ site: https://lpmayos.github.io/
 
 pybcn_position: "PyBCN President"
 
-twitter: "https://twitter.com/lpmayos"
 linkedin: "https://www.linkedin.com/in/lpmayos/"
 github: "https://www.github.com/lpmayos"
 
