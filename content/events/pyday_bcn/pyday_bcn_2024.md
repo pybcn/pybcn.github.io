@@ -14,7 +14,7 @@ layout: event
 free_text_sections:
   - title: Important dates
     id: important_dates
-    content: "<b>26nd September</b>: Call for proposals opening: <a href='https://forms.gle/GDL2VpUTu4veHbff8' target='_blank' >Workshops</a> and <a target='_blank' href='https://forms.gle/VLDY6zdmRxRsGsmv7'>Lightning talks</a><br/>
+    content: "<b>26th September</b>: Call for proposals opening: <a href='https://forms.gle/GDL2VpUTu4veHbff8' target='_blank' >Workshops</a> and <a target='_blank' href='https://forms.gle/VLDY6zdmRxRsGsmv7'>Lightning talks</a><br/>
       <b>27th October</b>: Call for proposals closing<br/>
       <b>3rd Novembre</b>: Program available<br/>
       <b>4th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
@@ -27,7 +27,7 @@ free_text_sections:
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2024@googlegroups.com<br/><br/>"
 sponsor_levels:
   - sponsors_per_line: 2
-    sponsors: [pybcn, pyladiesbcn]
+    sponsors: [pybcn, pyladiesbcn, canodrom]
     name: Organizers
 
 people_sections:
@@ -36,10 +36,10 @@ people_sections:
     levels:
       - people_per_line: 4
         people:
+          - alicia-morales
           - david
           - ferran-jovell
           - lpmayos
-          - alicia-morales
           - jose-riera
           
 
