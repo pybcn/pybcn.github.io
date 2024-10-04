@@ -1,6 +1,6 @@
 ---
 id: qilimanjaro
-name: qilimanjaro
-logo_image: qilimanjaro.jpg
+name: Qilimanjaro
+logo_image: qilimanjaro.png
 web: https://www.qilimanjaro.tech
 ---
