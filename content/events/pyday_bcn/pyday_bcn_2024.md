@@ -26,7 +26,10 @@ free_text_sections:
 
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2024@googlegroups.com<br/><br/>"
 sponsor_levels:
-  - sponsors_per_line: 2
+  - sponsors_per_line: 3
+    sponsors: [qilimanjaro, ikigai, hpc-now]
+    name: Supporting
+  - sponsors_per_line: 3
     sponsors: [pybcn, pyladiesbcn, canodrom]
     name: Organizers
 
