@@ -1,0 +1,28 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3192920, 2016-03-27T16:57:52-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Flux-Regular by T-26
+ * URL: http://www.myfonts.com/fonts/t26/flux/regular/
+ * Copyright: Copyright (c) 1996 by Monib Mahdavi. All rights reserved.
+ * Licensed pageviews: 10,000
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3192920
+ * 
+ * © 2016 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("https://hello.myfonts.net/count/30b858");
+
+  
+@font-face {font-family: 'Flux-Regular';src: url('30B858_0_0.eot');src: url('30B858_0_0.eot%3F') format('embedded-opentype'),url('30B858_0_0.woff2') format('woff2'),url('30B858_0_0.woff') format('woff'),url('30B858_0_0.ttf') format('truetype');}
+ 
