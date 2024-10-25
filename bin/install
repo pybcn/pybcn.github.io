@@ -18,13 +18,8 @@ function eval_platform() {
 }
 
 function install_hugo() {
-  PLATFORM=$(eval_platform)
-  echo -n "Installing Hugo for ${PLATFORM}... "
-  curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
-    | grep -E "url.*hugo_extended.*${PLATFORM}.*tar.gz" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi - -O- | tar xzf - -C ${ROOT}/bin hugo
+  echo -n "Installing Hugo 0.123.8... "
+  pip install hugo=="0.123.8"
   echo "OK!"
 }
 
