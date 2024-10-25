@@ -5,6 +5,9 @@ deployed using [Hugo](https://gohugo.io).
 
 ## Usage for content publishing
 
+## Prerequisites
+- pip
+
 ### Setup on your computer
 
 You need to clone this repository and run the `bin/install` script.

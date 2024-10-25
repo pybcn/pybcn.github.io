@@ -2,29 +2,9 @@
 
 set -euo pipefail
 
-function eval_platform() {
-  case ${OSTYPE} in
-    "linux-gnu")
-      echo Linux
-    ;;
-    "darwin")
-      echo macOS
-    ;;
-    *)
-      echo Unknown platform ${OSTYPE} >&2
-      exit 1
-    ;;
-  esac
-}
-
 function install_hugo() {
-  PLATFORM=$(eval_platform)
-  echo -n "Installing Hugo for ${PLATFORM}... "
-  curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest \
-    | grep -E "url.*hugo_extended.*${PLATFORM}.*tar.gz" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | wget -qi - -O- | tar xzf - -C ${ROOT}/bin hugo
+  echo -n "Installing Hugo 0.123.8... "
+  pip install hugo=="0.123.8"
   echo "OK!"
 }
 
