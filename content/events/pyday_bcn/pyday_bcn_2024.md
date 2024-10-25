@@ -30,7 +30,7 @@ sponsor_levels:
     sponsors: [lambdaloopers, nagarro, pythones]
     name: Silver
   - sponsors_per_line: 3
-    sponsors: [qilimanjaro, ikigai, hpc-now, shimoku, digitalfems, innoit, business-insights, travelperk, okta]
+    sponsors: [qilimanjaro, ikigai, hpc-now, shimoku, digitalfems, innoit, business-insights, travelperk, okta, preply, qustodio]
     name: Supporting
   - sponsors_per_line: 3
     sponsors: [pybcn, pyladiesbcn, canodrom]
