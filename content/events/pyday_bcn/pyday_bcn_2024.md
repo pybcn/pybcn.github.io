@@ -27,10 +27,10 @@ free_text_sections:
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2024@googlegroups.com<br/><br/>"
 sponsor_levels:
   - sponsors_per_line: 2
-    sponsors: [lambdaloopers, nagarro, innovamat, protopixel, pythones]
+    sponsors: [lambdaloopers, nagarro, innovamat, protopixel, pythones, isdieducation, coopdevs]
     name: Silver
   - sponsors_per_line: 3
-    sponsors: [qilimanjaro, ikigai, hpc-now, shimoku, digitalfems, innoit, business-insights, travelperk, okta, preply, qustodio, codurance, gluecharm]
+    sponsors: [qilimanjaro, ikigai, hpc-now, shimoku, digitalfems, innoit, business-insights, travelperk, okta, preply, qustodio, codurance, gluecharm, somenergia]
     name: Supporting
   - sponsors_per_line: 3
     sponsors: [pybcn, pyladiesbcn, canodrom]
