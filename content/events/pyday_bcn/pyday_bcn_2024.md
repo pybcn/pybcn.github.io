@@ -127,7 +127,7 @@ events:
     title: "Registration & Welcome"
     speaker: "PyDay BCN 2024 Organizing Committee"
     type: group
-    location: Sala d'actes Ada Lovelace
+    location: "Sala d'actes Ada Lovelace"
     class: middle
   - speaker: "Xiang Xu"
     title: "Unboxing Machine Learning Models: Predicting with Numpy After Model Training"
@@ -139,10 +139,10 @@ events:
     type: workshop
     language: English
     python_level: "Intermediate"
-    topic_level: ""
-    requirements: ""
-    topic: ""
-    location:
+    topic_level: "Intermediate"
+    requirements: "numpy, scikit-learn, and keras installed"
+    topic: "Data science, ML"
+    location: "Sala d'actes Ada Lovelace"
   - speaker: ""
     title: ""
     description: ""
@@ -169,7 +169,7 @@ events:
     python_level: "Beginner"
     topic_level: "Beginner"
     topic: "Testing"
-    location: 
+    location: "Sala Margarita Salas"
     requirements: "A Github account"
   - speaker: "Pablo M"
     title: "No More Script Nightmares: Make Python CLIs That Rock"
@@ -177,14 +177,14 @@ events:
     start_time_slot: 9:30
     end_time_slot: 10:45
     track_length: 1
-    color: yellow
+    color: green
     type: workshop
     language: "English"  
     python_level: "Beginner"
     topic_level: "Beginner"
     requirements: ""
     topic: "CLIs and packaging scripts"
-    location:
+    location: "Aula Hedy Lamarr"
   - start_time_slot: 11:00
     end_time_slot: 11:15
     track_length: 4
@@ -200,28 +200,28 @@ events:
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
-    color: blue
+    color: green
     type: workshop
     language: "Català"
     python_level: "Beginner"
     topic_level: "Beginner"
     requirements: ""
     topic: "Data science"
-    location:
+    location: "Aula Hipàtia d'Alexandria"
   - speaker: "Marc Ramirez Invernon"
     title: "Building data pipelines with SQLMesh"
     description: "There are thousands of companies building pipelines through the DBT tool. However, this library lacks essential elements of software development: Mature Python API, blue-green deployment, and detection of breaking changes. SQLMesh is a new library that introduces all of these by default. I will try to go through the main elements of this library during the workshop to let the audience know more options than DBT"
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
-    color: red
+    color: blue
     type: workshop
     language: "Spanish"
     python_level: "Beginner"
     topic_level: "Intermediate"
     requirements: "Docker, Vscode"
     topic: "Data engineering"
-    location: 
+    location: "Sala Margarita Salas"
   - speaker: "Alex Molas"
     title: "Typing and pattern matching in Python"
     description: "Since 2014, with the introduction of type hints in Python 3.5, Python has been adding support to types while still maintaining its dynamic nature. Later, in Python 3.10, pattern matching was added to Python, which provides a powerful way to match data structures based on their types and values, improving Python’s capability to work with typed data. Both type hints and pattern matching help make code more predictable and robust. In this talk, we’ll answer the following questions: **Introduction to types in Python**: what's a type? which types does python have? What do they mean? **The basics of type hints**: how to define a type hint?  **mypy**: how to use mypy to check that your code does what you expect? **Advanced type hints**: how to define complex type hints? how to define your own types? how to use generic types? **Data validation**: how to use Pydantic and dataclasses for data validation? **Pattern matching**: how to use pattern matching together with type hints to write cleaner and more maintainable code. By the end of this talk, you’ll have a clear understanding of how to use type hints effectively and why they’re a valuable tool in any Python developer’s toolkit"
@@ -235,21 +235,21 @@ events:
     topic_level: "Intermediate"
     requirements: ""
     topic: "Programming"
-    location: 
+    location: "Aula Hedy Lamarr"
   - speaker: "Marina Palma"
     title: "Image Generation with AI (GANs and Diffusion Techniques)"
     description: "Explore the techniques of AI-driven image generation, focusing on two powerful models: Generative Adversarial Networks (GANs) and Diffusion Models. We will learn the fundamental principles, practical applications, and differences between these approaches, along with hands-on demonstrations of how AI can be used to generate images."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
-    color: blue
+    color: red
     type: workshop
     language: "Spanish"
     python_level: "Beginner"
     topic_level: "Beginner"
     requirements: ""
     topic: "Artificial Intelligence"
-    location: 
+    location: "Sala d'actes Ada Lovelace"
 
   - start_time_slot: 13:00
     end_time_slot: 13:00
@@ -282,7 +282,7 @@ events:
     python_level: "Advanced"
     topic_level: "Advanced"
     topic: "Serverless development"
-    location: 
+    location: "Sala d'actes Ada Lovelace"
     requirements: "AWS Account"
   - speaker: "Raúl Cumplido"
     title: "A deep dive into the Arrow Columnar format with pyarrow and nanoarrow"
@@ -297,7 +297,7 @@ events:
     topic_level: "Intermediate"
     topic: "Apache Arrow, Data Science"
     requirements: "You will be able to find both the requirements and the Notebooks on the following repository: https://github.com/raulcd/2024-pyday-bcn-arrow-workshop"
-    location: 
+    location: "Sala Margarita Salas"
   - speaker: "Pol Alvarez Vecino"
     title: "From text to actions: allowing LLMs to use your tools"
     description: "Dive into the world of AI with this hands-on workshop! Learn how to run OpenAI models locally using Python, and then take it a step further by developing custom tools that your AI agent can use. This workshop will bridge the gap between using pre-trained models and creating a personalized AI assistant tailored to your needs."
@@ -311,7 +311,7 @@ events:
     topic_level: "Intermediate"
     requirements: "Register account at OpenAI and export token locally: ie. export OPENAPI_KEY=sk..... "
     topic: "Artificial Intelligence / Machine Learning"
-    location: 
+    location: "Aula Hedy Lamarr"
 
   - speaker: "Israel Saeta Pérez"
     title: "Create a static website with Pelican"
@@ -319,14 +319,14 @@ events:
     start_time_slot: 14:00
     end_time_slot: 15:15
     track_length: 1
-    color: red
+    color: green
     type: workshop
     language: "English"
     python_level: "Intermediate"
     topic_level: "Intermediate"
     requirements: "Github account"
     topic: "Web development"
-    location: 
+    location: "Aula Hipàtia d'Alexandria"
 
   - start_time_slot: 15:30
     end_time_slot: 15:45
@@ -343,14 +343,14 @@ events:
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
-    color: red
+    color: yellow
     type: workshop
     language: "English"
     python_level: "Intermediate"
     topic_level: "Beginner"
     requirements: "Postgres and MySQL installed locally or via Docker"
     topic: "Databases"
-    location: 
+    location: "Aula Hipàtia d'Alexandria"
   - speaker: "Manuel Gijón"
     title: "Introduction to data pipelines with Kestra and MLFlow"
     description: ""
@@ -363,25 +363,21 @@ events:
     python_level: "Beginner"
     topic_level: "Beginner"
     topic: "Data engineering"
-    location: 
+    location: "Sala d'actes Ada Lovelace"
     requirements: "Docker, Conda"
-
-  
-
   - speaker: ""
     title: "Predict gender equality with your own Machine Learning model"
     description: ""
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
-    color: blue
+    color: red
     type: workshop
     language: "English"
     python_level: "Beginner"
     topic_level: "Beginner"
     topic: "Data science"
-    location: 
-  
+    location: "Sala Margarita Salas"
   - speaker: "Jimena"
     title: "L'Embolic: Videojuegos hechos en el frontend por un lenguaje de backend"
     description: "¿Te gustan los videojuegos? Entonces, seguro sabes que, desde hace años, los juegos diseñados para ejecutarse en el navegador son bastante populares, tanto por la facilidad de desarrollo como por su versatilidad, al poder jugarlos independientemente del sistema operativo.
@@ -390,13 +386,13 @@ events:
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
-    color: blue
+    color: yellow
     type: workshop
     language: "Spanish"
     python_level: "Intermediate"
     topic_level: "Beginner"
     topic: "Web development, Videogames"
-    location: 
+    location: "Aula Hedy Lamarr"
 
   - start_time_slot: 17:30
     end_time_slot: 17:45
