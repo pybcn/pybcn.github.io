@@ -129,7 +129,6 @@ events:
     type: group
     location: Sala d'actes Ada Lovelace
     class: middle
-
   - speaker: "Xiang Xu"
     title: "Unboxing Machine Learning Models: Predicting with Numpy After Model Training"
     description: "In this hands-on workshop, we’ll bridge the gap between high-level machine learning libraries (like Scikit-learn and Keras) and the core mathematical principles driving their predictions. Participants will firstly train regression models using machine learning methods like Kernel Ridge Regression (KRR) and Deep Neural Networks (DNNs), save the trained model parameters, and then use only Numpy to replicate the prediction process."
@@ -158,6 +157,20 @@ events:
     requirements: ""
     topic: ""
     location:
+  - speaker: "Paula Bassagañas Òdena"
+    title: "Discovering ETL Testing: Essential for Your AI Solutions"
+    description: "High-quality data is the foundation of effective AI, and rigorous ETL testing ensures your AI models are built on solid ground. ETL (Extract, Transform, Load) processes are vital for extracting, transforming, and loading data into systems for analysis, and well-tested ETLs are crucial for making reliable, data-driven decisions and successful AI implementations."
+    start_time_slot: 9:30
+    end_time_slot: 10:45
+    track_length: 1
+    color: yellow
+    type: workshop
+    language: "English"
+    python_level: "Beginner"
+    topic_level: "Beginner"
+    topic: "Testing"
+    location: 
+    requirements: "A Github account"
   - speaker: "Pablo M"
     title: "No More Script Nightmares: Make Python CLIs That Rock"
     description: ""
@@ -172,21 +185,6 @@ events:
     requirements: ""
     topic: "CLIs and packaging scripts"
     location:
-  - speaker: "Manuel Gijón"
-    title: "Introduction to data pipelines with Kestra and MLFlow"
-    description: ""
-    start_time_slot: 9:30
-    end_time_slot: 10:45
-    track_length: 1
-    color: blue
-    type: workshop
-    language: "English"
-    python_level: "Beginner"
-    topic_level: "Beginner"
-    topic: "Data engineering"
-    location: 
-    requirements: "Docker, Conda"
-
   - start_time_slot: 11:00
     end_time_slot: 11:15
     track_length: 4
@@ -353,21 +351,22 @@ events:
     requirements: "Postgres and MySQL installed locally or via Docker"
     topic: "Databases"
     location: 
-
-  - speaker: "Paula Bassagañas Òdena"
-    title: "Discovering ETL Testing: Essential for Your AI Solutions"
-    description: "High-quality data is the foundation of effective AI, and rigorous ETL testing ensures your AI models are built on solid ground. ETL (Extract, Transform, Load) processes are vital for extracting, transforming, and loading data into systems for analysis, and well-tested ETLs are crucial for making reliable, data-driven decisions and successful AI implementations."
+  - speaker: "Manuel Gijón"
+    title: "Introduction to data pipelines with Kestra and MLFlow"
+    description: ""
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
-    color: yellow
+    color: blue
     type: workshop
     language: "English"
     python_level: "Beginner"
     topic_level: "Beginner"
-    topic: "Testing"
+    topic: "Data engineering"
     location: 
-    requirements: "A Github account"
+    requirements: "Docker, Conda"
+
+  
 
   - speaker: ""
     title: "Predict gender equality with your own Machine Learning model"
