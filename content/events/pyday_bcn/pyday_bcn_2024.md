@@ -30,7 +30,7 @@ sponsor_levels:
     sponsors: [lambdaloopers, nagarro, innovamat, protopixel, pythones, isdieducation, coopdevs, rover, quside]
     name: Silver
   - sponsors_per_line: 3
-    sponsors: [qilimanjaro, ikigai, hpc-now, shimoku, digitalfems, innoit, business-insights, travelperk, okta, preply, qustodio, codurance, gluecharm, somenergia]
+    sponsors: [qilimanjaro, ikigai, hpc-now, shimoku, digitalfems, innoit, business-insights, travelperk, okta, preply, qustodio, codurance, gluecharm, somenergia, izi]
     name: Supporting
   - sponsors_per_line: 3
     sponsors: [pybcn, pyladiesbcn, canodrom]
