@@ -49,6 +49,7 @@ people_sections:
             - paula-bassaganas
             - israel-saeta
             - raul-cumplido
+            - marc-ramirez
   - title: Organizers
     id: organizers
     levels:
