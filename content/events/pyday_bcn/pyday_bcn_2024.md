@@ -212,7 +212,7 @@ events:
     location: "Aula Hipàtia d'Alexandria"
   - speaker: "Marc Ramirez Invernon"
     title: "Building data pipelines with SQLMesh"
-    description: "There are thousands of companies building pipelines through the DBT tool. However, this library lacks essential elements of software development: Mature Python API, blue-green deployment, and detection of breaking changes. SQLMesh is a new library that introduces all of these by default. I will try to go through the main elements of this library during the workshop to let the audience know more options than DBT"
+    description: "In this session, participants will gain an in-depth understanding of SQLMesh’s core concepts, including its innovative approach to environments (physical and virtual layers), diverse model types, and the integration of SQL and Python models. We’ll also explore SQLMesh’s testing framework, enabling reliable data transformations through rigorous validation. Attendees will be equipped with practical knowledge of how SQLMesh can streamline data pipeline development, making it easier to manage complex transformations and collaborate across data teams."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
@@ -221,7 +221,7 @@ events:
     language: "Spanish"
     python_level: "Beginner"
     topic_level: "Intermediate"
-    requirements: "Docker, Vscode"
+    requirements: "Git, Docker Desktop, Visual Studio Code"
     topic: "Data engineering"
     location: "Sala Margarita Salas"
   - speaker: "Alex Molas"
@@ -354,8 +354,8 @@ events:
     topic: "Databases"
     location: "Aula Hipàtia d'Alexandria"
   - speaker: "Manuel Gijón"
-    title: "Introduction to data pipelines with Kestra and MLFlow"
-    description: ""
+    title: "Automate end to end MLflow with Kestra and MLFlow"
+    description: "During this session we are going to create a whole ML pipeline, from gathering and prepare the data to train different models and perform inference. We will use a Kaggle competition as our use case. We will learn the basics of Kestra, an orchestration platform, and MLFlow, a tool for keeping track of all processes relative to the full lifecycle for machine learning projects. We are going to use these tools to download a dataset from Kaggle, analyse it, process it, train different models by using different algorithms, perform inference on submission samples, and automatically upload the results back to Kaggle."
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
