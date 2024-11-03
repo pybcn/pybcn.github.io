@@ -50,6 +50,7 @@ people_sections:
             - israel-saeta
             - raul-cumplido
             - marc-ramirez
+            - manuel-gijon
   - title: Organizers
     id: organizers
     levels:
