@@ -120,7 +120,7 @@ eventTimes:
     17:30,
     17:45,
   ]
-legend: '<i class="fas fa-laptop"></i> Workshop &nbsp;&nbsp;&nbsp; <i class="fas fa-comment"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-circle green"></i> Beginner &nbsp;&nbsp;&nbsp; <i class="fas fa-circle yellow"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class="fas fa-circle red"></i> Advanced'
+legend: '<i class="fas fa-laptop"></i> Workshop &nbsp;&nbsp;&nbsp; <i class="fas fa-comment"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-circle green"></i> <i class=\"fas fa-circle green\"></i> &nbsp;&nbsp;&nbsp; <i class="fas fa-circle yellow"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class="fas fa-circle red"></i> Advanced'
 events:
   - start_time_slot: 9:00
     end_time_slot: 9:15
@@ -140,8 +140,8 @@ events:
     color: red
     type: workshop
     language: English
-    python_level: "Intermediate"
-    topic_level: "Intermediate"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
+    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     requirements: "numpy, scikit-learn, and keras installed"
     topic: "Data science, ML"
     location: "Sala d'actes Ada Lovelace"
@@ -168,8 +168,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "Beginner"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Testing"
     location: "Sala Margarita Salas"
     requirements: "A Github account"
@@ -182,8 +182,8 @@ events:
     color: green
     type: workshop
     language: "English"  
-    python_level: "Beginner"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: ""
     topic: "CLIs and packaging scripts"
     location: "Aula Hedy Lamarr"
@@ -205,8 +205,8 @@ events:
     color: green
     type: workshop
     language: "Català"
-    python_level: "Beginner"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: ""
     topic: "Data science"
     location: "Aula Hipàtia d'Alexandria"
@@ -219,8 +219,8 @@ events:
     color: blue
     type: workshop
     language: "Spanish"
-    python_level: "Beginner"
-    topic_level: "Intermediate"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     requirements: "Git, Docker Desktop, Visual Studio Code"
     topic: "Data engineering"
     location: "Sala Margarita Salas"
@@ -233,8 +233,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "Beginner"
-    topic_level: "Intermediate"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     requirements: ""
     topic: "Programming"
     location: "Aula Hedy Lamarr"
@@ -247,8 +247,8 @@ events:
     color: red
     type: workshop
     language: "Spanish"
-    python_level: "Beginner"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: ""
     topic: "Artificial Intelligence"
     location: "Sala d'actes Ada Lovelace"
@@ -281,8 +281,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "Advanced"
-    topic_level: "Advanced"
+    python_level: "<i class=\"fas fa-circle red\"></i>"
+    topic_level: "<i class=\"fas fa-circle red\"></i>"
     topic: "Serverless development"
     location: "Sala d'actes Ada Lovelace"
     requirements: "AWS Account"
@@ -295,8 +295,8 @@ events:
     color: blue
     type: workshop
     language: "English"
-    python_level: "Intermediate"
-    topic_level: "Intermediate"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
+    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic: "Apache Arrow, Data Science"
     requirements: "You will be able to find both the requirements and the Notebooks on the following repository: https://github.com/raulcd/2024-pyday-bcn-arrow-workshop"
     location: "Sala Margarita Salas"
@@ -309,8 +309,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "Intermediate"
-    topic_level: "Intermediate"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
+    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     requirements: "Register account at OpenAI and export token locally: ie. export OPENAPI_KEY=sk..... "
     topic: "Artificial Intelligence / Machine Learning"
     location: "Aula Hedy Lamarr"
@@ -324,8 +324,8 @@ events:
     color: green
     type: workshop
     language: "English"
-    python_level: "Intermediate"
-    topic_level: "Intermediate"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
+    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     requirements: "Github account"
     topic: "Web development"
     location: "Aula Hipàtia d'Alexandria"
@@ -348,8 +348,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "Intermediate"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: "Postgres and MySQL installed locally or via Docker"
     topic: "Databases"
     location: "Aula Hipàtia d'Alexandria"
@@ -362,8 +362,8 @@ events:
     color: blue
     type: workshop
     language: "English"
-    python_level: "Beginner"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Data engineering"
     location: "Sala d'actes Ada Lovelace"
     requirements: "Docker, Conda"
@@ -376,8 +376,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "Beginner"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle green\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Data science"
     location: "Sala Margarita Salas"
   - speaker: "Jimena"
@@ -391,8 +391,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
-    python_level: "Intermediate"
-    topic_level: "Beginner"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
+    topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Web development, Videogames"
     location: "Aula Hedy Lamarr"
 
