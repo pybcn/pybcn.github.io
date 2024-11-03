@@ -1,6 +1,6 @@
 ---
 id: marc-ramirez
-name: Marc Ramírez
+name: Marc Ramirez
 short_bio: ""
 photo: marc-ramirez.jpeg
 
