@@ -188,13 +188,46 @@ events:
     topic: "CLIs and packaging scripts"
     location: "Aula Hedy Lamarr"
   - start_time_slot: 11:00
+    end_time_slot: 11:00
+    track_length: 4
+    color: orange
+    title: "Coffee break"
+    type: coffee
+    location: "Grades"
+    class: middle
+  - start_time_slot: 11:15
     end_time_slot: 11:15
     track_length: 4
     color: purple
-    title: "Coffee break + Lightning talks"
-    type: coffee
-    location: Grades
+    title: "Lightning talks & coffee"
+    type: talk
+    location: "Aula Hedy Lamarr"
     class: middle
+    description: "
+<h2>Lightning talks</h2>
+
+<b>IZI Record, revolutionizing the camera app</b></br>
+<i>Ferran Jovell </i>
+<p><q>What we do at izi? How do we generate videos from different sources? How does it all work?!</q></p>
+
+<b>A solution to store, catalog and visualize images using Django and Django Rest Framework. </b></br>
+<i>Josep Sitjar Suñer</i>
+<p><q>KeepYourPhoto (https://keepyourphoto.com) is a personal project developed with Django (Python) on the backend and Vue.js on the frontend, created in my free time to store, catalog and share photos. 
+<br><br>
+During the last 5 years, since my daughter was born, our family has been accumulating gigabytes of images. Especially  when she started kindergarten, the amount of images increased exponentially, as we’ve received a catalog of hundred of images for each activity they did. And of course, we want to keep all them as a treasure. 
+<br><br>
+First, we exhausted the available free space of providers like Google Drive or Dropbox. Then we start paying some basic plans. But in order to keep control of all these  images, and implement custom functions to catalog and to share them with other members of the family, I decided to create my own solution. 
+<br><br>
+I’ve developed a web application, with Django on the backend. The images are stored on AWS S3, and served with Cloudfront to increase the speed and security of access to them. Django-storages has been a good ally to implement that.   
+<br>
+In order to create the API, I’ve been using the Django Rest Framework, and as I work in the geospatial sector (as web map developer) it was mandatory to geolocate all the images with coordinates in their metadata. In that sense, I’ve been using GeoDjango. 
+<br><br>
+The platform is not completely finished, as I try to implement new functionalities in my free time. But It’s working as expected. It’s possible to create albums, massively upload images to them, visualize the images through a gallery carousel, delete albums and images, and visualize over a map the photos with coordinates on their  metadata. 
+<br><br>
+I’ve received interest from other people, and now I’m trying to make it available to them. The self- registry is working, but it is not yet a payment solution to afford the storage costs at AWS. 
+<br><br>
+During the talk, my idea is to present the tool and the technological solutions to implement it.</q></p>
+"
 
   - speaker: "Oriol Abril Pla"
     title: "Introducció a xarray: etiqueta les teves dades n-dimensionals"
@@ -256,20 +289,40 @@ events:
   - start_time_slot: 13:00
     end_time_slot: 13:00
     track_length: 4
-    color: pink
+    color: purple
     title: "Group photo"
     type: photo
     location: Grades
     class: middle
 
   - start_time_slot: 13:15
-    end_time_slot: 13:45
+    end_time_slot: 13:30
     track_length: 4
-    color: purple
-    title: "Lunch break & Lightning talks"
+    color: orange
+    title: "Lunch break"
     type: lunch
     location: Grades
     class: middle
+
+  - start_time_slot: 13:45
+    end_time_slot: 13:45
+    track_length: 4
+    color: purple
+    title: "Lightning talks"
+    type: talk
+    location: Aula Hedy Lamarr
+    class: middle
+    description: "
+<h2>Lightning talks</h2>
+
+<b>Leveraging Python in AWS for Smarter Stock Investment Strategies</b></br>
+<i>Przemyslaw Mikulski</i>
+<p><q>In this lightning talk, I’ll demonstrate how Python can be a powerful ally for retail investors seeking to optimize their stock investments. We’ll explore, in just five minutes, how to use Python libraries to solve common challenges faced by investors: data acquisition, analysis, and automation using AWS.</q></p>
+
+<b>La Rosalía Unveiled: Decoding Her Lyrics with AI</b></br>
+<i>Olga Ss</i>
+<p><q>We'll dive into the lyrics of urban singer Rosalía through the lens of Artificial Intelligence, specifically using NLP techniques.</q></p>
+"
 
   - speaker: "Kemalcan Bora"
     title: "A kingdom above the clouds: How far can you go on AWS for $1 a month?"
@@ -331,13 +384,33 @@ events:
     location: "Aula Hipàtia d'Alexandria"
 
   - start_time_slot: 15:30
-    end_time_slot: 15:45
+    end_time_slot: 15:30
     track_length: 4
-    color: purple
-    title: "Coffee break & Lightning talks"
+    color: orange
+    title: "Coffee break"
     type: coffee
     location: Grades
     class: middle
+
+  - start_time_slot: 15:45
+    end_time_slot: 15:45
+    track_length: 4
+    color: purple
+    title: "Lightning talks"
+    type: talk
+    location: Aula Hedy Lamarr
+    class: middle
+    description: "
+<h2>Lightning talks</h2>
+
+<b>Polars: Procesando datos a la velocidad de la luz con recursos espartanos</b></br>
+<i>Fernando Aparicio</i>
+<p><q>Pandas y Spark son las herramientas más conocidas para gestionar nuestros sets de datos, pero hay un jugador nuevo que quiere cambiar las reglas. Polars está pensado para el rendimiento y la resiliencia en entornos con pocos recursos. Cada megabyte y cada segundo cuenta. Os explicaré qué lo hace diferente al resto y qué es capaz de hacer.</q></p>
+
+<b>Evita bugs amb Pre-Commit</b></br>
+<i>Carles Julià</i>
+<p><q>How we improve code quality in our company for Python: pre-commit, ruff-format, ruff, mypy, etc</q></p>
+"
 
   - speaker: "Dave Pitts"
     title: "Open Source Databases Python Devs"
@@ -367,9 +440,14 @@ events:
     topic: "Data engineering"
     location: "Sala d'actes Ada Lovelace"
     requirements: "Docker, Conda"
-  - speaker: ""
+  - speaker: "Juan Bernardo Lince"
     title: "Predict gender equality with your own Machine Learning model"
-    description: ""
+    description: "In this session, you will use Python and Pandas to analyze how gender equality (or inequality) reveals itself through data.
+<br><br>
+What you’ll learn:
+<br>✅ The logic and foundations behind Machine Learning
+<br>✅ The different use cases of Machine Learning
+<br>✅ How to predict the gender pay gap"
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
@@ -397,13 +475,43 @@ events:
     location: "Aula Hedy Lamarr"
 
   - start_time_slot: 17:30
+    end_time_slot: 17:30
+    track_length: 4
+    color: purple
+    title: "Lightning talks"
+    type: talk
+    location: Sala d'actes Ada Lovelace
+    class: middle
+    description: "
+<h2>Lightning talks</h2>
+
+<b>La iniciativa Scientific Python</b></br>
+<i>Oriol Abril Pla</i>
+<p><q>Fa uns anys es va engegar la iniciativa Scientific Python, amb l'objectiu d'enfortir la col·laboració entre llibreries de Python en el camp de la computació científica. En els 5 minuts intentaré explicar què és i algunes de les seves iniciatives principals, que van des de gestió de dependències a consells d'accessibilitat passant per traduccions, 'nightly builds' o governança.</q></p>
+
+<b>DrugScope: a ML-based platform for drug discovery</b></br>
+<i>Verónica Larroy</i>
+<p><q>DrugScope is a machine learning-powered tool designed to predict the binding affinity of small molecules to specific proteins, aiming to accelerate drug discovery and reduce costs. Using Graph Neural Networks (GNNs), the project models molecular structures as graphs, with atoms as nodes and bonds as edges. A public dataset from Leash Biosciences, containing around 300 million molecules and their interactions with three key proteins (HSA, BRD4, and SEH), was used for model training.
+<br><br>
+The project involved developing three separate GNN models, one for each protein, to capture the unique molecular interactions relevant to each target. Features for atoms and bonds were extracted using RDKit, and the data was prepared for training by converting these features into graph structures. The models were deployed using FastAPI, allowing researchers to input molecule data and receive predictions on binding affinity, potentially helping speed up the early stages of drug development.</q></p>
+
+<b>Can LLMs Power Product Recommendations?</b></br>
+<i>Babaniyi Olaniyi</i>
+<p><q>I will discuss the use of large language models (LLMs) for product recommendation systems, leveraging their natural language understanding capabilities to predict items a user might purchase given their historical product reviews and purchases.</q></p>
+
+<b>Pixel2Mechanics: Automated Biomechanical Simulations of High-Resolution Intervertebral Discs from Anisotropic MRIs</b></br>
+<i>Sai Natarajan</i>
+<p><q>This study presents Pixel2Mechanics, an automated pipeline for generating patient-specific biomechanical finite element (FE) models of lumbar intervertebral discs (IVD) from clinical MRI data. It utilizes a deep learning framework to create high-resolution meshes of the Annulus Fibrosus (AF) and Nucleus Pulposus (NP) across L1-L2 to L4-L5. The pipeline features a novel optimization method based on differentiable rendering and a Bayesian Coherent Point Drift++ morphing algorithm for volumetric FE meshes that maintain tissue topology. Load simulations validate the models against manual segmentation, demonstrating potential for clinical integration in diagnosing and treating IVD degeneration.</q></p>
+"
+
+  - start_time_slot: 17:45
     end_time_slot: 17:45
     track_length: 4
     color: purple
-    title: "Lightning talks + closing session & Kahoot"
+    title: "Closing session & Kahoot"
     description: ""
-    type: talk
-    location: TBD
+    type: group
+    location: Sala d'actes Ada Lovelace
     class: middle
 ---
 
