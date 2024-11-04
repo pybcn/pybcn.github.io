@@ -163,6 +163,20 @@ events:
     requirements: ""
     topic: ""
     location:
+    - speaker: ""
+    title: ""
+    description: ""
+    start_time_slot: 9:30
+    end_time_slot: 10:45
+    track_length: 1
+    color: grey
+    type: workshop
+    language: 
+    python_level: ""
+    topic_level: ""
+    requirements: ""
+    topic: ""
+    location:
   - speaker: "Paula Bassagañas Òdena"
     title: "Discovering ETL Testing: Essential for Your AI Solutions"
     description: "High-quality data is the foundation of effective AI, and rigorous ETL testing ensures your AI models are built on solid ground. ETL (Extract, Transform, Load) processes are vital for extracting, transforming, and loading data into systems for analysis, and well-tested ETLs are crucial for making reliable, data-driven decisions and successful AI implementations."
