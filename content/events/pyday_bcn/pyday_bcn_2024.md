@@ -163,7 +163,7 @@ events:
     requirements: ""
     topic: ""
     location:
-    - speaker: ""
+  - speaker: ""
     title: ""
     description: ""
     start_time_slot: 9:30
@@ -265,15 +265,15 @@ During the talk, my idea is to present the tool and the technological solutions 
     location: "Aula Hipàtia d'Alexandria"
   - speaker: "Alex Molas"
     title: "Static Typing in Python"
-    description: "Since 2014, with the introduction of type hints in Python 3.5, Python has been adding support to types while still maintaining its dynamic nature. Later, in Python 3.10, pattern matching was added to Python, which provides a powerful way to match data structures based on their types and values, improving Python’s capability to work with typed data. Both type hints and pattern matching help make code more testable, predictable and robust.
-    In this talk, we’ll answer the following questions:
-     **Introduction to types in Python**: what's a type? which types does python have? What do they mean?
-     **The basics of type hints**: how to define a type hint? 
-     **mypy**: how to use mypy to check that your code does what you expect?
-     **Advanced type hints**: how to define complex type hints? how to define your own types? how to use generic types?
-     **Data validation**: how to use Pydantic and dataclasses for data validation?
-     **Pattern matching**: how to use pattern matching together with type hints to write cleaner and more maintainable code.
-     By the end of this talk, you’ll have a clear understanding of how to use type hints effectively and why they’re a valuable tool in any Python developer’s toolkit."
+    description: "Since 2014, with the introduction of type hints in Python 3.5, Python has been adding support to types while still maintaining its dynamic nature. Later, in Python 3.10, pattern matching was added to Python, which provides a powerful way to match data structures based on their types and values, improving Python’s capability to work with typed data. Both type hints and pattern matching help make code more testable, predictable and robust.<br>
+    In this talk, we’ll answer the following questions: <br>
+    - **Introduction to types in Python**: what's a type? which types does python have? What do they mean?<br>
+    - **The basics of type hints**: how to define a type hint? <br>
+    - **mypy**: how to use mypy to check that your code does what you expect?<br>
+    - **Advanced type hints**: how to define complex type hints? how to define your own types? how to use generic types?<br>
+    - **Data validation**: how to use Pydantic and dataclasses for data validation?<br>
+    - **Pattern matching**: how to use pattern matching together with type hints to write cleaner and more maintainable code.<br>
+    By the end of this talk, you’ll have a clear understanding of how to use type hints effectively and why they’re a valuable tool in any Python developer’s toolkit."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
