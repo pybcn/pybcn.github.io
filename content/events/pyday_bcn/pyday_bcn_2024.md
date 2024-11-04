@@ -51,6 +51,10 @@ people_sections:
             - raul-cumplido
             - marc-ramirez
             - manuel-gijon
+            - oriol-abril-pla
+            - alex-molas
+            - marina-palma
+            
   - title: Organizers
     id: organizers
     levels:
@@ -159,20 +163,20 @@ events:
     requirements: ""
     topic: ""
     location:
-  - speaker: "Pablo M"
-    title: "No More Script Nightmares: Make Python CLIs That Rock"
+  - speaker: ""
+    title: ""
     description: ""
     start_time_slot: 9:30
     end_time_slot: 10:45
     track_length: 1
-    color: green
+    color: grey
     type: workshop
-    language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    language: 
+    python_level: ""
+    topic_level: ""
     requirements: ""
-    topic: "CLIs and packaging scripts"
-    location: "Aula Hedy Lamarr"
+    topic: ""
+    location:
   - speaker: "Paula Bassagañas Òdena"
     title: "Discovering ETL Testing: Essential for Your AI Solutions"
     description: "High-quality data is the foundation of effective AI, and rigorous ETL testing ensures your AI models are built on solid ground. ETL (Extract, Transform, Load) processes are vital for extracting, transforming, and loading data into systems for analysis, and well-tested ETLs are crucial for making reliable, data-driven decisions and successful AI implementations."
@@ -231,7 +235,7 @@ During the talk, my idea is to present the tool and the technological solutions 
 
   - speaker: "Marina Palma"
     title: "Image Generation with AI (GANs and Diffusion Techniques)"
-    description: "Explore the techniques of AI-driven image generation, focusing on two powerful models: Generative Adversarial Networks (GANs) and Diffusion Models. We will learn the fundamental principles, practical applications, and differences between these approaches, along with hands-on demonstrations of how AI can be used to generate images."
+    description: "This workshop explores the techniques of AI-driven image generation, focusing on two powerful models: Generative Adversarial Networks (GANs) and Diffusion Models. Participants will learn the fundamental principles, practical applications, and differences between these approaches. Through hands-on exercises, attendees will build three types of GANs, progressing from basic to more advanced models, for generating custom synthetic images."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
@@ -240,12 +244,14 @@ During the talk, my idea is to present the tool and the technological solutions 
     language: "Spanish"
     python_level: "<i class=\"fas fa-circle green\"></i>"
     topic_level: "<i class=\"fas fa-circle green\"></i>"
-    requirements: ""
+    requirements: "torch==2.0.1 torchvision==0.15.2 matplotlib==3.7.1"
     topic: "Artificial Intelligence"
     location: "Sala d'actes Ada Lovelace"
   - speaker: "Oriol Abril Pla"
     title: "Introducció a xarray: etiqueta les teves dades n-dimensionals"
-    description: ""
+    description: "Apren com utilitzar xarray per treballar amb arrays n-dimensionals a través d'etiquetes i indexs arbitraris.
+    Descobreix el model de dades d'xarray: DataArrays, Datasets, dimensions, coordenades, indexes.
+    Explora a través del tutorial les operacions més comunes en matrius n-dimensionals: com especificar en quines dimensions han d'operar les funcions utilitzant noms enlloc d'indexs posicionals, com definir subconjunts a través de coordenades, com combinar el metode `.query` amb filtrar multiples dimensions, com crear multiples indexs per a una mateixa dimensió, les diferencies entre operacions d'indexatge exteriors o vectoritzades, groupbys multidimensionals, i més."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
@@ -254,12 +260,20 @@ During the talk, my idea is to present the tool and the technological solutions 
     language: "Català"
     python_level: "<i class=\"fas fa-circle green\"></i>"
     topic_level: "<i class=\"fas fa-circle green\"></i>"
-    requirements: ""
+    requirements: "https://github.com/OriolAbril/pyday2024-xarray/blob/main/requirements.txt"
     topic: "Data science"
     location: "Aula Hipàtia d'Alexandria"
   - speaker: "Alex Molas"
-    title: "Typing and pattern matching in Python"
-    description: "Since 2014, with the introduction of type hints in Python 3.5, Python has been adding support to types while still maintaining its dynamic nature. Later, in Python 3.10, pattern matching was added to Python, which provides a powerful way to match data structures based on their types and values, improving Python’s capability to work with typed data. Both type hints and pattern matching help make code more predictable and robust. In this talk, we’ll answer the following questions: **Introduction to types in Python**: what's a type? which types does python have? What do they mean? **The basics of type hints**: how to define a type hint?  **mypy**: how to use mypy to check that your code does what you expect? **Advanced type hints**: how to define complex type hints? how to define your own types? how to use generic types? **Data validation**: how to use Pydantic and dataclasses for data validation? **Pattern matching**: how to use pattern matching together with type hints to write cleaner and more maintainable code. By the end of this talk, you’ll have a clear understanding of how to use type hints effectively and why they’re a valuable tool in any Python developer’s toolkit"
+    title: "Static Typing in Python"
+    description: "Since 2014, with the introduction of type hints in Python 3.5, Python has been adding support to types while still maintaining its dynamic nature. Later, in Python 3.10, pattern matching was added to Python, which provides a powerful way to match data structures based on their types and values, improving Python’s capability to work with typed data. Both type hints and pattern matching help make code more testable, predictable and robust.<br>
+    In this talk, we’ll answer the following questions: <br>
+    - **Introduction to types in Python**: what's a type? which types does python have? What do they mean?<br>
+    - **The basics of type hints**: how to define a type hint? <br>
+    - **mypy**: how to use mypy to check that your code does what you expect?<br>
+    - **Advanced type hints**: how to define complex type hints? how to define your own types? how to use generic types?<br>
+    - **Data validation**: how to use Pydantic and dataclasses for data validation?<br>
+    - **Pattern matching**: how to use pattern matching together with type hints to write cleaner and more maintainable code.<br>
+    By the end of this talk, you’ll have a clear understanding of how to use type hints effectively and why they’re a valuable tool in any Python developer’s toolkit."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
@@ -268,7 +282,7 @@ During the talk, my idea is to present the tool and the technological solutions 
     language: "English"
     python_level: "<i class=\"fas fa-circle green\"></i>"
     topic_level: "<i class=\"fas fa-circle yellow\"></i>"
-    requirements: ""
+    requirements: "https://github.com/alexmolas/python-static-typing/blob/main/requirements.txt"
     topic: "Programming"
     location: "Aula Hedy Lamarr"
   - speaker: "Marc Ramirez Invernon"
@@ -404,7 +418,7 @@ During the talk, my idea is to present the tool and the technological solutions 
 
 <b>Polars: Procesando datos a la velocidad de la luz con recursos espartanos</b></br>
 <i>Fernando Aparicio</i>
-<p><q>Pandas y Spark son las herramientas más conocidas para gestionar nuestros sets de datos, pero hay un jugador nuevo que quiere cambiar las reglas. Polars está pensado para el rendimiento y la resiliencia en entornos con pocos recursos. Cada megabyte y cada segundo cuenta. Os explicaré qué lo hace diferente al resto y qué es capaz de hacer.</q></p>
+<p><q>Pandas y Spark son las herramientas más conocidas para gestionar nuestros sets de datos, pero hay un jugador nuevo que quiere cambiar las reglas.Polars está pensado para el rendimiento y la resiliencia en entornos con pocos recursos. Cada megabyte y cada segundo cuenta. Os explicaré qué lo hace diferente al resto y qué es capaz de hacer.</q></p>
 
 <b>Evita bugs amb Pre-Commit</b></br>
 <i>Carles Julià</i>
