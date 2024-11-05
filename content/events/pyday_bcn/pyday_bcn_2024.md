@@ -54,6 +54,7 @@ people_sections:
             - oriol-abril-pla
             - alex-molas
             - marina-palma
+            - asia-noble
             
   - title: Organizers
     id: organizers
@@ -367,20 +368,20 @@ During the talk, my idea is to present the tool and the technological solutions 
     requirements: "Github account"
     topic: "Web development"
     location: "Aula Hipàtia d'Alexandria"
-  - speaker: "Pol Alvarez Vecino"
-    title: "From text to actions: allowing LLMs to use your tools"
-    description: "Dive into the world of AI with this hands-on workshop! Learn how to run OpenAI models locally using Python, and then take it a step further by developing custom tools that your AI agent can use. This workshop will bridge the gap between using pre-trained models and creating a personalized AI assistant tailored to your needs."
+  - speaker: ""
+    title: ""
+    description: ""
     start_time_slot: 14:00
     end_time_slot: 15:15
     track_length: 1
-    color: red
+    color: grey
     type: workshop
-    language: "English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
-    requirements: "Register account at OpenAI and export token locally: ie. export OPENAPI_KEY=sk..... "
-    topic: "Artificial Intelligence / Machine Learning"
-    location: "Aula Hedy Lamarr"
+    language: ""
+    python_level: ""
+    topic_level: ""
+    requirements: ""
+    topic: ""
+    location: ""
   - speaker: "Raúl Cumplido"
     title: "A deep dive into the Arrow Columnar format with pyarrow and nanoarrow"
     description: "Apache Arrow has become a de-facto standard for efficient in-memory columnar data representation. You might have heard about Arrow or using Arrow, but do you understand the format and why it’s so useful? This workshop will dive deep into the details of the Arrow columnar format, the different types and buffer layouts, and explore those details interactively using the pyarrow and nanoarrow libraries."
@@ -468,14 +469,13 @@ During the talk, my idea is to present the tool and the technological solutions 
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Web development, Videogames"
     location: "Aula Hedy Lamarr"
-  - speaker: "Juan Bernardo Lince"
+  - speaker: "Asia Noble"
     title: "Predict gender equality with your own Machine Learning model"
-    description: "In this session, you will use Python and Pandas to analyze how gender equality (or inequality) reveals itself through data.
-<br><br>
-What you’ll learn:
-<br>✅ The logic and foundations behind Machine Learning
-<br>✅ The different use cases of Machine Learning
-<br>✅ How to predict the gender pay gap"
+    description: "In this session, you will use Python and Pandas to analyze how gender equality (or inequality) reveals itself through data.<br>
+    What you’ll learn:<br>
+    <br>✅ The logic and foundations behind Machine Learning
+    <br>✅ The different use cases of Machine Learning
+    <br>✅ How to predict the gender pay gap"
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
@@ -486,7 +486,7 @@ What you’ll learn:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Data science"
     location: "Sala Margarita Salas"
-
+    requirements: "Data Science techstack: PowerBI, Python, Scikit Learn, Tensorflow. Background n the creative tech industry, management, consulting, and operations."
   - start_time_slot: 17:30
     end_time_slot: 17:30
     track_length: 4
