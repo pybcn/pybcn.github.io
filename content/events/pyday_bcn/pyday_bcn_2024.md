@@ -47,7 +47,6 @@ people_sections:
             - xiang-xu
             - dave-pitts
             - paula-bassaganas
-            - israel-saeta
             - raul-cumplido
             - marc-ramirez
             - manuel-gijon
@@ -354,20 +353,6 @@ During the talk, my idea is to present the tool and the technological solutions 
     topic: "Serverless development"
     location: "Sala d'actes Ada Lovelace"
     requirements: "AWS Account"
-  - speaker: "Israel Saeta Pérez"
-    title: "Create a static website with Pelican"
-    description: "Static site generators are awesome tools to build websites that are fast to develop, maintainable and easy to deploy in a secure and cheap environment. In this workshop we will create and deploy a basic static website using Pelican."
-    start_time_slot: 14:00
-    end_time_slot: 15:15
-    track_length: 1
-    color: green
-    type: workshop
-    language: "English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
-    requirements: "Github account"
-    topic: "Web development"
-    location: "Aula Hipàtia d'Alexandria"
   - speaker: ""
     title: ""
     description: ""
