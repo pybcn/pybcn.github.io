@@ -3,8 +3,8 @@
 set -euo pipefail
 
 function install_hugo() {
-  echo -n "Installing Hugo 0.123.8... "
-  pip install hugo=="0.123.8"
+  echo -n "Installing Hugo 0.139.4... "
+  pip install hugo=="0.139.4"
   echo "OK!"
 }
 
