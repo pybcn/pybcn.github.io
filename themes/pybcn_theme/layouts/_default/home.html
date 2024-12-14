@@ -86,16 +86,4 @@
     </div>
 </section>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-	        <div class="row">
-                {{ $pages := where .Site.Pages "Section" "news" }}
-                {{ partial "posts.html" (dict "list" $pages "width" 8 "max_posts" 2)}}
-		        {{ partial "twitter-timeline.html" (dict "list" .Params.twitterLists "height" 500 "width" 4)}}
-            </div>
-	    </div>
-    </div>
-</div>
-
 {{ end }}
