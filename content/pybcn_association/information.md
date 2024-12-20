@@ -57,6 +57,7 @@ All the work groups must follow some rules:
 * <a href="https://docs.google.com/document/d/1Qi0efxdC7T2bk2oVT2z6tTrrJ3UONwCK3Vnf3cL4KFA/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2021</a>
 * <a href="https://docs.google.com/document/d/13xiLuUGIzT8kyZWGTkA6T-dbUO7Y_Z6hlUjakkwlSGM/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2022</a>
 * <a href="https://docs.google.com/document/d/1CnJzGjz7COsc-45w5tEVu5gpDBv1mUozFh4eGXw8-GU/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2023</a>
+* <a href="https://docs.google.com/document/d/1IDYEQvStyM8YxQHIcmZbfE0SYePDGDavHssz3CG3d1E/edit?usp=share_link" target="_blank">Assamblea General Ordinària 2024</a>
 
 ## Fiscal data
 Associació Python Barcelona
