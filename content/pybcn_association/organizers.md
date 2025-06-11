@@ -19,7 +19,7 @@ people_levels:
     - people_per_line: 6
       people: [elisabeth-ortega-carrasco, josep, lpmayos, nuria, jose-riera]
       name: Our collaborators
-    - people_per_line: 4
+    - people_per_line: 5
       people: [lpmayos-president, mireia, natalia-secretary]
       name: Management Board 2018 - 2025
 ---
