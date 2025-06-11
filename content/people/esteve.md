@@ -4,7 +4,7 @@ name: "Esteve Fernàndez"
 short_bio: "Robots, art, running, movies, theatre and cheese, in no
 particular order"
 photo: esteve.jpeg
-pybcn_position: "PyBCN collaborator"
+pybcn_position: "PyBCN Collaborator"
 twitter: "https://twitter.com/esteve"
 linkedin: "https://www.linkedin.com/in/estevefernandez"
 github: "https://www.github.com/esteve"

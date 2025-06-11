@@ -26,10 +26,14 @@ Would you like to be a part of PyBCN? We are looking forward to hearing from you
 We have a Management Board and a Standing Committee to make decisions, and work groups  to drive all the association activity.
 
 * **Management Board**
-   * President: Laura Pérez-Mayos
-   * Secretary: Natàlia Padilla
-   * Treasurer: Mireia Álvarez
-* **Standing Committee**: It is mostly a consultive board and help coordinate the work groups.
+   * President: Jordi Bosch Alibau
+   * Secretary: Daniel Mesejo Leon
+   * Treasurer: Toni Espadas Navarro
+   * Board member of Comunication: Peter Krupa
+   * Board member of Events: Sergi Ramírez Mitjans<br><br>
+
+
+* **Permanent Committee**: It is mostly a consultive board and help coordinate the work groups.
 * <a href="https://docs.google.com/spreadsheets/d/1ptmymYA5R4vJ4H38Fm7mo_yMooZI39sdLD9DRXxyfaE" target="_blank">**Work groups**</a> to drive all the association activity:
    * **Meetup**: This work group organizes, prepares, coordinates and runs the PyBCN meetups every month.
    * **PyLadies**: They have been running the monthly PyLadies BCN workshops and activities.
@@ -58,8 +62,17 @@ All the work groups must follow some rules:
 * <a href="https://docs.google.com/document/d/13xiLuUGIzT8kyZWGTkA6T-dbUO7Y_Z6hlUjakkwlSGM/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2022</a>
 * <a href="https://docs.google.com/document/d/1CnJzGjz7COsc-45w5tEVu5gpDBv1mUozFh4eGXw8-GU/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2023</a>
 * <a href="https://docs.google.com/document/d/1IDYEQvStyM8YxQHIcmZbfE0SYePDGDavHssz3CG3d1E/edit?usp=share_link" target="_blank">Assamblea General Ordinària 2024</a>
+* <a href="https://docs.google.com/document/d/12BHpSCe7yOdgdm7JiuzKxT_RNKyxHN18R9p0_1rCWl4/edit?usp=share_link" target="_blank">Assamblea Extraordinària 2025</a>
+
+## Past Management Boards 
+* Management Board 2018 - 2025
+   * President: Laura Pérez-Mayos
+   * Secretary: Natàlia Padilla
+   * Treasurer: Mireia Álvarez
+
 
 ## Fiscal data
 Associació Python Barcelona
 
 CIF G67254045
+

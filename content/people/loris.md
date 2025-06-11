@@ -4,7 +4,7 @@ name: Loris Mularoni
 photo: loris.jpg
 short_bio: bioinformatics
 
-pybcn_position: PyBCN meetup organizer
+pybcn_position: PyBCN Meetup organizer
 
 twitter: https://twitter.com/LorisMularoni
 github: https://github.com/batterio
