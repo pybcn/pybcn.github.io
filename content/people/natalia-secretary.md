@@ -2,7 +2,7 @@
 id: natalia-secretary
 name: "Natàlia Padilla"
 short_bio: "Research software engineer"
-photo_url: "https://pbs.twimg.com/profile_images/865951281944424449/DCX755H9_400x400.jpg"
+photo: "natalia.jpeg"
 
 pybcn_position: "PyBCN Former Secretary"
 

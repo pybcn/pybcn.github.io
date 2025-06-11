@@ -2,6 +2,6 @@
 id: peter-krupa
 name: "Peter Krupa"
 
-pybcn_position: "Board member of communications"
+pybcn_position: "Board member of Communications"
 
 ---

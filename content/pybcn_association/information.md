@@ -29,8 +29,8 @@ We have a Management Board and a Standing Committee to make decisions, and work 
    * President: Jordi Bosch Alibau
    * Secretary: Daniel Mesejo Leon
    * Treasurer: Toni Espadas Navarro
-   * Board member of comunication: Peter Krupa
-   * Board member of events: Sergi Ramírez Mitjans<br><br>
+   * Board member of Comunication: Peter Krupa
+   * Board member of Events: Sergi Ramírez Mitjans<br><br>
 
 
 * **Permanent Committee**: It is mostly a consultive board and help coordinate the work groups.
