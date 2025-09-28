@@ -4,7 +4,7 @@ description: "For the community, by the community!"
 menu:
   main:
     parent: "PyDay BCN"
-weight: 2
+weight: 3
 aliases:
   - /pyday-bcn-2023
 heroBackground: /images/photos/people-pyday-2019.jpg
