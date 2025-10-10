@@ -15,8 +15,8 @@ free_text_sections:
   - title: Important dates
     id: important_dates
     content: "<b>29th September</b>: Call for proposals opening: <a href='https://forms.gle/tGnJHW5oNkCFQrXx7' target='_blank' >Workshops</a> and <a target='_blank' href='https://forms.gle/GzYmMU4qvqRHmgCh7'>Lightning talks</a><br/>
-      <b>16th October</b>: Call for proposals closing<br/>
-      <b>23th Novembre</b>: Program available<br/>
+      <b>7th November</b>: Call for proposals closing<br/>
+      <b>23th November</b>: Program available<br/>
       <b>24th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
       <b>25th November, 9AM</b>: General registration open through <a target='_blank' href=''>Eventbrite</a><br/>
       <b>29th November</b>: PyDay BCN 2025"
