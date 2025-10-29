@@ -27,7 +27,16 @@ free_text_sections:
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2025@googlegroups.com<br/><br/>"
 sponsor_levels:
   - sponsors_per_line: 2
-    sponsors: [pybcn, pyladiesbcn]
+    sponsors: [okta, rover]
+    name: Gold
+  - sponsors_per_line: 3
+    sponsors: [ikigai, capitole, orpheus]
+    name: Silver
+  - sponsors_per_line: 3
+    sponsors: [innoit, qilimanjaro, xorq]
+    name: Supporting
+  - sponsors_per_line: 3
+    sponsors: [pybcn, pyladiesbcn, canodrom]
     name: Organizers
 
 people_sections:
