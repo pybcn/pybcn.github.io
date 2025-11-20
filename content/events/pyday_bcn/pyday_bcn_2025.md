@@ -378,7 +378,7 @@ events:
     location: "Sala Margarita Salas"
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
-  - speaker: "Kamalcan Bora"
+  - speaker: "Kemalcan Bora"
     title: "House, Controlled by AI (What Could Go Wrong?)"
     description: "This project demonstrates how agentic AI can enable autonomous decision-making and natural-language interaction in smart home systems. By integrating an ESP32 microcontroller with basic sensors (e.g., temperature, motion, or object detection), we show how an AI agent can perceive environmental data, reason about it, and act on user instructions or contextual conditions.
 
