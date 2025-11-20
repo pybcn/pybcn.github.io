@@ -66,7 +66,9 @@
                 {{ if $.event.requirements }}
                 <br/><b>Requirements:</b></b><p>{{ $.event.requirements | markdownify}}</p>
                 {{ end }}
-
+                {{ if $.event.repositories }}
+                <br/><b>Repository:</b></b><p>{{ $.event.repositories | markdownify}}</p>
+                {{ end }}
             </div>
         </div>
     </div>
