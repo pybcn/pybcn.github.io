@@ -16,7 +16,7 @@ free_text_sections:
     id: important_dates
     content: "<b>29th September</b>: Call for proposals opening: <a href='https://forms.gle/tGnJHW5oNkCFQrXx7' target='_blank' >Workshops</a> and <a target='_blank' href='https://forms.gle/GzYmMU4qvqRHmgCh7'>Lightning talks</a><br/>
       <b>7th November</b>: Call for proposals closing<br/>
-      <b>23th November</b>: Program available<br/>
+      <b>21th November</b>: Program available<br/>
       <b>24th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
       <b>25th November, 9AM</b>: General registration open through <a target='_blank' href='https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator'>Eventbrite</a><br/>
       <b>29th November</b>: PyDay BCN 2025"
@@ -68,7 +68,6 @@ people_sections:
             - david-blazquez
             - kevin-albes
             - brian-power
-
 
   - title: Organizers
     id: organizers
@@ -265,8 +264,7 @@ events:
     requirements: "Conexión a internet, cuenta de Google (para trabajar en Google Colab a través de librerías ya disponibles sin necesidad de usar consola de comandos (cmd) ni instalar Python en local."
     topic: "Data science, Natural Language Process, Data Visualization"
     location: "Sala d'actes Ada Lovelace"
-    repositories: ""    
-  #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+    repositories: "https://github.com/cristinasprogrammingadventure/PyDay-2025_workshop-Del-Texto-al-Dato_NLP"    
 
   - speaker: "Ricardo Ander-Egg"
     title: "Crea un agente LLM desde cero, sin frameworks."
@@ -293,8 +291,7 @@ events:
     requirements: "Conexión a internet. Python 3.10+. Tener la librería \"openai\" instalada. No se necesitará una API key para el taller. Se recomienda usar un gestor de entornos como uv o virtualenv, aunque no es obligatorio. Cada participante debe tener su entorno listo. Durante el taller se utilizará \"uv\" para gestionar dependencias."
     topic: "LLM"
     location: "Sala Margarita Salas"
-    repositories: ""    
-#    repositories: "https://github.com/polyrand/pyday2025-llm"
+    repositories: "https://github.com/polyrand/pyday2025-llm"    
 
   - speaker: "Alberto Camara"
     title: "Building Multi-Agent System with Pydantic AI"
@@ -383,9 +380,9 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: "Python 3.10+ (cada participante puede decidir seguir el taller con un Jupyter Notebook, Google Colab, scripts de Python, etc). El taller se desarrollará utilizando archivos de texto de Python, pero es apto para seguirlo en un notebook también."
     topic: "LLM"
-    location: "Sala Margarita Salas"
-    repositories: ""    
-#    repositories: "https://github.com/polyrand/pyday2025-text"
+    location: "Sala d'actes Ada Lovelace"
+    repositories: "https://github.com/polyrand/pyday2025-text"
+    
 
   - speaker: "Kevin Sanchez"
     title: "Del Desorden Visual al Significado: Una Aventura con Transformers y Donut"
@@ -454,8 +451,7 @@ events:
     requirements: "Utilitzarem la última versió de la llibreria bambi durant el taller. Es recomana tenir un virtual environment amb la llibreria ja instal·lada si es vol seguir el taller en directe. El taller també assumeix un nivell intermedi en l'ús de NumPy i Pandas."
     topic: "Statistics and Data Science"
     location: "Sala Hipátia d'Alexandra" 
-    repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+    repositories: "https://github.com/OriolAbril/pyday2025-bambi"    
 
   - start_time_slot: 15:30
     end_time_slot: 15:45
@@ -487,9 +483,9 @@ events:
     title: "Fabric en Acción: conectando bloques, datos y magia en python"
     description: "En este workshop práctico de 90 minutos exploraremos Fabric, una poderosa herramienta que permite automatizar tareas, orquestar flujos de trabajo y construir pipelines reproducibles en Python. A través de ejemplos concretos aprenderás cómo combinar bloques de código, manejar datos y desplegar procesos complejos de forma elegante y extensible.
 
-    Durante la sesión veremos desde los fundamentos de Fabric hasta casos de uso reales: automatización de tareas repetitivas, integración con servicios externos, ejecución remota y creación de scripts que convierten procesos largos y manuales en flujos automatizados. Todo ello acompañado de demostraciones paso a paso para que puedas aplicar lo aprendido inmediatamente en tus propios proyectos.
+      Durante la sesión veremos desde los fundamentos de Fabric hasta casos de uso reales: automatización de tareas repetitivas, integración con servicios externos, ejecución remota y creación de scripts que convierten procesos largos y manuales en flujos automatizados. Todo ello acompañado de demostraciones paso a paso para que puedas aplicar lo aprendido inmediatamente en tus propios proyectos.
 
-    Si buscas potenciar tus habilidades para crear herramientas internas, pipelines de datos o automatizar el día a día con Python, este workshop es para ti. ¡Ven a descubrir cómo Fabric puede convertir tus scripts en auténtica magia productiva!"
+      Si buscas potenciar tus habilidades para crear herramientas internas, pipelines de datos o automatizar el día a día con Python, este workshop es para ti. ¡Ven a descubrir cómo Fabric puede convertir tus scripts en auténtica magia productiva!"
     start_time_slot: 16:00
     end_time_slot: 17:15
     track_length: 1
@@ -517,8 +513,7 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Web development"
     location: "Aula Hady Lamarr"
-    repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+    repositories: "https://github.com/ericmassip/carbon-home-watcher"    
 
   - speaker: "Ubaldo Hervas"
     title: "Causal Inference: a brief introduction"
