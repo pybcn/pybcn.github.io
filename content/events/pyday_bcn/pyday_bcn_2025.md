@@ -264,20 +264,28 @@ events:
   #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Ricardo Ander-Egg"
-    title: "Agente LLM desde cero sin frameworks"
-    description: "TBD"
+    title: "Crea un agente LLM desde cero, sin frameworks."
+    description: "En este taller vamos a desmitificar los agentes LLM y a construir uno desde cero, sin usar frameworks. Entenderás la lógica fundamental que permite a un modelo de lenguaje razonar y usar herramientas externas, programándolo todo con Python y la librería oficial de OpenAI.
+
+    Trabajaremos de forma 100% práctica para implementar el bucle de control que convierte a un LLM en un agente autónomo: recibir un objetivo, pensar qué herramienta usar, ejecutarla y decidir el siguiente paso. El objetivo es que comprendas el mecanismo interno de un agente.
+
+    Al finalizar, serás capaz de:
+
+    - Entender la arquitectura básica de un agente LLM (razonamiento + acción).
+    - Implementar un bucle de control para que el LLM pueda usar herramientas.
+    - Permitir al modelo ejecutar funciones de Python."
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
     color: yellow
     type: workshop
-    language: ""
+    language: "Spanish/English"
     python_level: "<i class=\"fas fa-circle green\"></i>"
     topic_level: "<i class=\"fas fa-circle green\"></i>"
-    requirements: ""
+    requirements: "Conexión a internet. Python 3.10+. Tener la librería \"openai\" instalada. No se necesitará una API key para el taller. Se recomienda usar un gestor de entornos como uv o virtualenv, aunque no es obligatorio. Cada participante debe tener su entorno listo. Durante el taller se utilizará \"uv\" para gestionar dependencias."
     topic: "LLM"
     location: "Sala Margarita Salas"
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+#    repositories: "https://github.com/polyrand/pyday2025-llm"
 
   - speaker: "Alberto Camara"
     title: "Building Multi-Agent System with Pydantic AI"
@@ -335,20 +343,29 @@ events:
     class: middle
 
   - speaker: "Ricardo Ander-Egg"
-    title: "Tècnicas de búsqueda de texto: keywords, BM25, vectores, etc"
-    description: "TBD"
+    title: "Keywords, BM25 y vectores: construyendo un buscador de texto desde cero"
+    description: "En este taller aprenderemos cómo funcionan de verdad los buscadores de texto, más allá de las cajas negras de las librerías. Partiremos de los conceptos más básicos (índices, tokens, ranking) y llegaremos hasta técnicas modernas como BM25 y búsqueda vectorial, implementándolo todo a mano desde cero.
+
+    Trabajaremos de forma totalmente práctica: construirás tu propio mini‑buscador, primero basado en keywords y "scoring" clásico, y después lo extenderemos con métodos más avanzados y representación vectorial. El objetivo del taller es entender los principios básicos que hay detrás de los motores de búsqueda y cómo se implementan.
+
+    Al finalizar, serás capaz de:
+
+    - Implementar un índice invertido simple y un buscador basado en keywords.
+    - Entender y programar un sistema de ranking con TF‑IDF / BM25.
+    - Utilizar vectores y similitud de coseno para búsqueda semántica básica.
+    - Comparar enfoques y saber cuándo usar palabras clave, BM25 o vectores."
     start_time_slot: 14:00
     end_time_slot: 15:15
     track_length: 1
     color: blue
     type: workshop
-    language: ""
-    python_level: "<i class=\"fas fa-circle green\"></i>"
+    language: "Spanish/English"
+    python_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic_level: "<i class=\"fas fa-circle green\"></i>"
-    requirements: ""
+    requirements: "Python 3.10+ (cada participante puede decidir seguir el taller con un Jupyter Notebook, Google Colab, scripts de Python, etc). El taller se desarrollará utilizando archivos de texto de Python, pero es apto para seguirlo en un notebook también."
     topic: "LLM"
     location: "Sala Margarita Salas"
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+#    repositories: "https://github.com/polyrand/pyday2025-text"
 
   - speaker: "Kevin Sanchez"
     title: "Del Desorden Visual al Significado: Una Aventura con Transformers y Donut"
