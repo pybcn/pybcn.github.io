@@ -181,6 +181,7 @@ events:
     requirements: "Intermediate experience in Python and basic understanding of LLMs and how to use LLM APIs"
     topic: "LLM"
     location: "Sala d'actes Ada Lovelace"
+    repositories: ""
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Ester Jara"
@@ -202,6 +203,7 @@ events:
         - Code editor such as VS Code"
     topic: "Artificial Intelligence (IA)"
     location: "Sala Margarita Salas"
+    repositories: ""
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Natàlia Padilla, Amir Azam, David Arcos, Javier Sabariego, Ely Farrés & Flavie Le Bars"
@@ -220,6 +222,7 @@ events:
     requirements: "pip install qilisdk"
     topic: "Quantum Computing"
     location: "Aula Hady Lamarr"
+    repositories: ""
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Javier Ramos Panduro"
@@ -236,6 +239,7 @@ events:
     requirements: "Python environment y IDE"
     topic: "Testing"
     location: "Sala Hipátia d'Alexandra" 
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - start_time_slot: 11:00
@@ -261,6 +265,7 @@ events:
     requirements: "Conexión a internet, cuenta de Google (para trabajar en Google Colab a través de librerías ya disponibles sin necesidad de usar consola de comandos (cmd) ni instalar Python en local."
     topic: "Data science, Natural Language Process, Data Visualization"
     location: "Sala d'actes Ada Lovelace"
+    repositories: ""    
   #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Ricardo Ander-Egg"
@@ -288,6 +293,7 @@ events:
     requirements: "Conexión a internet. Python 3.10+. Tener la librería \"openai\" instalada. No se necesitará una API key para el taller. Se recomienda usar un gestor de entornos como uv o virtualenv, aunque no es obligatorio. Cada participante debe tener su entorno listo. Durante el taller se utilizará \"uv\" para gestionar dependencias."
     topic: "LLM"
     location: "Sala Margarita Salas"
+    repositories: ""    
 #    repositories: "https://github.com/polyrand/pyday2025-llm"
 
   - speaker: "Alberto Camara"
@@ -314,6 +320,7 @@ events:
           - 8GB+ RAM recommended
 
       No prior experience with AI agents or Pydantic AI required."
+    repositories: ""      
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Jordi Bosch"
@@ -330,6 +337,7 @@ events:
     requirements: "Python and DOCX"
     topic: "Artificial Intelligence"
     location: "Sala Hipátia d'Alexandra" 
+    repositories: ""    
     #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - start_time_slot: 13:00
@@ -376,6 +384,7 @@ events:
     requirements: "Python 3.10+ (cada participante puede decidir seguir el taller con un Jupyter Notebook, Google Colab, scripts de Python, etc). El taller se desarrollará utilizando archivos de texto de Python, pero es apto para seguirlo en un notebook también."
     topic: "LLM"
     location: "Sala Margarita Salas"
+    repositories: ""    
 #    repositories: "https://github.com/polyrand/pyday2025-text"
 
   - speaker: "Kevin Sanchez"
@@ -404,6 +413,7 @@ events:
     topic: "Computer vision"
     requirements: "Python"
     location: "Sala Margarita Salas"
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Kemalcan Bora"
@@ -427,6 +437,7 @@ events:
     topic: "Agent IA"
     location: "Aula Hady Lamarr"
     location: "Sala d'actes Ada Lovelace"
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Oriol Abril"
@@ -443,6 +454,7 @@ events:
     requirements: "Utilitzarem la última versió de la llibreria bambi durant el taller. Es recomana tenir un virtual environment amb la llibreria ja instal·lada si es vol seguir el taller en directe. El taller també assumeix un nivell intermedi en l'ús de NumPy i Pandas."
     topic: "Statistics and Data Science"
     location: "Sala Hipátia d'Alexandra" 
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - start_time_slot: 15:30
@@ -468,6 +480,7 @@ events:
     requirements: "Portátil y acceso a internet, para poder clonar el repositorio y seguir las instrucciones."
     topic: "IA Generativa"
     location: "Sala d'actes Ada Lovelace"
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Victor Garcia"
@@ -488,6 +501,7 @@ events:
     requirements: ""
     topic: ""
     location: "Sala Margarita Salas"
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Eric Massip"
@@ -503,6 +517,7 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Web development"
     location: "Aula Hady Lamarr"
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Ubaldo Hervas"
@@ -519,6 +534,7 @@ events:
     requirements: "Notebook and basic python knowledge"
     topic: "Causal Inference & Data Science"
     location: "Sala Hipátia d'Alexandra"
+    repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - start_time_slot: 17:30
