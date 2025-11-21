@@ -344,9 +344,9 @@ events:
 
   - speaker: "Ricardo Ander-Egg"
     title: "Keywords, BM25 y vectores: construyendo un buscador de texto desde cero"
-    description: "En este taller aprenderemos cómo funcionan de verdad los buscadores de texto, más allá de las cajas negras de las librerías. Partiremos de los conceptos más básicos (índices, tokens, ranking) y llegaremos hasta técnicas modernas como BM25 y búsqueda vectorial, implementándolo todo a mano desde cero.
-
-    Trabajaremos de forma totalmente práctica: construirás tu propio mini‑buscador, primero basado en keywords y "scoring" clásico, y después lo extenderemos con métodos más avanzados y representación vectorial. El objetivo del taller es entender los principios básicos que hay detrás de los motores de búsqueda y cómo se implementan.
+    description: "En este taller aprenderemos cómo funcionan de verdad los buscadores de texto, más allá de las cajas negras de las librerías. Partiremos de los conceptos más básicos (índices, tokens, ranking) y llegaremos hasta técnicas modernas como BM25 y búsqueda vectorial, implementándolo todo a mano desde cero. 
+    
+    Trabajaremos de forma totalmente práctica: construirás tu propio mini‑buscador, primero basado en keywords y \"scoring\" clásico, y después lo extenderemos con métodos más avanzados y representación vectorial. El objetivo del taller es entender los principios básicos que hay detrás de los motores de búsqueda y cómo se implementan.
 
     Al finalizar, serás capaz de:
 
