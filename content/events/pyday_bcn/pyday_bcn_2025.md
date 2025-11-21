@@ -27,7 +27,7 @@ free_text_sections:
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2025@googlegroups.com<br/><br/>"
 sponsor_levels:
   - sponsors_per_line: 2
-    sponsors: [okta, rover, pythones]
+    sponsors: [okta, rover, pythones, preply]
     name: Gold
   - sponsors_per_line: 3
     sponsors: [ikigai, capitole, orpheus]
