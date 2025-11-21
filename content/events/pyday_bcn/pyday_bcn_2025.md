@@ -272,8 +272,11 @@ events:
     Al finalizar, serás capaz de:
 
     - Entender la arquitectura básica de un agente LLM (razonamiento + acción).
+
     - Implementar un bucle de control para que el LLM pueda usar herramientas.
+
     - Permitir al modelo ejecutar funciones de Python."
+    
     start_time_slot: 11:30
     end_time_slot: 12:45
     track_length: 1
@@ -301,10 +304,15 @@ events:
     topic: "Data Science"
     location: "Aula Hady Lamarr"
     requirements: "Participants should bring a laptop with:
+
           - Python 3.10+ installed
+
           - Ollama installed with Llama 3.2 model downloaded
+
           - Basic familiarity with Python
+
           - 8GB+ RAM recommended
+
       No prior experience with AI agents or Pydantic AI required."
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
@@ -351,8 +359,11 @@ events:
     Al finalizar, serás capaz de:
 
     - Implementar un índice invertido simple y un buscador basado en keywords.
+
     - Entender y programar un sistema de ranking con TF‑IDF / BM25.
+
     - Utilizar vectores y similitud de coseno para búsqueda semántica básica.
+
     - Comparar enfoques y saber cuándo usar palabras clave, BM25 o vectores."
     start_time_slot: 14:00
     end_time_slot: 15:15
