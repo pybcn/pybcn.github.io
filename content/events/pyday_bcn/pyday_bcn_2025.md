@@ -220,7 +220,7 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: "pip install qilisdk"
     topic: "Quantum Computing"
-    location: "Aula Hady Lamarr"
+    location: "Sala Hedy Lamarr"
     repositories: ""
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
@@ -237,7 +237,7 @@ events:
     topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     requirements: "Python environment y IDE"
     topic: "Testing"
-    location: "Sala Hipátia d'Alexandra" 
+    location: "Sala Hipàtia d'Alexandria" 
     repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
@@ -305,7 +305,7 @@ events:
     python_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic: "Data Science"
-    location: "Aula Hady Lamarr"
+    location: "Sala Hedy Lamarr"
     requirements: "Participants should bring a laptop with:
 
           - Python 3.10+ installed
@@ -333,7 +333,7 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: "Python and DOCX"
     topic: "Artificial Intelligence"
-    location: "Sala Hipátia d'Alexandra" 
+    location: "Sala Hipàtia d'Alexandria" 
     repositories: ""    
     #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
@@ -432,8 +432,7 @@ events:
     topic_level: "<i class=\"fas fa-circle red\"></i>"
     requirements: "python, transformers, llama-index"
     topic: "Agent IA"
-    location: "Aula Hady Lamarr"
-    location: "Sala d'actes Ada Lovelace"
+    location: "Sala Hedy Lamarr"
     repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
@@ -450,7 +449,7 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: "Utilitzarem la última versió de la llibreria bambi durant el taller. Es recomana tenir un virtual environment amb la llibreria ja instal·lada si es vol seguir el taller en directe. El taller també assumeix un nivell intermedi en l'ús de NumPy i Pandas."
     topic: "Statistics and Data Science"
-    location: "Sala Hipátia d'Alexandra" 
+    location: "Sala Hipàtia d'Alexandria" 
     repositories: "https://github.com/OriolAbril/pyday2025-bambi"    
 
   - start_time_slot: 15:30
@@ -512,7 +511,7 @@ events:
     python_level: "<i class=\"fas fa-circle yellow\"></i>"
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     topic: "Web development"
-    location: "Aula Hady Lamarr"
+    location: "Sala Hedy Lamarr"
     repositories: "https://github.com/ericmassip/carbon-home-watcher"    
 
   - speaker: "Ubaldo Hervas"
@@ -528,7 +527,7 @@ events:
     topic_level: "<i class=\"fas fa-circle green\"></i>"
     requirements: "Notebook and basic python knowledge"
     topic: "Causal Inference & Data Science"
-    location: "Sala Hipátia d'Alexandra"
+    location: "Sala Hipàtia d'Alexandria"
     repositories: ""    
 #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
