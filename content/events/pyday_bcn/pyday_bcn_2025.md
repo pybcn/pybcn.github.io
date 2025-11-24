@@ -540,7 +540,7 @@ events:
     
     <br> <b> David Blazquez Garcia </b>: Building an Industrial Knowledge Graph Assistant with Python, Neo4j and FastAPI</br>  
     <br> <b> Kevin Albes </b>: Building Multi-Agent Workflows with Agent Framework</br>
-    <br> <b> Brian Power </b>: Five python code samples I show clients who know nothing about Python. And to those who know too much.</br>"
+    <br> <b> Brian Power </b>: Five python code samples I show clients who know nothing about Python. And to those who know too much. </br>"
     type: talk
     location: Sala d'Actes Ada Lovelace
     class: middle
