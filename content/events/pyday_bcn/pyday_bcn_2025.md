@@ -294,7 +294,7 @@ events:
     repositories: "https://github.com/polyrand/pyday2025-llm"    
 
   - speaker: "Alberto Camara"
-    title: "Building Multi-Agent System with Pydantic AI"
+    title: "Building Multi-Agent Systems with Pydantic AI"
     description: "A hands-on workshop teaching multi-agent system design using Pydantic AI to analyze arXiv papers. Participants will build cooperating agents that extract citations, analyze context, and link claims to evidence—demonstrating agent orchestration, validation patterns, and structured outputs."
     start_time_slot: 11:30
     end_time_slot: 12:45
