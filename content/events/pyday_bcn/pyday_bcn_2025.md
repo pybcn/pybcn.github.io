@@ -180,7 +180,6 @@ events:
     topic: "LLM"
     location: "Sala d'actes Ada Lovelace"
     repositories: ""
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Ester Jara"
     title: "From Zero to Chatbot: Create Your Own AI Assistant with Python"
@@ -202,7 +201,6 @@ events:
     topic: "Artificial Intelligence (IA)"
     location: "Sala Margarita Salas"
     repositories: ""
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Natàlia Padilla, Amir Azam, David Arcos, Javier Sabariego, Ely Farrés & Flavie Le Bars"
     title: "Introduction to Analog Quantum Computing"
@@ -221,7 +219,6 @@ events:
     topic: "Quantum Computing"
     location: "Sala Hedy Lamarr"
     repositories: ""
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Javier Ramos Panduro"
     title: "Testeando API's like a boss con BDD"
@@ -237,8 +234,7 @@ events:
     requirements: "Python environment y IDE"
     topic: "Testing"
     location: "Sala Hipàtia d'Alexandria" 
-    repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+    repositories: "https://github.com/breadhardIT/pytest-pybdd"    
 
   - start_time_slot: 11:00
     end_time_slot: 11:15
@@ -316,8 +312,7 @@ events:
           - 8GB+ RAM recommended
 
       No prior experience with AI agents or Pydantic AI required."
-    repositories: ""      
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+    repositories: "https://github.com/ber2/2025-pyday-multiagents-pydantic-ai"      
 
   - speaker: "Jordi Bosch"
     title: "Mastering Word Automation with Python"
@@ -334,7 +329,6 @@ events:
     topic: "Artificial Intelligence"
     location: "Sala Hipàtia d'Alexandria" 
     repositories: ""    
-    #    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - start_time_slot: 13:00
     end_time_slot: 13:00
@@ -410,7 +404,6 @@ events:
     requirements: "Python"
     location: "Sala Margarita Salas"
     repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Kemalcan Bora"
     title: "House, Controlled by AI (What Could Go Wrong?)"
@@ -433,7 +426,6 @@ events:
     topic: "Agent IA"
     location: "Sala Hedy Lamarr"
     repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Oriol Abril"
     title: "Models de regressió bayesians"
@@ -474,8 +466,7 @@ events:
     requirements: "Portátil y acceso a internet, para poder clonar el repositorio y seguir las instrucciones."
     topic: "IA Generativa"
     location: "Sala d'actes Ada Lovelace"
-    repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
+    repositories: "https://github.com/camilochs/pydaybcn2025-workshop-code-evolution"    
 
   - speaker: "Victor Garcia"
     title: "Fabric en Acción: conectando bloques, datos y magia en python"
@@ -496,7 +487,6 @@ events:
     topic: ""
     location: "Sala Margarita Salas"
     repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - speaker: "Eric Massip"
     title: "HTMX: A love story between a backend dev and a frontend “framework”"
@@ -528,7 +518,6 @@ events:
     topic: "Causal Inference & Data Science"
     location: "Sala Hipàtia d'Alexandria"
     repositories: ""    
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 
   - start_time_slot: 17:30
     end_time_slot: 17:45
@@ -542,7 +531,6 @@ events:
     type: talk
     location: Sala d'Actes Ada Lovelace
     class: middle
-#    repositories: "https://github.com/ericmassip/carbon-home-watcher"
 ---
 
 
