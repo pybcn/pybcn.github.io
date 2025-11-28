@@ -179,7 +179,7 @@ events:
     requirements: "Intermediate experience in Python and basic understanding of LLMs and how to use LLM APIs"
     topic: "LLM"
     location: "Sala d'actes Ada Lovelace"
-    repositories: ""
+    repositories: "https://github.com/enricd/langgraph_agents_pyday_bcn "
 
   - speaker: "Ester Jara"
     title: "From Zero to Chatbot: Create Your Own AI Assistant with Python"
@@ -200,7 +200,7 @@ events:
         - Code editor such as VS Code"
     topic: "Artificial Intelligence (IA)"
     location: "Sala Margarita Salas"
-    repositories: ""
+    repositories: "https://github.com/esterjara/ai-chatbot-workshop"
 
   - speaker: "Natàlia Padilla, Amir Azam, David Arcos, Javier Sabariego, Ely Farrés & Flavie Le Bars"
     title: "Introduction to Analog Quantum Computing"
@@ -218,7 +218,9 @@ events:
     requirements: "pip install qilisdk"
     topic: "Quantum Computing"
     location: "Sala Hedy Lamarr"
-    repositories: ""
+    repositories: "
+    <br> <b> Presentation </b>: https://docs.google.com/presentation/d/1QHQHSbCnpdEJj2BLAFIFk0M0lbjLM6StTgbNojUBcQk/edit</br>
+    <br> <b> Workshop Notebooks </b>: https://drive.google.com/drive/folders/18ds2Onl0hqW3NMJ7FpgErkaRtYvslrHK</br>"
 
   - speaker: "Javier Ramos Panduro"
     title: "Testeando API's like a boss con BDD"
@@ -403,7 +405,7 @@ events:
     topic: "Computer vision"
     requirements: "Python"
     location: "Sala Margarita Salas"
-    repositories: ""    
+    repositories: "https://github.com/kevinSanchez21/pyday_2025_vision_transformers"    
 
   - speaker: "Kemalcan Bora"
     title: "House, Controlled by AI (What Could Go Wrong?)"
@@ -425,7 +427,7 @@ events:
     requirements: "python, transformers, llama-index"
     topic: "Agent IA"
     location: "Sala Hedy Lamarr"
-    repositories: ""    
+    repositories: "https://github.com/kemalcanbora/pybcn2025"    
 
   - speaker: "Oriol Abril"
     title: "Models de regressió bayesians"
