@@ -330,7 +330,7 @@ events:
     requirements: "Python and DOCX"
     topic: "Artificial Intelligence"
     location: "Sala Hipàtia d'Alexandria" 
-    repositories: ""    
+    repositories: "https://github.com/jordiba90/PyBcn-PyDay-2024.11.29-Docx"    
 
   - start_time_slot: 13:00
     end_time_slot: 13:00
@@ -488,7 +488,7 @@ events:
     requirements: ""
     topic: ""
     location: "Sala Margarita Salas"
-    repositories: ""    
+    repositories: "https://github.com/ramitjans/pyDay25_fabrik_with_python"    
 
   - speaker: "Eric Massip"
     title: "HTMX: A love story between a backend dev and a frontend “framework”"
