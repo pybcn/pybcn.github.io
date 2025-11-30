@@ -519,7 +519,13 @@ events:
     requirements: "Notebook and basic python knowledge"
     topic: "Causal Inference & Data Science"
     location: "Sala Hipàtia d'Alexandria"
-    repositories: ""    
+    repositories: "
+       
+      <br> <b> Github </b>: https://github.com/UbaldoHervas/PyDay-BCN-2025
+
+       <br> <b> Leanalytics </b>: https://leanalytics.substack.com/p/022-caso-practico-diferencia-en-diferencias-datos-sinteticos
+    
+    "    
 
   - start_time_slot: 17:30
     end_time_slot: 17:45
