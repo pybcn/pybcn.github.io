@@ -11,7 +11,7 @@ heroBackground: /images/photos/reg-desk-pyday-2019.jpg
 
 people_levels:
     - people_per_line: 3
-      people: [jordi-bosch, daniel-mesejo, toni-espadas, peter-krupa, sergi-ramirez]
+      people: [jordi-bosch, daniel-mesejo, yago-tafalla, mauricio-volcanes, sergi-ramirez]
       name: The Management Board
     - people_per_line: 4
       people: [alberto, david, ifosch, loris, natalia, rberenguel, xavi, alicia-morales, ferran-jovell]

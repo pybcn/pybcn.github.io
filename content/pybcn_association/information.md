@@ -28,8 +28,8 @@ We have a Management Board and a Standing Committee to make decisions, and work 
 * **Management Board**
    * President: Jordi Bosch Alibau
    * Secretary: Daniel Mesejo Leon
-   * Treasurer: Toni Espadas Navarro
-   * Board member of Comunication: Peter Krupa
+   * Treasurer: Yago Tafalla
+   * Board member of Comunication: Mauricio Volcanes
    * Board member of Events: Sergi Ramírez Mitjans<br><br>
 
 
