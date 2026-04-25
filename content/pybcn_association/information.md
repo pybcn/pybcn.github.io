@@ -63,6 +63,7 @@ All the work groups must follow some rules:
 * <a href="https://docs.google.com/document/d/1CnJzGjz7COsc-45w5tEVu5gpDBv1mUozFh4eGXw8-GU/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2023</a>
 * <a href="https://docs.google.com/document/d/1IDYEQvStyM8YxQHIcmZbfE0SYePDGDavHssz3CG3d1E/edit?usp=share_link" target="_blank">Assamblea General Ordinària 2024</a>
 * <a href="https://docs.google.com/document/d/12BHpSCe7yOdgdm7JiuzKxT_RNKyxHN18R9p0_1rCWl4/edit?usp=share_link" target="_blank">Assamblea Extraordinària 2025</a>
+* <a href="https://docs.google.com/document/d/1Yx_4OMf3TkUDrI4MT3FD4NWm0y-3mSh32krX5F1RqMY/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2026</a>
 
 ## Past Management Boards 
 * Management Board 2018 - 2025
