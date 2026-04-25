@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Other events on PyBCN - The Barcelona Python Association</title><link>https://pybcn.org/events/other_events/</link><description>Recent content in Other events on PyBCN - The Barcelona Python Association</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://pybcn.org/events/other_events/index.xml" rel="self" type="application/rss+xml"/><item><title>Hands-on Django with PyLadiesBCN</title><link>https://pybcn.org/events/other_events/django_pyladies_2022/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pybcn.org/events/other_events/django_pyladies_2022/</guid><description>&lt;p>Do you want to learn how to code your own web application? In this workshop for non-experienced women and LGBTIQ+ people, organised by PyLadiesBCN, &lt;b>we&amp;rsquo;ll learn how to code our own blog with Django&lt;/b> using HTML, CSS and Python.
+Throughout the whole day we&amp;rsquo;ll learn how web technology works, &lt;b>with the help of mentors&lt;/b> that will guide us during the workshop. No previous knowledge required. Just bring your own laptop and be ready to learn and have fun!&lt;/p></description></item><item><title>PyData 2017 - Barcelona edition</title><link>https://pybcn.org/events/other_events/pydata_2017_barcelona/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pybcn.org/events/other_events/pydata_2017_barcelona/</guid><description>&lt;div class="container">
+ &lt;div class="row main_content">
+ &lt;div class="col-md-9 main_column">
+ &lt;p>The &lt;a href="http://pydata.org/barcelona2017/" target="_blank">PyData 2017 - Barcelona edition&lt;/a> took place from May 19th to 21th at &lt;a href="http://www.esade.edu/homesite/esp/esadeforum" target="_blank">ESADE&lt;/a>.&lt;/p>
+&lt;h3>Media&lt;/h3>
+&lt;p>You can see all the &lt;a href="https://www.flickr.com/photos/pydata/sets/72157684439580266/" target="_blank">photos&lt;/a> and &lt;a href="https://www.youtube.com/playlist?list=PLGVZCDnMOq0oieXy92cJBwSirA3G2MCU1" target="_blank">videos&lt;/a> from the event.&lt;/p>
+&lt;h3>Slides&lt;/h3>
+&lt;p>This is the list of the slides talks and workshops you can find from the event:&lt;/p>
+&lt;ol>
+&lt;li>&lt;a href="https://www.slideshare.net/MargrietGroenendijk/pydata-barcelona-weather-and-climate-data" target="_blank">A Beginners Guide to Weather &amp;amp; Climate Data&lt;/a> by Margriet Groenendijk&lt;/li>
+&lt;li>&lt;a href="https://github.com/cimentadaj/PyData_2017" target="_blank">An introduction to the tidyverse&lt;/a> by Jorge Cimentada&lt;/li>
+&lt;li>&lt;a href="https://github.com/jtorrents/thesis/blob/master/presentations/pydata_bcn/cpython_code_contributions.pdf" target="_blank">Analyzing code contributions to the CPython project using NetworkX and Matplotlib&lt;/a> by Jordi Torrents&lt;/li>
+&lt;li>&lt;a href="http://slides.com/j-diegohueltesvega/data-science-lazy-people#/" target="_blank">Data science for lazy people... genetics will work for you!&lt;/a> by Diego Hueltes&lt;/li>
+&lt;li>&lt;a href="https://www.slideshare.net/PascalvanKooten/deepcare-chatbot-generating-answers-to-customers-using-a-hybrid-approach-of-deep-learning-and-nlp" target="_blank">DeepCare Chatbot - Generating answers to customers using a hybrid approach of Deep Learning and NLP&lt;/a> by Pascal van Kooten&lt;/li>
+&lt;li>&lt;a href="https://www.slideshare.net/bloodbare/guillotina-76266421" target="_blank">Guillotina - An Async REST Resource DB to manage millions of objects&lt;/a> by Ramon Navarro Bosch&lt;/li>
+&lt;li>&lt;a href="https://github.com/Guillem-db/Happiness-inside-a-job-PyDataBcn17" target="_blank">Happyness inside a job: a social network analysis&lt;/a> by Guillem Duran Ballester&lt;/li>
+&lt;li>&lt;a href="https://drive.google.com/open?id=0B19Xo1zu3JtgZmVDaWVyTk1uN3M" target="_blank">Increasing the trading prediction by mining aggregated human texting messages&lt;/a> by Yang Liu&lt;/li>
+&lt;li>&lt;a href="https://github.com/eduardgoma/pandas-workshop" target="_blank">Introduction to data analysis with Pandas&lt;/a> by Eduard Goma&lt;/li>
+&lt;li>&lt;a href="https://bitbucket.org/lp-csic-uab/lymphosdocs/downloads/" target="_blank">LympHOS2, Organizing and Sharing Biological Data of the Human Lymphocyte Proteome using Python&lt;/a> by Óscar Gallardo Román&lt;/li>
+&lt;li>&lt;a href="https://www.slideshare.net/JavierMartinezAlcant/neuroscience-lab-a-tour-through-the-eyes-of-a-pythonista-pydata-barcelona2017" target="_blank">Neuroscience Lab, a tour through the eyes of a pythonista&lt;/a> by Javier Martínez Alcántara&lt;/li>
+&lt;li>&lt;a href="https://github.com/jccardonar/pydata_bcn_presentation" target="_blank">Prototyping Interactive Dashboards with Jupyter Notebooks: Examples from Network Engineering&lt;/a> by Camilo Cardona&lt;/li>
+&lt;li>&lt;a href="https://www.slideshare.net/DZPM/security-for-data-scientists" target="_blank">Security for data scientists&lt;/a> by David Arcos&lt;/li>
+&lt;li>&lt;a href="https://github.com/jtorrents/pydata_bcn_NetworkX" target="_blank">Social Network Analysis with Python and NetworkX&lt;/a> by Jordi Torrents&lt;/li>
+&lt;li>&lt;a href="https://speakerdeck.com/francescalted/squeeze-gently-your-big-data" target="_blank">Squeeze (gently) your data&lt;/a> by Francesc Alted&lt;/li>
+&lt;li>&lt;a href="https://storage.googleapis.com/yufengg-slides/pydataBCNslides.pdf" target="_blank">TensorFlow Wide &amp;amp; Deep: Advanced Classification the easy way&lt;/a> by Yufeng Guo&lt;/li>
+&lt;li>&lt;a href="https://drive.google.com/file/d/0Bzli2ZOV2beTd01ZdHBkWHc5b2M/view" target="_blank">Using network community clustering algorithms to aid determination of protein structures&lt;/a> by Claudia Millán&lt;/li>
+&lt;/ol>
+ &lt;/div>
+ &lt;/div>
+ &lt;/div></description></item><item><title>Hacktoberfest 2018</title><link>https://pybcn.org/events/other_events/hacktoberfest_2018/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pybcn.org/events/other_events/hacktoberfest_2018/</guid><description/></item></channel></rss>
