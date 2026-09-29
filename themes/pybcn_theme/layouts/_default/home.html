@@ -1,15 +1,10 @@
-{{ define "requiredJS" }}
-{{ $meetupJS := resources.Get "js/meetup.js" }}
-<script type="text/javascript" src="{{ $meetupJS.Permalink }}"></script>
-{{ end }}
-
 {{ define "main" }}
 
 <div class="container" id="home_top_section">
     <div class="row flex_box">
         <div class="col-md-9">
             <div class="row flex_box" id="meetup_events">
-	        {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "width" 6 "max_events" 4 "meetup_link" false)}}
+	        {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "width" 6)}}
             </div>
         </div>
         <div class="col-md-3">
