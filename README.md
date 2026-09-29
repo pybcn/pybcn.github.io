@@ -74,6 +74,30 @@ Once the site was archived, you can create a new link in the navigational menu u
 
 ## Information for developers
 
+### Content safety check
+
+`bin/check-html-safety` scans `content/` and fails if it finds raw HTML that
+turns a content change into script execution, a redirect or a credential
+prompt: `<script`, `<iframe`, an `on...=` event handler, a `javascript:` URL,
+`<object`, `<embed`, `<form`, `<meta`, `<link` or `<base`.
+
+It reads the YAML front matter at any depth, both as raw text and after YAML
+decodes it, and it reads the markdown body.
+
+```
+pip install pyyaml
+./bin/check-html-safety
+```
+
+The `content-check` workflow runs it on every pull request.
+
+Three Google iframes in the tree are accepted. They sit in the `ALLOWLIST` at
+the top of the script, keyed by file path, pattern and a substring of the
+snippet, so an entry permits one known embed and not any later one in the same
+file. To accept new third party markup, add an entry with a reason, or better,
+put the markup in a shortcode under `layouts/`, where an organizer reviews it.
+
+
 This is a work in progress. All the design and implementation decisions are detailed in [Proposta d'estructura](https://docs.google.com/document/d/10YxQeCuGQXUjnN3o9e1oH2HJkrhxJsr31qnxO_aiCNM/edit?usp=sharing) (currently written in catalan). All the tasks are managed through our [private Trello board](https://trello.com/b/cFE8KRTS).
 
 For now, we are not looking for contributors yet.
