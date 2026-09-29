@@ -3,7 +3,7 @@
     <div class='events_list {{ replace .name " " ""}}-events'>
         <div class="upcoming_events">
             <div class="items-title">
-                <h1><i class="fab fa-meetup"></i> Upcoming {{ .name }} events</h1>
+                <h2 class="h1"><i class="fab fa-meetup" aria-hidden="true"></i> Upcoming {{ .name }} events</h2>
             </div>
             <ul class="items-list" id="{{ .id }}-upcoming">
                 <li class="spinner"><i class="fas fa-spinner fa-spin"></i></li>
@@ -11,7 +11,7 @@
         </div>
         <div class="past_events">
             <div class="items-title">
-                <h1>Past {{ .name }} events</h1>
+                <h2 class="h1">Past {{ .name }} events</h2>
             </div>
             <ul class="items-list" id="{{ .id }}-past">
                 <li class="spinner"><i class="fas fa-spinner fa-spin"></i></li>

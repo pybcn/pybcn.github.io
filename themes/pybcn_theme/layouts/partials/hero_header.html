@@ -1,4 +1,7 @@
 {{ if .Params.carousel_header }}
+    {{/* The carousel takes the place of the hero, so the page heading is
+         only for assistive technology. */}}
+    <h1 class="sr-only">{{ or .Params.name .Title }}</h1>
     {{ partial "carousel.html" . }}
 {{ else }}
     {{ if .Params.heroBackground }}
