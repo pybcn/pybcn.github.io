@@ -10,14 +10,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
 
-            <div class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
 
                 {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
                   {{ if .HasChildren }}
+                    {{ $dropdown_id := printf "navbar_dropdown_%s" (.Name | urlize) }}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" id="{{ $dropdown_id }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
+                        <div class="dropdown-menu" aria-labelledby="{{ $dropdown_id }}">
                             {{ range .Children }}
                                 {{ if .HasChildren }}
                                     <a class="nav-link dropdown-toggle open-submenu {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
