@@ -87,7 +87,15 @@ previous_editions:
 spansDuration: 15
 numTracks: 4
 eventTimes: [9:00, 9:15, 9:30, 9:45, 10:00, 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45, 12:00, 12:15, 12:30, 12:45, 13:00, 13:15, 13:30, 13:45, 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45, 16:00, 16:15, 16:30, 16:45, 17:00, 17:15, 17:30, 17:45]
-legend: "<i class=\"fas fa-laptop\"></i> Workshop &nbsp;&nbsp;&nbsp; <i class=\"fas fa-comment\"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class=\"fas fa-circle green\"></i> Beginner &nbsp;&nbsp;&nbsp; <i class=\"fas fa-circle yellow\"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class=\"fas fa-circle red\"></i> Advanced &nbsp;&nbsp; | &nbsp;&nbsp; <i class=\"fas fa-star gold\"></i> Sponsored event"
+legend:
+    - type: workshop
+    - type: talk
+    - separator: true
+    - level: beginner
+    - level: intermediate
+    - level: advanced
+    - separator: true
+    - type: sponsor
 events:
     - start_time_slot: 9:00
       end_time_slot: 9:15
@@ -109,8 +117,8 @@ events:
       language: "Spanish"
       type: workshop
       topic: Data Apps
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Actes
     - speaker: "Diego Gonzalez"
       sponsor: Preply
@@ -123,8 +131,8 @@ events:
       language: "English"
       type: workshop
       topic: Web development
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: intermediate
+      topic_level: intermediate
       location: Room Guinardó
     - speaker: "Esperanza Buitrago"
       title: "Implementing your API with FASTAPI"
@@ -136,8 +144,8 @@ events:
       language: "English"
       type: workshop
       topic: Software Engineering
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       location: Room Gòtica
       requirements: "<ul><li>Python3</li><li>Visual Studio Code</li><li>Pip3</li><li>Conda</li><li>We'll do everything from scratch: such as installing FastAPI, uvicorn and typing</li></ul>"
 
@@ -152,8 +160,8 @@ events:
       language: "English"
       type: workshop
       topic: Cloud-native Python applications
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Raval
       requirements: "Python 3.8+"
 
@@ -178,8 +186,8 @@ events:
       language: "Spanish"
       type: workshop
       topic: User interfaces
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Actes
     - speaker: "Gabriel de Maeztu"
       sponsor: IOMED
@@ -192,8 +200,8 @@ events:
       language: "English"
       type: workshop
       topic: Data Science
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: intermediate
+      topic_level: intermediate
       location: Room Guinardó
     - speaker: "Vincent Choubard"
       sponsor: Rover
@@ -206,8 +214,8 @@ events:
       language: "English"
       type: workshop
       topic: Web Development
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       location: Room Gòtica
       requirements: "Ideally have python and django installed on your machine by following <a href=\"https://docs.djangoproject.com/en/3.2/intro/install/\">https://docs.djangoproject.com/en/3.2/intro/install/</a>"
     - speaker: "Antonio Molina, Erik Tordera, Pablo Fernández"
@@ -221,8 +229,8 @@ events:
       language: "Spanish"
       type: workshop
       topic: Architecture
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: beginner
+      topic_level: intermediate
       location: Room Raval
 
     - start_time_slot: 13:00
@@ -253,8 +261,8 @@ events:
       language: "Spanish"
       type: workshop
       topic: Data science
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: intermediate
+      topic_level: intermediate
       location: Room Actes
       requirements: "A browser (preferably Google Chrome)<br/>Github account."
     - speaker: "Jordi Mur"
@@ -268,8 +276,8 @@ events:
       language: "English"
       type: workshop
       topic: Data science
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Guinardó
     - speaker: "Matteo Bruno"
       sponsor: Onna
@@ -326,8 +334,8 @@ events:
       language: "English"
       type: workshop
       topic: IOT, ML, Edge AI
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Actes
     - speaker: "Mariana Meireles, Laysa Uchoa"
       title: "The moons of Jupyter: widgets ecosystem"
@@ -339,8 +347,8 @@ events:
       language: "English"
       type: workshop
       topic: Data science, scientific computing
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Guinardó
       requirements: "https://github.com/jupyter-widgets/tutorial#readme<br/><br/>But a link to a Binder project where you can run the workshop without installing anything on your machine will also be provided. It’s recommendable to install requirements locally, though."
     - speaker: "Vivek Sharma"
@@ -353,8 +361,8 @@ events:
       language: "English"
       type: workshop
       topic: Signal Processing
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       location: Room Gòtica
     - speaker: "Christian Adell"
       title: "Keeping sync between datasets with Diffsync"
@@ -367,8 +375,8 @@ events:
       language: "English"
       type: workshop
       topic: Data set synchronisation
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       location: Room Raval
 
     - start_time_slot: 17:30

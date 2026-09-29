@@ -1,0 +1,26 @@
+{{- /*
+    level_badge: render an experience level as an accessible badge.
+
+    Context: the level token as a string. Valid tokens are:
+      beginner, intermediate, advanced
+
+    The badge shows a coloured dot AND the text label. The level is never
+    given by colour alone (WCAG 1.4.1 Use of Color). The badge has its own
+    light background, so the dot keeps at least 3:1 contrast whatever the
+    colour of the agenda cell behind it (WCAG 1.4.11 Non-text Contrast).
+
+    The token is matched against the table below before it goes into a class
+    name. An unknown token prints as escaped text and logs a build warning.
+    No caller passes raw HTML through this partial.
+*/ -}}
+{{- $token := lower (trim (printf "%v" .) " ") -}}
+{{- $labels := dict "beginner" "Beginner" "intermediate" "Intermediate" "advanced" "Advanced" -}}
+{{- with $token -}}
+	{{- $label := index $labels . -}}
+	{{- if $label -}}
+		<span class="level_badge level_{{ . }}"><i class="fas fa-circle" aria-hidden="true"></i> {{ $label }}</span>
+	{{- else -}}
+		{{- warnf "level_badge: unknown level %q. Use beginner, intermediate or advanced." . -}}
+		<span class="level_badge level_unknown">{{ . }}</span>
+	{{- end -}}
+{{- end -}}

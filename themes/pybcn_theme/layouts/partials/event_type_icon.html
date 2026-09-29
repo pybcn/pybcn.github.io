@@ -1,0 +1,15 @@
+{{- /*
+    event_type_icon: render the icon of an agenda entry type.
+
+    Context: the type token as a string. See event_types.html for the list.
+    An unknown token renders nothing and logs a build warning.
+*/ -}}
+{{- $token := lower (trim (printf "%v" .) " ") -}}
+{{- with $token -}}
+	{{- $entry := index (partialCached "event_types.html" "event_types") . -}}
+	{{- if $entry -}}
+		<i class="fas {{ $entry.icon }}" aria-hidden="true"></i>
+	{{- else -}}
+		{{- warnf "event_type_icon: unknown event type %q." . -}}
+	{{- end -}}
+{{- end -}}

@@ -8,21 +8,7 @@
 
                 <h3 class="modal-title" id="exampleModalLabel">
 
-                    {{ if eq $.event.type "talk" }}
-                        <i class="fas fa-comment"></i>
-                    {{ else if eq $.event.type "coffee" }}
-                        <i class="fas fa-mug-hot"></i>
-                    {{ else if eq $.event.type "lunch" }}
-                        <i class="fas fa-utensils"></i>
-                    {{ else if eq $.event.type "workshop" }}
-                        <i class="fas fa-laptop"></i>
-                    {{ else if eq $.event.type "group" }}
-                        <i class="fas fa-users"></i>
-                    {{ else if eq $.event.type "qa" }}
-                        <i class="fas fa-question-circle"></i>
-                    {{ else if eq $.event.type "lightning" }}
-                        <i class="fas fa-bolt"></i>
-                    {{ end }}
+                    {{ partial "event_type_icon.html" $.event.type }}
                     {{ $.event.title }}
                 </h3>
 
@@ -53,10 +39,10 @@
                     <span class="event_topic"><i class="fas fa-terminal"></i> Topic: {{ . }}</span><br/>
                 {{ end }}
                 {{ with $.event.python_level }}
-                    <span class="event_level"><i class="fas fa-terminal"></i> Python level: {{ .  | safeHTML }}</span><br/>
+                    <span class="event_level"><i class="fas fa-terminal" aria-hidden="true"></i> Python level: {{ partial "level_badge.html" . }}</span><br/>
                 {{ end }}
                 {{ with $.event.topic_level }}
-                    <span class="event_level"><i class="fas fa-terminal"></i> Topic level: {{ .  | safeHTML }}</span><br/>
+                    <span class="event_level"><i class="fas fa-terminal" aria-hidden="true"></i> Topic level: {{ partial "level_badge.html" . }}</span><br/>
                 {{ end }}
                 {{ with $.event.video }}
                 <span class="event_video"><i class="fas fa-film"></i> <a href="{{ . }}" target="_blank">Video</a></span>

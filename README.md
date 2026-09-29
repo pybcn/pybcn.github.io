@@ -162,7 +162,42 @@ Each event in the list can indicate:
 - the color of the event in the calendar: red, orange, yellow, green, blue, purple (defaults to orange)
 - the location where the event will take place (a room, or a url)
 - the topic of the event (e.g. Data Science, Security...)
-- the type of the event: talk, workshop, coffee, lunch, group, qa, lightning
+- the type of the event: talk, workshop, coffee, lunch, photo, group, qa, lightning
+- `python_level` and `topic_level`: the experience the attendee needs. Use one
+  of `beginner`, `intermediate` or `advanced`
+
+#### Experience levels
+
+`python_level` and `topic_level` take a token, never markup. The site renders
+each token as a badge with a coloured dot and the matching text label, so the
+level does not depend on colour alone:
+
+| Token | Label | Dot |
+|---|---|---|
+| `beginner` | Beginner | green |
+| `intermediate` | Intermediate | amber |
+| `advanced` | Advanced | red |
+
+An unknown token prints as plain text and logs a build warning. The tokens and
+the labels live in `themes/pybcn_theme/layouts/partials/level_badge.html`.
+
+#### Agenda legend
+
+`legend` is a list of items, not an HTML string. Each item is one of:
+
+```
+legend:
+  - type: workshop        # any event type, plus "sponsor" for the gold star
+    label: Hands-on       # optional, overrides the default label
+  - type: talk
+  - separator: true       # a visual group break
+  - level: beginner
+  - level: intermediate
+  - level: advanced
+```
+
+The icons and the default labels come from
+`themes/pybcn_theme/layouts/partials/event_types.html`.
 
 ```
 spansDuration: 20

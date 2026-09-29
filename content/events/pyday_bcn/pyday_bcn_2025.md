@@ -153,7 +153,13 @@ eventTimes:
     17:30,
     17:45,
   ]
-legend: '<i class="fas fa-laptop"></i> Workshop &nbsp;&nbsp;&nbsp; <i class="fas fa-comment"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-circle green"></i> Beginner &nbsp;&nbsp;&nbsp; <i class="fas fa-circle yellow"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class="fas fa-circle red"></i> Advanced'
+legend:
+  - type: workshop
+  - type: talk
+  - separator: true
+  - level: beginner
+  - level: intermediate
+  - level: advanced
 events:
   - start_time_slot: 9:00
     end_time_slot: 9:15
@@ -174,8 +180,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "Intermediate experience in Python and basic understanding of LLMs and how to use LLM APIs"
     topic: "LLM"
     location: "Sala d'actes Ada Lovelace"
@@ -190,8 +196,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "        
        - No prior experience with AI or machine learning
         -  Basic familiarity with Python (variables, functions, running scripts)
@@ -213,8 +219,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "pip install qilisdk"
     topic: "Quantum Computing"
     location: "Sala Hedy Lamarr"
@@ -231,8 +237,8 @@ events:
     color: orange
     type: workshop
     language: "Spanish"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     requirements: "Python environment y IDE"
     topic: "Testing"
     location: "Sala Hipàtia d'Alexandria" 
@@ -256,8 +262,8 @@ events:
     color: blue
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "Conexión a internet, cuenta de Google (para trabajar en Google Colab a través de librerías ya disponibles sin necesidad de usar consola de comandos (cmd) ni instalar Python en local."
     topic: "Data science, Natural Language Process, Data Visualization"
     location: "Sala d'actes Ada Lovelace"
@@ -283,8 +289,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish/English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "Conexión a internet. Python 3.10+. Tener la librería \"openai\" instalada. No se necesitará una API key para el taller. Se recomienda usar un gestor de entornos como uv o virtualenv, aunque no es obligatorio. Cada participante debe tener su entorno listo. Durante el taller se utilizará \"uv\" para gestionar dependencias."
     topic: "LLM"
     location: "Sala Margarita Salas"
@@ -299,8 +305,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     topic: "Data Science"
     location: "Sala Hedy Lamarr"
     requirements: "Participants should bring a laptop with:
@@ -325,8 +331,8 @@ events:
     color: orange
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "Python and DOCX"
     topic: "Artificial Intelligence"
     location: "Sala Hipàtia d'Alexandria" 
@@ -371,8 +377,8 @@ events:
     color: blue
     type: workshop
     language: "Spanish/English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "Python 3.10+ (cada participante puede decidir seguir el taller con un Jupyter Notebook, Google Colab, scripts de Python, etc). El taller se desarrollará utilizando archivos de texto de Python, pero es apto para seguirlo en un notebook también."
     topic: "LLM"
     location: "Sala d'actes Ada Lovelace"
@@ -400,8 +406,8 @@ events:
     color: yellow
     type: workshop
     language: "Catalan"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     topic: "Computer vision"
     requirements: "Python"
     location: "Sala Margarita Salas"
@@ -422,8 +428,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle red\"></i>"
-    topic_level: "<i class=\"fas fa-circle red\"></i>"
+    python_level: advanced
+    topic_level: advanced
     requirements: "python, transformers, llama-index"
     topic: "Agent IA"
     location: "Sala Hedy Lamarr"
@@ -438,8 +444,8 @@ events:
     color: orange
     type: workshop
     language: "Catalan"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "Utilitzarem la última versió de la llibreria bambi durant el taller. Es recomana tenir un virtual environment amb la llibreria ja instal·lada si es vol seguir el taller en directe. El taller també assumeix un nivell intermedi en l'ús de NumPy i Pandas."
     topic: "Statistics and Data Science"
     location: "Sala Hipàtia d'Alexandria" 
@@ -463,8 +469,8 @@ events:
     color: blue
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "Portátil y acceso a internet, para poder clonar el repositorio y seguir las instrucciones."
     topic: "IA Generativa"
     location: "Sala d'actes Ada Lovelace"
@@ -483,8 +489,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: ""
     topic: ""
     location: "Sala Margarita Salas"
@@ -499,8 +505,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     topic: "Web development"
     location: "Sala Hedy Lamarr"
     repositories: "https://github.com/ericmassip/carbon-home-watcher"    
@@ -514,8 +520,8 @@ events:
     color: orange
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "Notebook and basic python knowledge"
     topic: "Causal Inference & Data Science"
     location: "Sala Hipàtia d'Alexandria"

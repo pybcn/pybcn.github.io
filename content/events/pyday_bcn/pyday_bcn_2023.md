@@ -127,7 +127,13 @@ eventTimes:
     17:30,
     17:45,
   ]
-legend: '<i class="fas fa-laptop"></i> Workshop &nbsp;&nbsp;&nbsp; <i class="fas fa-comment"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-circle green"></i> Beginner &nbsp;&nbsp;&nbsp; <i class="fas fa-circle yellow"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class="fas fa-circle red"></i> Advanced'
+legend:
+  - type: workshop
+  - type: talk
+  - separator: true
+  - level: beginner
+  - level: intermediate
+  - level: advanced
 events:
   - start_time_slot: 9:00
     end_time_slot: 9:15
@@ -148,8 +154,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "Python, PyTorch, Jupyter, Matplotlib."
     topic: "Data science"
     location: Room B6
@@ -167,8 +173,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "To have the `qibo` package installed."
     topic: "Quantum Computing"
     location: Room B5
@@ -181,8 +187,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: beginner
+    topic_level: intermediate
     topic: "Network/Infrastructure Automation"
     location: Room B3
     requirements: ""
@@ -205,8 +211,8 @@ events:
     color: blue
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: ""
     topic: "Data Science"
     location: Room B6
@@ -219,8 +225,8 @@ events:
     color: yellow
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     requirements: "Numpy, Scipy, Matplotlib, PyTorch, Qiskit"
     topic: "Quantum Computing"
     location: Room B5
@@ -234,8 +240,8 @@ events:
     color: blue
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "Laptop with latest Python version available and git installed"
     topic: "Python Packaging"
     location: Room B3
@@ -267,8 +273,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: ""
     topic: "Data science"
     location: Room B6
@@ -281,8 +287,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     topic: "API requests"
     requirements: "Python 3.8 or above, VSCode or some similar IDE, FastApi and uvicorn libraries"
     location: Room B5
@@ -295,8 +301,8 @@ events:
     color: blue
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: ""
     topic: "Documentation and blogging"
     location: Room B3
@@ -342,8 +348,8 @@ events:
     color: red
     type: workshop
     language: "English"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle red\"></i>"
+    python_level: intermediate
+    topic_level: advanced
     requirements: "Python, Docker"
     topic: "Data Science"
     location: Room B6
@@ -357,8 +363,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     requirements: ""
     topic: "General, Core"
     location: Room B5
@@ -372,8 +378,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requeriments: "Python with pytest installed, code editor, git (for downloading the exercise)."
     topic: "Test driven development"
     location: Room B3
