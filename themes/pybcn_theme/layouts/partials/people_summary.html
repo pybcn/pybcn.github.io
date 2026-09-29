@@ -1,12 +1,36 @@
+{{- /*
+    One person card, plus the modal that holds the long bio.
+
+    Photos come from assets/images/people/ and go through the Hugo image
+    pipeline: a 1x and a 2x WebP variant for the grid, and a larger pair for
+    the modal. A person with no photo falls back to anon_member.png. A person
+    with an external photo_url keeps a plain img, because Hugo cannot process
+    a remote file.
+*/ -}}
+{{- $photoURL := $.person.Params.photo_url -}}
+{{- $photo := $.person.Params.photo -}}
+{{- $img := "" -}}
+{{- if and (not $photoURL) $photo -}}
+    {{- $img = resources.Get (printf "images/people/%s" $photo) -}}
+{{- end -}}
+{{- if not (or $photoURL $img) -}}
+    {{- $img = resources.Get "images/anon_member.png" -}}
+{{- end -}}
+{{- $grid := "" -}}{{- $grid2x := "" -}}{{- $modal := "" -}}{{- $modal2x := "" -}}
+{{- with $img -}}
+    {{- $grid = partial "image_resize.html" (dict "img" . "width" 360) -}}
+    {{- $grid2x = partial "image_resize.html" (dict "img" . "width" 720) -}}
+    {{- $modal = partial "image_resize.html" (dict "img" . "width" 400) -}}
+    {{- $modal2x = partial "image_resize.html" (dict "img" . "width" 800) -}}
+{{- end -}}
 <div class="person_item">
 
     <div class="img-wrap">
         <a href="" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}">
-            {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                <img class="img-fluid img-people" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+            {{ if $photoURL }}
+                <img class="img-fluid img-people" src="{{ $photoURL }}" loading="lazy" decoding="async" />
             {{ else }}
-                {{ $anon_member := resources.Get "images/anon_member.png" }}
-                <img class="img-fluid img-people" src="{{ $anon_member.Permalink | absURL }}" />
+                <img class="img-fluid img-people" src="{{ $grid.RelPermalink }}"{{ if gt $grid2x.Width $grid.Width }} srcset="{{ $grid.RelPermalink }} 1x, {{ $grid2x.RelPermalink }} 2x"{{ end }} width="{{ $grid.Width }}" height="{{ $grid.Height }}" loading="lazy" decoding="async" />
             {{ end }}
         </a>
     </div>
@@ -36,11 +60,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                        <img class="rounded float-left" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+                    {{ if $photoURL }}
+                        <img class="img-fluid rounded float-left" src="{{ $photoURL }}" loading="lazy" decoding="async" />
                     {{ else }}
-                        {{ $anon_member := resources.Get "images/anon_member.png" }}
-                        <img class="rounded float-left" src="{{ $anon_member.Permalink | absURL }}" />
+                        <img class="img-fluid rounded float-left" src="{{ $modal.RelPermalink }}"{{ if gt $modal2x.Width $modal.Width }} srcset="{{ $modal.RelPermalink }} 1x, {{ $modal2x.RelPermalink }} 2x"{{ end }} width="{{ $modal.Width }}" height="{{ $modal.Height }}" loading="lazy" decoding="async" />
                     {{ end }}
                     <h3 class="modal-title" id="exampleModalLabel">
                         {{ $.person.Params.name }}
@@ -66,6 +89,3 @@
     </div>
 
 </div>
-
-
-

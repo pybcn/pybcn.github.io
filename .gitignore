@@ -1,3 +1,4 @@
 .idea
 bin/hugo
 public/**
+resources/_gen/images/**
