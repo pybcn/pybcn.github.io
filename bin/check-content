@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+"""Validate the front matter in content/.
+
+Catches the mistakes that a Hugo build does not: a person id that does not
+match its filename, a duplicate id, an event that points at a person or
+sponsor page which does not exist, and a declared photo with no file behind it.
+
+Exit code 1 if any error is found. Warnings do not fail the build.
+
+Usage:
+    bin/check-content
+"""
+
+import pathlib
+import re
+import sys
+
+import yaml
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+CONTENT = ROOT / "content"
+PHOTOS = ROOT / "static" / "images" / "people"
+
+FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
+
+errors = []
+warnings = []
+
+
+def error(path, message):
+    errors.append(f"{path.relative_to(ROOT)}: {message}")
+
+
+def warn(path, message):
+    warnings.append(f"{path.relative_to(ROOT)}: {message}")
+
+
+def front_matter(path):
+    """Return the parsed front matter, or None if the file has none."""
+    text = path.read_text(encoding="utf-8")
+    match = FRONT_MATTER.match(text)
+    if not match:
+        if text.lstrip().startswith("+++"):
+            return None  # TOML front matter, not used by content/ today
+        error(path, "no YAML front matter")
+        return None
+    try:
+        return yaml.safe_load(match.group(1)) or {}
+    except yaml.YAMLError as exc:
+        error(path, f"front matter is not valid YAML: {exc}")
+        return None
+
+
+def collect_ids(section):
+    """Map id -> path for every page in a section, reporting id problems."""
+    found = {}
+    for path in sorted((CONTENT / section).glob("*.md")):
+        if path.name == "_index.md":
+            continue
+        data = front_matter(path)
+        if data is None:
+            continue
+        page_id = data.get("id")
+        if not page_id:
+            error(path, "missing 'id'")
+            continue
+        if page_id != path.stem:
+            error(path, f"id '{page_id}' does not match filename '{path.stem}'")
+        if page_id in found:
+            error(path, f"duplicate id '{page_id}', already used by {found[page_id].name}")
+        found[page_id] = path
+    return found
+
+
+def check_photos(people):
+    for page_id, path in people.items():
+        data = front_matter(path) or {}
+        photo = data.get("photo")
+        if photo and not (PHOTOS / photo).exists():
+            error(path, f"photo '{photo}' not found in static/images/people/")
+
+
+def referenced_ids(data, key):
+    """Pull every id out of an event's people_sections or sponsor_levels."""
+    out = []
+    for section in data.get(key) or []:
+        for level in section.get("levels", [section]):
+            out.extend(level.get("people") or level.get("sponsors") or [])
+    return out
+
+
+def check_events(people, sponsors):
+    for path in sorted((CONTENT / "events").rglob("*.md")):
+        data = front_matter(path)
+        if data is None:
+            continue
+        for ref in referenced_ids(data, "people_sections"):
+            if ref not in people:
+                error(path, f"references unknown person id '{ref}'")
+        for ref in referenced_ids(data, "sponsor_levels"):
+            if ref not in sponsors:
+                error(path, f"references unknown sponsor id '{ref}'")
+
+
+def check_orphans(people):
+    """A person page nothing links to renders, but nobody can reach it."""
+    body = "\n".join(
+        p.read_text(encoding="utf-8")
+        for p in CONTENT.rglob("*.md")
+        if p.parent.name != "people"
+    )
+    for page_id, path in people.items():
+        if not re.search(rf"\b{re.escape(page_id)}\b", body):
+            warn(path, f"person '{page_id}' is not referenced by any event or page")
+
+
+def main():
+    people = collect_ids("people")
+    sponsors = collect_ids("sponsors")
+    check_photos(people)
+    check_events(people, sponsors)
+    check_orphans(people)
+
+    for line in warnings:
+        print(f"WARNING  {line}")
+    for line in errors:
+        print(f"ERROR    {line}")
+
+    print(f"\n{len(people)} people, {len(sponsors)} sponsors checked.")
+    print(f"{len(errors)} errors, {len(warnings)} warnings.")
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
