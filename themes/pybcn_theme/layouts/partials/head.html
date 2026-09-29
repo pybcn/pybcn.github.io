@@ -18,7 +18,8 @@
   {{ $style := resources.Get "scss/style.scss" | toCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  {{ $fontawesome := resources.Get "vendor/font-awesome/css/all.css" | minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $fontawesome.Permalink }}" integrity="{{ $fontawesome.Data.Integrity }}" crossorigin="anonymous">
 
 
   {{ "<!-- RSS 2.0 feed -->" | safeHTML }}
