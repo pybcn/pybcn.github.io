@@ -76,6 +76,20 @@ a, a:hover {
     color: $blue-pybcn;
 }
 
+// Modal triggers are buttons, because they open a dialog and do not
+// navigate. This reset keeps them looking like the text or the image
+// that they wrap.
+.modal_trigger {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    cursor: pointer;
+}
+
 #main_content {
     margin-top: 105px;
     padding-top: 0;

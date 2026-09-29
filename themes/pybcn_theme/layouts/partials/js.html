@@ -12,6 +12,10 @@
 {{ $scrolling := resources.Get "js/scrolling-nav.js" | resources.Fingerprint }}
 <script defer src="{{ $scrolling.Permalink }}" integrity="{{ $scrolling.Data.Integrity }}" crossorigin="anonymous"></script>
 
+<!-- Focus restore when a modal closes -->
+{{ $modalFocus := resources.Get "js/modal-focus.js" | resources.Fingerprint }}
+<script defer src="{{ $modalFocus.Permalink }}" integrity="{{ $modalFocus.Data.Integrity }}" crossorigin="anonymous"></script>
+
 <!-- navbar -->
 {{ $navbar := resources.Get "js/navbar.js" | resources.Fingerprint }}
 <script defer src="{{ $navbar.Permalink }}" integrity="{{ $navbar.Data.Integrity }}" crossorigin="anonymous"></script>

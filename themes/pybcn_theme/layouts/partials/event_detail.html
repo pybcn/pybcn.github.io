@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+<div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="modal_{{ $.index }}_title" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -6,7 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <h3 class="modal-title" id="exampleModalLabel">
+                <h3 class="modal-title" id="modal_{{ $.index }}_title">
 
                     {{ if eq $.event.type "talk" }}
                         <i class="fas fa-comment"></i>
