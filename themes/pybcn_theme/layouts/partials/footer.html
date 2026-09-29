@@ -4,7 +4,9 @@
        <div class="row">
             <div class="col-md-8">
                 {{ $logo := resources.Get "images/favicon.png" }}
-                <h6><img class="logo_icon" src="{{ $logo.Permalink | absURL }}"> <strong>{{ $.Site.Params.short_name }}</strong> · {{ $.Site.Params.extended_name }}</h6>
+                {{ $logo = partial "image_resize.html" (dict "img" $logo "width" 60) }}
+                {{/* The footer shows the icon at 30 px wide, so 60 px covers a 2x screen. */}}
+                <h6><img class="logo_icon" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" loading="lazy" decoding="async"> <strong>{{ $.Site.Params.short_name }}</strong> · {{ $.Site.Params.extended_name }}</h6>
             </div>
             <div class="col-md-4 social_links">
                 {{ range $.Site.Params.social_items }}

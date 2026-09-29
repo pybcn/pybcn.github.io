@@ -8,6 +8,9 @@
     border-bottom: 1px solid $blue-pybcn;
 
     #logo {
+        // height: auto keeps the aspect ratio when max-width clamps the
+        // width, because the img tag now carries width and height.
+        height: auto;
         max-width: 230px;
         max-height: 100px;
         margin: 5px 5px 5px 0;

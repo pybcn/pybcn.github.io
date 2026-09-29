@@ -83,9 +83,12 @@ def local_path(root, page_rel, url):
     if not url or url.startswith(("data:", "#")):
         return None
     parts = urlsplit(url)
-    if parts.scheme or parts.netloc:
-        return None                      # remote, not counted in local bytes
     path = unquote(parts.path)
+    if parts.scheme or parts.netloc:
+        # An absolute URL that points at the site itself still costs bytes, so
+        # count it when the path resolves inside the built directory.
+        candidate = os.path.normpath(os.path.join(root, path.lstrip("/")))
+        return candidate if os.path.isfile(candidate) else None
     if path.startswith("/"):
         candidate = os.path.join(root, path.lstrip("/"))
     else:

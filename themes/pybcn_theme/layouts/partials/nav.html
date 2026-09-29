@@ -3,7 +3,9 @@
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">
             {{ $logo := resources.Get "images/logo.png" }}
-            <img id="logo" src="{{ $logo.Permalink | absURL }}">
+            {{ $logo = partial "image_resize.html" (dict "img" $logo "width" 460) }}
+            {{/* The navbar caps the logo at 230 px wide, so 460 px covers a 2x screen. */}}
+            <img id="logo" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" decoding="async">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
