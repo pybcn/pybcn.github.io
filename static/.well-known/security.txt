@@ -1,0 +1,8 @@
+# Security contact for pybcn.org and for the repository that builds it.
+# The site is a static Hugo build published from GitHub Pages.
+
+Contact: https://github.com/pybcn/pybcn.github.io/security/advisories/new
+Contact: mailto:pybcn@googlegroups.com
+Expires: 2027-09-30T00:00:00.000Z
+Preferred-Languages: ca, es, en
+Canonical: https://pybcn.org/.well-known/security.txt

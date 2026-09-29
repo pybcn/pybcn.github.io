@@ -6,6 +6,16 @@ enableGitInfo = true
 enableRobotsTXT = true
 googleAnalytics = "UA-152706496-1"
 
+# llms.txt is a Hugo template, layouts/index.llms.txt, so it follows the site.
+[outputFormats.llms]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+    home = ["HTML", "RSS", "llms"]
+
 [markup.goldmark.renderer]
 unsafe=true
 

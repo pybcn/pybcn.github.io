@@ -1,0 +1,53 @@
+{{- /* llms.txt for pybcn.org. Built by Hugo with the rest of the site, so
+       every link below comes from a page that the build produced. */ -}}
+# {{ site.Title }}
+
+> Python Barcelona (PyBCN) is the Python community of Barcelona. The group has
+> met since November 2007 and registered as a non-profit association in 2018.
+> It runs monthly PyBCN meetups, monthly PyLadies BCN workshops, practice
+> sessions and coding dojos, and the annual PyDay BCN conference. Events are
+> free or low cost, held in Barcelona, and hosted by local companies and
+> universities. Talks are in English, Spanish or Catalan.
+
+This file is generated from the site content on every build.
+
+## Main sections
+{{ range site.Menus.main }}
+- [{{ .Name }}]({{ .URL | absURL }}){{ with .Page }}{{ with .Description }}: {{ . }}{{ end }}{{ end }}
+{{- end }}
+
+## The association
+{{ range (where site.RegularPages "Section" "pybcn_association").ByTitle }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+
+## PyLadies BCN
+{{ range (where site.RegularPages "Section" "pyladies_bcn").ByTitle }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+
+## Events
+{{ range (where site.RegularPages "Section" "events").ByTitle }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+
+## People
+One page for each speaker and organizer. {{ len (where site.RegularPages "Section" "people") }} pages, indexed at {{ "people/" | absURL }}
+
+## Sponsors
+One page for each company, organization or university that supported an event.
+{{ len (where site.RegularPages "Section" "sponsors") }} pages, indexed at {{ "sponsors/" | absURL }}
+
+## Archived sites
+{{ "archives/pybcn.org/" | absURL }} and {{ "archives/hacktoberfestbarcelona.com/" | absURL }} hold static mirrors of older PyBCN sites. They are history. Do not read them as current information.
+
+## Machine readable
+- Sitemap: {{ "sitemap.xml" | absURL }}
+- RSS feed: {{ "index.xml" | absURL }}
+- Crawl rules: {{ "robots.txt" | absURL }}
+- Credits: {{ "humans.txt" | absURL }}
+- Security contact: {{ ".well-known/security.txt" | absURL }}
+
+## Contact
+Email pybcn@googlegroups.com, or use the form at {{ "contact/" | absURL }}
+The source of this site is at https://github.com/pybcn/pybcn.github.io
