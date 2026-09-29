@@ -1,0 +1,35 @@
+{{- /*
+    agenda_legend: render the agenda legend from structured front matter.
+
+    Context: the "legend" list of an event page. Each item is one of:
+      - type: <token>        an entry type from event_types.html
+        label: <text>        optional. Overrides the default label
+      - level: <token>       beginner, intermediate or advanced
+      - separator: true      a visual group break, hidden from screen readers
+
+    The legend used to be one raw HTML string rendered with safeHTML, which
+    let any merged pull request inject script into every agenda page. Front
+    matter now carries tokens only, and this partial owns the markup.
+*/ -}}
+{{- $types := partialCached "event_types.html" "event_types" -}}
+{{- with . }}
+	<ul class="legend">
+		{{- range . }}
+			{{- if .separator }}
+				<li class="legend_separator" aria-hidden="true"></li>
+			{{- else if .level }}
+				<li>{{ partial "level_badge.html" .level }}</li>
+			{{- else if .type }}
+				{{- $token := lower (trim (printf "%v" .type) " ") -}}
+				{{- $entry := index $types $token -}}
+				{{- if $entry }}
+				<li>{{ partial "event_type_icon.html" $token }} {{ default $entry.label .label }}</li>
+				{{- else }}
+					{{- warnf "agenda_legend: unknown legend type %q." $token -}}
+				{{- end }}
+			{{- else }}
+				{{- warnf "agenda_legend: legend item needs one of type, level or separator. Got %v." . -}}
+			{{- end }}
+		{{- end }}
+	</ul>
+{{- end -}}
