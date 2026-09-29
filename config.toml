@@ -4,6 +4,10 @@ title = "PyBCN - The Barcelona Python Association"
 theme = "pybcn_theme"
 googleAnalytics = "UA-152706496-1"
 
+# A cold build resizes every person photo and sponsor logo, which takes more
+# than the 30s default that Hugo allows a single partial.
+timeout = "300s"
+
 [markup.goldmark.renderer]
 unsafe=true
 
