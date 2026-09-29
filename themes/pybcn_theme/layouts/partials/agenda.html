@@ -48,6 +48,11 @@
 
 
 			<h3>
+				{{/* The button opens before the icon, so the button box holds the
+				     whole line and the title wraps as it did before. */}}
+				{{ if $event.description }}
+					<button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}">
+				{{ end }}
 				{{ if eq $event.type "talk" }}
 					<i class="fas fa-comment"></i>
 				{{ else if eq $event.type "coffee" }}
@@ -66,9 +71,6 @@
 					<i class="fas fa-bolt"></i>
 				{{ end }}
 
-				{{ if $event.description }}
-					<button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}">
-				{{ end }}
 				{{ with $title_lang }}<span lang="{{ . }}">{{ $event.title }}</span>{{ else }}{{ $event.title }}{{ end }}
 				{{ if $event.description }}
 					</button>

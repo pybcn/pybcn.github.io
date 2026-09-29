@@ -122,6 +122,12 @@ button:focus:not(:focus-visible),
     line-height: inherit;
     text-align: inherit;
     cursor: pointer;
+
+    // A heading holds one trigger and nothing else, so the button takes the
+    // whole width and the text wraps as it did inside the link.
+    h3 & {
+        width: 100%;
+    }
 }
 
 #main_content {
