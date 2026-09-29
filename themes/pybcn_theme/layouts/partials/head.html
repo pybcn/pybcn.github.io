@@ -6,7 +6,9 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
-  <link rel="icon" href="{{ .Site.BaseURL }}/favicon.png">
+  <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
+  <link rel="icon" type="image/png" href="{{ "favicon.png" | relURL }}">
+  <link rel="apple-touch-icon" href="{{ "favicon.png" | relURL }}">
 
   <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
 
