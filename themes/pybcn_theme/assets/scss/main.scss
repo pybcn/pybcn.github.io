@@ -3,6 +3,7 @@ $blue-pybcn: #006c9b;
 $yellow-pybcn-OLD: #ffdc39;
 $yellow-pybcn: #fdbf2e;
 $dark-grey: #343a40;
+$focus-ring: #0b0c0c;
 
 $primary: $blue-pybcn;
 
@@ -75,6 +76,39 @@ ul.buttons {
 a, a:hover {
     color: $blue-pybcn;
 }
+
+// Focus ring. The Bootstrap 4.0.0 ring is a 25% alpha blue shadow, about
+// 1.39:1 against white, which fails WCAG 1.4.11. This ring is a dark line
+// with a white line inside it, so it keeps 3:1 contrast on a light and on a
+// dark background.
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex="0"]:focus,
+.btn:focus,
+.btn.focus,
+.form-control:focus {
+    outline: 3px solid $focus-ring;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #ffffff;
+}
+
+// Browsers that can tell a pointer click from keyboard navigation show the
+// ring for keyboard users only.
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[tabindex="0"]:focus:not(:focus-visible),
+.btn:focus:not(:focus-visible),
+.btn.focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+// The selectors above use tabindex="0" only, so the ring does not appear
+// around the main element or around a modal, which both carry
+// tabindex="-1" and take focus from a script.
 
 // Modal triggers are buttons, because they open a dialog and do not
 // navigate. This reset keeps them looking like the text or the image
