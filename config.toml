@@ -2,7 +2,6 @@ baseURL = "https://pybcn.org"
 languageCode = "en-us"
 title = "PyBCN - The Barcelona Python Association"
 theme = "pybcn_theme"
-googleAnalytics = "UA-152706496-1"
 
 [markup.goldmark.renderer]
 unsafe=true
