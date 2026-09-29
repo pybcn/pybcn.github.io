@@ -9,14 +9,18 @@
 
     <body class="scrollspy-area" data-spy="scroll" data-target="#index_sections" data-offset="180">
 
-        {{ partial "nav.html" . }}
+        <a class="skip_link" href="#main_content">Skip to main content</a>
 
-        <section id="main_content">
+        <header>
+            {{ partial "nav.html" . }}
+        </header>
+
+        <main id="main_content" tabindex="-1">
 	    {{ partial "hero_header.html" . }}
             {{ block "main" . }}
                 <!-- The part of the page that begins to differ between templates -->
             {{ end }}
-        </section>
+        </main>
 
         {{ partial "footer.html" . }}
 

@@ -91,8 +91,27 @@ a, a:hover {
 }
 
 #main_content {
+    display: block;
     margin-top: 105px;
     padding-top: 0;
+}
+
+// The skip link stays out of sight until it takes focus. Then it shows
+// above the fixed navigation bar.
+.skip_link {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    padding: 10px 15px;
+    border: 2px solid $blue-pybcn;
+    background-color: white;
+    color: $blue-pybcn;
+    transform: translateY(-200%);
+
+    &:focus {
+        transform: translateY(0);
+    }
 }
 
 .oov {
