@@ -11,6 +11,6 @@
   </div>
 </div>
     {{ else }}
-<h1>{{ .Title }}</h1>
+<h1>{{ or .Params.name .Title }}</h1>
     {{ end }}
 {{ end }}

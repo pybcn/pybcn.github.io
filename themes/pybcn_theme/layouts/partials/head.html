@@ -8,7 +8,8 @@
 
   <link rel="icon" href="{{ .Site.BaseURL }}/favicon.png">
 
-  <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+  {{/* Person and sponsor pages hold their name in the name parameter, not in title. */}}
+  <title>{{ block "title" . }}{{ $page_title := or .Params.name .Title }}{{ if and $page_title (ne $page_title .Site.Title) }}{{ $page_title }} | {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}</title>
 
   {{ $style := resources.Get "css/bootstrap.min.css" }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
