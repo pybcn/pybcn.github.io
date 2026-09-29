@@ -34,7 +34,7 @@ people_sections:
               - alvaro_duran
               - ankit-mahato
               - carles_barrobes
-              - christian-adell-querol
+              - christian-adell
               - daniel_mesejo
               - edgar-riba
               - eduard_cespedes

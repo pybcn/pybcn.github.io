@@ -46,7 +46,7 @@ people_sections:
               - alexandre-savio
               - anton-caceres
               - antonio-molina
-              - christian-adell-querol
+              - christian-adell
               - david-de-la-iglesia-castro
               - diego-gonzalez
               - elisabeth-ortega-carrasco
