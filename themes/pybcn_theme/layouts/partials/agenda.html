@@ -33,6 +33,11 @@
 	{{ end }}
 
 	{{ range $index, $event := .events }}
+		{{/* Mark a title that is not in the language of the page, so a screen
+		     reader reads it with the right voice. The language field gives the
+		     language of the talk. Set title_lang on the event to correct a
+		     title that is not in that language. */}}
+		{{ $title_lang := or $event.title_lang (index (dict "Spanish" "es" "Catalan" "ca") (printf "%v" $event.language)) }}
 		<div class="event {{ $event.class }} {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
 
 			{{ if $event.description }}
@@ -64,7 +69,7 @@
 				{{ if $event.description }}
 					<button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}">
 				{{ end }}
-				{{ $event.title }}
+				{{ with $title_lang }}<span lang="{{ . }}">{{ $event.title }}</span>{{ else }}{{ $event.title }}{{ end }}
 				{{ if $event.description }}
 					</button>
 				{{ end }}

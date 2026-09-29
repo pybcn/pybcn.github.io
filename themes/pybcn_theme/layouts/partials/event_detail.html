@@ -1,3 +1,8 @@
+{{/* Mark a title that is not in the language of the page, so a screen
+     reader reads it with the right voice. The language field gives the
+     language of the talk. Set title_lang on the event to correct a
+     title that is not in that language. */}}
+{{ $title_lang := or $.event.title_lang (index (dict "Spanish" "es" "Catalan" "ca") (printf "%v" $.event.language)) }}
 <div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="modal_{{ $.index }}_title" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -23,7 +28,7 @@
                     {{ else if eq $.event.type "lightning" }}
                         <i class="fas fa-bolt"></i>
                     {{ end }}
-                    {{ $.event.title }}
+                    {{ with $title_lang }}<span lang="{{ . }}">{{ $.event.title }}</span>{{ else }}{{ $.event.title }}{{ end }}
                 </h3>
 
                 {{ with $.event.speaker }}
