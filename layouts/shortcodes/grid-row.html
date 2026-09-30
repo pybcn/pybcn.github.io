@@ -1,0 +1,16 @@
+{{- /*
+    grid-row: a Bootstrap row.
+
+    Usage:
+      {{< grid-row >}}
+      {{< grid-col md="6" >}}...{{< /grid-col >}}
+      {{< grid-col md="6" >}}...{{< /grid-col >}}
+      {{< /grid-row >}}
+
+    The body is not markdown. Put only grid-col shortcodes in it.
+
+    The single.html layout already wraps page content in
+    container > row > col, so a row here nests inside that column, which is
+    the correct Bootstrap way to subdivide a column.
+*/ -}}
+<div class="row">{{ .Inner }}</div>

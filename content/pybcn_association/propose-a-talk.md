@@ -8,4 +8,6 @@ weight: 4
 heroBackground: /images/photos/propose-a-talk.jpg
 ---
 
-<iframe src="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform" class="w-100"  style="height:550px" scrolling="yes" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+{{< google-embed kind="form" height="550"
+    title="Propose a talk for a PyBCN meetup"
+    src="https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A/viewform" >}}

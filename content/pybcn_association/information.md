@@ -30,17 +30,17 @@ We have a Management Board and a Standing Committee to make decisions, and work 
    * Secretary: Daniel Mesejo Leon
    * Treasurer: Yago Tafalla
    * Board member of Comunication: Mauricio Volcanes
-   * Board member of Events: Sergi Ramírez Mitjans<br><br>
+   * Board member of Events: Sergi Ramírez Mitjans
 
 
 * **Permanent Committee**: It is mostly a consultive board and help coordinate the work groups.
-* <a href="https://docs.google.com/spreadsheets/d/1ptmymYA5R4vJ4H38Fm7mo_yMooZI39sdLD9DRXxyfaE" target="_blank">**Work groups**</a> to drive all the association activity:
+* [**Work groups**](https://docs.google.com/spreadsheets/d/1ptmymYA5R4vJ4H38Fm7mo_yMooZI39sdLD9DRXxyfaE) to drive all the association activity:
    * **Meetup**: This work group organizes, prepares, coordinates and runs the PyBCN meetups every month.
    * **PyLadies**: They have been running the monthly PyLadies BCN workshops and activities.
    * **Practice Sessions**: This work group have been running the monthly PyBCN workshops and dojos.
    * **Communication**: They handle our communication channels, publishing of content, and collaboration with sponsors.
    * **Web**: This work group cares about our web page and its publishing process.
-   * **Video**: This work group is responsible for the recording of the talks in our meetups and activities and the publishing in our <a href="https://www.youtube.com/channel/UCEhI2CfdT5--TYq47K4en4A" target="_blank">Youtube channel</a>.
+   * **Video**: This work group is responsible for the recording of the talks in our meetups and activities and the publishing in our [Youtube channel](https://www.youtube.com/channel/UCEhI2CfdT5--TYq47K4en4A).
    * **Other work groups**: Some work groups are formed to run a specific event, like the PyDays.
 
 All the work groups must follow some rules:
@@ -52,18 +52,18 @@ All the work groups must follow some rules:
   * There's no other requirement to be a member of any work group.
 
 ## Association documentation
-* <a href="https://docs.google.com/document/d/1F0VzZPrBsTtBl-U7PkA6IerFHnLqjTDspUaNQfu1vCU/edit?usp=sharing" target="_blank">PyBCN Association Statutes</a>
-* <a href="https://docs.google.com/document/d/1xd36jkdcT3s3zGjNrSMnGuuk5xgodAos2fLDyJMLE30/edit?usp=sharing" target="_blank">Internal Regulations</a>
+* [PyBCN Association Statutes](https://docs.google.com/document/d/1F0VzZPrBsTtBl-U7PkA6IerFHnLqjTDspUaNQfu1vCU/edit?usp=sharing)
+* [Internal Regulations](https://docs.google.com/document/d/1xd36jkdcT3s3zGjNrSMnGuuk5xgodAos2fLDyJMLE30/edit?usp=sharing)
 * [Code of Conduct](/pybcn_association/coc/)
-* <a href="https://docs.google.com/document/d/1_fTbgT-Bw25aaGLb9O9vCMi1Gkxhb3FiY-S7yeZLq6k/edit?usp=sharing" target="_blank">Founding Act</a>
-* <a href="https://docs.google.com/document/d/1mJuuoymGJe4ayO5y08yN0bHBSqrPPyRZW2QLQSXXuYg/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2019</a>
-* <a href="https://docs.google.com/document/d/1yLR9p_vDKZPs0NlVMaKtrBMooqHdDyY0Lk5cPmcGs5I/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2020</a>
-* <a href="https://docs.google.com/document/d/1Qi0efxdC7T2bk2oVT2z6tTrrJ3UONwCK3Vnf3cL4KFA/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2021</a>
-* <a href="https://docs.google.com/document/d/13xiLuUGIzT8kyZWGTkA6T-dbUO7Y_Z6hlUjakkwlSGM/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2022</a>
-* <a href="https://docs.google.com/document/d/1CnJzGjz7COsc-45w5tEVu5gpDBv1mUozFh4eGXw8-GU/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2023</a>
-* <a href="https://docs.google.com/document/d/1IDYEQvStyM8YxQHIcmZbfE0SYePDGDavHssz3CG3d1E/edit?usp=share_link" target="_blank">Assamblea General Ordinària 2024</a>
-* <a href="https://docs.google.com/document/d/12BHpSCe7yOdgdm7JiuzKxT_RNKyxHN18R9p0_1rCWl4/edit?usp=share_link" target="_blank">Assamblea Extraordinària 2025</a>
-* <a href="https://docs.google.com/document/d/1Yx_4OMf3TkUDrI4MT3FD4NWm0y-3mSh32krX5F1RqMY/edit?usp=sharing" target="_blank">Assamblea General Ordinària 2026</a>
+* [Founding Act](https://docs.google.com/document/d/1_fTbgT-Bw25aaGLb9O9vCMi1Gkxhb3FiY-S7yeZLq6k/edit?usp=sharing)
+* [Assamblea General Ordinària 2019](https://docs.google.com/document/d/1mJuuoymGJe4ayO5y08yN0bHBSqrPPyRZW2QLQSXXuYg/edit?usp=sharing)
+* [Assamblea General Ordinària 2020](https://docs.google.com/document/d/1yLR9p_vDKZPs0NlVMaKtrBMooqHdDyY0Lk5cPmcGs5I/edit?usp=sharing)
+* [Assamblea General Ordinària 2021](https://docs.google.com/document/d/1Qi0efxdC7T2bk2oVT2z6tTrrJ3UONwCK3Vnf3cL4KFA/edit?usp=sharing)
+* [Assamblea General Ordinària 2022](https://docs.google.com/document/d/13xiLuUGIzT8kyZWGTkA6T-dbUO7Y_Z6hlUjakkwlSGM/edit?usp=sharing)
+* [Assamblea General Ordinària 2023](https://docs.google.com/document/d/1CnJzGjz7COsc-45w5tEVu5gpDBv1mUozFh4eGXw8-GU/edit?usp=sharing)
+* [Assamblea General Ordinària 2024](https://docs.google.com/document/d/1IDYEQvStyM8YxQHIcmZbfE0SYePDGDavHssz3CG3d1E/edit?usp=share_link)
+* [Assamblea Extraordinària 2025](https://docs.google.com/document/d/12BHpSCe7yOdgdm7JiuzKxT_RNKyxHN18R9p0_1rCWl4/edit?usp=share_link)
+* [Assamblea General Ordinària 2026](https://docs.google.com/document/d/1Yx_4OMf3TkUDrI4MT3FD4NWm0y-3mSh32krX5F1RqMY/edit?usp=sharing)
 
 ## Past Management Boards 
 * Management Board 2018 - 2025

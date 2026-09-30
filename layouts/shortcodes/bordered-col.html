@@ -1,0 +1,29 @@
+{{- /*
+    bordered-col: one bordered card in a column, with an icon heading.
+
+    Usage:
+      {{< bordered-col icon="fa-briefcase" title="For companies!" >}}
+      **[Become a PyBCN sponsor](/pybcn_association/sponsor-us)**\
+      Help us to organize our next event
+      {{< /bordered-col >}}
+
+    The body is markdown. Keep it to markdown only: text, links, emphasis and
+    a backslash at the end of a line for a line break. A shortcode that emits
+    HTML cannot be nested here, because markdownify runs with goldmark unsafe
+    off and drops the tags.
+
+    Set chevrons="true" to put a chevron before each link, which the contact
+    page does. The chevron comes from CSS, not from the content.
+*/ -}}
+{{- $md := or (.Get "md") "4" -}}
+{{- if not (findRE `^(1[0-2]|[1-9])$` $md) -}}
+	{{- errorf "bordered-col: md must be 1 to 12, got %q (%s)" $md .Position -}}
+{{- end -}}
+<div class="col-md-{{ $md }}">
+	<div class="bordered_col{{ if eq (.Get "chevrons") "true" }} with_chevrons{{ end }}">
+		{{- with .Get "title" }}
+		<h4>{{ with $.Get "icon" }}<i class="fas {{ . }}" aria-hidden="true"></i> {{ end }}{{ . }}</h4>
+		{{- end }}
+		{{ .Inner | markdownify }}
+	</div>
+</div>

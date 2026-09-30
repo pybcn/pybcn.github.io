@@ -1,0 +1,11 @@
+{{- /*
+    prose: a block of markdown inside a shortcode that does not markdownify.
+
+    Usage:
+      {{< grid-col md="6" >}}
+      {{< prose >}}
+      Ordinary **markdown** with [links](/somewhere).
+      {{< /prose >}}
+      {{< /grid-col >}}
+*/ -}}
+{{ .Inner | markdownify }}

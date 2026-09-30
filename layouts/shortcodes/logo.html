@@ -1,0 +1,27 @@
+{{- /*
+    logo: one sponsor logo inside logo-row.
+
+    Usage: {{< logo src="/path/logo.png" alt="Company" height="150" >}}
+           {{< logo src="/path/logo.png" alt="Company" width="350" >}}
+
+    alt is required. The archived pages had <img> elements with no alt text at
+    all, so a screen reader read out the file name or nothing.
+
+    width and height are plain numbers of pixels, checked before they reach
+    the style attribute.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" -}}
+{{- if not $src -}}{{ errorf "logo: src is required (%s)" .Position }}{{- end -}}
+{{- if not $alt -}}{{ errorf "logo: alt is required, name the sponsor (%s)" .Position }}{{- end -}}
+{{- $size := slice -}}
+{{- with .Get "width" -}}
+	{{- if not (findRE `^[0-9]{1,4}$` .) -}}{{ errorf "logo: width must be a number of pixels, got %q (%s)" . $.Position }}{{- end -}}
+	{{- $size = $size | append (printf "width:%spx" .) -}}
+{{- end -}}
+{{- with .Get "height" -}}
+	{{- if not (findRE `^[0-9]{1,4}$` .) -}}{{ errorf "logo: height must be a number of pixels, got %q (%s)" . $.Position }}{{- end -}}
+	{{- $size = $size | append (printf "height:%spx" .) -}}
+{{- end -}}
+<img class="logo_row_item" src="{{ $src }}" alt="{{ $alt }}" loading="lazy"
+	{{- with $size }} style="{{ delimit . ";" | safeCSS }}"{{ end }}>

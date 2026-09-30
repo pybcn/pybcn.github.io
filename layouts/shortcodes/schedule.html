@@ -1,0 +1,52 @@
+{{- /*
+    schedule: a simple event timetable.
+
+    Usage:
+      {{< schedule columns="3" >}}
+      ! Time | Track 1 | Track 2
+      09:30 | **Registration**
+      10:30 | Workshop A | Workshop B
+      | **Track name** | **Other track name**
+      {{< /schedule >}}
+
+    One line is one row. Cells are split on "|" and rendered as inline
+    markdown. A line that starts with "!" makes its cells header cells, which
+    a screen reader needs to say which track a session belongs to. A row with
+    fewer cells than there are columns makes its last cell span the rest,
+    which is how a whole event item such as a coffee break covers all tracks.
+
+    Replaces a raw HTML table in content. The raw table had no header cells at
+    all, so no reader could tell which column was which track.
+*/ -}}
+{{- $cols := int (or (.Get "columns") "3") -}}
+{{- $caption := .Get "caption" -}}
+<table class="schedule_table">
+	{{- with $caption }}
+	<caption>{{ . }}</caption>
+	{{- end }}
+	<tbody>
+	{{- range $line := split .Inner "\n" }}
+		{{- $line = trim $line " \t\r" }}
+		{{- if $line }}
+			{{- $header := hasPrefix $line "!" }}
+			{{- if $header }}{{ $line = trim (strings.TrimPrefix "!" $line) " " }}{{ end }}
+			{{- $cells := split $line "|" }}
+			{{- $n := len $cells }}
+		<tr>
+			{{- range $index, $cell := $cells }}
+				{{- $span := 1 }}
+				{{- if and (eq $index (sub $n 1)) (lt $n $cols) }}
+					{{- $span = add (sub $cols $n) 1 }}
+				{{- end }}
+				{{- $text := $.Page.RenderString (trim $cell " ") }}
+				{{- if $header }}
+			<th scope="col"{{ if gt $span 1 }} colspan="{{ $span }}"{{ end }}>{{ $text }}</th>
+				{{- else }}
+			<td{{ if gt $span 1 }} colspan="{{ $span }}"{{ end }}>{{ $text }}</td>
+				{{- end }}
+			{{- end }}
+		</tr>
+		{{- end }}
+	{{- end }}
+	</tbody>
+</table>

@@ -1,0 +1,12 @@
+{{- /*
+    logo-row: a centred row of sponsor logos.
+
+    Usage:
+      {{< logo-row >}}
+      {{< logo src="/archives/.../kiwicom.png" alt="Kiwi.com" height="150" >}}
+      {{< /logo-row >}}
+
+    Replaces the <center> element and the inline style attributes that the
+    archived event pages carried. <center> has been obsolete since HTML 4.
+*/ -}}
+<div class="logo_row">{{ .Inner }}</div>
