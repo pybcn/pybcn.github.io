@@ -40,6 +40,5 @@ organizers/representatives of any physical events put on under the auspices of
 PyBCN.
 
 This Code of Conduct has been adapted from the
-<a href="https://www.pyladies.com/CodeOfConduct/" target="_blank">PyLadies</a> one and is licensed under a
-<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported
-license</a>.
+[PyLadies](https://www.pyladies.com/CodeOfConduct/) one and is licensed under a
+[Creative Commons Attribution-Share Alike 3.0 Unported license](https://creativecommons.org/licenses/by-sa/3.0/).

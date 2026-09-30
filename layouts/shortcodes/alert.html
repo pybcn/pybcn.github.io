@@ -1,0 +1,16 @@
+{{- /*
+    alert: a Bootstrap alert box.
+
+    Usage: {{< alert type="success" >}}Your message{{< /alert >}}
+
+    The type is checked against the Bootstrap set, so content cannot put an
+    arbitrary class here. role="alert" tells a screen reader to announce it.
+*/ -}}
+{{- $type := or (.Get "type") "info" -}}
+{{- $allowed := slice "primary" "secondary" "success" "danger" "warning" "info" "light" "dark" -}}
+{{- if not (in $allowed $type) -}}
+	{{- errorf "alert: type %q is not one of %s (%s)" $type (delimit $allowed ", ") .Position -}}
+{{- end -}}
+<div class="alert alert-{{ $type }}" role="alert">
+	{{ .Inner | markdownify }}
+</div>

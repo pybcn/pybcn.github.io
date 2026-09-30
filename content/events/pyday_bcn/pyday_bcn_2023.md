@@ -425,11 +425,11 @@ events:
 
 We are organizing the **the seventh edition** of PyDay in Barcelona!
 
-PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the <a href="#previous_editions_section">last six editions</a>, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
+PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the [last six editions](#previous_editions_section), PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
 
 #### When and where
 
-It is scheduled for **Saturday 11th November** in <a href="https://maps.app.goo.gl/RT9THKhxqz3eTvxf7" target="_blank">Universitat de Barcelona</a>, from 9:00am to 18:00pm CET, aprox.
+It is scheduled for **Saturday 11th November** in [Universitat de Barcelona](https://maps.app.goo.gl/RT9THKhxqz3eTvxf7), from 9:00am to 18:00pm CET, aprox.
 
 #### A full day of in-person hands-on workshops
 

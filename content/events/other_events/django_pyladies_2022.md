@@ -218,5 +218,5 @@ events:
         
 ---
 
-Do you want to learn how to code your own web application? In this workshop for non-experienced women and LGBTIQ+ people, organised by PyLadiesBCN, <b>we'll learn how to code our own blog with Django</b> using HTML, CSS and Python.
-Throughout the whole day we'll learn how web technology works, <b>with the help of mentors</b> that will guide us during the workshop. No previous knowledge required. Just bring your own laptop and be ready to learn and have fun! 
+Do you want to learn how to code your own web application? In this workshop for non-experienced women and LGBTIQ+ people, organised by PyLadiesBCN, **we'll learn how to code our own blog with Django** using HTML, CSS and Python.
+Throughout the whole day we'll learn how web technology works, **with the help of mentors** that will guide us during the workshop. No previous knowledge required. Just bring your own laptop and be ready to learn and have fun! 

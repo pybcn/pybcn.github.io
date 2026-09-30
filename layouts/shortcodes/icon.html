@@ -1,0 +1,19 @@
+{{- /*
+    icon: a Font Awesome icon.
+
+    Usage: {{< icon "fa-briefcase" >}}
+           {{< icon name="fa-star" style="fas" >}}
+
+    The name is checked against a pattern before it goes into the class
+    attribute, so content cannot put anything else there. The icon is
+    decorative, so it is hidden from screen readers.
+*/ -}}
+{{- $name := or (.Get "name") (.Get 0) -}}
+{{- $style := or (.Get "style") "fas" -}}
+{{- if not (in (slice "fas" "far" "fab" "fa") $style) -}}
+	{{- errorf "icon: style %q is not one of fas, far, fab, fa (%s)" $style .Position -}}
+{{- end -}}
+{{- if not (findRE `^fa-[a-z0-9-]+$` $name) -}}
+	{{- errorf "icon: name %q must look like fa-example (%s)" $name .Position -}}
+{{- end -}}
+<i class="{{ $style }} {{ $name }}" aria-hidden="true"></i>

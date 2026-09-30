@@ -1,0 +1,74 @@
+/**
+ * Styles for the content shortcodes in layouts/shortcodes.
+ *
+ * These replace inline style attributes and obsolete elements that used to
+ * sit in the markdown of content/. Content now names a shortcode and the
+ * presentation lives here.
+ */
+
+/* bordered-col with chevrons="true": the chevron before each card link.
+ * The contact page used to put a <i class="fas fa-chevron-right"> inside
+ * every link in the markdown. */
+.bordered_col.with_chevrons p a::before {
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 0.4em;
+}
+
+/* logo-row and logo: replaces <center> and per image inline widths. */
+.logo_row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+
+    .logo_row_item {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* google-embed: replaces the inline "border-width:0" and the fixed width. */
+.google_embed {
+    width: 100%;
+    border: 0;
+}
+
+/* schedule: the timetable of an archived event page. The raw table it
+ * replaces had no styling and no header cells. */
+.schedule_table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+
+    caption {
+        caption-side: top;
+        padding-bottom: 0.5rem;
+        font-weight: bold;
+        color: inherit;
+    }
+
+    th,
+    td {
+        padding: 0.4rem 0.6rem;
+        border-bottom: 1px solid #d6d6d6;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        border-bottom: 2px solid #767676;
+    }
+}
+
+/* Images written as markdown in a page body. The archived event pages used
+ * to set width:100% with an inline style attribute. max-width keeps an image
+ * inside its column without stretching a small one. */
+.main_column img,
+.bordered_col img {
+    max-width: 100%;
+    height: auto;
+}

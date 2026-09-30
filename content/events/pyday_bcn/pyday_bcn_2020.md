@@ -367,4 +367,4 @@ PyDay BCN 2020 will have different **thematic tracks** --e.g. data science, web 
  
  
 ### Sponsor us!
-Would you like to sponsor PyDay BCN 2020? Have a look at the <a href="https://bit.ly/pydaybcn-2020-sponsoring" target="_blank">sponsorship brochure</a>!<br/><br/>
+Would you like to sponsor PyDay BCN 2020? Have a look at the [sponsorship brochure](https://bit.ly/pydaybcn-2020-sponsoring)!
