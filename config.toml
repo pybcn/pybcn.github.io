@@ -4,7 +4,6 @@ title = "PyBCN - The Barcelona Python Association"
 theme = "pybcn_theme"
 enableGitInfo = true
 enableRobotsTXT = true
-googleAnalytics = "UA-152706496-1"
 
 # llms.txt is a Hugo template, layouts/index.llms.txt, so it follows the site.
 [outputFormats.llms]
