@@ -19,7 +19,18 @@ import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
-PHOTOS = ROOT / "static" / "images" / "people"
+# Person photos moved from static/ to the theme assets so Hugo can process
+# them. Accept either location, so the check works before and after that move.
+LOGO_DIRS = [
+    ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "sponsors",
+    ROOT / "assets" / "images" / "sponsors",
+    ROOT / "static" / "images" / "sponsors",
+]
+PHOTO_DIRS = [
+    ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "people",
+    ROOT / "assets" / "images" / "people",
+    ROOT / "static" / "images" / "people",
+]
 
 FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
 
@@ -76,8 +87,26 @@ def check_photos(people):
     for page_id, path in people.items():
         data = front_matter(path) or {}
         photo = data.get("photo")
-        if photo and not (PHOTOS / photo).exists():
-            error(path, f"photo '{photo}' not found in static/images/people/")
+        if photo and not any((d / photo).exists() for d in PHOTO_DIRS):
+            where = ", ".join(str(d.relative_to(ROOT)) for d in PHOTO_DIRS)
+            error(path, f"photo '{photo}' not found in any of: {where}")
+
+
+def check_logos(sponsors):
+    """A sponsor whose declared logo file is missing renders a broken image, and
+    the Hugo build does not notice. A sponsor with no logo field at all is only a
+    warning, because the template falls back to the name as text."""
+    for page_id, path in sponsors.items():
+        data = front_matter(path) or {}
+        if data.get("logo"):
+            continue  # an external URL, nothing local to check
+        logo = data.get("logo_image")
+        if not logo:
+            warn(path, f"sponsor '{page_id}' declares no logo, so it renders as text")
+            continue
+        if not any((d / logo).exists() for d in LOGO_DIRS):
+            where = ", ".join(str(d.relative_to(ROOT)) for d in LOGO_DIRS)
+            error(path, f"logo '{logo}' not found in any of: {where}")
 
 
 def referenced_ids(data, key):
@@ -118,6 +147,7 @@ def main():
     people = collect_ids("people")
     sponsors = collect_ids("sponsors")
     check_photos(people)
+    check_logos(sponsors)
     check_events(people, sponsors)
     check_orphans(people)
 
