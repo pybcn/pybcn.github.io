@@ -11,7 +11,7 @@ heroBackground: https://source.unsplash.com/vzfgh3RAPzM/1600x400
 Is your company offering jobs or scholarships? Share your offers with us and we'll forward it to the subscribers of the PyLadiesBCN mailing list.
 Alternatively, you can also post them to the [general PyBCN community](/pybcn_association/job-offers).
 
-{{% job-offers/job-offers-info mailing_list_url="https://www.meetup.com/pyladies-bcn/messages/archive/" mail="pyladies-bcn+jobs at googlegroups.com" %}}
+{{% job-offers/job-offers-info mail="pyladies-bcn+jobs@googlegroups.com" %}}
 
 To get more visibility of what you do, consider [organizing a workshop](/pyladies_bcn/call-for-proposals/) or offering to host the meetup!
 
