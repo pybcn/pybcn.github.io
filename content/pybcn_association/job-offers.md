@@ -7,7 +7,7 @@ menu:
 weight: 5
 aliases:
 - /job-offers
-heroBackground: https://source.unsplash.com/vzfgh3RAPzM/1600x400
+heroBackground: /images/photos/pydata_badges.jpg
 ---
 
 

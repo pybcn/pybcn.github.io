@@ -7,7 +7,7 @@ menu:
 weight: 3
 
 layout: options
-heroBackground: https://source.unsplash.com/tiNCpHudGrw/1600x400
+heroBackground: /images/photos/reg-desk-pyday-2019.jpg
 
 ---
 
