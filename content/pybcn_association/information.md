@@ -23,7 +23,7 @@ Would you like to be a part of PyBCN? We are looking forward to hearing from you
 
 
 ## How does PyBCN operate?
-We have a Management Board and a Standing Committee to make decisions, and work groups  to drive all the association activity.
+We have a Management Board and a Permanent Committee to make decisions, and work groups  to drive all the association activity.
 
 * **Management Board**
    * President: Jordi Bosch Alibau
@@ -45,9 +45,9 @@ We have a Management Board and a Standing Committee to make decisions, and work 
 
 All the work groups must follow some rules:
    
-  * Every work group must have Chair, who will be accountable for the work group work to the Standing Committee.
-  * The Chair is chosen by the work group members, who must be member of the Standing Committee.
-  * At least two members of the Standing Committee must be part of every work group.
+  * Every work group must have Chair, who will be accountable for the work group work to the Permanent Committee.
+  * The Chair is chosen by the work group members, who must be member of the Permanent Committee.
+  * At least two members of the Permanent Committee must be part of every work group.
   * Nobody can participate in more than three work groups.
   * There's no other requirement to be a member of any work group.
 
