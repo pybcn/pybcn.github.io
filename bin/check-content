@@ -24,12 +24,13 @@ CONTENT = ROOT / "content"
 LOGO_DIRS = [
     ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "sponsors",
     ROOT / "assets" / "images" / "sponsors",
-    ROOT / "static" / "images" / "sponsors",
 ]
+# Only the asset directories count. The template resolves a photo with
+# resources.Get, which does not look in static/, so a file left there renders the
+# anonymous avatar instead and the check used to pass.
 PHOTO_DIRS = [
     ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "people",
     ROOT / "assets" / "images" / "people",
-    ROOT / "static" / "images" / "people",
 ]
 
 FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
@@ -48,7 +49,7 @@ def warn(path, message):
 
 def front_matter(path):
     """Return the parsed front matter, or None if the file has none."""
-    text = path.read_text(encoding="utf-8")
+    text = path.read_text(encoding="utf-8").lstrip("\ufeff")
     match = FRONT_MATTER.match(text)
     if not match:
         if text.lstrip().startswith("+++"):
@@ -118,6 +119,36 @@ def referenced_ids(data, key):
     return out
 
 
+PEOPLE_LISTING_PAGES = [
+    "pybcn_association/organizers.md",
+    "pyladies_bcn/organizers-and-speakers.md",
+]
+
+
+def check_people_listings(people):
+    """The organizers pages reference people by id through people_sections too.
+
+    They were not walked, so an unknown id there silently dropped the person
+    from the page with no error, which is the same defect the events check
+    exists to catch.
+    """
+    for rel in PEOPLE_LISTING_PAGES:
+        path = CONTENT / rel
+        if not path.exists():
+            continue
+        data = front_matter(path)
+        if data is None:
+            continue
+        # The organizers pages use people_levels; the event pages use
+        # people_sections. Walk both, or an unknown id on one of them is missed.
+        refs = (referenced_ids(data, "people_sections")
+                + referenced_ids(data, "people_levels")
+                + (data.get("people") or []))
+        for ref in refs:
+            if ref not in people:
+                error(path, f"references unknown person id '{ref}'")
+
+
 def check_events(people, sponsors):
     for path in sorted((CONTENT / "events").rglob("*.md")):
         data = front_matter(path)
@@ -149,6 +180,7 @@ def main():
     check_photos(people)
     check_logos(sponsors)
     check_events(people, sponsors)
+    check_people_listings(people)
     check_orphans(people)
 
     for line in warnings:
