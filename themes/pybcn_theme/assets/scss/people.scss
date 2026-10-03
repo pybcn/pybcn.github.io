@@ -20,7 +20,12 @@
                 img {
                     position:absolute;
                     width: 100%;
-                    filter: grayscale(100%);
+
+                    // Grey only where the pointer can hover. A touch screen
+                    // has no hover, so the photos stayed grey for good.
+                    @media (hover: hover) {
+                        filter: grayscale(100%);
+                    }
                 }
             }
 
@@ -49,7 +54,10 @@
                 padding-top: 10px;
             }
 
-            &:hover {
+            // Keyboard focus shows the colour photo too, because the card holds
+            // two focusable triggers.
+            &:hover,
+            &:focus-within {
                 .img-wrap {
                     img {
                         transform: scale(1.2);

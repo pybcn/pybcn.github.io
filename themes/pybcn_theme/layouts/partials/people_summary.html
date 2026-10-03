@@ -1,35 +1,35 @@
 <div class="person_item">
 
     <div class="img-wrap">
-        <a href="" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}">
+        <button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}" aria-label="More about {{ $.person.Params.name }}">
             {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                <img class="img-fluid img-people" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+                <img class="img-fluid img-people" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" alt="{{ $.person.Params.name }}" />
             {{ else }}
                 {{ $anon_member := resources.Get "images/anon_member.png" }}
-                <img class="img-fluid img-people" src="{{ $anon_member.Permalink | absURL }}" />
+                <img class="img-fluid img-people" src="{{ $anon_member.Permalink | absURL }}" alt="" />
             {{ end }}
-        </a>
+        </button>
     </div>
     <div class="person_data">
-        <h3>{{ $.person.Params.name }}</h3>
+        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}">{{ $.person.Params.name }}</button></h3>
         <p>{{ $.person.Params.pybcn_position }}</p>
     </div>
     <div class="social_links">
         {{ if $.person.Params.twitter }}
-            <a href="{{ $.person.Params.twitter }}" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
+            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on Twitter"><i class="fab fa-twitter-square fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.github }}
-            <a href="{{ $.person.Params.github}}" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.linkedin }}
-            <a href="{{ $.person.Params.linkedin}}" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.site }}
-            <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe fa-2x"></i></a>
+            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site"><i class="fas fa-globe fa-2x" aria-hidden="true"></i></a>
         {{ end }}
     </div>
 
-    <div class="modal fade" id="modal_{{ $.person.Params.id }}" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+    <div class="modal fade" id="modal_{{ $.person.Params.id }}" role="dialog" aria-labelledby="modal_{{ $.person.Params.id }}_title" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -37,24 +37,24 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                        <img class="rounded float-left" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+                        <img class="rounded float-left" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" alt="" />
                     {{ else }}
                         {{ $anon_member := resources.Get "images/anon_member.png" }}
-                        <img class="rounded float-left" src="{{ $anon_member.Permalink | absURL }}" />
+                        <img class="rounded float-left" src="{{ $anon_member.Permalink | absURL }}" alt="" />
                     {{ end }}
-                    <h3 class="modal-title" id="exampleModalLabel">
+                    <h3 class="modal-title" id="modal_{{ $.person.Params.id }}_title">
                         {{ $.person.Params.name }}
                         {{ if $.person.Params.twitter }}
-                            <a href="{{ $.person.Params.twitter }}" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on Twitter"><i class="fab fa-twitter-square" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.github }}
-                            <a href="{{ $.person.Params.github}}" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.linkedin }}
-                            <a href="{{ $.person.Params.linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.site }}
-                            <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe"></i></a>
+                            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a>
                         {{ end }}
                     </h3>
                     <span>{{ $.person.Params.short_bio | markdownify }}</span>

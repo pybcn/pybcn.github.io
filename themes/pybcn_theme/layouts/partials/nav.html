@@ -3,27 +3,28 @@
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">
             {{ $logo := resources.Get "images/logo.png" }}
-            <img id="logo" src="{{ $logo.Permalink | absURL }}">
+            <img id="logo" src="{{ $logo.Permalink | absURL }}" alt="{{ .Site.Params.short_name }} home">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
 
-            <div class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
 
                 {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
                   {{ if .HasChildren }}
+                    {{ $dropdown_id := printf "navbar_dropdown_%s" (.Name | urlize) }}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" id="{{ $dropdown_id }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
+                        <div class="dropdown-menu" aria-labelledby="{{ $dropdown_id }}">
                             {{ range .Children }}
                                 {{ if .HasChildren }}
                                     <a class="nav-link dropdown-toggle open-submenu {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
                                     <div class="submenu hidden">
                                         {{ range .Children }}
-                                            <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" {{ if hasPrefix .URL "http" }}target="_blank"{{end}} href="{{ .URL | absURL }}">{{ .Name }} {{if hasPrefix .URL "http"}}<i class="fas fa-external-link-alt"></i>{{end}}</a>
+                                            <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" {{ if hasPrefix .URL "http" }}target="_blank"{{end}} href="{{ .URL | absURL }}">{{ .Name }} {{if hasPrefix .URL "http"}}<i class="fas fa-external-link-alt" aria-hidden="true"></i>{{end}}</a>
                                         {{ end }}
                                     </div>
                                 {{ else }}

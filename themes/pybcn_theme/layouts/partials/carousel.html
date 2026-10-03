@@ -3,7 +3,8 @@
 		<div class="col col-md-{{.Params.carousel_columns}}">
 	{{ end }}
 
-		<div id="carousel" class="carousel slide {{.Params.carousel_class}}" data-ride="carousel">
+		{{/* No data-ride and interval false: the carousel does not move on its own. */}}
+		<div id="carousel" class="carousel slide {{.Params.carousel_class}}" data-interval="false">
 			{{ if .Params.carousel_indicators }}
 			<ol class="carousel-indicators">
 				<li data-target="#carousel" data-slide-to="0" class="active"></li>
@@ -21,7 +22,7 @@
 						<img class="d-block w-100" src="{{ relURL (printf "/images/%s" $item.photo) }}" alt="{{ $item.caption }}"/>
 						{{ if $item.caption }}
 							<div class="carousel-caption transparent_caption">
-								<h1>{{ $item.caption }}</h1>
+								<h2 class="h1">{{ $item.caption }}</h2>
 								{{ if $item.link }}
 									<p><a class="btn btn-primary" href="{{ $item.link }}">More info</a></p>
 								{{ end }}
