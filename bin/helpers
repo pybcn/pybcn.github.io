@@ -1,14 +1,30 @@
 set -euo pipefail
 
-function generate_config() {
-  BASE_URL=${1:-${URL}}
-  sed \
-      -e "s#@@URL@@#${BASE_URL}#" \
-      config.tmpl > config.toml
+HUGO_VERSION=$(cat "${ROOT}/.hugo-version")
+
+# Hugo must be the extended edition, at the pinned version. Prefer the copy in
+# bin/, which bin/install manages, over whatever is on the PATH.
+function is_right_hugo() {
+  local candidate=${1}
+  [ -x "${candidate}" ] || command -v "${candidate}" &>/dev/null || return 1
+  "${candidate}" version 2>/dev/null \
+    | grep -q "v${HUGO_VERSION}.*extended" || return 1
+}
+
+function find_hugo() {
+  local candidate
+  for candidate in "${ROOT}/bin/hugo" "$(command -v hugo || true)"; do
+    if [ -n "${candidate}" ] && is_right_hugo "${candidate}"; then
+      echo "${candidate}"
+      return 0
+    fi
+  done
+  return 1
 }
 
 function eval_right_hugo() {
-  ${HUGO_BIN} version 2>&1 | grep extended &>/dev/null && echo Using $HUGO_BIN
+  HUGO_BIN=$(find_hugo) || return 1
+  echo "Using ${HUGO_BIN}"
 }
 
-HUGO_BIN=$(which hugo || echo "${ROOT}/bin/hugo")
+HUGO_BIN="${ROOT}/bin/hugo"

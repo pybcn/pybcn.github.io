@@ -1,27 +1,67 @@
 #!/bin/bash
+#
+# Install the pinned Hugo extended binary into bin/hugo.
+#
+# The version comes from .hugo-version, which is the single source of truth.
+# bin/hugo is ignored by git.
 
 set -euo pipefail
-
-function install_hugo() {
-  echo -n "Installing Hugo 0.139.4... "
-  pip install hugo=="0.139.4"
-  echo "OK!"
-}
-
-function install_theme() {
-  echo -n "Installing theme... "
-  wget -qO- https://github.com/ifosch/pybcn-theme/tarball/master \
-    | tar xzf - -C ${ROOT}/themes
-  mv ${ROOT}/themes/ifosch-pybcn-theme-* ${ROOT}/themes/pybcn
-  echo "OK!"
-}
-
-function eval_theme_present() {
-  file -d ${ROOT}/themes/pybcn &> /dev/null && echo Theme already present
-}
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
 . ${ROOT}/bin/helpers
 
-eval_right_hugo || install_hugo
-# eval_theme_present || install_theme
+RELEASES="https://github.com/gohugoio/hugo/releases/download"
+
+function platform() {
+  local os arch
+  case "$(uname -s)" in
+    Linux)  os="linux" ;;
+    Darwin) os="darwin" ;;
+    *) echo "Unsupported OS: $(uname -s)." >&2
+       echo "Download Hugo ${HUGO_VERSION} extended yourself and put it at bin/hugo." >&2
+       exit 1 ;;
+  esac
+  case "$(uname -m)" in
+    x86_64|amd64)  arch="amd64" ;;
+    arm64|aarch64) arch="arm64" ;;
+    *) echo "Unsupported architecture: $(uname -m)." >&2
+       exit 1 ;;
+  esac
+  # Hugo ships a single universal darwin build.
+  if [ "${os}" = "darwin" ]; then
+    echo "darwin-universal"
+  else
+    echo "${os}-${arch}"
+  fi
+}
+
+function install_hugo() {
+  local target archive url checksums workdir
+  target=$(platform)
+  archive="hugo_extended_${HUGO_VERSION}_${target}.tar.gz"
+  url="${RELEASES}/v${HUGO_VERSION}/${archive}"
+  checksums="hugo_${HUGO_VERSION}_checksums.txt"
+
+  workdir=$(mktemp -d)
+  trap 'rm -rf "${workdir}"' RETURN
+
+  echo "Downloading Hugo ${HUGO_VERSION} extended (${target})..."
+  curl -sSfL -o "${workdir}/${archive}" "${url}"
+  curl -sSfL -o "${workdir}/${checksums}" "${RELEASES}/v${HUGO_VERSION}/${checksums}"
+
+  echo -n "Verifying checksum... "
+  (cd "${workdir}" && grep " ${archive}\$" "${checksums}" | sha256sum -c - >/dev/null)
+  echo "OK"
+
+  tar xzf "${workdir}/${archive}" -C "${workdir}" hugo
+  mv "${workdir}/hugo" "${ROOT}/bin/hugo"
+  chmod +x "${ROOT}/bin/hugo"
+}
+
+if eval_right_hugo; then
+  echo "Hugo ${HUGO_VERSION} extended is already installed."
+  exit 0
+fi
+
+install_hugo
+eval_right_hugo
