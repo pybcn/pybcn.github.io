@@ -42,6 +42,9 @@ jobs:
       - name: Check front matter and cross-references
         run: bin/check-content
 
+      - name: Check content for dangerous raw HTML
+        run: bin/check-html-safety
+
   links:
     name: Check the links
     runs-on: ubuntu-latest
