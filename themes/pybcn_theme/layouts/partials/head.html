@@ -25,7 +25,7 @@
 
   {{ "<!-- RSS 2.0 feed -->" | safeHTML }}
   {{ with .OutputFormats.Get "rss" -}}
-   {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+   <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}" />
   {{ end -}}
 
   {{ if .Site.Params.cookie_consent_info_url }}
