@@ -2,7 +2,18 @@ baseURL = "https://pybcn.org"
 languageCode = "en-us"
 title = "PyBCN - The Barcelona Python Association"
 theme = "pybcn_theme"
-googleAnalytics = "UA-152706496-1"
+enableGitInfo = true
+enableRobotsTXT = true
+
+# llms.txt is a Hugo template, layouts/index.llms.txt, so it follows the site.
+[outputFormats.llms]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+    home = ["HTML", "RSS", "llms"]
 
 [markup.goldmark.renderer]
 unsafe=true
