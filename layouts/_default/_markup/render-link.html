@@ -14,7 +14,10 @@
 */ -}}
 {{- $url := urls.Parse .Destination -}}
 {{- $external := and $url.Host (ne $url.Host (urls.Parse .Page.Site.BaseURL).Host) -}}
-{{- $attrs := "" -}}
-{{- with .Title }}{{ $attrs = printf " title=%q" . }}{{ end -}}
-{{- if $external }}{{ $attrs = printf "%s target=\"_blank\" rel=\"noopener noreferrer\"" $attrs }}{{ end -}}
-<a href="{{ .Destination }}"{{ $attrs | safeHTMLAttr }}>{{ .Text }}</a>
+{{- /*
+    The attributes are written by the template, not assembled with printf and
+    emitted through safeHTMLAttr. Go's %q is shell-style quoting, not HTML
+    escaping: a quote in a link title came back as \" , which closes the
+    attribute early and leaves the rest of the title as stray attribute names.
+*/ -}}
+<a href="{{ .Destination }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text }}</a>
