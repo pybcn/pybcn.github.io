@@ -1,0 +1,340 @@
+#!/usr/bin/env python3
+"""Find dangerous raw HTML in the content tree.
+
+The site merges pull requests from outside contributors, and goldmark
+renders raw HTML in markdown. This check blocks the markup that turns a
+content change into script execution, a redirect or a credential prompt.
+
+It reads both halves of each file:
+
+  - every string in the YAML front matter, at any depth, because templates
+    print those values and some of them reach the page unescaped
+  - the markdown body below the front matter
+
+Findings are matched against ALLOWLIST. An entry there names the file, the
+pattern and a substring that the offending text must contain, so it permits
+one known snippet and not any future snippet of the same kind.
+
+Exit status:
+  0  no finding outside the allowlist
+  1  at least one finding outside the allowlist, or a file it cannot read
+"""
+
+import argparse
+import os
+import re
+import sys
+
+try:
+    import yaml
+except ImportError:
+    sys.exit("check-html-safety: PyYAML is not installed. Run: pip install pyyaml")
+
+
+# Patterns that must not appear in content.
+#
+# The "on..." pattern carries a word boundary. An HTML event handler attribute
+# starts at a boundary, and without the boundary the pattern also matches the
+# middle of ordinary words in prose.
+PATTERNS = [
+    ("script", re.compile(r"<script", re.I), "inline or external script"),
+    ("iframe", re.compile(r"<iframe", re.I), "embedded third party document"),
+    ("handler", re.compile(r"\bon\w+\s*=", re.I), "HTML event handler attribute"),
+    ("javascript-url", re.compile(r"javascript:", re.I), "javascript: URL"),
+    ("object", re.compile(r"<object", re.I), "plugin object"),
+    ("embed", re.compile(r"<embed", re.I), "plugin embed"),
+    ("form", re.compile(r"<form", re.I), "form that can post elsewhere"),
+    ("meta", re.compile(r"<meta", re.I), "meta tag, can refresh or redirect"),
+    ("link", re.compile(r"<link", re.I), "link tag, can pull in a stylesheet"),
+    ("base", re.compile(r"<base", re.I), "base tag, rewrites every relative URL"),
+]
+
+
+# Known and accepted exceptions.
+#
+# Keys are paths relative to the repository root. Each entry gives the pattern
+# name, a substring the finding must contain, and the reason. Anything else in
+# the same file still fails.
+ALLOWLIST = {
+    # The 2019 PyDay page shows the schedule of that edition from the public
+    # PyBCN Google Calendar. The page is a frozen record of a past event.
+    "content/events/pyday_bcn/pyday_bcn_2019.md": [
+        {
+            "pattern": "iframe",
+            "contains": "https://calendar.google.com/calendar/embed?",
+            "why": "PyBCN public Google Calendar, agenda of PyDay BCN 2019",
+        },
+    ],
+    # The call for papers is a Google Form. PyBCN does not host a form
+    # backend, so the form is embedded rather than rebuilt on the site.
+    "content/pybcn_association/propose-a-talk.md": [
+        {
+            "pattern": "iframe",
+            "contains": "https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A",
+            "why": "PyBCN talk proposal Google Form",
+        },
+    ],
+    # Same reason, the PyLadies BCN call for proposals form.
+    "content/pyladies_bcn/call-for-proposals.md": [
+        {
+            "pattern": "iframe",
+            "contains": "https://docs.google.com/forms/d/e/1FAIpQLSfEnxT7IrbsFvVbofwcFVqO_uKy9n74STbnfC_zCP_prvJIKA",
+            "why": "PyLadies BCN call for proposals Google Form",
+        },
+    ],
+}
+
+
+def split_front_matter(text):
+    """Return (front matter text, body text, body start line).
+
+    Front matter is the block between the first two "---" lines. A file with
+    no front matter gives ("", whole text, 1).
+    """
+    if not text.startswith("---"):
+        return "", text, 1
+    lines = text.split("\n")
+    for index in range(1, len(lines)):
+        if lines[index].rstrip() == "---":
+            return "\n".join(lines[1:index]), "\n".join(lines[index + 1:]), index + 2
+    # Unterminated front matter. Treat the whole file as front matter.
+    return text, "", 1
+
+
+def walk_strings(node, path=""):
+    """Yield (location, string) for every string inside a parsed YAML value."""
+    if isinstance(node, str):
+        yield path or "<root>", node
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            if isinstance(key, str):
+                yield from walk_strings(key, "%s/<key>" % path if path else "<key>")
+            child = "%s.%s" % (path, key) if path else str(key)
+            yield from walk_strings(value, child)
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            yield from walk_strings(value, "%s[%d]" % (path, index))
+
+
+def snippet(text, at, width=110):
+    """Return a one line excerpt of text around offset at."""
+    start = max(0, at - 20)
+    piece = text[start:start + width].replace("\n", " ").replace("\t", " ")
+    return re.sub(r"\s{2,}", " ", piece).strip()
+
+
+def line_of(text, at):
+    return text.count("\n", 0, at) + 1
+
+
+def match_region(text, at, limit=800):
+    """Return the text of the HTML tag or the value that starts at offset at.
+
+    The region ends at the first ">" after the offset, because an attribute
+    value cannot hold a bare ">". A match with no closing ">" falls back to a
+    fixed window.
+
+    The allowlist is matched against this region and not against the whole
+    file. Matching the whole file would let a second, hostile iframe ride
+    along in a file that already has an allowed one.
+    """
+    end = text.find(">", at)
+    if end == -1 or end - at > limit:
+        end = min(len(text), at + limit)
+    else:
+        end += 1
+    return text[at:end]
+
+
+def allowed(relpath, pattern_name, region):
+    for entry in ALLOWLIST.get(relpath, []):
+        if entry["pattern"] == pattern_name and entry["contains"] in region:
+            return entry
+    return None
+
+
+def scan_text(text, where, relpath, line_offset=0):
+    """Return (findings, suppressions) for one blob of text."""
+    findings, suppressed = [], []
+    for name, regex, description in PATTERNS:
+        for match in regex.finditer(text):
+            record = {
+                "pattern": name,
+                "description": description,
+                "where": where,
+                "line": line_of(text, match.start()) + line_offset,
+                "snippet": snippet(text, match.start()),
+            }
+            entry = allowed(relpath, name, match_region(text, match.start()))
+            if entry:
+                record["why"] = entry["why"]
+                record["entry"] = (relpath, name, entry["contains"])
+                suppressed.append(record)
+            else:
+                findings.append(record)
+    return findings, suppressed
+
+
+def merge_front_matter(raw, parsed):
+    """Combine the raw and the parsed front matter findings.
+
+    Both scans see the same text almost all of the time, so a naive
+    concatenation would report every problem twice. Per pattern, the two lists
+    are paired in document order: the raw entry supplies the line number and
+    the parsed entry supplies the key path. A parsed entry with no raw partner
+    is a string that only became dangerous after YAML decoded it, which is
+    worth saying out loud. A raw entry with no parsed partner sits in a part of
+    the block that did not parse, such as a comment.
+    """
+    merged = []
+    names = []
+    for record in raw + parsed:
+        if record["pattern"] not in names:
+            names.append(record["pattern"])
+    for name in names:
+        raw_group = [r for r in raw if r["pattern"] == name]
+        parsed_group = [r for r in parsed if r["pattern"] == name]
+        for index in range(max(len(raw_group), len(parsed_group))):
+            raw_record = raw_group[index] if index < len(raw_group) else None
+            parsed_record = parsed_group[index] if index < len(parsed_group) else None
+            if raw_record and parsed_record:
+                record = dict(raw_record)
+                record["where"] = parsed_record["where"]
+                merged.append(record)
+            elif raw_record:
+                merged.append(raw_record)
+            else:
+                record = dict(parsed_record)
+                record["where"] = "%s, after YAML decoding" % record["where"]
+                record["line"] = 0
+                merged.append(record)
+    return merged
+
+
+def scan_file(path, root):
+    relpath = os.path.relpath(path, root).replace(os.sep, "/")
+    findings, suppressed, notes = [], [], []
+    try:
+        text = open(path, encoding="utf-8").read()
+    except (OSError, UnicodeDecodeError) as error:
+        return [], [], ["cannot read %s: %s" % (relpath, error)], True
+
+    front, body, body_line = split_front_matter(text)
+
+    # Front matter, scanned twice.
+    #
+    # The raw block gives true line numbers. The parsed value tree gives the
+    # key path, covers nested lists and maps, and catches a string that only
+    # becomes dangerous after YAML decodes it, such as an escape sequence or a
+    # folded double quoted scalar. Neither scan alone is enough.
+    if front.strip():
+        raw_findings, raw_suppressed = scan_text(front, "front matter", relpath,
+                                                 line_offset=1)
+        parsed = None
+        try:
+            parsed = yaml.safe_load(front)
+        except yaml.YAMLError as error:
+            notes.append("%s: front matter does not parse (%s). Scanned as raw "
+                         "text only." % (relpath, str(error).split("\n")[0]))
+
+        parsed_findings, parsed_suppressed = [], []
+        if parsed is not None:
+            for location, value in walk_strings(parsed):
+                f, s = scan_text(value, "front matter: %s" % location, relpath)
+                parsed_findings += f
+                parsed_suppressed += s
+
+        findings += merge_front_matter(raw_findings, parsed_findings)
+        suppressed += merge_front_matter(raw_suppressed, parsed_suppressed)
+
+    f, s = scan_text(body, "body", relpath, line_offset=body_line - 1)
+    findings += f
+    suppressed += s
+    return findings, suppressed, notes, False
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("paths", nargs="*", default=None,
+                        help="files or directories to scan. Default: content")
+    parser.add_argument("--root", default=None,
+                        help="repository root. Default: the parent of this script")
+    args = parser.parse_args()
+
+    root = args.root or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    targets = args.paths or [os.path.join(root, "content")]
+
+    files = []
+    for target in targets:
+        if os.path.isdir(target):
+            for base, _, names in os.walk(target):
+                files += [os.path.join(base, n) for n in names if n.endswith(".md")]
+        elif target.endswith(".md"):
+            files.append(target)
+    files.sort()
+
+    all_findings, all_suppressed, all_notes = [], [], []
+    read_error = False
+    for path in files:
+        findings, suppressed, notes, failed = scan_file(path, root)
+        read_error = read_error or failed
+        relpath = os.path.relpath(path, root).replace(os.sep, "/")
+        for record in findings:
+            record["file"] = relpath
+        for record in suppressed:
+            record["file"] = relpath
+        all_findings += findings
+        all_suppressed += suppressed
+        all_notes += notes
+
+    print("check-html-safety: scanned %d markdown files under %s"
+          % (len(files), ", ".join(os.path.relpath(t, root) for t in targets)))
+    print("  patterns: %s" % ", ".join(name for name, _, _ in PATTERNS))
+
+    for note in all_notes:
+        print("\nNOTE  %s" % note)
+
+    if all_suppressed:
+        print("\nAllowed by the allowlist (%d):" % len(all_suppressed))
+        for record in all_suppressed:
+            location = ("%s:%d" % (record["file"], record["line"])
+                        if record["line"] else "%s (line unknown)" % record["file"])
+            print("  %s  %s" % (location, record["pattern"]))
+            print("      reason: %s" % record["why"])
+
+    # An allowlist entry that matches nothing is an exception that outlived its
+    # cause. Report it so that it gets deleted.
+    used = {record["entry"] for record in all_suppressed}
+    stale = [(path, entry) for path, entries in ALLOWLIST.items() for entry in entries
+             if (path, entry["pattern"], entry["contains"]) not in used]
+    if stale:
+        print("\nStale allowlist entries (%d). The content they cover is gone, "
+              "remove them:" % len(stale))
+        for path, entry in stale:
+            print("  %s  %s  %s" % (path, entry["pattern"], entry["why"]))
+
+    if all_findings:
+        print("\nFAIL  %d finding(s) not allowed:" % len(all_findings))
+        for record in all_findings:
+            location = ("%s:%d" % (record["file"], record["line"])
+                        if record["line"] else "%s (line unknown)" % record["file"])
+            print("\n  %s" % location)
+            print("      pattern: %s (%s)" % (record["pattern"], record["description"]))
+            print("      in:      %s" % record["where"])
+            print("      text:    %s" % record["snippet"])
+        print("\nRaw HTML of this kind must not enter content/. Use a shortcode "
+              "in layouts/, which an organizer reviews, or add an allowlist "
+              "entry in bin/check-html-safety with a reason.")
+        return 1
+
+    if read_error:
+        print("\nFAIL  at least one file could not be read.")
+        return 1
+
+    print("\nPASS  no dangerous raw HTML outside the allowlist.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

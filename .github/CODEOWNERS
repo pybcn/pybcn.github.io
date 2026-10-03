@@ -1,0 +1,49 @@
+# Code owners for pybcn/pybcn.github.io
+#
+# This site takes pull requests from outside contributors. A speaker edits
+# their own page under content/people/, which is fine and stays unowned so
+# that it needs no organizer.
+#
+# The paths below are different. A change there reaches every page of the
+# site, or reaches money, or reaches the deploy. Each one needs a review
+# from @pybcn/core.
+#
+# GitHub applies the last matching rule, and every rule here has the same
+# owner, so the order does not change the outcome.
+#
+# @pybcn/core has push and admin access on this repository, so it is a valid
+# code owner. If a review request does not reach the team, check that the
+# team is visible rather than secret in the organization settings.
+
+# Deploy. The workflow runs on every push and holds the publish credentials.
+/.github/                    @pybcn/core
+
+# Build and release scripts. They run on a maintainer machine.
+/bin/                        @pybcn/core
+
+# Site configuration. It sets the markup safety flags, the base URL and the
+# analytics identifier.
+/config.toml                 @pybcn/core
+
+# Layouts and shortcodes. A change here renders on many pages at once.
+#
+# layouts/shortcodes/membership/membership-process.html holds the PayPal
+# hosted_button_id of the association. One changed character in that value
+# sends the membership fees to another PayPal account, and the page still
+# looks correct. This is the strongest single reason this path is owned.
+/layouts/                    @pybcn/core
+
+# Static assets served from the site root, including files that browsers
+# fetch with no further checking.
+/static/                     @pybcn/core
+
+# The theme: every template, partial, script and stylesheet of the site.
+/themes/                     @pybcn/core
+
+# Association pages: statutes, the code of conduct, membership and payment
+# instructions. These carry legal and financial statements.
+/content/pybcn_association/  @pybcn/core
+
+# The custom domain of the GitHub Pages site. A change to this file points
+# pybcn.org somewhere else.
+/CNAME                       @pybcn/core

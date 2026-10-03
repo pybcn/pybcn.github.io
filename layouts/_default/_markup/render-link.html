@@ -1,0 +1,20 @@
+{{- /*
+    Link render hook.
+
+    Content used to write raw <a href="..." target="_blank"> to open an
+    external site in a new tab. With goldmark unsafe off, raw HTML in content
+    no longer renders, so a plain markdown link has to carry that behaviour.
+
+    An external link gets target="_blank" and rel="noopener noreferrer".
+    The rel part is new: target="_blank" on its own hands the opened page a
+    window.opener handle to this one, which is a reverse tabnabbing path.
+
+    A relative link, an anchor, a mailto: link and a link back to this site
+    keep the default behaviour and open in the same tab.
+*/ -}}
+{{- $url := urls.Parse .Destination -}}
+{{- $external := and $url.Host (ne $url.Host (urls.Parse .Page.Site.BaseURL).Host) -}}
+{{- $attrs := "" -}}
+{{- with .Title }}{{ $attrs = printf " title=%q" . }}{{ end -}}
+{{- if $external }}{{ $attrs = printf "%s target=\"_blank\" rel=\"noopener noreferrer\"" $attrs }}{{ end -}}
+<a href="{{ .Destination }}"{{ $attrs | safeHTMLAttr }}>{{ .Text }}</a>

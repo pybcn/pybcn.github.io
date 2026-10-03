@@ -1,0 +1,15 @@
+{{- /*
+    grid-col: a Bootstrap column inside grid-row.
+
+    Usage: {{< grid-col md="6" >}}...{{< /grid-col >}}
+
+    The body is not markdown, it is other shortcodes. markdownify cannot be
+    used here: it runs goldmark with unsafe off, which would drop the HTML
+    that a nested shortcode produces. Wrap prose in a shortcode that
+    markdownifies its own body, such as prose or alert.
+*/ -}}
+{{- $md := or (.Get "md") "6" -}}
+{{- if not (findRE `^(1[0-2]|[1-9])$` $md) -}}
+	{{- errorf "grid-col: md must be 1 to 12, got %q (%s)" $md .Position -}}
+{{- end -}}
+<div class="col-md-{{ $md }}">{{ .Inner }}</div>

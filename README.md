@@ -82,6 +82,30 @@ Once the site was archived, you can create a new link in the navigational menu u
 
 ## Information for developers
 
+### Content safety check
+
+`bin/check-html-safety` scans `content/` and fails if it finds raw HTML that
+turns a content change into script execution, a redirect or a credential
+prompt: `<script`, `<iframe`, an `on...=` event handler, a `javascript:` URL,
+`<object`, `<embed`, `<form`, `<meta`, `<link` or `<base`.
+
+It reads the YAML front matter at any depth, both as raw text and after YAML
+decodes it, and it reads the markdown body.
+
+```
+pip install pyyaml
+./bin/check-html-safety
+```
+
+The `content-check` workflow runs it on every pull request.
+
+Three Google iframes in the tree are accepted. They sit in the `ALLOWLIST` at
+the top of the script, keyed by file path, pattern and a substring of the
+snippet, so an entry permits one known embed and not any later one in the same
+file. To accept new third party markup, add an entry with a reason, or better,
+put the markup in a shortcode under `layouts/`, where an organizer reviews it.
+
+
 This is a work in progress. All the design and implementation decisions are detailed in [Proposta d'estructura](https://docs.google.com/document/d/10YxQeCuGQXUjnN3o9e1oH2HJkrhxJsr31qnxO_aiCNM/edit?usp=sharing) (currently written in catalan). All the tasks are managed through our [private Trello board](https://trello.com/b/cFE8KRTS).
 
 For now, we are not looking for contributors yet.
@@ -170,7 +194,42 @@ Each event in the list can indicate:
 - the color of the event in the calendar: red, orange, yellow, green, blue, purple (defaults to orange)
 - the location where the event will take place (a room, or a url)
 - the topic of the event (e.g. Data Science, Security...)
-- the type of the event: talk, workshop, coffee, lunch, group, qa, lightning
+- the type of the event: talk, workshop, coffee, lunch, photo, group, qa, lightning
+- `python_level` and `topic_level`: the experience the attendee needs. Use one
+  of `beginner`, `intermediate` or `advanced`
+
+#### Experience levels
+
+`python_level` and `topic_level` take a token, never markup. The site renders
+each token as a badge with a coloured dot and the matching text label, so the
+level does not depend on colour alone:
+
+| Token | Label | Dot |
+|---|---|---|
+| `beginner` | Beginner | green |
+| `intermediate` | Intermediate | amber |
+| `advanced` | Advanced | red |
+
+An unknown token prints as plain text and logs a build warning. The tokens and
+the labels live in `themes/pybcn_theme/layouts/partials/level_badge.html`.
+
+#### Agenda legend
+
+`legend` is a list of items, not an HTML string. Each item is one of:
+
+```
+legend:
+  - type: workshop        # any event type, plus "sponsor" for the gold star
+    label: Hands-on       # optional, overrides the default label
+  - type: talk
+  - separator: true       # a visual group break
+  - level: beginner
+  - level: intermediate
+  - level: advanced
+```
+
+The icons and the default labels come from
+`themes/pybcn_theme/layouts/partials/event_types.html`.
 
 ```
 spansDuration: 20
