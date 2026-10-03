@@ -1,3 +1,27 @@
-<a href="{{$.sponsor.Params.web}}" target="_blank">
-    <img class="img-fluid img-logo" src="{{ or $.sponsor.Params.logo (relURL (printf "/images/sponsors/%s" $.sponsor.Params.logo_image)) }}" alt="{{$.sponsor.Params.name}}" />
+{{- $sponsor := $.sponsor -}}
+{{- $name := $sponsor.Params.name | default $sponsor.Params.id -}}
+{{- $logo := "" -}}
+{{- with $sponsor.Params.logo -}}
+    {{- $logo = . -}}
+{{- else -}}
+    {{- with $sponsor.Params.logo_image -}}
+        {{- $logo = relURL (printf "/images/sponsors/%s" .) -}}
+    {{- end -}}
+{{- end -}}
+{{- /* No logo: show the name. A broken image reads as a mistake, and a
+       sponsor deserves better than that. */ -}}
+{{- if $sponsor.Params.web -}}
+<a href="{{ $sponsor.Params.web }}" target="_blank" rel="noopener">
+    {{- if $logo -}}
+    <img class="img-fluid img-logo" src="{{ $logo }}" alt="{{ $name }}" />
+    {{- else -}}
+    <span class="sponsor-name">{{ $name }}</span>
+    {{- end -}}
 </a>
+{{- else -}}
+    {{- if $logo -}}
+    <img class="img-fluid img-logo" src="{{ $logo }}" alt="{{ $name }}" />
+    {{- else -}}
+    <span class="sponsor-name">{{ $name }}</span>
+    {{- end -}}
+{{- end -}}
