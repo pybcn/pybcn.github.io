@@ -1,0 +1,20 @@
+{{- /*
+    Resize an image resource without upscaling it.
+
+    Arguments:
+        img     the image resource to process (required)
+        width   the wanted width in pixels (required)
+        format  the target format, "webp" by default
+        quality the encoder quality, 80 by default
+
+    Returns the processed resource, or the original resource when the source
+    is already narrower than the wanted width and the format does not change.
+*/ -}}
+{{- $img := .img -}}
+{{- $width := int .width -}}
+{{- $format := default "webp" .format -}}
+{{- $quality := default 80 .quality -}}
+{{- if lt $img.Width $width -}}
+    {{- $width = $img.Width -}}
+{{- end -}}
+{{- return ($img.Resize (printf "%dx %s q%d" $width $format $quality)) -}}

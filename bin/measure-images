@@ -1,0 +1,316 @@
+#!/usr/bin/env python3
+"""Measure the image payload of a built Hugo site.
+
+Reports, for a set of pages, the bytes of every local image the page
+references, plus site-wide totals and attribute counts. Use it before and
+after an image change to get reproducible numbers.
+
+Usage:
+    bin/measure-images <built-dir> [page-path ...]
+    bin/measure-images <built-dir> --list-images <page-path>
+
+A page path is relative to the built directory, with or without index.html.
+Without page paths, the script uses a default set of pages.
+"""
+
+import os
+import re
+import struct
+import sys
+from html.parser import HTMLParser
+from urllib.parse import unquote, urlsplit
+
+DEFAULT_PAGES = [
+    "index.html",
+    "pybcn_association/organizers/index.html",
+    "events/pyday_bcn/pyday_bcn_2025/index.html",
+    "sponsors/index.html",
+    "contact/index.html",
+    "events/monthly_events/index.html",
+]
+
+IMAGE_EXT = {
+    ".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".avif", ".ico", ".bmp",
+    ".tif", ".tiff",
+}
+
+CSS_URL = re.compile(r"url\(\s*['\"]?([^'\")]+)['\"]?\s*\)")
+
+
+class ImageCollector(HTMLParser):
+    """Collect image references and img-tag attribute statistics."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.refs = []          # (url, kind) with kind in src|srcset|css|other
+        self.img_total = 0
+        self.img_dimensions = 0
+        self.img_lazy = 0
+        self.img_srcset = 0
+
+    def handle_starttag(self, tag, attrs):
+        a = {k.lower(): (v or "") for k, v in attrs}
+
+        if tag == "img":
+            self.img_total += 1
+            if a.get("width") and a.get("height"):
+                self.img_dimensions += 1
+            if a.get("loading", "").lower() == "lazy":
+                self.img_lazy += 1
+            if a.get("srcset"):
+                self.img_srcset += 1
+
+        if tag in ("img", "source"):
+            if a.get("src"):
+                self.refs.append((a["src"], "src"))
+            for candidate in a.get("srcset", "").split(","):
+                candidate = candidate.strip().split()
+                if candidate:
+                    self.refs.append((candidate[0], "srcset"))
+
+        if tag == "link" and "icon" in a.get("rel", "").lower():
+            if a.get("href"):
+                self.refs.append((a["href"], "other"))
+
+        for value in (a.get("style", ""), a.get("data-bg", "")):
+            for url in CSS_URL.findall(value):
+                self.refs.append((url, "css"))
+
+
+def local_path(root, page_rel, url):
+    """Map a URL found on a page to a file inside the built directory."""
+    url = url.strip()
+    if not url or url.startswith(("data:", "#")):
+        return None
+    parts = urlsplit(url)
+    path = unquote(parts.path)
+    if parts.scheme or parts.netloc:
+        # An absolute URL that points at the site itself still costs bytes, so
+        # count it when the path resolves inside the built directory.
+        candidate = os.path.normpath(os.path.join(root, path.lstrip("/")))
+        return candidate if os.path.isfile(candidate) else None
+    if path.startswith("/"):
+        candidate = os.path.join(root, path.lstrip("/"))
+    else:
+        candidate = os.path.join(root, os.path.dirname(page_rel), path)
+    candidate = os.path.normpath(candidate)
+    if os.path.isfile(candidate):
+        return candidate
+    return None
+
+
+def png_size(fh):
+    fh.seek(16)
+    return struct.unpack(">II", fh.read(8))
+
+
+def gif_size(fh):
+    fh.seek(6)
+    return struct.unpack("<HH", fh.read(4))
+
+
+def jpeg_size(fh):
+    fh.seek(2)
+    while True:
+        byte = fh.read(1)
+        while byte == b"\xff":
+            byte = fh.read(1)
+        if not byte:
+            return None
+        marker = byte[0]
+        if marker in (0xD8, 0xD9) or 0xD0 <= marker <= 0xD7:
+            continue
+        data = fh.read(2)
+        if len(data) < 2:
+            return None
+        length = struct.unpack(">H", data)[0]
+        if 0xC0 <= marker <= 0xCF and marker not in (0xC4, 0xC8, 0xCC):
+            body = fh.read(5)
+            height, width = struct.unpack(">HH", body[1:5])
+            return width, height
+        fh.seek(length - 2, os.SEEK_CUR)
+
+
+def webp_size(fh):
+    fh.seek(12)
+    chunk = fh.read(4)
+    if chunk == b"VP8 ":
+        fh.seek(26)
+        width, height = struct.unpack("<HH", fh.read(4))
+        return width & 0x3FFF, height & 0x3FFF
+    if chunk == b"VP8L":
+        fh.seek(21)
+        bits = struct.unpack("<I", fh.read(4))[0]
+        return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+    if chunk == b"VP8X":
+        fh.seek(24)
+        raw = fh.read(6)
+        width = (raw[0] | raw[1] << 8 | raw[2] << 16) + 1
+        height = (raw[3] | raw[4] << 8 | raw[5] << 16) + 1
+        return width, height
+    return None
+
+
+def dimensions(path):
+    """Return (width, height) of a raster image, or None."""
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(16)
+            if head.startswith(b"\x89PNG\r\n\x1a\n"):
+                return png_size(fh)
+            if head.startswith(b"GIF8"):
+                return gif_size(fh)
+            if head.startswith(b"\xff\xd8"):
+                return jpeg_size(fh)
+            if head.startswith(b"RIFF") and head[8:12] == b"WEBP":
+                return webp_size(fh)
+    except (OSError, struct.error):
+        return None
+    return None
+
+
+def page_report(root, page_rel):
+    path = os.path.join(root, page_rel)
+    if os.path.isdir(path):
+        page_rel = os.path.join(page_rel, "index.html")
+        path = os.path.join(root, page_rel)
+    if not os.path.isfile(path):
+        return None
+
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        collector = ImageCollector()
+        collector.feed(fh.read())
+
+    primary, every, remote = {}, {}, set()
+    for url, kind in collector.refs:
+        resolved = local_path(root, page_rel, url)
+        if resolved is None:
+            parts = urlsplit(url.strip())
+            if parts.scheme in ("http", "https"):
+                remote.add(url.strip())
+            continue
+        size = os.path.getsize(resolved)
+        every[resolved] = size
+        if kind != "srcset":
+            primary[resolved] = size
+
+    return {
+        "page": page_rel,
+        "primary_bytes": sum(primary.values()),
+        "all_bytes": sum(every.values()),
+        "files": every,
+        "primary_files": primary,
+        "remote": sorted(remote),
+        "img_total": collector.img_total,
+        "img_dimensions": collector.img_dimensions,
+        "img_lazy": collector.img_lazy,
+        "img_srcset": collector.img_srcset,
+    }
+
+
+def mb(value):
+    """Format a byte count as MiB, the unit every figure in this tool uses."""
+    return "%.2f MiB" % (value / 1024 / 1024)
+
+
+def site_totals(root):
+    total_bytes = 0
+    images = []
+    for dirpath, _dirs, files in os.walk(root):
+        for name in files:
+            full = os.path.join(dirpath, name)
+            try:
+                size = os.path.getsize(full)
+            except OSError:
+                continue
+            total_bytes += size
+            if os.path.splitext(name)[1].lower() in IMAGE_EXT:
+                images.append((size, full))
+    images.sort(reverse=True)
+    return total_bytes, images
+
+
+def html_attribute_totals(root):
+    totals = {"img": 0, "dims": 0, "lazy": 0, "srcset": 0, "pages": 0}
+    for dirpath, _dirs, files in os.walk(root):
+        for name in files:
+            if not name.endswith(".html"):
+                continue
+            totals["pages"] += 1
+            with open(os.path.join(dirpath, name), encoding="utf-8",
+                      errors="replace") as fh:
+                collector = ImageCollector()
+                collector.feed(fh.read())
+            totals["img"] += collector.img_total
+            totals["dims"] += collector.img_dimensions
+            totals["lazy"] += collector.img_lazy
+            totals["srcset"] += collector.img_srcset
+    return totals
+
+
+def main(argv):
+    if len(argv) < 2:
+        print(__doc__)
+        return 2
+    root = argv[1].rstrip("/")
+    rest = argv[2:]
+
+    if rest and rest[0] == "--list-images":
+        for page in rest[1:]:
+            report = page_report(root, page)
+            if report is None:
+                print("missing page: %s" % page, file=sys.stderr)
+                continue
+            for path in sorted(report["primary_files"]):
+                print(os.path.relpath(path, root))
+        return 0
+
+    pages = rest or DEFAULT_PAGES
+
+    print("built directory: %s" % root)
+    print()
+    print("%-52s %12s %12s %5s %5s %5s %5s"
+          % ("page", "1x payload", "all srcset", "img", "dim", "lazy", "set"))
+    for page in pages:
+        report = page_report(root, page)
+        if report is None:
+            print("%-52s %12s" % (page, "MISSING"))
+            continue
+        print("%-52s %12s %12s %5d %5d %5d %5d" % (
+            report["page"][:52],
+            mb(report["primary_bytes"]),
+            mb(report["all_bytes"]),
+            report["img_total"],
+            report["img_dimensions"],
+            report["img_lazy"],
+            report["img_srcset"],
+        ))
+        for url in report["remote"]:
+            print("%-52s   remote: %s" % ("", url))
+
+    total_bytes, images = site_totals(root)
+    attrs = html_attribute_totals(root)
+
+    print()
+    print("site totals")
+    print("  output directory size : %s" % mb(total_bytes))
+    print("  image files           : %d, %s"
+          % (len(images), mb(sum(size for size, _ in images))))
+    print("  html pages            : %d" % attrs["pages"])
+    print("  img elements          : %d" % attrs["img"])
+    print("  with width + height   : %d" % attrs["dims"])
+    print("  with loading=lazy     : %d" % attrs["lazy"])
+    print("  with srcset           : %d" % attrs["srcset"])
+    print()
+    print("largest image files")
+    for size, full in images[:10]:
+        dims = dimensions(full)
+        shape = "%dx%d" % dims if dims else "vector or unknown"
+        pixels = ("%.1f Mpx" % (dims[0] * dims[1] / 1e6)) if dims else "-"
+        print("  %9s  %-18s %-10s %s"
+              % (mb(size), shape, pixels, os.path.relpath(full, root)))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

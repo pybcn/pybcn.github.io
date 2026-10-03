@@ -3,7 +3,10 @@
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">
             {{ $logo := resources.Get "images/logo.png" }}
-            <img id="logo" src="{{ $logo.Permalink | absURL }}" alt="{{ .Site.Params.short_name }} home">
+            {{ $logo = partial "image_resize.html" (dict "img" $logo "width" 460) }}
+            {{/* The navbar caps the logo at 230 px wide, so 460 px covers a 2x screen. */}}
+            {{/* The logo is the only content of the home link, so it carries its name. */}}
+            <img id="logo" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" decoding="async" alt="{{ .Site.Params.short_name }} home">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

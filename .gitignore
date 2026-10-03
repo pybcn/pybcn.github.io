@@ -2,7 +2,8 @@
 bin/hugo
 public/**
 
-# Hugo build output and caches
+# Hugo build output and caches. resources/ covers the SCSS cache and the
+# images the pipeline generates under resources/_gen/images.
 docs/
 resources/
 .hugo_build.lock

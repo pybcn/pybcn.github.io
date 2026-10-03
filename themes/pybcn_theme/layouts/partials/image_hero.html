@@ -1,0 +1,25 @@
+{{- /*
+    Crop an image resource to a hero banner and convert it to WebP.
+
+    Arguments:
+        img     the image resource to process (required)
+        width   the wanted width in pixels, 1600 by default
+        height  the wanted height in pixels, 450 by default
+
+    The hero is a CSS background with background-size: cover and
+    background-position: center, so a centred crop gives the same result as
+    the browser gives today, at a fraction of the bytes. The crop box shrinks
+    to the source when the source is smaller, so the image is never upscaled.
+*/ -}}
+{{- $img := .img -}}
+{{- $targetWidth := int (default 1600 .width) -}}
+{{- $targetHeight := int (default 450 .height) -}}
+{{- $width := $targetWidth -}}
+{{- if lt $img.Width $width -}}
+    {{- $width = $img.Width -}}
+{{- end -}}
+{{- $height := int (div (mul $width $targetHeight) $targetWidth) -}}
+{{- if lt $img.Height $height -}}
+    {{- $height = $img.Height -}}
+{{- end -}}
+{{- return ($img.Fill (printf "%dx%d webp q80 Center" $width $height)) -}}

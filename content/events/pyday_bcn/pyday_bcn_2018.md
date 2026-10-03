@@ -5,7 +5,7 @@ menu:
   main:
     parent: 'PyDay BCN'
 weight: 8
-heroBackground: https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80
+heroBackground: https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=450&q=70
 ---
 
 <div class="container">

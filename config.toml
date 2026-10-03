@@ -5,6 +5,10 @@ theme = "pybcn_theme"
 enableGitInfo = true
 enableRobotsTXT = true
 
+# A cold build resizes every person photo and sponsor logo, which takes more
+# than the 30s default that Hugo allows a single partial.
+timeout = "300s"
+
 # The site uses neither tags nor categories, and Hugo's defaults produced two
 # empty index pages in the sitemap. The archive work will add its own taxonomy.
 [taxonomies]

@@ -1,12 +1,40 @@
+{{- /*
+    One person card, plus the modal that holds the long bio.
+
+    Photos come from assets/images/people/ and go through the Hugo image
+    pipeline. The grid slot is 350 px wide at most and the modal caps the
+    image at 400 px, so one 400 px WebP serves both, with an 800 px variant
+    for a 2x screen. A person with no photo falls back to anon_member.png. A
+    person with an external photo_url keeps a plain img, because Hugo cannot
+    process a remote file.
+*/ -}}
+{{- $photoURL := $.person.Params.photo_url -}}
+{{- $photo := $.person.Params.photo -}}
+{{- $img := "" -}}
+{{- if and (not $photoURL) $photo -}}
+    {{- $img = resources.Get (printf "images/people/%s" $photo) -}}
+{{- end -}}
+{{- if not (or $photoURL $img) -}}
+    {{- $img = resources.Get "images/anon_member.png" -}}
+{{- end -}}
+{{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
+{{- with $img -}}
+    {{- $small = partial "image_resize.html" (dict "img" . "width" 400) -}}
+    {{- $large = partial "image_resize.html" (dict "img" . "width" 800) -}}
+    {{- if gt $large.Width $small.Width -}}
+        {{- $srcset = printf "%s 1x, %s 2x" $small.RelPermalink $large.RelPermalink -}}
+    {{- end -}}
+{{- end -}}
 <div class="person_item">
 
     <div class="img-wrap">
+        {{/* A button, not a link: it opens a dialog rather than navigating.
+             The alt names the person, because the photo is the only content. */}}
         <button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}" aria-label="More about {{ $.person.Params.name }}">
-            {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                <img class="img-fluid img-people" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" alt="{{ $.person.Params.name }}" />
+            {{ if $photoURL }}
+                <img class="img-fluid img-people" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="{{ $.person.Params.name }}" />
             {{ else }}
-                {{ $anon_member := resources.Get "images/anon_member.png" }}
-                <img class="img-fluid img-people" src="{{ $anon_member.Permalink | absURL }}" alt="" />
+                <img class="img-fluid img-people" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="{{ if $photo }}{{ $.person.Params.name }}{{ end }}" />
             {{ end }}
         </button>
     </div>
@@ -36,11 +64,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                        <img class="rounded float-left" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" alt="" />
+                    {{/* alt is empty here: the name is in the modal heading next to it. */}}
+                    {{ if $photoURL }}
+                        <img class="img-fluid rounded float-left" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="" />
                     {{ else }}
-                        {{ $anon_member := resources.Get "images/anon_member.png" }}
-                        <img class="rounded float-left" src="{{ $anon_member.Permalink | absURL }}" alt="" />
+                        <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
                     {{ end }}
                     <h3 class="modal-title" id="modal_{{ $.person.Params.id }}_title">
                         {{ $.person.Params.name }}
@@ -66,6 +94,3 @@
     </div>
 
 </div>
-
-
-

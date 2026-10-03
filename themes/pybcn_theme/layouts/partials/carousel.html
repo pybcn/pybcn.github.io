@@ -19,7 +19,16 @@
 						{{ $class = "carousel-item active" }}
 					{{ end }}
 					<div class="{{ $class }}">
-						<img class="d-block w-100" src="{{ relURL (printf "/images/%s" $item.photo) }}" alt="{{ $item.caption }}"/>
+						{{- /* Slides go through the Hugo image pipeline: a 600 px and a
+						       1200 px WebP. Only the active slide loads eagerly. */ -}}
+						{{- $slide := resources.Get (printf "images/%s" (strings.TrimPrefix "/" $item.photo)) -}}
+						{{ if $slide }}
+							{{- $small := partial "image_resize.html" (dict "img" $slide "width" 600) -}}
+							{{- $large := partial "image_resize.html" (dict "img" $slide "width" 1200) -}}
+							<img class="d-block w-100 img-fluid" src="{{ $large.RelPermalink }}"{{ if gt $large.Width $small.Width }} srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w" sizes="100vw"{{ end }} width="{{ $large.Width }}" height="{{ $large.Height }}" loading="{{ cond (eq $i 0) "eager" "lazy" }}" decoding="async" alt="{{ $item.caption }}"/>
+						{{ else }}
+							<img class="d-block w-100" src="{{ relURL (printf "/images/%s" $item.photo) }}" loading="{{ cond (eq $i 0) "eager" "lazy" }}" decoding="async" alt="{{ $item.caption }}"/>
+						{{ end }}
 						{{ if $item.caption }}
 							<div class="carousel-caption transparent_caption">
 								<h2 class="h1">{{ $item.caption }}</h2>
