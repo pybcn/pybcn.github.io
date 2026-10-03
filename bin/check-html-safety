@@ -22,6 +22,7 @@ Exit status:
 
 import argparse
 import os
+import html
 import re
 import sys
 
@@ -37,16 +38,22 @@ except ImportError:
 # starts at a boundary, and without the boundary the pattern also matches the
 # middle of ordinary words in prose.
 PATTERNS = [
-    ("script", re.compile(r"<script", re.I), "inline or external script"),
-    ("iframe", re.compile(r"<iframe", re.I), "embedded third party document"),
-    ("handler", re.compile(r"\bon\w+\s*=", re.I), "HTML event handler attribute"),
+    # A tag name must end at the match, or <format> trips <form> and
+    # <metadata> trips <meta>. \b is not enough: it allows <form-x>.
+    ("script", re.compile(r"<script(?=[\s/>])", re.I), "inline or external script"),
+    ("style", re.compile(r"<style(?=[\s/>])", re.I), "inline stylesheet, can cover the page"),
+    ("iframe", re.compile(r"<iframe(?=[\s/>])", re.I), "embedded third party document"),
+    ("object", re.compile(r"<object(?=[\s/>])", re.I), "plugin object"),
+    ("embed", re.compile(r"<embed(?=[\s/>])", re.I), "plugin embed"),
+    ("form", re.compile(r"<form(?=[\s/>])", re.I), "form that can post elsewhere"),
+    ("meta", re.compile(r"<meta(?=[\s/>])", re.I), "meta tag, can refresh or redirect"),
+    ("link", re.compile(r"<link(?=[\s/>])", re.I), "link tag, can pull in a stylesheet"),
+    ("base", re.compile(r"<base(?=[\s/>])", re.I), "base tag, rewrites every relative URL"),
+    # An event handler is on<name>=, so require a letter after "on" and reject
+    # an underscore, which made on_error= a false positive.
+    ("handler", re.compile(r"(?<![\w-])on[a-z]{2,}\s*=", re.I), "HTML event handler attribute"),
+    # Matched against the normalised text, see normalise_scheme.
     ("javascript-url", re.compile(r"javascript:", re.I), "javascript: URL"),
-    ("object", re.compile(r"<object", re.I), "plugin object"),
-    ("embed", re.compile(r"<embed", re.I), "plugin embed"),
-    ("form", re.compile(r"<form", re.I), "form that can post elsewhere"),
-    ("meta", re.compile(r"<meta", re.I), "meta tag, can refresh or redirect"),
-    ("link", re.compile(r"<link", re.I), "link tag, can pull in a stylesheet"),
-    ("base", re.compile(r"<base", re.I), "base tag, rewrites every relative URL"),
 ]
 
 
@@ -66,23 +73,21 @@ ALLOWLIST = {
         },
     ],
     # The call for papers is a Google Form. PyBCN does not host a form
-    # backend, so the form is embedded rather than rebuilt on the site.
-    "content/pybcn_association/propose-a-talk.md": [
-        {
-            "pattern": "iframe",
-            "contains": "https://docs.google.com/forms/d/13mlS704es_BkALALScL6wmROhyDqdag74ShPYo1yt2A",
-            "why": "PyBCN talk proposal Google Form",
-        },
-    ],
-    # Same reason, the PyLadies BCN call for proposals form.
-    "content/pyladies_bcn/call-for-proposals.md": [
-        {
-            "pattern": "iframe",
-            "contains": "https://docs.google.com/forms/d/e/1FAIpQLSfEnxT7IrbsFvVbofwcFVqO_uKy9n74STbnfC_zCP_prvJIKA",
-            "why": "PyLadies BCN call for proposals Google Form",
-        },
-    ],
 }
+
+
+def normalise_scheme(text):
+    """Decode entities and strip whitespace so an obfuscated scheme still matches.
+
+    A raw <a href> is not touched by Hugo's render hook, so &#106;avascript:,
+    javascript&colon;, java&Tab;script: and a scheme split across a newline all
+    reach the page working. html.unescape handles every HTML5 named entity,
+    including the case-sensitive ones such as &Tab; and &NewLine; that a
+    hand-written table gets wrong. The result is only used for matching; the
+    reported snippet comes from the original text.
+    """
+    decoded = html.unescape(text)
+    return re.sub(r"[\s\x00-\x08\x0b\x0c\x0e-\x1f]", "", decoded)
 
 
 def split_front_matter(text):
@@ -147,8 +152,17 @@ def match_region(text, at, limit=800):
 
 
 def allowed(relpath, pattern_name, region):
+    """An allowlist entry must match the URL the tag actually loads.
+
+    Comparing against the whole tag let an attacker put the permitted URL in
+    title= and the real one in src=, and the finding was reported as allowed.
+    """
+    urls = [m.group(1) for m in re.finditer(
+        r"""(?:src|href|data|action)\s*=\s*["']?([^"'\s>]+)""", region, re.I)]
     for entry in ALLOWLIST.get(relpath, []):
-        if entry["pattern"] == pattern_name and entry["contains"] in region:
+        if entry["pattern"] != pattern_name:
+            continue
+        if any(entry["contains"] in u for u in urls):
             return entry
     return None
 
@@ -156,16 +170,18 @@ def allowed(relpath, pattern_name, region):
 def scan_text(text, where, relpath, line_offset=0):
     """Return (findings, suppressions) for one blob of text."""
     findings, suppressed = [], []
+    normalised = normalise_scheme(text)
     for name, regex, description in PATTERNS:
-        for match in regex.finditer(text):
+        haystack = normalised if name == "javascript-url" else text
+        for match in regex.finditer(haystack):
             record = {
                 "pattern": name,
                 "description": description,
                 "where": where,
-                "line": line_of(text, match.start()) + line_offset,
-                "snippet": snippet(text, match.start()),
+                "line": line_of(haystack, match.start()) + line_offset,
+                "snippet": snippet(haystack, match.start()),
             }
-            entry = allowed(relpath, name, match_region(text, match.start()))
+            entry = allowed(relpath, name, match_region(haystack, match.start()))
             if entry:
                 record["why"] = entry["why"]
                 record["entry"] = (relpath, name, entry["contains"])
@@ -269,8 +285,9 @@ def main():
     for target in targets:
         if os.path.isdir(target):
             for base, _, names in os.walk(target):
-                files += [os.path.join(base, n) for n in names if n.endswith(".md")]
-        elif target.endswith(".md"):
+                files += [os.path.join(base, n) for n in names
+                          if n.endswith((".md", ".markdown", ".html", ".htm"))]
+        elif target.endswith((".md", ".markdown", ".html", ".htm")):
             files.append(target)
     files.sort()
 
