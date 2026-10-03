@@ -1,5 +1,7 @@
 ---
 id: kemalcan-bora
+aliases:
+  - /people/kemalkan-bora/
 name: "Kemalcan Bora"
 photo: "kemalcan-bora.jpg"
 linkedin: "https://www.linkedin.com/in/kemalcanbora/"
