@@ -32,6 +32,33 @@ except ImportError:
     sys.exit("check-html-safety: PyYAML is not installed. Run: pip install pyyaml")
 
 
+# Files under content/, by what Hugo does with them.
+#
+# Hugo renders every content format it knows, not only markdown. An .org file
+# with an #+BEGIN_EXPORT html block puts raw HTML on the page the same way a
+# markdown file does, and an earlier version of this check never opened it.
+# Every text format is read and scanned in full. The binary formats are page
+# resources that a browser does not parse as HTML, and they are skipped. A
+# file with any other extension fails the check, so that a new format gets a
+# decision here and not a silent skip.
+#
+# `./bin/hugo config` lists the registered formats under [mediatypes].
+TEXT_SUFFIXES = (
+    ".md", ".mdown", ".markdown",     # text/markdown
+    ".html", ".htm",                  # text/html
+    ".org",                           # text/org
+    ".adoc", ".asciidoc", ".ad",      # text/asciidoc
+    ".rst",                           # text/rst
+    ".pandoc", ".pdc",                # text/pandoc
+    ".txt",                           # text/plain, copied as a page resource
+    ".svg",                           # image/svg+xml, XML that can carry <script>
+)
+BINARY_SUFFIXES = (
+    ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico",
+    ".pdf",
+)
+
+
 # Patterns that must not appear in content.
 #
 # The "on..." pattern carries a word boundary. An HTML event handler attribute
@@ -281,15 +308,26 @@ def main():
     root = args.root or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     targets = args.paths or [os.path.join(root, "content")]
 
-    files = []
+    files, skipped, unknown = [], [], []
+
+    def classify(path):
+        suffix = os.path.splitext(path)[1].lower()
+        if suffix in TEXT_SUFFIXES:
+            files.append(path)
+        elif suffix in BINARY_SUFFIXES:
+            skipped.append(path)
+        else:
+            unknown.append(path)
+
     for target in targets:
         if os.path.isdir(target):
             for base, _, names in os.walk(target):
-                files += [os.path.join(base, n) for n in names
-                          if n.endswith((".md", ".markdown", ".html", ".htm"))]
-        elif target.endswith((".md", ".markdown", ".html", ".htm")):
-            files.append(target)
+                for name in names:
+                    classify(os.path.join(base, name))
+        else:
+            classify(target)
     files.sort()
+    unknown.sort()
 
     all_findings, all_suppressed, all_notes = [], [], []
     read_error = False
@@ -305,8 +343,9 @@ def main():
         all_suppressed += suppressed
         all_notes += notes
 
-    print("check-html-safety: scanned %d markdown files under %s"
-          % (len(files), ", ".join(os.path.relpath(t, root) for t in targets)))
+    print("check-html-safety: scanned %d files under %s, skipped %d binary asset(s)"
+          % (len(files), ", ".join(os.path.relpath(t, root) for t in targets),
+             len(skipped)))
     print("  patterns: %s" % ", ".join(name for name, _, _ in PATTERNS))
 
     for note in all_notes:
@@ -331,7 +370,20 @@ def main():
         for path, entry in stale:
             print("  %s  %s  %s" % (path, entry["pattern"], entry["why"]))
 
+    failed = False
+
+    if unknown:
+        failed = True
+        print("\nFAIL  %d file(s) with an extension this check does not know:"
+              % len(unknown))
+        for path in unknown:
+            print("  %s" % os.path.relpath(path, root).replace(os.sep, "/"))
+        print("\nHugo may render these as pages or copy them to the site. Add the "
+              "extension to TEXT_SUFFIXES (scanned) or BINARY_SUFFIXES (skipped) "
+              "in bin/check-html-safety, with a reason.")
+
     if all_findings:
+        failed = True
         print("\nFAIL  %d finding(s) not allowed:" % len(all_findings))
         for record in all_findings:
             location = ("%s:%d" % (record["file"], record["line"])
@@ -343,10 +395,12 @@ def main():
         print("\nRaw HTML of this kind must not enter content/. Use a shortcode "
               "in layouts/, which an organizer reviews, or add an allowlist "
               "entry in bin/check-html-safety with a reason.")
-        return 1
 
     if read_error:
+        failed = True
         print("\nFAIL  at least one file could not be read.")
+
+    if failed:
         return 1
 
     print("\nPASS  no dangerous raw HTML outside the allowlist.")
