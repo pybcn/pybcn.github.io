@@ -137,9 +137,7 @@ SAFE_STYLE = re.compile(
 #          "prefix": "https://calendar.google.com/calendar/embed?",
 #          "why": "what this embed is and why the page needs it"},
 #     ],
-ALLOWLIST = {
-    # The call for papers is a Google Form. PyBCN does not host a form
-}
+ALLOWLIST = {}
 
 
 def normalise_scheme(text):
