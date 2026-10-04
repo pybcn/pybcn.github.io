@@ -64,7 +64,16 @@ jobs:
       - name: Build
         # A root-relative baseURL turns every internal link into "/path/", so
         # lychee resolves it inside this build and not on the live site.
-        run: hugo --minify -d public --baseURL /
+        # -D builds the drafts: the canary fixture that bin/check-rendered
+        # reads is three draft pages. The deploy workflow builds without -D,
+        # so the fixture never reaches the live site.
+        run: hugo --minify -D -d public --baseURL /
+
+      - name: Check the built pages for dangerous markup
+        # Reads what Hugo wrote, so a template defect is caught here even
+        # when every content file is clean. Standard library only: the
+        # runner's python3 is enough.
+        run: bin/check-rendered public
 
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
@@ -73,7 +82,10 @@ jobs:
           #   every absolute link in a local file as an error.
           # --exclude-path: the frozen 2016-2019 snapshots under archives/
           #   keep their dead links on purpose.
-          # --exclude: hosts that answer bots with 400, 403, or 999.
+          # --exclude: hosts that answer bots with 400, 403, or 999, and
+          #   canary.invalid, the host the canary fixture names as text.
+          #   lychee reads URLs out of text nodes too, and .invalid never
+          #   resolves.
           args: >-
             --no-progress
             --exclude-all-private
@@ -84,6 +96,7 @@ jobs:
             --exclude '^https?://(www\.)?x\.com/'
             --exclude 'linkedin\.com'
               --exclude 'pybcn\.slack\.com'
+            --exclude 'canary\.invalid'
             'public/**/*.html'
           # External sites rate-limit. Keep the report in the job summary and
           # do not turn the check red.
