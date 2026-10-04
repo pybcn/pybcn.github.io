@@ -11,6 +11,18 @@ Usage:
 
 A page path is relative to the built directory, with or without index.html.
 Without page paths, the script uses a default set of pages.
+
+Blind spot: the per-page figures count the images the HTML names, which
+are img and source elements, link rel=icon, and url() values in an inline
+style or data-bg attribute. A background that a stylesheet sets is not
+counted. home.scss puts an archive JPEG of about 290 KB on the .banner of
+the home page and monthly_events.scss adds two PNGs to its headers, so the
+real payload of those pages is larger than the figure here. Parsing SCSS or
+CSS is out of scope for this tool.
+
+The frozen copies under archives/ are left out of the site totals and the
+attribute counts, because no template controls them. They are reported on
+their own line.
 """
 
 import os
@@ -35,6 +47,21 @@ IMAGE_EXT = {
 }
 
 CSS_URL = re.compile(r"url\(\s*['\"]?([^'\")]+)['\"]?\s*\)")
+
+# Top-level directories of the build that hold a frozen copy of an old site.
+# bin/archive writes them; no template controls what is in them.
+FROZEN_DIRS = ("archives",)
+
+
+def walk(root, frozen):
+    """Walk the build. With frozen True, walk only the frozen copies; with
+    frozen False, walk everything else, the root's own files included."""
+    for dirpath, dirs, files in os.walk(root):
+        if dirpath == root:
+            dirs[:] = [d for d in dirs if (d in FROZEN_DIRS) == frozen]
+            if frozen:
+                continue
+        yield dirpath, files
 
 
 class ImageCollector(HTMLParser):
@@ -213,10 +240,10 @@ def mb(value):
     return "%.2f MiB" % (value / 1024 / 1024)
 
 
-def site_totals(root):
+def site_totals(root, frozen=False):
     total_bytes = 0
     images = []
-    for dirpath, _dirs, files in os.walk(root):
+    for dirpath, files in walk(root, frozen):
         for name in files:
             full = os.path.join(dirpath, name)
             try:
@@ -230,9 +257,9 @@ def site_totals(root):
     return total_bytes, images
 
 
-def html_attribute_totals(root):
+def html_attribute_totals(root, frozen=False):
     totals = {"img": 0, "dims": 0, "lazy": 0, "srcset": 0, "pages": 0}
-    for dirpath, _dirs, files in os.walk(root):
+    for dirpath, files in walk(root, frozen):
         for name in files:
             if not name.endswith(".html"):
                 continue
@@ -290,9 +317,11 @@ def main(argv):
 
     total_bytes, images = site_totals(root)
     attrs = html_attribute_totals(root)
+    frozen_bytes, frozen_images = site_totals(root, frozen=True)
+    frozen_attrs = html_attribute_totals(root, frozen=True)
 
     print()
-    print("site totals")
+    print("site totals (without %s/)" % ", ".join(FROZEN_DIRS))
     print("  output directory size : %s" % mb(total_bytes))
     print("  image files           : %d, %s"
           % (len(images), mb(sum(size for size, _ in images))))
@@ -302,7 +331,14 @@ def main(argv):
     print("  with loading=lazy     : %d" % attrs["lazy"])
     print("  with srcset           : %d" % attrs["srcset"])
     print()
-    print("largest image files")
+    print("frozen copies under %s/, not counted above" % ", ".join(FROZEN_DIRS))
+    print("  directory size        : %s" % mb(frozen_bytes))
+    print("  image files           : %d, %s"
+          % (len(frozen_images), mb(sum(size for size, _ in frozen_images))))
+    print("  html pages            : %d" % frozen_attrs["pages"])
+    print("  img elements          : %d" % frozen_attrs["img"])
+    print()
+    print("largest image files (without %s/)" % ", ".join(FROZEN_DIRS))
     for size, full in images[:10]:
         dims = dimensions(full)
         shape = "%dx%d" % dims if dims else "vector or unknown"
