@@ -3,10 +3,15 @@
 
     Logos come from assets/images/sponsors/ and go through the Hugo image
     pipeline. The grid caps a logo at 150 px high, so a 560 px WebP covers
-    the widest slot, with a 1120 px variant for a 2x screen. Three cases stay
+    the widest slot, with a 1120 px variant for a 2x screen. Two cases stay
     unprocessed: an external logo URL, because Hugo cannot process a remote
-    file; an SVG, which needs no raster step; and a GIF, because processing
-    would flatten an animated logo to one frame.
+    file; and an SVG, which needs no raster step.
+
+    A GIF goes through the pipeline too, which keeps only its first frame. That
+    is on purpose: an animated logo loops without a pause control, and WCAG
+    2.2.2 requires one for any motion that lasts more than five seconds next
+    to other content. A sponsor logo is decoration, so the still frame is the
+    right rendering. Put the brand in the first frame of any animated GIF.
 
     A sponsor with no usable logo shows its name as text, and a sponsor with no
     web address is not wrapped in an empty link. A broken image reads as a
@@ -21,13 +26,8 @@
 {{- $height := 0 -}}
 {{- if not $src -}}
     {{- with resources.Get (printf "images/sponsors/%s" $sponsor.Params.logo_image) -}}
-        {{- $subtype := .MediaType.SubType -}}
-        {{- if or (eq $subtype "svg") (eq $subtype "gif") -}}
+        {{- if eq .MediaType.SubType "svg" -}}
             {{- $src = .RelPermalink -}}
-            {{- if ne $subtype "svg" -}}
-                {{- $width = .Width -}}
-                {{- $height = .Height -}}
-            {{- end -}}
         {{- else -}}
             {{- $small := .Fit "560x150 webp q80" -}}
             {{- $large := .Fit "1120x300 webp q80" -}}
