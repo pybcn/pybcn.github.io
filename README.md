@@ -15,7 +15,8 @@ Hugo extended binary into `bin/hugo`, checks its SHA256 against the checksums
 published with the release, and does nothing if the right version is already
 there.
 
-You need `curl`, `tar`, and `sha256sum`. You do not need Python, Go, or npm.
+You need `curl`, `tar`, and `sha256sum` (or `shasum`, which macOS ships). You
+do not need Python, Go, or npm.
 
 The version lives in `.hugo-version`, which is the single source of truth.
 To move to a new Hugo release, edit that file and run `bin/install` again.

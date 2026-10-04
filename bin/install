@@ -42,6 +42,15 @@ function platform() {
   fi
 }
 
+# Stock macOS ships shasum, not sha256sum. Both read the same checksum list.
+function sha256_check() {
+  if command -v sha256sum >/dev/null; then
+    sha256sum -c -
+  else
+    shasum -a 256 -c -
+  fi
+}
+
 function install_hugo() {
   local target archive url checksums
   target=$(platform)
@@ -56,7 +65,7 @@ function install_hugo() {
   curl -sSfL -o "${workdir}/${checksums}" "${RELEASES}/v${HUGO_VERSION}/${checksums}"
 
   echo -n "Verifying checksum... "
-  (cd "${workdir}" && grep " ${archive}\$" "${checksums}" | sha256sum -c - >/dev/null)
+  (cd "${workdir}" && grep " ${archive}\$" "${checksums}" | sha256_check >/dev/null)
   echo "OK"
 
   tar xzf "${workdir}/${archive}" -C "${workdir}" hugo
