@@ -12,6 +12,14 @@
 				<li data-target="#carousel" data-slide-to="2"></li>
 			</ol>
 			{{ end }}
+			{{- /* With carousel_columns the carousel fills that share of the
+			       row from the md breakpoint up, and the full width below it.
+			       sizes tells the browser, so it picks the 600 px slide where
+			       the 1200 px one is twice what it needs. */ -}}
+			{{- $sizes := "100vw" -}}
+			{{- with .Params.carousel_columns -}}
+				{{- $sizes = printf "(min-width: 768px) %dvw, 100vw" (div (mul (int .) 100) 12) -}}
+			{{- end -}}
 			<div class="carousel-inner">
 				{{ range $i, $item := .Params.carousel_photos }}
 					{{ $class := "carousel-item" }}
@@ -25,7 +33,7 @@
 						{{ if $slide }}
 							{{- $small := partial "image_resize.html" (dict "img" $slide "width" 600) -}}
 							{{- $large := partial "image_resize.html" (dict "img" $slide "width" 1200) -}}
-							<img class="d-block w-100 img-fluid" src="{{ $large.RelPermalink }}"{{ if gt $large.Width $small.Width }} srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w" sizes="100vw"{{ end }} width="{{ $large.Width }}" height="{{ $large.Height }}" loading="{{ cond (eq $i 0) "eager" "lazy" }}" decoding="async" alt="{{ $item.caption }}"/>
+							<img class="d-block w-100 img-fluid" src="{{ $large.RelPermalink }}"{{ if gt $large.Width $small.Width }} srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w" sizes="{{ $sizes }}"{{ end }} width="{{ $large.Width }}" height="{{ $large.Height }}" loading="{{ cond (eq $i 0) "eager" "lazy" }}" decoding="async" alt="{{ $item.caption }}"/>
 						{{ else }}
 							<img class="d-block w-100" src="{{ relURL (printf "/images/%s" $item.photo) }}" loading="{{ cond (eq $i 0) "eager" "lazy" }}" decoding="async" alt="{{ $item.caption }}"/>
 						{{ end }}
