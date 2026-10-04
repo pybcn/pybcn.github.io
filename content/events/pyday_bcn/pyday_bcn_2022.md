@@ -151,6 +151,7 @@ events:
     color: red
     type: workshop
     language: "Spanish"  
+    title_lang: Spanish
     python_level: intermediate
     topic_level: intermediate
     requirements: "<ul><li>Laptop , requirements.txt installed.</li><li>VS Code IDE.</li></ul>"
@@ -278,6 +279,7 @@ events:
     color: blue
     type: workshop
     language: "Spanish"  
+    title_lang: Spanish
     python_level: beginner
     topic_level: beginner
     topic: "Scrapy"

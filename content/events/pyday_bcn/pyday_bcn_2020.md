@@ -158,6 +158,7 @@ events:
       title: "Ho sento, no ets el meu tipus"
       description: "Type Hints were introduced in Python 3 but you may have never used them, known that they exist, or seen code that uses them. Or you may have seen code with type hints and cringed because it didn't look like the Python you know. In this talk we will demistify type hints and show how they can actually help you find potential bugs."
       language: "Catalan"
+      title_lang: Catalan
       speaker: "Carles Barrobés"
       type: lightning
       python_level: intermediate
@@ -172,6 +173,7 @@ events:
       title: "Alexa, te elijo a ti"
       description: "Algunos de nosotros tenemos un aparatito en casa escuchándonos 24/7 que usamos para escuchar música, preguntarle la hora y pedirle un temporizador o un chiste malo. En esta charla os voy a enseñar como programar a Alexa usando Python para que os ayude en vuestras tareas usando dos ejemplos: una skill que nos calculará equivalencias para ayudarnos en las recetas de cocina (entre otras cosas) y otra que nos aconsejará sobre qué tipo de Pokémon elegir para enfrentarnos a un oponente."
       language: "Spanish"
+      title_lang: Spanish
       speaker: "Elisabeth Ortega Carrasco"
       type: talk
       python_level: beginner

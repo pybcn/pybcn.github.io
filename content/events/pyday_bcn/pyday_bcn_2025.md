@@ -237,6 +237,7 @@ events:
     color: orange
     type: workshop
     language: "Spanish"  
+    title_lang: Spanish
     python_level: intermediate
     topic_level: intermediate
     requirements: "Python environment y IDE"
@@ -262,6 +263,7 @@ events:
     color: blue
     type: workshop
     language: "Spanish"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: beginner
     requirements: "Conexión a internet, cuenta de Google (para trabajar en Google Colab a través de librerías ya disponibles sin necesidad de usar consola de comandos (cmd) ni instalar Python en local."
@@ -289,6 +291,7 @@ events:
     color: yellow
     type: workshop
     language: "Spanish/English"
+    title_lang: Spanish
     python_level: beginner
     topic_level: beginner
     requirements: "Conexión a internet. Python 3.10+. Tener la librería \"openai\" instalada. No se necesitará una API key para el taller. Se recomienda usar un gestor de entornos como uv o virtualenv, aunque no es obligatorio. Cada participante debe tener su entorno listo. Durante el taller se utilizará \"uv\" para gestionar dependencias."
@@ -377,6 +380,7 @@ events:
     color: blue
     type: workshop
     language: "Spanish/English"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: beginner
     requirements: "Python 3.10+ (cada participante puede decidir seguir el taller con un Jupyter Notebook, Google Colab, scripts de Python, etc). El taller se desarrollará utilizando archivos de texto de Python, pero es apto para seguirlo en un notebook también."
@@ -406,6 +410,7 @@ events:
     color: yellow
     type: workshop
     language: "Catalan"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: intermediate
     topic: "Computer vision"
@@ -444,6 +449,7 @@ events:
     color: orange
     type: workshop
     language: "Catalan"
+    title_lang: Catalan
     python_level: intermediate
     topic_level: beginner
     requirements: "Utilitzarem la última versió de la llibreria bambi durant el taller. Es recomana tenir un virtual environment amb la llibreria ja instal·lada si es vol seguir el taller en directe. El taller també assumeix un nivell intermedi en l'ús de NumPy i Pandas."
@@ -469,6 +475,7 @@ events:
     color: blue
     type: workshop
     language: "Spanish"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: beginner
     requirements: "Portátil y acceso a internet, para poder clonar el repositorio y seguir las instrucciones."
@@ -489,6 +496,7 @@ events:
     color: yellow
     type: workshop
     language: "English"
+    title_lang: Spanish
     python_level: beginner
     topic_level: beginner
     requirements: ""

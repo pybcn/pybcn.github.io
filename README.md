@@ -195,6 +195,12 @@ Each event in the list can indicate:
 - the location where the event will take place (a room, or a url)
 - the topic of the event (e.g. Data Science, Security...)
 - the type of the event: talk, workshop, coffee, lunch, photo, group, qa, lightning
+- `language`: the language the talk is given in, shown as text (e.g. `Spanish`)
+- `title_lang`: set it only when the title itself is not in English, with
+  `Spanish`, `Castellano`, `Catalan`, `Català` or a BCP 47 code such as `es`.
+  It puts a `lang` attribute on the title, so a screen reader reads it with
+  the right voice. `language` never sets it: many talks given in Spanish have
+  an English title
 - `python_level` and `topic_level`: the experience the attendee needs. Use one
   of `beginner`, `intermediate` or `advanced`
 

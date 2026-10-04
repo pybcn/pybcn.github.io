@@ -227,6 +227,7 @@ events:
       track_length: 1
       color: red
       language: "Spanish"
+      title_lang: Spanish
       type: workshop
       topic: Architecture
       python_level: beginner
@@ -310,6 +311,7 @@ events:
       track_length: 1
       color: yellow
       language: "Spanish"
+      title_lang: Spanish
       type: talk
       location: Room Raval
 

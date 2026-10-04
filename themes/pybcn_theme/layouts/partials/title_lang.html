@@ -1,0 +1,31 @@
+{{- /*
+    title_lang: the value for the lang attribute of an agenda title, or
+    nothing when the title is in the language of the page.
+
+    Context: one agenda event.
+
+    A title in another language needs a lang attribute, so a screen reader
+    reads it with the right voice (WCAG 3.1.2 Language of Parts). The
+    language field of an event is the language the talk is given in. It is
+    not the language of the title: many talks given in Spanish or Catalan
+    have an English title. So this partial never reads the language field.
+
+    Set title_lang on the event only when the title itself is not in
+    English. Accepted values are the keys of the table below (the same words
+    the language field uses) or a BCP 47 code. An unknown value emits no
+    attribute and logs a build warning.
+*/ -}}
+{{- $codes := dict
+    "Spanish" "es" "Castellano" "es" "Español" "es" "es" "es"
+    "Catalan" "ca" "Català" "ca" "ca" "ca"
+    "English" "en" "en" "en"
+-}}
+{{- $code := "" -}}
+{{- with .title_lang -}}
+	{{- $value := trim (printf "%v" .) " " -}}
+	{{- $code = index $codes $value -}}
+	{{- if not $code -}}
+		{{- warnf "title_lang: unknown value %q on %q. Use Spanish, Castellano, Catalan, Català or a BCP 47 code." $value $.title -}}
+	{{- end -}}
+{{- end -}}
+{{- return $code -}}
