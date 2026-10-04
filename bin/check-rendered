@@ -642,15 +642,32 @@ class Page(HTMLParser):
         if tag in self.FOREIGN and self.foreign:
             self.foreign -= 1
         if self.collecting is not None and tag in ("script", "style"):
-            finding, pieces = self.collecting
-            self.collecting = None
-            body = "".join(pieces)
-            if finding is not None:
-                finding["body"] = body
-            else:
-                accepted, note = check_style_block(body)
-                if not accepted:
-                    self.record("style-block", body=body, note=note)
+            self.finish_collecting()
+
+    def finish_collecting(self, at_eof=False):
+        """Validate the body of the open <script> or <style> and close it.
+
+        A <style> is checked only here, so a block left open never reached
+        this path from handle_endtag. close() calls it again at end of file:
+        a browser applies an unclosed stylesheet and runs an unclosed script,
+        so an unterminated block gets a decision, not a silent pass.
+        """
+        if self.collecting is None:
+            return
+        finding, pieces = self.collecting
+        self.collecting = None
+        body = "".join(pieces)
+        if finding is not None:
+            finding["body"] = body
+        else:
+            accepted, note = check_style_block(body)
+            if not accepted:
+                text = "<style> (unclosed at end of file)" if at_eof else None
+                self.record("style-block", body=body, note=note, text=text)
+
+    def close(self):
+        super().close()
+        self.finish_collecting(at_eof=True)
 
     def handle_data(self, data):
         self.values.append(data)
