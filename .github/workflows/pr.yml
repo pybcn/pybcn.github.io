@@ -125,7 +125,7 @@ jobs:
             --exclude 'twitter\.com'
             --exclude '^https?://(www\.)?x\.com/'
             --exclude 'linkedin\.com'
-              --exclude 'pybcn\.slack\.com'
+            --exclude 'pybcn\.slack\.com'
             --exclude 'canary\.invalid'
             'public/**/*.html'
           # External sites rate-limit. Keep the report in the job summary and
