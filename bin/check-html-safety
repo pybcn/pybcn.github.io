@@ -143,18 +143,46 @@ SAFE_STYLE = re.compile(
 ALLOWLIST = {}
 
 
+ENTITY = re.compile(r"&(?:#[0-9]+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]*);?")
+DROPPED = re.compile(r"[\s\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+
 def normalise_scheme(text):
     """Decode entities and strip whitespace so an obfuscated scheme still matches.
+
+    Returns (normalised text, offsets), where offsets[i] is the index in the
+    original text that produced normalised[i].
 
     A raw <a href> is not touched by Hugo's render hook, so &#106;avascript:,
     javascript&colon;, java&Tab;script: and a scheme split across a newline all
     reach the page working. html.unescape handles every HTML5 named entity,
     including the case-sensitive ones such as &Tab; and &NewLine; that a
-    hand-written table gets wrong. The result is only used for matching; the
-    reported snippet comes from the original text.
+    hand-written table gets wrong.
+
+    The offsets exist because the normalised text has no newlines, so a line
+    number counted in it is always the first line. Decoding an entity also
+    changes the length. Without the map, every scheme finding reported the
+    line the body starts on, whatever line it was really on.
     """
-    decoded = html.unescape(text)
-    return re.sub(r"[\s\x00-\x08\x0b\x0c\x0e-\x1f]", "", decoded)
+    out, offsets = [], []
+    index, end = 0, len(text)
+    while index < end:
+        entity = ENTITY.match(text, index)
+        if entity:
+            decoded = html.unescape(entity.group(0))
+            if decoded != entity.group(0):
+                for char in decoded:
+                    if not DROPPED.match(char):
+                        out.append(char)
+                        offsets.append(index)
+                index = entity.end()
+                continue
+        char = text[index]
+        if not DROPPED.match(char):
+            out.append(char)
+            offsets.append(index)
+        index += 1
+    return "".join(out), offsets
 
 
 def split_front_matter(text):
@@ -292,18 +320,24 @@ def allowed(relpath, pattern_name, region):
 def scan_text(text, where, relpath, line_offset=0):
     """Return (findings, suppressions) for one blob of text."""
     findings, suppressed = [], []
-    normalised = normalise_scheme(text)
+    normalised, offsets = normalise_scheme(text)
     for name, regex, description in PATTERNS:
-        haystack = normalised if name in SCHEME_PATTERNS else text
+        scheme = name in SCHEME_PATTERNS
+        haystack = normalised if scheme else text
         for match in regex.finditer(haystack):
             if name == "style-attr" and benign_style(haystack, match.start()):
                 continue
+            # A scheme match is found in the normalised text, which carries no
+            # newlines. Map it back so the line number and the excerpt describe
+            # the file the contributor has to edit.
+            at = match.start()
+            origin = offsets[at] if scheme and at < len(offsets) else at
             record = {
                 "pattern": name,
                 "description": description,
                 "where": where,
-                "line": line_of(haystack, match.start()) + line_offset,
-                "snippet": snippet(haystack, match.start()),
+                "line": line_of(text, origin) + line_offset,
+                "snippet": snippet(text, origin),
             }
             entry = allowed(relpath, name, match_region(haystack, match.start()))
             if entry:
