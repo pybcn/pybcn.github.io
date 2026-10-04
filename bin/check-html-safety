@@ -70,6 +70,12 @@ PATTERNS = [
     ("script", re.compile(r"<script(?=[\s/>])", re.I), "inline or external script"),
     ("style", re.compile(r"<style(?=[\s/>])", re.I), "inline stylesheet, can cover the page"),
     ("iframe", re.compile(r"<iframe(?=[\s/>])", re.I), "embedded third party document"),
+    # srcdoc holds a whole document inline, and that document runs in the
+    # origin of the page that embeds it, so it is script execution on this
+    # site. The browser also prefers srcdoc over src, so a permitted src next
+    # to it means nothing. No LOAD_ATTRIBUTES entry exists for it, so no
+    # allowlist entry can clear it.
+    ("srcdoc", re.compile(r"(?<![\w-])srcdoc\s*=", re.I), "iframe srcdoc, inline document in the page origin"),
     ("object", re.compile(r"<object(?=[\s/>])", re.I), "plugin object"),
     ("embed", re.compile(r"<embed(?=[\s/>])", re.I), "plugin embed"),
     ("form", re.compile(r"<form(?=[\s/>])", re.I), "form that can post elsewhere"),
