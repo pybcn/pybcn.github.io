@@ -6,24 +6,24 @@
 #
 # The paths below are different. A change there reaches every page of the
 # site, or reaches money, or reaches the deploy. Each one needs a review
-# from @pybcn/core.
+# from @pybcn/web.
 #
 # GitHub applies the last matching rule, and every rule here has the same
 # owner, so the order does not change the outcome.
 #
-# @pybcn/core has push and admin access on this repository, so it is a valid
-# code owner. If a review request does not reach the team, check that the
-# team is visible rather than secret in the organization settings.
+# @pybcn/web has push access on this repository and its visibility is
+# "closed", which is what GitHub needs in order to send it a review request.
+# A secret team is a valid owner on paper and silently receives nothing.
 
 # Deploy. The workflow runs on every push and holds the publish credentials.
-/.github/                    @pybcn/core
+/.github/                    @pybcn/web
 
 # Build and release scripts. They run on a maintainer machine.
-/bin/                        @pybcn/core
+/bin/                        @pybcn/web
 
 # Site configuration. It sets the markup safety flags, the base URL and the
 # analytics identifier.
-/config.toml                 @pybcn/core
+/config.toml                 @pybcn/web
 
 # Layouts and shortcodes. A change here renders on many pages at once.
 #
@@ -31,19 +31,28 @@
 # hosted_button_id of the association. One changed character in that value
 # sends the membership fees to another PayPal account, and the page still
 # looks correct. This is the strongest single reason this path is owned.
-/layouts/                    @pybcn/core
+/layouts/                    @pybcn/web
 
 # Static assets served from the site root, including files that browsers
 # fetch with no further checking.
-/static/                     @pybcn/core
+/static/                     @pybcn/web
 
 # The theme: every template, partial, script and stylesheet of the site.
-/themes/                     @pybcn/core
+/themes/                     @pybcn/web
 
 # Association pages: statutes, the code of conduct, membership and payment
 # instructions. These carry legal and financial statements.
-/content/pybcn_association/  @pybcn/core
+/content/pybcn_association/  @pybcn/web
 
 # The custom domain of the GitHub Pages site. A change to this file points
 # pybcn.org somewhere else.
-/CNAME                       @pybcn/core
+/CNAME                       @pybcn/web
+
+# Sponsors and events. A sponsor file carries a name, a logo file name and the
+# tier it is listed under, and an event file decides which sponsors and which
+# people a page shows. Both render on pages an outside contributor never
+# touches, so a wrong value there is visible to everyone and obvious to
+# nobody. These are the paths a hostile sponsor entry would come through.
+/content/sponsors/           @pybcn/web
+/content/events/             @pybcn/web
+
