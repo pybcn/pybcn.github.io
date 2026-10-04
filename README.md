@@ -153,9 +153,9 @@ The standard library is enough, no `pip install`. The `pr-checks` workflow
 runs it in the `links` job, on the same build lychee checks. `ALLOWLIST` in
 the script names each accepted finding by page, kind and either the prefix of
 the URL the element loads or the SHA-256 of the inline text, with a reason:
-today the Google embeds, the PayPal form with its button image and its 1x1
-pixel, the Eventbrite button of PyDay 2018, and two inline scripts in the
-frozen archives. An entry that no longer matches anything is reported as
+today the Google embeds, the PayPal form with its button image, the
+Eventbrite button of PyDay 2018, and two inline scripts in the frozen
+archives. An entry that no longer matches anything is reported as
 stale, so it gets deleted.
 
 
