@@ -171,16 +171,20 @@ def check_listings(people, sponsors):
     return listed_people
 
 
-def check_orphans(people):
-    """A person page nothing links to renders, but nobody can reach it."""
-    body = "\n".join(
-        p.read_text(encoding="utf-8")
-        for p in CONTENT.rglob("*.md")
-        if p.parent.name != "people"
-    )
+def check_orphans(people, listed_people):
+    """A person page no listing points at renders, but nobody can reach it.
+
+    The check compares against the ids check_listings collected from the
+    front matter keys, so only a real listing counts. The old check searched
+    the text of every page with a word-boundary regex, and a regex boundary
+    sits between a letter and a hyphen: 'ricardo' matched inside
+    'ricardo-ander-egg' and 'jordi' inside 'jordi-bosch', so those two pages
+    passed with no listing at all. Prose that happens to contain an id does
+    not count as a reference either.
+    """
     for page_id, path in people.items():
-        if not re.search(rf"\b{re.escape(page_id)}\b", body):
-            warn(path, f"person '{page_id}' is not referenced by any event or page")
+        if page_id not in listed_people:
+            warn(path, f"person '{page_id}' is not listed by any event or page")
 
 
 def main():
@@ -188,8 +192,8 @@ def main():
     sponsors = collect_ids("sponsors")
     check_photos(people)
     check_logos(sponsors)
-    check_listings(people, sponsors)
-    check_orphans(people)
+    listed_people = check_listings(people, sponsors)
+    check_orphans(people, listed_people)
 
     for line in warnings:
         print(f"WARNING  {line}")
