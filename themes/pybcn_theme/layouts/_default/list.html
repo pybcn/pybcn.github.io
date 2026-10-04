@@ -6,8 +6,7 @@
     RSS to a visitor, including the "The association" link in the main menu.
 */ -}}
 {{ define "main" }}
-{{ partial "hero_header.html" . }}
-<section class="container" id="main_content">
+<div class="container">
     {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
     {{ $pages := .Pages }}
     {{ if .IsNode }}{{ $pages = .Pages }}{{ end }}
@@ -23,5 +22,5 @@
     {{ else }}
     <p>Nothing here yet.</p>
     {{ end }}
-</section>
+</div>
 {{ end }}
