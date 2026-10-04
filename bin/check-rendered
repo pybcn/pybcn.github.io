@@ -303,10 +303,20 @@ KIND_TEXT = dict(KINDS)
 #
 # The Hugo alias pages (a meta refresh to the new URL of a moved page) and
 # the eleven redirects in the archived pybcn.org snapshot need no entry: a
-# refresh that stays on this site is not a finding. The archived snapshots
-# are frozen copies under static/archives/, owned by @pybcn/core through the
-# /static/ rule. They stay in the scan, and the two inline scripts they hold
-# are pinned by hash below, so a change to a frozen page still fails here.
+# refresh that stays on this site is not a finding, whatever page it is on.
+# Hugo writes the alias pages at build time, so they are matched by that
+# shape and never by path.
+#
+# archives/ stays in the scan. The 56 pages there are frozen copies under
+# static/archives/, served as they are, and a change to them needs a review
+# from @pybcn/core through the /static/ rule. Excluding the directory would
+# make the check blind to 56 served pages, and the price of keeping them is
+# two entries. Measured on the 2026-10 build: the archives hold 100 script
+# elements that all load from this site, 44 inline scripts with two distinct
+# bodies (the two entries below), 67 style attributes that are all sizes and
+# margins, two forms with no action and one <style> that resets the body
+# margin. Pinning the two bodies by hash means that an edit to a frozen page,
+# or a new snapshot with a script in it, fails here and gets a decision.
 ALLOWLIST = [
     {"path": "pybcn_association/membership/index.html",
      "kind": "form",
