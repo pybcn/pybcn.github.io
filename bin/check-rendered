@@ -23,16 +23,23 @@ reports:
     the rest of URL_ATTRIBUTES), in a meta refresh, and in a url() of an
     inline style
   - a <script> that is inline, or whose src is not on this site
-  - <iframe>, <object>, <embed>, <base>, an iframe srcdoc, and a <form> or a
-    formaction that posts off this site
+  - <iframe>, <frame>, <portal>, <object>, <embed>, <applet>, <base>, an
+    iframe srcdoc, and a <form> or a formaction that posts off this site
   - a <meta http-equiv="refresh"> that sends the visitor off this site
   - a style attribute that does more than size, space, align or decorate the
     element, see SAFE_STYLE. position, z-index, transform, a negative margin
     or a viewport unit build a page overlay with no script at all
-  - a <style> element that positions, layers, hides or loads, see
-    STYLE_BLOCK_DENY
-  - a <link> that loads a stylesheet or a preload from off this site
+  - a <style> element with a property or a value outside SAFE_BLOCK_STYLE,
+    the grid and box properties the templates write. An at-rule, a url(), a
+    CSS escape, a negative length or a viewport unit never pass
+  - a <link> that fetches from off this site: a stylesheet, a preload, an
+    icon, a manifest or a preconnect, see LOADING_RELS
+  - an image, a media file or a click beacon (ping) fetched from off this
+    site. It runs nothing, but it tells a third party who viewed the page
   - an SVG <set> or <animate> that targets an href
+  - a comment or a marked section that a browser reads differently from
+    html.parser, which could hide a <script> from this check, see "Parser
+    traps" below
   - any URL on CANARY_HOST, see "The canary" below
 
 Why a parser and not grep. The site builds with --minify, which unquotes
@@ -43,6 +50,15 @@ attribute value. A grep also misses &#106;avascript: in an href, which the
 parser decodes the way the browser does, and it cannot tell a <style> that
 is inside an <svg> from one that is not. The parser runs the same rules on
 a minified and on a plain build and gives the same result.
+
+Parser traps. html.parser and a browser disagree on three pieces of markup,
+and each one would let a <script> through: <!--> and <!---> close a comment
+at once in a browser, but the parser reads on to the next -->; a comment
+ends at --!> in a browser and not in the parser; and <![CDATA[ outside
+<svg> and <math> is a comment that ends at the first > in a browser, but a
+marked section that ends at ]]> in the parser. Each one is reported as a
+finding, so the disagreement is never silent. hugo --minify strips every
+comment, so a built page has none of them unless a static file carries it.
 
 "On this site" means a URL with no host, or a host equal to the one in
 baseURL in config.toml (--host overrides it). The build made by the links
@@ -201,31 +217,77 @@ SAFE_STYLE = {
     re.compile(r"^margin(?:-(?:top|right|bottom|left))?$"): re.compile(r"^" + MARGIN + r"$", re.I),
     re.compile(r"^padding(?:-(?:top|right|bottom|left))?$"): re.compile(r"^" + BOX + r"$", re.I),
     re.compile(r"^text-align$"): re.compile(r"^(?:left|right|center|justify)$", re.I),
+    # A font size of zero hides the text, so zero is refused here and nowhere else.
     re.compile(r"^font-size$"): re.compile(
-        r"^(?:" + LENGTH + r"|xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger)$", re.I),
+        r"^(?!0+(?:\.0+)?(?:px|%|em|rem|pt)?$)"
+        r"(?:" + LENGTH + r"|xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger)$", re.I),
     re.compile(r"^border(?:-(?:top|right|bottom|left))?$"): re.compile(
         r"^" + BORDER_TOKEN + r"(?:\s+" + BORDER_TOKEN + r"){0,2}$", re.I),
     re.compile(r"^border-radius$"): re.compile(r"^" + BOX + r"$", re.I),
     re.compile(r"^background-image$"): re.compile(r"^" + URL + r"$", re.I),
 }
 STYLE_URL = re.compile(URL, re.I)
+STYLE_CHARS = re.compile(r"[\x20-\x7e\t\n\r]*")
 
 # A <style> element is template output whose text changes from page to page
-# (the agenda partial writes one grid per event), so neither a hash nor the
-# attribute table above fits it. The block is a finding when it carries a
-# property or a token that positions, layers, hides or loads, or a CSS
-# escape, which has no honest use in a stylesheet this site writes. A
-# negative number is one that follows a colon, a space or a bracket: the
-# agenda classes are named length-1, length-2 and so on.
-STYLE_BLOCK_DENY = re.compile(
-    r"(?<![\w-])(?:position|z-index|inset(?:-[\w-]+)?|top|right|bottom|left|"
-    r"transform(?:-[\w-]+)?|translate|scale|rotate|perspective|opacity|"
-    r"visibility|display|pointer-events|content|clip|clip-path|mask(?:-[\w-]+)?|"
-    r"filter|backdrop-filter|behavior|-moz-binding|float)\s*:"
-    r"|url\s*\(|image-set\s*\(|expression\s*\(|@import|@font-face|@namespace"
-    r"|\\|(?<![\w-])-\d|\d(?:vw|vh|vmin|vmax|svw|svh|lvw|lvh|dvw|dvh)\b",
+# (the agenda partial writes one grid per event), so a hash does not fit it.
+# It gets the same treatment as the attribute: every declaration must name a
+# property in SAFE_BLOCK_STYLE and match its value pattern. The table is the
+# attribute table plus the grid properties the agenda writes. A deny list was
+# tried first and missed eight ways to hide or move an element (overflow,
+# zoom, offset-path, all, a negative length written -.5em or inside calc(),
+# a zero font-size, a transparent colour, a rule inside @media), so the block
+# is now accepted only for what it is known to need.
+#
+# Before the grammar runs, the whole block is refused when it holds an
+# at-rule, a url(), an image-set(), an expression(), a CSS escape, a comment,
+# a negative number or a viewport unit. A negative number is one that
+# follows a colon, a space or a bracket: the agenda classes are named
+# length-1, length-2 and so on.
+BLOCK_REFUSE = re.compile(
+    r"@|\\|/\*|url\s*\(|image-set\s*\(|expression\s*\(|(?<![\w-])-\s*\.?\d"
+    r"|\d(?:vw|vh|vmin|vmax|svw|svh|lvw|lvh|dvw|dvh)\b",
     re.I)
+GRID_VALUE = re.compile(r"^[\w\s,./()\"'%-]+$")
+SAFE_BLOCK_STYLE = dict(SAFE_STYLE)
+SAFE_BLOCK_STYLE[re.compile(
+    r"^(?:grid-(?:template-(?:columns|rows|areas)|(?:column|row)(?:-(?:start|end))?|area)"
+    r"|(?:grid-)?(?:row-|column-)?gap)$")] = GRID_VALUE
+RULE = re.compile(r"\s*([^{}]*?)\s*\{([^{}]*)\}")
 
+
+def check_style_block(text):
+    """Return (accepted, note) for the text of a <style> element.
+
+    note names the token, the property or the declaration that failed, for
+    the report.
+    """
+    match = BLOCK_REFUSE.search(text)
+    if match:
+        return False, match.group(0)
+    position = 0
+    for rule in RULE.finditer(text):
+        if text[position:rule.start()].strip():
+            return False, "text outside a rule"
+        position = rule.end()
+        for declaration in rule.group(2).split(";"):
+            if not declaration.strip():
+                continue
+            if ":" not in declaration:
+                return False, declaration.strip()
+            name, value = declaration.split(":", 1)
+            name = name.strip().lower()
+            value = re.sub(r"\s*!important\s*$", "", value.strip(), flags=re.I)
+            for property_pattern, value_pattern in SAFE_BLOCK_STYLE.items():
+                if property_pattern.match(name):
+                    if not value_pattern.match(value):
+                        return False, "%s: %s" % (name, value)
+                    break
+            else:
+                return False, name
+    if text[position:].strip():
+        return False, "text outside a rule"
+    return True, None
 
 def check_style_attribute(value):
     """Return (accepted, urls) for a style attribute value.
@@ -234,6 +296,12 @@ def check_style_attribute(value):
     against what the style loads and the canary rule can see it.
     """
     urls = [m.group(2) for m in STYLE_URL.finditer(value)]
+    # A backslash is a CSS escape, which spells j\61vascript: or hides a
+    # slash in a URL from the patterns below. A comment has no honest use in
+    # a one-line attribute. A character outside printable ASCII is not a
+    # property or a length the templates write.
+    if "\\" in value or "/*" in value or not STYLE_CHARS.fullmatch(value):
+        return False, urls
     for declaration in value.split(";"):
         if not declaration.strip():
             continue
@@ -260,8 +328,41 @@ HANDLER = re.compile(r"^on[a-z]")
 # <script type=...> values that a browser never executes.
 DATA_BLOCK_TYPES = {"application/ld+json", "application/json"}
 
-# <link rel=...> tokens that make the browser fetch the href as code or style.
-LOADING_RELS = {"stylesheet", "preload", "modulepreload", "prefetch", "import"}
+# <link rel=...> tokens that make the browser fetch the href, or open a
+# connection to its host, as soon as the page loads.
+LOADING_RELS = {
+    "stylesheet", "preload", "modulepreload", "prefetch", "prerender", "import",
+    "icon", "apple-touch-icon", "apple-touch-icon-precomposed", "mask-icon",
+    "manifest", "preconnect", "dns-prefetch",
+}
+
+# Elements that fetch a resource when the page loads, and the attributes they
+# fetch it from. An off-site URL in one of them is a "load" finding: it runs
+# nothing, but the third party learns the address of every visitor. An
+# <input> counts only when its type is image. <image> is the SVG element.
+LOADERS = {
+    "img": ("src", "srcset"),
+    "source": ("src", "srcset"),
+    "video": ("src", "poster"),
+    "audio": ("src",),
+    "track": ("src",),
+    "input": ("src",),
+    "image": ("href", "xlink:href"),
+}
+
+# Elements that embed another document or a plugin, with the kind they are
+# reported as and the attribute that names what they embed. Each one is a
+# finding whatever it embeds.
+EMBEDDERS = {
+    "iframe": ("iframe", "src"),
+    "frame": ("iframe", "src"),
+    "portal": ("iframe", "src"),
+    "fencedframe": ("iframe", "src"),
+    "object": ("object", "data"),
+    "embed": ("embed", "src"),
+    "applet": ("object", "codebase"),
+    "base": ("base", "href"),
+}
 
 # Elements of SVG animation that can rewrite an href while the page is open.
 ANIMATORS = {"set", "animate", "animatemotion", "animatetransform"}
@@ -272,17 +373,19 @@ KINDS = [
     ("canary", "URL on the canary host, a template printed a name as markup"),
     ("script-inline", "inline script"),
     ("script-external", "script loaded from off this site"),
-    ("iframe", "embedded document"),
+    ("iframe", "embedded document: iframe, frame or portal"),
     ("srcdoc", "iframe srcdoc, inline document in the page origin"),
-    ("object", "plugin object"),
+    ("object", "plugin object or applet"),
     ("embed", "plugin embed"),
     ("base", "base element, rewrites every relative URL"),
     ("form", "form or formaction that posts off this site"),
     ("refresh", "meta refresh off this site"),
     ("style-attr", "inline style outside SAFE_STYLE"),
-    ("style-block", "stylesheet that positions, layers, hides or loads"),
-    ("stylesheet", "stylesheet or preload from off this site"),
+    ("style-block", "stylesheet with a property or a value outside SAFE_BLOCK_STYLE"),
+    ("link", "link element that fetches from off this site"),
+    ("load", "image, media or click beacon fetched from off this site"),
     ("svg-animate", "SVG animation that targets an href"),
+    ("parser-trap", "comment or marked section a browser reads differently, can hide a script"),
 ]
 KIND_TEXT = dict(KINDS)
 
@@ -348,6 +451,33 @@ ALLOWLIST = [
      "sha256": "813813dad35acb4facd8be5f3c127180d341365a81850f7de9639ec22e9b242f",
      "why": "window._cf_translation = {}; the Cloudflare email protection page "
             "captured with the frozen snapshot"},
+    {"path": "pybcn_association/membership/index.html",
+     "kind": "load",
+     "prefix": "https://www.paypalobjects.com/en_US/GB/i/btn/btn_subscribeCC_LG.gif",
+     "why": "the PayPal button image of the membership-process shortcode"},
+    {"path": "pybcn_association/membership/index.html",
+     "kind": "load",
+     "prefix": "https://www.paypalobjects.com/es_ES/i/scr/pixel.gif",
+     "why": "the 1x1 pixel PayPal ships inside its button snippet. It tells PayPal "
+            "who viewed the page and the button works without it; dropping it from "
+            "the shortcode is a decision for @pybcn/core"},
+    {"path": "pybcn_association/membership-cancel/index.html",
+     "kind": "load",
+     "prefix": "https://www.paypalobjects.com/en_US/GB/i/btn/btn_subscribeCC_LG.gif",
+     "why": "the PayPal button image of the membership-process shortcode"},
+    {"path": "pybcn_association/membership-cancel/index.html",
+     "kind": "load",
+     "prefix": "https://www.paypalobjects.com/es_ES/i/scr/pixel.gif",
+     "why": "the same PayPal pixel, on the unsubscribe page"},
+    {"path": "events/pyday_bcn/pyday_bcn_2018/index.html",
+     "kind": "load",
+     "prefix": "https://www.eventbrite.es/custombutton?eid=50585714233",
+     "why": "the Eventbrite registration button of PyDay 2018, an image Eventbrite "
+            "serves on every visit. The event is over; a local copy would end the entry"},
+    {"path": "archives/pybcn.org/",
+     "kind": "load",
+     "prefix": "https://www.eventbrite.es/custombutton?eid=50585714233",
+     "why": "the same Eventbrite button on the two frozen copies of the 2018 page"},
 ]
 
 
@@ -421,9 +551,10 @@ class Page(HTMLParser):
             return True
         return False
 
-    def record(self, kind, urls=(), body=None, note=None):
+    def record(self, kind, urls=(), body=None, note=None, text=None):
         line, column = self.getpos()
-        text = self.get_starttag_text() or ""
+        if text is None:
+            text = self.get_starttag_text() or ""
         text = re.sub(r"\s+", " ", text)
         if len(text) > 160:
             text = text[:157] + "..."
@@ -453,12 +584,11 @@ class Page(HTMLParser):
                     if host == CANARY_HOST:
                         self.record("canary", urls=[url], note=name)
 
-        if tag == "iframe":
-            if "srcdoc" in names:
+        if tag in EMBEDDERS:
+            kind, attribute = EMBEDDERS[tag]
+            if tag == "iframe" and "srcdoc" in names:
                 self.record("srcdoc")
-            self.record("iframe", urls=[values.get("src", "")])
-        elif tag in ("object", "embed", "base"):
-            self.record(tag, urls=[values.get("data" if tag == "object" else "src", "")])
+            self.record(kind, urls=[values.get(attribute, "")], note=tag)
         elif tag == "script":
             if "src" in names:
                 if not self.on_site(values["src"]):
@@ -486,11 +616,24 @@ class Page(HTMLParser):
             rels = set(values.get("rel", "").lower().split())
             href = values.get("href", "")
             if rels & LOADING_RELS and href and not self.on_site(href):
-                self.record("stylesheet", urls=[href], note=" ".join(sorted(rels & LOADING_RELS)))
+                self.record("link", urls=[href], note=" ".join(sorted(rels & LOADING_RELS)))
         elif tag in ANIMATORS:
             target = values.get("attributename", "").strip().lower()
             if target in ("href", "xlink:href"):
                 self.record("svg-animate", note=target)
+
+        if tag in LOADERS and (tag != "input" or values.get("type", "").strip().lower() == "image"):
+            urls = []
+            for attribute in LOADERS[tag]:
+                if attribute in values:
+                    urls.extend(url_list(attribute, values[attribute]))
+            off_site = [url for url in urls
+                        if url and split_url(url)[0] not in DANGEROUS_SCHEMES
+                        and not self.on_site(url)]
+            if off_site:
+                self.record("load", urls=off_site)
+        if values.get("ping", "").strip():
+            self.record("load", urls=url_list("ping", values["ping"]), note="ping")
 
         if "style" in names:
             accepted, urls = check_style_attribute(values["style"])
@@ -514,14 +657,32 @@ class Page(HTMLParser):
             body = "".join(pieces)
             if finding is not None:
                 finding["body"] = body
-            elif STYLE_BLOCK_DENY.search(body):
-                match = STYLE_BLOCK_DENY.search(body)
-                self.record("style-block", body=body, note=match.group(0))
+            else:
+                accepted, note = check_style_block(body)
+                if not accepted:
+                    self.record("style-block", body=body, note=note)
 
     def handle_data(self, data):
         self.values.append(data)
         if self.collecting is not None:
             self.collecting[1].append(data)
+
+    # The parser traps, see the module docstring. The parser calls neither
+    # method for the text of a <script> or a <style>, so the "<![CDATA[" that
+    # old scripts open with is not reported. Inside <svg> and <math> a CDATA
+    # section is text in a browser too, so it is not reported either.
+    def handle_comment(self, data):
+        if data.startswith(">") or data.startswith("->"):
+            self.record("parser-trap", body=data, text="<!--" + data[:80],
+                        note="a browser closes this comment at <!--> or <!--->")
+        elif "--!>" in data:
+            self.record("parser-trap", body=data, text="<!--" + data[:80],
+                        note="a browser closes this comment at --!>")
+
+    def unknown_decl(self, data):
+        if not self.foreign:
+            self.record("parser-trap", body=data, text="<![" + data[:80],
+                        note="a browser reads <![ outside svg or math as a comment up to the first >")
 
 
 # ---------------------------------------------------------------------------
@@ -638,7 +799,7 @@ def main():
             if finding["note"]:
                 print("      on:    %s" % finding["note"])
             print("      text:  %s" % finding["text"])
-            if finding["kind"] in ("script-inline", "style-block") and finding["body"]:
+            if finding["kind"] in ("script-inline", "style-block", "parser-trap") and finding["body"]:
                 print("      body:  %s" % re.sub(r"\s+", " ", finding["body"]).strip()[:160])
                 print("      sha256: %s" % text_hash(finding["body"]))
         print("\nThe built page carries markup this site must not serve. Find the "
