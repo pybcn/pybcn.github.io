@@ -5,6 +5,10 @@ description: "We are glad to see our community growing"
 layout: single
 heroBackground: /images/photos/people-pydata-2017.jpg
 
+# PayPal return target, not a destination: keep it out of lists and the sitemap.
+_build:
+  list: never
+
 ---
 
 <div class="container">
