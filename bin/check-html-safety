@@ -116,7 +116,11 @@ SCHEME_PATTERNS = {"javascript-url", "vbscript-url", "data-url"}
 # or the footer, so these properties are accepted and nothing else is. The
 # value must be plain: no url(), no comment, no entity, no escape, no
 # negative number and no viewport unit.
-LENGTH = r"(?:auto|\d+(?:\.\d+)?(?:px|%|em|rem)?)"
+# Four digits is the same cap the logo shortcode puts on its width and
+# height. The largest value content actually uses is 150px, and an
+# unbounded length lets an accepted property still deface a page: a
+# width of 99999px pushes everything else off the viewport.
+LENGTH = r"(?:auto|\d{1,4}(?:\.\d+)?(?:px|%|em|rem)?)"
 SAFE_STYLE = re.compile(
     r"^\s*(?:(?:width|height|margin(?:-(?:top|right|bottom|left))?)"
     r"\s*:\s*" + LENGTH + r"(?:\s+" + LENGTH + r"){0,3}\s*(?:;\s*|$))+$",
