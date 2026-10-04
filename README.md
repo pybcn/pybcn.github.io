@@ -6,7 +6,7 @@ deployed using [Hugo](https://gohugo.io).
 ## Usage for content publishing
 
 ## Prerequisites
-- pip
+- `curl`, `tar`, and `sha256sum`. The `bin/install` script needs them to download and verify the Hugo binary.
 
 ### Setup on your computer
 
