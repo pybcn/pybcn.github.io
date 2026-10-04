@@ -2,8 +2,6 @@ name: pr-checks
 
 on:
   pull_request:
-    branches:
-      - edition
 
 permissions:
   contents: read
