@@ -7,7 +7,14 @@
     for a 2x screen. A person with no photo falls back to anon_member.png. A
     person with an external photo_url keeps a plain img, because Hugo cannot
     process a remote file.
+
+    The modal id takes the key the grid passes in (grid, level and position),
+    because an event page can list the same person in two sections. Two
+    dialogs with one id would share it in aria-labelledby, and an id has to
+    be unique on the page.
 */ -}}
+{{- $modal := printf "modal_%s" $.person.Params.id -}}
+{{- with $.key -}}{{- $modal = printf "modal_%s_%s" . $.person.Params.id -}}{{- end -}}
 {{- $photoURL := $.person.Params.photo_url -}}
 {{- $photo := $.person.Params.photo -}}
 {{- $img := "" -}}
@@ -30,7 +37,7 @@
     <div class="img-wrap">
         {{/* A button, not a link: it opens a dialog rather than navigating.
              The alt names the person, because the photo is the only content. */}}
-        <button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}" aria-label="More about {{ $.person.Params.name }}">
+        <button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}" aria-label="More about {{ $.person.Params.name }}">
             {{ if $photoURL }}
                 <img class="img-fluid img-people" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="{{ $.person.Params.name }}" />
             {{ else }}
@@ -39,7 +46,7 @@
         </button>
     </div>
     <div class="person_data">
-        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}">{{ $.person.Params.name }}</button></h3>
+        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}">{{ $.person.Params.name }}</button></h3>
         <p>{{ $.person.Params.pybcn_position }}</p>
     </div>
     <div class="social_links">
@@ -57,7 +64,7 @@
         {{ end }}
     </div>
 
-    <div class="modal fade" id="modal_{{ $.person.Params.id }}" role="dialog" aria-labelledby="modal_{{ $.person.Params.id }}_title" aria-hidden="true" tabindex="-1">
+    <div class="modal fade" id="{{ $modal }}" role="dialog" aria-labelledby="{{ $modal }}_title" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -70,7 +77,7 @@
                     {{ else }}
                         <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
                     {{ end }}
-                    <h3 class="modal-title" id="modal_{{ $.person.Params.id }}_title">
+                    <h3 class="modal-title" id="{{ $modal }}_title">
                         {{ $.person.Params.name }}
                         {{ if $.person.Params.twitter }}
                             <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on Twitter"><i class="fab fa-twitter-square" aria-hidden="true"></i></a>

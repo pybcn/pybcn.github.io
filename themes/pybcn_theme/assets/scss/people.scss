@@ -1,6 +1,7 @@
-// Sponsors CSS
+// People grid. Hooked on a class: an event page holds one grid per
+// people section, so there is no single id to target.
 
-#people_grid {
+.people_grid {
     .person_wrapper {
 
         margin-bottom: 20px;
@@ -96,7 +97,7 @@
 }
 
 @media (max-width: 575.98px) {
-    #people_grid {
+    .people_grid {
         .person_wrapper {
             .person_item {
                 .modal {

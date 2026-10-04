@@ -73,7 +73,7 @@
             {{ range $section := .Params.people_sections }}
                 <div class="link_anchor people_section" id="{{ $section.id }}">
                     <h2 class="h1">{{ $section.title }}</h2>
-                    {{ partial "people-grid.html" (dict "levels" $section.levels "Site" $.Site) }}
+                    {{ partial "people-grid.html" (dict "levels" $section.levels "Site" $.Site "key" $section.id) }}
                 </div>
             {{ end }}
 
