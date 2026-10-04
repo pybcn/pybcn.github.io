@@ -85,9 +85,40 @@ PATTERNS = [
     # An event handler is on<name>=, so require a letter after "on" and reject
     # an underscore, which made on_error= a false positive.
     ("handler", re.compile(r"(?<![\w-])on[a-z]{2,}\s*=", re.I), "HTML event handler attribute"),
-    # Matched against the normalised text, see normalise_scheme.
+    # A style attribute needs no script to do harm: position, z-index and a
+    # background build a full page overlay with a phishing link in it. The
+    # attribute is a finding unless its value passes SAFE_STYLE.
+    ("style-attr", re.compile(r"(?<![\w-])style\s*=", re.I), "inline style, can cover the page"),
+    # The three URL schemes are matched against the normalised text, see
+    # normalise_scheme and SCHEME_PATTERNS.
     ("javascript-url", re.compile(r"javascript:", re.I), "javascript: URL"),
+    ("vbscript-url", re.compile(r"vbscript:", re.I), "vbscript: URL"),
+    # A data: URL that can hold a document has a media type with a slash and a
+    # comma after it. Requiring both keeps the word "data:" in prose and in a
+    # YAML key out of the findings. A data: URL with no media type is
+    # text/plain and cannot carry HTML.
+    ("data-url", re.compile(r"data:[\w.+-]+/[\w.+-]+(?:;[^;,]*)*,", re.I), "data: URL, inline document"),
 ]
+
+# Pattern names that are matched against the normalised text.
+SCHEME_PATTERNS = {"javascript-url", "vbscript-url", "data-url"}
+
+# A style attribute is accepted when its value is only sizes and margins.
+#
+# The archived PyDay 2018 and 2019 pages size their sponsor logos this way.
+# They cannot be converted to width= and height= attributes without a visual
+# change: the theme rule for images in a column sets height to auto, and a
+# stylesheet rule beats a presentational attribute. A width, a height or a
+# non-negative margin cannot move an element over the header, the navigation
+# or the footer, so these properties are accepted and nothing else is. The
+# value must be plain: no url(), no comment, no entity, no escape, no
+# negative number and no viewport unit. border-width is in the list for the
+# calendar iframe of the 2019 page.
+LENGTH = r"(?:auto|\d+(?:\.\d+)?(?:px|%|em|rem)?)"
+SAFE_STYLE = re.compile(
+    r"^\s*(?:(?:width|height|margin(?:-(?:top|right|bottom|left))?|border-width)"
+    r"\s*:\s*" + LENGTH + r"(?:\s+" + LENGTH + r"){0,3}\s*(?:;\s*|$))+$",
+    re.I)
 
 
 # Known and accepted exceptions.
@@ -205,6 +236,15 @@ LOAD_ATTRIBUTES = {
 ATTRIBUTE_VALUE = r"""(?<![\w-])%s\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))"""
 
 
+def benign_style(text, at):
+    """True when the style attribute that starts at offset at passes SAFE_STYLE."""
+    match = re.compile(ATTRIBUTE_VALUE % "style", re.I).match(text, at)
+    if not match:
+        return False
+    value = next(g for g in match.groups() if g is not None)
+    return bool(SAFE_STYLE.match(value))
+
+
 def load_urls(pattern_name, region):
     """Return the URLs that the element named by pattern_name loads.
 
@@ -252,8 +292,10 @@ def scan_text(text, where, relpath, line_offset=0):
     findings, suppressed = [], []
     normalised = normalise_scheme(text)
     for name, regex, description in PATTERNS:
-        haystack = normalised if name == "javascript-url" else text
+        haystack = normalised if name in SCHEME_PATTERNS else text
         for match in regex.finditer(haystack):
+            if name == "style-attr" and benign_style(haystack, match.start()):
+                continue
             record = {
                 "pattern": name,
                 "description": description,
