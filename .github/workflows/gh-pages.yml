@@ -19,6 +19,23 @@ jobs:
       - name: Read the Hugo version
         run: echo "HUGO_VERSION=$(tr -d '[:space:]' < .hugo-version)" >> "$GITHUB_ENV"
 
+      - name: Restore the generated images
+        # A cold build resizes more than 400 images, about 90 seconds of CPU
+        # for output that is the same every time. Hugo names each generated
+        # file after a hash of the source image and the processing options,
+        # so a cached file is used only when both match and a stale entry is
+        # never served. The key follows the image sources; when one changes,
+        # restore-keys brings the previous cache and only the new image is
+        # resized. A pull request can restore a cache saved on its base
+        # branch, and this workflow runs on edition, so the cache it saves
+        # is the one a new pull request starts from.
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: resources/_gen
+          key: hugo-gen-${{ hashFiles('themes/pybcn_theme/assets/images/**') }}
+          restore-keys: |
+            hugo-gen-
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
         with:
