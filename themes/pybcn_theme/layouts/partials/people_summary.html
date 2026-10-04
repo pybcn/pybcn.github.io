@@ -4,24 +4,21 @@
     Photos come from assets/images/people/ and go through the Hugo image
     pipeline. The grid slot is 350 px wide at most and the modal caps the
     image at 400 px, so one 400 px WebP serves both, with an 800 px variant
-    for a 2x screen. A person with no photo falls back to anon_member.png. A
-    person with an external photo_url keeps a plain img, because Hugo cannot
-    process a remote file.
+    for a 2x screen. A person with no photo falls back to anon_member.png.
 
-    The modal id takes the key the grid passes in (grid, level and position),
-    because an event page can list the same person in two sections. Two
-    dialogs with one id would share it in aria-labelledby, and an id has to
-    be unique on the page.
+    A remote photo is not supported. The template used to accept photo_url
+    and print it in a plain img, which made every page that lists the person
+    load an image from a third party and tell that party who viewed it. No
+    person used the field, and bin/check-content now rejects it.
 */ -}}
 {{- $modal := printf "modal_%s" $.person.Params.id -}}
 {{- with $.key -}}{{- $modal = printf "modal_%s_%s" . $.person.Params.id -}}{{- end -}}
-{{- $photoURL := $.person.Params.photo_url -}}
 {{- $photo := $.person.Params.photo -}}
 {{- $img := "" -}}
-{{- if and (not $photoURL) $photo -}}
+{{- if $photo -}}
     {{- $img = resources.Get (printf "images/people/%s" $photo) -}}
 {{- end -}}
-{{- if not (or $photoURL $img) -}}
+{{- if not $img -}}
     {{- $img = resources.Get "images/anon_member.png" -}}
 {{- end -}}
 {{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
@@ -42,11 +39,7 @@
              user would otherwise stop twice on every card for one action. The
              photo stays clickable with a pointer. */}}
         <button type="button" class="modal_trigger" tabindex="-1" data-toggle="modal" data-target="#{{ $modal }}" aria-label="More about {{ $.person.Params.name }}">
-            {{ if $photoURL }}
-                <img class="img-fluid img-people" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="{{ $.person.Params.name }}" />
-            {{ else }}
-                <img class="img-fluid img-people" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="{{ if $photo }}{{ $.person.Params.name }}{{ end }}" />
-            {{ end }}
+            <img class="img-fluid img-people" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="{{ if $photo }}{{ $.person.Params.name }}{{ end }}" />
         </button>
     </div>
     <div class="person_data">
@@ -76,11 +69,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     {{/* alt is empty here: the name is in the modal heading next to it. */}}
-                    {{ if $photoURL }}
-                        <img class="img-fluid rounded float-left" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="" />
-                    {{ else }}
-                        <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
-                    {{ end }}
+                    <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
                     <h3 class="modal-title" id="{{ $modal }}_title">
                         {{ $.person.Params.name }}
                         {{ if $.person.Params.twitter }}

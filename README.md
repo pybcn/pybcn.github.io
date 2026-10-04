@@ -155,6 +155,11 @@ The template iterates over the defined levels, and for each level:
 
 To add new people to the site, there is a Hugo archetype defined in `themes/pybcn_theme/archetypes/people.md` that can be used by running the command: `hugo new people/my-new-person.md`.
 
+The `photo` field names a file under `themes/pybcn_theme/assets/images/people/`.
+A remote `photo_url` is not supported: it would load from a third party on
+every page that lists the person and tell that party who viewed it, and
+`bin/check-content` reports it as an error.
+
 
 ### Monthly event page implementation details
 

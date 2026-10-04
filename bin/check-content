@@ -3,7 +3,8 @@
 
 Catches the mistakes that a Hugo build does not: a person id that does not
 match its filename, a duplicate id, a page that lists a person or sponsor id
-with no page behind it, and a declared photo with no file behind it.
+with no page behind it, a declared photo with no file behind it, and a
+remote photo_url.
 
 Exit code 1 if any error is found. Warnings do not fail the build.
 
@@ -158,6 +159,12 @@ def check_photos(people):
     small = []
     for page_id, path in people.items():
         data = front_matter(path) or {}
+        # A remote photo loads from a third party on every page that lists
+        # the person and tells that party who viewed it. The template no
+        # longer reads the field, so a value here would be ignored in silence.
+        if data.get("photo_url"):
+            error(path, "photo_url is not supported: put the file under "
+                        "themes/pybcn_theme/assets/images/people/ and use 'photo'")
         photo = data.get("photo")
         if photo and not bare_file_name(path, "photo", photo):
             continue
