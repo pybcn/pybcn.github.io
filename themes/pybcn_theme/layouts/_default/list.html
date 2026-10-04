@@ -9,7 +9,6 @@
 <div class="container">
     {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
     {{ $pages := .Pages }}
-    {{ if .IsNode }}{{ $pages = .Pages }}{{ end }}
     {{ if $pages }}
     <ul class="section_index">
         {{ range $pages.ByTitle }}
