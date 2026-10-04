@@ -27,7 +27,10 @@ heroBackground: /images/photos/people-pyday-2019.jpg
 <h3>Other activities</h3>
 <p>Hackathons, quizzes, contests, lightning talks… We want PyDay BCN 2019 to be as enlightening and fun as possible!</p>
 <h2>Agenda</h2>
-<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FMadrid&amp;mode=AGENDA&amp;showNav=0&amp;showDate=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=1&amp;src=eTEway53c19pdWMxYW00c2Y5c3V2NGtqcjV0YXZuYzEzY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23F09300&amp;title=Agenda%20del%20evento&amp;showTitle=0" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe><h2>Sponsors</h2>
+{{< google-embed kind="calendar" height="600"
+    title="Agenda of PyDay BCN 2019"
+    src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Europe%2FMadrid&mode=AGENDA&showNav=0&showDate=0&showTabs=0&showCalendars=0&showTz=1&src=eTEway53c19pdWMxYW00c2Y5c3V2NGtqcjV0YXZuYzEzY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23F09300&title=Agenda%20del%20evento&showTitle=0" >}}
+<h2>Sponsors</h2>
 <h3>Venue</h3>
 <center>
 <img src="/archives/pybcn.org/pyday-bcn-2019/ub.jpg" style="width: 350px; margin: 20px 20px auto;">

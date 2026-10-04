@@ -6,7 +6,7 @@ deployed using [Hugo](https://gohugo.io).
 ## Usage for content publishing
 
 ## Prerequisites
-- pip
+- `curl`, `tar`, and `sha256sum`. The `bin/install` script needs them to download and verify the Hugo binary.
 
 ### Setup on your computer
 
@@ -15,7 +15,8 @@ Hugo extended binary into `bin/hugo`, checks its SHA256 against the checksums
 published with the release, and does nothing if the right version is already
 there.
 
-You need `curl`, `tar`, and `sha256sum`. You do not need Python, Go, or npm.
+You need `curl`, `tar`, and `sha256sum` (or `shasum`, which macOS ships). You
+do not need Python, Go, or npm.
 
 The version lives in `.hugo-version`, which is the single source of truth.
 To move to a new Hugo release, edit that file and run `bin/install` again.
@@ -85,25 +86,35 @@ Once the site was archived, you can create a new link in the navigational menu u
 ### Content safety check
 
 `bin/check-html-safety` scans `content/` and fails if it finds raw HTML that
-turns a content change into script execution, a redirect or a credential
-prompt: `<script`, `<iframe`, an `on...=` event handler, a `javascript:` URL,
-`<object`, `<embed`, `<form`, `<meta`, `<link` or `<base`.
+turns a content change into script execution, a redirect, a credential prompt
+or a page overlay: `<script`, `<style`, `<iframe`, a `srcdoc=` attribute,
+`<object`, `<embed`, `<form`, `<meta`, `<link`, `<base`, an `on...=` event
+handler, a `style=` attribute (unless its value is only sizes and margins), and
+a `javascript:`, `vbscript:` or `data:` URL.
 
-It reads the YAML front matter at any depth, both as raw text and after YAML
-decodes it, and it reads the markdown body.
+It reads every file under `content/` that Hugo renders, not only markdown:
+`.org`, `.adoc`, `.rst` and `.pandoc` content can carry raw HTML too. Images and
+PDFs are skipped. A file with any other extension fails the check until the
+script lists it as text or as a binary asset. In each text file it reads the
+YAML front matter at any depth, both as raw text and after YAML decodes it, and
+the body.
 
 ```
 pip install pyyaml
 ./bin/check-html-safety
 ```
 
-The `content-check` workflow runs it on every pull request.
+The `pr-checks` workflow (`.github/workflows/pr.yml`) runs it on every pull
+request.
 
-Three Google iframes in the tree are accepted. They sit in the `ALLOWLIST` at
-the top of the script, keyed by file path, pattern and a substring of the
-snippet, so an entry permits one known embed and not any later one in the same
-file. To accept new third party markup, add an entry with a reason, or better,
-put the markup in a shortcode under `layouts/`, where an organizer reviews it.
+The `ALLOWLIST` at the top of the script is empty. The Google Form and Google
+Calendar embeds of the site go through the `google-embed` shortcode in
+`layouts/shortcodes/`, which checks the host and which an organizer reviews. To
+accept new third party markup, put it in a shortcode under `layouts/`. If an
+entry is unavoidable, it is keyed by file path, pattern and the prefix of the
+URL the element loads, so it permits one known embed and not any later one in
+the same file, and the file that carries it needs a rule in
+`.github/CODEOWNERS`, or any contributor can edit the allowed snippet.
 
 
 This is a work in progress. All the design and implementation decisions are detailed in [Proposta d'estructura](https://docs.google.com/document/d/10YxQeCuGQXUjnN3o9e1oH2HJkrhxJsr31qnxO_aiCNM/edit?usp=sharing) (currently written in catalan). All the tasks are managed through our [private Trello board](https://trello.com/b/cFE8KRTS).

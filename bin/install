@@ -12,6 +12,13 @@ ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
 
 RELEASES="https://github.com/gohugoio/hugo/releases/download"
 
+# The download goes to a temporary directory. The EXIT trap removes it on
+# success and on failure. Under set -e, a failed curl or checksum exits the
+# shell without returning from install_hugo, so a RETURN trap would not run
+# and the directory would stay behind.
+workdir=""
+trap 'rm -rf "${workdir}"' EXIT
+
 function platform() {
   local os arch
   case "$(uname -s)" in
@@ -35,22 +42,30 @@ function platform() {
   fi
 }
 
+# Stock macOS ships shasum, not sha256sum. Both read the same checksum list.
+function sha256_check() {
+  if command -v sha256sum >/dev/null; then
+    sha256sum -c -
+  else
+    shasum -a 256 -c -
+  fi
+}
+
 function install_hugo() {
-  local target archive url checksums workdir
+  local target archive url checksums
   target=$(platform)
   archive="hugo_extended_${HUGO_VERSION}_${target}.tar.gz"
   url="${RELEASES}/v${HUGO_VERSION}/${archive}"
   checksums="hugo_${HUGO_VERSION}_checksums.txt"
 
   workdir=$(mktemp -d)
-  trap 'rm -rf "${workdir}"' RETURN
 
   echo "Downloading Hugo ${HUGO_VERSION} extended (${target})..."
   curl -sSfL -o "${workdir}/${archive}" "${url}"
   curl -sSfL -o "${workdir}/${checksums}" "${RELEASES}/v${HUGO_VERSION}/${checksums}"
 
   echo -n "Verifying checksum... "
-  (cd "${workdir}" && grep " ${archive}\$" "${checksums}" | sha256sum -c - >/dev/null)
+  (cd "${workdir}" && grep " ${archive}\$" "${checksums}" | sha256_check >/dev/null)
   echo "OK"
 
   tar xzf "${workdir}/${archive}" -C "${workdir}" hugo
