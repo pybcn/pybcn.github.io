@@ -113,12 +113,17 @@ def check_photos(people):
 
 def check_logos(sponsors):
     """A sponsor whose declared logo file is missing renders a broken image, and
-    the Hugo build does not notice. A sponsor with no logo field at all is only a
-    warning, because the template falls back to the name as text."""
+    the Hugo build does not notice. A sponsor with no logo_image at all is only
+    a warning, because the template falls back to the name as text.
+
+    The logo field, an external URL, is an error: the template no longer reads
+    it, because it accepted any scheme and any host and so let a pull request
+    load a third-party image on every page that lists the sponsor."""
     for page_id, path in sponsors.items():
         data = front_matter(path) or {}
-        if data.get("logo"):
-            continue  # an external URL, nothing local to check
+        if "logo" in data:
+            error(path, f"'logo' is not supported: copy the file under "
+                        f"{LOGO_DIRS[0].relative_to(ROOT)} and use logo_image")
         logo = data.get("logo_image")
         if not logo:
             warn(path, f"sponsor '{page_id}' declares no logo, so it renders as text")
