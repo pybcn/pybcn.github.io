@@ -112,31 +112,32 @@ SCHEME_PATTERNS = {"javascript-url", "vbscript-url", "data-url"}
 # non-negative margin cannot move an element over the header, the navigation
 # or the footer, so these properties are accepted and nothing else is. The
 # value must be plain: no url(), no comment, no entity, no escape, no
-# negative number and no viewport unit. border-width is in the list for the
-# calendar iframe of the 2019 page.
+# negative number and no viewport unit.
 LENGTH = r"(?:auto|\d+(?:\.\d+)?(?:px|%|em|rem)?)"
 SAFE_STYLE = re.compile(
-    r"^\s*(?:(?:width|height|margin(?:-(?:top|right|bottom|left))?|border-width)"
+    r"^\s*(?:(?:width|height|margin(?:-(?:top|right|bottom|left))?)"
     r"\s*:\s*" + LENGTH + r"(?:\s+" + LENGTH + r"){0,3}\s*(?:;\s*|$))+$",
     re.I)
 
 
-# Known and accepted exceptions.
+# Known and accepted exceptions. The list is empty: the one Google Calendar
+# iframe the tree had, on the PyDay 2019 page, now goes through the
+# google-embed shortcode in layouts/, which checks the host and which an
+# organizer reviews. Prefer that route over a new entry here. A file that
+# carries an entry is editable by any contributor unless .github/CODEOWNERS
+# names it, so an entry needs a CODEOWNERS rule for its file as well.
 #
 # Keys are paths relative to the repository root. Each entry gives the pattern
 # name, the prefix of the URL the element loads, and the reason. Anything else
 # in the same file still fails. The prefix must carry the scheme, the host and
-# the start of the path, so that a look-alike host does not match it.
+# the start of the path, so that a look-alike host does not match it:
+#
+#     "content/path/to/page.md": [
+#         {"pattern": "iframe",
+#          "prefix": "https://calendar.google.com/calendar/embed?",
+#          "why": "what this embed is and why the page needs it"},
+#     ],
 ALLOWLIST = {
-    # The 2019 PyDay page shows the schedule of that edition from the public
-    # PyBCN Google Calendar. The page is a frozen record of a past event.
-    "content/events/pyday_bcn/pyday_bcn_2019.md": [
-        {
-            "pattern": "iframe",
-            "prefix": "https://calendar.google.com/calendar/embed?",
-            "why": "PyBCN public Google Calendar, agenda of PyDay BCN 2019",
-        },
-    ],
     # The call for papers is a Google Form. PyBCN does not host a form
 }
 
