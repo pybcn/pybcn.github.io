@@ -43,7 +43,6 @@ jobs:
   links:
     name: Check the links
     runs-on: ubuntu-latest
-    continue-on-error: true    # External sites rate-limit. Report, do not block.
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -54,10 +53,28 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify -d public
+        # A root-relative baseURL turns every internal link into "/path/", so
+        # lychee resolves it inside this build and not on the live site.
+        run: hugo --minify -d public --baseURL /
 
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --no-progress --exclude-all-private --max-concurrency 4 'public/**/*.html'
-          fail: true
+          # --root-dir: where "/path/" links resolve. Without it lychee flags
+          #   every absolute link in a local file as an error.
+          # --exclude-path: the frozen 2016-2019 snapshots under archives/
+          #   keep their dead links on purpose.
+          # --exclude: hosts that answer bots with 400, 403, or 999.
+          args: >-
+            --no-progress
+            --exclude-all-private
+            --max-concurrency 4
+            --root-dir "$GITHUB_WORKSPACE/public"
+            --exclude-path 'public/archives/'
+            --exclude 'twitter\.com'
+            --exclude '^https?://(www\.)?x\.com/'
+            --exclude 'linkedin\.com'
+            'public/**/*.html'
+          # External sites rate-limit. Keep the report in the job summary and
+          # do not turn the check red.
+          fail: false
