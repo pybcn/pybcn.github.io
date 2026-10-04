@@ -70,7 +70,13 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
         justify-content: start;
         flex-direction: column;
         padding: 0.5rem 1rem;
-        background-color: orange;
+        /*
+            The fallback for an entry with no colour class. White text on
+            the CSS orange was 1.97:1. #A15C00 is 5.19:1 on white, so an
+            entry that omits its colour stays readable. bin/check-content
+            reports such an entry, so nothing should reach this fallback.
+        */
+        background-color: #A15C00;
         border-radius: 0.2rem;
         font-size: 0.9rem;
         font-weight: bold;
