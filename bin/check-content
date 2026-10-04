@@ -84,10 +84,28 @@ def collect_ids(section):
     return found
 
 
+def bare_file_name(path, field, value):
+    """True when the value names a file inside its directory and nothing else.
+
+    The templates build the asset path as images/people/<photo> and
+    images/sponsors/<logo_image>, and resources.Get resolves a '..' segment.
+    So 'logo_image: ../people/x.jpg' showed a person's photo as a sponsor logo,
+    and the existence check passed because pathlib resolves '..' the same way.
+    A content-only pull request could show any image already in the repository
+    on any page. A value with a separator or a '..' segment is an error.
+    """
+    if "/" in value or "\\" in value or ".." in value:
+        error(path, f"{field} '{value}' must be a file name, not a path")
+        return False
+    return True
+
+
 def check_photos(people):
     for page_id, path in people.items():
         data = front_matter(path) or {}
         photo = data.get("photo")
+        if photo and not bare_file_name(path, "photo", photo):
+            continue
         if photo and not any((d / photo).exists() for d in PHOTO_DIRS):
             where = ", ".join(str(d.relative_to(ROOT)) for d in PHOTO_DIRS)
             error(path, f"photo '{photo}' not found in any of: {where}")
@@ -104,6 +122,8 @@ def check_logos(sponsors):
         logo = data.get("logo_image")
         if not logo:
             warn(path, f"sponsor '{page_id}' declares no logo, so it renders as text")
+            continue
+        if not bare_file_name(path, "logo_image", logo):
             continue
         if not any((d / logo).exists() for d in LOGO_DIRS):
             where = ", ".join(str(d.relative_to(ROOT)) for d in LOGO_DIRS)
