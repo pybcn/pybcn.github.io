@@ -12,8 +12,8 @@ It reads both halves of each file:
   - the markdown body below the front matter
 
 Findings are matched against ALLOWLIST. An entry there names the file, the
-pattern and a substring that the offending text must contain, so it permits
-one known snippet and not any future snippet of the same kind.
+pattern and the prefix of the URL the element loads, so it permits one known
+snippet and not any future snippet of the same kind.
 
 Exit status:
   0  no finding outside the allowlist
@@ -87,15 +87,16 @@ PATTERNS = [
 # Known and accepted exceptions.
 #
 # Keys are paths relative to the repository root. Each entry gives the pattern
-# name, a substring the finding must contain, and the reason. Anything else in
-# the same file still fails.
+# name, the prefix of the URL the element loads, and the reason. Anything else
+# in the same file still fails. The prefix must carry the scheme, the host and
+# the start of the path, so that a look-alike host does not match it.
 ALLOWLIST = {
     # The 2019 PyDay page shows the schedule of that edition from the public
     # PyBCN Google Calendar. The page is a frozen record of a past event.
     "content/events/pyday_bcn/pyday_bcn_2019.md": [
         {
             "pattern": "iframe",
-            "contains": "https://calendar.google.com/calendar/embed?",
+            "prefix": "https://calendar.google.com/calendar/embed?",
             "why": "PyBCN public Google Calendar, agenda of PyDay BCN 2019",
         },
     ],
@@ -178,18 +179,64 @@ def match_region(text, at, limit=800):
     return text[at:end]
 
 
-def allowed(relpath, pattern_name, region):
-    """An allowlist entry must match the URL the tag actually loads.
+# The attribute a browser loads each element from, by pattern name. An
+# allowlist entry is matched against these attributes and no other. The
+# browser ignores data=, href= or title= on an iframe and loads src, so a
+# permitted URL in any of those does not make the frame safe.
+LOAD_ATTRIBUTES = {
+    "a": ("href",),
+    "embed": ("src",),
+    "form": ("action",),
+    "iframe": ("src", "srcdoc"),
+    "img": ("src", "srcset"),
+    "link": ("href",),
+    "object": ("data",),
+    "script": ("src",),
+}
 
-    Comparing against the whole tag let an attacker put the permitted URL in
-    title= and the real one in src=, and the finding was reported as allowed.
+# One attribute and its value. The lookbehind stops data-src= from matching
+# as src=. The value is double quoted, single quoted or bare.
+ATTRIBUTE_VALUE = r"""(?<![\w-])%s\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))"""
+
+
+def load_urls(pattern_name, region):
+    """Return the URLs that the element named by pattern_name loads.
+
+    Only the first occurrence of an attribute counts. The HTML parser drops a
+    repeated attribute, so <iframe src=A src=B> loads A. A srcset holds
+    several candidates and each one is a URL of its own.
     """
-    urls = [m.group(1) for m in re.finditer(
-        r"""(?:src|href|data|action)\s*=\s*["']?([^"'\s>]+)""", region, re.I)]
+    urls = []
+    for attribute in LOAD_ATTRIBUTES.get(pattern_name, ()):
+        match = re.search(ATTRIBUTE_VALUE % attribute, region, re.I)
+        if not match:
+            continue
+        value = next(g for g in match.groups() if g is not None)
+        if attribute == "srcset":
+            urls += [c.split()[0] for c in value.split(",") if c.split()]
+        else:
+            urls.append(value.strip())
+    return urls
+
+
+def allowed(relpath, pattern_name, region):
+    """Return the allowlist entry that clears this finding, or None.
+
+    The entry must match the URL the element loads: every URL in the
+    attributes the browser reads for that element starts with the prefix, and
+    no other attribute is looked at. Comparing against the whole tag let an
+    attacker put the permitted URL in title= and the real one in src=, and
+    comparing against any URL attribute let them put it in data=, which an
+    iframe ignores. A substring match let them append the permitted URL to a
+    hostile one, so the match is on the prefix.
+    """
+    urls = load_urls(pattern_name, region)
+    if not urls:
+        return None
     for entry in ALLOWLIST.get(relpath, []):
         if entry["pattern"] != pattern_name:
             continue
-        if any(entry["contains"] in u for u in urls):
+        if all(url.startswith(entry["prefix"]) for url in urls):
             return entry
     return None
 
@@ -211,7 +258,7 @@ def scan_text(text, where, relpath, line_offset=0):
             entry = allowed(relpath, name, match_region(haystack, match.start()))
             if entry:
                 record["why"] = entry["why"]
-                record["entry"] = (relpath, name, entry["contains"])
+                record["entry"] = (relpath, name, entry["prefix"])
                 suppressed.append(record)
             else:
                 findings.append(record)
@@ -363,7 +410,7 @@ def main():
     # cause. Report it so that it gets deleted.
     used = {record["entry"] for record in all_suppressed}
     stale = [(path, entry) for path, entries in ALLOWLIST.items() for entry in entries
-             if (path, entry["pattern"], entry["contains"]) not in used]
+             if (path, entry["pattern"], entry["prefix"]) not in used]
     if stale:
         print("\nStale allowlist entries (%d). The content they cover is gone, "
               "remove them:" % len(stale))
