@@ -3,13 +3,15 @@
 
 The site merges pull requests from outside contributors, and goldmark
 renders raw HTML in markdown. This check blocks the markup that turns a
-content change into script execution, a redirect or a credential prompt.
+content change into script execution, a redirect, a credential prompt or a
+page overlay.
 
-It reads both halves of each file:
+It reads every text file under content/ that Hugo renders, see
+TEXT_SUFFIXES, and both halves of each one:
 
   - every string in the YAML front matter, at any depth, because templates
     print those values and some of them reach the page unescaped
-  - the markdown body below the front matter
+  - the body below the front matter, whatever the content format
 
 Findings are matched against ALLOWLIST. An entry there names the file, the
 pattern and the prefix of the URL the element loads, so it permits one known
@@ -17,7 +19,8 @@ snippet and not any future snippet of the same kind.
 
 Exit status:
   0  no finding outside the allowlist
-  1  at least one finding outside the allowlist, or a file it cannot read
+  1  at least one finding outside the allowlist, a file with an extension
+     this check does not know, or a file it cannot read
 """
 
 import argparse
