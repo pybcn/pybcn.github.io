@@ -104,7 +104,13 @@
                 <tr>
                   <td class="n"><xsl:value-of select="position()"/></td>
                   <td>
-                    <a href="{link}"><xsl:value-of select="title"/></a>
+                    <!-- An item with no title shows its link, so the row has text to read and click. -->
+                    <a href="{link}">
+                      <xsl:choose>
+                        <xsl:when test="normalize-space(title) != ''"><xsl:value-of select="title"/></xsl:when>
+                        <xsl:otherwise><xsl:value-of select="link"/></xsl:otherwise>
+                      </xsl:choose>
+                    </a>
                   </td>
                   <td class="when">
                     <xsl:call-template name="when">
