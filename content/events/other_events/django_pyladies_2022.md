@@ -1,5 +1,6 @@
 ---
 title: "Hands-on Django with PyLadiesBCN"
+year: 2022
 description: "From zero to hero 🤘 Learn how to code your own web application!"
 menu:
   main:

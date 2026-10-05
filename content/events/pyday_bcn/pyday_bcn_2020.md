@@ -1,5 +1,6 @@
 ---
 title: "PyDay BCN 2020"
+year: 2020
 description: "The fourth edition!"
 menu:
   main:

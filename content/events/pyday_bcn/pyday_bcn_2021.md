@@ -1,5 +1,6 @@
 ---
 title: "PyDay BCN 2021"
+year: 2021
 description: "Post-pandemic edition!"
 menu:
   main:

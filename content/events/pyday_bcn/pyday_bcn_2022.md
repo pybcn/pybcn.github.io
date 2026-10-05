@@ -1,5 +1,6 @@
 ---
 title: "PyDay BCN 2022"
+year: 2022
 description: "For the community, by the community!"
 menu:
   main:
