@@ -8,6 +8,26 @@ $focus-ring: #0b0c0c;
 $primary: $blue-pybcn;
 
 
+// Font Awesome 5.8.2 is older than the Twitter rename, so it carries no X
+// mark. This draws the mark from the Font Awesome 6 Free path (CC BY 4.0) as
+// a CSS mask, which keeps one vendored icon set instead of two. The mask takes
+// its colour from `currentColor`, so the icon follows the same colour and
+// hover rules as every Font Awesome glyph next to it.
+.icon_x {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    // Font Awesome drops its glyphs this far below the baseline. Matching it
+    // keeps the X level with the icons on each side.
+    vertical-align: -0.125em;
+    background-color: currentColor;
+    $x-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L196.2 280.2 22 48h148.1l108.6 143.5zm-24.8 373.8h39.1L151.1 88h-42z'/%3E%3C/svg%3E");
+    -webkit-mask: $x-mark no-repeat center;
+    mask: $x-mark no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
 .semitransparent {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
