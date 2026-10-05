@@ -4,7 +4,8 @@
   A feed reader ignores this stylesheet and reads the XML directly.
   XSLT 1.0 only: that is what browsers implement.
   Pairs with sitemap.xsl: same heading shape, same intro, same CSS, same date form.
-  Serves every feed: /index.xml and the index.xml of each section.
+  Serves /index.xml, the only feed of the site. A section feed, if one is ever
+  built again, gets its section name in the heading.
 -->
 <xsl:stylesheet version="1.0"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
