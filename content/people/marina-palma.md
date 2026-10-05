@@ -3,6 +3,7 @@ id: marina-palma
 name: Marina Palma
 short_bio: ""
 photo: marina-palma.jpg
+photo_anchor: Bottom
 
 linkedin: https://www.linkedin.com/in/marina-palma-0494a6190
 ---

@@ -3,6 +3,7 @@ id: sergi-ramirez
 name: "Sergi Ramírez"
 
 photo: sergi-ramirez.jpeg
+photo_anchor: Left
 
 pybcn_position: "Board member of Events"
 

@@ -5,6 +5,7 @@ short_bio: "Joan is an engineer with experience in different industries like Tra
 
 For the last years, he has been focused on developing Search Systems and since July 2020 he has been part of Jina AI to develop an open source framework to support the next generation of AI-powered Semantic Search Systems."
 photo: joan-fontanals-martinez.jpg
+photo_anchor: Bottom
 
 linkedin: https://www.linkedin.com/in/joanfontanalsmartinez/
 github: https://github.com/JoanFM

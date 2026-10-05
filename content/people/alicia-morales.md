@@ -3,6 +3,8 @@ id: alicia-morales
 name: Alicia Morales Carrasco
 short_bio: Data Engineer - Data enthusiast - Python and Scala lover - Home Automation Geek
 photo: alicia-morales.jpeg
+# Smart cropped below the face on this portrait.
+photo_anchor: Top
 
 pybcn_position: PyBCN Organizer
 

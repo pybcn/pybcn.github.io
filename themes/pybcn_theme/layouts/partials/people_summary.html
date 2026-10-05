@@ -26,8 +26,9 @@
 {{- end -}}
 {{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
 {{- with $img -}}
-    {{- $small = partial "image_resize.html" (dict "img" . "width" 400) -}}
-    {{- $large = partial "image_resize.html" (dict "img" . "width" 800) -}}
+    {{- $anchor := default "Smart" $.person.Params.photo_anchor -}}
+    {{- $small = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
+    {{- $large = partial "image_square.html" (dict "img" . "size" 800 "anchor" $anchor) -}}
     {{- if gt $large.Width $small.Width -}}
         {{- $srcset = printf "%s 1x, %s 2x" $small.RelPermalink $large.RelPermalink -}}
     {{- end -}}

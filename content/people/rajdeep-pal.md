@@ -2,6 +2,7 @@
 id: rajdeep-pal
 name: Rajdeep Pal
 photo: rajdeep-pal.jpeg
+photo_anchor: Left
 
 linkedin: https://www.linkedin.com/in/rajdeeppal/
 ---

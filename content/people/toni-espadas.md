@@ -3,6 +3,7 @@ id: toni-espadas
 name: "Toni Espadas"
 
 photo: toni_espadas.jpg
+photo_anchor: Bottom
 
 pybcn_position: "PyBCN Treasurer"
 

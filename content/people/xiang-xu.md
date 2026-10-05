@@ -3,6 +3,7 @@ id: xiang-xu
 name: Xiang Xu
 short_bio: ""
 photo: xiang-xu.jpg
+photo_anchor: Right
 
 linkedin: https://www.linkedin.com/in/xiang-xu-68192b138/
 ---

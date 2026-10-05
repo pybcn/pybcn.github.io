@@ -13,6 +13,7 @@ Usage:
 
 import pathlib
 import re
+import struct
 import sys
 
 import yaml
@@ -45,6 +46,11 @@ def error(path, message):
 
 def warn(path, message):
     warnings.append(f"{path.relative_to(ROOT)}: {message}")
+
+
+def note(message):
+    """A warning about the collection rather than about one file."""
+    warnings.append(message)
 
 
 _front_matter = {}
@@ -113,15 +119,83 @@ def bare_file_name(path, field, value):
     return True
 
 
+def image_size(path):
+    """Return (width, height) for a PNG, GIF or JPEG, or None.
+
+    Only the header is read, and only the three formats the people and the
+    sponsor directories hold. A format this cannot read returns None and the
+    caller skips the check rather than guessing.
+    """
+    try:
+        with open(path, "rb") as handle:
+            head = handle.read(32)
+            if head[:8] == b"\x89PNG\r\n\x1a\n":
+                return struct.unpack(">II", head[16:24])
+            if head[:6] in (b"GIF87a", b"GIF89a"):
+                return struct.unpack("<HH", head[6:10])
+            if head[:2] == b"\xff\xd8":
+                handle.seek(2)
+                while True:
+                    marker = handle.read(2)
+                    if len(marker) < 2 or marker[0] != 0xFF:
+                        return None
+                    if marker[1] in range(0xC0, 0xD0) and marker[1] not in (0xC4, 0xC8, 0xCC):
+                        handle.read(3)
+                        height, width = struct.unpack(">HH", handle.read(4))
+                        return (width, height)
+                    length = struct.unpack(">H", handle.read(2))[0]
+                    handle.seek(length - 2, 1)
+    except (OSError, struct.error):
+        return None
+    return None
+
+
 def check_photos(people):
+    # A photo that is not square is cropped by the build rather than squashed,
+    # so it is not an error. It is reported once, with a count, because there
+    # are dozens of them and a line each would bury everything else.
+    cropped = []
+    small = []
     for page_id, path in people.items():
         data = front_matter(path) or {}
         photo = data.get("photo")
         if photo and not bare_file_name(path, "photo", photo):
             continue
-        if photo and not any((d / photo).exists() for d in PHOTO_DIRS):
+        found = next((d / photo for d in PHOTO_DIRS if photo and (d / photo).exists()), None)
+        if photo and not found:
             where = ", ".join(str(d.relative_to(ROOT)) for d in PHOTO_DIRS)
             error(path, f"photo '{photo}' not found in any of: {where}")
+        elif found:
+            size = image_size(found)
+            if size and size[0] != size[1]:
+                cropped.append((photo, size))
+            if size and min(size) < PHOTO_SIDE:
+                small.append((photo, size))
+    report_cropped(cropped)
+    report_small(small)
+
+
+PHOTO_SIDE = 400
+
+
+def report_small(small):
+    if not small:
+        return
+    shown = ", ".join(f"{name} ({w}x{h})" for name, (w, h) in sorted(small)[:3])
+    note(f"{len(small)} of the person photos are smaller than {PHOTO_SIDE}px on "
+         f"their short side, so the build enlarges them and they look soft in "
+         f"the grid. Smallest: {shown}.")
+
+
+def report_cropped(cropped):
+    if not cropped:
+        return
+    worst = sorted(cropped, key=lambda item: abs(item[1][0] / item[1][1] - 1), reverse=True)[:3]
+    shown = ", ".join(f"{name} ({w}x{h})" for name, (w, h) in worst)
+    note(f"{len(cropped)} of the person photos are not square, so the build "
+         f"crops them to fit the grid and part of each picture is lost. "
+         f"Furthest from square: {shown}. Crop one yourself to choose which "
+         f"part survives.")
 
 
 def check_logos(sponsors):

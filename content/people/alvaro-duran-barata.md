@@ -3,6 +3,7 @@ id: alvaro-duran-barata
 name: Alvaro Duran Barata
 short_bio: NLP/ML engineer
 photo: alvaro-duran-barata.jpeg
+photo_anchor: Top
 
 linkedin: https://es.linkedin.com/in/alvaroduranbarata
 github: https://github.com/ohduran
