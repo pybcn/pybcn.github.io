@@ -47,14 +47,14 @@
         <p>{{ $.person.Params.pybcn_position }}</p>
     </div>
     <div class="social_links">
-        {{ if $.person.Params.twitter }}
-            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x fa-2x" aria-hidden="true"></i></a>
+        {{ if $.person.Params.linkedin }}
+            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.github }}
             <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub" title="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
         {{ end }}
-        {{ if $.person.Params.linkedin }}
-            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
+        {{ if $.person.Params.twitter }}
+            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.site }}
             <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site" title="{{ $.person.Params.name }} personal site"><i class="fas fa-globe fa-2x" aria-hidden="true"></i></a>
@@ -72,14 +72,14 @@
                     <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
                     <h3 class="modal-title" id="{{ $modal }}_title">
                         {{ $.person.Params.name }}
-                        {{ if $.person.Params.twitter }}
-                            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x" aria-hidden="true"></i></a>
+                        {{ if $.person.Params.linkedin }}
+                            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.github }}
                             <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub" title="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
                         {{ end }}
-                        {{ if $.person.Params.linkedin }}
-                            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        {{ if $.person.Params.twitter }}
+                            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.site }}
                             <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site" title="{{ $.person.Params.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a>

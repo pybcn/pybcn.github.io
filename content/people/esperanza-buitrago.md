@@ -5,7 +5,7 @@ short_bio: "Esperanza is a mathematician with a specialty in logic. She has been
 photo: esperanza-buitrago.jpg
 photo_anchor: Top
 
-twitter: https://twitter.com/ebuitragod
+twitter: https://x.com/ebuitragod
 linkedin: https://www.linkedin.com/in/ebuitragod/
-github: https://www.github.com/ebuitragod
+github: https://github.com/ebuitragod
 ---

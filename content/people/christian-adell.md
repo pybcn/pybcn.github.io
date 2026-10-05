@@ -3,7 +3,7 @@ id: christian-adell
 name: Christian Adell
 photo: christian-adell.jpg
 
-twitter: https://twitter.com/chadell0
+twitter: https://x.com/chadell0
 linkedin: https://www.linkedin.com/in/christianadell/
 github: https://github.com/chadell
 site: https://www.netbcn.cat/

@@ -5,7 +5,7 @@ short_bio: "Teaching Software Engineering, Distributed Software and Robotics in 
 pybcn_position: "PyBCN organizer"
 photo: eloi-puertas-prats.jpg
 photo_anchor: Bottom
-twitter: "https://twitter.com/eloipuertas"
+twitter: "https://x.com/eloipuertas"
 linkedin: "https://www.linkedin.com/in/eloipuertas/"
-github: "https://www.github.com/eloipuertas"
+github: "https://github.com/eloipuertas"
 ---

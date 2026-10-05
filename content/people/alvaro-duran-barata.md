@@ -5,7 +5,7 @@ short_bio: NLP/ML engineer
 photo: alvaro-duran-barata.jpeg
 photo_anchor: Top
 
-linkedin: https://es.linkedin.com/in/alvaroduranbarata
+linkedin: https://www.linkedin.com/in/alvaroduranbarata
 github: https://github.com/ohduran
 ---
 

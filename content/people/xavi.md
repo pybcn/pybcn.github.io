@@ -5,7 +5,7 @@ short_bio: "[passion for passion in ('Python', 'Free Software', 'Privacy', 'Huma
 photo: xavi-francisco-gilabert.jpg
 pybcn_position: PyBCN Organizer
 
-twitter: https://twitter.com/srxavi/
+twitter: https://x.com/srxavi/
 github: https://github.com/srxavi
 linkedin: https://www.linkedin.com/in/xavifrancisco/
 ---

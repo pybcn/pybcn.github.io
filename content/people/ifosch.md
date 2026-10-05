@@ -5,7 +5,7 @@ short_bio: UN*X Sysadmin and Infra automation with Ruby at Devex, Python and Go 
 photo: ignasi-fosch.jpg
 pybcn_position: PyBCN Practice sessions organizer
 
-twitter: https://twitter.com/ifosch
+twitter: https://x.com/ifosch
 linkedin: https://www.linkedin.com/in/ifosch/
 github: https://github.com/ifosch
 site: https://natx.cat

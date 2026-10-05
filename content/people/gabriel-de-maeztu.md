@@ -5,9 +5,9 @@ short_bio: Medical doctor and mathematician, during my work as a researcher, I f
 photo: gabriel-de-maeztu.jpg
 photo_anchor: Bottom
 
-twitter: https://twitter.com/gabimaeztu
+twitter: https://x.com/gabimaeztu
 github: https://github.com/merqurio
 xxxgitlab: https://gitlab.com/merqurio
-linkedin: https://linkedin.com/in/gabrieldemaeztu
+linkedin: https://www.linkedin.com/in/gabrieldemaeztu
 
 ---

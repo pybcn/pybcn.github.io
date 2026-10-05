@@ -5,7 +5,7 @@ short_bio: "Alejandro is a Full Stack developer who has seen his career graduall
 photo: alejandro-nicolas.jpg
 photo_anchor: Bottom
 
-twitter: https://twitter.com/sander_pm
-linkedin: www.linkedin.com/in/alejandro-nicolàs-ruiz-73915711a
+twitter: https://x.com/sander_pm
+linkedin: https://www.linkedin.com/in/alejandro-nicolàs-ruiz-73915711a
 github: https://github.com/Qouter
 ---

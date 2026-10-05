@@ -6,7 +6,7 @@ short_bio: Data Engineer - Coding lover - Dressmaker
 photo: patricia-lamadrid-robles.jpg
 pybcn_position: PyBCN Collaborator
 
-linkedin: ttps://www.linkedin.com/in/patricia-lamadrid/
+linkedin: https://www.linkedin.com/in/patricia-lamadrid/
 github: https://github.com/plamadridr/
 ---
 

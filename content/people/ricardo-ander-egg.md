@@ -4,7 +4,7 @@ name: Ricardo Ander-Egg Aguilar
 photo: ricardo-ander-egg-aguilar.jpg
 photo_anchor: Top
 
-twitter: https://twitter.com/ricardoanderegg
+twitter: https://x.com/ricardoanderegg
 linkedin: https://www.linkedin.com/in/ricardoanderegg/
 github: https://github.com/polyrand
 ---

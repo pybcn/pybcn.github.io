@@ -1,10 +1,11 @@
 ---
 id: alberto
 name: "Alberto Cámara"
+github: https://github.com/ber2
 short_bio: "Senior Data Scientist at Hybrid Theory"
 photo: alberto-camara.jpg
 pybcn_position: PyBCN Organizer
-twitter: "https://twitter.com/b3r2s"
+twitter: "https://x.com/b3r2s"
 linkedin: "https://www.linkedin.com/in/alberto-camara/"
 ---
 ​

@@ -8,7 +8,7 @@ photo_anchor: Top
 
 pybcn_position: PyBCN Organizer
 
-twitter: https://twitter.com/amoralca16
+twitter: https://x.com/amoralca16
 github: https://github.com/amoralca16
 linkedin: https://www.linkedin.com/in/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-alicia-morales-carrasco-81a3ba89/
 site: https://amoralca16.github.io/

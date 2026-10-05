@@ -7,7 +7,7 @@ short_bio: I love music, computers, cinema, photography and mixing them
 
 pybcn_position: PyBCN Organizer
 
-twitter: https://twitter.com/jordixou
+twitter: https://x.com/jordixou
 linkedin: https://www.linkedin.com/in/jsoucheiron
 github: https://github.com/jsoucheiron
 ---

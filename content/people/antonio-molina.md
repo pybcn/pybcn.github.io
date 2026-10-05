@@ -3,7 +3,7 @@ id: antonio-molina
 name: Antonio Molina
 photo: antonio-molina.jpg
 
-twitter: https://twitter.com/aydevosotros
+twitter: https://x.com/aydevosotros
 linkedin: https://www.linkedin.com/in/amolinag/
 github: https://github.com/aydevosotros
 ---

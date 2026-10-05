@@ -1,6 +1,7 @@
 ---
 id: ferran-jovell
 name: "Ferran Jovell"
+github: https://github.com/mrswats
 photo: "ferran-jovell.jpg"
 
 pybcn_position: PyBCN Organizer

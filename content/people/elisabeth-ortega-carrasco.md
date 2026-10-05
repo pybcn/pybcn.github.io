@@ -7,7 +7,7 @@ photo: elisabeth-ortega-carrasco.jpg
 
 pybcn_position: PyLadiesBCN Collaborator
 
-twitter: https://twitter.com/draentropia
+twitter: https://x.com/draentropia
 github: https://github.com/draentropia
 ---
 

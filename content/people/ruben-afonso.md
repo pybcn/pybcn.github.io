@@ -5,7 +5,7 @@ short_bio: Solutions Architect with AWS
 photo: ruben-afonso.png
 photo_anchor: Bottom
 
-twitter: https://twitter.com/rubenafo
+twitter: https://x.com/rubenafo
 linkedin: https://www.linkedin.com/in/rubenafonso/
 github: https://github.com/rubenafo
 ---

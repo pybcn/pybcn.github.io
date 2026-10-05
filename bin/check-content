@@ -214,6 +214,53 @@ def report_small(small):
          f"the grid. Smallest: {shown}. Replacing the file is the only fix.")
 
 
+# One form per network, so a reader of the files can tell at a glance that two
+# links point at the same place, and so nobody has to wonder whether
+# es.linkedin.com and www.linkedin.com are the same profile. The hosts are the
+# ones each service itself serves: github.com redirects www away, LinkedIn
+# serves www, and twitter.com has redirected to x.com since the rename.
+SOCIAL_PREFIX = {
+    "github": "https://github.com/",
+    "linkedin": "https://www.linkedin.com/",
+    "twitter": "https://x.com/",
+}
+
+
+def check_social(people, sponsors):
+    """Check the shape of every social link in a person or sponsor file.
+
+    Nothing else checks these. The link checker in CI reads the built pages,
+    and a URL broken badly enough is not rendered as a link at all: one
+    person's LinkedIn was `ttps://www.linkedin.com/...`, missing the h, which
+    a browser treats as a relative path. It had never worked and nobody had
+    noticed.
+    """
+    for page_id, path in sorted({**people, **sponsors}.items()):
+        data = front_matter(path) or {}
+        for field, prefix in SOCIAL_PREFIX.items():
+            value = data.get(field)
+            if not value:
+                continue
+            value = str(value).strip()
+            if "?" in value:
+                error(path, f"{field} carries query parameters: '{value}'. "
+                            f"Copy the profile URL, not the one the browser "
+                            f"was showing.")
+            elif not value.startswith(prefix):
+                error(path, f"{field} is '{value}', which does not start with "
+                            f"{prefix}")
+
+        site = data.get("site")
+        if site:
+            site = str(site).strip()
+            if "?" in site:
+                error(path, f"site carries query parameters: '{site}'")
+            elif not site.startswith(("https://", "http://")):
+                error(path, f"site is '{site}', which is not an http or https URL")
+            elif site.startswith("http://"):
+                warn(path, f"site is served over http, not https: '{site}'")
+
+
 def check_logos(sponsors):
     """A sponsor whose declared logo file is missing renders a broken image, and
     the Hugo build does not notice. A sponsor with no logo_image at all is only
@@ -383,6 +430,7 @@ def main():
     sponsors = collect_ids("sponsors")
     check_photos(people)
     check_logos(sponsors)
+    check_social(people, sponsors)
     listed_people = check_listings(people, sponsors)
     check_agenda()
     check_orphans(people, listed_people)

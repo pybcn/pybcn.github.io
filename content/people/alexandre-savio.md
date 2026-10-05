@@ -5,6 +5,6 @@ short_bio: Freelance Software Engineer, specializing in Python, Cloud, DevOps, n
 photo: alexandre-savio.jpg
 photo_anchor: Top
 
-twitter: https://twitter.com/alex_savio
+twitter: https://x.com/alex_savio
 linkedin: https://www.linkedin.com/in/alexsavio
 ---

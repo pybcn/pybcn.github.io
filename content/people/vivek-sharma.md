@@ -5,7 +5,7 @@ short_bio: "Vivek (They/Them/Theirs) is a Research Assistant at Instituto de Bio
 photo: vivek-sharma.jpg
 photo_anchor: Top
 
-twitter: https://twitter.com/Chaotic_Neuron
+twitter: https://x.com/Chaotic_Neuron
 linkedin: https://www.linkedin.com/in/vivek-sharma-2715b6129
 github: https://github.com/ChaoticNeurons
 ---

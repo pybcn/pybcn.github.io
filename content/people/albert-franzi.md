@@ -5,6 +5,6 @@ short_bio: "Fell so in love with data that ended up as Head of Data Platform at 
 photo: albert-franzi-cros.jpg
 photo_anchor: Left
 
-twitter: https://twitter.com/franzicros 
+twitter: https://x.com/franzicros 
 linkedin: https://www.linkedin.com/in/albertfranzi/
 ---

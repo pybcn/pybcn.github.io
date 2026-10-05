@@ -8,7 +8,7 @@ short_bio: Engineering Manager. Building Product + Tech + Data. Colaborador de l
 pybcn_position: PyBCN Organizer
 
 twitter: https://x.com/jhrs21
-linkedin: https://es.linkedin.com/in/josehriera 
+linkedin: https://www.linkedin.com/in/josehriera 
 
 
 

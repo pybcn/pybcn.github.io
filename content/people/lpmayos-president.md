@@ -8,7 +8,7 @@ site: https://lpmayos.github.io/
 pybcn_position: "PyBCN Former President"
 
 linkedin: "https://www.linkedin.com/in/lpmayos/"
-github: "https://www.github.com/lpmayos"
+github: "https://github.com/lpmayos"
 
 ---
 
