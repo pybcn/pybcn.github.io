@@ -30,6 +30,10 @@
      default order is by title. .Lastmod comes from git (enableGitInfo), the same
      source as the sitemap's lastmod: last change first, and the item date is the
      date of the last commit that touched the file. */ -}}
+{{- /* A page with _build.render = "never" stays in the collections (the people
+     and sponsor files feed the grids that way) but has no permalink. The feed
+     lists only pages a person can visit. */ -}}
+{{- $pages = where $pages "Permalink" "ne" "" }}
 {{- $pages = $pages.ByLastmod.Reverse }}
 {{- $limit := .Site.Config.Services.RSS.Limit }}
 {{- if ge $limit 1 }}
