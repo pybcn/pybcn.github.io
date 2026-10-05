@@ -202,7 +202,6 @@ stale, so it gets deleted.
 
 This is a work in progress. All the design and implementation decisions are detailed in [Proposta d'estructura](https://docs.google.com/document/d/10YxQeCuGQXUjnN3o9e1oH2HJkrhxJsr31qnxO_aiCNM/edit?usp=sharing) (currently written in catalan). All the tasks are managed through our [private Trello board](https://trello.com/b/cFE8KRTS).
 
-For now, we are not looking for contributors yet.
 
 
 ### Using JS code
