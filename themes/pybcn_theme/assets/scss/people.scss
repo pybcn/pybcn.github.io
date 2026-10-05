@@ -2,6 +2,17 @@
 // people section, so there is no single id to target.
 
 .people_grid {
+    // A Bootstrap container adds its own 15px of padding inside the padding
+    // the column already has. On an event page the level heading band spans
+    // the full width of the col-md-9 while the row of cards sat 15px inside
+    // it, which showed as a step between the band and the first card. The
+    // phone keeps the padding, because there the card would otherwise touch
+    // the edge of the screen.
+    @media (min-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     // The last row of a section rarely fills. Centring it puts the remainder
     // in the middle instead of leaving one card alone on the left, and it
     // means every section can keep the same cards per row, so no section ends
@@ -29,6 +40,11 @@
 
     .person_wrapper {
         flex: 0 0 auto;
+        // The card is the container the type sizes against, at the end of
+        // this file. inline-size contains the width only, so the equal-height
+        // rule on .person_item still resolves.
+        container-type: inline-size;
+        container-name: person_card;
         // One card a row on a phone, whatever the section asks for. This is
         // what the old col-md-N classes did: md means the fraction applies
         // from 768px up and the slot is full width below it. Four cards a
@@ -146,7 +162,16 @@
 
                 h3 {
                     color: black;
-                    font-size: 1.2em;
+                    // The type is a share of the card, not a fixed size,
+                    // because the card is not the same width on every page:
+                    // the organizers page gives it 200px and an event page
+                    // 186px, and the intermediate window widths give less
+                    // still. cqi is 1% of the card, which is the container
+                    // declared on .person_wrapper. 9.6cqi is 19.2px on a
+                    // 200px card, the size the name has always had, and the
+                    // upper clamp holds it there when one card takes the
+                    // whole row on a phone.
+                    font-size: clamp(13px, 9.6cqi, 19.2px);
                     margin-bottom: 5px;
 
                     // A long name gets a smaller font, so it stays on one
@@ -165,20 +190,8 @@
                     // (18) is 170px at 19.2px and wraps on an event card, and
                     // no name of 17 or fewer wraps on either page.
                     //
-                    // The size comes from the narrowest card the site makes.
-                    // An event page puts the grid in a col-md-9, so a
-                    // four-card row there is 179px a card and 157px for the
-                    // name inside the border and the padding. The longest
-                    // name on those pages, "Elisabeth Ortega Carrasco", is
-                    // 226px at 19.2px and 153px at 13px, which fits.
-                    //
-                    // From the md breakpoint up only. Below 768px one card
-                    // takes the whole row, 318px for the name on a 390px
-                    // screen, and every name fits at the full size.
                     &.long_name {
-                        @media (min-width: 768px) {
-                            font-size: 13px;
-                        }
+                        font-size: clamp(10px, 6.9cqi, 15px);
                     }
                 }
 
@@ -189,6 +202,11 @@
                     // Italic sets the role apart from the name above it,
                     // which is the same colour and only a little larger.
                     font-style: italic;
+                    // Smaller than the name, including a long name. At the
+                    // inherited 16px the role was larger than any name that
+                    // had to shrink, which read as the wrong hierarchy.
+                    // 6.8cqi is 13.6px on a 200px card.
+                    font-size: clamp(9px, 6.8cqi, 13.6px);
                 }
             }
 
@@ -225,22 +243,27 @@
                 // which hung 3px of empty line box under every icon.
                 a {
                     display: block;
-                    margin: 0 6px;
+                    // The gap scales with the card like the glyph does, so
+                    // the row keeps its proportions on a narrow card.
+                    margin: 0 clamp(3px, 3cqi, 6px);
                     line-height: 1;
                 }
 
                 // The size is set here, not with a fa-Nx class in the markup,
                 // because it follows from the card width. Four icons have to
                 // fit on one line inside the 188px the padding leaves. At
-                // 2em (32px) the four glyphs are 28, 31, 32 and 31px wide
+                // 32px the four glyphs are 28, 31, 32 and 31px wide
                 // (LinkedIn, GitHub, X, globe: Font Awesome glyphs are not
                 // all a full em), 122px in all, plus the 6px of margin on
-                // each side of every link, so 170px of the 188px. The spare
-                // 18px is what keeps the row off the padding when a browser
-                // rounds a glyph up. The X is a mask sized in em (see
-                // .icon_x in main.scss), so it scales with the same rule.
+                // each side of every link, so 170px of the 188px a 200px card
+                // leaves. The size is a share of the card, like the name and
+                // the role above: an event page card is 186px and the window
+                // widths between the breakpoints give down to 150px, where
+                // four icons at a fixed 32px wrapped onto a second line.
+                // 16cqi is 32px on a 200px card. The X is a mask sized in em
+                // (see .icon_x in main.scss), so it follows the same rule.
                 i {
-                    font-size: 2em;
+                    font-size: clamp(18px, 16cqi, 32px);
                     color: black;
                     &:hover {
                         color: $blue-pybcn;
