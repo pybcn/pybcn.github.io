@@ -153,19 +153,20 @@ def image_size(path):
 
 
 def check_photos(people):
-    # A photo that is not square is cropped by the build rather than squashed,
-    # so it is not an error. It is reported once, with a count, because there
-    # are dozens of them and a line each would bury everything else.
-    cropped = []
+    """Every person photo has to be a square the site can serve as it is.
+
+    The square is cut once, in the repository, by bin/square-photos, so the
+    build only resizes. A photo that is not square would be cropped by the
+    build instead, by a rule that does not know where the face is, and nobody
+    would see the result before it was live.
+
+    The size limits are here for the pull request nobody reads closely: a
+    photo straight off a phone is several megabytes and tens of megapixels,
+    and it costs the repository that much for ever.
+    """
     small = []
     for page_id, path in people.items():
         data = front_matter(path) or {}
-        # A remote photo loads from a third party on every page that lists
-        # the person and tells that party who viewed it. The template no
-        # longer reads the field, so a value here would be ignored in silence.
-        if data.get("photo_url"):
-            error(path, "photo_url is not supported: put the file under "
-                        "themes/pybcn_theme/assets/images/people/ and use 'photo'")
         photo = data.get("photo")
         if photo and not bare_file_name(path, "photo", photo):
             continue
@@ -173,17 +174,35 @@ def check_photos(people):
         if photo and not found:
             where = ", ".join(str(d.relative_to(ROOT)) for d in PHOTO_DIRS)
             error(path, f"photo '{photo}' not found in any of: {where}")
-        elif found:
-            size = image_size(found)
-            if size and size[0] != size[1]:
-                cropped.append((photo, size))
-            if size and min(size) < PHOTO_SIDE:
-                small.append((photo, size))
-    report_cropped(cropped)
+            continue
+        if not found:
+            continue
+
+        size = found.stat().st_size
+        if size > PHOTO_MAX_BYTES:
+            error(path, f"photo '{photo}' is {size // 1024} KB, over the "
+                        f"{PHOTO_MAX_BYTES // 1024} KB limit. Run "
+                        f"bin/square-photos, or save it smaller.")
+
+        dimensions = image_size(found)
+        if not dimensions:
+            continue
+        width, height = dimensions
+        if width != height:
+            error(path, f"photo '{photo}' is {width}x{height}, not square. "
+                        f"Run bin/square-photos, which crops it on the face.")
+        elif width > PHOTO_MAX_SIDE:
+            error(path, f"photo '{photo}' is {width}px square, over the "
+                        f"{PHOTO_MAX_SIDE}px limit. The site never serves more "
+                        f"than 800. Run bin/square-photos.")
+        if min(width, height) < PHOTO_SIDE:
+            small.append((photo, (width, height)))
     report_small(small)
 
 
 PHOTO_SIDE = 400
+PHOTO_MAX_SIDE = 1200
+PHOTO_MAX_BYTES = 1_000_000
 
 
 def report_small(small):
@@ -192,18 +211,7 @@ def report_small(small):
     shown = ", ".join(f"{name} ({w}x{h})" for name, (w, h) in sorted(small)[:3])
     note(f"{len(small)} of the person photos are smaller than {PHOTO_SIDE}px on "
          f"their short side, so the build enlarges them and they look soft in "
-         f"the grid. Smallest: {shown}.")
-
-
-def report_cropped(cropped):
-    if not cropped:
-        return
-    worst = sorted(cropped, key=lambda item: abs(item[1][0] / item[1][1] - 1), reverse=True)[:3]
-    shown = ", ".join(f"{name} ({w}x{h})" for name, (w, h) in worst)
-    note(f"{len(cropped)} of the person photos are not square, so the build "
-         f"crops them to fit the grid and part of each picture is lost. "
-         f"Furthest from square: {shown}. Crop one yourself to choose which "
-         f"part survives.")
+         f"the grid. Smallest: {shown}. Replacing the file is the only fix.")
 
 
 def check_logos(sponsors):
