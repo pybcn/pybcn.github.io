@@ -1,3 +1,5 @@
+{{- $logo := resources.Get "images/logo.png" -}}
+{{- $logo = partial "image_resize.html" (dict "img" $logo "width" 400) -}}
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Renders an RSS feed as a readable page when a person opens it in a browser.
@@ -64,8 +66,12 @@
         <style>
           body { margin: 0; color: #343a40; background: #fff;
                  font-family: Helvetica, Roboto, "Segoe UI", Calibri, sans-serif; }
-          h1 { margin: 0 0 1.5rem; padding: 30px 0; text-align: center;
-               background: #006c9b; color: #fff; font-weight: normal; font-size: 2rem; }
+          h1 { margin: 0; padding: 0; font-weight: normal; font-size: 2rem; }
+          header { padding: 28px 0 24px; text-align: center; background: #fff;
+                   border-bottom: 1px solid #dee2e6; margin-bottom: 1.5rem; }
+          header a { display: inline-block; color: #006c9b; text-decoration: none; }
+          header img { display: block; height: 58px; width: auto; margin: 0 auto 14px; }
+          header a:hover h1, header a:focus h1 { text-decoration: underline; }
           main { max-width: 72rem; margin: 0 auto; padding: 0 1rem 2rem; }
           p { margin: 0 0 1rem; }
           a { color: #006c9b; }
@@ -80,7 +86,12 @@
         </style>
       </head>
       <body>
-        <h1><xsl:value-of select="$heading"/></h1>
+        <header>
+          <a href="{{ site.Home.Permalink }}">
+            <img src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" alt="Python Barcelona"/>
+            <h1><xsl:value-of select="$heading"/></h1>
+          </a>
+        </header>
         <main>
           <p>
             <xsl:value-of select="$count"/>

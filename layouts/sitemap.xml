@@ -1,5 +1,6 @@
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-{{ printf "<?xml-stylesheet type=\"text/xsl\" href=\"/sitemap.xsl\"?>" | safeHTML }}
+{{- $xsl := resources.Get "xsl/sitemap.xsl" | resources.ExecuteAsTemplate "xsl/sitemap.xsl" . | resources.Fingerprint -}}
+{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"%s\"?>" $xsl.RelPermalink | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range where .Pages "Sitemap.Disable" "ne" true }}
