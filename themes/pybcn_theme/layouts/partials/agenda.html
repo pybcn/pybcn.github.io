@@ -37,7 +37,7 @@
 		<div class="event {{ $event.class }} {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
 
 			{{ if $event.description }}
-				<button type="button" class="detail_link modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}" aria-label="Details of {{ $event.title }}">
+				<button type="button" class="detail_link modal_trigger" tabindex="-1" data-toggle="modal" data-target="#modal_{{ $index }}" aria-label="Details of {{ $event.title }}">
 					<i class="fas fa-plus-square" aria-hidden="true"></i>
 				</button>
 			{{ end }}

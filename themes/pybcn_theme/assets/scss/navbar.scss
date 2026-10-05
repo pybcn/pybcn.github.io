@@ -8,11 +8,16 @@
     border-bottom: 1px solid $blue-pybcn;
 
     #logo {
-        // height: auto keeps the aspect ratio when max-width clamps the
-        // width, because the img tag now carries width and height.
-        height: auto;
-        max-width: 230px;
-        max-height: 100px;
+        // The height is set and the width follows it, so the picture keeps
+        // its shape by construction. The pair max-width plus max-height does
+        // not: with both of them violated the browser resolved them against
+        // each other and the logo came out 200x40, a ratio of 5 against the
+        // 3.36 of the file. One dimension decides, the other follows.
+        //
+        // 68px of height is 228px of width, which is what the 230px cap this
+        // replaces was aiming at.
+        height: 68px;
+        width: auto;
         margin: 5px 5px 5px 0;
         @include transition(0.4s);
     }
@@ -23,8 +28,7 @@
         @include transition(0.2s);
 
         #logo {
-            max-width: 200px;
-            max-height: 40px;
+            height: 40px;
             @include transition(0.4s);
         }
     }
