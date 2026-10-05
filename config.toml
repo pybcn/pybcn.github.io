@@ -20,8 +20,14 @@ timeout = "300s"
     isPlainText = true
     notAlternative = true
 
+# One feed for the whole site, /index.xml, and none per section. Hugo built
+# one for every section by default: ten feeds, nine of them a by-product,
+# from /contact/index.xml with zero items to /people/index.xml with 138
+# items and no titles. The home feed carries the same pages, so a section
+# feed adds nothing a reader can use (#201).
 [outputs]
     home = ["HTML", "RSS", "llms"]
+    section = ["HTML"]
 
 
 [markup.goldmark.renderer]
