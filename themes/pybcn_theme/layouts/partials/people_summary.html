@@ -91,6 +91,7 @@
                     <span>{{ $.person.Params.short_bio | markdownify }}</span>
                     <p class="font-weight-bold">{{ $.person.Params.pybcn_position }}</p>
                     {{ $.person.Content }}
+                    {{ partial "person_links.html" $.person }}
                 </div>
             </div>
         </div>

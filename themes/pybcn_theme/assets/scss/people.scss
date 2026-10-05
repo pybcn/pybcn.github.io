@@ -312,6 +312,32 @@
                             color: $blue-pybcn;
                         }
                     }
+
+                    // The same links as the icon row by the name, listed
+                    // with their text at the foot of the modal, so a
+                    // reader can see the handle or the host without
+                    // leaving the page. See person_links.html.
+                    .modal_links {
+                        list-style: none;
+                        padding: 0;
+                        margin: 15px 0 0;
+
+                        li {
+                            margin-bottom: 4px;
+                        }
+
+                        // One column for the icon whatever its width, so
+                        // the text starts on one line down the list. The
+                        // LinkedIn glyph is narrower than the globe, and
+                        // the X mark is a box of its own (see .icon_x in
+                        // main.scss) that sets neither width nor gap.
+                        i {
+                            display: inline-block;
+                            width: 1.5em;
+                            margin-right: 6px;
+                            text-align: center;
+                        }
+                    }
                 }
             }
 
