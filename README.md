@@ -82,6 +82,47 @@ Once the site was archived, you can create a new link in the navigational menu u
 
 ## Information for developers
 
+### Collaborate
+
+A change to this site goes through a pull request. Nothing is pushed to
+`edition` directly.
+
+1. Clone the repository. `git clone --single-branch --branch edition` is enough
+   and skips the built site, which lives on its own branch.
+2. Run `bin/install`. It downloads the pinned Hugo binary into `bin/hugo` and
+   verifies its checksum. You do not need Python, Go, or npm for this step.
+3. Run `bin/serve` to see the site at `http://localhost:1313` while you work.
+4. Make the change.
+5. Run the three checks locally, so you find what the pull request would find:
+
+   ```
+   pip install pyyaml
+   bin/check-content
+   bin/check-html-safety
+   bin/hugo --minify -D -d public && bin/check-rendered
+   ```
+
+6. Open the pull request against `edition`.
+
+The `pr-checks` workflow then runs the same checks on your branch, plus a build
+and a link check. **All of them have to pass**, and one approving review is
+needed before the pull request can be merged. The paths listed in
+`.github/CODEOWNERS` also request a review from the web team automatically.
+
+What each check is for:
+
+| Check | Fails when |
+|---|---|
+| Build the site | Hugo cannot build, or emits a warning |
+| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, or an event references a person or sponsor that does not exist |
+| `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay |
+| `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does |
+| Check the links | Reported, never blocking, because external sites rate-limit |
+
+A merge to `edition` deploys the site. The `github-pages` workflow builds it and
+publishes the result, so a change is live within a few minutes of the merge.
+
+
 ### Content safety check
 
 `bin/check-html-safety` scans `content/` and fails if it finds raw HTML that
