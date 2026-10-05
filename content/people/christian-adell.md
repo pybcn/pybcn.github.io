@@ -1,7 +1,5 @@
 ---
 id: christian-adell
-aliases:
-  - /people/christian-adell-querol/
 name: Christian Adell
 photo: christian-adell.jpg
 
