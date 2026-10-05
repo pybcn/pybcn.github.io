@@ -7,5 +7,5 @@ photo: julio-martinez.jpg
 twitter: https://x.com/liopic
 linkedin: https://www.linkedin.com/in/liopic/
 github: https://github.com/liopic
-site: http://www.liopic.me/
+site: https://liopic.me/
 ---

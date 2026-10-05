@@ -7,5 +7,5 @@ photo: marc-pous.jpg
 twitter: https://x.com/gy4nt
 linkedin: https://www.linkedin.com/in/marcpous/
 github: https://github.com/mpous
-site: http://marcpous.com
+site: https://marcpous.com/
 ---
