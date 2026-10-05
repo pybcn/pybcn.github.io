@@ -11,24 +11,62 @@
     }
 
     // Every card is the same width in every section, and so is the space
-    // between them. The number of cards on a row comes from capping the width
-    // of the row itself, not from making each slot a fraction of it: a slot
-    // that is a third of the row puts 180px of air between three cards while
-    // five cards sit shoulder to shoulder, and the two sections stop looking
-    // like the same page.
+    // between them. The row caps its own width at the number of cards it is
+    // asked for, and each slot is that fraction of the row. The cap is what
+    // makes the sections match: without it, a slot that is a third of the
+    // row puts 180px of air between three cards while five cards sit
+    // shoulder to shoulder, and the two sections stop looking like the same
+    // page. The fraction is what keeps the count: an event page puts the
+    // grid in a col-md-9, which leaves 795px, and four 220px slots need 880,
+    // so a fixed slot width dropped that page from four cards a row to
+    // three. The cards there are a little narrower than on the organizers
+    // page, which has the room, and the count is the same as before.
     $card: 200px;
     $gutter: 20px;
+    // A literal divisor is not a division in Dart Sass, which emits
+    // width: 100%/3 and the browser drops the rule. A variable divides.
+    $tablet_per_line: 3;
 
     .person_wrapper {
         flex: 0 0 auto;
-        width: $card + $gutter;
+        // One card a row on a phone, whatever the section asks for. This is
+        // what the old col-md-N classes did: md means the fraction applies
+        // from 768px up and the slot is full width below it. Four cards a
+        // row on a 390px screen is 63px of card.
+        width: 100%;
     }
 
-    @for $n from 1 through 8 {
-        .row.level.per_line_#{$n} {
-            max-width: ($card + $gutter) * $n;
+    // Between the md and lg breakpoints the row is too narrow for the count
+    // a section asks for: five 220px slots need 1100px and a 768px screen
+    // gives 720. Capping the count at three there keeps the card at its full
+    // 200px instead of squeezing it to 118px, which is narrow enough that the
+    // four social icons wrap onto a second line. This rule comes before the
+    // per_line_N block below so that block wins from lg up.
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .row.level {
+            max-width: ($card + $gutter) * 3;
             margin-left: auto;
             margin-right: auto;
+
+            .person_wrapper {
+                width: 100% / $tablet_per_line;
+            }
+        }
+    }
+
+    // 768px is Bootstrap's md breakpoint, the one the old col-md-N classes
+    // were tied to. The file already writes its media queries by hand.
+    @media (min-width: 992px) {
+        @for $n from 1 through 8 {
+            .row.level.per_line_#{$n} {
+                max-width: ($card + $gutter) * $n;
+                margin-left: auto;
+                margin-right: auto;
+
+                .person_wrapper {
+                    width: 100% / $n;
+                }
+            }
         }
     }
 
@@ -100,17 +138,57 @@
                 // The side padding keeps the text off the border now that
                 // the card has none.
                 padding: 5px 10px 0;
+                // Centred, like the icon row under it. The name and the role
+                // used to sit on the left edge while the icons sat in the
+                // middle, so one card showed two alignments. The modal keeps
+                // its own alignment: this block is the card face only.
+                text-align: center;
 
                 h3 {
                     color: black;
                     font-size: 1.2em;
                     margin-bottom: 5px;
+
+                    // A long name gets a smaller font, so it stays on one
+                    // line. No ellipsis: a clipped surname reads badly, and
+                    // these are real people. Only the long names shrink, so
+                    // the other cards keep the heading size.
+                    //
+                    // The template adds the class from the character count,
+                    // because the template knows the name and CSS cannot
+                    // measure text. The count is a proxy for the width:
+                    // "Monica Dominguez" (16 characters) needs 164px and
+                    // "Albert Pujol Torras" (19) needs 156px, so a few names
+                    // on each side of the threshold shrink without need or
+                    // wrap. The threshold is 18 characters, measured on the
+                    // organizers page and on PyDay 2025: "Daniel Mesejo Leon"
+                    // (18) is 170px at 19.2px and wraps on an event card, and
+                    // no name of 17 or fewer wraps on either page.
+                    //
+                    // The size comes from the narrowest card the site makes.
+                    // An event page puts the grid in a col-md-9, so a
+                    // four-card row there is 179px a card and 157px for the
+                    // name inside the border and the padding. The longest
+                    // name on those pages, "Elisabeth Ortega Carrasco", is
+                    // 226px at 19.2px and 153px at 13px, which fits.
+                    //
+                    // From the md breakpoint up only. Below 768px one card
+                    // takes the whole row, 318px for the name on a 390px
+                    // screen, and every name fits at the full size.
+                    &.long_name {
+                        @media (min-width: 768px) {
+                            font-size: 13px;
+                        }
+                    }
                 }
 
                 // Bootstrap gives a paragraph 1rem below it, which opened a
                 // 16px gap between the role and the icons.
                 p {
                     margin-bottom: 0;
+                    // Italic sets the role apart from the name above it,
+                    // which is the same colour and only a little larger.
+                    font-style: italic;
                 }
             }
 
@@ -122,11 +200,14 @@
                 // its own, so the icons were only in the right place by luck.
                 margin-top: auto;
                 // No space over the icons: the role above has none under it
-                // either. 5px on each side is the limit the icon row can
-                // wrap at, which is 188px of the 198px inside the border. A
-                // little under the row, because the icons are the bottom of
-                // the card and the border would otherwise touch them.
-                padding: 0 5px 6px;
+                // either. The side padding is 2px rather than 5px because the
+                // row has to survive the narrowest card on the site: an event
+                // page puts the grid in a col-md-9, so a four-card row there
+                // is 179px wide, 175px inside the border and the padding, and
+                // the four icons need 170px. A little under the row, because
+                // the icons are the bottom of the card and the border would
+                // otherwise touch them.
+                padding: 0 2px 6px;
 
                 // Flex, not text-align: inline-block icons are separated by the
                 // whitespace between the tags, about 4 px each, which is enough
@@ -144,21 +225,22 @@
                 // which hung 3px of empty line box under every icon.
                 a {
                     display: block;
-                    margin: 0 3px;
+                    margin: 0 6px;
                     line-height: 1;
                 }
 
                 // The size is set here, not with a fa-Nx class in the markup,
                 // because it follows from the card width. Four icons have to
                 // fit on one line inside the 188px the padding leaves. At
-                // 2.5em (40px) the four glyphs are 35, 39, 40 and 39px wide
+                // 2em (32px) the four glyphs are 28, 31, 32 and 31px wide
                 // (LinkedIn, GitHub, X, globe: Font Awesome glyphs are not
-                // all a full em), plus 6px of margin each, 176px in all. The
-                // next class up, fa-3x (48px), gives 207px, which wraps. The
-                // X is a mask sized in em (see .icon_x in main.scss), so it
-                // scales with the same rule.
+                // all a full em), 122px in all, plus the 6px of margin on
+                // each side of every link, so 170px of the 188px. The spare
+                // 18px is what keeps the row off the padding when a browser
+                // rounds a glyph up. The X is a mask sized in em (see
+                // .icon_x in main.scss), so it scales with the same rule.
                 i {
-                    font-size: 2.5em;
+                    font-size: 2em;
                     color: black;
                     &:hover {
                         color: $blue-pybcn;

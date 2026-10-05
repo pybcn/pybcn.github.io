@@ -43,7 +43,10 @@
         </button>
     </div>
     <div class="person_data">
-        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}">{{ $.person.Params.name }}</button></h3>
+        {{/* long_name: a smaller font, so the name stays on one line (see
+             people.scss). RuneCount, not len: len counts bytes, and an
+             accented name would count one character high per accent. */}}
+        <h3{{ if gt (strings.RuneCount $.person.Params.name) 17 }} class="long_name"{{ end }}><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}">{{ $.person.Params.name }}</button></h3>
         <p>{{ $.person.Params.pybcn_position }}</p>
     </div>
     <div class="social_links">
