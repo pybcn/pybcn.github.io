@@ -10,6 +10,11 @@
     person can sit in more than one of them. The key goes into every id the
     grid emits, so the row ids and the modal ids stay unique on the page.
     Styles hook on the people_grid class, not on an id.
+
+    The column width comes from a per_line_N class rather than from Bootstrap's
+    col-md-N. Twelve columns divide by 1, 2, 3, 4, 6 and 12, so people_per_line
+    was silently rounded for any other value: 5 gave col-md-2, which is six
+    cards to a row.
 */ -}}
 {{- $key := default "people" .key -}}
 <div class="container objects_grid people_grid" id="{{ $key }}_grid">
@@ -24,7 +29,7 @@
             {{ end }}
             {{ range $pidx, $person := $level.people }}
                 {{ range $page := where $pages ".Params.id" "eq" $person }}
-                <div class="col-md-{{ div 12 (int $level.people_per_line) }} person_wrapper">
+                <div class="person_wrapper per_line_{{ int $level.people_per_line }}">
                     {{ partial "people_summary.html" (dict "person" $page "key" (printf "%s_%d_%d" $key $idx $pidx)) }}
                 </div>
                 {{ end }}
