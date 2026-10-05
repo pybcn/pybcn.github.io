@@ -3,7 +3,7 @@ id: amalia_vradi
 name: "Amalia Vradi"
 short_bio: "Data Scientist"
 photo: amalia-vradi.jpg
-pybcn_position: PyLadiesBCN Collaborator
+pybcn_position: PyLadiesBCN Organizer
 linkedin: "https://www.linkedin.com/in/amaliavradi"
 github: "https://github.com/amaliavr"
 

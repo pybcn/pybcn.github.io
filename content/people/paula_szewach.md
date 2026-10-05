@@ -2,7 +2,7 @@
 id: paula_szewach
 name: "Paula Szewach"
 short_bio: "Computational social scientist"
-pybcn_position: PyLadiesBCN Collaborator
+pybcn_position: PyLadiesBCN Organizer
 site: "https://www.paulaszewach.com/"
 linkedin: "https://www.linkedin.com/in/paulaszewach/"
 github: "https://github.com/pszewach"

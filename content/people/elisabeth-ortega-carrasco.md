@@ -5,7 +5,7 @@ short_bio: "R&D&i Manager (HPC)"
 
 photo: elisabeth-ortega-carrasco.jpg
 
-pybcn_position: PyLadiesBCN Collaborator
+pybcn_position: PyLadiesBCN Organizer
 
 twitter: https://x.com/draentropia
 github: https://github.com/draentropia
