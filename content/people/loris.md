@@ -1,7 +1,7 @@
 ---
 id: loris
 name: Loris Mularoni
-photo: loris.jpg
+photo: loris-mularoni.jpg
 short_bio: bioinformatics
 
 pybcn_position: PyBCN Meetup organizer

@@ -6,5 +6,5 @@ pybcn_position: "PyBCN Organizer"
 twitter: "https://twitter.com/jmartinezvila"
 linkedin: "https://es.linkedin.com/in/josepmartinezvila"
 github: "https://github.com/josepmv"
-photo: "josep.jpg"
+photo: josep-martinez-vila.jpg
 ---

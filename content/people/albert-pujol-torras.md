@@ -1,8 +1,7 @@
 ---
 id: albert-pujol-torras
 name: Albert Pujol Torras
-photo: albert-pujol-torras.jpeg
-
+photo: albert-pujol-torras.jpg
 linkedin: https://www.linkedin.com/in/albert-pujol-torras-3a7367/
 ---
 

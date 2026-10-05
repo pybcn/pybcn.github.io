@@ -5,7 +5,7 @@ short_bio: "Software Engineer at Holaluz, with experience in web applications an
 twitter: "https://twitter.com/anxodio"
 linkedin: "https://www.linkedin.com/in/anxodio/"
 github: "https://www.github.com/anxodio"
-photo: angel.jpg
+photo: angel-fernandez-ibanez.jpg
 photo_anchor: Right
 pybcn_position: PyBCN Collaborator
 ---

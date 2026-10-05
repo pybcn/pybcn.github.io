@@ -1,7 +1,7 @@
 ---
 id: ricardo-ander-egg
 name: Ricardo Ander-Egg Aguilar
-photo: ricardo-ander-egg.jpeg
+photo: ricardo-ander-egg-aguilar.jpg
 photo_anchor: Top
 
 twitter: https://twitter.com/ricardoanderegg

@@ -2,8 +2,7 @@
 id: natalia
 name: "Natàlia Padilla"
 short_bio: "Research software engineer"
-photo: "natalia.jpeg"
-
+photo: natalia-padilla.jpg
 pybcn_position: "PyLadiesBCN Organizer"
 
 twitter: "https://twitter.com/nataliasirera"

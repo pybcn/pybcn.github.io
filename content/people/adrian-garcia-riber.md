@@ -1,8 +1,7 @@
 ---
 id: adrian-garcia-riber
 name: Adrián García Riber
-photo: adrian-garcia-riber.jpeg
-
+photo: adrian-garcia-riber.jpg
 linkedin: https://www.linkedin.com/in/adriangriber/
 github: https://github.com/AdrianGRiber
 ---

@@ -2,7 +2,7 @@
 id: javier-sabariego
 name: "Javier Sabariego"
 short_bio: "Quantum Engineer"
-photo: "JavierSabariego.jpg"
+photo: javier-sabariego.jpg
 linkedin: "https://www.linkedin.com/in/javiersabariegolopez/"
 ---
 

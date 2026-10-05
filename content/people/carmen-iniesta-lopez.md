@@ -2,8 +2,7 @@
 id: carmen-iniesta-lopez
 name: Carmen Iniesta López
 short_bio: NLP/ML engineer
-photo: carmen-iniesta-lopez.jpeg
-
+photo: carmen-iniesta-lopez.jpg
 linkedin: https://www.linkedin.com/in/carmen-iniesta-lopez/
 github: https://github.com/Ciniesta
 twitter: https://twitter.com/Carmenisst

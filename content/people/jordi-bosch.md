@@ -2,8 +2,7 @@
 id: jordi-bosch
 name: "Jordi Bosch"
 
-photo: jordi_bosch.jpeg
-
+photo: jordi-bosch.jpg
 pybcn_position: "PyBCN President"
 
 ---

@@ -1,8 +1,7 @@
 ---
 id: sergi-baena-miret
 name: Sergi Baena-Miret
-photo: sergi-baena-miret.jpeg
-
+photo: sergi-baena-miret.jpg
 linkedin: https://www.linkedin.com/in/sergibaena/
 ---
 

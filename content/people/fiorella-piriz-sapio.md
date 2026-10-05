@@ -1,8 +1,7 @@
 ---
 id: fiorella-piriz-sapio
 name: Fiorella Piriz Sapio
-photo: fiorella-piriz-sapio.jpeg
-
+photo: fiorella-piriz-sapio.jpg
 github: https://github.com/Fiorellaps
 ---
 

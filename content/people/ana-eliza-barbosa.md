@@ -1,7 +1,7 @@
 ---
 id: ana-eliza-barbosa
 name: "Ana Eliza Barbosa"
-photo: ana-eliza-barbosa.jpeg
+photo: ana-eliza-barbosa.jpg
 linkedin: https://www.linkedin.com/in/anaelizabarbosa/
 ---
 

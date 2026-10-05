@@ -1,7 +1,7 @@
 ---
 id: jimena-escobar
 name: "Jimena Escobar Bermúdez"
-photo: "jimena-escobar.jpg"
+photo: jimena-escobar-bermudez.jpg
 linkedin: "https://www.linkedin.com/in/jimena-eb/"
 github: "https://github.com/JimenaEB"
 twitter: "https://twitter.com/Jimena_y_yo"

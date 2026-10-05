@@ -2,8 +2,7 @@
 id: monica-dominguez
 name: Monica Dominguez
 short_bio: PhD in Computer Science
-photo: monica-dominguez.jpeg
-
+photo: monica-dominguez.jpg
 linkedin: https://www.linkedin.com/in/monikadominguezbajo
 github: https://github.com/monikaUPF
 twitter: https://twitter.com/monikaUPF

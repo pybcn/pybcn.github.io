@@ -1,7 +1,7 @@
 ---
 id: jordi
 name: Jordi Soucheiron
-photo: jordi.jpg
+photo: jordi-soucheiron.jpg
 photo_anchor: Top
 short_bio: I love music, computers, cinema, photography and mixing them
 
