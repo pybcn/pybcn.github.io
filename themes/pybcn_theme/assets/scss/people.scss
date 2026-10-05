@@ -2,50 +2,54 @@
 // people section, so there is no single id to target.
 
 .people_grid {
-    // One row of N cards. Bootstrap's twelve columns cannot express five, so
-    // the width is a fraction of the row instead. Below the medium breakpoint
-    // every card takes the full width, as the Bootstrap classes used to do.
-    //
-    // The count steps up with the viewport. A row of five on a 768 px screen
-    // gives each card 114 px, which is too narrow for the name and pushes the
-    // social icons onto a second line. Three fit at 768 px, four at 992 px,
-    // and the full count from 1200 px, where a card is about 200 px wide.
+    // The last row of a section rarely fills. Centring it puts the remainder
+    // in the middle instead of leaving one card alone on the left, and it
+    // means every section can keep the same cards per row, so no section ends
+    // up with wider cards than another and reads as more important.
+    .row.level {
+        justify-content: center;
+    }
+
+    // Every card is the same width in every section, and so is the space
+    // between them. The number of cards on a row comes from capping the width
+    // of the row itself, not from making each slot a fraction of it: a slot
+    // that is a third of the row puts 180px of air between three cards while
+    // five cards sit shoulder to shoulder, and the two sections stop looking
+    // like the same page.
+    $card: 200px;
+    $gutter: 20px;
+
+    .person_wrapper {
+        flex: 0 0 auto;
+        width: $card + $gutter;
+    }
+
     @for $n from 1 through 8 {
-        $md: if($n > 3, 3, $n);
-        $lg: if($n > 4, 4, $n);
-
-        .per_line_#{$n} {
-            flex: 0 0 100%;
-            max-width: 100%;
-
-            @media (min-width: 768px) {
-                flex: 0 0 percentage(1 / $md);
-                max-width: percentage(1 / $md);
-            }
-
-            @media (min-width: 992px) {
-                flex: 0 0 percentage(1 / $lg);
-                max-width: percentage(1 / $lg);
-            }
-
-            @media (min-width: 1200px) {
-                flex: 0 0 percentage(1 / $n);
-                max-width: percentage(1 / $n);
-            }
+        .row.level.per_line_#{$n} {
+            max-width: ($card + $gutter) * $n;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 
     .person_wrapper {
 
         display: flex;
+        justify-content: center;
         margin-bottom: 20px;
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-right: $gutter / 2;
+        padding-left: $gutter / 2;
 
         .person_item {
 
+            width: 100%;
+
             border: 1px solid black;
-            padding: 10px;
+            // No padding on the card itself: the photo has to reach the
+            // border. The text and the icons below set their own side
+            // padding. A padding here used to frame the photo in 10px of
+            // white, which on a 200px card is a tenth of its width.
+            padding: 0;
 
             // A column, so every card in a row is as tall as the tallest and
             // the social links sit on the bottom edge whatever the length of
@@ -58,7 +62,6 @@
             height: 100%;
 
             .img-wrap {
-                margin-bottom: 25px;
                 position: relative;
                 // Keeps the zoom on hover inside the frame.
                 overflow: hidden;
@@ -92,11 +95,22 @@
 
             .person_data {
                 line-height: 1rem;
+                // 5px above the name, the same as between the name and the
+                // role, so the text block reads as one unit under the photo.
+                // The side padding keeps the text off the border now that
+                // the card has none.
+                padding: 5px 10px 0;
 
                 h3 {
                     color: black;
                     font-size: 1.2em;
                     margin-bottom: 5px;
+                }
+
+                // Bootstrap gives a paragraph 1rem below it, which opened a
+                // 16px gap between the role and the icons.
+                p {
+                    margin-bottom: 0;
                 }
             }
 
@@ -107,7 +121,12 @@
                 // up the page, because this box has no positioned ancestor of
                 // its own, so the icons were only in the right place by luck.
                 margin-top: auto;
-                padding-top: 10px;
+                // No space over the icons: the role above has none under it
+                // either. 5px on each side is the limit the icon row can
+                // wrap at, which is 188px of the 198px inside the border. A
+                // little under the row, because the icons are the bottom of
+                // the card and the border would otherwise touch them.
+                padding: 0 5px 6px;
 
                 // Flex, not text-align: inline-block icons are separated by the
                 // whitespace between the tags, about 4 px each, which is enough
@@ -119,13 +138,27 @@
                 justify-content: center;
 
                 // A small gap still widens the target each icon offers to a
-                // pointer, which the 2x size alone does not.
+                // pointer, which the icon size alone does not.
+                //
+                // line-height: 1 drops the strut of the link's own 16px text,
+                // which hung 3px of empty line box under every icon.
                 a {
                     display: block;
                     margin: 0 3px;
+                    line-height: 1;
                 }
 
+                // The size is set here, not with a fa-Nx class in the markup,
+                // because it follows from the card width. Four icons have to
+                // fit on one line inside the 188px the padding leaves. At
+                // 2.5em (40px) the four glyphs are 35, 39, 40 and 39px wide
+                // (LinkedIn, GitHub, X, globe: Font Awesome glyphs are not
+                // all a full em), plus 6px of margin each, 176px in all. The
+                // next class up, fa-3x (48px), gives 207px, which wraps. The
+                // X is a mask sized in em (see .icon_x in main.scss), so it
+                // scales with the same rule.
                 i {
+                    font-size: 2.5em;
                     color: black;
                     &:hover {
                         color: $blue-pybcn;

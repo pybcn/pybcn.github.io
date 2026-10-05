@@ -16,7 +16,7 @@ people_levels:
     - people_per_line: 3
       people: [alberto, david, ifosch, natalia, alicia-morales, ferran-jovell]
       name: Permanent Committee
-    - people_per_line: 5
+    - people_per_line: 4
       people: [elisabeth-ortega-carrasco, josep, loris, lpmayos, nuria, jose-riera, rberenguel, xavi]
       name: Collaborators
     - people_per_line: 5
