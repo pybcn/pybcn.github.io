@@ -1,12 +1,13 @@
 ---
 id: daniel-mesejo
 name: "Daniel Mesejo Leon"
+linkedin: https://www.linkedin.com/in/daniel-alejandro-mesejo-leon
 github: https://github.com/mesejo
 
 photo: daniel-mesejo-leon.jpg
 photo_anchor: Top
 
-pybcn_position: "PyBCN Secretary"
+pybcn_position: "Secretary"
 
 ---
 

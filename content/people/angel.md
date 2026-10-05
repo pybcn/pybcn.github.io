@@ -7,5 +7,5 @@ linkedin: "https://www.linkedin.com/in/anxodio/"
 github: "https://github.com/anxodio"
 photo: angel-fernandez-ibanez.jpg
 photo_anchor: Right
-pybcn_position: PyBCN Collaborator
+pybcn_position: Collaborator
 ---

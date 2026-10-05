@@ -4,7 +4,7 @@ name: Patricia Lamadrid Robles
 short_bio: Data Engineer - Coding lover - Dressmaker
 
 photo: patricia-lamadrid-robles.jpg
-pybcn_position: PyBCN Collaborator
+pybcn_position: Collaborator
 
 linkedin: https://www.linkedin.com/in/patricia-lamadrid/
 github: https://github.com/plamadridr/

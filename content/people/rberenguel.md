@@ -3,7 +3,7 @@ id: rberenguel
 name: "Ruben Berenguel"
 short_bio: "Lead Data Engineer (Python, Scala, Apache Spark) at Hybrid Theory"
 photo: ruben-berenguel.png
-pybcn_position: PyBCN Organizer
+pybcn_position: Organizer
 
 twitter: "https://x.com/berenguel"
 linkedin: "https://www.linkedin.com/in/rberenguel/"

@@ -4,7 +4,7 @@ name: "Ferran Jovell"
 github: https://github.com/mrswats
 photo: "ferran-jovell.jpg"
 
-pybcn_position: PyBCN Organizer
+pybcn_position: Organizer
 ---
 
 Ferran Jovell is a physicist with Ph.D. in Electronic Engineering. His interests
