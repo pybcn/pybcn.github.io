@@ -152,3 +152,16 @@ a, a:hover {
 .modal-title {
     line-height: 1.2;
 }
+// Fallback index for sections and taxonomies with no layout of their own.
+.section_index {
+    margin: 2rem 0;
+    padding-left: 0;
+    list-style: none;
+
+    li { margin-bottom: 0.9rem; }
+    a { font-weight: 600; }
+    .section_index_desc {
+        display: block;
+        color: #51616e;
+    }
+}

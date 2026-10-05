@@ -10,7 +10,16 @@ deployed using [Hugo](https://gohugo.io).
 
 ### Setup on your computer
 
-You need to clone this repository and run the `bin/install` script.
+Clone this repository and run the `bin/install` script. It downloads the pinned
+Hugo extended binary into `bin/hugo`, checks its SHA256 against the checksums
+published with the release, and does nothing if the right version is already
+there.
+
+You need `curl`, `tar`, and `sha256sum` (or `shasum`, which macOS ships). You
+do not need Python, Go, or npm.
+
+The version lives in `.hugo-version`, which is the single source of truth.
+To move to a new Hugo release, edit that file and run `bin/install` again.
 
 
 ### Running local server

@@ -1,0 +1,25 @@
+{{- /*
+    Fallback index for a section or a taxonomy that has no layout of its own.
+
+    Without this, Hugo emits no index.html for those URLs, and GitHub Pages
+    falls back to the index.xml it does emit: six URLs on this site served raw
+    RSS to a visitor, including the "The association" link in the main menu.
+*/ -}}
+{{ define "main" }}
+<div class="container">
+    {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
+    {{ $pages := .Pages }}
+    {{ if $pages }}
+    <ul class="section_index">
+        {{ range $pages.ByTitle }}
+        <li>
+            <a href="{{ .RelPermalink }}">{{ or .Params.name .Title .File.BaseFileName }}</a>
+            {{ with .Params.description }}<span class="section_index_desc">{{ . }}</span>{{ end }}
+        </li>
+        {{ end }}
+    </ul>
+    {{ else }}
+    <p>Nothing here yet.</p>
+    {{ end }}
+</div>
+{{ end }}

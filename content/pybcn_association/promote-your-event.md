@@ -24,4 +24,4 @@ heroBackground: https://source.unsplash.com/tiNCpHudGrw/1600x400
 - We'll mention your event in our social networks.
 
 ### How does it work?
-- Send us an email that we can directly forward to our mailing lists to our [main contact address](mailto://pybcn@googlegroups.com) and our [PyLadiesBCN Committee](mailto://pyladies-bcn@googlegroups.com). We'll be glad to answer any question you may have.
+- Send us an email that we can directly forward to our mailing lists to our [main contact address](mailto:pybcn@googlegroups.com) and our [PyLadiesBCN Committee](mailto:pyladies-bcn@googlegroups.com). We'll be glad to answer any question you may have.

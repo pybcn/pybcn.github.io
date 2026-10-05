@@ -73,7 +73,7 @@ options:
     - name: How can you get it?
       id: how-can-you-get-it
       content:
-      - Please get in touch with our [Practice Sessions Committee](mailto:pybcn-dojos-orgs@google.groups.com), which will guide you through the process and will answer any questions you may have.
+      - Please get in touch with our [Practice Sessions Committee](mailto:pybcn-dojos-orgs@googlegroups.com), which will guide you through the process and will answer any questions you may have.
 - name: Specific events
   blocks:
   - name: PyDay, DjangoGirls, ...

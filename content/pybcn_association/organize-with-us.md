@@ -31,7 +31,7 @@ options:
     - name: How does it work?
       id: how-does-it-work
       content:
-      - Just get in touch with [us](mailto://pybcn@googlegroups.com), explain in which area or event you would like to participate, and we’ll direct you to the person responsible.
+      - Just get in touch with [us](mailto:pybcn@googlegroups.com), explain in which area or event you would like to participate, and we’ll direct you to the person responsible.
   - name: Propose a new PyBCN event
     id: propose-event
     descriptions:
@@ -51,7 +51,7 @@ options:
       id: how-does-it-work
       content:
       - |
-        Get in touch with [us](mailto://pybcn@googlegroup.com), explaining your idea:
+        Get in touch with [us](mailto:pybcn@googlegroups.com), explaining your idea:
         - Name and general event description
         - Main goal
         - Current support
@@ -89,7 +89,7 @@ options:
       id: how-does-it-work
       content:
       - |
-        Get in touch with [us](mailto://pybcn@googlegroup.com), explaining your event:
+        Get in touch with [us](mailto:pybcn@googlegroups.com), explaining your event:
         - Name and general event description
         - Main goal
         - Current support
