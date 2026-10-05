@@ -10,19 +10,24 @@ heroBackground: https://images.unsplash.com/photo-1512626120412-faf41adb4874?ixl
 config: "pyladies_first"
 ---
 
-<div class="col-md-4">
-    <div class="bordered_col">
-        <h4><i class="fas fa-briefcase"></i> Are you a company?</h4>
-        <p><a class="font-weight-bold" href="/pybcn_association/sponsor-us">Sponsor a PyLadiesBCN event!</a><br/>Help us to organize our next event</p>
-        <p><a class="font-weight-bold" href="/pyladies_bcn/job-offers">Share your job offers!</a><br/>Reach our >600 mailing list subscribers</p>
-        <p><a class="font-weight-bold" href="/pybcn_association/promote-your-event">Organize a Python-related event!</a><br/>We can help</a></p>
-    </div>
-</div>
-<div class="col-md-4">
-    <div class="bordered_col">
-        <h4><i class="fas fa-users"></i> Are you a Python fan?</h4>
-        <p><a class="font-weight-bold" href="/pyladies_bcn/call-for-proposals">Talk and teach! </a><br/>Give a talk or guide a practice session</p>
-        <p><a class="font-weight-bold" href="/pybcn_association/organize-with-us">Organize with us!</a><br/>Help us to organize our next event</p>
-        <p><a class="font-weight-bold" href="/pybcn_association/membership">Become a PyBCN member!</a><br/>It's cool, and it's only 20€ per year</p>
-    </div> 
-</div>
+{{< bordered-col icon="fa-briefcase" title="Are you a company?" >}}
+**[Sponsor a PyLadiesBCN event!](/pybcn_association/sponsor-us)**\
+Help us to organize our next event
+
+**[Share your job offers!](/pyladies_bcn/job-offers)**\
+Reach our >600 mailing list subscribers
+
+**[Organize a Python-related event!](/pybcn_association/promote-your-event)**\
+We can help
+{{< /bordered-col >}}
+
+{{< bordered-col icon="fa-users" title="Are you a Python fan?" >}}
+**[Talk and teach!](/pyladies_bcn/call-for-proposals)**\
+Give a talk or guide a practice session
+
+**[Organize with us!](/pybcn_association/organize-with-us)**\
+Help us to organize our next event
+
+**[Become a PyBCN member!](/pybcn_association/membership)**\
+It's cool, and it's only 20€ per year
+{{< /bordered-col >}}

@@ -1,0 +1,38 @@
+{{- /*
+    google-embed: embed a Google Form or a Google Calendar.
+
+    Usage:
+      {{< google-embed kind="form" src="https://docs.google.com/forms/d/.../viewform" >}}
+      {{< google-embed kind="calendar" src="https://calendar.google.com/calendar/embed?..." title="Agenda" >}}
+
+    An iframe is the one piece of third party markup this site needs, because
+    PyBCN has no form backend of its own. The shortcode keeps it out of
+    content: the host is checked against the table below, so content can name
+    a Google Form or a Google Calendar and nothing else.
+
+    The iframe carries a title, which a screen reader needs to say what the
+    frame holds, and which the raw HTML in content did not have.
+*/ -}}
+{{- $kinds := dict
+	"form"     (dict "host" "docs.google.com"     "prefix" "https://docs.google.com/forms/"            "title" "Google Form")
+	"calendar" (dict "host" "calendar.google.com" "prefix" "https://calendar.google.com/calendar/embed" "title" "Google Calendar")
+-}}
+{{- $kind := .Get "kind" -}}
+{{- $spec := index $kinds $kind -}}
+{{- if not $spec -}}
+	{{- errorf "google-embed: kind must be form or calendar, got %q (%s)" $kind .Position -}}
+{{- end -}}
+{{- $src := .Get "src" -}}
+{{- if not (hasPrefix $src $spec.prefix) -}}
+	{{- errorf "google-embed: src must start with %q, got %q (%s)" $spec.prefix $src .Position -}}
+{{- end -}}
+{{- $height := or (.Get "height") "550" -}}
+{{- if not (findRE `^[0-9]{2,4}$` $height) -}}
+	{{- errorf "google-embed: height must be a number, got %q (%s)" $height .Position -}}
+{{- end -}}
+<iframe class="google_embed google_embed_{{ $kind }} w-100"
+	src="{{ $src }}"
+	title="{{ or (.Get "title") $spec.title }}"
+	height="{{ $height }}"
+	loading="lazy"
+	referrerpolicy="strict-origin-when-cross-origin"></iframe>

@@ -124,7 +124,13 @@ eventTimes:
     17:30,
     17:45,
   ]
-legend: '<i class="fas fa-laptop"></i> Workshop &nbsp;&nbsp;&nbsp; <i class="fas fa-comment"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-circle green"></i> Beginner &nbsp;&nbsp;&nbsp; <i class="fas fa-circle yellow"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class="fas fa-circle red"></i> Advanced'
+legend:
+  - type: workshop
+  - type: talk
+  - separator: true
+  - level: beginner
+  - level: intermediate
+  - level: advanced
 events:
   - start_time_slot: 9:00
     end_time_slot: 9:15
@@ -145,8 +151,8 @@ events:
     color: red
     type: workshop
     language: "Spanish"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     requirements: "<ul><li>Laptop , requirements.txt installed.</li><li>VS Code IDE.</li></ul>"
     topic: "Data Science and MLOPS"
     location: Sala d'actes Ada Lovelace
@@ -159,8 +165,8 @@ events:
     color: yellow
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     requirements: "<ul><li>Initial python knowledges</li><li>Would be great to know Django</li><li>Laptop with installed Docker and Docker Compose</li><//ul>"
     topic: "Security, software development"
     location: Sala Hedy Lamarr / Margarita Salas
@@ -173,8 +179,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     topic: "Serverless apps"
     location: Sala Hipàtia d'Alexandria
     requirements: "Python, AWS account, AWS chalice framework"
@@ -197,8 +203,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "Laptop"
     topic: "Internet of Things and Air quality sensors"
     location: Sala d'actes Ada Lovelace
@@ -211,8 +217,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "<ul><li>Familiarity with Python and basic understanding of HTML and CSS (ideally JS too, but it is not necessary)</li><li>Laptop with Python3, Flask, NuxtJS and Docker.</li></ul>"
     topic: "Web apps"
     location: Sala Hedy Lamarr / Margarita Salas
@@ -225,8 +231,8 @@ events:
     color: red
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     requirements: "Laptop with conda if attendees want to follow the notebooks and do some exercises, just ears and be present otherwise."
     topic: "Python as a GIS"
     location: Sala Hipàtia d'Alexandria
@@ -258,8 +264,8 @@ events:
     color: yellow
     type: workshop
     language: "Spanish or English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: beginner
+    topic_level: intermediate
     topic: "Data engineering"
     location: Sala d'actes Ada Lovelace
     requirements: "Follow the installation steps in https://github.com/alabarga/pybcn22-modern-data-stack"
@@ -272,8 +278,8 @@ events:
     color: blue
     type: workshop
     language: "Spanish"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     topic: "Scrapy"
     requirements: "Laptop"
     location: Sala Hedy Lamarr / Margarita Salas
@@ -286,8 +292,8 @@ events:
     color: blue
     type: workshop
     language: "Spanish"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     requirements: "Laptop"
     topic: "Observability"
     location: Sala Hipàtia d'Alexandria
@@ -337,8 +343,8 @@ events:
     color: red
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+    python_level: intermediate
+    topic_level: intermediate
     requirements: "This workshop is for Data scientists or developers who have math-heavy code that would like to speed up with the benefit of Numpy and Numba.<br/><br/>What is required from attendees<br/><br/><ul><li>- A computer with a stable internet connection (useful to look up information);</li><li>- Python 3.8 or above;</li><li>- Jupyter and Numba installed (detail about Python libraries required will be announced later);</li><li>- An opened mind and ready to learn something new</li></ul>"
     topic: "Data Science"
     location: Sala d'actes Ada Lovelace
@@ -351,8 +357,8 @@ events:
     color: yellow
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle yellow\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: intermediate
+    topic_level: beginner
     topic: "Data Management"
     location: Sala Hedy Lamarr / Margarita Salas
     requirements: "For the folks who would like to follow along, a laptop with docker compose"
@@ -365,8 +371,8 @@ events:
     color: blue
     type: workshop
     language: "English"  
-    python_level: "<i class=\"fas fa-circle green\"></i>"
-    topic_level: "<i class=\"fas fa-circle green\"></i>"
+    python_level: beginner
+    topic_level: beginner
     topic: "Test driven development "
     location: Sala Hipàtia d'Alexandria
 
@@ -407,11 +413,11 @@ events:
 
 We are organizing the **the sixth edition** of PyDay in Barcelona!
 
-PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the <a href="#previous_editions_section">last five editions</a>, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
+PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the [last five editions](#previous_editions_section), PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
 
 #### When and where
 
-It is scheduled for **Saturday 26th November** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from 9:30pm to 19:00pm CET, aprox.
+It is scheduled for **Saturday 26th November** in [Canòdrom - Ateneu d'Innovació Digital i Democràtica](https://g.page/Canodrom?share), from 9:30pm to 19:00pm CET, aprox.
 
 #### A full day of in-person hands-on workshops
 

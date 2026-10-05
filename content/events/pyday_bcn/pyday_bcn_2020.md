@@ -95,7 +95,7 @@ events:
       language: "English"
       speaker: "Ankit Mahato"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 16:45
@@ -108,7 +108,7 @@ events:
       language: "Spanish"
       speaker: "Daniel Mesejo"
       type: talk
-      python_level: Intermediate
+      python_level: intermediate
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 17:15
@@ -121,7 +121,7 @@ events:
       language: "Catalan"
       speaker: "Ferran Fábregas"
       type: lightning
-      python_level: Intermediate
+      python_level: intermediate
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 17:30
@@ -134,7 +134,7 @@ events:
       language: "English"
       speaker: "Julio Martínez"
       type: lightning
-      python_level: Intermediate
+      python_level: intermediate
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 17:45
@@ -147,7 +147,7 @@ events:
       language: "English"
       speaker: "Miroslav Šedivý"
       type: lightning
-      python_level: Intermediate
+      python_level: intermediate
       topic: Python programming
       location: YouTube track1
     - start_time_slot: 18:00
@@ -160,7 +160,7 @@ events:
       language: "Catalan"
       speaker: "Carles Barrobés"
       type: lightning
-      python_level: Intermediate
+      python_level: intermediate
       topic: Python programming
       location: YouTube track1
 
@@ -174,7 +174,7 @@ events:
       language: "Spanish"
       speaker: "Elisabeth Ortega Carrasco"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: IOT
       location: YouTube track2
     - start_time_slot: 16:45
@@ -187,7 +187,7 @@ events:
       language: "English"
       speaker: "Christian Adell"
       type: talk
-      python_level: Intermediate
+      python_level: intermediate
       topic: Network automation
       location: YouTube track2
     - start_time_slot: 17:15
@@ -200,7 +200,7 @@ events:
       language: "English"
       speaker: "Christian Adell"
       type: lightning
-      python_level: Beginner
+      python_level: beginner
       topic: Python programming
       location: YouTube track2
     - start_time_slot: 17:30
@@ -213,7 +213,7 @@ events:
       language: "English"
       speaker: "Alvaro Duran"
       type: lightning
-      python_level: Beginner
+      python_level: beginner
       topic: Python programming
       location: YouTube track2
     - start_time_slot: 17:45
@@ -226,7 +226,7 @@ events:
       location: YouTube track2
       topic: Web development, microservices
       language: "English"
-      python_level: Intermediate
+      python_level: intermediate
       speaker: Francesco Faraone
 
     - start_time_slot: 18:15
@@ -246,7 +246,7 @@ events:
       language: "English"
       speaker: "Eduard Cespedes Borras"
       type: talk
-      python_level: Intermediate
+      python_level: intermediate
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 19:00
@@ -259,7 +259,7 @@ events:
       language: "English"
       speaker: "Alberto Camara"
       type: talk
-      python_level: Intermediate
+      python_level: intermediate
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 19:30
@@ -272,7 +272,7 @@ events:
       language: "English"
       speaker: "Edgar Riba"
       type: talk
-      python_level: Intermediate
+      python_level: intermediate
       topic: Data Science, ML, DL
       location: YouTube track1
     - start_time_slot: 20:00
@@ -285,7 +285,7 @@ events:
       language: "English"
       speaker: "Joan Fontanals Martinez"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: Data Science, ML, DL
       location: YouTube track1
 
@@ -299,7 +299,7 @@ events:
       language: "English"
       speaker: "Marc Pous"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: IOT
       location: YouTube track2
     - start_time_slot: 19:00
@@ -312,7 +312,7 @@ events:
       language: "English"
       speaker: "Jose Haro Peralta"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: Web
       location: YouTube track2
     - start_time_slot: 19:30
@@ -325,7 +325,7 @@ events:
       language: "English"
       speaker: "Maria Teresa Grifa"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: Python programming
       location: YouTube track2
     - start_time_slot: 20:00
@@ -338,7 +338,7 @@ events:
       language: "English"
       speaker: "Gajendra Deshpande"
       type: talk
-      python_level: Beginner
+      python_level: beginner
       topic: Security
       location: YouTube track2
 
@@ -367,4 +367,4 @@ PyDay BCN 2020 will have different **thematic tracks** --e.g. data science, web 
  
  
 ### Sponsor us!
-Would you like to sponsor PyDay BCN 2020? Have a look at the <a href="https://bit.ly/pydaybcn-2020-sponsoring" target="_blank">sponsorship brochure</a>!<br/><br/>
+Would you like to sponsor PyDay BCN 2020? Have a look at the [sponsorship brochure](https://bit.ly/pydaybcn-2020-sponsoring)!

@@ -1,8 +1,16 @@
 {{ define "main" }}
 
+{{- /*
+    mainColumn in front matter keeps the narrower reading column that the
+    archived event pages used to build with their own container, row and
+    col-md-9 divs inside the page body. Those divs were raw HTML in markdown,
+    and they duplicated the wrappers this template already provides.
+*/ -}}
+{{ $narrow := .Params.mainColumn }}
+
 <div class="container">
-    <div class="row">
-        <div class="col">
+    <div class="row{{ if $narrow }} main_content{{ end }}">
+        <div class="{{ if $narrow }}col-md-9 main_column{{ else }}col{{ end }}">
 
             {{ .Content }}
 

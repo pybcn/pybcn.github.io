@@ -1,0 +1,24 @@
+{{- /*
+    event_types: the controlled vocabulary of agenda entry types.
+
+    Returns a map of token to icon class and human label. It is the single
+    source of truth for the agenda grid, the event detail modal and the
+    agenda legend, so the three cannot drift apart.
+
+    "sponsor" is not an entry type. It is listed here because the legend
+    explains the same star icon that the agenda puts next to a sponsor name.
+
+    Icon classes come from this table only. Front matter selects a token, it
+    never supplies markup.
+*/ -}}
+{{- return dict
+	"talk"      (dict "icon" "fa-comment"         "label" "Talk")
+	"workshop"  (dict "icon" "fa-laptop"          "label" "Workshop")
+	"coffee"    (dict "icon" "fa-mug-hot"         "label" "Coffee break")
+	"lunch"     (dict "icon" "fa-utensils"        "label" "Lunch")
+	"photo"     (dict "icon" "fa-camera"          "label" "Group photo")
+	"group"     (dict "icon" "fa-users"           "label" "Plenary session")
+	"qa"        (dict "icon" "fa-question-circle" "label" "Questions and answers")
+	"lightning" (dict "icon" "fa-bolt"            "label" "Lightning talk")
+	"sponsor"   (dict "icon" "fa-star gold"       "label" "Sponsored event")
+-}}

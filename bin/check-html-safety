@@ -1,0 +1,546 @@
+#!/usr/bin/env python3
+"""Find dangerous raw HTML in the content tree.
+
+The site merges pull requests from outside contributors, and goldmark
+renders raw HTML in markdown. This check blocks the markup that turns a
+content change into script execution, a redirect, a credential prompt or a
+page overlay.
+
+It reads every text file under content/ that Hugo renders, see
+TEXT_SUFFIXES, and both halves of each one:
+
+  - every string in the YAML front matter, at any depth, because templates
+    print those values and some of them reach the page unescaped
+  - the body below the front matter, whatever the content format
+
+Findings are matched against ALLOWLIST. An entry there names the file, the
+pattern and the prefix of the URL the element loads, so it permits one known
+snippet and not any future snippet of the same kind.
+
+Exit status:
+  0  no finding outside the allowlist
+  1  at least one finding outside the allowlist, a file with an extension
+     this check does not know, or a file it cannot read
+"""
+
+import argparse
+import os
+import html
+import re
+import sys
+
+try:
+    import yaml
+except ImportError:
+    sys.exit("check-html-safety: PyYAML is not installed. Run: pip install pyyaml")
+
+
+# Files under content/, by what Hugo does with them.
+#
+# Hugo renders every content format it knows, not only markdown. An .org file
+# with an #+BEGIN_EXPORT html block puts raw HTML on the page the same way a
+# markdown file does, and an earlier version of this check never opened it.
+# Every text format is read and scanned in full. The binary formats are page
+# resources that a browser does not parse as HTML, and they are skipped. A
+# file with any other extension fails the check, so that a new format gets a
+# decision here and not a silent skip.
+#
+# `./bin/hugo config` lists the registered formats under [mediatypes].
+TEXT_SUFFIXES = (
+    ".md", ".mdown", ".markdown",     # text/markdown
+    ".html", ".htm",                  # text/html
+    ".org",                           # text/org
+    ".adoc", ".asciidoc", ".ad",      # text/asciidoc
+    ".rst",                           # text/rst
+    ".pandoc", ".pdc",                # text/pandoc
+    ".txt",                           # text/plain, copied as a page resource
+    ".svg",                           # image/svg+xml, XML that can carry <script>
+)
+BINARY_SUFFIXES = (
+    ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico",
+    ".pdf",
+)
+
+
+# Patterns that must not appear in content.
+#
+# The "on..." pattern carries a word boundary. An HTML event handler attribute
+# starts at a boundary, and without the boundary the pattern also matches the
+# middle of ordinary words in prose.
+PATTERNS = [
+    # A tag name must end at the match, or <format> trips <form> and
+    # <metadata> trips <meta>. \b is not enough: it allows <form-x>.
+    ("script", re.compile(r"<script(?=[\s/>])", re.I), "inline or external script"),
+    ("style", re.compile(r"<style(?=[\s/>])", re.I), "inline stylesheet, can cover the page"),
+    ("iframe", re.compile(r"<iframe(?=[\s/>])", re.I), "embedded third party document"),
+    # srcdoc holds a whole document inline, and that document runs in the
+    # origin of the page that embeds it, so it is script execution on this
+    # site. The browser also prefers srcdoc over src, so a permitted src next
+    # to it means nothing. No LOAD_ATTRIBUTES entry exists for it, so no
+    # allowlist entry can clear it.
+    ("srcdoc", re.compile(r"(?<![\w-])srcdoc\s*=", re.I), "iframe srcdoc, inline document in the page origin"),
+    ("object", re.compile(r"<object(?=[\s/>])", re.I), "plugin object"),
+    ("embed", re.compile(r"<embed(?=[\s/>])", re.I), "plugin embed"),
+    ("form", re.compile(r"<form(?=[\s/>])", re.I), "form that can post elsewhere"),
+    ("meta", re.compile(r"<meta(?=[\s/>])", re.I), "meta tag, can refresh or redirect"),
+    ("link", re.compile(r"<link(?=[\s/>])", re.I), "link tag, can pull in a stylesheet"),
+    ("base", re.compile(r"<base(?=[\s/>])", re.I), "base tag, rewrites every relative URL"),
+    # An event handler is on<name>=, so require a letter after "on" and reject
+    # an underscore, which made on_error= a false positive.
+    ("handler", re.compile(r"(?<![\w-])on[a-z]{2,}\s*=", re.I), "HTML event handler attribute"),
+    # A style attribute needs no script to do harm: position, z-index and a
+    # background build a full page overlay with a phishing link in it. The
+    # attribute is a finding unless its value passes SAFE_STYLE.
+    ("style-attr", re.compile(r"(?<![\w-])style\s*=", re.I), "inline style, can cover the page"),
+    # The three URL schemes are matched against the normalised text, see
+    # normalise_scheme and SCHEME_PATTERNS.
+    ("javascript-url", re.compile(r"javascript:", re.I), "javascript: URL"),
+    ("vbscript-url", re.compile(r"vbscript:", re.I), "vbscript: URL"),
+    # A data: URL that can hold a document has a media type with a slash and a
+    # comma after it. Requiring both keeps the word "data:" in prose and in a
+    # YAML key out of the findings. A data: URL with no media type is
+    # text/plain and cannot carry HTML.
+    ("data-url", re.compile(r"data:[\w.+-]+/[\w.+-]+(?:;[^;,]*)*,", re.I), "data: URL, inline document"),
+]
+
+# Pattern names that are matched against the normalised text.
+SCHEME_PATTERNS = {"javascript-url", "vbscript-url", "data-url"}
+
+# A style attribute is accepted when its value is only sizes and margins.
+#
+# The archived PyDay 2018 and 2019 pages size their sponsor logos this way.
+# They cannot be converted to width= and height= attributes without a visual
+# change: the theme rule for images in a column sets height to auto, and a
+# stylesheet rule beats a presentational attribute. A width, a height or a
+# non-negative margin cannot move an element over the header, the navigation
+# or the footer, so these properties are accepted and nothing else is. The
+# value must be plain: no url(), no comment, no entity, no escape, no
+# negative number and no viewport unit.
+# Four digits is the same cap the logo shortcode puts on its width and
+# height. The largest value content actually uses is 150px, and an
+# unbounded length lets an accepted property still deface a page: a
+# width of 99999px pushes everything else off the viewport.
+LENGTH = r"(?:auto|\d{1,4}(?:\.\d+)?(?:px|%|em|rem)?)"
+SAFE_STYLE = re.compile(
+    r"^\s*(?:(?:width|height|margin(?:-(?:top|right|bottom|left))?)"
+    r"\s*:\s*" + LENGTH + r"(?:\s+" + LENGTH + r"){0,3}\s*(?:;\s*|$))+$",
+    re.I)
+
+
+# Known and accepted exceptions. The list is empty: the one Google Calendar
+# iframe the tree had, on the PyDay 2019 page, now goes through the
+# google-embed shortcode in layouts/, which checks the host and which an
+# organizer reviews. Prefer that route over a new entry here. A file that
+# carries an entry is editable by any contributor unless .github/CODEOWNERS
+# names it, so an entry needs a CODEOWNERS rule for its file as well.
+#
+# Keys are paths relative to the repository root. Each entry gives the pattern
+# name, the prefix of the URL the element loads, and the reason. Anything else
+# in the same file still fails. The prefix must carry the scheme, the host and
+# the start of the path, so that a look-alike host does not match it:
+#
+#     "content/path/to/page.md": [
+#         {"pattern": "iframe",
+#          "prefix": "https://calendar.google.com/calendar/embed?",
+#          "why": "what this embed is and why the page needs it"},
+#     ],
+ALLOWLIST = {}
+
+
+ENTITY = re.compile(r"&(?:#[0-9]+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]*);?")
+DROPPED = re.compile(r"[\s\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+
+def normalise_scheme(text):
+    """Decode entities and strip whitespace so an obfuscated scheme still matches.
+
+    Returns (normalised text, offsets), where offsets[i] is the index in the
+    original text that produced normalised[i].
+
+    A raw <a href> is not touched by Hugo's render hook, so &#106;avascript:,
+    javascript&colon;, java&Tab;script: and a scheme split across a newline all
+    reach the page working. html.unescape handles every HTML5 named entity,
+    including the case-sensitive ones such as &Tab; and &NewLine; that a
+    hand-written table gets wrong.
+
+    The offsets exist because the normalised text has no newlines, so a line
+    number counted in it is always the first line. Decoding an entity also
+    changes the length. Without the map, every scheme finding reported the
+    line the body starts on, whatever line it was really on.
+    """
+    out, offsets = [], []
+    index, end = 0, len(text)
+    while index < end:
+        entity = ENTITY.match(text, index)
+        if entity:
+            decoded = html.unescape(entity.group(0))
+            if decoded != entity.group(0):
+                for char in decoded:
+                    if not DROPPED.match(char):
+                        out.append(char)
+                        offsets.append(index)
+                index = entity.end()
+                continue
+        char = text[index]
+        if not DROPPED.match(char):
+            out.append(char)
+            offsets.append(index)
+        index += 1
+    return "".join(out), offsets
+
+
+def split_front_matter(text):
+    """Return (front matter text, body text, body start line).
+
+    Front matter is the block between the first two "---" lines. A file with
+    no front matter gives ("", whole text, 1).
+    """
+    if not text.startswith("---"):
+        return "", text, 1
+    lines = text.split("\n")
+    for index in range(1, len(lines)):
+        if lines[index].rstrip() == "---":
+            return "\n".join(lines[1:index]), "\n".join(lines[index + 1:]), index + 2
+    # Unterminated front matter. Treat the whole file as front matter.
+    return text, "", 1
+
+
+def walk_strings(node, path=""):
+    """Yield (location, string) for every string inside a parsed YAML value."""
+    if isinstance(node, str):
+        yield path or "<root>", node
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            if isinstance(key, str):
+                yield from walk_strings(key, "%s/<key>" % path if path else "<key>")
+            child = "%s.%s" % (path, key) if path else str(key)
+            yield from walk_strings(value, child)
+    elif isinstance(node, list):
+        for index, value in enumerate(node):
+            yield from walk_strings(value, "%s[%d]" % (path, index))
+
+
+def snippet(text, at, width=110):
+    """Return a one line excerpt of text around offset at."""
+    start = max(0, at - 20)
+    piece = text[start:start + width].replace("\n", " ").replace("\t", " ")
+    return re.sub(r"\s{2,}", " ", piece).strip()
+
+
+def line_of(text, at):
+    return text.count("\n", 0, at) + 1
+
+
+def match_region(text, at, limit=800):
+    """Return the text of the HTML tag or the value that starts at offset at.
+
+    The region ends at the first ">" after the offset, because an attribute
+    value cannot hold a bare ">". A match with no closing ">" falls back to a
+    fixed window.
+
+    The allowlist is matched against this region and not against the whole
+    file. Matching the whole file would let a second, hostile iframe ride
+    along in a file that already has an allowed one.
+    """
+    end = text.find(">", at)
+    if end == -1 or end - at > limit:
+        end = min(len(text), at + limit)
+    else:
+        end += 1
+    return text[at:end]
+
+
+# The attribute a browser loads each element from, by pattern name. An
+# allowlist entry is matched against these attributes and no other. The
+# browser ignores data=, href= or title= on an iframe and loads src, so a
+# permitted URL in any of those does not make the frame safe.
+LOAD_ATTRIBUTES = {
+    "a": ("href",),
+    "embed": ("src",),
+    "form": ("action",),
+    "iframe": ("src", "srcdoc"),
+    "img": ("src", "srcset"),
+    "link": ("href",),
+    "object": ("data",),
+    "script": ("src",),
+}
+
+# One attribute and its value. The lookbehind stops data-src= from matching
+# as src=. The value is double quoted, single quoted or bare.
+ATTRIBUTE_VALUE = r"""(?<![\w-])%s\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))"""
+
+
+def benign_style(text, at):
+    """True when the style attribute that starts at offset at passes SAFE_STYLE."""
+    match = re.compile(ATTRIBUTE_VALUE % "style", re.I).match(text, at)
+    if not match:
+        return False
+    value = next(g for g in match.groups() if g is not None)
+    return bool(SAFE_STYLE.match(value))
+
+
+def load_urls(pattern_name, region):
+    """Return the URLs that the element named by pattern_name loads.
+
+    Only the first occurrence of an attribute counts. The HTML parser drops a
+    repeated attribute, so <iframe src=A src=B> loads A. A srcset holds
+    several candidates and each one is a URL of its own.
+    """
+    urls = []
+    for attribute in LOAD_ATTRIBUTES.get(pattern_name, ()):
+        match = re.search(ATTRIBUTE_VALUE % attribute, region, re.I)
+        if not match:
+            continue
+        value = next(g for g in match.groups() if g is not None)
+        if attribute == "srcset":
+            urls += [c.split()[0] for c in value.split(",") if c.split()]
+        else:
+            urls.append(value.strip())
+    return urls
+
+
+def allowed(relpath, pattern_name, region):
+    """Return the allowlist entry that clears this finding, or None.
+
+    The entry must match the URL the element loads: every URL in the
+    attributes the browser reads for that element starts with the prefix, and
+    no other attribute is looked at. Comparing against the whole tag let an
+    attacker put the permitted URL in title= and the real one in src=, and
+    comparing against any URL attribute let them put it in data=, which an
+    iframe ignores. A substring match let them append the permitted URL to a
+    hostile one, so the match is on the prefix.
+    """
+    urls = load_urls(pattern_name, region)
+    if not urls:
+        return None
+    for entry in ALLOWLIST.get(relpath, []):
+        if entry["pattern"] != pattern_name:
+            continue
+        if all(url.startswith(entry["prefix"]) for url in urls):
+            return entry
+    return None
+
+
+def scan_text(text, where, relpath, line_offset=0):
+    """Return (findings, suppressions) for one blob of text."""
+    findings, suppressed = [], []
+    normalised, offsets = normalise_scheme(text)
+    for name, regex, description in PATTERNS:
+        scheme = name in SCHEME_PATTERNS
+        haystack = normalised if scheme else text
+        for match in regex.finditer(haystack):
+            if name == "style-attr" and benign_style(haystack, match.start()):
+                continue
+            # A scheme match is found in the normalised text, which carries no
+            # newlines. Map it back so the line number and the excerpt describe
+            # the file the contributor has to edit.
+            at = match.start()
+            origin = offsets[at] if scheme and at < len(offsets) else at
+            record = {
+                "pattern": name,
+                "description": description,
+                "where": where,
+                "line": line_of(text, origin) + line_offset,
+                "snippet": snippet(text, origin),
+            }
+            entry = allowed(relpath, name, match_region(haystack, match.start()))
+            if entry:
+                record["why"] = entry["why"]
+                record["entry"] = (relpath, name, entry["prefix"])
+                suppressed.append(record)
+            else:
+                findings.append(record)
+    return findings, suppressed
+
+
+def merge_front_matter(raw, parsed):
+    """Combine the raw and the parsed front matter findings.
+
+    Both scans see the same text almost all of the time, so a naive
+    concatenation would report every problem twice. Per pattern, the two lists
+    are paired in document order: the raw entry supplies the line number and
+    the parsed entry supplies the key path. A parsed entry with no raw partner
+    is a string that only became dangerous after YAML decoded it, which is
+    worth saying out loud. A raw entry with no parsed partner sits in a part of
+    the block that did not parse, such as a comment.
+    """
+    merged = []
+    names = []
+    for record in raw + parsed:
+        if record["pattern"] not in names:
+            names.append(record["pattern"])
+    for name in names:
+        raw_group = [r for r in raw if r["pattern"] == name]
+        parsed_group = [r for r in parsed if r["pattern"] == name]
+        for index in range(max(len(raw_group), len(parsed_group))):
+            raw_record = raw_group[index] if index < len(raw_group) else None
+            parsed_record = parsed_group[index] if index < len(parsed_group) else None
+            if raw_record and parsed_record:
+                record = dict(raw_record)
+                record["where"] = parsed_record["where"]
+                merged.append(record)
+            elif raw_record:
+                merged.append(raw_record)
+            else:
+                record = dict(parsed_record)
+                record["where"] = "%s, after YAML decoding" % record["where"]
+                record["line"] = 0
+                merged.append(record)
+    return merged
+
+
+def scan_file(path, root):
+    relpath = os.path.relpath(path, root).replace(os.sep, "/")
+    findings, suppressed, notes = [], [], []
+    try:
+        text = open(path, encoding="utf-8").read()
+    except (OSError, UnicodeDecodeError) as error:
+        return [], [], ["cannot read %s: %s" % (relpath, error)], True
+
+    front, body, body_line = split_front_matter(text)
+
+    # Front matter, scanned twice.
+    #
+    # The raw block gives true line numbers. The parsed value tree gives the
+    # key path, covers nested lists and maps, and catches a string that only
+    # becomes dangerous after YAML decodes it, such as an escape sequence or a
+    # folded double quoted scalar. Neither scan alone is enough.
+    if front.strip():
+        raw_findings, raw_suppressed = scan_text(front, "front matter", relpath,
+                                                 line_offset=1)
+        parsed = None
+        try:
+            parsed = yaml.safe_load(front)
+        except yaml.YAMLError as error:
+            notes.append("%s: front matter does not parse (%s). Scanned as raw "
+                         "text only." % (relpath, str(error).split("\n")[0]))
+
+        parsed_findings, parsed_suppressed = [], []
+        if parsed is not None:
+            for location, value in walk_strings(parsed):
+                f, s = scan_text(value, "front matter: %s" % location, relpath)
+                parsed_findings += f
+                parsed_suppressed += s
+
+        findings += merge_front_matter(raw_findings, parsed_findings)
+        suppressed += merge_front_matter(raw_suppressed, parsed_suppressed)
+
+    f, s = scan_text(body, "body", relpath, line_offset=body_line - 1)
+    findings += f
+    suppressed += s
+    return findings, suppressed, notes, False
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("paths", nargs="*", default=None,
+                        help="files or directories to scan. Default: content")
+    parser.add_argument("--root", default=None,
+                        help="repository root. Default: the parent of this script")
+    args = parser.parse_args()
+
+    root = args.root or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    targets = args.paths or [os.path.join(root, "content")]
+
+    files, skipped, unknown = [], [], []
+
+    def classify(path):
+        suffix = os.path.splitext(path)[1].lower()
+        if suffix in TEXT_SUFFIXES:
+            files.append(path)
+        elif suffix in BINARY_SUFFIXES:
+            skipped.append(path)
+        else:
+            unknown.append(path)
+
+    for target in targets:
+        if os.path.isdir(target):
+            for base, _, names in os.walk(target):
+                for name in names:
+                    classify(os.path.join(base, name))
+        else:
+            classify(target)
+    files.sort()
+    unknown.sort()
+
+    all_findings, all_suppressed, all_notes = [], [], []
+    read_error = False
+    for path in files:
+        findings, suppressed, notes, failed = scan_file(path, root)
+        read_error = read_error or failed
+        relpath = os.path.relpath(path, root).replace(os.sep, "/")
+        for record in findings:
+            record["file"] = relpath
+        for record in suppressed:
+            record["file"] = relpath
+        all_findings += findings
+        all_suppressed += suppressed
+        all_notes += notes
+
+    print("check-html-safety: scanned %d files under %s, skipped %d binary asset(s)"
+          % (len(files), ", ".join(os.path.relpath(t, root) for t in targets),
+             len(skipped)))
+    print("  patterns: %s" % ", ".join(name for name, _, _ in PATTERNS))
+
+    for note in all_notes:
+        print("\nNOTE  %s" % note)
+
+    if all_suppressed:
+        print("\nAllowed by the allowlist (%d):" % len(all_suppressed))
+        for record in all_suppressed:
+            location = ("%s:%d" % (record["file"], record["line"])
+                        if record["line"] else "%s (line unknown)" % record["file"])
+            print("  %s  %s" % (location, record["pattern"]))
+            print("      reason: %s" % record["why"])
+
+    # An allowlist entry that matches nothing is an exception that outlived its
+    # cause. Report it so that it gets deleted.
+    used = {record["entry"] for record in all_suppressed}
+    stale = [(path, entry) for path, entries in ALLOWLIST.items() for entry in entries
+             if (path, entry["pattern"], entry["prefix"]) not in used]
+    if stale:
+        print("\nStale allowlist entries (%d). The content they cover is gone, "
+              "remove them:" % len(stale))
+        for path, entry in stale:
+            print("  %s  %s  %s" % (path, entry["pattern"], entry["why"]))
+
+    failed = False
+
+    if unknown:
+        failed = True
+        print("\nFAIL  %d file(s) with an extension this check does not know:"
+              % len(unknown))
+        for path in unknown:
+            print("  %s" % os.path.relpath(path, root).replace(os.sep, "/"))
+        print("\nHugo may render these as pages or copy them to the site. Add the "
+              "extension to TEXT_SUFFIXES (scanned) or BINARY_SUFFIXES (skipped) "
+              "in bin/check-html-safety, with a reason.")
+
+    if all_findings:
+        failed = True
+        print("\nFAIL  %d finding(s) not allowed:" % len(all_findings))
+        for record in all_findings:
+            location = ("%s:%d" % (record["file"], record["line"])
+                        if record["line"] else "%s (line unknown)" % record["file"])
+            print("\n  %s" % location)
+            print("      pattern: %s (%s)" % (record["pattern"], record["description"]))
+            print("      in:      %s" % record["where"])
+            print("      text:    %s" % record["snippet"])
+        print("\nRaw HTML of this kind must not enter content/. Use a shortcode "
+              "in layouts/, which an organizer reviews, or add an allowlist "
+              "entry in bin/check-html-safety with a reason.")
+
+    if read_error:
+        failed = True
+        print("\nFAIL  at least one file could not be read.")
+
+    if failed:
+        return 1
+
+    print("\nPASS  no dangerous raw HTML outside the allowlist.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

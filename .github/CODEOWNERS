@@ -1,0 +1,58 @@
+# Code owners for pybcn/pybcn.github.io
+#
+# This site takes pull requests from outside contributors. A speaker edits
+# their own page under content/people/, which is fine and stays unowned so
+# that it needs no organizer.
+#
+# The paths below are different. A change there reaches every page of the
+# site, or reaches money, or reaches the deploy. Each one needs a review
+# from @pybcn/web.
+#
+# GitHub applies the last matching rule, and every rule here has the same
+# owner, so the order does not change the outcome.
+#
+# @pybcn/web has push access on this repository and its visibility is
+# "closed", which is what GitHub needs in order to send it a review request.
+# A secret team is a valid owner on paper and silently receives nothing.
+
+# Deploy. The workflow runs on every push and holds the publish credentials.
+/.github/                    @pybcn/web
+
+# Build and release scripts. They run on a maintainer machine.
+/bin/                        @pybcn/web
+
+# Site configuration. It sets the markup safety flags, the base URL and the
+# analytics identifier.
+/config.toml                 @pybcn/web
+
+# Layouts and shortcodes. A change here renders on many pages at once.
+#
+# layouts/shortcodes/membership/membership-process.html holds the PayPal
+# hosted_button_id of the association. One changed character in that value
+# sends the membership fees to another PayPal account, and the page still
+# looks correct. This is the strongest single reason this path is owned.
+/layouts/                    @pybcn/web
+
+# Static assets served from the site root, including files that browsers
+# fetch with no further checking.
+/static/                     @pybcn/web
+
+# The theme: every template, partial, script and stylesheet of the site.
+/themes/                     @pybcn/web
+
+# Association pages: statutes, the code of conduct, membership and payment
+# instructions. These carry legal and financial statements.
+/content/pybcn_association/  @pybcn/web
+
+# The custom domain of the GitHub Pages site. A change to this file points
+# pybcn.org somewhere else.
+/CNAME                       @pybcn/web
+
+# Sponsors and events. A sponsor file carries a name, a logo file name and the
+# tier it is listed under, and an event file decides which sponsors and which
+# people a page shows. Both render on pages an outside contributor never
+# touches, so a wrong value there is visible to everyone and obvious to
+# nobody. These are the paths a hostile sponsor entry would come through.
+/content/sponsors/           @pybcn/web
+/content/events/             @pybcn/web
+

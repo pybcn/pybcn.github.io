@@ -90,7 +90,15 @@ people_sections:
 spansDuration: 15
 numTracks: 4
 eventTimes: [9:00, 9:15, 9:30, 9:45, 10:00, 10:15, 10:30, 10:45, 11:00, 11:15, 11:30, 11:45, 12:00, 12:15, 12:30, 12:45, 13:00, 13:15, 13:30, 13:45, 14:00, 14:15, 14:30, 14:45, 15:00, 15:15, 15:30, 15:45, 16:00, 16:15, 16:30, 16:45, 17:00, 17:15, 17:30, 17:45]
-legend: "<i class=\"fas fa-laptop\"></i> Workshop &nbsp;&nbsp;&nbsp; <i class=\"fas fa-comment\"></i> Talk &nbsp;&nbsp; | &nbsp;&nbsp; <i class=\"fas fa-circle green\"></i> Beginner &nbsp;&nbsp;&nbsp; <i class=\"fas fa-circle yellow\"></i> Intermediate &nbsp;&nbsp;&nbsp; <i class=\"fas fa-circle red\"></i> Advanced &nbsp;&nbsp; | &nbsp;&nbsp; <i class=\"fas fa-star gold\"></i> Sponsored event"
+legend:
+    - type: workshop
+    - type: talk
+    - separator: true
+    - level: beginner
+    - level: intermediate
+    - level: advanced
+    - separator: true
+    - type: sponsor
 events:
     - start_time_slot: 9:00
       end_time_slot: 9:15
@@ -109,8 +117,8 @@ events:
       end_time_slot: 10:45
       track_length: 1
       color: orange
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       type: workshop
       topic: "(Maintainable) Data Science"
       location: Sala d'actes Ada Lovelace
@@ -123,8 +131,8 @@ events:
       end_time_slot: 10:45
       track_length: 1
       color: grey
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       type: workshop
       topic: "Data Analysis"
       location: Aula Hedy Lamarr
@@ -137,8 +145,8 @@ events:
       end_time_slot: 10:45
       track_length: 1
       color: grey
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: intermediate
+      topic_level: intermediate
       type: workshop
       topic: "Big Data Analysis"
       location: Sala Margarita Salas
@@ -151,8 +159,8 @@ events:
       end_time_slot: 10:45
       track_length: 1
       color: purple
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       type: workshop
       topic: "Machine Learning"
       location: Aula Hipàtia d'Alexandria
@@ -175,8 +183,8 @@ events:
       end_time_slot: 12:45
       track_length: 1
       color: grey
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       type: workshop
       topic: "Data Analysis"
       location: Sala d'actes Ada Lovelace
@@ -189,8 +197,8 @@ events:
       end_time_slot: 12:45
       track_length: 1
       color: purple
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       type: workshop
       topic: "Deep Learning, Artificial Intelligence"
       location: Aula Hedy Lamarr
@@ -203,8 +211,8 @@ events:
       end_time_slot: 12:45
       track_length: 1
       color: purple
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: intermediate
+      topic_level: intermediate
       type: workshop
       topic: "Machine Learning Robustness and Monitoring"
       location: Sala Margarita Salas
@@ -217,8 +225,8 @@ events:
       end_time_slot: 12:45
       track_length: 1
       color: orange
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       type: workshop
       topic: "Data Engineering"
       location: Aula Hipàtia d'Alexandria
@@ -250,8 +258,8 @@ events:
       end_time_slot: 15:15
       track_length: 1
       color: purple
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       type: workshop
       topic: "Artificial Intelligence"
       location: Sala d'actes Ada Lovelace
@@ -264,8 +272,8 @@ events:
       end_time_slot: 15:15
       track_length: 1
       color: purple
-      python_level: "<i class=\"fas fa-circle green\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: beginner
+      topic_level: beginner
       type: workshop
       topic: "Machine Learning"
       location: Aula Hedy Lamarr
@@ -278,8 +286,8 @@ events:
       end_time_slot: 15:15
       track_length: 1
       color: purple
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle yellow\"></i>"
+      python_level: intermediate
+      topic_level: intermediate
       type: workshop
       location: Sala Margarita Salas
       requirements: "Intermediate knowledge of Python programming, understanding of natural language processing and semantic search concepts, enthusiasm and willingness to learn and collaborate.<br/>Technical requirements: Laptop with python >= 3.9 installed and HF’s SentenceTransformers. Nucliadb is optional, if not installed we’ll do it together during the workshop. A requirements.txt and more details  will be provided prior to the event."
@@ -292,8 +300,8 @@ events:
       end_time_slot: 15:15
       track_length: 1
       color: grey
-      python_level: "<i class=\"fas fa-circle yellow\"></i>"
-      topic_level: "<i class=\"fas fa-circle green\"></i>"
+      python_level: intermediate
+      topic_level: beginner
       type: workshop
       location: Aula Hipàtia d'Alexandria
       requirements: "Cal certa comoditat a l'hora de treballar amb Python, NumPy i Matplotlib. Tots els gràfics seran introduïts abans d'utilitzar-se, però és recomanable tenir coneixements bàsics d'estadística."
@@ -351,7 +359,7 @@ We look forward to seeing you at PyDataBCN and sharing our passion for Python, d
 
 #### `When and where`
 
-It is scheduled for **Saturday 10th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from 9:00pm to 18:00pm CET, aprox.
+It is scheduled for **Saturday 10th June** in [Canòdrom - Ateneu d'Innovació Digital i Democràtica](https://g.page/Canodrom?share), from 9:00pm to 18:00pm CET, aprox.
 
 
 #### `Disclaimer`

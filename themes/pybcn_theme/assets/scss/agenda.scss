@@ -146,18 +146,85 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
 
 }
 
+/**
+ * Agenda legend.
+ *
+ * Built by the agenda_legend.html partial from structured front matter.
+ * It used to be a raw HTML blob, so the old "opacity: 0.7, full opacity on
+ * hover" trick cut the text contrast for every reader who never hovers.
+ * The text is now at full opacity.
+ */
 .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem 1.1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 5px 25px 0;
     font-size: 0.9em;
-    opacity: 0.7;
-    text-align: right;
-    margin-bottom: 25px;
-    margin-right: 5px;
-    &:hover {
-        opacity: 1;
+
+    li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.35em;
+    }
+
+    .legend_separator {
+        width: 1px;
+        align-self: stretch;
+        min-height: 1em;
+        background-color: #767676;
+        margin: 0 0.4rem;
+    }
+
+    /* The gold of the agenda star is too light on a white page. */
+    .fa-star.gold {
+        color: #8C6900;
     }
 }
 
-i.green { color: #6CC417 }
-i.yellow{ color: #FFFF33 }
-i.red { color: red }
+/**
+ * Experience level badge.
+ *
+ * Emitted by the level_badge.html partial. The text label carries the
+ * meaning, the dot is a redundant cue (WCAG 1.4.1 Use of Color).
+ *
+ * The badge draws its own light background, so dot contrast does not depend
+ * on the colour of the agenda cell behind it. Contrast of each dot against
+ * the #FFFFFF badge, against the 3:1 floor of WCAG 1.4.11 Non-text Contrast:
+ *   beginner     #2E7D32  5.1:1
+ *   intermediate #A15C00  5.2:1
+ *   advanced     #CE1836  5.5:1
+ * The #404040 border keeps the badge outline at 3:1 or better against every
+ * cell colour, the lightest of which is the #FF7900 orange at 3.9:1.
+ *
+ * The second selector repeats the first so that it outranks
+ * ".scheduleContainer .event span", which sets display block and width 100%.
+ */
+.level_badge,
+.scheduleContainer .event .level_badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
+    width: auto;
+    padding: 0 0.5em;
+    border: 1px solid #404040;
+    border-radius: 0.8em;
+    background-color: #FFFFFF;
+    color: #1F1F1F;
+    font-weight: 600;
+    white-space: nowrap;
+    vertical-align: baseline;
+
+    i {
+        font-size: 0.7em;
+    }
+
+    &.level_beginner i     { color: #2E7D32; }
+    &.level_intermediate i { color: #A15C00; }
+    &.level_advanced i     { color: #CE1836; }
+}
+
 i.gold { color: #FFD700 }
