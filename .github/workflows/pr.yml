@@ -1,0 +1,87 @@
+name: pr-checks
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Read the Hugo version
+        run: echo "HUGO_VERSION=$(tr -d '[:space:]' < .hugo-version)" >> "$GITHUB_ENV"
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+
+  content:
+    name: Check the content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Check front matter and cross-references
+        run: bin/check-content
+
+  links:
+    name: Check the links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Read the Hugo version
+        run: echo "HUGO_VERSION=$(tr -d '[:space:]' < .hugo-version)" >> "$GITHUB_ENV"
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build
+        # A root-relative baseURL turns every internal link into "/path/", so
+        # lychee resolves it inside this build and not on the live site.
+        run: hugo --minify -d public --baseURL /
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          # --root-dir: where "/path/" links resolve. Without it lychee flags
+          #   every absolute link in a local file as an error.
+          # --exclude-path: the frozen 2016-2019 snapshots under archives/
+          #   keep their dead links on purpose.
+          # --exclude: hosts that answer bots with 400, 403, or 999.
+          args: >-
+            --no-progress
+            --exclude-all-private
+            --max-concurrency 4
+            --root-dir "$GITHUB_WORKSPACE/public"
+            --exclude-path 'public/archives/'
+            --exclude 'twitter\.com'
+            --exclude '^https?://(www\.)?x\.com/'
+            --exclude 'linkedin\.com'
+              --exclude 'pybcn\.slack\.com'
+            'public/**/*.html'
+          # External sites rate-limit. Keep the report in the job summary and
+          # do not turn the check red.
+          fail: false

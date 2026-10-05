@@ -1,28 +1,27 @@
+{{/*
+  The Meetup REST API (api.meetup.com) was retired and returns HTTP 404,
+  so the old JSONP event list could never load. This block is static and
+  sends the visitor to Meetup instead.
+  TODO: replace this with a local list of meetups kept in content/, so the
+  site shows its own events and does not depend on Meetup.
+*/}}
 {{ range .list }}
 <div class="col-md-{{ $.width }}">
     <div class='events_list {{ replace .name " " ""}}-events'>
         <div class="upcoming_events">
             <div class="items-title">
-                <h1><i class="fab fa-meetup"></i> Upcoming {{ .name }} events</h1>
+                <h1><i class="fab fa-meetup"></i> {{ .name }} events</h1>
             </div>
-            <ul class="items-list" id="{{ .id }}-upcoming">
-                <li class="spinner"><i class="fas fa-spinner fa-spin"></i></li>
+            <ul class="items-list">
+                <li class="items-entry">
+                    We announce every {{ .name }} meetup on Meetup. Upcoming and
+                    past events, with the venue and the talks, are listed there.
+                </li>
             </ul>
-        </div>
-        <div class="past_events">
-            <div class="items-title">
-                <h1>Past {{ .name }} events</h1>
-            </div>
-            <ul class="items-list" id="{{ .id }}-past">
-                <li class="spinner"><i class="fas fa-spinner fa-spin"></i></li>
-            </ul>
-            {{ if $.meetup_link }}
             <div class="item-button">
-                <a href="https://meetup.com/{{ .id }}" target="_blank">Visit the {{ .name }} Meetup page</a>
+                <a href="https://www.meetup.com/{{ .id }}/" target="_blank" rel="noopener">Visit the {{ .name }} Meetup page</a>
             </div>
-            {{ end }}
         </div>
     </div>
 </div>
-<script type="text/javascript">updateEventList({{ .id }}, {{ $.max_events }});</script>
 {{ end }}

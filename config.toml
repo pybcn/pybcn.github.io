@@ -2,7 +2,23 @@ baseURL = "https://pybcn.org"
 languageCode = "en-us"
 title = "PyBCN - The Barcelona Python Association"
 theme = "pybcn_theme"
-googleAnalytics = "UA-152706496-1"
+enableGitInfo = true
+enableRobotsTXT = true
+
+# The site uses neither tags nor categories, and Hugo's defaults produced two
+# empty index pages in the sitemap. The archive work will add its own taxonomy.
+[taxonomies]
+
+# llms.txt is a Hugo template, layouts/index.llms.txt, so it follows the site.
+[outputFormats.llms]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    notAlternative = true
+
+[outputs]
+    home = ["HTML", "RSS", "llms"]
+
 
 [markup.goldmark.renderer]
 unsafe=true
@@ -18,32 +34,41 @@ unsafe=true
 
     [params.social_items]
         [params.social_items.twitter]
+            name = "Twitter"
             icon = "fab fa-twitter-square fa-2x"
             link = "https://twitter.com/PyBCN"
         [params.social_items.youtube]
+            name = "YouTube"
             link = "https://www.youtube.com/c/PythonBarcelona"
             icon = "fab fa-youtube-square fa-2x"
         [params.social_items.meetup]
+            name = "Meetup"
             link = "https://www.meetup.com/python-barcelona/"
             icon = "fab fa-meetup fa-2x"
         [params.social_items.github]
+            name = "GitHub"
             link = "https://github.com/pybcn"
             icon = "fab fa-github fa-2x"
         [params.social_items.linkedin]
+            name = "LinkedIn"
             link = "https://linkedin.com/company/pybcn"
             icon = "fab fa-linkedin fa-2x"
         [params.social_items.slack]
+            name = "Slack"
             link = "https://pybcn.slack.com"
             icon = "fab fa-slack fa-2x"
 
     [params.social_items_pyladies]
         [params.social_items_pyladies.twitter]
+            name = "Twitter"
             icon = "fab fa-twitter-square fa-2x"
             link = "https://twitter.com/PyLadiesBCN"
         [params.social_items_pyladies.meetup]
+            name = "Meetup"
             link = "https://www.meetup.com/PyLadies-BCN"
             icon = "fab fa-meetup fa-2x"
         [params.social_items_pyladies.github]
+            name = "GitHub"
             link = "https://github.com/pyladies-bcn"
             icon = "fab fa-github fa-2x"
 

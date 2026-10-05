@@ -1,3 +1,8 @@
 .idea
 bin/hugo
 public/**
+
+# Hugo build output and caches
+docs/
+resources/
+.hugo_build.lock

@@ -1,15 +1,10 @@
-{{ define "requiredJS" }}
-{{ $meetupJS := resources.Get "js/meetup.js" }}
-<script type="text/javascript" src="{{ $meetupJS.Permalink }}"></script>
-{{ end }}
-
 {{ define "main" }}
 
 <div class="container" id="home_top_section">
     <div class="row flex_box">
         <div class="col-md-9">
             <div class="row flex_box" id="meetup_events">
-	        {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "width" 6 "max_events" 4 "meetup_link" false)}}
+	        {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "width" 6)}}
             </div>
         </div>
         <div class="col-md-3">
@@ -25,19 +20,26 @@
         </div>
     </div>
 
+    {{/* The banner shows the newest PyDay. The pages are named
+         pyday_bcn_<year>, so the highest file name is the newest edition.
+         Add the next edition to content/events/pyday_bcn/ and the banner
+         follows it. Do not hard code a year here. */}}
+    {{ with site.GetPage "/events/pyday_bcn" }}
+    {{ $latest := index (sort .Pages "File.ContentBaseName" "desc") 0 }}
     <section class="banner">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-center rounded semitransparent">
-                        <h1>PyDay 2024</h1>
+                        <h1>{{ $latest.Title }}</h1>
                         <h3>The annual gathering for the Python community in Barcelona!</h3>
-                        <h4>Have a look at the <a class="blue_text" href="events/pyday_bcn/pyday_bcn_2024/#important_dates">agenda</a> and don't miss out!</h4>
+                        <h4>Have a look at the <a class="blue_text" href="{{ $latest.RelPermalink }}">programme</a> and don't miss out!</h4>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    {{ end }}
 
 </div>
 

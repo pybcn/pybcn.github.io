@@ -3,11 +3,18 @@
 <div class="container oov">
     <div class="row">
         <div class="col">
-            <h2>ERROR #404</h2>
-            <p><strong>Uh ho.</strong></p>
+            <h2>Page not found</h2>
+            <p>This page is not here. The link may be old, or the address may have a typo.</p>
+            <p>Try one of these:</p>
+            <ul>
+                <li><a href="{{ "/" | relURL }}">Home page</a></li>
+                {{ range site.Menus.main }}
+                <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+            <p>If a link on this site brought you here, please <a href="{{ "/contact/" | relURL }}">tell us</a>.</p>
         </div>
     </div>
 </div>
 
 {{ end }}
-
