@@ -7,6 +7,7 @@ photo: alberto-camara.jpg
 pybcn_position: Organizer
 twitter: "https://x.com/b3r2s"
 linkedin: "https://www.linkedin.com/in/alberto-camara/"
+site: https://ber2.github.io
 ---
 ​
 I work across the data spectrum in many places, from big data processing using tools such as Apache Spark, to training Machine Learning models and visualizing their outputs, using tools such as scikit-learn or tensorflow.
