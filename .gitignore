@@ -7,3 +7,8 @@ public/**
 docs/
 resources/
 .hugo_build.lock
+
+# The checks in bin/ are Python scripts, so running one leaves a cache next
+# to it. It was ignored only by one machine's global gitignore, which does
+# not travel with the repository.
+bin/__pycache__/
