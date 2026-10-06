@@ -19,12 +19,12 @@ the site:
 - `themes/pybcn_theme/`: the theme. Its templates and partials (`layouts/`),
   its stylesheets (`assets/scss/`), the scripts written for this site
   (`assets/js/`, except `cookieconsent.min.js`, which is a third-party
-  library, see below), its `archetypes/`, `theme.toml` and `README.md`. The
+  library, see below), its `archetypes/`, `theme.toml`, and `README.md`. The
   images and the vendored libraries under the theme are listed under
   [Not licensed](#not-licensed).
 - `assets/xsl/`: the stylesheets that show the sitemap and the feed as a page.
-- `bin/`: the build, check and maintenance scripts.
-- `.github/`: the workflows, the code owners and the Dependabot configuration.
+- `bin/`: the build, check, and maintenance scripts.
+- `.github/`: the workflows, the code owners, and the Dependabot configuration.
 - `config.toml`, `data/`, `archetypes/`, and the other configuration files at
   the root (`.gitignore`, `.hugo-version`, `CNAME`).
 
@@ -143,7 +143,7 @@ with it:
 with `bin/archive`: `pybcn.org/`, the previous site of the association, and
 `hacktoberfestbarcelona.com/`, the site of Hacktoberfest BCN 2018. They are
 kept as a record and are not maintained. Each carries its own photographs,
-logos, fonts and libraries, so nothing under `static/archives/` is licensed by
+logos, fonts, and libraries, so nothing under `static/archives/` is licensed by
 this repository.
 
 ### Code of conduct

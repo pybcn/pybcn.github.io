@@ -20,11 +20,11 @@ The code of the site is under the [MIT License](LICENSE) and the content is
 under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 [LICENSING.md](LICENSING.md) says which paths each one covers, and which paths
 are not licensed at all: the photographs of people, the person pages, the
-sponsor logos, the association's own logos, the third-party libraries and the
+sponsor logos, the association's own logos, the third-party libraries, and the
 archived sites.
 
 A pull request is a contribution under those terms. A change to a template, a
-script or a stylesheet is offered under the MIT License, and a change to the
+script, or a stylesheet is offered under the MIT License, and a change to the
 text of a page is offered under CC BY-SA 4.0. Your own page under
 `content/people/` and your photo are different: you keep every right in them,
 and you give PyBCN permission to publish them on this site, which you can
