@@ -162,36 +162,26 @@
 
                 h3 {
                     color: black;
-                    // The type is a share of the card, not a fixed size,
-                    // because the card is not the same width on every page:
-                    // the organizers page gives it 200px and an event page
-                    // 186px, and the intermediate window widths give less
-                    // still. cqi is 1% of the card, which is the container
-                    // declared on .person_wrapper. 9.6cqi is 19.2px on a
-                    // 200px card, the size the name has always had, and the
-                    // upper clamp holds it there when one card takes the
-                    // whole row on a phone.
-                    font-size: clamp(13px, 9.6cqi, 19.2px);
+                    // One size on every card. The size used to be a share of
+                    // the card so a long name could stay on one line, but
+                    // that made a long name visibly smaller than its
+                    // neighbours and read as a different heading level
+                    // rather than as the same name in less room.
+                    font-size: 1.2em;
                     margin-bottom: 5px;
 
-                    // A long name gets a smaller font, so it stays on one
-                    // line. No ellipsis: a clipped surname reads badly, and
-                    // these are real people. Only the long names shrink, so
-                    // the other cards keep the heading size.
-                    //
-                    // The template adds the class from the character count,
-                    // because the template knows the name and CSS cannot
-                    // measure text. The count is a proxy for the width:
-                    // "Monica Dominguez" (16 characters) needs 164px and
-                    // "Albert Pujol Torras" (19) needs 156px, so a few names
-                    // on each side of the threshold shrink without need or
-                    // wrap. The threshold is 18 characters, measured on the
-                    // organizers page and on PyDay 2025: "Daniel Mesejo Leon"
-                    // (18) is 170px at 19.2px and wraps on an event card, and
-                    // no name of 17 or fewer wraps on either page.
-                    //
-                    &.long_name {
-                        font-size: clamp(10px, 6.9cqi, 15px);
+                    // A name wider than the card is cut rather than wrapped.
+                    // The whole name is in the title of the button and in the
+                    // modal the button opens, so nothing is lost. The button
+                    // has to be a block of the full width: the ellipsis needs
+                    // a box with a width to overflow, and an inline button
+                    // takes the width of its text.
+                    button {
+                        display: block;
+                        width: 100%;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
                 }
 
@@ -217,15 +207,19 @@
                 // up the page, because this box has no positioned ancestor of
                 // its own, so the icons were only in the right place by luck.
                 margin-top: auto;
-                // No space over the icons: the role above has none under it
-                // either. The side padding is 2px rather than 5px because the
+                // 5px over the icons, the same as the gap over the role, so
+                // the role has equal space above and below it. It had 5px
+                // above and none below, because margin-top: auto leaves no
+                // gap of its own on a card whose content fills it.
+                //
+                // The side padding is 2px rather than 5px because the
                 // row has to survive the narrowest card on the site: an event
                 // page puts the grid in a col-md-9, so a four-card row there
                 // is 179px wide, 175px inside the border and the padding, and
                 // the four icons need 170px. A little under the row, because
                 // the icons are the bottom of the card and the border would
                 // otherwise touch them.
-                padding: 0 2px 6px;
+                padding: 5px 2px 6px;
 
                 // Flex, not text-align: inline-block icons are separated by the
                 // whitespace between the tags, about 4 px each, which is enough
