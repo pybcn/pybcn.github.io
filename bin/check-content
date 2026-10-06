@@ -326,7 +326,15 @@ def check_social(people, sponsors):
         if site:
             site = str(site).strip()
             if "?" in site:
-                error(path, f"site carries query parameters: '{site}'")
+                # A warning here, an error on the three profile fields. A
+                # profile URL never needs a query, so one is always the
+                # tracking the browser added. A site is any address, and the
+                # query can be the address: a sponsor links to
+                # empleos-barcelona?q=python, and without the query the link
+                # lands on every job in Barcelona rather than the Python ones.
+                warn(path, f"site carries query parameters: '{site}'. "
+                              f"Keep them only if they are part of the "
+                              f"address, not tracking the browser added.")
             elif not site.startswith(("https://", "http://")):
                 error(path, f"site is '{site}', which is not an http or https URL")
             else:
