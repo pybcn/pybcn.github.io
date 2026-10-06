@@ -1,39 +1,52 @@
 {{- /*
     The pages one person appears on, grouped by role, as links.
 
-        Speaker      PyDay BCN 2025
-        Organizer    PyDay BCN 2024, PyDay BCN 2021, PyDay BCN 2020
+        Management Board (2026)   Organizers
+        Speaker                   PyDay BCN (2025)
+        Organizer                 PyDay BCN (2024), PyDay BCN (2021), PyDay BCN (2020)
 
-    Arguments:
-        person  the person page
-        page    the page the modal is on
+    Argument: the person page.
 
     The index comes from appearances_index.html, built once per build.
 
-    The page the modal is on is left out. Everyone on /organizers/ would
-    otherwise get a link back to the page the reader is looking at, and the
-    role line above already says what that link would say. Six organizers
-    then have no appearance at all, and the block emits nothing for them:
-    no heading, no empty list.
+    The list is the same whatever page the modal is opened from. It used
+    to leave out that page, so that nobody got a link back to the page
+    they were reading, and on /organizers/ that hid the level of the page,
+    which is the information: that Jordi Bosch is on the Management Board
+    (2026), that Laura Pérez Mayos is a Collaborator and was on the
+    Management Board (2018 - 2025). The modal is on its way to becoming a
+    page per person with its own URL, and for that its content has to be
+    the same from everywhere: a list that depends on the page it was
+    opened from cannot become one page. So the current page stays in, link
+    and all. On /organizers/ the first row links to the page the reader is
+    on. That is the price of one list, and it stops being odd the day the
+    modal is a page.
 
     Order: the role with the most recent appearance first, and inside a
-    role the most recent page first. A page with no year, such as the
-    PyLadies organizers page, goes last. Ties fall back to the label and
-    the title, so two builds give the same order.
+    role the most recent page first. A page with no year is a role that
+    is held now, not an event: the organizers pages of PyBCN and of
+    PyLadies BCN. It sorts before every dated event, so the current board
+    heads the list and the events follow, newest first. Ties fall back to
+    the label and the title, so two builds give the same order.
+
+    A person with no appearance gets nothing: no heading, no empty list.
+    Everyone on /organizers/ has at least that page, but the index covers
+    only the people listed there, so a speaker of one event who is not an
+    organizer still has an empty list. The Archive will widen this.
 */ -}}
-{{- $here := .page.RelPermalink -}}
 {{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
 {{- $groups := dict -}}
-{{- range index $index .person.Params.id -}}
-    {{- if eq .url $here }}{{ continue }}{{ end -}}
-    {{- $item := merge . (dict "key" (printf "%04d %s" (sub 9999 .year) .title)) -}}
+{{- range index $index .Params.id -}}
+    {{- $rank := 0 -}}{{- if .year }}{{ $rank = sub 9999 .year }}{{ end -}}
+    {{- $item := merge . (dict "key" (printf "%04d %s" $rank .title)) -}}
     {{- $groups = merge $groups (dict .label (append $item (default slice (index $groups .label)))) -}}
 {{- end -}}
 {{- $list := slice -}}
 {{- range $label, $items := $groups -}}
     {{- $items = sort $items "key" -}}
     {{- $newest := (index $items 0).year -}}
-    {{- $list = $list | append (dict "label" $label "items" $items "key" (printf "%04d %s" (sub 9999 $newest) $label)) -}}
+    {{- $rank := 0 -}}{{- if $newest }}{{ $rank = sub 9999 $newest }}{{ end -}}
+    {{- $list = $list | append (dict "label" $label "items" $items "key" (printf "%04d %s" $rank $label)) -}}
 {{- end -}}
 {{- with $list -}}
 <dl class="appearances">

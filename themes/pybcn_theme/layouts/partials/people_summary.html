@@ -8,7 +8,6 @@
 
     Arguments:
         person  the person page
-        page    the page the card is on, for the appearance list in the modal
         role    optional, the role to show instead of pybcn_position, when
                 the page lists the person with one (see people-grid.html)
         key     the grid key, so the modal id is unique on the page
@@ -88,7 +87,7 @@
                     <span>{{ $.person.Params.short_bio | markdownify }}</span>
                     <p class="font-weight-bold">{{ $role }}</p>
                     {{ $.person.Content }}
-                    {{ partial "person_appearances.html" (dict "person" $.person "page" $.page) }}
+                    {{ partial "person_appearances.html" $.person }}
                     {{ partial "person_links.html" $.person }}
                 </div>
             </div>

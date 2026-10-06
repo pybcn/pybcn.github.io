@@ -4,8 +4,6 @@
     Arguments:
         levels  the list of levels, each with a name, people and people_per_line
         Site    the site, to look the people pages up
-        page    the page the grid is on. The modal lists the other pages
-                the person appears on and leaves this one out
         key     a name unique to this grid on the page, "people" by default
 
     An event page renders this partial once per people section, and the same
@@ -49,7 +47,7 @@
                 {{ if reflect.IsMap $person }}{{ $id = $person.id }}{{ $role = $person.role }}{{ end }}
                 {{ range $page := where $pages ".Params.id" "eq" $id }}
                 <div class="person_wrapper">
-                    {{ partial "people_summary.html" (dict "person" $page "page" $.page "role" $role "key" (printf "%s_%d_%d" $key $idx $pidx)) }}
+                    {{ partial "people_summary.html" (dict "person" $page "role" $role "key" (printf "%s_%d_%d" $key $idx $pidx)) }}
                 </div>
                 {{ end }}
             {{ end }}
