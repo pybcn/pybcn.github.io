@@ -174,7 +174,16 @@
                     // neighbours and read as a different heading level
                     // rather than as the same name in less room.
                     font-size: 1.2em;
-                    margin-bottom: 5px;
+                    // 3px here against 7px over the icons. What a reader
+                    // sees is the ink, not the box, and a line box reserves
+                    // room under the baseline for descenders that the text
+                    // may not use: "Organizer" fills it and "President" does
+                    // not, so the gap a reader sees moves by about 4px with
+                    // the letters alone. These two numbers put the mean gap
+                    // above and below the role at about 10px. With 5px on
+                    // both the role sat 13px under the name and 5px over the
+                    // icons, which is what it looked like.
+                    margin-bottom: 3px;
 
                     // A name wider than the card is cut rather than wrapped.
                     // The whole name is in the title of the button and in the
@@ -213,10 +222,10 @@
                 // up the page, because this box has no positioned ancestor of
                 // its own, so the icons were only in the right place by luck.
                 margin-top: auto;
-                // 5px over the icons, the same as the gap over the role, so
-                // the role has equal space above and below it. It had 5px
-                // above and none below, because margin-top: auto leaves no
-                // gap of its own on a card whose content fills it.
+                // 7px over the icons against 3px under the name. The
+                // numbers differ because the boxes do: the name reserves
+                // descender room it often does not use, while the icon row
+                // starts at the top of its own box. See the h3 above.
                 //
                 // The side padding is 2px rather than 5px because the
                 // row has to survive the narrowest card on the site: an event
@@ -225,7 +234,7 @@
                 // the four icons need 170px. A little under the row, because
                 // the icons are the bottom of the card and the border would
                 // otherwise touch them.
-                padding: 5px 2px 6px;
+                padding: 7px 2px 6px;
 
                 // Flex, not text-align: inline-block icons are separated by the
                 // whitespace between the tags, about 4 px each, which is enough
