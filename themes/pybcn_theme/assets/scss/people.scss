@@ -148,7 +148,13 @@
             }
 
             .person_data {
-                line-height: 1rem;
+                // A ratio, not a fixed 1rem. At 1rem the 19.2px name
+                // overflowed its own 16px line box by about 3px at the top
+                // and the bottom, while the smaller role sat inside its box
+                // with room to spare. The boxes above and below the role
+                // were 5px apart each, but what a reader saw was 2px over
+                // the role and 7px under it.
+                line-height: 1.2;
                 // 5px above the name, the same as between the name and the
                 // role, so the text block reads as one unit under the photo.
                 // The side padding keeps the text off the border now that

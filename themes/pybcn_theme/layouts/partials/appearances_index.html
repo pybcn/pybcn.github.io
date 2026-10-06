@@ -2,7 +2,7 @@
     The pages each organizer appears on, inverted from the pages themselves.
 
     Returns a map from person id to a list of appearances, each a dict with
-    label, title, url and year. No argument is read: the data comes from
+    label, title, url, year and ord. No argument is read: the data comes from
     site.RegularPages and from data/roles.yaml.
 
     Call it through partialCached with a constant variant, so the site is
@@ -70,17 +70,23 @@
     {{- if not $headings }}{{ continue }}{{ end -}}
 
     {{- $seen := dict -}}
-    {{- range $headings -}}
-        {{- $heading := .heading -}}
+    {{- range $ord, $h := $headings -}}
+        {{- $heading := $h.heading -}}
         {{- $label := default $heading (index site.Data.roles $heading) -}}
-        {{- range .ids -}}
+        {{- range $h.ids -}}
             {{- $id := . -}}
             {{- if reflect.IsMap . }}{{ $id = .id }}{{ end -}}
             {{- if not (index $scope $id) }}{{ continue }}{{ end -}}
             {{- $key := printf "%s|%s" $label $id -}}
             {{- if index $seen $key }}{{ continue }}{{ end -}}
             {{- $seen = merge $seen (dict $key true) -}}
-            {{- $entry := dict "label" $label "title" $pg.Title "url" $pg.RelPermalink "year" (int (default 0 $pg.Params.year)) -}}
+            {{- /* ord is the position of the heading in the page. It orders
+                   the headings of a page with no year, where there is no
+                   date to sort by: the levels of organizers.md are listed
+                   current board first, and the list has to read that way
+                   rather than alphabetically, which put the 2018 board
+                   above the current committee. */ -}}
+            {{- $entry := dict "label" $label "title" $pg.Title "url" $pg.RelPermalink "year" (int (default 0 $pg.Params.year)) "ord" $ord -}}
             {{- $index = merge $index (dict $id (append $entry (default slice (index $index $id)))) -}}
         {{- end -}}
     {{- end -}}

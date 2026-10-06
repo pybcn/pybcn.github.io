@@ -26,8 +26,13 @@
     role the most recent page first. A page with no year is a role that
     is held now, not an event: the organizers pages of PyBCN and of
     PyLadies BCN. It sorts before every dated event, so the current board
-    heads the list and the events follow, newest first. Ties fall back to
-    the label and the title, so two builds give the same order.
+    heads the list and the events follow, newest first. Among those, the
+    order is the page and then the order the page itself lists its levels,
+    which is current board first: sorting them by label put Management
+    Board (2018 - 2025) above Permanent Committee, and the PyLadies page
+    above both. The page comes from its path, so the PyBCN organizers page
+    sorts before the PyLadies one. Ties fall back to the title and the
+    label, so two builds give the same order.
 
     A person with no appearance gets nothing: no heading, no empty list.
     Everyone on /organizers/ has at least that page, but the index covers
@@ -38,15 +43,15 @@
 {{- $groups := dict -}}
 {{- range index $index .Params.id -}}
     {{- $rank := 0 -}}{{- if .year }}{{ $rank = sub 9999 .year }}{{ end -}}
-    {{- $item := merge . (dict "key" (printf "%04d %s" $rank .title)) -}}
+    {{- $item := merge . (dict "key" (printf "%04d %s %04d %s" $rank .url .ord .title)) -}}
     {{- $groups = merge $groups (dict .label (append $item (default slice (index $groups .label)))) -}}
 {{- end -}}
 {{- $list := slice -}}
 {{- range $label, $items := $groups -}}
     {{- $items = sort $items "key" -}}
-    {{- $newest := (index $items 0).year -}}
-    {{- $rank := 0 -}}{{- if $newest }}{{ $rank = sub 9999 $newest }}{{ end -}}
-    {{- $list = $list | append (dict "label" $label "items" $items "key" (printf "%04d %s" $rank $label)) -}}
+    {{- $first := index $items 0 -}}
+    {{- $rank := 0 -}}{{- if $first.year }}{{ $rank = sub 9999 $first.year }}{{ end -}}
+    {{- $list = $list | append (dict "label" $label "items" $items "key" (printf "%04d %s %04d %s" $rank $first.url $first.ord $label)) -}}
 {{- end -}}
 {{- with $list -}}
 <dl class="appearances">
