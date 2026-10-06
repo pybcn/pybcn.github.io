@@ -40,15 +40,20 @@ The MarkDown file for the sponsor will have a FrontMatter section with the follo
 - `id`: Unique identifier of this sponsor. Should be a string without spaces, preferrably kebab-case.
 - `name`: Sponsor's name to be shown in all renderings.
 - `logo_image`: File name for the sponsor logo, which must be under `themes/pybcn_theme/assets/images/sponsors/`. An external URL is not accepted: copy the file into the repository. The template loads it with `resources.Get`, so a file under `static/` is not found, and `bin/check-content` reports it as an error.
-- `site`: URL of the sponsor home page.
-- `linkedin`, `twitter`: the sponsor's profile on each.
+- `site`: URL of the sponsor home page. Leave it out when there is nothing to
+  link to, and the logo renders without a link. It follows the same rules as a
+  person's `site`, below, and one function checks both.
 
-The three URL fields follow the same rules as a person's, below, and
-`bin/check-content` applies the same code to both kinds of file. Leave out any
-field this sponsor does not have: an empty value is the same as no field to
-Hugo, and the check rejects one.
+**Those four are every field a sponsor has.** A sponsor renders as its logo,
+linked to its site, and there is no page per sponsor, so nothing else in the
+file reaches a reader. `bin/check-content` rejects any other field, and rejects
+an empty value: 32 files carried a `twitter`, `linkedin`, `mastodont` or
+`instagram` URL that had never been published, written by somebody who expected
+it to show.
 
-After this FrontMatter section, any valid MarkDown will be considered generic content to be shown in detail view.
+There is no detail view, so a body under the front matter is never published.
+Put a note about the sponsor in a comment in the front matter instead, where it
+is clearly a note.
 
 Finally, add this sponsor to the sponsors list in the corresponding level of the desired sponsors page, like `content/sponsors/_index.md`, for the main sponsors page; `content/pyladies_bcn/sponsors.md`, for the PyLadies BCN Sponsors' page; or the specific event, if appropriate.
 

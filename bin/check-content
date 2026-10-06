@@ -280,6 +280,13 @@ SOCIAL_PREFIX = {
     "twitter": "https://x.com/",
 }
 
+# Every field a sponsor template reads. A sponsor renders as its logo, linked
+# to its site, and there is no page per sponsor, so anything else in the file
+# reaches no reader. Thirty-two files carried a twitter, a linkedin, a
+# mastodont or an instagram URL that has never been published: somebody wrote
+# them expecting them to show, and nobody could tell they did not.
+SPONSOR_FIELDS = {"id", "name", "logo_image", "site", "draft"}
+
 
 def check_social(people, sponsors):
     """Check the shape of every social link in a person or sponsor file.
@@ -312,6 +319,12 @@ def check_social(people, sponsors):
                 error(path, f"'{field}' is empty. Fill it in, or remove the "
                             f"line: an empty field is the same as no field "
                             f"to Hugo, and it reads as a fact nobody checked.")
+        if page_id in sponsors:
+            for field in sorted(set(data) - SPONSOR_FIELDS):
+                error(path, f"'{field}' is not a sponsor field. A sponsor "
+                            f"renders as its logo, linked to its site, and "
+                            f"nothing else reaches a reader. Remove it, or "
+                            f"render it first.")
         for field, prefix in SOCIAL_PREFIX.items():
             value = data.get(field)
             if not value:
