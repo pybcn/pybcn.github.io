@@ -342,7 +342,15 @@ def check_social(people, sponsors):
                     error(path, f"site ends with a slash: '{site}'. "
                                 f"Use '{site.rstrip('/')}'.")
                 if site.startswith("http://"):
-                    warn(path, f"site is served over http, not https: '{site}'")
+                    # An error, not a warning. A link we publish over http is
+                    # one we invite a reader to follow in the clear, and the
+                    # site it points at is not ours to make safe. If https
+                    # does not answer, that is for its owner to fix, and the
+                    # link stays broken rather than insecure.
+                    error(path, f"site is served over http, not https: "
+                                f"'{site}'. Use https, and if the site does "
+                                f"not answer over https, that is for its "
+                                f"owner to fix.")
 
 
 def check_logos(sponsors):
