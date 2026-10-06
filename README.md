@@ -422,7 +422,7 @@ people_sections:
 
 The code of the site (the templates, the stylesheets, the scripts, the
 workflows, and the configuration) is under the [MIT License](LICENSE). The
-content (the text under `content/`, this README and the contributing guide) is
+content (the text under `content/`, this README, and the contributing guide) is
 under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The
 photographs of people, the person pages, the sponsor logos, the association's
 own logos, the third-party libraries, and the archived sites are not licensed,
