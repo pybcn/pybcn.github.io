@@ -13,7 +13,7 @@ people_levels:
     - people_per_line: 5
       people: [jordi-bosch, daniel-mesejo, yago-tafalla, mauricio-volcanes, sergi-ramirez]
       name: Management Board (2026)
-    - people_per_line: 3
+    - people_per_line: 6
       people: [alberto, david, ifosch, natalia, alicia-morales, ferran-jovell]
       name: Permanent Committee
     - people_per_line: 4

@@ -32,8 +32,8 @@
     // so a fixed slot width dropped that page from four cards a row to
     // three. The cards there are a little narrower than on the organizers
     // page, which has the room, and the count is the same as before.
-    $card: 200px;
-    $gutter: 20px;
+    $card: 178px;
+    $gutter: 12px;
     // A literal divisor is not a division in Dart Sass, which emits
     // width: 100%/3 and the browser drops the rule. A variable divides.
     $tablet_per_line: 3;
