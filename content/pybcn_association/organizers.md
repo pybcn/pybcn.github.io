@@ -20,6 +20,13 @@ people_levels:
       people: [elisabeth-ortega-carrasco, josep, loris, lpmayos, nuria, jose-riera, rberenguel, xavi]
       name: Collaborators
     - people_per_line: 5
-      people: [lpmayos-president, mireia, natalia-secretary]
       name: Management Board (2018 - 2025)
+      # An entry with a role shows that role on this page instead of the
+      # pybcn_position of the person file. See people-grid.html.
+      people:
+        - id: lpmayos
+          role: Former President
+        - mireia
+        - id: natalia
+          role: Former Secretary
 ---

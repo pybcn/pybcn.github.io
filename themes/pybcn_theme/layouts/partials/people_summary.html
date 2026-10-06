@@ -9,6 +9,8 @@
     Arguments:
         person  the person page
         page    the page the card is on, for the appearance list in the modal
+        role    optional, the role to show instead of pybcn_position, when
+                the page lists the person with one (see people-grid.html)
         key     the grid key, so the modal id is unique on the page
 
     A remote photo is not supported. The template used to accept photo_url
@@ -16,6 +18,7 @@
     load an image from a third party and tell that party who viewed it. No
     person used the field, and bin/check-content now rejects it.
 */ -}}
+{{- $role := default $.person.Params.pybcn_position $.role -}}
 {{- $modal := printf "modal_%s" $.person.Params.id -}}
 {{- with $.key -}}{{- $modal = printf "modal_%s_%s" . $.person.Params.id -}}{{- end -}}
 {{- $photo := $.person.Params.photo -}}
@@ -52,7 +55,7 @@
              card is cut with an ellipsis (see people.scss). The modal shows
              it in full as well. */}}
         <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}" title="{{ $.person.Params.name }}">{{ $.person.Params.name }}</button></h3>
-        <p>{{ $.person.Params.pybcn_position }}</p>
+        <p>{{ $role }}</p>
     </div>
     <div class="social_links">
         {{ if $.person.Params.linkedin }}
@@ -83,7 +86,7 @@
                          modal, where each one also says where it goes. */}}
                     <h3 class="modal-title" id="{{ $modal }}_title">{{ $.person.Params.name }}</h3>
                     <span>{{ $.person.Params.short_bio | markdownify }}</span>
-                    <p class="font-weight-bold">{{ $.person.Params.pybcn_position }}</p>
+                    <p class="font-weight-bold">{{ $role }}</p>
                     {{ $.person.Content }}
                     {{ partial "person_appearances.html" (dict "person" $.person "page" $.page) }}
                     {{ partial "person_links.html" $.person }}

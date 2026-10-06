@@ -296,6 +296,38 @@ LISTING_KEYS = {
 }
 
 
+# The keys an entry of a people list may carry when it is a map rather than
+# a bare id. people-grid.html reads both; anything else is a misspelling the
+# template would drop in silence.
+ENTRY_KEYS = {"id", "role"}
+
+
+def entry_id(path, key, entry):
+    """Return the id of one entry of a listing, or None if it has none.
+
+    A people entry is a bare id, or a map with an id and a role that the page
+    shows instead of the person's pybcn_position (see people-grid.html). The
+    check used to compare the entry itself against the known ids, which
+    raised a TypeError on a map.
+    """
+    if isinstance(entry, str):
+        return entry
+    if not isinstance(entry, dict):
+        error(path, f"'{key}' lists {entry!r}, which is not an id")
+        return None
+    if key != "people_levels" and key != "people_sections":
+        error(path, f"'{key}' lists {entry!r}, but only a people list may hold a map")
+        return None
+    unknown = set(entry) - ENTRY_KEYS
+    if unknown:
+        error(path, f"'{key}' entry {entry!r} has unknown key(s) "
+                    f"{', '.join(sorted(unknown))}; allowed: id, role")
+    if not entry.get("id"):
+        error(path, f"'{key}' entry {entry!r} has no id")
+        return None
+    return entry["id"]
+
+
 def referenced_ids(path, data, key):
     """Pull every id out of one listing key of a page.
 
@@ -311,7 +343,10 @@ def referenced_ids(path, data, key):
             if not isinstance(level, dict):
                 error(path, f"'{key}' holds {level!r}, which is not a level")
                 continue
-            out.extend(level.get(LISTING_KEYS[key]) or [])
+            for entry in level.get(LISTING_KEYS[key]) or []:
+                ref = entry_id(path, key, entry)
+                if ref is not None:
+                    out.append(ref)
     return out
 
 
