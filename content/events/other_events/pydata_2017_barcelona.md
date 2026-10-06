@@ -1,5 +1,6 @@
 ---
 title: "PyData 2017 - Barcelona edition"
+year: 2017
 description: "The Data Science conference from NumFOCUS"
 menu:
   main:

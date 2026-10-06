@@ -1,5 +1,6 @@
 ---
 title: "PyDay BCN 2018"
+year: 2018
 description: ""
 menu:
   main:
