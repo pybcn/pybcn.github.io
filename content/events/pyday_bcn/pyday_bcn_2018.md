@@ -109,7 +109,7 @@ heroBackground: /images/photos/people-pyday-2016.jpg
             <ul>
                 <li>We assume that you are familiar with python, have some basic knowledge about neural network.</li>
                 <li>You will get the best experience if you bring a notebook with access to python (I'll use version 3.6) with numpy, pandas, jupyter, pytorch, matplotlib, pillow and opencv.</li>
-                <li><a href="http://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html" target="_blank">Guide to install Pytorch</a>.</li>
+                <li><a href="https://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html" target="_blank">Guide to install Pytorch</a>.</li>
             </ul>
         <h4>Data analysis with Jupyter Notebook, Pandas and Plotly</h4>
             <p><b>Speaker:</b> Natàlia Padilla (@nataliasirera) and Laura Pérez (@lpmayos) (@PyLadiesBCN)  <br/>
