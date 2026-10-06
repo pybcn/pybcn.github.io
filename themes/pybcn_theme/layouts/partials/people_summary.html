@@ -6,6 +6,11 @@
     image at 400 px, so one 400 px WebP serves both, with an 800 px variant
     for a 2x screen. A person with no photo falls back to anon_member.png.
 
+    Arguments:
+        person  the person page
+        page    the page the card is on, for the appearance list in the modal
+        key     the grid key, so the modal id is unique on the page
+
     A remote photo is not supported. The template used to accept photo_url
     and print it in a plain img, which made every page that lists the person
     load an image from a third party and tell that party who viewed it. No
@@ -80,6 +85,7 @@
                     <span>{{ $.person.Params.short_bio | markdownify }}</span>
                     <p class="font-weight-bold">{{ $.person.Params.pybcn_position }}</p>
                     {{ $.person.Content }}
+                    {{ partial "person_appearances.html" (dict "person" $.person "page" $.page) }}
                     {{ partial "person_links.html" $.person }}
                 </div>
             </div>

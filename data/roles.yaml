@@ -1,0 +1,14 @@
+# The role a person modal shows for each heading an event page lists people
+# under. Left side: the heading as it is written in the page front matter
+# (people_sections[].title on an event page, people_levels[].name on an
+# association page). Right side: the singular role the modal prints next to
+# the links to those pages. A heading that is not in this list is printed as
+# it is, so a new heading works before anyone adds it here.
+#
+# "Mentors, speakers & volunteers" names three roles under one heading, so
+# any single word for it is an approximation. Volunteer is the one that is
+# true of everyone listed there.
+Speakers: Speaker
+Organizers: Organizer
+PyLadiesBCN Organizers: PyLadiesBCN Organizer
+"Mentors, speakers & volunteers": Volunteer

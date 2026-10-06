@@ -307,6 +307,25 @@
                         }
                     }
 
+                    // The pages the person appears on, one row per role:
+                    // the role in the first column, the linked page titles
+                    // in the second. A grid rather than a table, so the
+                    // role column is as wide as its longest word and no
+                    // wider. See person_appearances.html.
+                    .appearances {
+                        display: grid;
+                        grid-template-columns: max-content 1fr;
+                        gap: 4px 12px;
+                        margin: 15px 0 0;
+
+                        dt {
+                            font-weight: bold;
+                        }
+                        dd {
+                            margin: 0;
+                        }
+                    }
+
                     // The links of the card, listed with their text at the
                     // foot of the modal, so a reader can see the handle or
                     // the host without leaving the page. This is the only

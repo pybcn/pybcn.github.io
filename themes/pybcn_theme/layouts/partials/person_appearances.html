@@ -1,0 +1,45 @@
+{{- /*
+    The pages one person appears on, grouped by role, as links.
+
+        Speaker      PyDay BCN 2025
+        Organizer    PyDay BCN 2024, PyDay BCN 2021, PyDay BCN 2020
+
+    Arguments:
+        person  the person page
+        page    the page the modal is on
+
+    The index comes from appearances_index.html, built once per build.
+
+    The page the modal is on is left out. Everyone on /organizers/ would
+    otherwise get a link back to the page the reader is looking at, and the
+    role line above already says what that link would say. Six organizers
+    then have no appearance at all, and the block emits nothing for them:
+    no heading, no empty list.
+
+    Order: the role with the most recent appearance first, and inside a
+    role the most recent page first. A page with no year, such as the
+    PyLadies organizers page, goes last. Ties fall back to the label and
+    the title, so two builds give the same order.
+*/ -}}
+{{- $here := .page.RelPermalink -}}
+{{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
+{{- $groups := dict -}}
+{{- range index $index .person.Params.id -}}
+    {{- if eq .url $here }}{{ continue }}{{ end -}}
+    {{- $item := merge . (dict "key" (printf "%04d %s" (sub 9999 .year) .title)) -}}
+    {{- $groups = merge $groups (dict .label (append $item (default slice (index $groups .label)))) -}}
+{{- end -}}
+{{- $list := slice -}}
+{{- range $label, $items := $groups -}}
+    {{- $items = sort $items "key" -}}
+    {{- $newest := (index $items 0).year -}}
+    {{- $list = $list | append (dict "label" $label "items" $items "key" (printf "%04d %s" (sub 9999 $newest) $label)) -}}
+{{- end -}}
+{{- with $list -}}
+<dl class="appearances">
+    {{- range sort . "key" }}
+    <dt>{{ .label }}</dt>
+    <dd>{{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</dd>
+    {{- end }}
+</dl>
+{{- end -}}
