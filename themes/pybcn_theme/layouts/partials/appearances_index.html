@@ -11,10 +11,18 @@
         partialCached "appearances_index.html" site "appearances-index"
 
     Two front matter shapes list people. An event page has people_sections,
-    each with a title and a list of levels; the section title is the heading.
-    An association page has people_levels, each with a name; the level name
-    is the heading. A level entry is a bare id, or a map with an id when the
-    page overrides the role for that entry (see people-grid.html).
+    each with a title and a list of levels. An association page has
+    people_levels, each with a name. A level entry is a bare id, or a map
+    with an id when the page overrides the role for that entry (see
+    people-grid.html).
+
+    The heading is the level name when the level has one, and the section
+    title when it does not. The Django page has one section titled
+    "Mentors, speakers & volunteers" with three named levels, Mentors,
+    Speakers and Volunteers. Indexing the section title made everyone in it
+    a Volunteer; the level name says which of the three each person was.
+    The Speakers and Organizers sections of the event pages have one level
+    each and no level name, so they fall back to the section title.
 
     Only the people listed on /pybcn_association/organizers/ are indexed.
     Every other person is a speaker or a volunteer of one event, whose modal
@@ -24,9 +32,12 @@
     "Speaker". The heading itself is the fallback, so a new heading shows
     up unmapped rather than not at all.
 
-    An appearance is one (heading, page) pair. Ferran Jovell is listed under
-    two levels of one section of the Django page, Mentors and Speakers, and
-    the modal would otherwise link that page twice under one label.
+    An appearance is one (heading, page) pair. The same person can be
+    listed twice on a page under one heading, by two entries or by a level
+    with no name that repeats the section title, and the modal would then
+    link that page twice under one label. Two different headings on one
+    page stay two appearances: Ferran Jovell is a Mentor and a Speaker of
+    the Django page, and the modal lists that page once under each.
 
     Drafts are skipped by name as well: site.RegularPages drops them in a
     normal build, but a server run with -D would index content/canary.md.
@@ -48,9 +59,10 @@
     {{- /* heading -> list of ids, in the order the page lists them */ -}}
     {{- $headings := slice -}}
     {{- range $pg.Params.people_sections -}}
-        {{- $ids := slice -}}
-        {{- range .levels }}{{ range .people }}{{ $ids = $ids | append . }}{{ end }}{{ end -}}
-        {{- $headings = $headings | append (dict "heading" .title "ids" $ids) -}}
+        {{- $title := .title -}}
+        {{- range .levels -}}
+            {{- $headings = $headings | append (dict "heading" (default $title .name) "ids" .people) -}}
+        {{- end -}}
     {{- end -}}
     {{- range $pg.Params.people_levels -}}
         {{- $headings = $headings | append (dict "heading" .name "ids" .people) -}}
