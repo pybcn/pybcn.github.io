@@ -1,9 +1,15 @@
 {{- /*
-    The pages one person appears on, grouped by role, as links.
+    The pages one person appears on, as two labelled lists.
 
-        Management Board (2026)   Organizers
-        Speaker                   PyDay BCN (2025)
-        Organizer                 PyDay BCN (2024), PyDay BCN (2021), PyDay BCN (2020)
+        Roles at PyBCN
+        Permanent Committee    Organizers
+        PyLadiesBCN Organizer  PyLadies BCN Organizers
+
+        Events
+        Speaker at PyDay BCN (2025)
+        Organizer at PyDay BCN (2024)
+        Mentor and Speaker at Hands-on Django with PyLadiesBCN (2022)
+        Organizer at PyDay BCN (2021)
 
     Argument: the person page.
 
@@ -22,17 +28,34 @@
     on. That is the price of one list, and it stops being odd the day the
     modal is a page.
 
-    Order: the role with the most recent appearance first, and inside a
-    role the most recent page first. A page with no year is a role that
-    is held now, not an event: the organizers pages of PyBCN and of
-    PyLadies BCN. It sorts before every dated event, so the current board
-    heads the list and the events follow, newest first. Among those, the
-    order is the page and then the order the page itself lists its levels,
-    which is current board first: sorting them by label put Management
-    Board (2018 - 2025) above Permanent Committee, and the PyLadies page
-    above both. The page comes from its path, so the PyBCN organizers page
-    sorts before the PyLadies one. Ties fall back to the title and the
-    label, so two builds give the same order.
+    A page with no year is a role, not an event: the organizers pages of
+    PyBCN and of PyLadies BCN. A page with a year is an event. The two used
+    to share one list grouped by role, which put "Organizer" with four
+    events on one row under "Permanent Committee" with one page, and a
+    reader had to work out that the first was a position and the second a
+    history. They are now two lists under two headings, each one left out
+    when it is empty.
+
+    Roles: grouped by label, one row per label, the pages that give it as
+    links. The order is the page and then the order the page itself lists
+    its levels, which is current board first: sorting them by label put
+    Management Board (2018 - 2025) above Permanent Committee, and the
+    PyLadies page above both. The page comes from its path, so the PyBCN
+    organizers page sorts before the PyLadies one. Ties fall back to the
+    title and the label, so two builds give the same order.
+
+    Events: one line per event, newest first, the role on the line. The
+    old grouping by role listed the events of each role on one row, so a
+    reader had to merge four rows to see when the person was active, and
+    the rows themselves were in no date order. When the meetups arrive
+    from the Archive this list gets long, and a list that is not in date
+    order cannot be read. Within one year the tiebreak is the page title
+    and then its URL: the pages carry a year and no date, and the title is
+    what the reader sees, so the rule is visible. A person with two roles
+    at one event, Ferran Jovell as Mentor and Speaker of the Django day,
+    gets one line with both roles, sorted by name and joined with "and":
+    two lines for one event would read as two events, and the date order
+    is the point of the list.
 
     A person with no appearance gets nothing: no heading, no empty list.
     Everyone on /organizers/ has at least that page, but the index covers
@@ -41,23 +64,46 @@
 */ -}}
 {{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
 {{- $groups := dict -}}
+{{- $events := dict -}}
 {{- range index $index .Params.id -}}
-    {{- $rank := 0 -}}{{- if .year }}{{ $rank = sub 9999 .year }}{{ end -}}
-    {{- $item := merge . (dict "key" (printf "%04d %s %04d %s" $rank .url .ord .title)) -}}
-    {{- $groups = merge $groups (dict .label (append $item (default slice (index $groups .label)))) -}}
+    {{- if .year -}}
+        {{- $ev := index $events .url | default (dict "title" .title "url" .url "year" .year "labels" slice) -}}
+        {{- $ev = merge $ev (dict "labels" ($ev.labels | append .label)) -}}
+        {{- $events = merge $events (dict .url $ev) -}}
+    {{- else -}}
+        {{- $item := merge . (dict "key" (printf "%s %04d %s" .url .ord .title)) -}}
+        {{- $groups = merge $groups (dict .label (append $item (default slice (index $groups .label)))) -}}
+    {{- end -}}
 {{- end -}}
-{{- $list := slice -}}
+{{- $roles := slice -}}
 {{- range $label, $items := $groups -}}
     {{- $items = sort $items "key" -}}
     {{- $first := index $items 0 -}}
-    {{- $rank := 0 -}}{{- if $first.year }}{{ $rank = sub 9999 $first.year }}{{ end -}}
-    {{- $list = $list | append (dict "label" $label "items" $items "key" (printf "%04d %s %04d %s" $rank $first.url $first.ord $label)) -}}
+    {{- $roles = $roles | append (dict "label" $label "items" $items "key" (printf "%s %04d %s" $first.url $first.ord $label)) -}}
+{{- end -}}
+{{- $list := slice -}}
+{{- range $url, $ev := $events -}}
+    {{- /* 9999 minus the year, so an ascending sort reads newest first. */ -}}
+    {{- $list = $list | append (merge $ev (dict "labels" (sort $ev.labels) "key" (printf "%04d %s %s" (sub 9999 $ev.year) $ev.title $url))) -}}
+{{- end -}}
+{{- with $roles -}}
+<section class="modal_section">
+    <h4>Roles at PyBCN</h4>
+    <dl class="appearances">
+    {{- range sort . "key" }}
+        <dt>{{ .label }}</dt>
+        <dd>{{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</dd>
+    {{- end }}
+    </dl>
+</section>
 {{- end -}}
 {{- with $list -}}
-<dl class="appearances">
+<section class="modal_section">
+    <h4>Events</h4>
+    <ul class="events">
     {{- range sort . "key" }}
-    <dt>{{ .label }}</dt>
-    <dd>{{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</dd>
+        <li><em>{{ delimit .labels ", " " and " }}</em> at <a href="{{ .url }}">{{ .title }}</a></li>
     {{- end }}
-</dl>
+    </ul>
+</section>
 {{- end -}}

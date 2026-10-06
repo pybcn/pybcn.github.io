@@ -308,36 +308,116 @@
                 .modal-dialog {
                     max-width: 70%;
 
-                    img {
-                        max-width: 400px;
-                        margin: 0 15px 15px 0;
+                    // Who the person is: the photo on the left, the name,
+                    // the role and the short bio beside it. A flex row and
+                    // not a float: the photo used to float at 400px beside
+                    // everything that followed, so a short modal wrapped
+                    // its last links under the photo and a long one put
+                    // the section headings against it, each at a different
+                    // height. The row ends where the text ends, and the
+                    // sections below run the full width.
+                    .person_head {
+                        display: flex;
+                        align-items: flex-start;
+
+                        // 200px, the size the card shows the same photo
+                        // at. The 400px of before was a quarter of the
+                        // modal and the only thing a reader saw at first.
+                        // The 400px file stays as the 2x image.
+                        img {
+                            flex: 0 0 200px;
+                            width: 200px;
+                            height: 200px;
+                            margin-right: 20px;
+                        }
+
+                        // min-width: 0 lets a long name wrap instead of
+                        // pushing the row wider than the modal: a flex
+                        // item is as wide as its longest word by default.
+                        .person_identity {
+                            min-width: 0;
+                        }
+
+                        .modal-title {
+                            margin-bottom: 2px;
+                        }
+
+                        // Italic and plain, as on the card, so the pair
+                        // under the photo reads the same in both places.
+                        .person_role {
+                            font-style: italic;
+                            margin-bottom: 8px;
+                        }
+
+                        .person_bio {
+                            margin-bottom: 0;
+                        }
                     }
 
-                    h3 {
-                        a:first-child {
-                            margin-left: 10px;
+                    // Every block of the modal below the name is a section
+                    // with a heading: Description, Roles at PyBCN, Events,
+                    // Links. The modal used to be a stack of blocks with no
+                    // label, so a reader had to guess that a bold word was
+                    // a role and a list of years was a history. A section
+                    // is left out when it is empty, heading and all, so the
+                    // rule sits on the section and not on the block inside.
+                    .modal_section {
+                        margin-top: 20px;
+
+                        // Small and grey, so the heading labels the block
+                        // without competing with the name above or the
+                        // text below. A rule under it closes the gap to
+                        // the previous block: without it the four sections
+                        // read as one list.
+                        h4 {
+                            font-size: 0.8rem;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            letter-spacing: 0.06em;
+                            color: #51616e;
+                            margin-bottom: 8px;
+                            padding-bottom: 4px;
+                            border-bottom: 1px solid #dee2e6;
                         }
-                        i {
-                            color: $blue-pybcn;
+
+                        // The last block of a section sets no space of its
+                        // own: the next section's margin-top is the gap,
+                        // and the last section ends at the body padding.
+                        > :last-child {
+                            margin-bottom: 0;
                         }
                     }
 
-                    // The pages the person appears on, one row per role:
-                    // the role in the first column, the linked page titles
+                    // The roles the person holds, one row per label: the
+                    // label in the first column, the linked page titles
                     // in the second. A grid rather than a table, so the
-                    // role column is as wide as its longest word and no
+                    // label column is as wide as its longest word and no
                     // wider. See person_appearances.html.
                     .appearances {
                         display: grid;
                         grid-template-columns: max-content 1fr;
                         gap: 4px 12px;
-                        margin: 15px 0 0;
+                        margin: 0;
 
                         dt {
                             font-weight: bold;
                         }
                         dd {
                             margin: 0;
+                        }
+                    }
+
+                    // The events, one line per event, newest first, the
+                    // role in italics before the linked title. A plain
+                    // list: the bullet would say nothing the date order
+                    // does not. See person_appearances.html.
+                    .events {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+
+                        li {
+                            margin-bottom: 4px;
                         }
                     }
 
@@ -350,7 +430,8 @@
                     .modal_links {
                         list-style: none;
                         padding: 0;
-                        margin: 15px 0 0;
+                        // The section above sets the gap.
+                        margin: 0;
 
                         li {
                             margin-bottom: 4px;
@@ -386,8 +467,38 @@
                 .modal {
                     .modal-dialog {
                         max-width: 100%;
-                        img {
-                            max-width: 100%;
+
+                        // A 200px photo beside the name leaves 140px of a
+                        // 390px screen for the title, which breaks a name
+                        // one word to a line. At 120px the photo is still
+                        // a face and the name has room. The title comes
+                        // down with it: at Bootstrap's 28px a three-word
+                        // name next to the photo took three lines.
+                        .person_head {
+                            img {
+                                flex-basis: 120px;
+                                width: 120px;
+                                height: 120px;
+                                margin-right: 12px;
+                            }
+
+                            .modal-title {
+                                font-size: 1.4rem;
+                            }
+                        }
+
+                        // The roles stack on a phone: the label column is
+                        // as wide as "Management Board (2018 - 2025)", which
+                        // left 80px of a 390px screen for the page title
+                        // beside it, three lines for "PyLadies BCN
+                        // Organizers". The page goes under its label,
+                        // indented, as a definition list does by default.
+                        .appearances {
+                            display: block;
+
+                            dd {
+                                margin: 0 0 4px 1em;
+                            }
                         }
                     }
                 }

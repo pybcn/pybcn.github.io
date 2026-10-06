@@ -2,8 +2,8 @@
     One person card, plus the modal that holds the long bio.
 
     Photos come from assets/images/people/ and go through the Hugo image
-    pipeline. The grid slot is 350 px wide at most and the modal caps the
-    image at 400 px, so one 400 px WebP serves both, with an 800 px variant
+    pipeline. The grid slot is 350 px wide at most and the modal shows the
+    image at 200 px, so one 400 px WebP serves both, with an 800 px variant
     for a 2x screen. A person with no photo falls back to anon_member.png.
 
     Arguments:
@@ -78,15 +78,37 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{/* alt is empty here: the name is in the modal heading next to it. */}}
-                    <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
-                    {{/* The name only. The links used to sit next to it as
-                         bare icons, which repeated the list at the foot of the
-                         modal, where each one also says where it goes. */}}
-                    <h3 class="modal-title" id="{{ $modal }}_title">{{ $.person.Params.name }}</h3>
-                    <span>{{ $.person.Params.short_bio | markdownify }}</span>
-                    <p class="font-weight-bold">{{ $role }}</p>
-                    {{ $.person.Content }}
+                    {{/* Who the person is: the photo, the name, the role on
+                         this page and the short bio, as one block. The rest
+                         of the modal is a column of labelled sections:
+                         Description, Roles at PyBCN, Events, Links. The
+                         modal used to be a stack with no label and the
+                         photo floated beside all of it, so the last lines
+                         wrapped under the photo wherever the text ran out. */}}
+                    <div class="person_head">
+                        {{/* alt is empty here: the name is in the modal heading next to it. */}}
+                        <img class="img-fluid rounded" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
+                        <div class="person_identity">
+                            {{/* The name only. The links used to sit next to it as
+                                 bare icons, which repeated the list at the foot of the
+                                 modal, where each one also says where it goes. */}}
+                            <h3 class="modal-title" id="{{ $modal }}_title">{{ $.person.Params.name }}</h3>
+                            {{/* Italic under the name, as on the card, so the pair
+                                 reads the same in both places. Most speakers have
+                                 no position, and the line used to print empty. */}}
+                            {{ with $role }}<p class="person_role">{{ . }}</p>{{ end }}
+                            {{/* The label tells the short bio from the description
+                                 below: both are free text about the person, and
+                                 without it a reader could not say what either was. */}}
+                            {{ with $.person.Params.short_bio }}<p class="person_bio"><strong>Bio:</strong> {{ . | markdownify }}</p>{{ end }}
+                        </div>
+                    </div>
+                    {{ with $.person.Content }}
+                    <section class="modal_section">
+                        <h4>Description</h4>
+                        {{ . }}
+                    </section>
+                    {{ end }}
                     {{ partial "person_appearances.html" $.person }}
                     {{ partial "person_links.html" $.person }}
                 </div>
