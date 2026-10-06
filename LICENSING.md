@@ -42,6 +42,8 @@ Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0):
 - `content/`, except `content/people/`, see [Person pages](#person-pages).
 - `README.md` and `CONTRIBUTING.md`.
 - `static/humans.txt`.
+- `CODE_OF_CONDUCT.md`, an adaptation of the PyLadies code of conduct, see
+  [Code of conduct](#code-of-conduct) below.
 
 Deed: <https://creativecommons.org/licenses/by-sa/4.0/>
 
@@ -55,6 +57,29 @@ The full legal code is not copied here. Creative Commons keeps the canonical
 text at the URL above and says a link to it is enough, and a copy in this
 repository would be a second licence text at the root, which is what confuses
 the detection described above.
+
+### Code of conduct
+
+`CODE_OF_CONDUCT.md` was adapted from the
+[PyLadies code of conduct](https://www.pyladies.com/CodeOfConduct/), which is
+licensed under
+[CC BY-SA 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/). The
+adaptation is licensed under CC BY-SA 4.0, like the rest of the content, so
+the whole repository is on one version of the licence family.
+
+The licence of the original permits that. Section 4(b) of the
+[CC BY-SA 3.0 legal code](https://creativecommons.org/licenses/by-sa/3.0/legalcode)
+says that an Adaptation may be distributed under "(ii) a later version of
+this License with the same License Elements as this License", and section 1
+names those elements: "Attribution, ShareAlike". CC BY-SA 4.0 is a later
+version of that licence, and its License Elements are Attribution and
+ShareAlike. The same section 4(b) requires the notices that refer to the
+licence of the original to stay intact, so the file keeps its attribution to
+PyLadies and the mention of CC BY-SA 3.0, and adds the link to CC BY-SA 4.0.
+
+ShareAlike is also why the file cannot go under the MIT License: an
+adaptation has to stay in the CC BY-SA family, at the same version or a later
+one.
 
 ## Not licensed
 
@@ -145,14 +170,3 @@ with `bin/archive`: `pybcn.org/`, the previous site of the association, and
 kept as a record and are not maintained. Each carries its own photographs,
 logos, fonts, and libraries, so nothing under `static/archives/` is licensed by
 this repository.
-
-### Code of conduct
-
-`CODE_OF_CONDUCT.md` was adapted from the
-[PyLadies code of conduct](https://www.pyladies.com/CodeOfConduct/) and is
-licensed under
-[CC BY-SA 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/), as
-the file itself says. The ShareAlike clause of that licence requires an
-adaptation to stay under CC BY-SA 3.0 or a later version of it, so that file
-cannot go under the MIT License, and it is not relicensed with the rest of
-the content. It keeps the notice it carries.
