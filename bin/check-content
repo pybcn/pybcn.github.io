@@ -303,6 +303,15 @@ def check_social(people, sponsors):
     """
     for page_id, path in sorted({**people, **sponsors}.items()):
         data = front_matter(path) or {}
+        # An empty value is the same as no field to Hugo, so it shows a
+        # reader nothing. What it does is look like a checked fact: seven
+        # files carried github: "" and nobody had looked for a GitHub
+        # account for any of them. Fill it or take it out.
+        for field, value in sorted(data.items()):
+            if value is None or (isinstance(value, str) and not value.strip()):
+                error(path, f"'{field}' is empty. Fill it in, or remove the "
+                            f"line: an empty field is the same as no field "
+                            f"to Hugo, and it reads as a fact nobody checked.")
         for field, prefix in SOCIAL_PREFIX.items():
             value = data.get(field)
             if not value:
