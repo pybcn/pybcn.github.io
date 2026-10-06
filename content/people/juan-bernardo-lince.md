@@ -4,7 +4,7 @@ name: Juan Bernardo Lince
 short_bio: City Manager
 photo: juan-bernardo-lince.jpg
 twitter: https://x.com/LinceCabal
-linkedin: https://www.linkedin.com/in/juanblince/
+linkedin: https://www.linkedin.com/in/juanblince
 github: https://github.com/jblince
 ---
 

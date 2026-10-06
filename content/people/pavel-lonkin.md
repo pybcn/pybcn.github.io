@@ -2,7 +2,7 @@
 id: pavel-lonkin
 name: "Pavel Lonkin"
 photo: "pavel-lonkin.jpg"
-linkedin: "https://www.linkedin.com/in/plonkin/"
+linkedin: "https://www.linkedin.com/in/plonkin"
 github: "https://github.com/d3rky"
 twitter: "https://x.com/pavel_lonkin"
 ---

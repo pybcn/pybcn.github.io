@@ -5,7 +5,7 @@ short_bio: "Python dev and Pyladies Munich organizer. I believe that technology 
 photo: laysa-uchoa.jpg
 
 twitter: https://x.com/laysauchoa
-linkedin: https://www.linkedin.com/in/laysauchoa/
+linkedin: https://www.linkedin.com/in/laysauchoa
 github: https://github.com/laysauchoa
 
 ---

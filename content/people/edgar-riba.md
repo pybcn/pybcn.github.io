@@ -5,7 +5,7 @@ short_bio: Edgar Riba is a research scientist at Institut de Rob√≤tica i Inform√
 photo: edgar-riba.jpg
 
 twitter: https://x.com/edgarriba
-linkedin: https://www.linkedin.com/in/edgarriba/
+linkedin: https://www.linkedin.com/in/edgarriba
 github: https://github.com/edgarriba
-site: https://kornia.github.io/
+site: https://kornia.github.io
 ---

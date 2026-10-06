@@ -6,7 +6,7 @@ photo: francesco-faraone.png
 photo_anchor: Bottom
 
 twitter: https://x.com/cicfaraone
-linkedin: https://www.linkedin.com/in/francesco-faraone-01568a8/
+linkedin: https://www.linkedin.com/in/francesco-faraone-01568a8
 github: https://github.com/ffaraoneim
 site: https://github.com/ffaraone
 ---

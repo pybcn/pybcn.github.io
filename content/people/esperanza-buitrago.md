@@ -6,6 +6,6 @@ photo: esperanza-buitrago.jpg
 photo_anchor: Top
 
 twitter: https://x.com/ebuitragod
-linkedin: https://www.linkedin.com/in/ebuitragod/
+linkedin: https://www.linkedin.com/in/ebuitragod
 github: https://github.com/ebuitragod
 ---

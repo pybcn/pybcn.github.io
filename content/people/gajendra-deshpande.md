@@ -7,5 +7,5 @@ photo: gajendra-deshpande.jpg
 twitter: https://x.com/gcdeshpande
 linkedin: https://www.linkedin.com/in/gajendradeshpande
 github: https://github.com/gcdeshpande
-site: https://gcdeshpande.github.io/
+site: https://gcdeshpande.github.io
 ---

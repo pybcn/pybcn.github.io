@@ -6,7 +6,7 @@ short_bio: "Senior Data Scientist at Hybrid Theory"
 photo: alberto-camara.jpg
 pybcn_position: Organizer
 twitter: "https://x.com/b3r2s"
-linkedin: "https://www.linkedin.com/in/alberto-camara/"
+linkedin: "https://www.linkedin.com/in/alberto-camara"
 site: https://ber2.github.io
 ---
 ​

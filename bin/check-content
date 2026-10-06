@@ -234,6 +234,11 @@ def check_social(people, sponsors):
     person's LinkedIn was `ttps://www.linkedin.com/...`, missing the h, which
     a browser treats as a relative path. It had never worked and nobody had
     noticed.
+
+    A trailing slash is an error, not a warning, because the fix is mechanical
+    and has one right answer. Left to taste, the values split about two to one
+    between the two styles across more than two hundred links. A host has no
+    trailing slash (https://ber2.github.io), so a profile path gets none either.
     """
     for page_id, path in sorted({**people, **sponsors}.items()):
         data = front_matter(path) or {}
@@ -249,6 +254,9 @@ def check_social(people, sponsors):
             elif not value.startswith(prefix):
                 error(path, f"{field} is '{value}', which does not start with "
                             f"{prefix}")
+            elif value.endswith("/"):
+                error(path, f"{field} ends with a slash: '{value}'. "
+                            f"Use '{value.rstrip('/')}'.")
 
         site = data.get("site")
         if site:
@@ -257,8 +265,12 @@ def check_social(people, sponsors):
                 error(path, f"site carries query parameters: '{site}'")
             elif not site.startswith(("https://", "http://")):
                 error(path, f"site is '{site}', which is not an http or https URL")
-            elif site.startswith("http://"):
-                warn(path, f"site is served over http, not https: '{site}'")
+            else:
+                if site.endswith("/"):
+                    error(path, f"site ends with a slash: '{site}'. "
+                                f"Use '{site.rstrip('/')}'.")
+                if site.startswith("http://"):
+                    warn(path, f"site is served over http, not https: '{site}'")
 
 
 def check_logos(sponsors):

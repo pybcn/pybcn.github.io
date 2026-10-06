@@ -6,6 +6,6 @@ pybcn_position: "Organizer"
 photo: eloi-puertas-prats.jpg
 photo_anchor: Bottom
 twitter: "https://x.com/eloipuertas"
-linkedin: "https://www.linkedin.com/in/eloipuertas/"
+linkedin: "https://www.linkedin.com/in/eloipuertas"
 github: "https://github.com/eloipuertas"
 ---

@@ -6,7 +6,7 @@ photo: ignasi-fosch.jpg
 pybcn_position: Organizer
 
 twitter: https://x.com/ifosch
-linkedin: https://www.linkedin.com/in/ifosch/
+linkedin: https://www.linkedin.com/in/ifosch
 github: https://github.com/ifosch
 site: https://natx.cat
 ---

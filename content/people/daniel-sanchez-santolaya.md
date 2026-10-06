@@ -4,7 +4,7 @@ name: Daniel Sanchez Santolaya
 short_bio: Data Scientist
 photo: daniel-sanchez-santolaya.jpg
 twitter: https://x.com/danisbd89
-linkedin: https://www.linkedin.com/in/daniel-sanchez-santolaya/
+linkedin: https://www.linkedin.com/in/daniel-sanchez-santolaya
 github: https://github.com/DaniSanchezSantolaya
 ---
 

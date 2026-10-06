@@ -6,8 +6,8 @@ short_bio: Data Engineer - Coding lover - Dressmaker
 photo: patricia-lamadrid-robles.jpg
 pybcn_position: Collaborator
 
-linkedin: https://www.linkedin.com/in/patricia-lamadrid/
-github: https://github.com/plamadridr/
+linkedin: https://www.linkedin.com/in/patricia-lamadrid
+github: https://github.com/plamadridr
 ---
 
 I'm a data enthusiast who spends my days building and maintaining projects that process large volumes of data using mainly Python and Scala.

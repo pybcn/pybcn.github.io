@@ -5,7 +5,7 @@ short_bio: Ankit is a die hard Pythonista & an open source contributor (titus2, 
 photo: ankit-mahato.png
 
 twitter: https://x.com/ankitmahato
-linkedin: https://www.linkedin.com/in/ankitmahato/
+linkedin: https://www.linkedin.com/in/ankitmahato
 github: https://github.com/animator
 site: https://realworldpython.guide
 ---

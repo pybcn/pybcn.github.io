@@ -2,7 +2,7 @@
 id: noe-casas
 name: " Noé Casas"
 photo: noe-casas.png
-linkedin: "https://www.linkedin.com/in/noecasas/"
+linkedin: "https://www.linkedin.com/in/noecasas"
 twitter: "https://x.com/noecasas"
 
 ---

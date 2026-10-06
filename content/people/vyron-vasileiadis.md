@@ -3,7 +3,7 @@ id: vyron-vasileiadis
 name: Vyron Vasileiadis
 short_bio: "Quantum Engineer"
 photo: vyron-vasileiadis.jpg
-linkedin: https://www.linkedin.com/in/fedonman/
+linkedin: https://www.linkedin.com/in/fedonman
 
 ---
 

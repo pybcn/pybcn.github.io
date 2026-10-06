@@ -7,6 +7,6 @@ For the last years, he has been focused on developing Search Systems and since J
 photo: joan-fontanals-martinez.jpg
 photo_anchor: Bottom
 
-linkedin: https://www.linkedin.com/in/joanfontanalsmartinez/
+linkedin: https://www.linkedin.com/in/joanfontanalsmartinez
 github: https://github.com/JoanFM
 ---

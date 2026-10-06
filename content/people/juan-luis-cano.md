@@ -3,8 +3,8 @@ id: juan-luis-cano
 name: Juan Luis Cano Rodríguez
 short_bio: Aerospace Engineer with a passion for STEM, programming, outreach, and sustainability
 photo: juan-luis-cano-rodriguez.jpg
-linkedin: https://www.linkedin.com/in/juanluiscanor/
-github: https://github.com/astrojuanlu/
+linkedin: https://www.linkedin.com/in/juanluiscanor
+github: https://github.com/astrojuanlu
 site: https://social.juanlu.space/@astrojuanlu
 ---
 

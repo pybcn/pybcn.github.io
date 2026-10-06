@@ -6,5 +6,5 @@ photo: david-de-la-iglesia-castro.jpg
 
 twitter: https://x.com/daviddelachurch
 github: https://github.com/daavoo
-linkedin: https://www.linkedin.com/in/david-de-la-iglesia-castro-b4b67b20a/
+linkedin: https://www.linkedin.com/in/david-de-la-iglesia-castro-b4b67b20a
 ---

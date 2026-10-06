@@ -5,7 +5,7 @@ short_bio: Julio is a senior developer, who has been working in the retail and a
 photo: julio-martinez.jpg
 
 twitter: https://x.com/liopic
-linkedin: https://www.linkedin.com/in/liopic/
+linkedin: https://www.linkedin.com/in/liopic
 github: https://github.com/liopic
-site: https://liopic.me/
+site: https://liopic.me
 ---

@@ -2,7 +2,7 @@
 id: kemalcan-bora
 name: "Kemalcan Bora"
 photo: "kemalcan-bora.jpg"
-linkedin: "https://www.linkedin.com/in/kemalcanbora/"
+linkedin: "https://www.linkedin.com/in/kemalcanbora"
 github: "https://github.com/kemalcanbora"
 twitter: "https://x.com/KemalcanBora"
 ---

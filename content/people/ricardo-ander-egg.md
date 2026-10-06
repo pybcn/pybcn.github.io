@@ -5,7 +5,7 @@ photo: ricardo-ander-egg-aguilar.jpg
 photo_anchor: Top
 
 twitter: https://x.com/ricardoanderegg
-linkedin: https://www.linkedin.com/in/ricardoanderegg/
+linkedin: https://www.linkedin.com/in/ricardoanderegg
 github: https://github.com/polyrand
 ---
 

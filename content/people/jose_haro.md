@@ -6,6 +6,6 @@ photo: jose-haro-peralta.png
 photo_anchor: Top
 
 twitter: https://x.com/JoseHaroPeralta
-linkedin: https://www.linkedin.com/in/jose-haro-peralta/
+linkedin: https://www.linkedin.com/in/jose-haro-peralta
 github: https://github.com/abunuwas
 ---

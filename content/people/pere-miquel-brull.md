@@ -2,7 +2,7 @@
 id: pere-miquel-brull
 name: "Pere Miquel Brull"
 photo: pere-miquel-brull.jpg
-linkedin: "https://www.linkedin.com/in/pmbrull/"
+linkedin: "https://www.linkedin.com/in/pmbrull"
 github: "https://github.com/pmbrull"
 twitter: "https://x.com/perembrull"
 ---

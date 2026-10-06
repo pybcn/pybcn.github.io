@@ -6,5 +6,5 @@ photo: albert-franzi-cros.jpg
 photo_anchor: Left
 
 twitter: https://x.com/franzicros 
-linkedin: https://www.linkedin.com/in/albertfranzi/
+linkedin: https://www.linkedin.com/in/albertfranzi
 ---

@@ -5,7 +5,7 @@ short_bio: "Marc is currently the balena.io Developer Advocate. Former co-founde
 photo: marc-pous.jpg
 
 twitter: https://x.com/gy4nt
-linkedin: https://www.linkedin.com/in/marcpous/
+linkedin: https://www.linkedin.com/in/marcpous
 github: https://github.com/mpous
-site: https://marcpous.com/
+site: https://marcpous.com
 ---

@@ -8,6 +8,6 @@ I am an avid reader, techy a.e., and I am always hungry."
 photo: maria-teresa-grifa.jpg
 photo_anchor: Bottom
 
-linkedin: https://www.linkedin.com/in/maria-teresa-g-624967165/
-github: https://github.com/MT-G/
+linkedin: https://www.linkedin.com/in/maria-teresa-g-624967165
+github: https://github.com/MT-G
 ---

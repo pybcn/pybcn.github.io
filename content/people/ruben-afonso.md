@@ -6,7 +6,7 @@ photo: ruben-afonso.png
 photo_anchor: Bottom
 
 twitter: https://x.com/rubenafo
-linkedin: https://www.linkedin.com/in/rubenafonso/
+linkedin: https://www.linkedin.com/in/rubenafonso
 github: https://github.com/rubenafo
 ---
 

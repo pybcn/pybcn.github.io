@@ -6,7 +6,7 @@ photo: ruben-berenguel.png
 pybcn_position: Organizer
 
 twitter: "https://x.com/berenguel"
-linkedin: "https://www.linkedin.com/in/rberenguel/"
+linkedin: "https://www.linkedin.com/in/rberenguel"
 github: https://github.com/rberenguel
 site: https://mostlymaths.net
 ---
