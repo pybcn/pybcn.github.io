@@ -17,11 +17,15 @@
     https://x.com/<user>. Cutting the known prefix is therefore safe, and
     it keeps a second copy of the handle out of the front matter, where
     it would drift from the URL. A site is a free URL and is shown whole.
+
+    The heading says "Social Links", not "Links": the modal links to event
+    pages and to the organizers pages as well, and "Links" alone did not say
+    which of them this list held.
 */ -}}
 {{- $p := .Params -}}
 {{- if or $p.linkedin $p.github $p.twitter $p.site -}}
 <section class="modal_section">
-    <h4>Links</h4>
+    <h4>Social Links</h4>
     <ul class="modal_links">
     {{- with $p.linkedin }}
         <li><a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i>{{ strings.TrimPrefix "https://www.linkedin.com" . }}</a></li>

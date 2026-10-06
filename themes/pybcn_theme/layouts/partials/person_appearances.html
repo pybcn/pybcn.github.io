@@ -11,6 +11,8 @@
         Mentor and Speaker at Hands-on Django with PyLadiesBCN (2022)
         Organizer at PyDay BCN (2021)
 
+    In the events the roles are bold and "at" and "and" italic.
+
     Argument: the person page.
 
     The index comes from appearances_index.html, built once per build.
@@ -102,7 +104,14 @@
     <h4>Events</h4>
     <ul class="events">
     {{- range sort . "key" }}
-        <li><em>{{ delimit .labels ", " " and " }}</em> at <a href="{{ .url }}">{{ .title }}</a></li>
+        {{- /* Bold carries the roles and italic the words that join them,
+               "and" and "at", so a reader can pick the role out of the line
+               and the joining words stay in the background. The role used to
+               be italic and "at" plain, which read as emphasis on the role
+               and left "Mentor and Speaker" as one italic run where the
+               "and" looked like part of a role name. */ -}}
+        {{- $labels := .labels }}
+        <li>{{ range $i, $label := $labels }}{{ if $i }}{{ if eq $i (sub (len $labels) 1) }} <em>and</em> {{ else }}, {{ end }}{{ end }}<strong>{{ $label }}</strong>{{ end }} <em>at</em> <a href="{{ .url }}">{{ .title }}</a></li>
     {{- end }}
     </ul>
 </section>
