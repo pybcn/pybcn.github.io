@@ -114,26 +114,22 @@
                              reads the same in both places. Most speakers have
                              no position, and the line used to print empty. */}}
                         {{ with $role }}<p class="person_role">{{ . }}</p>{{ end }}
-                        {{/* The bio and the description are two sections, one
-                             heading each, like the sections under them. The bio
-                             used to be a line of the header with a bold "Bio:"
-                             label, the one block of the modal with a label of
-                             its own kind. Both are free text about the person,
-                             and a heading tells them apart as the label did. One
-                             "About" section for both, with the links, was the
-                             other option: it would mix prose and a list under
-                             one heading, and 14 people have neither text, so it
-                             would have to decide what to show over the links
-                             alone. Each section is left out when it is empty. */}}
-                        {{ with $.person.Params.short_bio }}
-                        <section class="modal_section">
-                            <h4>Bio</h4>
-                            <p>{{ . | markdownify }}</p>
-                        </section>
-                        {{ end }}
+                        {{/* One section of free text about the person, with a
+                             heading like the sections under it. The text is the
+                             body of the person file. It used to come from two
+                             places, a short_bio field and the body, shown here
+                             as a "Bio" and a "Description" section. For 98 of
+                             136 people only one of the two was filled, and
+                             which one was down to whoever filled the card in,
+                             so the heading changed from person to person over
+                             the same kind of text. The field is gone, the body
+                             holds it all, and bin/check-content rejects the
+                             field. The heading is "Bio", because this is a
+                             person, and the section is left out when the body
+                             is empty, which is 14 people. */}}
                         {{ with $.person.Content }}
                         <section class="modal_section">
-                            <h4>Description</h4>
+                            <h4>Bio</h4>
                             {{ . }}
                         </section>
                         {{ end }}

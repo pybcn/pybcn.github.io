@@ -322,6 +322,18 @@ def check_social(people, sponsors):
         if "web" in data:
             error(path, "'web' is not a field: put the home page in 'site'")
 
+        if "short_bio" in data:
+            # The field held free text about a person, next to the body that
+            # held the same kind of text. For 98 of 136 people only one of
+            # the two was filled, so the modal showed a "Bio" heading for
+            # some people and a "Description" heading for others. In October
+            # 2026 every value moved into the body and the template reads
+            # only the body now, so a value here is never shown. An error,
+            # because the one way the field comes back is a file copied from
+            # an old commit, and then the text is lost in silence.
+            error(path, "'short_bio' is not a field: put the text in the body "
+                        "of the file, under the front matter")
+
         site = data.get("site")
         if site:
             site = str(site).strip()

@@ -67,8 +67,9 @@ page served over https is mixed content: the browser blocks a script, a
 stylesheet or a frame outright, and upgrades or blocks an image.
 bin/check-content refuses an http value in a site field, but a URL written
 inside a bio or inside raw HTML in a content file is not a field. One
-person's short_bio ended with a bare http URL, Hugo turned it into a live
-anchor, and the page shipped an insecure link that no field rule could see.
+person's short_bio, a front matter field whose text has since moved into
+the body, ended with a bare http URL, Hugo turned it into a live anchor,
+and the page shipped an insecure link that no field rule could see.
 The rule here reads the built page, so it sees that anchor wherever it came
 from. Every attribute in URL_ATTRIBUTES counts the same, href and src alike,
 and so do a meta refresh and a url() in an inline style: what the browser

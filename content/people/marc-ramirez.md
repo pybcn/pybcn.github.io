@@ -1,7 +1,6 @@
 ---
 id: marc-ramirez
 name: Marc Ramirez
-short_bio: ""
 photo: marc-ramirez.jpg
 photo_anchor: Top
 

@@ -1,7 +1,6 @@
 ---
 id: alex-molas
 name: Alex Molas
-short_bio: ""
 photo: alex-molas.png
 
 github: https://github.com/alexmolas

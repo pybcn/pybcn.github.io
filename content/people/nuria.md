@@ -2,7 +2,6 @@
 id: nuria
 name: "Núria Pujol Vilanova"
 github: https://github.com/llevaNEUS
-short_bio: ""
 photo: nuria-pujol-vilanova.jpg
 pybcn_position: "PyLadiesBCN Organizer"
 
