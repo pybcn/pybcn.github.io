@@ -313,10 +313,12 @@
                         }
                     }
 
-                    // The same links as the icon row by the name, listed
-                    // with their text at the foot of the modal, so a
-                    // reader can see the handle or the host without
-                    // leaving the page. See person_links.html.
+                    // The links of the card, listed with their text at the
+                    // foot of the modal, so a reader can see the handle or
+                    // the host without leaving the page. This is the only
+                    // place the modal shows them: a bare icon row next to
+                    // the name said the same thing with less. See
+                    // person_links.html.
                     .modal_links {
                         list-style: none;
                         padding: 0;
@@ -333,9 +335,13 @@
                         // main.scss) that sets neither width nor gap.
                         i {
                             display: inline-block;
+                            // Larger than the text beside it, because these
+                            // are now the only icons in the modal.
+                            font-size: 1.25em;
                             width: 1.5em;
-                            margin-right: 6px;
+                            margin-right: 8px;
                             text-align: center;
+                            vertical-align: -2px;
                         }
                     }
                 }
