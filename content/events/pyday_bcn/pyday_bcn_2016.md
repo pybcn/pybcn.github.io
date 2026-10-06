@@ -1,5 +1,5 @@
 ---
-title: "PyDay BCN 2016"
+title: "PyDay BCN (2016)"
 year: 2016
 description: ""
 menu:

@@ -1,5 +1,5 @@
 ---
-title: "PyDataBCN 2023"
+title: "PyDataBCN (2023)"
 year: 2023
 description: "The annual gathering for Pythonists in love with data!"
 menu:

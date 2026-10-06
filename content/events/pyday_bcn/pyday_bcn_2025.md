@@ -1,5 +1,5 @@
 ---
-title: "PyDay BCN 2025"
+title: "PyDay BCN (2025)"
 year: 2025
 description: "For the community, by the community!"
 menu:

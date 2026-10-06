@@ -1,5 +1,5 @@
 ---
-title: "PyData 2017 - Barcelona edition"
+title: "PyData Barcelona (2017)"
 year: 2017
 description: "The Data Science conference from NumFOCUS"
 menu:
