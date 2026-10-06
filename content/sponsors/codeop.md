@@ -2,6 +2,6 @@
 id: codeop
 name: CodeOp
 logo_image: codeop.png
-web: https://codeop.tech/
+site: https://codeop.tech
 ---
 

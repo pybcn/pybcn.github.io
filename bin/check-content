@@ -239,6 +239,12 @@ def check_social(people, sponsors):
     and has one right answer. Left to taste, the values split about two to one
     between the two styles across more than two hundred links. A host has no
     trailing slash (https://ber2.github.io), so a profile path gets none either.
+
+    A sponsor home page is in `site`, the same field as a person's. It was
+    `web` until October 2026, and this loop read `site` for both kinds of page,
+    so the 66 sponsor URLs were never checked: 29 ended with a slash, one was
+    http and one carried a query string. The old name is an error now, so a
+    sponsor file copied from an old commit cannot escape the check again.
     """
     for page_id, path in sorted({**people, **sponsors}.items()):
         data = front_matter(path) or {}
@@ -257,6 +263,9 @@ def check_social(people, sponsors):
             elif value.endswith("/"):
                 error(path, f"{field} ends with a slash: '{value}'. "
                             f"Use '{value.rstrip('/')}'.")
+
+        if "web" in data:
+            error(path, "'web' is not a field: put the home page in 'site'")
 
         site = data.get("site")
         if site:

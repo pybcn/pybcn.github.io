@@ -2,6 +2,6 @@
 id: satellogic
 name: Satellogic
 logo_image: satellogic.png
-web: https://satellogic.com/
+site: https://satellogic.com
 twitter: https://x.com/satellogic
 ---

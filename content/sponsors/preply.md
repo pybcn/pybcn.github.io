@@ -2,6 +2,6 @@
 id: preply
 name: Preply
 logo_image: preply.png
-web: https://preply.com/
+site: https://preply.com
 twitter: https://x.com/PreplyCom
 ---

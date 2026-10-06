@@ -2,6 +2,6 @@
 id: ub
 name: Universitat de Barcelona
 logo_image: ub.jpg
-web: https://www.ub.edu
+site: https://www.ub.edu
 twitter: https://x.com/UniBarcelona
 ---

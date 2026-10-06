@@ -40,7 +40,7 @@ The MarkDown file for the sponsor will have a FrontMatter section with the follo
 - `id`: Unique identifier of this sponsor. Should be a string without spaces, preferrably kebab-case.
 - `name`: Sponsor's name to be shown in all renderings.
 - `logo_image`: File name for the sponsor logo, which must be under `themes/pybcn_theme/assets/images/sponsors/`. An external URL is not accepted: copy the file into the repository. The template loads it with `resources.Get`, so a file under `static/` is not found, and `bin/check-content` reports it as an error.
-- `url`: URL for the sponsor web page.
+- `site`: URL of the sponsor home page, https and with no trailing slash. `bin/check-content` checks it, like the `site` of a person.
 - `twitter`: URL for the sponsor's twitter account.
 
 After this FrontMatter section, any valid MarkDown will be considered generic content to be shown in detail view.

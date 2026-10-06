@@ -2,6 +2,6 @@
 id: kiwi
 name: Kiwi.com
 logo_image: kiwi.png
-web: https://www.kiwi.com/en/
+site: https://www.kiwi.com/en
 twitter: https://x.com/kiwi
 ---
