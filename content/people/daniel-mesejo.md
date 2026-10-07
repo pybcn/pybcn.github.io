@@ -3,6 +3,7 @@ id: daniel-mesejo
 name: "Daniel Mesejo Leon"
 
 photo: dani-mesejo.jpeg
+photo_anchor: Top
 
 pybcn_position: "PyBCN Secretary"
 

@@ -7,7 +7,7 @@ menu:
 weight: 3
 
 layout: options
-heroBackground: https://source.unsplash.com/Zyx1bK9mqmA/1600x400
+heroBackground: /images/photos/sponsors-area-pyday-2019.jpg
 
 options:
 - name: Regular monthly events

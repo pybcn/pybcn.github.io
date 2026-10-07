@@ -7,7 +7,7 @@ menu:
 weight: 2
 
 layout: single
-heroBackground: https://source.unsplash.com/eluzJSfkNCk/1600x400
+heroBackground: /images/photos/people-pyday-2019.jpg
 
 ---
 

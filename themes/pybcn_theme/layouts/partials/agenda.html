@@ -29,24 +29,31 @@
 	{{ end }}
 
 	{{ range $index, $event := .events }}
+		{{/* A title that is not in English gets a lang attribute, so a screen
+		     reader reads it with the right voice. The language field is the
+		     language of the talk, not of the title, so the attribute comes
+		     only from title_lang. See partials/title_lang.html. */}}
+		{{ $title_lang := partial "title_lang.html" $event }}
 		<div class="event {{ $event.class }} {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
 
 			{{ if $event.description }}
-				<a href="" class="detail_link" data-toggle="modal" data-target="#modal_{{ $index }}">
-					<i class="fas fa-plus-square"></i>
-				</a>
+				<button type="button" class="detail_link modal_trigger" tabindex="-1" data-toggle="modal" data-target="#modal_{{ $index }}" aria-label="Details of {{ $event.title }}">
+					<i class="fas fa-plus-square" aria-hidden="true"></i>
+				</button>
 			{{ end }}
 
 
 			<h3>
+				{{/* The button opens before the icon, so the button box holds the
+				     whole line and the title wraps as it did before. */}}
+				{{ if $event.description }}
+					<button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}">
+				{{ end }}
 				{{ partial "event_type_icon.html" $event.type }}
 
+				{{ with $title_lang }}<span lang="{{ . }}">{{ $event.title }}</span>{{ else }}{{ $event.title }}{{ end }}
 				{{ if $event.description }}
-					<a href="" data-toggle="modal" data-target="#modal_{{ $index }}">
-				{{ end }}
-				{{ $event.title }}
-				{{ if $event.description }}
-					</a>
+					</button>
 				{{ end }}
 			</h3>
 

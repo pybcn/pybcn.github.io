@@ -6,7 +6,7 @@ menu:
     parent: 'PyLadies BCN'
 weight: 7
 layout: "contact"
-heroBackground: https://images.unsplash.com/photo-1512626120412-faf41adb4874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80
+heroBackground: /images/photos/pyladies/header/header2.jpeg
 config: "pyladies_first"
 ---
 

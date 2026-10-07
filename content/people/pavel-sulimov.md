@@ -2,6 +2,7 @@
 id: pavel-sulimov
 name: Pavel Sulimov
 photo: pavel-sulimov.png
+photo_anchor: Right
 
 ---
 

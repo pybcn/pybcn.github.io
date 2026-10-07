@@ -3,6 +3,7 @@ id: peter-krupa
 name: "Peter Krupa"
 
 photo: peter_krupa.jpeg
+photo_anchor: Bottom
 
 pybcn_position: "Board member of Communications"
 

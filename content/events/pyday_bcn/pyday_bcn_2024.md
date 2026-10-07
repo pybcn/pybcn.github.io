@@ -264,6 +264,7 @@ During the talk, my idea is to present the tool and the technological solutions 
     color: green
     type: workshop
     language: "Català"
+    title_lang: Catalan
     python_level: beginner
     topic_level: beginner
     requirements: "https://github.com/OriolAbril/pyday2024-xarray/blob/main/requirements.txt"
@@ -456,6 +457,7 @@ During the talk, my idea is to present the tool and the technological solutions 
     color: yellow
     type: workshop
     language: "Spanish"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: beginner
     topic: "Web development, Videogames"

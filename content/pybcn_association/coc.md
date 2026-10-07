@@ -9,7 +9,7 @@ aliases:
 - /coc
 
 layout: single
-heroBackground: https://source.unsplash.com/LjqARJaJotc/1600x400
+heroBackground: /images/photos/people-pyday-2016.jpg
 
 ---
 PyBCN is dedicated to providing a respectful, harassment-free community for

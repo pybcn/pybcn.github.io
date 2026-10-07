@@ -1,8 +1,25 @@
+{{- /*
+    Page header: either the carousel or the hero banner.
+
+    A local heroBackground goes through the Hugo image pipeline, which crops
+    it to the banner shape and converts it to WebP. A remote heroBackground
+    is used as it is, because Hugo cannot process a remote file.
+*/ -}}
 {{ if .Params.carousel_header }}
+    {{/* The carousel takes the place of the hero, so the page heading is
+         only for assistive technology. */}}
+    <h1 class="sr-only">{{ or .Params.name .Title }}</h1>
     {{ partial "carousel.html" . }}
 {{ else }}
     {{ if .Params.heroBackground }}
-<div id="hero" class="hero-image hero-image-setheight" style="background-image: url('{{ .Params.heroBackground | relURL }}')">
+{{- $background := .Params.heroBackground -}}
+{{- $url := $background | relURL -}}
+{{- if hasPrefix $background "/" -}}
+    {{- with resources.Get (strings.TrimPrefix "/" $background) -}}
+        {{- $url = (partial "image_hero.html" (dict "img" .)).RelPermalink -}}
+    {{- end -}}
+{{- end -}}
+<div id="hero" class="hero-image hero-image-setheight" style="background-image: url('{{ $url }}')">
   <div class="container ">
     <div class="hero-text">
       <h1>{{ .Params.title }}</h1>
@@ -11,6 +28,6 @@
   </div>
 </div>
     {{ else }}
-<h1>{{ .Title }}</h1>
+<h1>{{ or .Params.name .Title }}</h1>
     {{ end }}
 {{ end }}

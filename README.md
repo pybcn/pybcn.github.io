@@ -39,8 +39,7 @@ To create a new sponsor data file, run `hugo new sponsors/my-new-sponsor.md`. Th
 The MarkDown file for the sponsor will have a FrontMatter section with the following fields:
 - `id`: Unique identifier of this sponsor. Should be a string without spaces, preferrably kebab-case.
 - `name`: Sponsor's name to be shown in all renderings.
-- `logo`: URL for the sponsor logo. If present, this logo will be used.
-- `logo_image`: File name for the sponsor logo if it's to be found under `/static/images/sponsors/`.
+- `logo_image`: File name for the sponsor logo, which must be under `themes/pybcn_theme/assets/images/sponsors/`. An external URL is not accepted: copy the file into the repository. The template loads it with `resources.Get`, so a file under `static/` is not found, and `bin/check-content` reports it as an error.
 - `url`: URL for the sponsor web page.
 - `twitter`: URL for the sponsor's twitter account.
 
@@ -206,6 +205,12 @@ Each event in the list can indicate:
 - the location where the event will take place (a room, or a url)
 - the topic of the event (e.g. Data Science, Security...)
 - the type of the event: talk, workshop, coffee, lunch, photo, group, qa, lightning
+- `language`: the language the talk is given in, shown as text (e.g. `Spanish`)
+- `title_lang`: set it only when the title itself is not in English, with
+  `Spanish`, `Castellano`, `Catalan`, `Català` or a BCP 47 code such as `es`.
+  It puts a `lang` attribute on the title, so a screen reader reads it with
+  the right voice. `language` never sets it: many talks given in Spanish have
+  an English title
 - `python_level` and `topic_level`: the experience the attendee needs. Use one
   of `beginner`, `intermediate` or `advanced`
 

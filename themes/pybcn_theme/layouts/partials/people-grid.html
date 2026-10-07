@@ -1,17 +1,31 @@
-<div class="container objects_grid" id="people_grid">
+{{- /*
+    A grid of person cards, one row per level.
+
+    Arguments:
+        levels  the list of levels, each with a name, people and people_per_line
+        Site    the site, to look the people pages up
+        key     a name unique to this grid on the page, "people" by default
+
+    An event page renders this partial once per people section, and the same
+    person can sit in more than one of them. The key goes into every id the
+    grid emits, so the row ids and the modal ids stay unique on the page.
+    Styles hook on the people_grid class, not on an id.
+*/ -}}
+{{- $key := default "people" .key -}}
+<div class="container objects_grid people_grid" id="{{ $key }}_grid">
 
     {{ $pages := where .Site.Pages "Section" "people" }}
     {{ range $idx, $level := .levels }}
-        <div class="row justify-content-md-center level" id="level_{{$idx}}">
+        <div class="row justify-content-md-center level" id="{{ $key }}_level_{{ $idx }}">
             {{ if $level.name }}
                 <div class="col-md-12 level_name">
                     <h2>{{ $level.name }}</h2>
                 </div>
             {{ end }}
-            {{ range $person := $level.people }}
+            {{ range $pidx, $person := $level.people }}
                 {{ range $page := where $pages ".Params.id" "eq" $person }}
                 <div class="col-md-{{ div 12 (int $level.people_per_line) }} person_wrapper">
-                    {{ partial "people_summary.html" (dict "person" $page) }}
+                    {{ partial "people_summary.html" (dict "person" $page "key" (printf "%s_%d_%d" $key $idx $pidx)) }}
                 </div>
                 {{ end }}
             {{ end }}

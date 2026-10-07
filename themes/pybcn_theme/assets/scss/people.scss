@@ -1,6 +1,7 @@
-// Sponsors CSS
+// People grid. Hooked on a class: an event page holds one grid per
+// people section, so there is no single id to target.
 
-#people_grid {
+.people_grid {
     .person_wrapper {
 
         margin-bottom: 20px;
@@ -9,24 +10,52 @@
 
             border: 1px solid black;
             padding: 10px;
-            min-height: 100%;
+
+            // A column, so every card in a row is as tall as the tallest and
+            // the social links sit on the bottom edge whatever the length of
+            // the role above them. They used to be positioned absolutely,
+            // which needed a reserved gap under the text and, because this
+            // box was not positioned, resolved against an ancestor far up the
+            // page: the icons ended up the full width of the viewport.
+            display: flex;
+            flex-direction: column;
+            height: 100%;
 
             .img-wrap {
                 margin-bottom: 25px;
-                position:relative;
-                overflow:hidden;
-                padding-bottom:100%;
+                position: relative;
+                // Keeps the zoom on hover inside the frame.
+                overflow: hidden;
+
+                // The photo is cropped to a square by the image pipeline, so
+                // the frame is square because its content is. This used to be
+                // padding-bottom: 100% with the photo positioned absolutely,
+                // which made the box square whatever the photo was and hid
+                // the overflow. That worked until an element was added between
+                // the box and the photo: the new element became the containing
+                // block and the crop stopped applying.
+                //
+                // display: block on the photo matters. An inline image sits on
+                // the text baseline, which leaves a few pixels of space under
+                // it inside the frame.
+                .modal_trigger {
+                    display: block;
+                }
 
                 img {
-                    position:absolute;
+                    display: block;
                     width: 100%;
-                    filter: grayscale(100%);
+
+                    // Grey only where the pointer can hover. A touch screen
+                    // has no hover, so the photos stayed grey for good.
+                    @media (hover: hover) {
+                        filter: grayscale(100%);
+                    }
                 }
             }
 
             .person_data {
                 line-height: 1rem;
-                margin-bottom: 35px;
 
                 h3 {
                     color: black;
@@ -36,20 +65,26 @@
             }
 
             .social_links {
+                // margin-top: auto puts this on the bottom edge of the card,
+                // which is what the absolute positioning was for, without the
+                // positioning. The old rule resolved against an ancestor far
+                // up the page, because this box has no positioned ancestor of
+                // its own, so the icons were only in the right place by luck.
+                margin-top: auto;
+                padding-top: 10px;
+
                 i {
                     color: black;
                     &:hover {
                         color: $blue-pybcn;
                     }
                 }
-
-                position: absolute;
-                bottom: 5px;
-                left: 25px;
-                padding-top: 10px;
             }
 
-            &:hover {
+            // Keyboard focus shows the colour photo too, because the card holds
+            // two focusable triggers.
+            &:hover,
+            &:focus-within {
                 .img-wrap {
                     img {
                         transform: scale(1.2);
@@ -88,7 +123,7 @@
 }
 
 @media (max-width: 575.98px) {
-    #people_grid {
+    .people_grid {
         .person_wrapper {
             .person_item {
                 .modal {

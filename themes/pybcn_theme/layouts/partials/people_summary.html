@@ -1,60 +1,99 @@
+{{- /*
+    One person card, plus the modal that holds the long bio.
+
+    Photos come from assets/images/people/ and go through the Hugo image
+    pipeline. The grid slot is 350 px wide at most and the modal caps the
+    image at 400 px, so one 400 px WebP serves both, with an 800 px variant
+    for a 2x screen. A person with no photo falls back to anon_member.png. A
+    person with an external photo_url keeps a plain img, because Hugo cannot
+    process a remote file.
+
+    The modal id takes the key the grid passes in (grid, level and position),
+    because an event page can list the same person in two sections. Two
+    dialogs with one id would share it in aria-labelledby, and an id has to
+    be unique on the page.
+*/ -}}
+{{- $modal := printf "modal_%s" $.person.Params.id -}}
+{{- with $.key -}}{{- $modal = printf "modal_%s_%s" . $.person.Params.id -}}{{- end -}}
+{{- $photoURL := $.person.Params.photo_url -}}
+{{- $photo := $.person.Params.photo -}}
+{{- $img := "" -}}
+{{- if and (not $photoURL) $photo -}}
+    {{- $img = resources.Get (printf "images/people/%s" $photo) -}}
+{{- end -}}
+{{- if not (or $photoURL $img) -}}
+    {{- $img = resources.Get "images/anon_member.png" -}}
+{{- end -}}
+{{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
+{{- with $img -}}
+    {{- $anchor := default "Smart" $.person.Params.photo_anchor -}}
+    {{- $small = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
+    {{- $large = partial "image_square.html" (dict "img" . "size" 800 "anchor" $anchor) -}}
+    {{- if gt $large.Width $small.Width -}}
+        {{- $srcset = printf "%s 1x, %s 2x" $small.RelPermalink $large.RelPermalink -}}
+    {{- end -}}
+{{- end -}}
 <div class="person_item">
 
     <div class="img-wrap">
-        <a href="" data-toggle="modal" data-target="#modal_{{ $.person.Params.id }}">
-            {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                <img class="img-fluid img-people" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+        {{/* A button, not a link: it opens a dialog rather than navigating.
+             The alt names the person, because the photo is the only content. */}}
+        {{/* tabindex="-1": the name below opens the same dialog, so a keyboard
+             user would otherwise stop twice on every card for one action. The
+             photo stays clickable with a pointer. */}}
+        <button type="button" class="modal_trigger" tabindex="-1" data-toggle="modal" data-target="#{{ $modal }}" aria-label="More about {{ $.person.Params.name }}">
+            {{ if $photoURL }}
+                <img class="img-fluid img-people" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="{{ $.person.Params.name }}" />
             {{ else }}
-                {{ $anon_member := resources.Get "images/anon_member.png" }}
-                <img class="img-fluid img-people" src="{{ $anon_member.Permalink | absURL }}" />
+                <img class="img-fluid img-people" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="{{ if $photo }}{{ $.person.Params.name }}{{ end }}" />
             {{ end }}
-        </a>
+        </button>
     </div>
     <div class="person_data">
-        <h3>{{ $.person.Params.name }}</h3>
+        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}">{{ $.person.Params.name }}</button></h3>
         <p>{{ $.person.Params.pybcn_position }}</p>
     </div>
     <div class="social_links">
         {{ if $.person.Params.twitter }}
-            <a href="{{ $.person.Params.twitter }}" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a>
+            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on Twitter"><i class="fab fa-twitter-square fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.github }}
-            <a href="{{ $.person.Params.github}}" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.linkedin }}
-            <a href="{{ $.person.Params.linkedin}}" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.site }}
-            <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe fa-2x"></i></a>
+            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site"><i class="fas fa-globe fa-2x" aria-hidden="true"></i></a>
         {{ end }}
     </div>
 
-    <div class="modal fade" id="modal_{{ $.person.Params.id }}" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+    <div class="modal fade" id="{{ $modal }}" role="dialog" aria-labelledby="{{ $modal }}_title" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{ if or ($.person.Params.photo_url) ($.person.Params.photo) }}
-                        <img class="rounded float-left" src="{{ or $.person.Params.photo_url (relURL (printf "/images/people/%s" $.person.Params.photo)) }}" />
+                    {{/* alt is empty here: the name is in the modal heading next to it. */}}
+                    {{ if $photoURL }}
+                        <img class="img-fluid rounded float-left" src="{{ $photoURL }}" loading="lazy" decoding="async" alt="" />
                     {{ else }}
-                        {{ $anon_member := resources.Get "images/anon_member.png" }}
-                        <img class="rounded float-left" src="{{ $anon_member.Permalink | absURL }}" />
+                        <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
                     {{ end }}
-                    <h3 class="modal-title" id="exampleModalLabel">
+                    <h3 class="modal-title" id="{{ $modal }}_title">
                         {{ $.person.Params.name }}
                         {{ if $.person.Params.twitter }}
-                            <a href="{{ $.person.Params.twitter }}" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on Twitter"><i class="fab fa-twitter-square" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.github }}
-                            <a href="{{ $.person.Params.github}}" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.linkedin }}
-                            <a href="{{ $.person.Params.linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
                         {{ end }}
                         {{ if $.person.Params.site }}
-                            <a href="{{ $.person.Params.site}}" target="_blank"><i class="fas fa-globe"></i></a>
+                            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a>
                         {{ end }}
                     </h3>
                     <span>{{ $.person.Params.short_bio | markdownify }}</span>
@@ -66,6 +105,3 @@
     </div>
 
 </div>
-
-
-

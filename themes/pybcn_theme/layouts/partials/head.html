@@ -6,11 +6,19 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
+  {{/* The PNG icon is shown at 32 px and the Apple touch icon at 180 px, so
+       each slot gets a PNG of its own size through the image pipeline. The
+       546x543 source is cropped by one pixel to a square. favicon.ico stays
+       as it is, for the browsers that ask for it by name. */}}
+  {{ $icon := resources.Get "images/favicon.png" }}
+  {{ $icon32 := $icon.Fill "32x32 center png" }}
+  {{ $icon180 := $icon.Fill "180x180 center png" }}
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
-  <link rel="icon" type="image/png" href="{{ "favicon.png" | relURL }}">
-  <link rel="apple-touch-icon" href="{{ "favicon.png" | relURL }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ $icon32.RelPermalink }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ $icon180.RelPermalink }}">
 
-  <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+  {{/* Person and sponsor pages hold their name in the name parameter, not in title. */}}
+  <title>{{ block "title" . }}{{ $page_title := or .Params.name .Title }}{{ if and $page_title (ne $page_title .Site.Title) }}{{ $page_title }} | {{ .Site.Title }}{{ else }}{{ .Site.Title }}{{ end }}{{ end }}</title>
 
   {{ $style := resources.Get "css/bootstrap.min.css" }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">

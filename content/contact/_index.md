@@ -6,7 +6,7 @@ layout: "contact"
 show_pybcn: "true"
 weight: 7
 
-heroBackground: https://images.unsplash.com/photo-1512626120412-faf41adb4874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80
+heroBackground: /images/photos/organize-with-us.jpg
 ---
 
 {{< bordered-col icon="fa-briefcase" title="For companies!" chevrons="true" >}}

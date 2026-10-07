@@ -2,8 +2,8 @@
 """Validate the front matter in content/.
 
 Catches the mistakes that a Hugo build does not: a person id that does not
-match its filename, a duplicate id, an event that points at a person or
-sponsor page which does not exist, and a declared photo with no file behind it.
+match its filename, a duplicate id, a page that lists a person or sponsor id
+with no page behind it, and a declared photo with no file behind it.
 
 Exit code 1 if any error is found. Warnings do not fail the build.
 
@@ -13,13 +13,26 @@ Usage:
 
 import pathlib
 import re
+import struct
 import sys
 
 import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
-PHOTOS = ROOT / "static" / "images" / "people"
+# Person photos moved from static/ to the theme assets so Hugo can process
+# them. Accept either location, so the check works before and after that move.
+LOGO_DIRS = [
+    ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "sponsors",
+    ROOT / "assets" / "images" / "sponsors",
+]
+# Only the asset directories count. The template resolves a photo with
+# resources.Get, which does not look in static/, so a file left there renders the
+# anonymous avatar instead and the check used to pass.
+PHOTO_DIRS = [
+    ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "people",
+    ROOT / "assets" / "images" / "people",
+]
 
 FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
 
@@ -35,9 +48,27 @@ def warn(path, message):
     warnings.append(f"{path.relative_to(ROOT)}: {message}")
 
 
+def note(message):
+    """A warning about the collection rather than about one file."""
+    warnings.append(message)
+
+
+_front_matter = {}
+
+
 def front_matter(path):
-    """Return the parsed front matter, or None if the file has none."""
-    text = path.read_text(encoding="utf-8")
+    """Return the parsed front matter, or None if the file has none.
+
+    The result is kept per path: several checks walk the same files, and a
+    file with a YAML error should be reported once.
+    """
+    if path not in _front_matter:
+        _front_matter[path] = _parse_front_matter(path)
+    return _front_matter[path]
+
+
+def _parse_front_matter(path):
+    text = path.read_text(encoding="utf-8").lstrip("\ufeff")
     match = FRONT_MATTER.match(text)
     if not match:
         if text.lstrip().startswith("+++"):
@@ -72,54 +103,236 @@ def collect_ids(section):
     return found
 
 
+def bare_file_name(path, field, value):
+    """True when the value names a file inside its directory and nothing else.
+
+    The templates build the asset path as images/people/<photo> and
+    images/sponsors/<logo_image>, and resources.Get resolves a '..' segment.
+    So 'logo_image: ../people/x.jpg' showed a person's photo as a sponsor logo,
+    and the existence check passed because pathlib resolves '..' the same way.
+    A content-only pull request could show any image already in the repository
+    on any page. A value with a separator or a '..' segment is an error.
+    """
+    if "/" in value or "\\" in value or ".." in value:
+        error(path, f"{field} '{value}' must be a file name, not a path")
+        return False
+    return True
+
+
+def image_size(path):
+    """Return (width, height) for a PNG, GIF or JPEG, or None.
+
+    Only the header is read, and only the three formats the people and the
+    sponsor directories hold. A format this cannot read returns None and the
+    caller skips the check rather than guessing.
+    """
+    try:
+        with open(path, "rb") as handle:
+            head = handle.read(32)
+            if head[:8] == b"\x89PNG\r\n\x1a\n":
+                return struct.unpack(">II", head[16:24])
+            if head[:6] in (b"GIF87a", b"GIF89a"):
+                return struct.unpack("<HH", head[6:10])
+            if head[:2] == b"\xff\xd8":
+                handle.seek(2)
+                while True:
+                    marker = handle.read(2)
+                    if len(marker) < 2 or marker[0] != 0xFF:
+                        return None
+                    if marker[1] in range(0xC0, 0xD0) and marker[1] not in (0xC4, 0xC8, 0xCC):
+                        handle.read(3)
+                        height, width = struct.unpack(">HH", handle.read(4))
+                        return (width, height)
+                    length = struct.unpack(">H", handle.read(2))[0]
+                    handle.seek(length - 2, 1)
+    except (OSError, struct.error):
+        return None
+    return None
+
+
 def check_photos(people):
+    # A photo that is not square is cropped by the build rather than squashed,
+    # so it is not an error. It is reported once, with a count, because there
+    # are dozens of them and a line each would bury everything else.
+    cropped = []
+    small = []
     for page_id, path in people.items():
         data = front_matter(path) or {}
         photo = data.get("photo")
-        if photo and not (PHOTOS / photo).exists():
-            error(path, f"photo '{photo}' not found in static/images/people/")
+        if photo and not bare_file_name(path, "photo", photo):
+            continue
+        found = next((d / photo for d in PHOTO_DIRS if photo and (d / photo).exists()), None)
+        if photo and not found:
+            where = ", ".join(str(d.relative_to(ROOT)) for d in PHOTO_DIRS)
+            error(path, f"photo '{photo}' not found in any of: {where}")
+        elif found:
+            size = image_size(found)
+            if size and size[0] != size[1]:
+                cropped.append((photo, size))
+            if size and min(size) < PHOTO_SIDE:
+                small.append((photo, size))
+    report_cropped(cropped)
+    report_small(small)
 
 
-def referenced_ids(data, key):
-    """Pull every id out of an event's people_sections or sponsor_levels."""
+PHOTO_SIDE = 400
+
+
+def report_small(small):
+    if not small:
+        return
+    shown = ", ".join(f"{name} ({w}x{h})" for name, (w, h) in sorted(small)[:3])
+    note(f"{len(small)} of the person photos are smaller than {PHOTO_SIDE}px on "
+         f"their short side, so the build enlarges them and they look soft in "
+         f"the grid. Smallest: {shown}.")
+
+
+def report_cropped(cropped):
+    if not cropped:
+        return
+    worst = sorted(cropped, key=lambda item: abs(item[1][0] / item[1][1] - 1), reverse=True)[:3]
+    shown = ", ".join(f"{name} ({w}x{h})" for name, (w, h) in worst)
+    note(f"{len(cropped)} of the person photos are not square, so the build "
+         f"crops them to fit the grid and part of each picture is lost. "
+         f"Furthest from square: {shown}. Crop one yourself to choose which "
+         f"part survives.")
+
+
+def check_logos(sponsors):
+    """A sponsor whose declared logo file is missing renders a broken image, and
+    the Hugo build does not notice. A sponsor with no logo_image at all is only
+    a warning, because the template falls back to the name as text.
+
+    The logo field, an external URL, is an error: the template no longer reads
+    it, because it accepted any scheme and any host and so let a pull request
+    load a third-party image on every page that lists the sponsor."""
+    for page_id, path in sponsors.items():
+        data = front_matter(path) or {}
+        if "logo" in data:
+            error(path, f"'logo' is not supported: copy the file under "
+                        f"{LOGO_DIRS[0].relative_to(ROOT)} and use logo_image")
+        logo = data.get("logo_image")
+        if not logo:
+            warn(path, f"sponsor '{page_id}' declares no logo, so it renders as text")
+            continue
+        if not bare_file_name(path, "logo_image", logo):
+            continue
+        if not any((d / logo).exists() for d in LOGO_DIRS):
+            where = ", ".join(str(d.relative_to(ROOT)) for d in LOGO_DIRS)
+            error(path, f"logo '{logo}' not found in any of: {where}")
+
+
+# The front matter keys the templates read to list people or sponsors by id,
+# mapped to the name of the id list inside each level. event.html reads
+# people_sections and sponsor_levels, people.html reads people_levels and
+# sponsors.html reads sponsor_levels.
+LISTING_KEYS = {
+    "people_sections": "people",
+    "people_levels": "people",
+    "sponsor_levels": "sponsors",
+}
+
+
+def referenced_ids(path, data, key):
+    """Pull every id out of one listing key of a page.
+
+    people_levels and sponsor_levels hold a list of levels. people_sections
+    holds a list of sections, each with its own list of levels.
+    """
     out = []
     for section in data.get(key) or []:
-        for level in section.get("levels", [section]):
-            out.extend(level.get("people") or level.get("sponsors") or [])
+        if not isinstance(section, dict):
+            error(path, f"'{key}' holds {section!r}, which is not a level")
+            continue
+        for level in section.get("levels") or [section]:
+            if not isinstance(level, dict):
+                error(path, f"'{key}' holds {level!r}, which is not a level")
+                continue
+            out.extend(level.get(LISTING_KEYS[key]) or [])
     return out
 
 
-def check_events(people, sponsors):
-    for path in sorted((CONTENT / "events").rglob("*.md")):
+def check_listings(people, sponsors):
+    """Every page that lists people or sponsors by id must point at pages that exist.
+
+    The template drops an unknown id without a word, so the page just shows one
+    sponsor or one person less. The check walks every file under content/ and
+    looks for the keys the templates read, instead of a fixed set of
+    directories or page names. The old events walk covered content/events/
+    only, so a typo in content/sponsors/_index.md or in
+    content/pyladies_bcn/sponsors.md was never reported, and the organizers
+    pages were listed by name, so a rename switched that check off in silence.
+
+    Returns the set of person ids that some page lists, for the orphan check.
+    """
+    listed_people = set()
+    for path in sorted(CONTENT.rglob("*.md")):
         data = front_matter(path)
         if data is None:
             continue
-        for ref in referenced_ids(data, "people_sections"):
-            if ref not in people:
-                error(path, f"references unknown person id '{ref}'")
-        for ref in referenced_ids(data, "sponsor_levels"):
-            if ref not in sponsors:
-                error(path, f"references unknown sponsor id '{ref}'")
+        for key, kind in LISTING_KEYS.items():
+            if key not in data:
+                continue
+            known = people if kind == "people" else sponsors
+            noun = "person" if kind == "people" else "sponsor"
+            for ref in referenced_ids(path, data, key):
+                if ref not in known:
+                    error(path, f"'{key}' references unknown {noun} id '{ref}'")
+                elif kind == "people":
+                    listed_people.add(ref)
+    return listed_people
 
 
-def check_orphans(people):
-    """A person page nothing links to renders, but nobody can reach it."""
-    body = "\n".join(
-        p.read_text(encoding="utf-8")
-        for p in CONTENT.rglob("*.md")
-        if p.parent.name != "people"
-    )
+# The colour classes agenda.scss defines for an entry of the schedule. The
+# entry's color value lands in the class attribute as it is, so a missing or
+# misspelt value gets the fallback background instead of a brand colour.
+AGENDA_COLOURS = {"blue", "green", "grey", "orange", "pink", "purple", "red", "yellow"}
+
+
+def check_agenda():
+    """Every entry of a schedule must carry one of the agenda colour classes."""
+    for path in sorted(CONTENT.rglob("*.md")):
+        data = front_matter(path)
+        if data is None or not data.get("events"):
+            continue
+        for entry in data["events"]:
+            if not isinstance(entry, dict):
+                error(path, f"'events' holds {entry!r}, which is not an entry")
+                continue
+            colour = entry.get("color")
+            title = entry.get("title") or entry.get("speaker") or "?"
+            if not colour:
+                error(path, f"agenda entry '{title}' has no color; use one of: "
+                            f"{', '.join(sorted(AGENDA_COLOURS))}")
+            elif colour not in AGENDA_COLOURS:
+                error(path, f"agenda entry '{title}' has color '{colour}', which is "
+                            f"not one of: {', '.join(sorted(AGENDA_COLOURS))}")
+
+
+def check_orphans(people, listed_people):
+    """A person page no listing points at renders, but nobody can reach it.
+
+    The check compares against the ids check_listings collected from the
+    front matter keys, so only a real listing counts. The old check searched
+    the text of every page with a word-boundary regex, and a regex boundary
+    sits between a letter and a hyphen: 'ricardo' matched inside
+    'ricardo-ander-egg' and 'jordi' inside 'jordi-bosch', so those two pages
+    passed with no listing at all. Prose that happens to contain an id does
+    not count as a reference either.
+    """
     for page_id, path in people.items():
-        if not re.search(rf"\b{re.escape(page_id)}\b", body):
-            warn(path, f"person '{page_id}' is not referenced by any event or page")
+        if page_id not in listed_people:
+            warn(path, f"person '{page_id}' is not listed by any event or page")
 
 
 def main():
     people = collect_ids("people")
     sponsors = collect_ids("sponsors")
     check_photos(people)
-    check_events(people, sponsors)
-    check_orphans(people)
+    check_logos(sponsors)
+    listed_people = check_listings(people, sponsors)
+    check_agenda()
+    check_orphans(people, listed_people)
 
     for line in warnings:
         print(f"WARNING  {line}")

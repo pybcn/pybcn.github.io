@@ -20,8 +20,6 @@
 */
 
 
-/* @import must be at top of file, otherwise CSS will not work */
-@import url("https://hello.myfonts.net/count/30b858");
 
   
 @font-face {font-family: 'Flux-Regular';src: url('30B858_0_0.eot');src: url('30B858_0_0.eot%3F') format('embedded-opentype'),url('30B858_0_0.woff2') format('woff2'),url('30B858_0_0.woff') format('woff'),url('30B858_0_0.ttf') format('truetype');}

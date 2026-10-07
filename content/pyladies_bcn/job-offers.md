@@ -5,7 +5,7 @@ menu:
   main:
     parent: 'PyLadies BCN'
 weight: 6
-heroBackground: https://source.unsplash.com/vzfgh3RAPzM/1600x400
+heroBackground: /images/photos/pyladies/header/header1.jpg
 ---
 
 Is your company offering jobs or scholarships? Share your offers with us and we'll forward it to the subscribers of the PyLadiesBCN mailing list.

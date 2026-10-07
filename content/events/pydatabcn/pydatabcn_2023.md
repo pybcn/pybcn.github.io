@@ -124,6 +124,7 @@ events:
       location: Sala d'actes Ada Lovelace
       requirements: "Experiencia con Python, conocimiento básico de Jupyter y pandas"
       language: "Spanish"
+      title_lang: Spanish
     - speaker: "Amalia Vradi"
       title: "Jupyter Notebooks 101"
       description: "This will be an interactive workshop on Jupyter Notebooks, the popular web application that enables you to create and share documents that contain live code, equations, visualizations and narrative text. In this beginner-friendly session, you'll discover what Jupyter Notebooks are and what you can do with them. We'll also introduce you to Google Colab and Kaggle, two platforms that offer free, cloud-based versions of Notebooks. You'll get hands-on experience with installing and using them, as well as experimenting with the features offered by the platforms. Bring your laptop and your curiosity and learn how to take your data science projects to the next level using Jupyter Notebooks!"
@@ -166,6 +167,7 @@ events:
       location: Aula Hipàtia d'Alexandria
       requirements: "Solid knowledge of Python and some basic knowledge of web development (HTML). Virtual environment and editor already set up (https://github.com/polyrand/pydatabcn-imgapp-workshop1). Optional: Docker."
       language: "Spanish"
+      title_lang: Spanish
 
     - start_time_slot: 11:00
       end_time_slot: 11:15
@@ -232,6 +234,7 @@ events:
       location: Aula Hipàtia d'Alexandria
       requirements: "Conocimiento de elementos de Python como funciones, clases, bucles, comprensiones de listas, generadores, etc. Conocer las estructuras de datos principales de Python (listas, sets, tuples, diccionarios...). Habilidades básicas de procesamiento de texto (manipular cadenas de texto y conocimiento básico de expresiones regulares (regex)).  Para el taller solamente utilizaremos la librería estándar de Python. Se recomienda usar Python 3.7 o superior."
       language: "Spanish"
+      title_lang: Spanish
 
     - start_time_slot: 13:00
       end_time_slot: 13:00
@@ -306,6 +309,7 @@ events:
       location: Aula Hipàtia d'Alexandria
       requirements: "Cal certa comoditat a l'hora de treballar amb Python, NumPy i Matplotlib. Tots els gràfics seran introduïts abans d'utilitzar-se, però és recomanable tenir coneixements bàsics d'estadística."
       language: "Catalan"
+      title_lang: Catalan
       topic: "Data Visualization"
 
     - start_time_slot: 15:30

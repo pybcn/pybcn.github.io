@@ -6,5 +6,6 @@ twitter: "https://twitter.com/anxodio"
 linkedin: "https://www.linkedin.com/in/anxodio/"
 github: "https://www.github.com/anxodio"
 photo: angel.jpg
+photo_anchor: Right
 pybcn_position: PyBCN Collaborator
 ---

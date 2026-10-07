@@ -7,7 +7,7 @@ menu:
 weight: 5
 aliases:
 - /pyday-bcn-2021
-heroBackground: https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80
+heroBackground: /images/photos/pyday2021.jpeg
 
 layout: event
 
@@ -227,6 +227,7 @@ events:
       track_length: 1
       color: red
       language: "Spanish"
+      title_lang: Spanish
       type: workshop
       topic: Architecture
       python_level: beginner
@@ -310,6 +311,7 @@ events:
       track_length: 1
       color: yellow
       language: "Spanish"
+      title_lang: Spanish
       type: talk
       location: Room Raval
 

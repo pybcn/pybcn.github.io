@@ -1,4 +1,9 @@
-<div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+{{/* A title that is not in English gets a lang attribute, so a screen
+     reader reads it with the right voice. The language field is the
+     language of the talk, not of the title, so the attribute comes
+     only from title_lang. See partials/title_lang.html. */}}
+{{ $title_lang := partial "title_lang.html" $.event }}
+<div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="modal_{{ $.index }}_title" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -6,10 +11,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <h3 class="modal-title" id="exampleModalLabel">
+                <h3 class="modal-title" id="modal_{{ $.index }}_title">
 
                     {{ partial "event_type_icon.html" $.event.type }}
-                    {{ $.event.title }}
+                    {{ with $title_lang }}<span lang="{{ . }}">{{ $.event.title }}</span>{{ else }}{{ $.event.title }}{{ end }}
                 </h3>
 
                 {{ with $.event.speaker }}

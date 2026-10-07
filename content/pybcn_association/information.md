@@ -7,7 +7,7 @@ menu:
 weight: 1
 
 layout: single
-heroBackground: https://source.unsplash.com/5cFwQ-WMcJU/1600x400
+heroBackground: /images/photos/group-pydata-2017.jpg
 
 ---
 

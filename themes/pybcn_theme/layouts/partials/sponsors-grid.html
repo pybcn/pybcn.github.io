@@ -1,8 +1,14 @@
+{{- /*
+    A grid of sponsor logos, one row per level.
+
+    The row ids carry the "sponsors" prefix so that they cannot collide with
+    the rows of a people grid on the same event page.
+*/ -}}
 <div class="container objects_grid" id="sponsors_grid">
 
     {{ $pages := where .Site.Pages "Section" "sponsors" }}
     {{ range $idx, $level := .levels }}
-        <div class="row justify-content-md-center level" id="level_{{$idx}}">
+        <div class="row justify-content-md-center level" id="sponsors_level_{{$idx}}">
             {{ if $level.name }}
                 <div class="col-md-12 level_name">
                     <h2>{{ $level.name }}</h2>

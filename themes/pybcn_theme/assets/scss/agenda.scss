@@ -1,3 +1,10 @@
+// Dark text for cells whose background is too light for white.
+$text-on-light: #212529;
+// The half-slot time labels (9:30, 10:30, ...) are 0.8rem text on white, so
+// they need 4.5:1 (WCAG 1.4.3). #ccc was 1.61:1. #767676 is 4.54:1, the
+// same grey as the legend separator.
+$time-label-muted: #767676;
+
 $blockTimes30: 700,730,800,830,900,930,1000,1030,1100,1130,1200,1230,1300,1330,1400,1430,1500,1530,1600,1630,1700,1730,1800,1830,1900,1930,2000,2030,2100,2130,2200,2230,2300;
 $blockTimes20: 700,720,740,800,820,840,900,920,940,1000,1020,1040,1100,1120,1140,1200,1220,1240,1300,1320,1340,1400,1420,1440,1500,1520,1540,1600,1620,1640,1700,1720,1740,1800,1820,1840,1900,1920,1940,2000,2020,2040,2100,2120,2140,2200,2220,2240,2300;
 $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,1045,1100,1115,1130,1145,
@@ -27,7 +34,7 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             }
             &[class*="30"]:not(.start-1300) {
                 font-size: 0.8rem;
-                color: #ccc;
+                color: $time-label-muted;
             }
         }
     }
@@ -38,7 +45,7 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             }
             &[class*="20"]:not(.start-2000), &[class*="40"] {
                 font-size: 0.8rem;
-                color: #ccc;
+                color: $time-label-muted;
             }
         }
     }
@@ -49,7 +56,7 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             }
             &[class*="15"]:not(.start-1500):not(.start-1530), &[class*="45"] {
                 font-size: 0.8rem;
-                color: #ccc;
+                color: $time-label-muted;
             }
         }
     }
@@ -63,7 +70,13 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
         justify-content: start;
         flex-direction: column;
         padding: 0.5rem 1rem;
-        background-color: orange;
+        /*
+            The fallback for an entry with no colour class. White text on
+            the CSS orange was 1.97:1. #A15C00 is 5.19:1 on white, so an
+            entry that omits its colour stays readable. bin/check-content
+            reports such an entry, so nothing should reach this fallback.
+        */
+        background-color: #A15C00;
         border-radius: 0.2rem;
         font-size: 0.9rem;
         font-weight: bold;
@@ -98,14 +111,32 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             margin-top: 5%;
         }
 
-        &.green {background-color: #2E7D32}; /* green */
-        &.yellow {background-color: #edb92e}; /* yellow */
-        &.orange {background-color: #FF7900}; /* orange */
-        &.red {background-color: #ce1836}; /* red */
-        &.blue {background-color: #009989}; /* blue */
-        &.purple {background-color: #672493}; /* purple */
-        &.grey{background-color: #666666}; /* grey */
-        &.pink{background-color:#FF1493};
+        /*
+            Every cell carries bold 0.9 rem text, which WCAG counts as normal
+            text and so needs 4.5:1 against its background. White on the old
+            yellow was 1.81:1 and on the old orange 2.63:1.
+
+            Yellow and orange keep their brand colour and take dark text
+            instead, which reads better than any darkened version would:
+            8.51:1 and 5.87:1. Blue and pink work with neither white nor dark
+            text as they were, so they are darkened just enough for white to
+            pass. Green, red, purple and grey already passed and are unchanged.
+        */
+        &.green  { background-color: #2E7D32; }  /* 5.13:1 on white */
+        &.red    { background-color: #ce1836; }  /* 5.51:1 on white */
+        &.purple { background-color: #672493; }  /* 9.33:1 on white */
+        &.grey   { background-color: #666666; }  /* 5.74:1 on white */
+
+        &.blue   { background-color: #008577; }  /* was #009989, 3.55:1. Now 4.54:1 */
+        &.pink   { background-color: #E4007B; }  /* was #FF1493, 3.64:1. Now 4.58:1 */
+
+        &.yellow,
+        &.orange {
+            color: $text-on-light;
+            a { color: $text-on-light; }
+        }
+        &.yellow { background-color: #edb92e; }  /* 8.51:1 on dark text */
+        &.orange { background-color: #FF7900; }  /* 5.87:1 on dark text */
     }
 
     &.span30min {

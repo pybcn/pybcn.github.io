@@ -287,6 +287,7 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: intermediate
     topic: "API requests"
@@ -363,6 +364,7 @@ events:
     color: yellow
     type: workshop
     language: "Spanish"
+    title_lang: Spanish
     python_level: intermediate
     topic_level: intermediate
     requirements: ""
