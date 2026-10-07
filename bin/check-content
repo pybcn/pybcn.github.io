@@ -214,6 +214,74 @@ def report_small(small):
          f"the grid. Smallest: {shown}. Replacing the file is the only fix.")
 
 
+# The largest size the build asks of a source, by directory, and the weight
+# that makes an oversized one worth rewriting. Both tables are the ones
+# bin/fit-sources works from, and its docstring says which template sets each
+# cap. Keep the two in step: this check is what points at that script.
+SOURCE_CAPS = {
+    "sponsors": (1120, 300),
+    "photos": (1600, None),
+    "logo.png": (920, None),
+}
+SOURCE_MIN_KB = 150
+SOURCE_MAX_MPX = 4
+
+
+def source_cap(relative):
+    """Return the cap that covers this path under assets/images, or None."""
+    for key, cap in SOURCE_CAPS.items():
+        if relative.as_posix() == key or relative.parts[0] == key:
+            return cap
+    return None
+
+
+def check_sources():
+    """A source far larger than anything the site serves is weight and risk.
+
+    Hugo makes every file a reader gets, so a source only has to be as large
+    as the biggest variant a template asks for. orpheus.png reached
+    23944x5753, which is 138 megapixels and about 551 MB of RAM to decode, for
+    a logo the page shows at 560x135. Every build paid that, and so did every
+    tool that opened the repository.
+
+    Being over the cap is not enough on its own: a 512x512 logo shown at
+    300x300 costs almost nothing, and rewriting it would throw away the only
+    copy there is. The file has to be heavy as well, on disk or to decode.
+    """
+    # The images directory above people/ and sponsors/, which is where the
+    # caps are keyed from: both lists name a directory inside it.
+    images = {d.parent for d in PHOTO_DIRS + LOGO_DIRS}
+    for base in sorted(images):
+        if not base.is_dir():
+            continue
+        for path in sorted(base.rglob("*")):
+            if not path.is_file() or path.suffix.lower() not in SOURCE_SUFFIXES:
+                continue
+            relative = path.relative_to(base)
+            cap = source_cap(relative)
+            if cap is None:
+                continue
+            dimensions = image_size(path)
+            if not dimensions:
+                continue
+            width, height = dimensions
+            max_width, max_height = cap
+            over = width > max_width or (max_height and height > max_height)
+            if not over:
+                continue
+            size = path.stat().st_size
+            megapixels = width * height / 1e6
+            if size / 1024 <= SOURCE_MIN_KB and megapixels <= SOURCE_MAX_MPX:
+                continue
+            fits = f"{max_width}x{max_height}" if max_height else f"{max_width} wide"
+            error(path, f"is {width}x{height} ({megapixels:.1f} Mpx, "
+                        f"{size // 1024} KB), over the {fits} the build asks "
+                        f"of it. Run bin/fit-sources.")
+
+
+SOURCE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
+
+
 def check_logos(sponsors):
     """A sponsor whose declared logo file is missing renders a broken image, and
     the Hugo build does not notice. A sponsor with no logo_image at all is only
@@ -383,6 +451,7 @@ def main():
     sponsors = collect_ids("sponsors")
     check_photos(people)
     check_logos(sponsors)
+    check_sources()
     listed_people = check_listings(people, sponsors)
     check_agenda()
     check_orphans(people, listed_people)
