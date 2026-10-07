@@ -43,10 +43,11 @@ Most changes to this site are content: a person, a sponsor, an event. Each one
 is a Markdown file with a front matter, and the README documents the fields.
 Edit the file on GitHub, or clone the repository and follow the steps below.
 
-- **A person** (an organizer, a speaker, a mentor): run
-  `bin/hugo new people/my-name.md`, or copy a file under `content/people/`, and
-  fill the fields listed in [Person fields](README.md#person-fields). Leave out
-  any field the person does not have. The photo goes under
+- **A person** (an organizer, a speaker, a mentor): copy a file under
+  `content/people/` and edit it. The front matter carries `id`, which has to
+  match the file name, `name`, `photo`, the role at PyBCN, and the links to
+  the person's own profiles. The bio goes in the body. Leave out any field the
+  person does not have. The photo goes under
   `themes/pybcn_theme/assets/images/people/` and has to be square, see
   [Person photos](README.md#person-photos).
 - **A sponsor**: run `bin/hugo new sponsors/my-sponsor.md` and fill the four

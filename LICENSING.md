@@ -22,11 +22,10 @@ the site:
   library, see below), its `archetypes/`, `theme.toml`, and `README.md`. The
   images and the vendored libraries under the theme are listed under
   [Not licensed](#not-licensed).
-- `assets/xsl/`: the stylesheets that show the sitemap and the feed as a page.
 - `bin/`: the build, check, and maintenance scripts.
 - `.github/`: the workflows, the code owners, and the Dependabot configuration.
-- `config.toml`, `data/`, `archetypes/`, and the other configuration files at
-  the root (`.gitignore`, `.hugo-version`, `CNAME`).
+- `config.toml`, `archetypes/`, and the other configuration files at the root
+  (`.gitignore`, `.hugo-version`, `CNAME`).
 
 The copyright line in `LICENSE` names the association and the contributors,
 and runs from 2013, the year of the first commit. The theme began as a copy of
