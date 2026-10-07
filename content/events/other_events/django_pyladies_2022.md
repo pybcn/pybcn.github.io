@@ -87,9 +87,9 @@ people_sections:
         - people_per_line: 4
           people:
               - elisabeth-ortega-carrasco
-              - lpmayos
-              - natalia
-              - nuria
+              - laura-perez-mayos
+              - natalia-padilla
+              - nuria-pujol-vilanova
     - title: Mentors, speakers & volunteers
       id: main_organizers
       levels:
@@ -97,15 +97,15 @@ people_sections:
           people_per_line: 4
           people:
               - carlton-gibson 
-              - david
+              - david-arcos
               - elisabeth-ortega-carrasco
               - ferran-jovell 
-              - israel-saeta
+              - israel-saeta-perez
               - johanna-sanchez
-              - natalia
-              - nuria
+              - natalia-padilla
+              - nuria-pujol-vilanova
               - selen-ozkan
-              - xavi
+              - xavi-francisco-gilabert
         - name: Speakers
           people_per_line: 4
           people:
@@ -114,11 +114,11 @@ people_sections:
               - johanna-sanchez
               - nakchidil-melisse-chaumont
               - roser-parellada
-              - sonia-estrade
+              - sonia-estrade-albiol
         - name: Volunteers
           people_per_line: 4
           people:
-              - mireia
+              - mireia-alvarez-dominguez
 
 
 previous_editions:

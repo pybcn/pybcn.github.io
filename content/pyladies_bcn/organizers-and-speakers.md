@@ -15,6 +15,6 @@ heroBackground: /images/photos/pyladies/header/header2.jpeg
 
 people_levels:
     - people_per_line: 4
-      people: [nuria, lpmayos, natalia, elisabeth-ortega-carrasco]
+      people: [nuria-pujol-vilanova, laura-perez-mayos, natalia-padilla, elisabeth-ortega-carrasco]
       name: PyLadiesBCN Organizers
 ---

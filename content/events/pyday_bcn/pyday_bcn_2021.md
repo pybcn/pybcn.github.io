@@ -42,7 +42,7 @@ people_sections:
       levels:
         - people_per_line: 4
           people:
-              - albert-franzi
+              - albert-franzi-cros
               - alejandro-nicolas
               - alexandre-savio
               - anton-caceres
@@ -66,14 +66,14 @@ people_sections:
       levels:
         - people_per_line: 4
           people:
-              - lpmayos
-              - natalia
-              - david
-              - nuria
-              - xavi
-              - rberenguel
-              - eloi
-              - mireia
+              - laura-perez-mayos
+              - natalia-padilla
+              - david-arcos
+              - nuria-pujol-vilanova
+              - xavi-francisco-gilabert
+              - ruben-berenguel
+              - eloi-puertas-prats
+              - mireia-alvarez-dominguez
 
 previous_editions:
     - name: PyDay BCN 2020

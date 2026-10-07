@@ -43,14 +43,14 @@ people_sections:
     levels:
       - people_per_line: 4
         people:
-            - jimena-escobar
+            - jimena-escobar-bermudez
             - kemalcan-bora
             - xiang-xu
             - dave-pitts
-            - paula-bassaganas
+            - paula-bassaganas-odena
             - raul-cumplido
             - marc-ramirez
-            - manuel-gijon
+            - manuel-gijon-agudo
             - oriol-abril-pla
             - alex-molas
             - marina-palma
@@ -61,11 +61,11 @@ people_sections:
     levels:
       - people_per_line: 4
         people:
-          - alicia-morales
-          - david
+          - alicia-morales-carrasco
+          - david-arcos
           - ferran-jovell
-          - lpmayos
-          - jose-riera
+          - laura-perez-mayos
+          - jose-riera-sanchez
           
 
 previous_editions:
