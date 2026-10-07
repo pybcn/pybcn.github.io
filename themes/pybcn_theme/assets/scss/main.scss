@@ -1,5 +1,9 @@
 $navbar-color: #FFFFFF;
 $blue-pybcn: #006c9b;
+// The rest colour of an icon that lights up under the pointer: a social
+// glyph on a card and in a modal. 4.68:1 on white, above the 3:1 WCAG
+// 1.4.11 asks of a graphic that carries meaning.
+$icon-grey: #6c757d;
 $yellow-pybcn-OLD: #ffdc39;
 $yellow-pybcn: #fdbf2e;
 $dark-grey: #343a40;

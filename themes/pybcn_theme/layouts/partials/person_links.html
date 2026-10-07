@@ -1,7 +1,9 @@
 {{- /*
-    The social links of one person as a list, each with its icon and the
-    text a reader needs to know where the link goes: the LinkedIn path, the
-    GitHub or X user name, or the address of a personal site.
+    The social links of one person as a list, each one a line built the way
+    a role line and an event line are built: the icon, the name of the
+    network in bold, and then the part a reader needs to know where the
+    link goes, as the link. That is the LinkedIn path, the GitHub or X user
+    name with its at sign, or the address of a personal site.
 
     Argument: the person page.
 
@@ -16,7 +18,13 @@
     enforces: https://www.linkedin.com/..., https://github.com/<user> and
     https://x.com/<user>. Cutting the known prefix is therefore safe, and
     it keeps a second copy of the handle out of the front matter, where
-    it would drift from the URL. A site is a free URL and is shown whole.
+    it would drift from the URL. A GitHub or X name is shown with the at
+    sign the two networks write it with, which the URL does not carry. A
+    site is a free URL and is shown whole.
+
+    The icon and the name of the network are outside the link, as the glyph
+    and the role are outside the link of a role line. The whole row is the
+    target anyway: see the stretched link in people.scss.
 
     The heading says "Social Links", not "Links": the modal links to event
     pages and to the organizers pages as well, and "Links" alone did not say
@@ -28,16 +36,16 @@
     <h4>Social Links</h4>
     <ul class="modal_links">
     {{- with $p.linkedin }}
-        <li><a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i>{{ strings.TrimPrefix "https://www.linkedin.com" . }}</a></li>
+        <li><i class="fab fa-linkedin" aria-hidden="true"></i><strong>LinkedIn:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn">{{ strings.TrimPrefix "https://www.linkedin.com" . }}</a></li>
     {{- end }}
     {{- with $p.github }}
-        <li><a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on GitHub" title="{{ $p.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i>{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://github.com/" .) }}</a></li>
+        <li><i class="fab fa-github" aria-hidden="true"></i><strong>GitHub:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on GitHub" title="{{ $p.name }} on GitHub">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://github.com/" .) }}</a></li>
     {{- end }}
     {{- with $p.twitter }}
-        <li><a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on X" title="{{ $p.name }} on X"><i class="icon_x" aria-hidden="true"></i>{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://x.com/" .) }}</a></li>
+        <li><i class="icon_x" aria-hidden="true"></i><strong>X:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on X" title="{{ $p.name }} on X">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://x.com/" .) }}</a></li>
     {{- end }}
     {{- with $p.site }}
-        <li><a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} personal site" title="{{ $p.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i>{{ . }}</a></li>
+        <li><i class="fas fa-globe" aria-hidden="true"></i><strong>Site:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} personal site" title="{{ $p.name }} personal site">{{ . }}</a></li>
     {{- end }}
     </ul>
 </section>
