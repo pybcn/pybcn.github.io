@@ -226,6 +226,36 @@ The sponsor summary is defined in a separate partial `themes/pybcn_theme/layouts
 About the creation of new sponsors, the `themes/pybcn_theme/archetypes/sponsors.md` file contains the template Hugo will use when the editor runs the command `hugo new sponsors/my-new-sponsor.md`.
 
 
+### Person photos
+
+Every person photo is a square, cut once in the repository rather than on each
+build. `bin/square-photos` does the cutting: it finds the face with OpenCV,
+crops the largest square it can centre on that face, and resizes to at most
+800px, which is what the 2x variant of a 400px grid slot needs. It never
+enlarges, because a 200px photo blown up to 800 is the same picture in four
+times the bytes.
+
+```
+pip install opencv-python pillow
+bin/square-photos --dry-run     # list what would change, change nothing
+bin/square-photos               # rewrite the photos in place
+```
+
+It is run by hand when a photo is added. The build does not run it and neither
+does CI, so a contributor without OpenCV can still build the site.
+
+Review the result before committing. Face detection is crude: it misses a face
+in profile or in shadow, and it finds faces that are not there. When it misses,
+the crop falls back to the upper middle of the picture, which is where a head
+usually is. When the crop is wrong, the usual cause is the photo rather than
+the crop: a full-length shot on a beach stays a full-length shot on a beach,
+because the tool does not zoom in.
+
+`bin/check-content` rejects a photo that is not square, one over 1200px, and
+one over 1000 KB, and it reports the photos under 400px, which the build has
+to enlarge and which look soft in the grid. Replacing the file is the only fix
+for those.
+
 ### People pages implementation details: organizers, speakers...
 
 There are three pages displaying people: PyBCN Organizers, PyLadiesBCN Organizers and PyLadiesBCN speakers. More can be added to display, for example, collaborators of other events, etc.

@@ -38,8 +38,8 @@ unsafe=true
 
     [params.social_items]
         [params.social_items.twitter]
-            name = "Twitter"
-            icon = "fab fa-twitter-square fa-2x"
+            name = "X"
+            icon = "icon_x fa-2x"
             link = "https://twitter.com/PyBCN"
         [params.social_items.youtube]
             name = "YouTube"
@@ -64,8 +64,8 @@ unsafe=true
 
     [params.social_items_pyladies]
         [params.social_items_pyladies.twitter]
-            name = "Twitter"
-            icon = "fab fa-twitter-square fa-2x"
+            name = "X"
+            icon = "icon_x fa-2x"
             link = "https://twitter.com/PyLadiesBCN"
         [params.social_items_pyladies.meetup]
             name = "Meetup"

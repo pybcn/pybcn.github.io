@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-4 social_links">
                 {{ range $.Site.Params.social_items }}
-                    <a href="{{ .link }}" target="_blank" aria-label="{{ $.Site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
+                    <a href="{{ .link }}" target="_blank" aria-label="{{ $.Site.Params.short_name }} on {{ .name }}" title="{{ $.Site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
                 {{ end }}
             </div>
         </div>

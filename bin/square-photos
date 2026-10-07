@@ -1,0 +1,208 @@
+#!/usr/bin/env python3
+"""Crop the person photos to a square, centred on the face.
+
+The site serves every person photo as a square. Until now the square was cut
+at build time, which has two costs: the crop is chosen by a heuristic that
+does not know where the face is, and the repository carries sources far larger
+than anything the site ever serves, 38 MB of them.
+
+This cuts the square once, in the repository, so the crop is reviewable in a
+pull request like any other change, and the build only has to resize.
+
+The crop is centred on the face when OpenCV finds one, and on the upper middle
+when it does not, because a portrait that is taller than it is wide almost
+always has the head in the top half.
+
+Usage:
+    bin/square-photos --dry-run     list what would change, change nothing
+    bin/square-photos               rewrite the photos in place
+    bin/square-photos --side 800    pick the target side, default 800
+
+Needs opencv-python and pillow, which are not needed to build the site. This
+is run by hand when a photo is added, not by the build and not by CI.
+"""
+
+import argparse
+import pathlib
+import sys
+
+try:
+    import cv2
+    from PIL import Image, ImageOps
+except ImportError:
+    sys.exit("needs opencv-python and pillow: pip install opencv-python pillow")
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+PHOTOS = ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "people"
+SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
+
+# 800px is what the 2x variant of a 400px grid slot needs. A source larger than
+# that is never served at full size, so the extra pixels are weight and nothing
+# else.
+DEFAULT_SIDE = 800
+
+
+def load(path):
+    """Open a photo with its EXIF rotation applied.
+
+    One photo in the set carries Orientation 5. A browser honours that tag and
+    shows the picture upright, so the site looked right while every tool that
+    reads the pixels directly saw it on its side. Applying the rotation here
+    and dropping the tag leaves one truth instead of two.
+    """
+    image = Image.open(path)
+    return ImageOps.exif_transpose(image)
+
+
+def find_face(path):
+    """Return (x, y, w, h) of the face, or None.
+
+    A Haar cascade returns several boxes for one portrait and most of them are
+    wrong. Neither obvious rule picks the right one on its own:
+
+      toni_espadas          real face 953px at 5.40, a 59px box scored 6.85
+      ferran-jovell         real face 2062px at 3.84, a 154px box scored 5.92
+      juan-bernardo-lince   real face 170px at 0.18, an 88px box scored 1.69
+      alicia-morales        real face 932px at 7.22, a 2091px box scored 1.72
+
+      adrian-garcia-riber   real face 854px at 7.27, a 51px box scored 0.20
+
+    Taking the most confident box fails on the first three. Taking the largest
+    fails on alicia-morales. Dropping every box wider than 60% of the short
+    side fixes her and breaks adrian-garcia-riber, whose face really is 64% of
+    it, because the photo is a close selfie.
+
+    Width alone cannot tell a close selfie from a box over a torso. The score
+    can: the selfie scored 7.27 and the torso 1.72. So a wide box survives when
+    it is confident, and the largest of the survivors wins.
+
+    The cascade still misses a face in profile or in shadow, which is why the
+    caller has a fallback rather than an error.
+    """
+    with load(path) as upright:
+        rgb = upright.convert("RGB")
+    import numpy
+    image = cv2.cvtColor(numpy.array(rgb), cv2.COLOR_RGB2BGR)
+    grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    grey = cv2.equalizeHist(grey)
+    cascade = cv2.CascadeClassifier(
+        cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    faces, _levels, weights = cascade.detectMultiScale3(
+        grey, scaleFactor=1.1, minNeighbors=5, minSize=(40, 40),
+        outputRejectLevels=True)
+    if len(faces) == 0:
+        return None
+    limit = MAX_FACE_FRACTION * min(grey.shape[0], grey.shape[1])
+    plausible = [face for face, weight in zip(faces, weights)
+                 if face[2] <= limit or weight >= MIN_WIDE_FACE_WEIGHT]
+    return max(plausible or list(faces), key=lambda f: f[2] * f[3])
+
+
+# A square centred on a face near the edge does not fit, so the square has to
+# shrink. It does not shrink below this, because a tight crop of a head with no
+# shoulders looks like a mugshot next to the others in the grid.
+MIN_FACE_MULTIPLE = 3.5
+
+# A detection this wide, as a fraction of the short side, is suspect: a face
+# that big is a close selfie, which happens, but so does a box over a whole
+# torso, which is not a face at all.
+MAX_FACE_FRACTION = 0.6
+
+# What tells those two apart is the score. The selfie scored 7.27 and the torso
+# scored 1.72, so a wide box is kept when it is confident and dropped when it
+# is not.
+MIN_WIDE_FACE_WEIGHT = 3.0
+
+
+def crop_box(width, height, face):
+    """Return the square box to keep, as (left, top, right, bottom).
+
+    The square is the largest one that fits, unless the face sits closer to an
+    edge than half of that: then it shrinks, so the face stays in the middle
+    rather than drifting to a corner. One photo in the set, a 2731x4096 portrait
+    with the head high in the frame, came out with the face a third of the way
+    down before this.
+    """
+    side = min(width, height)
+    if face is not None:
+        fx, fy, fw, fh = face
+        centre_x = fx + fw / 2
+        centre_y = fy + fh / 2
+        fits_centred = 2 * min(centre_x, width - centre_x,
+                               centre_y, height - centre_y)
+        floor = min(side, max(DEFAULT_SIDE, round(MIN_FACE_MULTIPLE * fh)))
+        side = max(min(side, round(fits_centred)), floor)
+        side = min(side, width, height)
+    else:
+        centre_x = width / 2
+        # The upper middle, not the middle: a portrait taller than it is wide
+        # has the head in the top half, and a centred crop cuts the forehead.
+        centre_y = height / 2 if width >= height else height * 0.4
+    left = round(centre_x - side / 2)
+    top = round(centre_y - side / 2)
+    left = max(0, min(left, width - side))
+    top = max(0, min(top, height - side))
+    return (left, top, left + side, top + side)
+
+
+def process(path, side, dry_run):
+    with load(path) as image:
+        width, height = image.size
+        already_square = width == height
+        face = None if already_square and width <= side else find_face(path)
+        box = crop_box(width, height, face)
+        cropped_side = box[2] - box[0]
+
+        # Never enlarge. A 200px photo blown up to 800 is the same picture in
+        # four times the bytes, and the build already enlarges when it has to.
+        target = min(side, cropped_side)
+
+        rotated = image.getexif().get(274, 1) not in (1, None)
+        if already_square and width == target and not rotated:
+            return None
+
+        where = "face" if face is not None else "fallback"
+        note = (f"{width}x{height} -> {target}x{target}"
+                f"  crop {cropped_side}px at {box[0]},{box[1]} ({where})")
+        if dry_run:
+            return note
+
+        out = image.convert("RGB") if image.mode in ("P", "RGBA", "LA") else image
+        out = out.crop(box)
+        if cropped_side != target:
+            out = out.resize((target, target), Image.LANCZOS)
+        if path.suffix.lower() in (".jpg", ".jpeg"):
+            out.save(path, "JPEG", quality=88, optimize=True, progressive=True)
+        elif path.suffix.lower() == ".png":
+            out.save(path, "PNG", optimize=True)
+        else:
+            out.save(path)
+        return note
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--side", type=int, default=DEFAULT_SIDE)
+    args = parser.parse_args()
+
+    changed = 0
+    before = after = 0
+    for path in sorted(PHOTOS.iterdir()):
+        if path.suffix.lower() not in SUFFIXES:
+            continue
+        before += path.stat().st_size
+        note = process(path, args.side, args.dry_run)
+        after += path.stat().st_size
+        if note:
+            changed += 1
+            print(f"{path.name}: {note}")
+
+    print(f"\n{changed} photos {'would change' if args.dry_run else 'changed'}.")
+    if not args.dry_run:
+        print(f"{before / 1048576:.1f} MB -> {after / 1048576:.1f} MB")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
