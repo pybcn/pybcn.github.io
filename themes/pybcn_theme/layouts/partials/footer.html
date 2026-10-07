@@ -15,6 +15,15 @@
                 {{ end }}
             </div>
         </div>
+        {{/* The legal pages are resolved through site.GetPage, so a moved or
+             renamed page fails the build instead of leaving a dead link. */}}
+        <div class="row">
+            <div class="col-md-12 legal_links">
+                {{ with site.GetPage "/pybcn_association/legal-notice" }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ else }}{{ errorf "footer: the legal notice page is missing" }}{{ end }}
+                ·
+                {{ with site.GetPage "/pybcn_association/privacy-policy" }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ else }}{{ errorf "footer: the privacy policy page is missing" }}{{ end }}
+            </div>
+        </div>
     </div>
 </footer>
 {{ end }}
