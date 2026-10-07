@@ -4,7 +4,7 @@ name: Elisabeth Ortega Carrasco
 
 photo: elisabeth-ortega-carrasco.jpg
 
-pybcn_position: PyLadiesBCN Organizer
+pybcn_position: Organizer
 
 twitter: https://x.com/draentropia
 github: https://github.com/draentropia

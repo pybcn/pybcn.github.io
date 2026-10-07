@@ -5,8 +5,6 @@ name: "Toni Espadas"
 photo: toni-espadas.jpg
 photo_anchor: Bottom
 
-pybcn_position: "Treasurer"
-
 linkedin: "https://www.linkedin.com/in/toni-espadas"
 github: "https://github.com/anthonyswords"
 

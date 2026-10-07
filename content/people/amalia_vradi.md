@@ -2,7 +2,7 @@
 id: amalia_vradi
 name: "Amalia Vradi"
 photo: amalia-vradi.jpg
-pybcn_position: PyLadiesBCN Organizer
+pybcn_position: Organizer
 linkedin: "https://www.linkedin.com/in/amaliavradi"
 github: "https://github.com/amaliavr"
 

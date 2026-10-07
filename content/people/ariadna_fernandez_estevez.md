@@ -2,7 +2,7 @@
 id: ariadna_fernandez_estevez
 name: Ariadna Fernández
 photo: ariadna-fernandez.jpg
-pybcn_position: PyLadiesBCN Organizer
+pybcn_position: Organizer
 linkedin: "https://www.linkedin.com/in/ariadna-fernandez-estevez"
 github: "https://github.com/afernaes"
 ---
