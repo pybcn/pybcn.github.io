@@ -28,10 +28,10 @@
     // row puts 180px of air between three cards while five cards sit
     // shoulder to shoulder, and the two sections stop looking like the same
     // page. The fraction is what keeps the count: an event page puts the
-    // grid in a col-md-9, which leaves 795px, and four 220px slots need 880,
-    // so a fixed slot width dropped that page from four cards a row to
-    // three. The cards there are a little narrower than on the organizers
-    // page, which has the room, and the count is the same as before.
+    // grid in a col-md-9, which leaves 795px, so a slot of a fixed width
+    // dropped that page from four cards a row to three. As a fraction, four
+    // slots of 190px fit, and the card there is the same 178px as on the
+    // organizers page.
     $card: 178px;
     $gutter: 12px;
     // A literal divisor is not a division in Dart Sass, which emits
@@ -53,11 +53,11 @@
     }
 
     // Between the md and lg breakpoints the row is too narrow for the count
-    // a section asks for: five 220px slots need 1100px and a 768px screen
-    // gives 720. Capping the count at three there keeps the card at its full
-    // 200px instead of squeezing it to 118px, which is narrow enough that the
-    // four social icons wrap onto a second line. This rule comes before the
-    // per_line_N block below so that block wins from lg up.
+    // a section asks for: six slots need 1140px and a 768px screen gives
+    // 720. Capping the count at three there keeps the card at its full
+    // width instead of squeezing it to a third of it, which is narrow enough
+    // that the four social icons wrap onto a second line. This rule comes
+    // before the per_line_N block below so that block wins from lg up.
     @media (min-width: 768px) and (max-width: 991.98px) {
         .row.level {
             max-width: ($card + $gutter) * 3;
@@ -102,7 +102,7 @@
             // No padding on the card itself: the photo has to reach the
             // border. The text and the icons below set their own side
             // padding. A padding here used to frame the photo in 10px of
-            // white, which on a 200px card is a tenth of its width.
+            // white, which on a card this narrow is a ninth of its width.
             padding: 0;
 
             // A column, so every card in a row is as tall as the tallest and
@@ -210,7 +210,7 @@
                     // Smaller than the name, including a long name. At the
                     // inherited 16px the role was larger than any name that
                     // had to shrink, which read as the wrong hierarchy.
-                    // 6.8cqi is 13.6px on a 200px card.
+                    // 6.8cqi is 12.1px on the 178px card.
                     font-size: clamp(9px, 6.8cqi, 13.6px);
                 }
             }
@@ -227,11 +227,10 @@
                 // descender room it often does not use, while the icon row
                 // starts at the top of its own box. See the h3 above.
                 //
-                // The side padding is 2px rather than 5px because the
-                // row has to survive the narrowest card on the site: an event
-                // page puts the grid in a col-md-9, so a four-card row there
-                // is 179px wide, 175px inside the border and the padding, and
-                // the four icons need 170px. A little under the row, because
+                // The side padding is 2px rather than 5px because the row
+                // has to survive the narrowest card the breakpoints produce,
+                // which leaves little more than the icons themselves inside
+                // the border. A little under the row, because
                 // the icons are the bottom of the card and the border would
                 // otherwise touch them.
                 padding: 7px 2px 6px;
@@ -259,17 +258,18 @@
                 }
 
                 // The size is set here, not with a fa-Nx class in the markup,
-                // because it follows from the card width. Four icons have to
-                // fit on one line inside the 188px the padding leaves. At
-                // 32px the four glyphs are 28, 31, 32 and 31px wide
-                // (LinkedIn, GitHub, X, globe: Font Awesome glyphs are not
-                // all a full em), 122px in all, plus the 6px of margin on
-                // each side of every link, so 170px of the 188px a 200px card
-                // leaves. The size is a share of the card, like the name and
-                // the role above: an event page card is 186px and the window
-                // widths between the breakpoints give down to 150px, where
-                // four icons at a fixed 32px wrapped onto a second line.
-                // 16cqi is 32px on a 200px card. The X is a mask sized in em
+                // because it follows from the card width. Four icons have
+                // to fit on one line inside what the padding leaves. The four
+                // glyphs are not all a full em (LinkedIn, GitHub, X, globe),
+                // so at 32px they are 28, 31, 32 and 31px wide, 122px in all,
+                // plus the margin on each side of every link.
+                //
+                // The size is a share of the card, like the name and the role
+                // above, because the card is not one width everywhere: the
+                // window widths between the breakpoints take it down to
+                // 150px, where four icons at a fixed 32px wrapped onto a
+                // second line. 16cqi is 28.5px on the 178px card and reaches
+                // the 32px cap on a wider one. The X is a mask sized in em
                 // (see .icon_x in main.scss), so it follows the same rule.
                 i {
                     font-size: clamp(18px, 16cqi, 32px);
