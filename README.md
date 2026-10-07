@@ -82,6 +82,47 @@ Once the site was archived, you can create a new link in the navigational menu u
 
 ## Information for developers
 
+### Collaborate
+
+A change to this site goes through a pull request. Nothing is pushed to
+`edition` directly.
+
+1. Clone the repository. `git clone --single-branch --branch edition` is enough
+   and skips the built site, which lives on its own branch.
+2. Run `bin/install`. It downloads the pinned Hugo binary into `bin/hugo` and
+   verifies its checksum. You do not need Python, Go, or npm for this step.
+3. Run `bin/serve` to see the site at `http://localhost:1313` while you work.
+4. Make the change.
+5. Run the three checks locally, so you find what the pull request would find:
+
+   ```
+   pip install pyyaml
+   bin/check-content
+   bin/check-html-safety
+   bin/hugo --minify -D -d public && bin/check-rendered
+   ```
+
+6. Open the pull request against `edition`.
+
+The `pr-checks` workflow then runs the same checks on your branch, plus a build
+and a link check. **All of them have to pass**, and one approving review is
+needed before the pull request can be merged. The paths listed in
+`.github/CODEOWNERS` also request a review from the web team automatically.
+
+What each check is for:
+
+| Check | Fails when |
+|---|---|
+| Build the site | Hugo cannot build, or emits a warning |
+| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, or an event references a person or sponsor that does not exist |
+| `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay |
+| `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does |
+| Check the links | Reported, never blocking, because external sites rate-limit |
+
+A merge to `edition` deploys the site. The `github-pages` workflow builds it and
+publishes the result, so a change is live within a few minutes of the merge.
+
+
 ### Content safety check
 
 `bin/check-html-safety` scans `content/` and fails if it finds raw HTML that
@@ -115,10 +156,52 @@ URL the element loads, so it permits one known embed and not any later one in
 the same file, and the file that carries it needs a rule in
 `.github/CODEOWNERS`, or any contributor can edit the allowed snippet.
 
+### Rendered page check
+
+`bin/check-rendered` reads the pages Hugo built and fails on dangerous markup
+in them: an `on...=` handler on any element, a `javascript:`, `vbscript:` or
+`data:` URL in any attribute a browser loads from or navigates to (entities
+decoded, the way a browser does), an inline `<script>` or one loaded from off
+this site, an `<iframe>`, `<object>`, `<embed>` or `<base>`, a form or a `<meta
+refresh>` that sends the visitor off this site, a `style` attribute or `<style>`
+block outside a small grammar of sizes, margins and grid properties, a `<link>`,
+an image, a media file or a click beacon fetched from off this site, and the
+three pieces of markup that `html.parser` and a browser read differently.
+
+It does what the other two checks cannot. `bin/check-content` and
+`bin/check-html-safety` read `content/`, which is what an outside contributor
+can change, and that is the right place for them to stop. The worst defect
+found on this site was not there: a partial assembled the sponsor logo markup
+with `printf` and emitted it through `safeHTML`, so a sponsor name reached the
+page unescaped while every content file was clean and both content checks
+passed. Reading the output catches that class wherever it lives: a template, a
+shortcode, a partial, the theme, a Hugo internal template or the minifier.
+
+The check needs a build made with `-D`. Three draft pages are a canary: a
+sponsor and a person whose name closes the attribute it sits in and opens a
+link to `canary.invalid`, listed on `content/canary.md` through the real
+sponsor and people grids. The check fails if either name did not reach that
+page as text, or if the page is missing, so the fixture cannot disappear
+without notice. The deploy workflow builds without `-D`, so the canary never
+reaches the live site.
+
+```
+./bin/hugo --minify -D -d public
+./bin/check-rendered public
+```
+
+The standard library is enough, no `pip install`. The `pr-checks` workflow
+runs it in the `links` job, on the same build lychee checks. `ALLOWLIST` in
+the script names each accepted finding by page, kind and either the prefix of
+the URL the element loads or the SHA-256 of the inline text, with a reason:
+today the Google embeds, the PayPal form with its button image, the
+Eventbrite button of PyDay 2018, and two inline scripts in the frozen
+archives. An entry that no longer matches anything is reported as
+stale, so it gets deleted.
+
 
 This is a work in progress. All the design and implementation decisions are detailed in [Proposta d'estructura](https://docs.google.com/document/d/10YxQeCuGQXUjnN3o9e1oH2HJkrhxJsr31qnxO_aiCNM/edit?usp=sharing) (currently written in catalan). All the tasks are managed through our [private Trello board](https://trello.com/b/cFE8KRTS).
 
-For now, we are not looking for contributors yet.
 
 
 ### Using JS code
@@ -154,6 +237,11 @@ The template iterates over the defined levels, and for each level:
 - displays a summary of all the people listed, limiting the number of people per line to the provided number 'people_per_line' (which must be in [12, 6, 4, 3, 4, 1])  
 
 To add new people to the site, there is a Hugo archetype defined in `themes/pybcn_theme/archetypes/people.md` that can be used by running the command: `hugo new people/my-new-person.md`.
+
+The `photo` field names a file under `themes/pybcn_theme/assets/images/people/`.
+A remote `photo_url` is not supported: it would load from a third party on
+every page that lists the person and tell that party who viewed it, and
+`bin/check-content` reports it as an error.
 
 
 ### Monthly event page implementation details

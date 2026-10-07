@@ -3,7 +3,8 @@
 
 Catches the mistakes that a Hugo build does not: a person id that does not
 match its filename, a duplicate id, a page that lists a person or sponsor id
-with no page behind it, and a declared photo with no file behind it.
+with no page behind it, a declared photo with no file behind it, and a
+remote photo_url.
 
 Exit code 1 if any error is found. Warnings do not fail the build.
 
@@ -11,6 +12,7 @@ Usage:
     bin/check-content
 """
 
+import datetime
 import pathlib
 import re
 import struct
@@ -158,6 +160,12 @@ def check_photos(people):
     small = []
     for page_id, path in people.items():
         data = front_matter(path) or {}
+        # A remote photo loads from a third party on every page that lists
+        # the person and tells that party who viewed it. The template no
+        # longer reads the field, so a value here would be ignored in silence.
+        if data.get("photo_url"):
+            error(path, "photo_url is not supported: put the file under "
+                        "themes/pybcn_theme/assets/images/people/ and use 'photo'")
         photo = data.get("photo")
         if photo and not bare_file_name(path, "photo", photo):
             continue
@@ -325,6 +333,43 @@ def check_orphans(people, listed_people):
             warn(path, f"person '{page_id}' is not listed by any event or page")
 
 
+SECURITY_TXT = ROOT / "static" / ".well-known" / "security.txt"
+SECURITY_TXT_NOTICE_DAYS = 30
+
+
+def check_security_txt():
+    """Report a security.txt that has expired, or is about to.
+
+    RFC 9116 makes Expires mandatory and says a reader should treat the file
+    as stale once that date passes. Nothing else would notice: the file keeps
+    serving a 200 and keeps looking correct, and the date is a year away when
+    it is written, which is exactly how long it takes to forget it.
+    """
+    if not SECURITY_TXT.exists():
+        return
+    expires = None
+    for line in SECURITY_TXT.read_text(encoding="utf-8").splitlines():
+        if line.lower().startswith("expires:"):
+            expires = line.split(":", 1)[1].strip()
+            break
+    if not expires:
+        error(SECURITY_TXT, "no Expires field, which RFC 9116 requires")
+        return
+    try:
+        when = datetime.datetime.fromisoformat(expires.replace("Z", "+00:00"))
+    except ValueError:
+        error(SECURITY_TXT, f"Expires is not a date this can read: '{expires}'")
+        return
+    left = (when - datetime.datetime.now(datetime.timezone.utc)).days
+    if left < 0:
+        error(SECURITY_TXT, f"expired {-left} days ago, on {when.date()}. "
+                            "A reader treats the whole file as stale. Set a new "
+                            "Expires, at most a year away.")
+    elif left <= SECURITY_TXT_NOTICE_DAYS:
+        warn(SECURITY_TXT, f"expires in {left} days, on {when.date()}. "
+                           "Set a new Expires before it does.")
+
+
 def main():
     people = collect_ids("people")
     sponsors = collect_ids("sponsors")
@@ -333,6 +378,7 @@ def main():
     listed_people = check_listings(people, sponsors)
     check_agenda()
     check_orphans(people, listed_people)
+    check_security_txt()
 
     for line in warnings:
         print(f"WARNING  {line}")

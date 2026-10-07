@@ -1,0 +1,848 @@
+#!/usr/bin/env python3
+"""Find dangerous markup in the built site.
+
+bin/check-html-safety reads content/, which is what an outside contributor
+can change, and it is right to stop there: layouts/, themes/, static/, bin/
+and config.toml are in CODEOWNERS. But the worst defect this project found
+lived in a template. themes/pybcn_theme/layouts/partials/sponsor_summary.html
+assembled the logo markup with printf and emitted it through safeHTML, so the
+sponsor name and the logo URL from front matter reached the page unescaped.
+The content was innocent, the template was not, and check-html-safety
+returned PASS on a payload that rendered a live anchor in the sponsor grid.
+
+This check reads what Hugo built. A bug of that class is visible in the
+output wherever it lives: content, a shortcode, a partial, the theme, a Hugo
+internal template or the minifier.
+
+It parses every .html file under the build directory with html.parser and
+reports:
+
+  - an on* event handler attribute on any element
+  - a javascript:, vbscript: or data: URL in an attribute the browser loads
+    from or navigates to (href, src, srcset, action, formaction, poster and
+    the rest of URL_ATTRIBUTES), in a meta refresh, and in a url() of an
+    inline style
+  - a <script> that is inline, or whose src is not on this site
+  - <iframe>, <frame>, <portal>, <object>, <embed>, <applet>, <base>, an
+    iframe srcdoc, and a <form> or a formaction that posts off this site
+  - a <meta http-equiv="refresh"> that sends the visitor off this site
+  - a style attribute that does more than size, space, align or decorate the
+    element, see SAFE_STYLE. position, z-index, transform, a negative margin
+    or a viewport unit build a page overlay with no script at all
+  - a <style> element with a property or a value outside SAFE_BLOCK_STYLE,
+    the grid and box properties the templates write. An at-rule, a url(), a
+    CSS escape, a negative length or a viewport unit never pass
+  - a <link> that fetches from off this site: a stylesheet, a preload, an
+    icon, a manifest or a preconnect, see LOADING_RELS
+  - an image, a media file or a click beacon (ping) fetched from off this
+    site. It runs nothing, but it tells a third party who viewed the page
+  - an SVG <set> or <animate> that targets an href
+  - a comment or a marked section that a browser reads differently from
+    html.parser, which could hide a <script> from this check, see "Parser
+    traps" below
+  - any URL on CANARY_HOST, see "The canary" below
+
+Why a parser and not grep. The site builds with --minify, which unquotes
+attributes and turns an escaped entity back into the raw character where
+that is inert. A grep over the built HTML false-positives on
+alt="<img src=x onerror=alert(1)>", which a parser correctly sees as one
+attribute value. A grep also misses &#106;avascript: in an href, which the
+parser decodes the way the browser does, and it cannot tell a <style> that
+is inside an <svg> from one that is not. The parser runs the same rules on
+a minified and on a plain build and gives the same result.
+
+Parser traps. html.parser and a browser disagree on three pieces of markup,
+and each one would let a <script> through: <!--> and <!---> close a comment
+at once in a browser, but the parser reads on to the next -->; a comment
+ends at --!> in a browser and not in the parser; and <![CDATA[ outside
+<svg> and <math> is a comment that ends at the first > in a browser, but a
+marked section that ends at ]]> in the parser. Each one is reported as a
+finding, so the disagreement is never silent. hugo --minify strips every
+comment, so a built page has none of them unless a static file carries it.
+
+"On this site" means a URL with no host, or a host equal to the one in
+baseURL in config.toml (--host overrides it). The build made by the links
+job uses --baseURL /, so every internal URL there has no host and passes
+the same way.
+
+The canary. content/sponsors/canary.md and content/people/canary.md carry a
+name that is harmless as text and unmistakable as markup: it closes the
+attribute it sits in and opens a link to CANARY_HOST. content/canary.md is a
+draft page that renders both through the real sponsor and people grids. A
+draft is not built without -D, so the production site never carries them,
+and a build made with -D does. The check fails if the canary page is missing
+or if the two names did not reach it as text, so the fixture cannot silently
+disappear. --without-canary scans a build made without -D.
+
+Findings are matched against ALLOWLIST. An entry names the page or the
+directory, the kind of finding, and either the prefix of the URL the element
+loads or the SHA-256 of the inline text, so it permits one known snippet and
+not any later snippet of the same kind.
+
+Exit status:
+  0  no finding outside the allowlist
+  1  at least one finding outside the allowlist, a page that cannot be read,
+     or a canary page that was not built or did not render the fixture
+  2  the build directory does not exist or holds no HTML
+"""
+
+import argparse
+import hashlib
+import os
+import re
+import sys
+from html.parser import HTMLParser
+
+
+# ---------------------------------------------------------------------------
+# The canary
+# ---------------------------------------------------------------------------
+
+# Nothing on the site may point at this host. The two names below put it in
+# a link that only exists if a template printed the name as markup.
+CANARY_HOST = "canary.invalid"
+CANARY_PAGE = "canary/index.html"
+CANARY_NAMES = {
+    "sponsor": 'Canary sponsor "><a href="https://canary.invalid/sponsor">canary</a><span x="',
+    "person": 'Canary person "><a href="https://canary.invalid/person">canary</a><span x="',
+}
+
+
+# ---------------------------------------------------------------------------
+# URLs
+# ---------------------------------------------------------------------------
+
+# Attributes a browser loads a resource from or navigates to. A value in any
+# of them is parsed as a URL and checked for a dangerous scheme and for the
+# canary host. srcset and imagesrcset hold comma separated candidates, ping
+# and archive hold space separated lists.
+URL_ATTRIBUTES = {
+    "href", "xlink:href", "src", "srcset", "imagesrcset", "action",
+    "formaction", "data", "poster", "cite", "ping", "background", "codebase",
+    "code", "classid", "longdesc", "lowsrc", "dynsrc", "manifest", "profile",
+    "icon", "archive",
+}
+LIST_BY_COMMA = {"srcset", "imagesrcset"}
+LIST_BY_SPACE = {"ping", "archive"}
+
+DANGEROUS_SCHEMES = {"javascript", "vbscript", "data"}
+
+# Schemes whose URL carries an authority after the colon, see split_url.
+SPECIAL_SCHEMES = {"http", "https", "ws", "wss", "ftp", "file"}
+
+# The URL parser strips leading and trailing C0 controls and spaces, and
+# removes every tab, newline and carriage return before it reads the scheme.
+# "  jAvAsCrIpT:" and "java\tscript:" both run in a browser.
+C0_AND_SPACE = "".join(chr(c) for c in range(0x21))
+TAB_NEWLINE = re.compile(r"[\t\n\r]")
+SCHEME = re.compile(r"([a-zA-Z][a-zA-Z0-9+.-]*):")
+AUTHORITY = re.compile(r"[^/\\?#]*")
+
+
+def split_url(value):
+    """Return (scheme, host) for a URL the way a browser reads it.
+
+    The host is lower case, with no user information, port or trailing dot,
+    and it is "" for a relative URL. A backslash counts as a slash, as it
+    does in a browser for the special schemes, so https:\\\\evil.example is
+    not mistaken for a path. A special scheme with no slashes after the colon
+    is read as having an authority too (http:evil.example reaches that host
+    in a browser), which is the safe side of the one case where a browser
+    would treat it as relative.
+    """
+    text = TAB_NEWLINE.sub("", value.strip(C0_AND_SPACE))
+    match = SCHEME.match(text)
+    if match:
+        scheme = match.group(1).lower()
+        rest = text[match.end():]
+    else:
+        scheme = ""
+        rest = text
+    host = ""
+    if scheme in SPECIAL_SCHEMES or (not scheme and len(rest) >= 2
+                                     and rest[0] in "/\\" and rest[1] in "/\\"):
+        authority = AUTHORITY.match(rest.lstrip("/\\")).group(0)
+        host = authority.rsplit("@", 1)[-1]
+        if host.startswith("["):
+            host = host.split("]", 1)[0] + "]"
+        else:
+            host = host.split(":", 1)[0]
+        host = host.lower().rstrip(".")
+    return scheme, host
+
+
+def url_list(attribute, value):
+    """Return the URLs in one attribute value."""
+    if attribute in LIST_BY_COMMA:
+        return [c.split()[0] for c in value.split(",") if c.split()]
+    if attribute in LIST_BY_SPACE:
+        return value.split()
+    return [value]
+
+
+def refresh_url(content):
+    """Return the URL in the content of a meta refresh, or "" for a reload."""
+    match = re.match(r"\s*[\d.]*\s*[;,]?\s*(?:url\s*=\s*)?(.*)$", content, re.I | re.S)
+    url = match.group(1).strip() if match else content.strip()
+    if len(url) >= 2 and url[0] in "\"'" and url[-1] == url[0]:
+        url = url[1:-1]
+    return url
+
+
+# ---------------------------------------------------------------------------
+# Styles
+# ---------------------------------------------------------------------------
+
+# A style attribute is accepted when every declaration is in this table and
+# its value matches the pattern. The table is what the templates and the
+# content emit today: sizes, margins and padding, a text alignment, a font
+# size, a border and the hero background. Nothing in it can move an element
+# over the header, the navigation or the footer, hide one, or load from off
+# this site. Everything else is a finding, so a new property in a template
+# is a decision here and not a silent pass.
+#
+# A length is non-negative, has at most four digits and no viewport unit. A
+# negative margin pulls an element over the content above it, and 100vh
+# covers the viewport. Four digits is the cap the logo shortcode puts on its
+# width and height.
+LENGTH = r"(?:0|\d{1,4}(?:\.\d+)?(?:px|%|em|rem|pt))"
+SIZE = r"(?:auto|min-content|max-content|fit-content|" + LENGTH + r")"
+BOX = LENGTH + r"(?:\s+" + LENGTH + r"){0,3}"
+MARGIN = r"(?:auto|" + LENGTH + r")(?:\s+(?:auto|" + LENGTH + r")){0,3}"
+COLOR = r"(?:#[0-9a-f]{3,8}|[a-z]+)"
+BORDER_TOKEN = r"(?:" + LENGTH + r"|" + COLOR + r")"
+URL = r"url\(\s*([\"']?)([^\"'()\s]+)\1\s*\)"
+SAFE_STYLE = {
+    re.compile(r"^(?:min-|max-)?(?:width|height)$"): re.compile(r"^" + SIZE + r"$", re.I),
+    re.compile(r"^margin(?:-(?:top|right|bottom|left))?$"): re.compile(r"^" + MARGIN + r"$", re.I),
+    re.compile(r"^padding(?:-(?:top|right|bottom|left))?$"): re.compile(r"^" + BOX + r"$", re.I),
+    re.compile(r"^text-align$"): re.compile(r"^(?:left|right|center|justify)$", re.I),
+    # A font size of zero hides the text, so zero is refused here and nowhere else.
+    re.compile(r"^font-size$"): re.compile(
+        r"^(?!0+(?:\.0+)?(?:px|%|em|rem|pt)?$)"
+        r"(?:" + LENGTH + r"|xx-small|x-small|small|medium|large|x-large|xx-large|smaller|larger)$", re.I),
+    re.compile(r"^border(?:-(?:top|right|bottom|left))?$"): re.compile(
+        r"^" + BORDER_TOKEN + r"(?:\s+" + BORDER_TOKEN + r"){0,2}$", re.I),
+    re.compile(r"^border-radius$"): re.compile(r"^" + BOX + r"$", re.I),
+    re.compile(r"^background-image$"): re.compile(r"^" + URL + r"$", re.I),
+}
+STYLE_URL = re.compile(URL, re.I)
+STYLE_CHARS = re.compile(r"[\x20-\x7e\t\n\r]*")
+
+# A <style> element is template output whose text changes from page to page
+# (the agenda partial writes one grid per event), so a hash does not fit it.
+# It gets the same treatment as the attribute: every declaration must name a
+# property in SAFE_BLOCK_STYLE and match its value pattern. The table is the
+# attribute table plus the grid properties the agenda writes. A deny list was
+# tried first and missed eight ways to hide or move an element (overflow,
+# zoom, offset-path, all, a negative length written -.5em or inside calc(),
+# a zero font-size, a transparent colour, a rule inside @media), so the block
+# is now accepted only for what it is known to need.
+#
+# Before the grammar runs, the whole block is refused when it holds an
+# at-rule, a url(), an image-set(), an expression(), a CSS escape, a comment,
+# a negative number or a viewport unit. A negative number is one that
+# follows a colon, a space or a bracket: the agenda classes are named
+# length-1, length-2 and so on.
+BLOCK_REFUSE = re.compile(
+    r"@|\\|/\*|url\s*\(|image-set\s*\(|expression\s*\(|(?<![\w-])-\s*\.?\d"
+    r"|\d(?:vw|vh|vmin|vmax|svw|svh|lvw|lvh|dvw|dvh)\b",
+    re.I)
+GRID_VALUE = re.compile(r"^[\w\s,./()\"'%-]+$")
+SAFE_BLOCK_STYLE = dict(SAFE_STYLE)
+SAFE_BLOCK_STYLE[re.compile(
+    r"^(?:grid-(?:template-(?:columns|rows|areas)|(?:column|row)(?:-(?:start|end))?|area)"
+    r"|(?:grid-)?(?:row-|column-)?gap)$")] = GRID_VALUE
+RULE = re.compile(r"\s*([^{}]*?)\s*\{([^{}]*)\}")
+
+
+def check_style_block(text):
+    """Return (accepted, note) for the text of a <style> element.
+
+    note names the token, the property or the declaration that failed, for
+    the report.
+    """
+    match = BLOCK_REFUSE.search(text)
+    if match:
+        return False, match.group(0)
+    position = 0
+    for rule in RULE.finditer(text):
+        if text[position:rule.start()].strip():
+            return False, "text outside a rule"
+        position = rule.end()
+        for declaration in rule.group(2).split(";"):
+            if not declaration.strip():
+                continue
+            if ":" not in declaration:
+                return False, declaration.strip()
+            name, value = declaration.split(":", 1)
+            name = name.strip().lower()
+            value = re.sub(r"\s*!important\s*$", "", value.strip(), flags=re.I)
+            for property_pattern, value_pattern in SAFE_BLOCK_STYLE.items():
+                if property_pattern.match(name):
+                    if not value_pattern.match(value):
+                        return False, "%s: %s" % (name, value)
+                    break
+            else:
+                return False, name
+    if text[position:].strip():
+        return False, "text outside a rule"
+    return True, None
+
+def check_style_attribute(value):
+    """Return (accepted, urls) for a style attribute value.
+
+    urls holds every url() target, so that the allowlist can be matched
+    against what the style loads and the canary rule can see it.
+    """
+    urls = [m.group(2) for m in STYLE_URL.finditer(value)]
+    # A backslash is a CSS escape, which spells j\61vascript: or hides a
+    # slash in a URL from the patterns below. A comment has no honest use in
+    # a one-line attribute. A character outside printable ASCII is not a
+    # property or a length the templates write.
+    if "\\" in value or "/*" in value or not STYLE_CHARS.fullmatch(value):
+        return False, urls
+    for declaration in value.split(";"):
+        if not declaration.strip():
+            continue
+        if ":" not in declaration:
+            return False, urls
+        name, text = declaration.split(":", 1)
+        name, text = name.strip().lower(), text.strip()
+        for property_pattern, value_pattern in SAFE_STYLE.items():
+            if property_pattern.match(name):
+                if not value_pattern.match(text):
+                    return False, urls
+                break
+        else:
+            return False, urls
+    return True, urls
+
+
+# ---------------------------------------------------------------------------
+# Elements
+# ---------------------------------------------------------------------------
+
+HANDLER = re.compile(r"^on[a-z]")
+
+# <script type=...> values that a browser never executes.
+DATA_BLOCK_TYPES = {"application/ld+json", "application/json"}
+
+# <link rel=...> tokens that make the browser fetch the href, or open a
+# connection to its host, as soon as the page loads.
+LOADING_RELS = {
+    "stylesheet", "preload", "modulepreload", "prefetch", "prerender", "import",
+    "icon", "apple-touch-icon", "apple-touch-icon-precomposed", "mask-icon",
+    "manifest", "preconnect", "dns-prefetch",
+}
+
+# Elements that fetch a resource when the page loads, and the attributes they
+# fetch it from. An off-site URL in one of them is a "load" finding: it runs
+# nothing, but the third party learns the address of every visitor. An
+# <input> counts only when its type is image. <image> is the SVG element.
+LOADERS = {
+    "img": ("src", "srcset"),
+    "source": ("src", "srcset"),
+    "video": ("src", "poster"),
+    "audio": ("src",),
+    "track": ("src",),
+    "input": ("src",),
+    "image": ("href", "xlink:href"),
+}
+
+# Elements that embed another document or a plugin, with the kind they are
+# reported as and the attribute that names what they embed. Each one is a
+# finding whatever it embeds.
+EMBEDDERS = {
+    "iframe": ("iframe", "src"),
+    "frame": ("iframe", "src"),
+    "portal": ("iframe", "src"),
+    "fencedframe": ("iframe", "src"),
+    "object": ("object", "data"),
+    "embed": ("embed", "src"),
+    "applet": ("object", "codebase"),
+    "base": ("base", "href"),
+}
+
+# Elements of SVG animation that can rewrite an href while the page is open.
+ANIMATORS = {"set", "animate", "animatemotion", "animatetransform"}
+
+KINDS = [
+    ("handler", "event handler attribute"),
+    ("scheme", "javascript:, vbscript: or data: URL"),
+    ("canary", "URL on the canary host, a template printed a name as markup"),
+    ("script-inline", "inline script"),
+    ("script-external", "script loaded from off this site"),
+    ("iframe", "embedded document: iframe, frame or portal"),
+    ("srcdoc", "iframe srcdoc, inline document in the page origin"),
+    ("object", "plugin object or applet"),
+    ("embed", "plugin embed"),
+    ("base", "base element, rewrites every relative URL"),
+    ("form", "form or formaction that posts off this site"),
+    ("refresh", "meta refresh off this site"),
+    ("style-attr", "inline style outside SAFE_STYLE"),
+    ("style-block", "stylesheet with a property or a value outside SAFE_BLOCK_STYLE"),
+    ("link", "link element that fetches from off this site"),
+    ("load", "image, media or click beacon fetched from off this site"),
+    ("svg-animate", "SVG animation that targets an href"),
+    ("parser-trap", "comment or marked section a browser reads differently, can hide a script"),
+]
+KIND_TEXT = dict(KINDS)
+
+
+# ---------------------------------------------------------------------------
+# Known and accepted exceptions
+# ---------------------------------------------------------------------------
+
+# Keys:
+#   path    a page path relative to the build directory, or a directory
+#           prefix ending in "/"
+#   kind    one of KINDS
+#   prefix  the URL the element loads must start with this, scheme, host and
+#           the start of the path, so a look-alike host does not match
+#   sha256  the SHA-256 of the inline text with its whitespace collapsed, for
+#           a script-inline or style-block finding
+#   why     the reason, in words
+#
+# The Hugo alias pages (a meta refresh to the new URL of a moved page) and
+# the eleven redirects in the archived pybcn.org snapshot need no entry: a
+# refresh that stays on this site is not a finding, whatever page it is on.
+# Hugo writes the alias pages at build time, so they are matched by that
+# shape and never by path.
+#
+# archives/ stays in the scan. The 56 pages there are frozen copies under
+# static/archives/, served as they are, and a change to them needs a review
+# from @pybcn/core through the /static/ rule. Excluding the directory would
+# make the check blind to 56 served pages, and the price of keeping them is
+# two entries. Measured on the 2026-10 build: the archives hold 100 script
+# elements that all load from this site, 44 inline scripts with two distinct
+# bodies (the two entries below), 67 style attributes that are all sizes and
+# margins, two forms with no action and one <style> that resets the body
+# margin. Pinning the two bodies by hash means that an edit to a frozen page,
+# or a new snapshot with a script in it, fails here and gets a decision.
+ALLOWLIST = [
+    {"path": "pybcn_association/membership/index.html",
+     "kind": "form",
+     "prefix": "https://www.paypal.com/cgi-bin/webscr",
+     "why": "the PayPal subscription button of the membership-process shortcode"},
+    {"path": "pybcn_association/membership-cancel/index.html",
+     "kind": "form",
+     "prefix": "https://www.paypal.com/cgi-bin/webscr",
+     "why": "the PayPal unsubscribe button of the membership-process shortcode"},
+    {"path": "pybcn_association/propose-a-talk/index.html",
+     "kind": "iframe",
+     "prefix": "https://docs.google.com/forms/",
+     "why": "the talk proposal form, through the google-embed shortcode"},
+    {"path": "pyladies_bcn/call-for-proposals/index.html",
+     "kind": "iframe",
+     "prefix": "https://docs.google.com/forms/",
+     "why": "the PyLadies BCN proposal form, through the google-embed shortcode"},
+    {"path": "events/pyday_bcn/pyday_bcn_2019/index.html",
+     "kind": "iframe",
+     "prefix": "https://calendar.google.com/calendar/embed",
+     "why": "the PyDay 2019 agenda, a Google Calendar through the google-embed shortcode"},
+    {"path": "archives/pybcn.org/",
+     "kind": "script-inline",
+     "sha256": "34a5712b5063c64b5c8e08522ec9ffe70a3bee3b41892ae6ad8039321c58911f",
+     "why": "updateUpcoming(); updatePast(); on the frozen 2016-2019 pages, a call "
+            "into the retired Meetup widget that no longer loads"},
+    {"path": "archives/hacktoberfestbarcelona.com/cdn-cgi/l/email-protection.html",
+     "kind": "script-inline",
+     "sha256": "813813dad35acb4facd8be5f3c127180d341365a81850f7de9639ec22e9b242f",
+     "why": "window._cf_translation = {}; the Cloudflare email protection page "
+            "captured with the frozen snapshot"},
+    {"path": "pybcn_association/membership/index.html",
+     "kind": "load",
+     "prefix": "https://www.paypalobjects.com/en_US/GB/i/btn/btn_subscribeCC_LG.gif",
+     "why": "the PayPal button image of the membership-process shortcode"},
+    {"path": "pybcn_association/membership-cancel/index.html",
+     "kind": "load",
+     "prefix": "https://www.paypalobjects.com/en_US/GB/i/btn/btn_subscribeCC_LG.gif",
+     "why": "the PayPal button image of the membership-process shortcode"},
+    {"path": "events/pyday_bcn/pyday_bcn_2018/index.html",
+     "kind": "load",
+     "prefix": "https://www.eventbrite.es/custombutton?eid=50585714233",
+     "why": "the Eventbrite registration button of PyDay 2018, an image Eventbrite "
+            "serves on every visit. The event is over; a local copy would end the entry"},
+    {"path": "archives/pybcn.org/",
+     "kind": "load",
+     "prefix": "https://www.eventbrite.es/custombutton?eid=50585714233",
+     "why": "the same Eventbrite button on the two frozen copies of the 2018 page"},
+]
+
+
+def text_hash(text):
+    """SHA-256 of an inline text with runs of whitespace collapsed to one space."""
+    return hashlib.sha256(re.sub(r"\s+", " ", text).strip().encode("utf-8")).hexdigest()
+
+
+def path_matches(entry_path, page):
+    if entry_path.endswith("/"):
+        return page.startswith(entry_path)
+    return page == entry_path
+
+
+def allowed(page, kind, urls, body):
+    """Return the index of the allowlist entry that clears this finding, or None.
+
+    A prefix entry must match every URL the element loads, and the match is
+    on the prefix, so that a hostile URL with the permitted one appended does
+    not pass. A hash entry must match the inline text exactly.
+    """
+    for index, entry in enumerate(ALLOWLIST):
+        if entry["kind"] != kind or not path_matches(entry["path"], page):
+            continue
+        if "prefix" in entry:
+            if urls and all(url.startswith(entry["prefix"]) for url in urls):
+                return index
+        elif "sha256" in entry:
+            if body is not None and text_hash(body) == entry["sha256"]:
+                return index
+    return None
+
+
+# ---------------------------------------------------------------------------
+# The parser
+# ---------------------------------------------------------------------------
+
+class Page(HTMLParser):
+    """Parse one built page and collect findings.
+
+    html.parser reads <script> and <style> as raw text, the way a browser
+    does. A browser does not do that inside <svg> or <math>: there every
+    element's content is markup, and <svg><style><img onerror=...> runs. The
+    parser is told the same, so set_cdata_mode is a no-op while the depth of
+    foreign content is above zero.
+    """
+
+    FOREIGN = {"svg", "math"}
+
+    def __init__(self, page, site_host):
+        super().__init__(convert_charrefs=True)
+        self.page = page
+        self.site_host = site_host
+        self.findings = []
+        self.values = []          # every attribute value and text node, for the canary
+        self.foreign = 0
+        self.collecting = None    # (finding, [text pieces]) of an open script or style
+
+    def set_cdata_mode(self, elem, *args, **kwargs):
+        if self.foreign:
+            return
+        super().set_cdata_mode(elem, *args, **kwargs)
+
+    def on_site(self, url):
+        scheme, host = split_url(url)
+        if scheme in DANGEROUS_SCHEMES:
+            return False
+        if not scheme and not host:
+            return True
+        if scheme in ("http", "https") and self.site_host and host == self.site_host:
+            return True
+        return False
+
+    def record(self, kind, urls=(), body=None, note=None, text=None):
+        line, column = self.getpos()
+        if text is None:
+            text = self.get_starttag_text() or ""
+        text = re.sub(r"\s+", " ", text)
+        if len(text) > 160:
+            text = text[:157] + "..."
+        finding = {
+            "page": self.page, "kind": kind, "line": line, "column": column,
+            "text": text, "urls": list(urls), "body": body, "note": note,
+        }
+        self.findings.append(finding)
+        return finding
+
+    def handle_starttag(self, tag, attrs):
+        attrs = [(name, value if value is not None else "") for name, value in attrs]
+        names = [name for name, _ in attrs]
+        values = dict(reversed(attrs))   # the first of a repeated attribute wins
+        self.values.extend(value for _, value in attrs)
+        if tag in self.FOREIGN:
+            self.foreign += 1
+
+        for name, value in attrs:
+            if HANDLER.match(name):
+                self.record("handler", note=name)
+            if name in URL_ATTRIBUTES:
+                for url in url_list(name, value):
+                    scheme, host = split_url(url)
+                    if scheme in DANGEROUS_SCHEMES:
+                        self.record("scheme", urls=[url], note="%s=%s:" % (name, scheme))
+                    if host == CANARY_HOST:
+                        self.record("canary", urls=[url], note=name)
+
+        if tag in EMBEDDERS:
+            kind, attribute = EMBEDDERS[tag]
+            if tag == "iframe" and "srcdoc" in names:
+                self.record("srcdoc")
+            self.record(kind, urls=[values.get(attribute, "")], note=tag)
+        elif tag == "script":
+            if "src" in names:
+                if not self.on_site(values["src"]):
+                    self.record("script-external", urls=[values["src"]])
+            elif values.get("type", "").strip().lower() not in DATA_BLOCK_TYPES:
+                self.collecting = (self.record("script-inline", body=""), [])
+        elif tag == "style":
+            self.collecting = (None, [])
+        elif tag == "form":
+            action = values.get("action", "")
+            if action and not self.on_site(action):
+                self.record("form", urls=[action])
+        elif tag in ("button", "input"):
+            action = values.get("formaction", "")
+            if action and not self.on_site(action):
+                self.record("form", urls=[action], note="formaction")
+        elif tag == "meta":
+            if values.get("http-equiv", "").strip().lower() == "refresh":
+                url = refresh_url(values.get("content", ""))
+                if url and not self.on_site(url):
+                    self.record("refresh", urls=[url])
+                if split_url(url)[1] == CANARY_HOST:
+                    self.record("canary", urls=[url], note="refresh")
+        elif tag == "link":
+            rels = set(values.get("rel", "").lower().split())
+            href = values.get("href", "")
+            if rels & LOADING_RELS and href and not self.on_site(href):
+                self.record("link", urls=[href], note=" ".join(sorted(rels & LOADING_RELS)))
+        elif tag in ANIMATORS:
+            target = values.get("attributename", "").strip().lower()
+            if target in ("href", "xlink:href"):
+                self.record("svg-animate", note=target)
+
+        if tag in LOADERS and (tag != "input" or values.get("type", "").strip().lower() == "image"):
+            urls = []
+            for attribute in LOADERS[tag]:
+                if attribute in values:
+                    urls.extend(url_list(attribute, values[attribute]))
+            off_site = [url for url in urls
+                        if url and split_url(url)[0] not in DANGEROUS_SCHEMES
+                        and not self.on_site(url)]
+            if off_site:
+                self.record("load", urls=off_site)
+        if values.get("ping", "").strip():
+            self.record("load", urls=url_list("ping", values["ping"]), note="ping")
+
+        if "style" in names:
+            accepted, urls = check_style_attribute(values["style"])
+            for url in urls:
+                scheme, host = split_url(url)
+                if scheme in DANGEROUS_SCHEMES:
+                    self.record("scheme", urls=[url], note="style url() %s:" % scheme)
+                if host == CANARY_HOST:
+                    self.record("canary", urls=[url], note="style url()")
+                if accepted and not self.on_site(url):
+                    accepted = False
+            if not accepted:
+                self.record("style-attr", urls=urls)
+
+    def handle_endtag(self, tag):
+        if tag in self.FOREIGN and self.foreign:
+            self.foreign -= 1
+        if self.collecting is not None and tag in ("script", "style"):
+            self.finish_collecting()
+
+    def finish_collecting(self, at_eof=False):
+        """Validate the body of the open <script> or <style> and close it.
+
+        A <style> is checked only here, so a block left open never reached
+        this path from handle_endtag. close() calls it again at end of file:
+        a browser applies an unclosed stylesheet and runs an unclosed script,
+        so an unterminated block gets a decision, not a silent pass.
+        """
+        if self.collecting is None:
+            return
+        finding, pieces = self.collecting
+        self.collecting = None
+        body = "".join(pieces)
+        if finding is not None:
+            finding["body"] = body
+        else:
+            accepted, note = check_style_block(body)
+            if not accepted:
+                text = "<style> (unclosed at end of file)" if at_eof else None
+                self.record("style-block", body=body, note=note, text=text)
+
+    def close(self):
+        super().close()
+        self.finish_collecting(at_eof=True)
+
+    def handle_data(self, data):
+        self.values.append(data)
+        if self.collecting is not None:
+            self.collecting[1].append(data)
+
+    # The parser traps, see the module docstring. The parser calls neither
+    # method for the text of a <script> or a <style>, so the "<![CDATA[" that
+    # old scripts open with is not reported. Inside <svg> and <math> a CDATA
+    # section is text in a browser too, so it is not reported either.
+    def handle_comment(self, data):
+        if data.startswith(">") or data.startswith("->"):
+            self.record("parser-trap", body=data, text="<!--" + data[:80],
+                        note="a browser closes this comment at <!--> or <!--->")
+        elif "--!>" in data:
+            self.record("parser-trap", body=data, text="<!--" + data[:80],
+                        note="a browser closes this comment at --!>")
+
+    def unknown_decl(self, data):
+        if not self.foreign:
+            self.record("parser-trap", body=data, text="<![" + data[:80],
+                        note="a browser reads <![ outside svg or math as a comment up to the first >")
+
+
+# ---------------------------------------------------------------------------
+# The run
+# ---------------------------------------------------------------------------
+
+def site_host_from_config(root):
+    """Return the host of baseURL in config.toml, or ""."""
+    try:
+        text = open(os.path.join(root, "config.toml"), encoding="utf-8").read()
+    except OSError:
+        return ""
+    match = re.search(r'^\s*baseURL\s*=\s*"([^"]*)"', text, re.M)
+    if not match:
+        return ""
+    return split_url(match.group(1))[1]
+
+
+def scan(build, site_host):
+    """Return (pages, findings, suppressed, errors, canary_values)."""
+    pages = []
+    for base, dirs, names in os.walk(build):
+        dirs.sort()
+        for name in sorted(names):
+            if name.lower().endswith((".html", ".htm")):
+                pages.append(os.path.join(base, name))
+    pages.sort()
+
+    findings, suppressed, errors = [], [], []
+    canary_values = None
+    for path in pages:
+        page = os.path.relpath(path, build).replace(os.sep, "/")
+        try:
+            text = open(path, encoding="utf-8").read()
+        except (OSError, UnicodeDecodeError) as error:
+            errors.append("cannot read %s: %s" % (page, error))
+            continue
+        parser = Page(page, site_host)
+        parser.feed(text)
+        parser.close()
+        if page == CANARY_PAGE:
+            canary_values = parser.values
+        for finding in parser.findings:
+            index = allowed(page, finding["kind"], finding["urls"], finding["body"])
+            if index is None:
+                findings.append(finding)
+            else:
+                finding["entry"] = index
+                suppressed.append(finding)
+    return pages, findings, suppressed, errors, canary_values
+
+
+def location(finding):
+    return "%s:%d:%d" % (finding["page"], finding["line"], finding["column"] + 1)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("build", nargs="?", default=None,
+                        help="the directory Hugo built into. Default: public")
+    parser.add_argument("--root", default=None,
+                        help="repository root. Default: the parent of this script")
+    parser.add_argument("--host", default=None,
+                        help="the host of this site. Default: the host of baseURL in config.toml")
+    parser.add_argument("--without-canary", action="store_true",
+                        help="scan a build made without -D, which has no canary page")
+    args = parser.parse_args()
+
+    root = args.root or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    build = args.build or os.path.join(root, "public")
+    site_host = args.host if args.host is not None else site_host_from_config(root)
+    site_host = site_host.lower().rstrip(".")
+
+    if not os.path.isdir(build):
+        print("check-rendered: %s is not a directory. Build first: "
+              "bin/hugo --minify -D -d public" % build)
+        return 2
+
+    pages, findings, suppressed, errors, canary_values = scan(build, site_host)
+    if not pages:
+        print("check-rendered: no HTML under %s. Build first: "
+              "bin/hugo --minify -D -d public" % build)
+        return 2
+
+    print("check-rendered: scanned %d pages under %s, site host %s"
+          % (len(pages), os.path.relpath(build, root), site_host or "(none)"))
+    print("  kinds: %s" % ", ".join(kind for kind, _ in KINDS))
+
+    if suppressed:
+        print("\nAllowed by the allowlist (%d):" % len(suppressed))
+        for finding in suppressed:
+            print("  %s  %s" % (location(finding), finding["kind"]))
+            print("      reason: %s" % ALLOWLIST[finding["entry"]]["why"])
+
+    # An allowlist entry that matches nothing is an exception that outlived
+    # its cause. Report it so that it gets deleted.
+    used = {finding["entry"] for finding in suppressed}
+    stale = [entry for index, entry in enumerate(ALLOWLIST) if index not in used]
+    if stale:
+        print("\nStale allowlist entries (%d). The markup they cover is gone, "
+              "remove them:" % len(stale))
+        for entry in stale:
+            print("  %s  %s  %s" % (entry["path"], entry["kind"], entry["why"]))
+
+    failed = False
+
+    if findings:
+        failed = True
+        print("\nFAIL  %d finding(s) not allowed:" % len(findings))
+        for finding in findings:
+            print("\n  %s" % location(finding))
+            print("      kind:  %s (%s)" % (finding["kind"], KIND_TEXT[finding["kind"]]))
+            if finding["note"]:
+                print("      on:    %s" % finding["note"])
+            print("      text:  %s" % finding["text"])
+            if finding["kind"] in ("script-inline", "style-block", "parser-trap") and finding["body"]:
+                print("      body:  %s" % re.sub(r"\s+", " ", finding["body"]).strip()[:160])
+                print("      sha256: %s" % text_hash(finding["body"]))
+        print("\nThe built page carries markup this site must not serve. Find the "
+              "template, shortcode or content that printed it. If it is wanted, "
+              "add an allowlist entry in bin/check-rendered with a reason.")
+
+    if errors:
+        failed = True
+        print("\nFAIL  %d page(s) could not be read:" % len(errors))
+        for error in errors:
+            print("  %s" % error)
+
+    if args.without_canary:
+        print("\nNOTE  --without-canary: the canary fixture was not checked.")
+    elif canary_values is None:
+        failed = True
+        print("\nFAIL  the canary page %s was not built. Build with -D "
+              "(bin/hugo --minify -D -d public), or pass --without-canary for a "
+              "build that has no drafts." % CANARY_PAGE)
+    else:
+        missing = [who for who, name in CANARY_NAMES.items()
+                   if not any(name in value for value in canary_values)]
+        if missing:
+            failed = True
+            print("\nFAIL  the canary page %s did not render the %s name as text. "
+                  "The fixture in content/ or the grid that lists it has changed."
+                  % (CANARY_PAGE, " or the ".join(missing)))
+        else:
+            print("\nCanary: both names reached %s as text, not as markup." % CANARY_PAGE)
+
+    if failed:
+        return 1
+
+    print("\nPASS  no dangerous markup outside the allowlist.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
