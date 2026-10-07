@@ -2,7 +2,7 @@
 id: lpmayos-president
 name: "Laura Pérez Mayos"
 short_bio: "Books, nature and NLP"
-photo: "lpmayos.jpeg"
+photo: laura-perez-mayos.jpg
 site: https://lpmayos.github.io/
 
 pybcn_position: "PyBCN Former President"

@@ -2,9 +2,7 @@
 id: ferran-fabregas
 name: "Ferran Fàbregas"
 short_bio: Computer scientist and programmer by profession, I started in the "maker" world 7 years ago, in which I have developed a cross-disciplinary knowledge in different disciplines of digital manufacturing, electronics, robotics, micro-controller programming and education, trying to turn my passion into a full-time job.
-photo: "ferran_fabregas.png"
-
-
+photo: ferran-fabregas.png
 twitter: https://twitter.com/ferrithemaker
 linkedin: https://www.linkedin.com/in/ferran-fabregas-94a68525/
 github: https://github.com/ferrithemaker

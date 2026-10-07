@@ -3,8 +3,7 @@ id: paula-bassaganas
 name: Paula Bassagañas Òdena
 short_bio: ""
 
-photo: paula-bassaganas.jpeg
-
+photo: paula-bassaganas-odena.jpg
 linkedin: https://www.linkedin.com/in/paulabassaganas/
 github: https://github.com/bassagan
 ---

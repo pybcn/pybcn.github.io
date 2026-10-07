@@ -2,7 +2,7 @@
 id: guille-abad
 name: "Guillermo Abad"
 short_bio: "Quantum Engineer"
-photo: "guillermo_abad.jpg"
+photo: guillermo-abad.jpg
 linkedin: "https://www.linkedin.com/in/guillermo-abad-l%C3%B3pez/"
 ---
 

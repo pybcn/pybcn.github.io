@@ -1,7 +1,7 @@
 ---
 id: israel-saeta
 name: "Israel Saeta Pérez"
-photo: "israel-saeta.jpg"
+photo: israel-saeta-perez.jpg
 twitter: "https://twitter.com/dukebody"
 ---
 

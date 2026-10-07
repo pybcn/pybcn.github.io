@@ -1,8 +1,7 @@
 ---
 id: diego-quintana
 name: Diego Quintana
-photo: diego-quintana.jpeg
-
+photo: diego-quintana.jpg
 linkedin: https://www.linkedin.com/in/diego-quintana-valenzuela/
 github: https://github.com/diegoquintanav/
 ---

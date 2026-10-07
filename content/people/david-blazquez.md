@@ -2,6 +2,6 @@
 id: david-blazquez
 name: "David Blázquez García"
 short_bio: ""
-photo: "david-blazquez.jpg"
+photo: david-blazquez-garcia.jpg
 linkedin: "https://www.linkedin.com/in/dblazquezg/"
 ---

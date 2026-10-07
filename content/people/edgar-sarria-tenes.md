@@ -2,8 +2,7 @@
 id: edgar-sarria-tenes
 name: Edgar Sarria Tenes
 short_bio: SDK developer at Shimoku.
-photo: edgar-sarria-tenes.jpeg
-
+photo: edgar-sarria-tenes.jpg
 linkedin: https://www.linkedin.com/in/edgar-sarria-tenes-7391a6176/
 github: https://github.com/shimoku-tech/shimoku-api-python
 ---

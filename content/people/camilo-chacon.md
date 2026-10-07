@@ -1,7 +1,7 @@
 ---
 id: camilo-chacon
 name: Camilo Chacón Sartori
-photo: camilo-chacon.jpg
+photo: camilo-chacon-sartori.jpg
 twitter: https://twitter.com/camilo_chacon_s
 linkedin: https://www.linkedin.com/in/camilo-chacon-sartori/
 ---

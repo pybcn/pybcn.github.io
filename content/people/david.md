@@ -2,8 +2,7 @@
 id: david
 name: David Arcos
 short_bio: Distributed systems, scalability, security, Python
-photo: david.jpeg
-
+photo: david-arcos.jpg
 pybcn_position: PyBCN Organizer
 
 twitter: https://twitter.com/DZPM

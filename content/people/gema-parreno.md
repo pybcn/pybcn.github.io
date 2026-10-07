@@ -1,7 +1,7 @@
 ---
 id: gema-parreno
 name: "Gema Parreño"
-photo: "gema-parreno.jpeg"
+photo: gema-parreno.jpg
 linkedin: "https://www.linkedin.com/in/gemaparreno/"
 github: "https://github.com/SoyGema"
 twitter: "https://twitter.com/SoyGema"

@@ -1,7 +1,7 @@
 ---
 id: sonia-estrade
 name: "Sònia Estradé Albiol"
-photo: "sonia-estrade.jpeg"
+photo: sonia-estrade-albiol.jpg
 twitter: "https://twitter.com/estrade_sonia"
 ---
 

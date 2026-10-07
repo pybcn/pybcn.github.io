@@ -2,8 +2,7 @@
 id: nuria
 name: "Núria Pujol Vilanova"
 short_bio: ""
-photo: "nuria.jpeg"
-
+photo: nuria-pujol-vilanova.jpg
 pybcn_position: "PyLadiesBCN Organizer"
 
 twitter: "https://twitter.com/llevaneus"

@@ -1,7 +1,7 @@
 ---
 id: carlton-gibson
 name: "Carlton Gibson"
-photo: "carlton-gibson.jpeg"
+photo: carlton-gibson.jpg
 twitter: "https://twitter.com/carltongibson"
 ---
 

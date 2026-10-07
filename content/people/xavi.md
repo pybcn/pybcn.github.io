@@ -2,8 +2,7 @@
 id: xavi
 name: Xavi Francisco Gilabert
 short_bio: "[passion for passion in ('Python', 'Free Software', 'Privacy', 'Human Rights')]"
-photo: xavi.jpg
-
+photo: xavi-francisco-gilabert.jpg
 pybcn_position: PyBCN Organizer
 
 twitter: https://twitter.com/srxavi/
