@@ -36,7 +36,7 @@ people_sections:
               - ankit-mahato
               - carles_barrobes
               - christian-adell
-              - daniel_mesejo
+              - daniel-mesejo
               - edgar-riba
               - eduard_cespedes
               - elisabeth-ortega-carrasco
