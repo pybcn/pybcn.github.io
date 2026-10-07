@@ -1,5 +1,10 @@
 ---
 title: "Organizers"
+# The name the appearance list of a person modal calls this page by. The
+# line there reads "Permanent Committee at PyBCN", where the title would
+# read "Permanent Committee at Organizers" and repeat the role. See
+# appearances_index.html.
+appearances_title: "PyBCN"
 description: "Get to know the people behind PyBCN!"
 menu:
   main:
