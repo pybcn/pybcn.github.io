@@ -1,0 +1,73 @@
+name: codeql
+
+on:
+  push:
+    branches:
+      - edition
+  pull_request:
+    branches:
+      - edition
+  schedule:
+    # Monday 05:37 UTC (06:37 or 07:37 in Barcelona). A new query can find
+    # an old bug in code that did not change, and this puts the result on the
+    # Security tab before the week starts. Off the hour on purpose: GitHub
+    # queues every top-of-the-hour schedule together and delays or drops
+    # them under load.
+    - cron: '37 5 * * 1'
+
+# The default token can write to the repository. CodeQL only needs to read
+# the sources and to upload its results to the Security tab.
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: Analyze ${{ matrix.language }}
+    runs-on: ubuntu-latest
+    strategy:
+      # Keep the other languages running when one of them fails.
+      fail-fast: false
+      matrix:
+        language:
+          # actions: the workflows under .github/workflows/. The queries find
+          #   token permissions wider than needed, actions pinned to a tag
+          #   instead of a commit, and untrusted input inside expressions.
+          # javascript: our own scripts in themes/pybcn_theme/assets/js/ and
+          #   the inline scripts in the Hugo templates. CodeQL skips *.min.js
+          #   by itself; the exclusions below drop the rest of the third-party
+          #   and archived code.
+          # python: bin/check-content and bin/check-html-safety. They have no
+          #   .py extension. CodeQL picks them up through the shebang line.
+          - actions
+          - javascript
+          - python
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          languages: ${{ matrix.language }}
+          # security-extended adds the medium-precision queries. The default
+          # suite leaves out actions/unpinned-tag, the one we most want here.
+          # paths-ignore only affects the javascript analysis: the other two
+          # languages have no files in those folders. Findings in code nobody
+          # will touch are how a security tool gets ignored.
+          config: |
+            queries:
+              - uses: security-extended
+            paths-ignore:
+              # jQuery, Bootstrap, and jquery-easing, committed as-is.
+              - themes/pybcn_theme/assets/vendor
+              # Frozen 2016-2019 snapshots of old PyBCN sites, with their own
+              # inline scripts and vendor copies. Kept on purpose, never
+              # edited. The link checker in pr.yml excludes them too.
+              - static/archives
+
+      - name: Run the CodeQL analysis
+        uses: github/codeql-action/analyze@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
+        with:
+          # One category per language, so the uploads do not replace each
+          # other.
+          category: "/language:${{ matrix.language }}"
