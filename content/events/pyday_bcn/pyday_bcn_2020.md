@@ -32,7 +32,7 @@ people_sections:
         - people_per_line: 4
           people:
               - alberto
-              - alvaro_duran
+              - alvaro-duran-barata
               - ankit-mahato
               - carles_barrobes
               - christian-adell
