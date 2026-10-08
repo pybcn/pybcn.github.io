@@ -23,7 +23,7 @@ free_text_sections:
       <b>29th November</b>: PyDay BCN 2025"
   - title: Registration
     id: registration
-    content: "General registration will open on Tuesday 25th of November, at 9AM through <a target='_blank' href=''>Eventbrite</a>."
+    content: "General registration will open on Tuesday 25th of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator'>Eventbrite</a>."
 
 sponsors_text: "Would you like to sponsor this event? Please contact us at pyday2025@googlegroups.com<br/><br/>"
 sponsor_levels:
@@ -226,8 +226,8 @@ events:
     topic: "Quantum Computing"
     location: "Sala Hedy Lamarr"
     repositories: "
-    <br> <b> Presentation </b>: https://docs.google.com/presentation/d/1QHQHSbCnpdEJj2BLAFIFk0M0lbjLM6StTgbNojUBcQk/edit</br>
-    <br> <b> Workshop Notebooks </b>: https://drive.google.com/drive/folders/18ds2Onl0hqW3NMJ7FpgErkaRtYvslrHK</br>"
+    <br> <b> Presentation </b>: https://docs.google.com/presentation/d/1QHQHSbCnpdEJj2BLAFIFk0M0lbjLM6StTgbNojUBcQk/edit<br>
+    <br> <b> Workshop Notebooks </b>: https://drive.google.com/drive/folders/18ds2Onl0hqW3NMJ7FpgErkaRtYvslrHK<br>"
 
   - speaker: "Javier Ramos Panduro"
     title: "Testeando API's like a boss con BDD"
@@ -549,8 +549,8 @@ events:
     title: "Lightning talks + closing session & Kahoot"
     description: "Lighting talks: 
     
-    <br> <b> Kevin Albes </b>: Building Multi-Agent Workflows with Agent Framework</br>
-    <br> <b> Brian Power </b>: Five python code samples I show clients who know nothing about Python. And to those who know too much.</br>"
+    <br> <b> Kevin Albes </b>: Building Multi-Agent Workflows with Agent Framework<br>
+    <br> <b> Brian Power </b>: Five python code samples I show clients who know nothing about Python. And to those who know too much.<br>"
     type: talk
     location: Sala d'Actes Ada Lovelace
     class: middle

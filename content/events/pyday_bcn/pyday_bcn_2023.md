@@ -317,23 +317,23 @@ events:
     description: "
 <h2>Lightning talks</h2>
 
-<b>Data Visualization using Blender</b></br>
+<b>Data Visualization using Blender</b><br>
 <i>Muhammad Usman</i>
 <p><q>Welcome to the 'Data Visualization using Python in Blender' adventure – where your data turns into a magic carpet ride through enchanted forests and talking teapots! Just like a certain enchanted rose or a friendly blue genie, we'll use Python scripting in Blender to bring your data to life in whimsical 3D visualizations, animated charts, and interactive scenes that would make any animated teapot dance with joy!</q></p>
 
-<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b></br>
+<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b><br>
 <i>Álvaro Durán </i>
 <p><q>ChatGPT has taken the world by storm. Self-proclaimed futurists such as Chamath Palihapitiya have predicted the disruption of many multi-million dollar companies as a result. The role of data scientists, as a result, will be diminished if a machine can understand unstructured text.</q></p>
 
-<b>PyCamp 2024</b></br>
+<b>PyCamp 2024</b><br>
 <i>Israel Saeta</i>
 <p><q>We will present the PyCamp 2024 event that will take place in Girona next spring.</q></p>
 
-<b>Algorithmic Fairness (Ethics in Data)</b></br>
+<b>Algorithmic Fairness (Ethics in Data)</b><br>
 <i>Neema Balolebwami Nelly</i>
 <p><q>Gain a profound understanding of the ethical dimensions in data-driven systems, focusing on algorithmic fairness. Discover how to implement fairness principles to promote just and equitable outcomes in your software projects.</q></p>
 
-<b>Demystifying LLM deployments in AWS SageMaker</b></br>
+<b>Demystifying LLM deployments in AWS SageMaker</b><br>
 <i>Guillermo Blasco</i>
 <p><q>OS LLMs (falcon, lama, mistral,…) can be challenging to deploy for production, but they are not! We will deploy lince-zero (fine tune of falcon7b by clibrain) in AWS SageMaker in 3 minutes from sage maker studio notebooks with python!</q></p>
 "
@@ -395,7 +395,7 @@ events:
     description: "
 <h2>Lightning talks</h2>
 
-<b>Creación de APIs con Python y manejo de datos</b></br>
+<b>Creación de APIs con Python y manejo de datos</b><br>
 <i>Diego Giaquinta</i>
 <p><q>Implementación sencilla de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones.</q></p>
 
@@ -403,19 +403,19 @@ events:
 <i>Susana Vázquez y Coral Olivares</i>
 <p><q>Come explore step4ward, a non-profit organization passionately crafted BY and FOR women. In just 5 minutes, learn how we're all about supporting women in the tech job market. We provide advice, build a community, and help with interview prep and early career steps. Let's break barriers and boost women in tech together!</q></p>
 
-<b>Common Security Vulnerabilities for Developers</b></br>
+<b>Common Security Vulnerabilities for Developers</b><br>
 <i>Dan Neciu</i>
 <p><q>Best practices for developers to protect themselves from scams and hacking attempts</q></p>
 
-<b>Machine Learning for time-series analysis in the context of IoT</b></br>
+<b>Machine Learning for time-series analysis in the context of IoT</b><br>
 <i>Raziel Amador</i>
 <p><q>In this light talk, I would like to present my implementation of temperature and humidity monitoring using Iot (Raspberry Pi, DHT22 sensor, all in Docker services), and Machine learning for time series analysis.</q></p>
 
-<b>How to support the Python open source ecosytem</b></br>
+<b>How to support the Python open source ecosytem</b><br>
 <i>Oriol Abril</i>
 <p><q>I will showcase a wide array of ways for anyone to support the Python open source ecosystem, with a special focus on financial support. I won't have any special focus on special communities or libraries but will aim for a general overview: including open source contributions as part of one's job description, sponsoring events and/or libraries, donating to foundations that act as umbrella for the exisiting projects...</q></p>
 
-<b>Tinymem: a game under 40 lines and under 30mm</b></br>
+<b>Tinymem: a game under 40 lines and under 30mm</b><br>
 <i>Isaac Bernat</i>
 <p><q>We'll go through <a href='https://github.com/isaacbernat/tinymem' target='_blank'>tinymem</a>, a working example of a game programmed in MicroPython which has menus, audio, sprites, text, button inputs... All this under 40 lines of code available for the <a href='https://thumby.us/' target='_blank'>Thumby</a> hardware, which is a miniature Raspberry Pi Pico based console.</q></p>
 "

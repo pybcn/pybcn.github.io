@@ -217,11 +217,11 @@ events:
     description: "
 <h2>Lightning talks</h2>
 
-<b>IZI Record, revolutionizing the camera app</b></br>
+<b>IZI Record, revolutionizing the camera app</b><br>
 <i>Ferran Jovell </i>
 <p><q>What we do at izi? How do we generate videos from different sources? How does it all work?!</q></p>
 
-<b>A solution to store, catalog and visualize images using Django and Django Rest Framework. </b></br>
+<b>A solution to store, catalog and visualize images using Django and Django Rest Framework. </b><br>
 <i>Josep Sitjar Suñer</i>
 <p><q>KeepYourPhoto (https://keepyourphoto.com) is a personal project developed with Django (Python) on the backend and Vue.js on the frontend, created in my free time to store, catalog and share photos. 
 <br><br>
@@ -337,11 +337,11 @@ During the talk, my idea is to present the tool and the technological solutions 
     description: "
 <h2>Lightning talks</h2>
 
-<b>Leveraging Python in AWS for Smarter Stock Investment Strategies</b></br>
+<b>Leveraging Python in AWS for Smarter Stock Investment Strategies</b><br>
 <i>Przemyslaw Mikulski</i>
 <p><q>In this lightning talk, I’ll demonstrate how Python can be a powerful ally for retail investors seeking to optimize their stock investments. We’ll explore, in just five minutes, how to use Python libraries to solve common challenges faced by investors: data acquisition, analysis, and automation using AWS.</q></p>
 
-<b>La Rosalía Unveiled: Decoding Her Lyrics with AI</b></br>
+<b>La Rosalía Unveiled: Decoding Her Lyrics with AI</b><br>
 <i>Olga Ss</i>
 <p><q>We'll dive into the lyrics of urban singer Rosalía through the lens of Artificial Intelligence, specifically using NLP techniques.</q></p>
 "
@@ -410,11 +410,11 @@ During the talk, my idea is to present the tool and the technological solutions 
     description: "
 <h2>Lightning talks</h2>
 
-<b>Polars: Procesando datos a la velocidad de la luz con recursos espartanos</b></br>
+<b>Polars: Procesando datos a la velocidad de la luz con recursos espartanos</b><br>
 <i>Fernando Aparicio</i>
 <p><q>Pandas y Spark son las herramientas más conocidas para gestionar nuestros sets de datos, pero hay un jugador nuevo que quiere cambiar las reglas.Polars está pensado para el rendimiento y la resiliencia en entornos con pocos recursos. Cada megabyte y cada segundo cuenta. Os explicaré qué lo hace diferente al resto y qué es capaz de hacer.</q></p>
 
-<b>Evita bugs amb Pre-Commit</b></br>
+<b>Evita bugs amb Pre-Commit</b><br>
 <i>Carles Julià</i>
 <p><q>How we improve code quality in our company for Python: pre-commit, ruff-format, ruff, mypy, etc</q></p>
 "
@@ -492,21 +492,21 @@ During the talk, my idea is to present the tool and the technological solutions 
     description: "
 <h2>Lightning talks</h2>
 
-<b>La iniciativa Scientific Python</b></br>
+<b>La iniciativa Scientific Python</b><br>
 <i>Oriol Abril Pla</i>
 <p><q>Fa uns anys es va engegar la iniciativa Scientific Python, amb l'objectiu d'enfortir la col·laboració entre llibreries de Python en el camp de la computació científica. En els 5 minuts intentaré explicar què és i algunes de les seves iniciatives principals, que van des de gestió de dependències a consells d'accessibilitat passant per traduccions, 'nightly builds' o governança.</q></p>
 
-<b>DrugScope: a ML-based platform for drug discovery</b></br>
+<b>DrugScope: a ML-based platform for drug discovery</b><br>
 <i>Verónica Larroy</i>
 <p><q>DrugScope is a machine learning-powered tool designed to predict the binding affinity of small molecules to specific proteins, aiming to accelerate drug discovery and reduce costs. Using Graph Neural Networks (GNNs), the project models molecular structures as graphs, with atoms as nodes and bonds as edges. A public dataset from Leash Biosciences, containing around 300 million molecules and their interactions with three key proteins (HSA, BRD4, and SEH), was used for model training.
 <br><br>
 The project involved developing three separate GNN models, one for each protein, to capture the unique molecular interactions relevant to each target. Features for atoms and bonds were extracted using RDKit, and the data was prepared for training by converting these features into graph structures. The models were deployed using FastAPI, allowing researchers to input molecule data and receive predictions on binding affinity, potentially helping speed up the early stages of drug development.</q></p>
 
-<b>Can LLMs Power Product Recommendations?</b></br>
+<b>Can LLMs Power Product Recommendations?</b><br>
 <i>Babaniyi Olaniyi</i>
 <p><q>I will discuss the use of large language models (LLMs) for product recommendation systems, leveraging their natural language understanding capabilities to predict items a user might purchase given their historical product reviews and purchases.</q></p>
 
-<b>Pixel2Mechanics: Automated Biomechanical Simulations of High-Resolution Intervertebral Discs from Anisotropic MRIs</b></br>
+<b>Pixel2Mechanics: Automated Biomechanical Simulations of High-Resolution Intervertebral Discs from Anisotropic MRIs</b><br>
 <i>Sai Natarajan</i>
 <p><q>This study presents Pixel2Mechanics, an automated pipeline for generating patient-specific biomechanical finite element (FE) models of lumbar intervertebral discs (IVD) from clinical MRI data. It utilizes a deep learning framework to create high-resolution meshes of the Annulus Fibrosus (AF) and Nucleus Pulposus (NP) across L1-L2 to L4-L5. The pipeline features a novel optimization method based on differentiable rendering and a Bayesian Coherent Point Drift++ morphing algorithm for volumetric FE meshes that maintain tissue topology. Load simulations validate the models against manual segmentation, demonstrating potential for clinical integration in diagnosing and treating IVD degeneration.</q></p>
 "
