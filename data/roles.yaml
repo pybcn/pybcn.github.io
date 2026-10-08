@@ -1,0 +1,21 @@
+# The role a person modal shows for each heading an event page lists people
+# under. Left side: the heading as it is written in the page front matter:
+# the level name (people_sections[].levels[].name on an event page,
+# people_levels[].name on an association page), or the section title
+# (people_sections[].title) when the level has no name. Right side: the
+# singular role the modal prints next to the links to those pages. A heading
+# that is not in this list is printed as it is, so a new heading works
+# before anyone adds it here.
+#
+# Mentors and Volunteers are two of the three level names of the Django
+# page (Speakers is the third, already mapped), whose section title is
+# "Mentors, speakers & volunteers". The index used to map that title, and
+# so called every mentor and speaker of that page a Volunteer. The title
+# itself is not mapped: no level falls back to it,
+# and a new unnamed level under it would show the title as written, which
+# is the signal to name the level.
+Speakers: Speaker
+Organizers: Organizer
+Mentors: Mentor
+Volunteers: Volunteer
+PyLadiesBCN Organizers: Organizer

@@ -57,7 +57,7 @@
     {{- end -}}
 {{- end -}}
 {{- $logo := dict "src" $src "srcset" $srcset "width" $width "height" $height "name" $name -}}
-{{- with $sponsor.Params.web -}}
+{{- with $sponsor.Params.site -}}
 <a href="{{ . }}" target="_blank" rel="noopener">{{- template "pybcn_sponsor_logo" $logo -}}</a>
 {{- else -}}
 {{- template "pybcn_sponsor_logo" $logo -}}

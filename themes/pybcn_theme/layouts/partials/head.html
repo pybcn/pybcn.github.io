@@ -31,7 +31,9 @@
 
 
   {{ "<!-- RSS 2.0 feed -->" | safeHTML }}
-  {{ with .OutputFormats.Get "rss" -}}
+  {{/* The site has one feed, /index.xml. Every page advertises it, so a feed
+       reader finds it from wherever the visitor is, not only from the home. */}}
+  {{ with site.Home.OutputFormats.Get "rss" -}}
    <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}" />
   {{ end -}}
 
