@@ -17,6 +17,7 @@ import pathlib
 import re
 import struct
 import sys
+import tomllib
 
 import yaml
 
@@ -345,6 +346,43 @@ SECURITY_TXT = ROOT / "static" / ".well-known" / "security.txt"
 SECURITY_TXT_NOTICE_DAYS = 30
 
 
+CONFIG = ROOT / "config.toml"
+
+# The keys of [params.association] that only the Management Board can fill,
+# and what each one is for. See the comment in config.toml.
+ASSOCIATION_KEYS = {
+    "address": "the registered address, which LSSI-CE article 10 requires the "
+               "legal notice to publish",
+    "registry": "the entry in the Registre d'Associacions de la Generalitat "
+                "de Catalunya, which LSSI-CE article 10 requires too",
+}
+
+
+def check_association():
+    """The legal notice reads who the association is from config.toml.
+
+    Two of those facts are not a volunteer's to write: the registered address
+    and the entry in the register of associations. They start empty, and this
+    says so on every run rather than letting the legal notice go out with a
+    gap in the one section the law asks for.
+
+    A warning and not an error: the site builds and serves fine without them,
+    and an error would turn every pull request red for a reason no
+    contributor can fix. The page that needs them is the gate.
+    """
+    try:
+        with open(CONFIG, "rb") as handle:
+            config = tomllib.load(handle)
+    except (OSError, tomllib.TOMLDecodeError) as problem:
+        error(CONFIG, f"cannot be read: {problem}")
+        return
+    association = (config.get("params") or {}).get("association") or {}
+    for key, what in sorted(ASSOCIATION_KEYS.items()):
+        if not str(association.get(key, "")).strip():
+            warn(CONFIG, f"params.association.{key} is empty. It is {what}. "
+                         f"Only the Management Board can fill it.")
+
+
 def check_security_txt():
     """Report a security.txt that has expired, or is about to.
 
@@ -387,6 +425,7 @@ def main():
     check_agenda()
     check_orphans(people, listed_people)
     check_security_txt()
+    check_association()
 
     for line in warnings:
         print(f"WARNING  {line}")
