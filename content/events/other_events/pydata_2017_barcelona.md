@@ -12,11 +12,11 @@ mainColumn: true
 
 The [PyData 2017 - Barcelona edition](https://pydata.org/barcelona2017/) took place from May 19th to 21th at [ESADE](https://www.esade.edu/homesite/esp/esadeforum).
 
-### Media
+## Media
 
 You can see all the [photos](https://www.flickr.com/photos/pydata/sets/72157684439580266/) and [videos](https://www.youtube.com/playlist?list=PLGVZCDnMOq0oieXy92cJBwSirA3G2MCU1) from the event.
 
-### Slides
+## Slides
 
 This is the list of the slides talks and workshops you can find from the event:
 

@@ -18,15 +18,15 @@ heroBackground: /images/photos/people-pyday-2016.jpg
         <p>
             PyDay Barcelona 2018 is going to take place on <b>November 24th</b> at <a href="https://goo.gl/maps/Ngk6PbN3FuB2" target="_blank">PuntMultimèdia (Espanya Industrial, Sants)</a>, full of FREE workshops, talks and contests for the local Python community and an opportunity to spread the word of its existence to other people that could be interested in Python.
         </p>
-        <h3>What is PyDay Barcelona 2018 about?</h3>
+        <h2 class="h3">What is PyDay Barcelona 2018 about?</h2>
         <p>
             PyDay Barcelona 2018 has the aim of expanding the local Python community. It will be a whole day event, consisting of different level workshops focused on people with a variety of interestss levels and interests. There will be two tracks: beginner and intermediate. Each workshop will be about 80 minutes long. There will be networking opportunities amongst attendees and the sponsoring companies: coffee breaks, open spaces, etc.
         </p>
-        <h3>Join the event</h3>
+        <h2 class="h3">Join the event</h2>
         <p>
             <a href="https://www.eventbrite.es/e/entradas-pyday-barcelona-2018-50585714233?ref=ebtnebtckt" target="_blank"><img src="https://www.eventbrite.es/custombutton?eid=50585714233" alt="Eventbrite - PyDay Barcelona 2018" /></a>
         </p>
-        <h3>Agenda</h3>
+        <h2 class="h3">Agenda</h2>
         <table>
         <tbody>
             <tr>
@@ -214,10 +214,10 @@ Get the <a href="https://github.com/giffy" target="_blank">workshop materials</a
 <h2>Sponsors</h2>
 <p>Do you want to sponsor this event?
 Contact us at <a href="mailto:pyday-bcn-2018@googlegroups.com">pyday-bcn-2018@googlegroups.com</a>.</p>
-<h3>Platinum</h3>
+<h2 class="h3">Platinum</h2>
 <p><img src="/archives/pybcn.org/pyday-bcn-2018/kiwicom.png" style="height: 150px; margin-right: 20px;">
 <img src="/archives/pybcn.org/pyday-bcn-2018/onna.png" style="height: 140px"></p>
-<h3>Gold</h3>
+<h2 class="h3">Gold</h2>
 <p><img src="/archives/pybcn.org/pyday-bcn-2018/kernel_analytics.png" height="80" style="margin-right: 20px; height: 80px; margin-bottom: 10px;">
 <img src="/archives/pybcn.org/pyday-bcn-2018/travelperk.png" style="height: 80px">
 <img src="/archives/pybcn.org/pyday-bcn-2018/kschool.png" style="height: 80px; margin-right: 20px">

@@ -21,8 +21,14 @@
 {{- end -}}
 <div class="col-md-{{ $md }}">
 	<div class="bordered_col{{ if eq (.Get "chevrons") "true" }} with_chevrons{{ end }}">
+		{{- /* h2 and not h4. The card title is a section of its page, and
+		       every page that uses this shortcode puts it straight under the
+		       h1, so an h4 skipped two levels: the validator rejects that and
+		       a screen reader reads the outline wrong. The h4 class keeps the
+		       size it had, which is the pattern event.html already uses with
+		       h2 class="h1". */ -}}
 		{{- with .Get "title" }}
-		<h4>{{ with $.Get "icon" }}<i class="fas {{ . }}" aria-hidden="true"></i> {{ end }}{{ . }}</h4>
+		<h2 class="h4">{{ with $.Get "icon" }}<i class="fas {{ . }}" aria-hidden="true"></i> {{ end }}{{ . }}</h2>
 		{{- end }}
 		{{ .Inner | markdownify }}
 	</div>
