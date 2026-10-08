@@ -1,5 +1,6 @@
 ---
-title: "PyDay BCN 2023"
+title: "PyDay BCN (2023)"
+year: 2023
 description: "For the community, by the community!"
 menu:
   main:
@@ -49,7 +50,7 @@ people_sections:
             - noe-casas
             - vyron-vasileiadis
             - adria-blanco
-            - guille-abad
+            - guillermo-abad
             - javier-sabariego
             - christian-adell
             - pavel-sulimov
@@ -58,8 +59,8 @@ people_sections:
             - diego-giaquinta
             - oriol-abril-pla
             - gabriel-de-maeztu
-            - camilo-chacon
-            - israel-saeta
+            - camilo-chacon-sartori
+            - israel-saeta-perez
             - emanuel-frazao
 
   - title: Organizers
@@ -67,9 +68,9 @@ people_sections:
     levels:
       - people_per_line: 4
         people:
-          - natalia
-          - alicia-morales
-          - patricia-lamadrid
+          - natalia-padilla
+          - alicia-morales-carrasco
+          - patricia-lamadrid-robles
           - elisabeth-ortega-carrasco
 
 previous_editions:

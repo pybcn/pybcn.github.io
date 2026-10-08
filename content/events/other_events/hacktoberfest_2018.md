@@ -1,5 +1,6 @@
 ---
-title: "Hacktoberfest 2018"
+title: "Hacktoberfest (2018)"
+year: 2018
 description: ""
 menu:
   main:

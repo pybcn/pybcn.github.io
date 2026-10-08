@@ -2,5 +2,5 @@
 id: nagarro
 name: Nagarro
 logo_image: nagarro.svg
-web: https://www.nagarro.com
+site: https://www.nagarro.com
 ---

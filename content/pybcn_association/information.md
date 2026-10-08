@@ -29,8 +29,8 @@ We have a Management Board and a Permanent Committee to make decisions, and work
    * President: Jordi Bosch Alibau
    * Secretary: Daniel Mesejo Leon
    * Treasurer: Yago Tafalla
-   * Board member of Comunication: Mauricio Volcanes
-   * Board member of Events: Sergi Ramírez Mitjans
+   * Communications: Mauricio Volcanes
+   * Events: Sergi Ramírez Mitjans
 
 
 * **Permanent Committee**: It is mostly a consultive board and help coordinate the work groups.

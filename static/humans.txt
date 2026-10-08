@@ -15,7 +15,7 @@
     The people are named on their own pages, which stay current:
     Organizers        https://pybcn.org/pybcn_association/organizers/
     PyLadies BCN      https://pybcn.org/pyladies_bcn/organizers-and-speakers/
-    Speakers          https://pybcn.org/people/
+    Speakers          On the page of each event, https://pybcn.org/events/
 
 /* THANKS */
 

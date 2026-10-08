@@ -1,5 +1,6 @@
 ---
-title: "PyData 2017 - Barcelona edition"
+title: "PyData Barcelona (2017)"
+year: 2017
 description: "The Data Science conference from NumFOCUS"
 menu:
   main:
@@ -9,7 +10,7 @@ heroBackground: /images/photos/pydata_badges.jpg
 mainColumn: true
 ---
 
-The [PyData 2017 - Barcelona edition](http://pydata.org/barcelona2017/) took place from May 19th to 21th at [ESADE](http://www.esade.edu/homesite/esp/esadeforum).
+The [PyData 2017 - Barcelona edition](https://pydata.org/barcelona2017/) took place from May 19th to 21th at [ESADE](https://www.esade.edu/homesite/esp/esadeforum).
 
 ### Media
 
@@ -22,7 +23,7 @@ This is the list of the slides talks and workshops you can find from the event:
 1. [A Beginners Guide to Weather & Climate Data](https://www.slideshare.net/MargrietGroenendijk/pydata-barcelona-weather-and-climate-data) by Margriet Groenendijk
 1. [An introduction to the tidyverse](https://github.com/cimentadaj/PyData_2017) by Jorge Cimentada
 1. [Analyzing code contributions to the CPython project using NetworkX and Matplotlib](https://github.com/jtorrents/thesis/blob/master/presentations/pydata_bcn/cpython_code_contributions.pdf) by Jordi Torrents
-1. [Data science for lazy people... genetics will work for you!](http://slides.com/j-diegohueltesvega/data-science-lazy-people#/) by Diego Hueltes
+1. [Data science for lazy people... genetics will work for you!](https://slides.com/j-diegohueltesvega/data-science-lazy-people#/) by Diego Hueltes
 1. [DeepCare Chatbot - Generating answers to customers using a hybrid approach of Deep Learning and NLP](https://www.slideshare.net/PascalvanKooten/deepcare-chatbot-generating-answers-to-customers-using-a-hybrid-approach-of-deep-learning-and-nlp) by Pascal van Kooten
 1. [Guillotina - An Async REST Resource DB to manage millions of objects](https://www.slideshare.net/bloodbare/guillotina-76266421) by Ramon Navarro Bosch
 1. [Happyness inside a job: a social network analysis](https://github.com/Guillem-db/Happiness-inside-a-job-PyDataBcn17) by Guillem Duran Ballester

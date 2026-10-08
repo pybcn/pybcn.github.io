@@ -1,11 +1,10 @@
 ---
 id: marc-ramirez
 name: Marc Ramirez
-short_bio: ""
 photo: marc-ramirez.jpg
 photo_anchor: Top
 
-linkedin: https://www.linkedin.com/in/marcramirezinvernon/
+linkedin: https://www.linkedin.com/in/marcramirezinvernon
 github: https://github.com/marcraminv
 ---
 

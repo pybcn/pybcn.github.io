@@ -2,5 +2,5 @@
 id: digitalfems
 name: DigitalFems
 logo_image: digitalfems.png
-web: https://www.digitalfems.org
+site: https://www.digitalfems.org
 ---

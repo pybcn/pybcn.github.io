@@ -40,10 +40,20 @@ The MarkDown file for the sponsor will have a FrontMatter section with the follo
 - `id`: Unique identifier of this sponsor. Should be a string without spaces, preferrably kebab-case.
 - `name`: Sponsor's name to be shown in all renderings.
 - `logo_image`: File name for the sponsor logo, which must be under `themes/pybcn_theme/assets/images/sponsors/`. An external URL is not accepted: copy the file into the repository. The template loads it with `resources.Get`, so a file under `static/` is not found, and `bin/check-content` reports it as an error.
-- `url`: URL for the sponsor web page.
-- `twitter`: URL for the sponsor's twitter account.
+- `site`: URL of the sponsor home page. Leave it out when there is nothing to
+  link to, and the logo renders without a link. It follows the same rules as a
+  person's `site`, below, and one function checks both.
 
-After this FrontMatter section, any valid MarkDown will be considered generic content to be shown in detail view.
+**Those four are every field a sponsor has.** A sponsor renders as its logo,
+linked to its site, and there is no page per sponsor, so nothing else in the
+file reaches a reader. `bin/check-content` rejects any other field, and rejects
+an empty value: 32 files carried a `twitter`, `linkedin`, `mastodont` or
+`instagram` URL that had never been published, written by somebody who expected
+it to show.
+
+There is no detail view, so a body under the front matter is never published.
+Put a note about the sponsor in a comment in the front matter instead, where it
+is clearly a note.
 
 Finally, add this sponsor to the sponsors list in the corresponding level of the desired sponsors page, like `content/sponsors/_index.md`, for the main sponsors page; `content/pyladies_bcn/sponsors.md`, for the PyLadies BCN Sponsors' page; or the specific event, if appropriate.
 
@@ -96,11 +106,15 @@ A change to this site goes through a pull request. Nothing is pushed to
 5. Run the three checks locally, so you find what the pull request would find:
 
    ```
-   pip install pyyaml
+   pip install pyyaml pillow
    bin/check-content
    bin/check-html-safety
    bin/hugo --minify -D -d public && bin/check-rendered
    ```
+
+   Pillow is only needed for the black and white photo check. Without it the
+   rest still runs and the check says it was skipped, so a missing Pillow
+   never fails a build for the wrong reason.
 
 6. Open the pull request against `edition`.
 
@@ -114,9 +128,9 @@ What each check is for:
 | Check | Fails when |
 |---|---|
 | Build the site | Hugo cannot build, or emits a warning |
-| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, or an event references a person or sponsor that does not exist |
+| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, or a field is empty. It warns, without failing, about a photo that is too small or has no colour |
 | `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay |
-| `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does |
+| `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does, or they link to anything over `http` |
 | Check the links | Reported, never blocking, because external sites rate-limit |
 
 A merge to `edition` deploys the site. The `github-pages` workflow builds it and
@@ -165,8 +179,15 @@ decoded, the way a browser does), an inline `<script>` or one loaded from off
 this site, an `<iframe>`, `<object>`, `<embed>` or `<base>`, a form or a `<meta
 refresh>` that sends the visitor off this site, a `style` attribute or `<style>`
 block outside a small grammar of sizes, margins and grid properties, a `<link>`,
-an image, a media file or a click beacon fetched from off this site, and the
-three pieces of markup that `html.parser` and a browser read differently.
+an image, a media file or a click beacon fetched from off this site, the three
+pieces of markup that `html.parser` and a browser read differently, and an
+`http://` URL anywhere a browser navigates to or loads from.
+
+The insecure URL rule is there because no field check can see one written in
+prose: a person's bio ended with a bare `http://` address, Hugo turned it into
+a real anchor, and the page shipped an insecure link that nothing covered. The
+frozen copies under `static/archives/` are exempt from that rule alone, since
+they are other people's old sites and not ours to change.
 
 It does what the other two checks cannot. `bin/check-content` and
 `bin/check-html-safety` read `content/`, which is what an outside contributor
@@ -226,6 +247,45 @@ The sponsor summary is defined in a separate partial `themes/pybcn_theme/layouts
 About the creation of new sponsors, the `themes/pybcn_theme/archetypes/sponsors.md` file contains the template Hugo will use when the editor runs the command `hugo new sponsors/my-new-sponsor.md`.
 
 
+### Person fields
+
+To create a person file, run `hugo new people/my-new-person.md`. It is filled
+from `themes/pybcn_theme/archetypes/people.md`.
+
+- `id`: unique identifier, kebab-case, and it has to match the file name.
+- `name`: shown on the card and in the dialog it opens.
+- `photo`: a file name under `themes/pybcn_theme/assets/images/people/`. See
+  [Person photos](#person-photos) for the shape and the size it must have.
+- `photo_anchor`: where to anchor the crop when the automatic one is wrong,
+  for example `Top`. Leave it out to let the pipeline choose.
+- `pybcn_position`: the role under the name, such as `Organizer`. Do not
+  repeat the group: a card under a PyBCN heading says `Organizer`, not `PyBCN
+  Organizer`. A PyLadies role keeps its prefix, because it names a different
+  group.
+- `linkedin`, `github`, `twitter`, `site`: where to find the person. They
+  appear on the card in that order, which is how many people have each.
+
+The bio goes in the body of the file, under the front matter, as Markdown.
+There is no `short_bio` field: there were two places to put the same text,
+nobody could tell which to use, and 98 of 136 people had filled only one of
+them, so a reader saw a different heading depending on who wrote the card.
+
+**Leave out any field the person does not have.** An empty value is the same
+as no field to Hugo, so it shows a reader nothing, and it reads as a fact
+somebody checked. Seven files carried `github: ""` and nobody had ever looked
+for a GitHub account for any of them.
+
+`bin/check-content` enforces the shape of the four URL fields, for a person
+and for a sponsor alike:
+
+| Rule | Why |
+|---|---|
+| `linkedin` starts with `https://www.linkedin.com/`, `github` with `https://github.com/`, `twitter` with `https://x.com/` | One person's LinkedIn was `ttps://www.linkedin.com/...`, missing the h, which a browser reads as a relative path. It had never worked and nobody had noticed |
+| no query parameters on a profile | A copied URL carries what the browser added: one LinkedIn value named the search session it came from. On `site` this is a warning, because there the query can be the address |
+| no trailing slash | Left to taste the values split about two to one. A host has no trailing slash, so a profile path gets none either |
+| `https`, never `http` | A link published over http invites a reader to follow it in the clear, and the site it points at is not ours to make safe |
+| no empty value | Fill it in or take the line out |
+
 ### Person photos
 
 Every person photo is a square, cut once in the repository rather than on each
@@ -264,7 +324,17 @@ All pages rely on the same template: `themes/pybcn_theme/layouts/_default/people
 
 The template iterates over the defined levels, and for each level:
 - displays the level name, if 'name' is provided
-- displays a summary of all the people listed, limiting the number of people per line to the provided number 'people_per_line' (which must be in [12, 6, 4, 3, 4, 1])  
+- displays a summary of all the people listed, `people_per_line` to a row
+
+`people_per_line` takes any number from 1 to 8. It used to be limited to the
+divisors of twelve, because the grid used Bootstrap's `col-md-N` classes and
+twelve columns divide by 1, 2, 3, 4, 6 and 12: asking for 5 silently gave
+`col-md-2`, which is six cards to a row. The grid now caps the width of the
+row itself, so the number is the number.
+
+Every card is the same width on every page and in every section, so that no
+section reads as more important than another. A row that asks for more cards
+than fit in its container gets them all, a little narrower.
 
 To add new people to the site, there is a Hugo archetype defined in `themes/pybcn_theme/archetypes/people.md` that can be used by running the command: `hugo new people/my-new-person.md`.
 

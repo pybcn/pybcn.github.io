@@ -1,10 +1,9 @@
 ---
 id: alex-molas
 name: Alex Molas
-short_bio: ""
 photo: alex-molas.png
 
-github: https://www.github.com/alexmolas
+github: https://github.com/alexmolas
 twitter: https://x.com/molasalex
 linkedin: https://www.linkedin.com/in/alex-molas
 ---

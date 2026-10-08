@@ -4,7 +4,7 @@ name: "Alberto Labarga"
 photo: "alberto-labarga.jpg"
 linkedin: "https://www.linkedin.com/in/albertolabarga"
 github: "https://github.com/alabarga"
-twitter: "https://twitter.com/alabarga"
+twitter: "https://x.com/alabarga"
 ---
 
 With a background in Biomedical Engineering and Bioinformatics, for the last fifteen years I have been involved in biomedical data science projects and systems administration, both at University and research centers, and as professional activity at several start-ups company which I contributed to create.
