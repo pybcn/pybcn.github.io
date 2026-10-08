@@ -20,8 +20,44 @@ timeout = "300s"
     isPlainText = true
     notAlternative = true
 
+# One feed for the whole site, /index.xml, and none per section. Hugo built
+# one for every section by default: ten feeds, nine of them a by-product,
+# from /contact/index.xml with zero items to /people/index.xml with 138
+# items and no titles. The home feed carries the same pages, so a section
+# feed adds nothing a reader can use (#201).
 [outputs]
     home = ["HTML", "RSS", "llms"]
+    section = ["HTML"]
+
+# Every file under content/people/ and content/sponsors/ feeds the grids and
+# the modals through its front matter. Hugo also built a page from each one,
+# with no inbound link anywhere on the site, and they were 206 of the 247
+# entries in the sitemap (#201). The sponsor pages are empty; 73 of the 138
+# person files carry a bio that did render. They all stop, bio or not:
+# publishing only the people who happen to have a paragraph written about
+# them would sort the organizers and speakers of this association into two
+# classes. The pages come back with the Archive, when every person has one
+# worth linking to.
+#
+# render = "never" stops the page and keeps the default list = "always", so
+# the file stays in site.Pages, where people-grid.html and sponsors-grid.html
+# look it up by id. list = "local" would take it out of site.Pages and empty
+# every grid. A page that is not rendered has no permalink, which is how the
+# feed template leaves it out (layouts/_default/rss.xml).
+#
+# /people/ had nothing but a heading and goes with them. /sponsors/ is a real
+# page and stays.
+[[cascade]]
+    [cascade._build]
+        render = "never"
+    [cascade._target]
+        path = "{/people,/people/**}"
+
+[[cascade]]
+    [cascade._build]
+        render = "never"
+    [cascade._target]
+        path = "/sponsors/*"
 
 
 [markup.goldmark.renderer]
@@ -64,7 +100,7 @@ unsafe=true
         [params.social_items.twitter]
             name = "X"
             icon = "icon_x fa-2x"
-            link = "https://twitter.com/PyBCN"
+            link = "https://x.com/PyBCN"
         [params.social_items.youtube]
             name = "YouTube"
             link = "https://www.youtube.com/c/PythonBarcelona"
@@ -90,7 +126,7 @@ unsafe=true
         [params.social_items_pyladies.twitter]
             name = "X"
             icon = "icon_x fa-2x"
-            link = "https://twitter.com/PyLadiesBCN"
+            link = "https://x.com/PyLadiesBCN"
         [params.social_items_pyladies.meetup]
             name = "Meetup"
             link = "https://www.meetup.com/PyLadies-BCN"

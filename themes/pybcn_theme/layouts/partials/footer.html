@@ -13,6 +13,14 @@
                 {{ range $.Site.Params.social_items }}
                     <a href="{{ .link }}" target="_blank" aria-label="{{ $.Site.Params.short_name }} on {{ .name }}" title="{{ $.Site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
                 {{ end }}
+                {{/* The feed and the sitemap are pages of this site, not accounts
+                     elsewhere, so they are not in social_items and do not open a
+                     new tab. They share the icon row so they get the same size,
+                     colour, and alignment as the icons next to them. */}}
+                {{ with site.Home.OutputFormats.Get "rss" }}
+                    <a href="{{ .RelPermalink }}" aria-label="RSS feed of {{ $.Site.Params.short_name }}" title="RSS feed of {{ $.Site.Params.short_name }}"><i class="fas fa-rss fa-2x" aria-hidden="true"></i></a>
+                {{ end }}
+                <a href="{{ "sitemap.xml" | relURL }}" aria-label="Sitemap of {{ $.Site.Params.short_name }}" title="Sitemap of {{ $.Site.Params.short_name }}"><i class="fas fa-sitemap fa-2x" aria-hidden="true"></i></a>
             </div>
         </div>
         {{/* The legal pages are resolved through site.GetPage, so a moved or

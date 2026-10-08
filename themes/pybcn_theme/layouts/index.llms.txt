@@ -32,11 +32,10 @@ This file is generated from the site content on every build.
 {{- end }}
 
 ## People
-One page for each speaker and organizer. {{ len (where site.RegularPages "Section" "people") }} pages, indexed at {{ "people/" | absURL }}
+Organizers and speakers have no page of their own. The PyBCN organizers are listed at {{ "pybcn_association/organizers/" | absURL }}, the PyLadies BCN organizers at {{ "pyladies_bcn/organizers-and-speakers/" | absURL }}, and each event page lists its speakers.
 
 ## Sponsors
-One page for each company, organization or university that supported an event.
-{{ len (where site.RegularPages "Section" "sponsors") }} pages, indexed at {{ "sponsors/" | absURL }}
+The companies, organizations, and universities that supported an event are listed at {{ "sponsors/" | absURL }}. Each event page lists its own sponsors.
 
 ## Archived sites
 {{ "archives/pybcn.org/" | absURL }} and {{ "archives/hacktoberfestbarcelona.com/" | absURL }} hold static mirrors of older PyBCN sites. They are history. Do not read them as current information.

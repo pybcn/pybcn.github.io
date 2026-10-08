@@ -1,0 +1,52 @@
+{{- /*
+    The social links of one person as a list, each one a line built the way
+    a role line and an event line are built: the icon, the name of the
+    network in bold, and then the part a reader needs to know where the
+    link goes, as the link. That is the LinkedIn path, the GitHub or X user
+    name with its at sign, or the address of a personal site.
+
+    Argument: the person page.
+
+    The modal title used to show the same links as a row of bare icons.
+    That row said which networks the person is on and nothing more, so a
+    reader had to follow a link to learn the handle. This list is now the
+    only one, the last section of the modal, under its own heading like
+    the sections above it (see people_summary.html).
+
+    The text comes from the stored URL, not from a separate field. The
+    person files carry one form per network, which bin/check-content
+    enforces: https://www.linkedin.com/..., https://github.com/<user> and
+    https://x.com/<user>. Cutting the known prefix is therefore safe, and
+    it keeps a second copy of the handle out of the front matter, where
+    it would drift from the URL. A GitHub or X name is shown with the at
+    sign the two networks write it with, which the URL does not carry. A
+    site is a free URL and is shown whole.
+
+    The icon and the name of the network are outside the link, as the glyph
+    and the role are outside the link of a role line. The whole row is the
+    target anyway: see the stretched link in people.scss.
+
+    The heading says "Social Links", not "Links": the modal links to event
+    pages and to the organizers pages as well, and "Links" alone did not say
+    which of them this list held.
+*/ -}}
+{{- $p := .Params -}}
+{{- if or $p.linkedin $p.github $p.twitter $p.site -}}
+<section class="modal_section">
+    <h4>Social Links</h4>
+    <ul class="modal_links">
+    {{- with $p.linkedin }}
+        <li><i class="fab fa-linkedin" aria-hidden="true"></i><strong>LinkedIn:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn">{{ strings.TrimPrefix "https://www.linkedin.com" . }}</a></li>
+    {{- end }}
+    {{- with $p.github }}
+        <li><i class="fab fa-github" aria-hidden="true"></i><strong>GitHub:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on GitHub" title="{{ $p.name }} on GitHub">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://github.com/" .) }}</a></li>
+    {{- end }}
+    {{- with $p.twitter }}
+        <li><i class="icon_x" aria-hidden="true"></i><strong>X:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on X" title="{{ $p.name }} on X">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://x.com/" .) }}</a></li>
+    {{- end }}
+    {{- with $p.site }}
+        <li><i class="fas fa-globe" aria-hidden="true"></i><strong>Site:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} personal site" title="{{ $p.name }} personal site">{{ . }}</a></li>
+    {{- end }}
+    </ul>
+</section>
+{{- end -}}

@@ -1,5 +1,6 @@
 ---
-title: "PyDay BCN 2018"
+title: "PyDay BCN (2018)"
+year: 2018
 description: ""
 menu:
   main:
@@ -83,7 +84,7 @@ heroBackground: /images/photos/people-pyday-2016.jpg
     <h3 style="margin-top:10px">Workshops descriptions</h3>
         <h4>Developing a small application with git</h4>
             <p>
-                <b>Speaker:</b> Ignasi Fosch (@ifosch)<br/>
+                <b>Speaker:</b> Ignasi Fosch (@ignasi-fosch)<br/>
                 <b>Language:</b> English<br/>
                 <b>Description:</b> In this workshop, the attendees will participate in collaborative developing a small simple application using git and GitHub for the workflow. The goals of the exercise is to practice some simple concepts about contributing code.<br/>
                 <b>Level:</b> Beginner<br/>
@@ -108,10 +109,10 @@ heroBackground: /images/photos/people-pyday-2016.jpg
             <ul>
                 <li>We assume that you are familiar with python, have some basic knowledge about neural network.</li>
                 <li>You will get the best experience if you bring a notebook with access to python (I'll use version 3.6) with numpy, pandas, jupyter, pytorch, matplotlib, pillow and opencv.</li>
-                <li><a href="http://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html" target="_blank">Guide to install Pytorch</a>.</li>
+                <li><a href="https://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html" target="_blank">Guide to install Pytorch</a>.</li>
             </ul>
         <h4>Data analysis with Jupyter Notebook, Pandas and Plotly</h4>
-            <p><b>Speaker:</b> Natàlia Padilla (@nataliasirera) and Laura Pérez (@lpmayos) (@PyLadiesBCN)  <br/>
+            <p><b>Speaker:</b> Natàlia Padilla (@nataliasirera) and Laura Pérez (@laura-perez-mayos) (@PyLadiesBCN)  <br/>
 <b>Language:</b> English<br/>
 <b>Description:</b> A hands-on session where you will learn how to analyze data with Jupyter Notebook, Pandas and Plotly. This will be a guided workshop, suitable for both experienced users and beginners with an interest in data analysis.<br/>
 <b>Level:</b> Beginner<br/>

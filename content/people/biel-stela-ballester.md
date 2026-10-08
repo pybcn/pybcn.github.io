@@ -3,7 +3,7 @@ id: biel-stela-ballester
 name: "Biel Stela Ballester"
 photo: biel-stela-ballester.jpg
 github: "https://github.com/BielStela"
-twitter: "https://twitter.com/batx00"
+twitter: "https://x.com/batx00"
 
 ---
 

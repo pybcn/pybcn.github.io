@@ -4,8 +4,9 @@ name: "Mauricio Volcanes"
 
 photo: mauricio-volcanes.png
 
-pybcn_position: "Board member of Communications"
+pybcn_position: "Communications"
 
+linkedin: https://www.linkedin.com/in/mauriciovolcanes
 ---
 
 Apassionat per transformar dades en decisions estratègiques dins del sector del freight forwarding, combinant anàlisi financera i operacional per generar un impacte mesurable. Sòlida experiència en la construcció de pipelines d'ETL amb Kedro en entorns productius, impulsant informes, neteja i clusterització de dades, així com projeccions de negoci.

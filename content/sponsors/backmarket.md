@@ -2,5 +2,5 @@
 id: backmarket
 name: BackMarket
 logo_image: backmarket.png
-web: https://www.backmarket.com
+site: https://www.backmarket.com
 ---
