@@ -806,6 +806,60 @@ def scan(build, site_host):
     return pages, findings, suppressed, exempt, errors, canary_values
 
 
+# ---------------------------------------------------------------------------
+# Heading order
+# ---------------------------------------------------------------------------
+
+# The frozen copies under static/archives/ are served as they are and are not
+# ours to restructure, so their outline is not checked. Everything else is.
+HEADING_EXEMPT = ("archives/",)
+
+HEADING = re.compile(r"<h([1-6])\b", re.I)
+# The modal of a person card holds its own h3 and h4, a heading tree of its
+# own inside a dialog that is closed until a reader opens it. It is not part
+# of the outline of the page around it.
+MODAL = re.compile(r'<div class="?modal fade.*?</div></div></div></div>', re.S)
+MAIN = re.compile(r"<main\b[^>]*>(.*)</main>", re.S)
+
+
+def check_headings(build, pages):
+    """Return the pages whose headings skip a level, with the jump.
+
+    A heading level is the outline. A reader who moves by heading, which is
+    how a screen reader user reads a long page, uses it to tell a section
+    from a subsection and to get back up a level. An h4 straight under an h1
+    says there are two levels between them that do not exist, so there is
+    nothing to go back up to. The HTML validator reports it as an error.
+
+    This is in the rendered check and not in check-content because a heading
+    comes from three places at once: the markdown of a page, a shortcode, and
+    the template around both. Only the built page knows the order they ended
+    up in. The level of a heading, not its size: a class keeps the size, and
+    the whole fix for the 14 pages that failed this was to change the level
+    and keep the look.
+    """
+    skipped = []
+    for path in pages:
+        page = os.path.relpath(path, build).replace(os.sep, "/")
+        if any(page.startswith(prefix) for prefix in HEADING_EXEMPT):
+            continue
+        try:
+            text = open(path, encoding="utf-8").read()
+        except (OSError, UnicodeDecodeError):
+            continue
+        body = MAIN.search(text)
+        body = body.group(1) if body else text
+        body = MODAL.sub("", body)
+        previous = 0
+        for match in HEADING.finditer(body):
+            level = int(match.group(1))
+            if previous and level > previous + 1:
+                skipped.append((page, previous, level))
+                break
+            previous = level
+    return skipped
+
+
 def location(finding):
     return "%s:%d:%d" % (finding["page"], finding["line"], finding["column"] + 1)
 
@@ -865,6 +919,17 @@ def main():
             print("  %s  %s  %s" % (entry["path"], entry["kind"], entry["why"]))
 
     failed = False
+
+    skipped = check_headings(build, pages)
+    if skipped:
+        failed = True
+        print("\nFAIL  %d page(s) skip a heading level:" % len(skipped))
+        for page, previous, level in skipped:
+            print("  %s  h%d -> h%d" % (page, previous, level))
+        print("\nA heading level is the outline of the page. Change the level "
+              "of the heading, not its size: a Bootstrap h1 to h6 class keeps "
+              "the size while the element carries the right level, which is "
+              "what event.html does with h2 class=\"h1\".")
 
     if findings:
         failed = True
