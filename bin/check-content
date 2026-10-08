@@ -362,9 +362,9 @@ def check_association():
     """The legal notice reads who the association is from config.toml.
 
     Two of those facts are not a volunteer's to write: the registered address
-    and the entry in the register of associations. They start empty, and this
-    says so on every run rather than letting the legal notice go out with a
-    gap in the one section the law asks for.
+    and the entry in the register of associations. Should either be emptied,
+    this says so on every run rather than letting the legal notice go out
+    with a gap in the one section the law asks for.
 
     A warning and not an error: the site builds and serves fine without them,
     and an error would turn every pull request red for a reason no
