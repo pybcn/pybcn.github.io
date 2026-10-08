@@ -1,0 +1,27 @@
+{{- /*
+    Who the association is in law, as a list, for the legal notice.
+
+    Takes no argument. Everything comes from [params.association] in
+    config.toml and from the main contact email beside it.
+
+    Spanish law 34/2002, LSSI-CE article 10, asks a site run by an
+    association for its name, its address, an email, its entry in the
+    register it is recorded in, and its tax number. They are read from the
+    configuration and not written into the page, so the association can
+    correct one of them without a volunteer editing a page of legal prose.
+    See the comment on [params.association] for the rest of the reasoning.
+
+    A value that is empty prints as a line that says so, in the page, rather
+    than as a missing bullet. A missing bullet reads as a page that never
+    claimed to carry the fact; a line that says the fact is missing is the
+    page admitting it does not yet do its job. bin/check-content warns about
+    the same two keys on every run.
+*/ -}}
+{{- $a := site.Params.association -}}
+<ul>
+    <li><strong>Name</strong>: {{ $a.legal_name }}</li>
+    <li><strong>Tax ID (CIF)</strong>: {{ $a.tax_id }}</li>
+    <li><strong>Registered address</strong>: {{ with $a.address }}{{ . }}{{ else }}<em>not published yet. The Management Board has to supply it.</em>{{ end }}</li>
+    <li><strong>Registry</strong>: {{ with $a.registry }}{{ . }}{{ else }}<em>not published yet. The entry in the Registre d'Associacions de la Generalitat de Catalunya has to come from the Management Board.</em>{{ end }}</li>
+    <li><strong>Email</strong>: <a href="mailto:{{ site.Params.main_contact_email }}">{{ site.Params.main_contact_email }}</a></li>
+</ul>

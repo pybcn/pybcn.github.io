@@ -17,11 +17,7 @@ This website, [pybcn.org](https://pybcn.org), is run by **Associació Python Bar
 
 ## Who we are
 
-- **Name**: Associació Python Barcelona
-- **Tax ID (CIF)**: G67254045
-- **Registered address**: *pending. The association must add its registered address here before this page is published.*
-- **Registry**: *pending. The registration number in the Registre d'Associacions de la Generalitat de Catalunya must be added here before this page is published.*
-- **Email**: [pybcn@googlegroups.com](mailto:pybcn@googlegroups.com)
+{{< association-identity >}}
 
 The Management Board is responsible for this website. You can see who sits on it on the [Information](/pybcn_association/information/) page.
 
