@@ -2,35 +2,86 @@
 // people section, so there is no single id to target.
 
 .people_grid {
-    // One row of N cards. Bootstrap's twelve columns cannot express five, so
-    // the width is a fraction of the row instead. Below the medium breakpoint
-    // every card takes the full width, as the Bootstrap classes used to do.
-    //
-    // The count steps up with the viewport. A row of five on a 768 px screen
-    // gives each card 114 px, which is too narrow for the name and pushes the
-    // social icons onto a second line. Three fit at 768 px, four at 992 px,
-    // and the full count from 1200 px, where a card is about 200 px wide.
-    @for $n from 1 through 8 {
-        $md: if($n > 3, 3, $n);
-        $lg: if($n > 4, 4, $n);
+    // A Bootstrap container adds its own 15px of padding inside the padding
+    // the column already has. On an event page the level heading band spans
+    // the full width of the col-md-9 while the row of cards sat 15px inside
+    // it, which showed as a step between the band and the first card. The
+    // phone keeps the padding, because there the card would otherwise touch
+    // the edge of the screen.
+    @media (min-width: 768px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-        .per_line_#{$n} {
-            flex: 0 0 100%;
-            max-width: 100%;
+    // The last row of a section rarely fills. Centring it puts the remainder
+    // in the middle instead of leaving one card alone on the left, and it
+    // means every section can keep the same cards per row, so no section ends
+    // up with wider cards than another and reads as more important.
+    .row.level {
+        justify-content: center;
+    }
 
-            @media (min-width: 768px) {
-                flex: 0 0 percentage(1 / $md);
-                max-width: percentage(1 / $md);
+    // Every card is the same width in every section, and so is the space
+    // between them. The row caps its own width at the number of cards it is
+    // asked for, and each slot is that fraction of the row. The cap is what
+    // makes the sections match: without it, a slot that is a third of the
+    // row puts 180px of air between three cards while five cards sit
+    // shoulder to shoulder, and the two sections stop looking like the same
+    // page. The fraction is what keeps the count: an event page puts the
+    // grid in a col-md-9, which leaves 795px, so a slot of a fixed width
+    // dropped that page from four cards a row to three. As a fraction, four
+    // slots of 190px fit, and the card there is the same 178px as on the
+    // organizers page.
+    $card: 178px;
+    $gutter: 12px;
+    // A literal divisor is not a division in Dart Sass, which emits
+    // width: 100%/3 and the browser drops the rule. A variable divides.
+    $tablet_per_line: 3;
+
+    .person_wrapper {
+        flex: 0 0 auto;
+        // The card is the container the type sizes against, at the end of
+        // this file. inline-size contains the width only, so the equal-height
+        // rule on .person_item still resolves.
+        container-type: inline-size;
+        container-name: person_card;
+        // One card a row on a phone, whatever the section asks for. This is
+        // what the old col-md-N classes did: md means the fraction applies
+        // from 768px up and the slot is full width below it. Four cards a
+        // row on a 390px screen is 63px of card.
+        width: 100%;
+    }
+
+    // Between the md and lg breakpoints the row is too narrow for the count
+    // a section asks for: six slots need 1140px and a 768px screen gives
+    // 720. Capping the count at three there keeps the card at its full
+    // width instead of squeezing it to a third of it, which is narrow enough
+    // that the four social icons wrap onto a second line. This rule comes
+    // before the per_line_N block below so that block wins from lg up.
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .row.level {
+            max-width: ($card + $gutter) * 3;
+            margin-left: auto;
+            margin-right: auto;
+
+            .person_wrapper {
+                width: 100% / $tablet_per_line;
             }
+        }
+    }
 
-            @media (min-width: 992px) {
-                flex: 0 0 percentage(1 / $lg);
-                max-width: percentage(1 / $lg);
-            }
+    // 768px is Bootstrap's md breakpoint, the one the old col-md-N classes
+    // were tied to. The file already writes its media queries by hand.
+    @media (min-width: 992px) {
+        @for $n from 1 through 8 {
+            .row.level.per_line_#{$n} {
+                max-width: ($card + $gutter) * $n;
+                margin-left: auto;
+                margin-right: auto;
 
-            @media (min-width: 1200px) {
-                flex: 0 0 percentage(1 / $n);
-                max-width: percentage(1 / $n);
+                .person_wrapper {
+                    width: 100% / $n;
+                }
             }
         }
     }
@@ -38,14 +89,21 @@
     .person_wrapper {
 
         display: flex;
+        justify-content: center;
         margin-bottom: 20px;
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-right: $gutter / 2;
+        padding-left: $gutter / 2;
 
         .person_item {
 
+            width: 100%;
+
             border: 1px solid black;
-            padding: 10px;
+            // No padding on the card itself: the photo has to reach the
+            // border. The text and the icons below set their own side
+            // padding. A padding here used to frame the photo in 10px of
+            // white, which on a card this narrow is a ninth of its width.
+            padding: 0;
 
             // A column, so every card in a row is as tall as the tallest and
             // the social links sit on the bottom edge whatever the length of
@@ -58,7 +116,6 @@
             height: 100%;
 
             .img-wrap {
-                margin-bottom: 25px;
                 position: relative;
                 // Keeps the zoom on hover inside the frame.
                 overflow: hidden;
@@ -91,12 +148,70 @@
             }
 
             .person_data {
-                line-height: 1rem;
+                // A ratio, not a fixed 1rem. At 1rem the 19.2px name
+                // overflowed its own 16px line box by about 3px at the top
+                // and the bottom, while the smaller role sat inside its box
+                // with room to spare. The boxes above and below the role
+                // were 5px apart each, but what a reader saw was 2px over
+                // the role and 7px under it.
+                line-height: 1.2;
+                // 5px above the name, the same as between the name and the
+                // role, so the text block reads as one unit under the photo.
+                // The side padding keeps the text off the border now that
+                // the card has none.
+                padding: 5px 10px 0;
+                // Centred, like the icon row under it. The name and the role
+                // used to sit on the left edge while the icons sat in the
+                // middle, so one card showed two alignments. The modal keeps
+                // its own alignment: this block is the card face only.
+                text-align: center;
 
                 h3 {
                     color: black;
+                    // One size on every card. The size used to be a share of
+                    // the card so a long name could stay on one line, but
+                    // that made a long name visibly smaller than its
+                    // neighbours and read as a different heading level
+                    // rather than as the same name in less room.
                     font-size: 1.2em;
-                    margin-bottom: 5px;
+                    // 3px here against 7px over the icons. What a reader
+                    // sees is the ink, not the box, and a line box reserves
+                    // room under the baseline for descenders that the text
+                    // may not use: "Organizer" fills it and "President" does
+                    // not, so the gap a reader sees moves by about 4px with
+                    // the letters alone. These two numbers put the mean gap
+                    // above and below the role at about 10px. With 5px on
+                    // both the role sat 13px under the name and 5px over the
+                    // icons, which is what it looked like.
+                    margin-bottom: 3px;
+
+                    // A name wider than the card is cut rather than wrapped.
+                    // The whole name is in the title of the button and in the
+                    // modal the button opens, so nothing is lost. The button
+                    // has to be a block of the full width: the ellipsis needs
+                    // a box with a width to overflow, and an inline button
+                    // takes the width of its text.
+                    button {
+                        display: block;
+                        width: 100%;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                // Bootstrap gives a paragraph 1rem below it, which opened a
+                // 16px gap between the role and the icons.
+                p {
+                    margin-bottom: 0;
+                    // Italic sets the role apart from the name above it,
+                    // which is the same colour and only a little larger.
+                    font-style: italic;
+                    // Smaller than the name, including a long name. At the
+                    // inherited 16px the role was larger than any name that
+                    // had to shrink, which read as the wrong hierarchy.
+                    // 6.8cqi is 12.1px on the 178px card.
+                    font-size: clamp(9px, 6.8cqi, 13.6px);
                 }
             }
 
@@ -107,7 +222,18 @@
                 // up the page, because this box has no positioned ancestor of
                 // its own, so the icons were only in the right place by luck.
                 margin-top: auto;
-                padding-top: 10px;
+                // 7px over the icons against 3px under the name. The
+                // numbers differ because the boxes do: the name reserves
+                // descender room it often does not use, while the icon row
+                // starts at the top of its own box. See the h3 above.
+                //
+                // The side padding is 2px rather than 5px because the row
+                // has to survive the narrowest card the breakpoints produce,
+                // which leaves little more than the icons themselves inside
+                // the border. A little under the row, because
+                // the icons are the bottom of the card and the border would
+                // otherwise touch them.
+                padding: 7px 2px 6px;
 
                 // Flex, not text-align: inline-block icons are separated by the
                 // whitespace between the tags, about 4 px each, which is enough
@@ -119,13 +245,34 @@
                 justify-content: center;
 
                 // A small gap still widens the target each icon offers to a
-                // pointer, which the 2x size alone does not.
+                // pointer, which the icon size alone does not.
+                //
+                // line-height: 1 drops the strut of the link's own 16px text,
+                // which hung 3px of empty line box under every icon.
                 a {
                     display: block;
-                    margin: 0 3px;
+                    // The gap scales with the card like the glyph does, so
+                    // the row keeps its proportions on a narrow card.
+                    margin: 0 clamp(3px, 3cqi, 6px);
+                    line-height: 1;
                 }
 
+                // The size is set here, not with a fa-Nx class in the markup,
+                // because it follows from the card width. Four icons have
+                // to fit on one line inside what the padding leaves. The four
+                // glyphs are not all a full em (LinkedIn, GitHub, X, globe),
+                // so at 32px they are 28, 31, 32 and 31px wide, 122px in all,
+                // plus the margin on each side of every link.
+                //
+                // The size is a share of the card, like the name and the role
+                // above, because the card is not one width everywhere: the
+                // window widths between the breakpoints take it down to
+                // 150px, where four icons at a fixed 32px wrapped onto a
+                // second line. 16cqi is 28.5px on the 178px card and reaches
+                // the 32px cap on a wider one. The X is a mask sized in em
+                // (see .icon_x in main.scss), so it follows the same rule.
                 i {
+                    font-size: clamp(18px, 16cqi, 32px);
                     color: black;
                     &:hover {
                         color: $blue-pybcn;
@@ -159,19 +306,193 @@
 
             .modal {
                 .modal-dialog {
-                    max-width: 70%;
+                    // 900px, from the content and not from the window: the
+                    // 300px photo column and its 20px gap, a 548px text
+                    // column, and the 16px of body padding each side. The
+                    // text column holds the longest line the modal renders
+                    // in one line, the 498px event line "Mentor and
+                    // Organizer at Hands-on Django with PyLadiesBCN (2022)"
+                    // behind its 20px list indent, and is about 65
+                    // characters of the body font, a comfortable measure
+                    // for a bio paragraph. The old cap was 70% of the
+                    // window: 1006px at 1440px, where a line of text ran
+                    // 650px and the foot of the modal was blank to the
+                    // right of the social links, and a percentage of a
+                    // 2560px screen is wider still. Under 900px the dialog
+                    // fits the window, as a max-width does.
+                    max-width: 900px;
 
-                    img {
-                        max-width: 400px;
-                        margin: 0 15px 15px 0;
+                    // Two columns: the photo on the left, everything else
+                    // on the right. The photo used to sit in the header
+                    // only, beside the name, the role and the bio, with
+                    // the sections running full width under it: three
+                    // short lines beside a 200px photo left a gap under
+                    // the photo that the first section had to clear. The
+                    // right column now holds the sections too, so nothing
+                    // runs under the photo whatever the length of the text.
+                    .modal-body {
+                        display: flex;
+                        align-items: flex-start;
+
+                        // Bootstrap floats the close button, and a flex
+                        // container ignores floats: the button would become
+                        // the first item of the row and push the photo
+                        // right. It sits in the corner instead, where the
+                        // float put it, at the body padding.
+                        .close {
+                            position: absolute;
+                            top: 1rem;
+                            right: 1rem;
+                        }
                     }
 
-                    h3 {
-                        a:first-child {
-                            margin-left: 10px;
+                    // The photo column is as wide as the photo and no
+                    // wider: 300px, or the short side of a smaller source
+                    // (see people_summary.html), so a 200px photo leaves
+                    // the room to the text and not to a blank strip. 300px
+                    // is a third of the dialog on a wide screen, half again
+                    // the 200px of before, which was the card's size and
+                    // small next to the text, and under the 400px that was
+                    // a quarter of the modal and the only thing a reader
+                    // saw at first. The 400px file serves it at 1x and the
+                    // 800px file at 2x.
+                    .person_photo {
+                        flex: 0 0 auto;
+                        margin-right: 20px;
+                    }
+
+                    // min-width: 0 lets a long name wrap instead of
+                    // pushing the column wider than the modal: a flex
+                    // item is as wide as its longest word by default.
+                    .person_main {
+                        flex: 1 1 auto;
+                        min-width: 0;
+                    }
+
+                    // The right padding keeps the name clear of the close
+                    // button, which no longer floats beside it. On the
+                    // title only: the lists below do not reach that
+                    // corner and get the whole column.
+                    .modal-title {
+                        margin-bottom: 2px;
+                        padding-right: 24px;
+                    }
+
+                    // Italic and plain, as on the card, so the pair
+                    // under the photo reads the same in both places.
+                    .person_role {
+                        font-style: italic;
+                        margin-bottom: 8px;
+                    }
+
+                    // Every block of the modal below the name is a section
+                    // with a heading: Bio, Description, Roles at PyBCN,
+                    // Events, Social Links. The modal used to be a stack of
+                    // blocks with no label, so a reader had to guess that a bold word was
+                    // a role and a list of years was a history. A section
+                    // is left out when it is empty, heading and all, so the
+                    // rule sits on the section and not on the block inside.
+                    .modal_section {
+                        margin-top: 20px;
+
+                        // Small and grey, so the heading labels the block
+                        // without competing with the name above or the
+                        // text below. A rule under it closes the gap to
+                        // the previous block: without it the four sections
+                        // read as one list.
+                        h4 {
+                            font-size: 0.8rem;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            letter-spacing: 0.06em;
+                            color: #51616e;
+                            margin-bottom: 8px;
+                            padding-bottom: 4px;
+                            border-bottom: 1px solid #dee2e6;
                         }
+
+                        // The last block of a section sets no space of its
+                        // own: the next section's margin-top is the gap,
+                        // and the last section ends at the body padding.
+                        > :last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    // The roles the person holds, one row per label: the
+                    // label in the first column, the linked page titles
+                    // in the second. A grid rather than a table, so the
+                    // label column is as wide as its longest word and no
+                    // wider. See person_appearances.html.
+                    .appearances {
+                        display: grid;
+                        grid-template-columns: max-content 1fr;
+                        gap: 4px 12px;
+                        margin: 0;
+
+                        dt {
+                            font-weight: bold;
+                        }
+                        dd {
+                            margin: 0;
+                        }
+                    }
+
+                    // The two lists of the modal, the events and the
+                    // social links, with one treatment: a disc marker and
+                    // the indent that goes with it, so each reads as a
+                    // list. Both used to drop the marker and the padding,
+                    // and five events were five loose lines with nothing
+                    // to say they were one list, under a heading styled
+                    // like the one over a table. The indent is the width
+                    // of the marker and a space, no more: the browser
+                    // default of 40px pushed a list in from the headings.
+                    .modal_section ul {
+                        list-style: disc;
+                        padding-left: 1.25em;
+                        // The section above sets the gap.
+                        margin: 0;
+
+                        li {
+                            margin-bottom: 4px;
+                        }
+                    }
+
+                    // The events, one line per event, newest first, the
+                    // role before the linked title. See
+                    // person_appearances.html.
+
+                    // The links of the card, listed with their text at the
+                    // foot of the modal, so a reader can see the handle or
+                    // the host without leaving the page. This is the only
+                    // place the modal shows them: a bare icon row next to
+                    // the name said the same thing with less. See
+                    // person_links.html.
+                    .modal_links {
+                        // A link text is one unbroken string, the path of
+                        // a LinkedIn profile or a site address, and one of
+                        // them is 600px of percent-encoded emoji. A string
+                        // with no space does not wrap on its own, and at
+                        // the 548px of the text column it ran out of the
+                        // modal. It breaks where it has to instead.
+                        a {
+                            overflow-wrap: anywhere;
+                        }
+
+                        // One column for the icon whatever its width, so
+                        // the text starts on one line down the list. The
+                        // LinkedIn glyph is narrower than the globe, and
+                        // the X mark is a box of its own (see .icon_x in
+                        // main.scss) that sets neither width nor gap.
                         i {
-                            color: $blue-pybcn;
+                            display: inline-block;
+                            // Larger than the text beside it, because these
+                            // are now the only icons in the modal.
+                            font-size: 1.25em;
+                            width: 1.5em;
+                            margin-right: 8px;
+                            text-align: center;
+                            vertical-align: -2px;
                         }
                     }
                 }
@@ -188,8 +509,55 @@
                 .modal {
                     .modal-dialog {
                         max-width: 100%;
-                        img {
-                            max-width: 100%;
+
+                        // The columns stack: the photo on top, the text
+                        // under it. Side by side, a 300px photo left 50px
+                        // of a 390px screen for the text, and the 120px
+                        // photo the modal used beside the name left the
+                        // name wrapping one word to a line. Stacked, the
+                        // photo is capped at 200px so the name is still on
+                        // the first screen: at 300px the first section
+                        // started half way down it. The title comes down
+                        // too: at Bootstrap's 28px a three-word name took
+                        // three lines of a 374px dialog.
+                        .modal-body {
+                            flex-direction: column;
+                        }
+
+                        .person_photo {
+                            margin: 0 0 12px;
+
+                            img {
+                                max-width: 200px;
+                            }
+                        }
+
+                        .person_main {
+                            // The column is as wide as the dialog, not as
+                            // wide as its content, so a list does not run
+                            // past the edge.
+                            width: 100%;
+                        }
+
+                        .modal-title {
+                            font-size: 1.4rem;
+                            // No close button beside the first line any
+                            // more: it is above the photo.
+                            padding-right: 0;
+                        }
+
+                        // The roles stack on a phone: the label column is
+                        // as wide as "Management Board (2018 - 2025)", which
+                        // left 80px of a 390px screen for the page title
+                        // beside it, three lines for "PyLadies BCN
+                        // Organizers". The page goes under its label,
+                        // indented, as a definition list does by default.
+                        .appearances {
+                            display: block;
+
+                            dd {
+                                margin: 0 0 4px 1em;
+                            }
                         }
                     }
                 }

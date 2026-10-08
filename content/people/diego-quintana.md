@@ -2,8 +2,8 @@
 id: diego-quintana
 name: Diego Quintana
 photo: diego-quintana.jpg
-linkedin: https://www.linkedin.com/in/diego-quintana-valenzuela/
-github: https://github.com/diegoquintanav/
+linkedin: https://www.linkedin.com/in/diego-quintana-valenzuela
+github: https://github.com/diegoquintanav
 ---
 
 Python Developer and Electrical Engineer. 

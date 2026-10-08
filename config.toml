@@ -76,7 +76,7 @@ unsafe=true
         [params.social_items.twitter]
             name = "X"
             icon = "icon_x fa-2x"
-            link = "https://twitter.com/PyBCN"
+            link = "https://x.com/PyBCN"
         [params.social_items.youtube]
             name = "YouTube"
             link = "https://www.youtube.com/c/PythonBarcelona"
@@ -102,7 +102,7 @@ unsafe=true
         [params.social_items_pyladies.twitter]
             name = "X"
             icon = "icon_x fa-2x"
-            link = "https://twitter.com/PyLadiesBCN"
+            link = "https://x.com/PyLadiesBCN"
         [params.social_items_pyladies.meetup]
             name = "Meetup"
             link = "https://www.meetup.com/PyLadies-BCN"

@@ -1,13 +1,13 @@
 ---
 id: ferran-fabregas
 name: "Ferran Fàbregas"
-short_bio: Computer scientist and programmer by profession, I started in the "maker" world 7 years ago, in which I have developed a cross-disciplinary knowledge in different disciplines of digital manufacturing, electronics, robotics, micro-controller programming and education, trying to turn my passion into a full-time job.
 photo: ferran-fabregas.png
-twitter: https://twitter.com/ferrithemaker
-linkedin: https://www.linkedin.com/in/ferran-fabregas-94a68525/
+twitter: https://x.com/ferrithemaker
+linkedin: https://www.linkedin.com/in/ferran-fabregas-94a68525
 github: https://github.com/ferrithemaker
-site: https://ferranfabregas.me/
+site: https://ferranfabregas.me
 ---
+Computer scientist and programmer by profession, I started in the "maker" world 7 years ago, in which I have developed a cross-disciplinary knowledge in different disciplines of digital manufacturing, electronics, robotics, micro-controller programming and education, trying to turn my passion into a full-time job.
 
 Within this time I have published the book “How to use Raspberry Pi 4 through 100 practical exercises“ from Marcombo publisher and I’m working on another book about electronics for Makers. I have also been responsible for the technical correction of the Spanish translation of some tech-related books of the O’Reilly and Willey publishers.
 

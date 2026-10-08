@@ -1,5 +1,6 @@
 ---
-title: "PyDay BCN 2023"
+title: "PyDay BCN (2023)"
+year: 2023
 description: "For the community, by the community!"
 menu:
   main:

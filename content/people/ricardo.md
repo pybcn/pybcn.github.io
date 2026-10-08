@@ -2,5 +2,5 @@
 id: ricardo
 name: Ricardo Martínez
 
-pybcn_position: PyBCN Collaborator
+pybcn_position: Collaborator
 ---

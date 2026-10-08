@@ -1,0 +1,95 @@
+{{- /*
+    The pages each organizer appears on, inverted from the pages themselves.
+
+    Returns a map from person id to a list of appearances, each a dict with
+    label, title, url, year and ord. No argument is read: the data comes from
+    site.RegularPages and from data/roles.yaml.
+
+    Call it through partialCached with a constant variant, so the site is
+    walked once per build and not once per modal:
+
+        partialCached "appearances_index.html" site "appearances-index"
+
+    Two front matter shapes list people. An event page has people_sections,
+    each with a title and a list of levels. An association page has
+    people_levels, each with a name. A level entry is a bare id, or a map
+    with an id when the page overrides the role for that entry (see
+    people-grid.html).
+
+    The heading is the level name when the level has one, and the section
+    title when it does not. The Django page has one section titled
+    "Mentors, speakers & volunteers" with three named levels, Mentors,
+    Speakers and Volunteers. Indexing the section title made everyone in it
+    a Volunteer; the level name says which of the three each person was.
+    The Speakers and Organizers sections of the event pages have one level
+    each and no level name, so they fall back to the section title.
+
+    Only the people listed on /pybcn_association/organizers/ are indexed.
+    Every other person is a speaker or a volunteer of one event, whose modal
+    would list that one event and nothing else. The Archive will widen this.
+
+    The heading goes through data/roles.yaml, which turns "Speakers" into
+    "Speaker". The heading itself is the fallback, so a new heading shows
+    up unmapped rather than not at all.
+
+    An appearance is one (heading, page) pair. The same person can be
+    listed twice on a page under one heading, by two entries or by a level
+    with no name that repeats the section title, and the modal would then
+    link that page twice under one label. Two different headings on one
+    page stay two appearances: Ferran Jovell is a Mentor and a Speaker of
+    the Django page, and the modal lists that page once with both roles
+    (see person_appearances.html).
+
+    Drafts are skipped by name as well: site.RegularPages drops them in a
+    normal build, but a server run with -D would index content/canary.md.
+*/ -}}
+{{- $scope := dict -}}
+{{- with site.GetPage "/pybcn_association/organizers" -}}
+    {{- range .Params.people_levels -}}
+        {{- range .people -}}
+            {{- $id := . -}}
+            {{- if reflect.IsMap . }}{{ $id = .id }}{{ end -}}
+            {{- $scope = merge $scope (dict $id true) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $index := dict -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if $pg.Draft }}{{ continue }}{{ end -}}
+    {{- /* heading -> list of ids, in the order the page lists them */ -}}
+    {{- $headings := slice -}}
+    {{- range $pg.Params.people_sections -}}
+        {{- $title := .title -}}
+        {{- range .levels -}}
+            {{- $headings = $headings | append (dict "heading" (default $title .name) "ids" .people) -}}
+        {{- end -}}
+    {{- end -}}
+    {{- range $pg.Params.people_levels -}}
+        {{- $headings = $headings | append (dict "heading" .name "ids" .people) -}}
+    {{- end -}}
+    {{- if not $headings }}{{ continue }}{{ end -}}
+
+    {{- $seen := dict -}}
+    {{- range $ord, $h := $headings -}}
+        {{- $heading := $h.heading -}}
+        {{- $label := default $heading (index site.Data.roles $heading) -}}
+        {{- range $h.ids -}}
+            {{- $id := . -}}
+            {{- if reflect.IsMap . }}{{ $id = .id }}{{ end -}}
+            {{- if not (index $scope $id) }}{{ continue }}{{ end -}}
+            {{- $key := printf "%s|%s" $label $id -}}
+            {{- if index $seen $key }}{{ continue }}{{ end -}}
+            {{- $seen = merge $seen (dict $key true) -}}
+            {{- /* ord is the position of the heading in the page. It orders
+                   the headings of a page with no year, where there is no
+                   date to sort by: the levels of organizers.md are listed
+                   current board first, and the list has to read that way
+                   rather than alphabetically, which put the 2018 board
+                   above the current committee. */ -}}
+            {{- $entry := dict "label" $label "title" $pg.Title "url" $pg.RelPermalink "year" (int (default 0 $pg.Params.year)) "ord" $ord -}}
+            {{- $index = merge $index (dict $id (append $entry (default slice (index $index $id)))) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- return $index -}}

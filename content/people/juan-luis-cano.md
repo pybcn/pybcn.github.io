@@ -1,12 +1,12 @@
 ---
 id: juan-luis-cano
 name: Juan Luis Cano Rodríguez
-short_bio: Aerospace Engineer with a passion for STEM, programming, outreach, and sustainability
 photo: juan-luis-cano-rodriguez.jpg
-twitter: https://social.juanlu.space/@astrojuanlu
-linkedin: https://www.linkedin.com/in/juanluiscanor/
-github: https://github.com/astrojuanlu/
+linkedin: https://www.linkedin.com/in/juanluiscanor
+github: https://github.com/astrojuanlu
+site: https://social.juanlu.space/@astrojuanlu
 ---
+Aerospace Engineer with a passion for STEM, programming, outreach, and sustainability
 
 Juan Luis (he/him/él) is an Aerospace Engineer with a passion for STEM, programming, outreach, and sustainability. He works as Developer Advocate for Kedro, an opinionated data science framework, at QuantumBlack, AI by McKinsey. He has worked as Developer Advocate at Read the Docs, as software engineer in the space, consulting, and banking industries, and as a Python trainer for several private and public entities.
 

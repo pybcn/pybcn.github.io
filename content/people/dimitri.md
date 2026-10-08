@@ -2,5 +2,5 @@
 id: dimitri
 name: Dimitri Herrero
 
-pybcn_position: PyBCN Organizer
+pybcn_position: Organizer
 ---

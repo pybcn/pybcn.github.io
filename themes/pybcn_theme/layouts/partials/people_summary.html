@@ -2,15 +2,30 @@
     One person card, plus the modal that holds the long bio.
 
     Photos come from assets/images/people/ and go through the Hugo image
-    pipeline. The grid slot is 350 px wide at most and the modal caps the
-    image at 400 px, so one 400 px WebP serves both, with an 800 px variant
+    pipeline. The grid slot is 350 px wide at most and the modal shows the
+    image at 300 px, so one 400 px WebP serves both, with an 800 px variant
     for a 2x screen. A person with no photo falls back to anon_member.png.
+
+    The modal shows the photo no larger than the source. image_square.html
+    enlarges a small source to 400 px for the grid, where every slot has to
+    be one size, and bin/check-content warns about the 28 photos that are
+    under 400 px. At 300 px the modal would show 21 of them enlarged by half
+    again, soft, next to a name. The modal has no slot to fill, so a photo
+    with a short side under 300 px is shown at its own size instead: a
+    200 px source is a 200 px photo, which is what the modal showed before.
+
+    Arguments:
+        person  the person page
+        role    optional, the role to show instead of pybcn_position, when
+                the page lists the person with one (see people-grid.html)
+        key     the grid key, so the modal id is unique on the page
 
     A remote photo is not supported. The template used to accept photo_url
     and print it in a plain img, which made every page that lists the person
     load an image from a third party and tell that party who viewed it. No
     person used the field, and bin/check-content now rejects it.
 */ -}}
+{{- $role := default $.person.Params.pybcn_position $.role -}}
 {{- $modal := printf "modal_%s" $.person.Params.id -}}
 {{- with $.key -}}{{- $modal = printf "modal_%s_%s" . $.person.Params.id -}}{{- end -}}
 {{- $photo := $.person.Params.photo -}}
@@ -22,7 +37,11 @@
     {{- $img = resources.Get "images/anon_member.png" -}}
 {{- end -}}
 {{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
+{{- /* The side the modal shows the photo at: 300 px, or the short side of
+       the source when that is smaller. See the note at the top. */ -}}
+{{- $shown := 300 -}}
 {{- with $img -}}
+    {{- $shown = int (math.Min 300 (math.Min .Width .Height)) -}}
     {{- $anchor := default "Smart" $.person.Params.photo_anchor -}}
     {{- $small = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
     {{- $large = partial "image_square.html" (dict "img" . "size" 800 "anchor" $anchor) -}}
@@ -43,21 +62,24 @@
         </button>
     </div>
     <div class="person_data">
-        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}">{{ $.person.Params.name }}</button></h3>
-        <p>{{ $.person.Params.pybcn_position }}</p>
+        {{/* title carries the whole name, because a name too long for the
+             card is cut with an ellipsis (see people.scss). The modal shows
+             it in full as well. */}}
+        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}" title="{{ $.person.Params.name }}">{{ $.person.Params.name }}</button></h3>
+        <p>{{ $role }}</p>
     </div>
     <div class="social_links">
-        {{ if $.person.Params.twitter }}
-            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x fa-2x" aria-hidden="true"></i></a>
+        {{ if $.person.Params.linkedin }}
+            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.github }}
-            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub" title="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
+            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub" title="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
         {{ end }}
-        {{ if $.person.Params.linkedin }}
-            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
+        {{ if $.person.Params.twitter }}
+            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x" aria-hidden="true"></i></a>
         {{ end }}
         {{ if $.person.Params.site }}
-            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site" title="{{ $.person.Params.name }} personal site"><i class="fas fa-globe fa-2x" aria-hidden="true"></i></a>
+            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site" title="{{ $.person.Params.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a>
         {{ end }}
     </div>
 
@@ -68,26 +90,52 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    {{/* alt is empty here: the name is in the modal heading next to it. */}}
-                    <img class="img-fluid rounded float-left" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
-                    <h3 class="modal-title" id="{{ $modal }}_title">
-                        {{ $.person.Params.name }}
-                        {{ if $.person.Params.twitter }}
-                            <a href="{{ $.person.Params.twitter }}" target="_blank" aria-label="{{ $.person.Params.name }} on X" title="{{ $.person.Params.name }} on X"><i class="icon_x" aria-hidden="true"></i></a>
+                    {{/* Two columns: the photo on the left, everything else
+                         on the right, top to bottom. The photo used to be a
+                         flex item of the header only, beside the name, the
+                         role and the bio, and the sections ran full width
+                         under it. A header is three short lines, so the
+                         photo stood over an empty gap that the first section
+                         then had to clear. Nothing goes under the photo now:
+                         the sections are part of the right column. On a
+                         phone the columns stack (see people.scss). */}}
+                    <div class="person_photo">
+                        {{/* alt is empty here: the name is in the modal heading next to it.
+                             width and height are the shown size, not the file's, so
+                             the browser lays out the right box before the image loads. */}}
+                        <img class="img-fluid rounded" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $shown }}" height="{{ $shown }}" loading="lazy" decoding="async" alt="" />
+                    </div>
+                    <div class="person_main">
+                        {{/* The name only. The links used to sit next to it as
+                             bare icons, which repeated the list at the foot of the
+                             modal, where each one also says where it goes. */}}
+                        <h3 class="modal-title" id="{{ $modal }}_title">{{ $.person.Params.name }}</h3>
+                        {{/* Italic under the name, as on the card, so the pair
+                             reads the same in both places. Most speakers have
+                             no position, and the line used to print empty. */}}
+                        {{ with $role }}<p class="person_role">{{ . }}</p>{{ end }}
+                        {{/* One section of free text about the person, with a
+                             heading like the sections under it. The text is the
+                             body of the person file. It used to come from two
+                             places, a short_bio field and the body, shown here
+                             as a "Bio" and a "Description" section. For 98 of
+                             136 people only one of the two was filled, and
+                             which one was down to whoever filled the card in,
+                             so the heading changed from person to person over
+                             the same kind of text. The field is gone, the body
+                             holds it all, and bin/check-content rejects the
+                             field. The heading is "Bio", because this is a
+                             person, and the section is left out when the body
+                             is empty, which is 14 people. */}}
+                        {{ with $.person.Content }}
+                        <section class="modal_section">
+                            <h4>Bio</h4>
+                            {{ . }}
+                        </section>
                         {{ end }}
-                        {{ if $.person.Params.github }}
-                            <a href="{{ $.person.Params.github }}" target="_blank" aria-label="{{ $.person.Params.name }} on GitHub" title="{{ $.person.Params.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-                        {{ end }}
-                        {{ if $.person.Params.linkedin }}
-                            <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                        {{ end }}
-                        {{ if $.person.Params.site }}
-                            <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site" title="{{ $.person.Params.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a>
-                        {{ end }}
-                    </h3>
-                    <span>{{ $.person.Params.short_bio | markdownify }}</span>
-                    <p class="font-weight-bold">{{ $.person.Params.pybcn_position }}</p>
-                    {{ $.person.Content }}
+                        {{ partial "person_appearances.html" $.person }}
+                        {{ partial "person_links.html" $.person }}
+                    </div>
                 </div>
             </div>
         </div>

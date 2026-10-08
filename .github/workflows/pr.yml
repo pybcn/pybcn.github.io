@@ -53,7 +53,10 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install pyyaml
+        # pillow: bin/check-content reads every person photo to warn about
+        # one with no colour. Without it the check runs and says it skipped
+        # that.
+        run: pip install pyyaml pillow
 
       - name: Check front matter and cross-references
         run: bin/check-content

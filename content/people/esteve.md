@@ -1,11 +1,10 @@
 ---
 id: esteve
 name: "Esteve Fernàndez"
-short_bio: "Robots, art, running, movies, theatre and cheese, in no
-particular order"
 photo: esteve-fernandez.jpg
-pybcn_position: "PyBCN Collaborator"
-twitter: "https://twitter.com/esteve"
+pybcn_position: "Collaborator"
+twitter: "https://x.com/esteve"
 linkedin: "https://www.linkedin.com/in/estevefernandez"
-github: "https://www.github.com/esteve"
+github: "https://github.com/esteve"
 ---
+Robots, art, running, movies, theatre and cheese, in no particular order
