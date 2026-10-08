@@ -4,7 +4,7 @@
 Catches the mistakes that a Hugo build does not: a person id that does not
 match its filename, a duplicate id, a page that lists a person or sponsor id
 with no page behind it, a declared photo with no file behind it, and a
-remote photo_url.
+remote photo_url. It warns about a person photo with no colour in it.
 
 Exit code 1 if any error is found. Warnings do not fail the build.
 
@@ -19,6 +19,15 @@ import struct
 import sys
 
 import yaml
+
+# Pillow is the library bin/square-photos needs, and pr.yml installs it for
+# this check. A machine without it still runs every other check: the colour
+# check reports once that it did not run, so the gap is visible and not an
+# error.
+try:
+    from PIL import Image, ImageChops, ImageStat
+except ImportError:
+    Image = None
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
@@ -197,12 +206,58 @@ def check_photos(people):
                         f"than 800. Run bin/square-photos.")
         if min(width, height) < PHOTO_SIDE:
             small.append((photo, (width, height)))
+
+        saturation = photo_saturation(found)
+        if saturation is not None and saturation < PHOTO_MIN_SATURATION:
+            warn(path, f"photo '{photo}' is black and white (colour "
+                       f"{saturation:.1f}, under {PHOTO_MIN_SATURATION}). It "
+                       f"looks like the others on a screen that greys them on "
+                       f"hover, and grey on a phone and in the modal, where "
+                       f"the others are in colour. Ask for a colour photo.")
     report_small(small)
+    if Image is None and people:
+        note("Pillow is not installed, so the black and white photo check did "
+             "not run: pip install pillow")
 
 
 PHOTO_SIDE = 400
 PHOTO_MAX_SIDE = 1200
 PHOTO_MAX_BYTES = 1_000_000
+
+# Mean of max(r,g,b) - min(r,g,b) per pixel, 0 to 255, over a 64px thumbnail.
+# Measured on the 130 photos of October 2026, ten score 0.01 or less and the
+# next one 9.5, so any value from 1 to 9 splits the two groups. 4 keeps the
+# grey group clear of JPEG chroma noise, which reached 0.01, and leaves the
+# muted colour photo nearest the line, at 9.5, more than twice that margin.
+PHOTO_MIN_SATURATION = 4
+
+
+def photo_saturation(path):
+    """Return the mean colour of a photo, or None when it cannot be measured.
+
+    The person cards grey every photo with a CSS filter on a device that can
+    hover, so a photo that is already black and white looks like the others
+    there. On a phone and in the modal nothing greys them, and that photo is
+    the one grey face in a wall of colour. Only the person can fix it, with
+    another photo, so this is a warning and never an error.
+
+    Two of the ten grey photos are stored as greyscale; the other eight are
+    RGB JPEGs with no colour in them, which no header can tell from a colour
+    photo. So the pixels are read, through a 64px thumbnail: Pillow decodes a
+    JPEG at a fraction of its size for that, and the 130 photos add about
+    0.7 s to the run, 0.4 s to 1.1 s.
+    """
+    if Image is None:
+        return None
+    try:
+        with Image.open(path) as image:
+            image.thumbnail((64, 64))
+            red, green, blue = image.convert("RGB").split()
+    except (OSError, ValueError):
+        return None
+    high = ImageChops.lighter(ImageChops.lighter(red, green), blue)
+    low = ImageChops.darker(ImageChops.darker(red, green), blue)
+    return ImageStat.Stat(ImageChops.difference(high, low)).mean[0]
 
 
 def report_small(small):
@@ -212,6 +267,124 @@ def report_small(small):
     note(f"{len(small)} of the person photos are smaller than {PHOTO_SIDE}px on "
          f"their short side, so the build enlarges them and they look soft in "
          f"the grid. Smallest: {shown}. Replacing the file is the only fix.")
+
+
+# One form per network, so a reader of the files can tell at a glance that two
+# links point at the same place, and so nobody has to wonder whether
+# es.linkedin.com and www.linkedin.com are the same profile. The hosts are the
+# ones each service itself serves: github.com redirects www away, LinkedIn
+# serves www, and twitter.com has redirected to x.com since the rename.
+SOCIAL_PREFIX = {
+    "github": "https://github.com/",
+    "linkedin": "https://www.linkedin.com/",
+    "twitter": "https://x.com/",
+}
+
+# Every field a sponsor template reads. A sponsor renders as its logo, linked
+# to its site, and there is no page per sponsor, so anything else in the file
+# reaches no reader. Thirty-two files carried a twitter, a linkedin, a
+# mastodont or an instagram URL that has never been published: somebody wrote
+# them expecting them to show, and nobody could tell they did not.
+SPONSOR_FIELDS = {"id", "name", "logo_image", "site", "draft"}
+
+
+def check_social(people, sponsors):
+    """Check the shape of every social link in a person or sponsor file.
+
+    Nothing else checks these. The link checker in CI reads the built pages,
+    and a URL broken badly enough is not rendered as a link at all: one
+    person's LinkedIn was `ttps://www.linkedin.com/...`, missing the h, which
+    a browser treats as a relative path. It had never worked and nobody had
+    noticed.
+
+    A trailing slash is an error, not a warning, because the fix is mechanical
+    and has one right answer. Left to taste, the values split about two to one
+    between the two styles across more than two hundred links. A host has no
+    trailing slash (https://ber2.github.io), so a profile path gets none either.
+
+    A sponsor home page is in `site`, the same field as a person's. It was
+    `web` until October 2026, and this loop read `site` for both kinds of page,
+    so the 66 sponsor URLs were never checked: 29 ended with a slash, one was
+    http and one carried a query string. The old name is an error now, so a
+    sponsor file copied from an old commit cannot escape the check again.
+    """
+    for page_id, path in sorted({**people, **sponsors}.items()):
+        data = front_matter(path) or {}
+        # An empty value is the same as no field to Hugo, so it shows a
+        # reader nothing. What it does is look like a checked fact: seven
+        # files carried github: "" and nobody had looked for a GitHub
+        # account for any of them. Fill it or take it out.
+        for field, value in sorted(data.items()):
+            if value is None or (isinstance(value, str) and not value.strip()):
+                error(path, f"'{field}' is empty. Fill it in, or remove the "
+                            f"line: an empty field is the same as no field "
+                            f"to Hugo, and it reads as a fact nobody checked.")
+        if page_id in sponsors:
+            for field in sorted(set(data) - SPONSOR_FIELDS):
+                error(path, f"'{field}' is not a sponsor field. A sponsor "
+                            f"renders as its logo, linked to its site, and "
+                            f"nothing else reaches a reader. Remove it, or "
+                            f"render it first.")
+        for field, prefix in SOCIAL_PREFIX.items():
+            value = data.get(field)
+            if not value:
+                continue
+            value = str(value).strip()
+            if "?" in value:
+                error(path, f"{field} carries query parameters: '{value}'. "
+                            f"Copy the profile URL, not the one the browser "
+                            f"was showing.")
+            elif not value.startswith(prefix):
+                error(path, f"{field} is '{value}', which does not start with "
+                            f"{prefix}")
+            elif value.endswith("/"):
+                error(path, f"{field} ends with a slash: '{value}'. "
+                            f"Use '{value.rstrip('/')}'.")
+
+        if "web" in data:
+            error(path, "'web' is not a field: put the home page in 'site'")
+
+        if "short_bio" in data:
+            # The field held free text about a person, next to the body that
+            # held the same kind of text. For 98 of 136 people only one of
+            # the two was filled, so the modal showed a "Bio" heading for
+            # some people and a "Description" heading for others. In October
+            # 2026 every value moved into the body and the template reads
+            # only the body now, so a value here is never shown. An error,
+            # because the one way the field comes back is a file copied from
+            # an old commit, and then the text is lost in silence.
+            error(path, "'short_bio' is not a field: put the text in the body "
+                        "of the file, under the front matter")
+
+        site = data.get("site")
+        if site:
+            site = str(site).strip()
+            if "?" in site:
+                # A warning here, an error on the three profile fields. A
+                # profile URL never needs a query, so one is always the
+                # tracking the browser added. A site is any address, and the
+                # query can be the address: a sponsor links to
+                # empleos-barcelona?q=python, and without the query the link
+                # lands on every job in Barcelona rather than the Python ones.
+                warn(path, f"site carries query parameters: '{site}'. "
+                              f"Keep them only if they are part of the "
+                              f"address, not tracking the browser added.")
+            elif not site.startswith(("https://", "http://")):
+                error(path, f"site is '{site}', which is not an http or https URL")
+            else:
+                if site.endswith("/"):
+                    error(path, f"site ends with a slash: '{site}'. "
+                                f"Use '{site.rstrip('/')}'.")
+                if site.startswith("http://"):
+                    # An error, not a warning. A link we publish over http is
+                    # one we invite a reader to follow in the clear, and the
+                    # site it points at is not ours to make safe. If https
+                    # does not answer, that is for its owner to fix, and the
+                    # link stays broken rather than insecure.
+                    error(path, f"site is served over http, not https: "
+                                f"'{site}'. Use https, and if the site does "
+                                f"not answer over https, that is for its "
+                                f"owner to fix.")
 
 
 def check_logos(sponsors):
@@ -249,6 +422,38 @@ LISTING_KEYS = {
 }
 
 
+# The keys an entry of a people list may carry when it is a map rather than
+# a bare id. people-grid.html reads both; anything else is a misspelling the
+# template would drop in silence.
+ENTRY_KEYS = {"id", "role"}
+
+
+def entry_id(path, key, entry):
+    """Return the id of one entry of a listing, or None if it has none.
+
+    A people entry is a bare id, or a map with an id and a role that the page
+    shows instead of the person's pybcn_position (see people-grid.html). The
+    check used to compare the entry itself against the known ids, which
+    raised a TypeError on a map.
+    """
+    if isinstance(entry, str):
+        return entry
+    if not isinstance(entry, dict):
+        error(path, f"'{key}' lists {entry!r}, which is not an id")
+        return None
+    if key != "people_levels" and key != "people_sections":
+        error(path, f"'{key}' lists {entry!r}, but only a people list may hold a map")
+        return None
+    unknown = set(entry) - ENTRY_KEYS
+    if unknown:
+        error(path, f"'{key}' entry {entry!r} has unknown key(s) "
+                    f"{', '.join(sorted(unknown))}; allowed: id, role")
+    if not entry.get("id"):
+        error(path, f"'{key}' entry {entry!r} has no id")
+        return None
+    return entry["id"]
+
+
 def referenced_ids(path, data, key):
     """Pull every id out of one listing key of a page.
 
@@ -264,7 +469,10 @@ def referenced_ids(path, data, key):
             if not isinstance(level, dict):
                 error(path, f"'{key}' holds {level!r}, which is not a level")
                 continue
-            out.extend(level.get(LISTING_KEYS[key]) or [])
+            for entry in level.get(LISTING_KEYS[key]) or []:
+                ref = entry_id(path, key, entry)
+                if ref is not None:
+                    out.append(ref)
     return out
 
 
@@ -383,6 +591,7 @@ def main():
     sponsors = collect_ids("sponsors")
     check_photos(people)
     check_logos(sponsors)
+    check_social(people, sponsors)
     listed_people = check_listings(people, sponsors)
     check_agenda()
     check_orphans(people, listed_people)

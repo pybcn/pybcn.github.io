@@ -1,0 +1,11 @@
+---
+id: jose-haro-peralta
+name: Jose Haro Peralta
+photo: jose-haro-peralta.png
+photo_anchor: Top
+
+twitter: https://x.com/JoseHaroPeralta
+linkedin: https://www.linkedin.com/in/jose-haro-peralta
+github: https://github.com/abunuwas
+---
+Jose Haro Peralta is a full-stack software consultant specialising in Python and DevOps. He’s currently authoring “Developing Microservice APIs with Python” (Manning).

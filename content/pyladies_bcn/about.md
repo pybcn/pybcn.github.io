@@ -36,6 +36,6 @@ We are an **international mentorship group** with a focus on providing a friendl
 Would you like to participate? Have a look at our [upcoming events!](/pyladies_bcn/meetups/)
 Would you like to collaborate? [Contact us!](/pyladies_bcn/contact-us/)
 
-And if you'd like to get some more information about our parent organisation, check out [their website](http://www.pyladies.com).
+And if you'd like to get some more information about our parent organisation, check out [their website](https://www.pyladies.com).
 
 All our events adhere to a strong [Code of Conduct](/pybcn_association/coc/).

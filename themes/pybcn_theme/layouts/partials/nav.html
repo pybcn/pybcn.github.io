@@ -18,13 +18,32 @@
                 {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
                   {{ if .HasChildren }}
-                    {{ $dropdown_id := printf "navbar_dropdown_%s" (.Name | urlize) }}
+                    {{/* A section of the menu that opens a list of links, which
+                         is the disclosure pattern of the ARIA practices: a
+                         control that says whether it is open, and the content
+                         it shows. role="button" and aria-expanded carry that.
+
+                         Not an ARIA menu. aria-haspopup="true" means a menu,
+                         and the div under it used to name itself after the
+                         control with aria-labelledby, which the HTML validator
+                         rejects on a div with no role: three errors on each of
+                         the 247 pages. The way to make them valid is
+                         role="menu" on the div and role="menuitem" on each
+                         link, and that is a promise this does not keep. An
+                         ARIA menu owes the keyboard arrow keys between the
+                         items, a roving tabindex, and Escape to close, and
+                         Bootstrap 4 gives none of the three here. A reader who
+                         is told it is a menu and finds a list of links is
+                         worse off than one who was told nothing. Two
+                         attributes go instead of one arriving.
+
+                         The id went with the label: nothing else read it. */}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" id="{{ $dropdown_id }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
-                        <div class="dropdown-menu" aria-labelledby="{{ $dropdown_id }}">
+                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-expanded="false">{{ .Name }}</a>
+                        <div class="dropdown-menu">
                             {{ range .Children }}
                                 {{ if .HasChildren }}
-                                    <a class="nav-link dropdown-toggle open-submenu {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ .Name }}</a>
+                                    <a class="nav-link dropdown-toggle open-submenu {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ .Name }}</a>
                                     <div class="submenu hidden">
                                         {{ range .Children }}
                                             <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" {{ if hasPrefix .URL "http" }}target="_blank"{{end}} href="{{ .URL | absURL }}">{{ .Name }} {{if hasPrefix .URL "http"}}<i class="fas fa-external-link-alt" aria-hidden="true"></i>{{end}}</a>

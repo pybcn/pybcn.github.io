@@ -1,5 +1,6 @@
 ---
-title: "PyDay BCN 2020"
+title: "PyDay BCN (2020)"
+year: 2020
 description: "The fourth edition!"
 menu:
   main:
@@ -30,37 +31,37 @@ people_sections:
       levels:
         - people_per_line: 4
           people:
-              - alberto
-              - alvaro_duran
+              - alberto-camara
+              - alvaro-duran-barata
               - ankit-mahato
-              - carles_barrobes
+              - carles-barrobes
               - christian-adell
-              - daniel_mesejo
+              - daniel-mesejo-leon
               - edgar-riba
-              - eduard_cespedes
+              - eduard-cespedes-borras
               - elisabeth-ortega-carrasco
               - ferran-fabregas
               - francesco-faraone
               - gajendra-deshpande
               - joan-fontanals-martinez
-              - jose_haro
+              - jose-haro-peralta
               - julio-martinez
               - marc-pous
               - maria-teresa-grifa
-              - miroslav_sedivy
+              - miroslav-sedivy
     - title: Organizers
       id: organizers
       levels:
         - people_per_line: 4
           people:
-              - david
-              - eloi
-              - ifosch
-              - lpmayos
-              - mireia
-              - natalia
-              - nuria
-              - rberenguel
+              - david-arcos
+              - eloi-puertas-prats
+              - ignasi-fosch
+              - laura-perez-mayos
+              - mireia-alvarez-dominguez
+              - natalia-padilla
+              - nuria-pujol-vilanova
+              - ruben-berenguel
 
 previous_editions:
     - name: PyDay BCN 2019

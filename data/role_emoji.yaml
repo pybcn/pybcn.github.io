@@ -1,0 +1,51 @@
+# The emoji that marks each row of the Roles and the Events lists
+# of a person modal (see person_appearances.html). Left side: the role of
+# the row. For an events row that is the first of its roles, the heading
+# of the event page through roles.yaml. For a roles row it is the label of
+# the row, which is a level name of an organizers page through roles.yaml,
+# and a level name that is not a role ("Permanent Committee",
+# "Collaborators", "Management Board (2026)") is not here and takes the
+# "*" entry. Right side: one emoji. A role that is not here takes the "*"
+# entry, so a new role shows up with a neutral glyph rather than with
+# none, and the row does not change shape when it is added. The four
+# level names above are the live test of that fallback.
+#
+# Every emoji here has emoji presentation by default (Emoji_Presentation
+# in the Unicode emoji data), so none of them needs U+FE0F, the variation
+# selector, and none is a ZWJ sequence. Both are banned: a selector or a
+# joiner is one glyph to one font and two to another, so the marker column
+# would depend on the visitor's font. Keep to that set when adding a row:
+# a candidate that needs FE0F (a heart, a star, a hammer and pick) is out
+# even if it fits the role better.
+#
+# Close roles share one glyph. A Former X takes the glyph of X: the row
+# already prints "Former", and a second glyph for a past post would say
+# that the post itself was different, which it was not.
+# The four posts of the board have a glyph each, so that the posts tell
+# apart at a glance when the board page lists them.
+Speaker: 🎤
+Mentor: 🎓
+Volunteer: 🙋
+Organizer: 🧭
+Collaborator: 🤝
+President: 🔑
+Former President: 🔑
+Secretary: 📝
+Former Secretary: 📝
+Treasurer: 💶
+Former Treasurer: 💶
+Communications: 📣
+Events: 📅
+"*": 👤
+
+# The Roles list of the modal is keyed by the level a person sits
+# at, not by a role: "Permanent Committee", not "Organizer". Those names
+# are below so that the list reads as a group per row rather than as the
+# fallback silhouette on every row. A level name that is not here falls
+# back to "*", which is why the board rows carry the year: a 2027 board
+# needs a row of its own, and until it has one its glyph is the neutral
+# one, not a wrong one.
+Permanent Committee: 🧭
+Collaborators: 🤝
+Management Board (2026): 📋
+Management Board (2018 - 2025): 📋

@@ -1,5 +1,6 @@
 ---
-title: "PyDay BCN 2025"
+title: "PyDay BCN (2025)"
+year: 2025
 description: "For the community, by the community!"
 menu:
   main:
@@ -48,21 +49,21 @@ people_sections:
             - enric-domingo
             - ester-jara
             - javier-ramos-panduro
-            - natalia
+            - natalia-padilla
             - amir-azam
-            - david
+            - david-arcos
             - javier-sabariego
-            - ely-farres
+            - ely-farres-palomeras
             - flavie-le-bars
             - cristina-cosma
-            - ricardo-ander-egg
-            - alberto
+            - ricardo-ander-egg-aguilar
+            - alberto-camara
             - jordi-bosch            
             - kemalcan-bora
-            - kevin-sanchez
+            - kevin-sanchez-sancho
             - oriol-abril-pla         
-            - camilo-chacon
-            - victor-garcia
+            - camilo-chacon-sartori
+            - victor-garcia-dominguez
             - eric-massip
             - ubaldo-hervas
             - kevin-albes
@@ -76,7 +77,7 @@ people_sections:
           - sergi-ramirez
           - toni-espadas
           - jordi-bosch
-          - daniel-mesejo
+          - daniel-mesejo-leon
 
 #  - title: Staff
 #    id: staff
@@ -86,8 +87,8 @@ people_sections:
 #          - sergi-ramirez
 #          - toni-espadas
 #          - jordi-bosch
-#          - daniel-mesejo
-#          - jose-riera
+#          - daniel-mesejo-leon
+#          - jose-riera-sanchez
 #          - mauricio
 #          - brian-power
 #          - eva-casas

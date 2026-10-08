@@ -22,6 +22,7 @@ reports:
     from or navigates to (href, src, srcset, action, formaction, poster and
     the rest of URL_ATTRIBUTES), in a meta refresh, and in a url() of an
     inline style
+  - an http:// URL in any of those same places, see "Insecure URLs" below
   - a <script> that is inline, or whose src is not on this site
   - <iframe>, <frame>, <portal>, <object>, <embed>, <applet>, <base>, an
     iframe srcdoc, and a <form> or a formaction that posts off this site
@@ -59,6 +60,28 @@ ends at --!> in a browser and not in the parser; and <![CDATA[ outside
 marked section that ends at ]]> in the parser. Each one is reported as a
 finding, so the disagreement is never silent. hugo --minify strips every
 comment, so a built page has none of them unless a static file carries it.
+
+Insecure URLs. This site publishes no link over http. A reader who follows
+an http href goes out in the clear, and a resource fetched over http into a
+page served over https is mixed content: the browser blocks a script, a
+stylesheet or a frame outright, and upgrades or blocks an image.
+bin/check-content refuses an http value in a site field, but a URL written
+inside a bio or inside raw HTML in a content file is not a field. One
+person's short_bio, a front matter field whose text has since moved into
+the body, ended with a bare http URL, Hugo turned it into a live anchor,
+and the page shipped an insecure link that no field rule could see.
+The rule here reads the built page, so it sees that anchor wherever it came
+from. Every attribute in URL_ATTRIBUTES counts the same, href and src alike,
+and so do a meta refresh and a url() in an inline style: what the browser
+does with each one differs, the fix does not, it is the scheme. A localhost
+or 127.0.0.1 address is reported under the same kind with its own note, see
+LOCAL_HOSTS: it should never be in a build, https would not make it
+reachable, and the fix is to remove the link. This is an error and not a
+warning, with no allowlist entry: when a host does not answer over https,
+its owner has to fix it, and until then the link stays out rather than
+insecure. The one exemption is INSECURE_EXEMPT, the frozen copies under
+archives/, see the comment there; the report prints how many URLs it left
+alone.
 
 "On this site" means a URL with no host, or a host equal to the one in
 baseURL in config.toml (--host overrides it). The build made by the links
@@ -126,6 +149,24 @@ LIST_BY_COMMA = {"srcset", "imagesrcset"}
 LIST_BY_SPACE = {"ping", "archive"}
 
 DANGEROUS_SCHEMES = {"javascript", "vbscript", "data"}
+
+# An http URL is a finding of its own kind, see "Insecure URLs" in the module
+# docstring. The hosts below mark a link to a development server. One is in
+# the frozen 2016 PyLadies page, where the author pasted the URL of the
+# site running on their machine, so the shape is not hypothetical.
+INSECURE_SCHEME = "http"
+LOCAL_HOSTS = {"localhost", "127.0.0.1", "[::1]", "0.0.0.0"}
+
+# Directories whose pages the insecure rule does not read, as prefixes of the
+# page path. archives/ holds frozen copies of retired sites, served as they
+# were captured: a 2016 link to http://www.meetup.com/ is part of that record
+# and rewriting it would make the copy something other than a copy. The rest
+# of this check still reads those pages, see the allowlist comment. An
+# allowlist entry would exempt them too, but the report prints two lines per
+# suppressed finding, and the archives hold more than a hundred http URLs,
+# so every PASS would be buried under them. The exemption is one line in the
+# report instead, with the count, so the number is visible on every run.
+INSECURE_EXEMPT = ("archives/",)
 
 # Schemes whose URL carries an authority after the colon, see split_url.
 SPECIAL_SCHEMES = {"http", "https", "ws", "wss", "ftp", "file"}
@@ -370,6 +411,7 @@ ANIMATORS = {"set", "animate", "animatemotion", "animatetransform"}
 KINDS = [
     ("handler", "event handler attribute"),
     ("scheme", "javascript:, vbscript: or data: URL"),
+    ("insecure", "http:// URL, the reader or the resource goes out in the clear"),
     ("canary", "URL on the canary host, a template printed a name as markup"),
     ("script-inline", "inline script"),
     ("script-external", "script loaded from off this site"),
@@ -541,6 +583,15 @@ class Page(HTMLParser):
             return True
         return False
 
+    def check_insecure(self, url, where):
+        """Record an http URL found in the place named by where."""
+        scheme, host = split_url(url)
+        if scheme != INSECURE_SCHEME:
+            return
+        if host in LOCAL_HOSTS:
+            where += ", a development address that no reader can reach"
+        self.record("insecure", urls=[url], note=where)
+
     def record(self, kind, urls=(), body=None, note=None, text=None):
         line, column = self.getpos()
         if text is None:
@@ -573,6 +624,7 @@ class Page(HTMLParser):
                         self.record("scheme", urls=[url], note="%s=%s:" % (name, scheme))
                     if host == CANARY_HOST:
                         self.record("canary", urls=[url], note=name)
+                    self.check_insecure(url, name)
 
         if tag in EMBEDDERS:
             kind, attribute = EMBEDDERS[tag]
@@ -602,6 +654,7 @@ class Page(HTMLParser):
                     self.record("refresh", urls=[url])
                 if split_url(url)[1] == CANARY_HOST:
                     self.record("canary", urls=[url], note="refresh")
+                self.check_insecure(url, "refresh")
         elif tag == "link":
             rels = set(values.get("rel", "").lower().split())
             href = values.get("href", "")
@@ -633,6 +686,7 @@ class Page(HTMLParser):
                     self.record("scheme", urls=[url], note="style url() %s:" % scheme)
                 if host == CANARY_HOST:
                     self.record("canary", urls=[url], note="style url()")
+                self.check_insecure(url, "style url()")
                 if accepted and not self.on_site(url):
                     accepted = False
             if not accepted:
@@ -709,7 +763,11 @@ def site_host_from_config(root):
 
 
 def scan(build, site_host):
-    """Return (pages, findings, suppressed, errors, canary_values)."""
+    """Return (pages, findings, suppressed, exempt, errors, canary_values).
+
+    exempt maps each INSECURE_EXEMPT prefix to the number of insecure
+    findings it kept out of the report.
+    """
     pages = []
     for base, dirs, names in os.walk(build):
         dirs.sort()
@@ -719,6 +777,7 @@ def scan(build, site_host):
     pages.sort()
 
     findings, suppressed, errors = [], [], []
+    exempt = {prefix: 0 for prefix in INSECURE_EXEMPT}
     canary_values = None
     for path in pages:
         page = os.path.relpath(path, build).replace(os.sep, "/")
@@ -733,13 +792,18 @@ def scan(build, site_host):
         if page == CANARY_PAGE:
             canary_values = parser.values
         for finding in parser.findings:
+            if finding["kind"] == "insecure":
+                prefix = next((p for p in INSECURE_EXEMPT if page.startswith(p)), None)
+                if prefix is not None:
+                    exempt[prefix] += 1
+                    continue
             index = allowed(page, finding["kind"], finding["urls"], finding["body"])
             if index is None:
                 findings.append(finding)
             else:
                 finding["entry"] = index
                 suppressed.append(finding)
-    return pages, findings, suppressed, errors, canary_values
+    return pages, findings, suppressed, exempt, errors, canary_values
 
 
 def location(finding):
@@ -769,7 +833,7 @@ def main():
               "bin/hugo --minify -D -d public" % build)
         return 2
 
-    pages, findings, suppressed, errors, canary_values = scan(build, site_host)
+    pages, findings, suppressed, exempt, errors, canary_values = scan(build, site_host)
     if not pages:
         print("check-rendered: no HTML under %s. Build first: "
               "bin/hugo --minify -D -d public" % build)
@@ -784,6 +848,11 @@ def main():
         for finding in suppressed:
             print("  %s  %s" % (location(finding), finding["kind"]))
             print("      reason: %s" % ALLOWLIST[finding["entry"]]["why"])
+
+    for prefix, count in exempt.items():
+        if count:
+            print("\nNot checked for http (%d URL(s)): %s, frozen copies, see INSECURE_EXEMPT."
+                  % (count, prefix))
 
     # An allowlist entry that matches nothing is an exception that outlived
     # its cause. Report it so that it gets deleted.
@@ -812,6 +881,12 @@ def main():
         print("\nThe built page carries markup this site must not serve. Find the "
               "template, shortcode or content that printed it. If it is wanted, "
               "add an allowlist entry in bin/check-rendered with a reason.")
+        if any(finding["kind"] == "insecure" for finding in findings):
+            print("\nAn http:// URL has no allowlist entry: this site publishes no "
+                  "insecure link. Change the URL to https://. If the host does not "
+                  "answer over https, its owner has to fix it: remove the link until "
+                  "it does. A localhost or 127.0.0.1 address is a development link: "
+                  "remove it.")
 
     if errors:
         failed = True
