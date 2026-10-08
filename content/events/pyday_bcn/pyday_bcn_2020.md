@@ -7,7 +7,7 @@ menu:
 weight: 6
 aliases:
 - /pyday-bcn-2020
-heroBackground: /images/photos/people-pyday-2019_1600_450.png
+heroBackground: /images/photos/people-pyday-2019.jpg
 
 layout: event
 
