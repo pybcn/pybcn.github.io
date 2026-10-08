@@ -418,14 +418,14 @@ We are organizing the **the sixth edition** of PyDay in Barcelona!
 
 PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the [last five editions](#previous_editions_section), PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
 
-#### When and where
+### When and where
 
 It is scheduled for **Saturday 26th November** in [Canòdrom - Ateneu d'Innovació Digital i Democràtica](https://g.page/Canodrom?share), from 9:30pm to 19:00pm CET, aprox.
 
-#### A full day of in-person hands-on workshops
+### A full day of in-person hands-on workshops
 
 PyDay BCN 2022 will have different **thematic tracks** --e.g. data science, web development, security-- with hands-on workshops of about 90 minutes in which participants will learn how to use different libraries, tools and techniques, fully guided by members of the community and support volunteers.
 
-#### Participate in Kahoot and win prizes!
+### Participate in Kahoot and win prizes!
 
 We will host a Kahoot game with questions about PyBCN and Python in general, with prizes for the fastest players. Will you miss it?!
