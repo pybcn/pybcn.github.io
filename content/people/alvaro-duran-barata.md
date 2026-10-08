@@ -1,6 +1,6 @@
 ---
 id: alvaro-duran-barata
-name: Alvaro Duran Barata
+name: Álvaro Durán Barata
 photo: alvaro-duran-barata.jpeg
 photo_anchor: Top
 
@@ -9,4 +9,4 @@ github: https://github.com/ohduran
 ---
 NLP/ML engineer
 
-Alvaro is a Python developer with a unique blend of expertise in finance, software engineering, and data. He brings curiosity, intensity and an analytical mind to the table. When not in front of the keyboard, Alvaro is likely to be found reading voraciously, near a pizza shop, or working out. 
+Álvaro is a Python developer with a unique blend of expertise in finance, software engineering, and data. He brings curiosity, intensity and an analytical mind to the table. When not in front of the keyboard, Álvaro is likely to be found reading voraciously, near a pizza shop, or working out.

@@ -2,9 +2,12 @@
     A grid of person cards, one row per level.
 
     Arguments:
-        levels  the list of levels, each with a name, people and people_per_line
-        Site    the site, to look the people pages up
-        key     a name unique to this grid on the page, "people" by default
+        levels   the list of levels, each with a name, people and people_per_line
+        Site     the site, to look the people pages up
+        key      a name unique to this grid on the page, "people" by default
+        section  optional, the title of the people section the grid is in,
+                 when the page has sections (an event page does, see
+                 event.html; an association page lists levels and has none)
 
     An event page renders this partial once per people section, and the same
     person can sit in more than one of them. The key goes into every id the
@@ -26,6 +29,25 @@
     person file with its own id, and the modal of the second one listed
     none of the events the first one was in.
 
+    With no entry role, the role is the one the heading of the grid gives,
+    and only then the pybcn_position of the person file. The heading is the
+    level name when the level has one and the section title when it does
+    not, which is the rule appearances_index.html indexes the modal's
+    appearance list by, so the card and the modal name the same role for
+    the same listing. The heading goes through data/roles.yaml: "Speakers"
+    gives Speaker. A heading that the file does not map gives nothing, and
+    the card falls through to pybcn_position: the four level names of
+    /organizers/ (Management Board, Permanent Committee, Collaborators) are
+    not mapped, so that page keeps the association position of each person,
+    which is what it is for. The index prints an unmapped heading as it is
+    written, because there it is a label for a page; here it would be a
+    role under a name, and "Collaborators" is not one.
+
+    Before this, the card printed the pybcn_position under a speaker, which
+    was empty for 118 of the 207 cards of the site (most speakers hold no
+    position), and put the association role of an organizer who also spoke
+    under the Speakers heading, where it answered the wrong question.
+
     The column width comes from a per_line_N class rather than from Bootstrap's
     col-md-N. Twelve columns divide by 1, 2, 3, 4, 6 and 12, so people_per_line
     was silently rounded for any other value: 5 gave col-md-2, which is six
@@ -36,15 +58,25 @@
 
     {{ $pages := where .Site.Pages "Section" "people" }}
     {{ range $idx, $level := .levels }}
-        <div class="row justify-content-md-center level per_line_{{ int $level.people_per_line }}" id="{{ $key }}_level_{{ $idx }}">
-            {{ if $level.name }}
-                <div class="col-md-12 level_name">
-                    <h2>{{ $level.name }}</h2>
-                </div>
-            {{ end }}
+        {{- /* nil when the heading is not in roles.yaml, or there is none:
+               index of "" finds no key, and default then falls through. */ -}}
+        {{- $section_role := index site.Data.roles (default $.section $level.name) -}}
+        {{- /* The heading is a sibling of the row, not a child of it. It
+               is a title between two rules, centred on the page, and the row
+               below caps its own width at the number of cards the section
+               asks for: inside the row the heading took that cap, so the
+               four headings of /organizers/ were centred on four different
+               widths and their rules came out four different lengths. */ -}}
+        {{ if $level.name }}
+            <div class="level_name">
+                <h2>{{ $level.name }}</h2>
+            </div>
+        {{ end }}
+        <div class="row level per_line_{{ int $level.people_per_line }}" id="{{ $key }}_level_{{ $idx }}">
             {{ range $pidx, $person := $level.people }}
                 {{ $id := $person }}{{ $role := "" }}
                 {{ if reflect.IsMap $person }}{{ $id = $person.id }}{{ $role = $person.role }}{{ end }}
+                {{ $role = default $section_role $role }}
                 {{ range $page := where $pages ".Params.id" "eq" $id }}
                 <div class="person_wrapper">
                     {{ partial "people_summary.html" (dict "person" $page "role" $role "key" (printf "%s_%d_%d" $key $idx $pidx)) }}

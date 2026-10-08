@@ -87,7 +87,14 @@
                    current board first, and the list has to read that way
                    rather than alphabetically, which put the 2018 board
                    above the current committee. */ -}}
-            {{- $entry := dict "label" $label "title" $pg.Title "url" $pg.RelPermalink "year" (int (default 0 $pg.Params.year)) "ord" $ord -}}
+            {{- /* appearances_title, when the page sets one, is the name this
+                   list calls the page by. A page title says what the page is,
+                   and a line of this list says where a role is held, which is
+                   not the same words: /pyladies_bcn/organizers-and-speakers/
+                   is titled "PyLadies BCN Organizers", and the line reads
+                   "Organizer at PyLadies BCN". Without it the line repeats
+                   the role in the name of the page it links to. */ -}}
+            {{- $entry := dict "label" $label "title" (default $pg.Title $pg.Params.appearances_title) "url" $pg.RelPermalink "year" (int (default 0 $pg.Params.year)) "ord" $ord -}}
             {{- $index = merge $index (dict $id (append $entry (default slice (index $index $id)))) -}}
         {{- end -}}
     {{- end -}}

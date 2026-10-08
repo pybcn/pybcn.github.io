@@ -57,20 +57,20 @@ people_sections:
             - adrian-garcia-riber
             - albert-pujol-torras
             - alvaro-duran-barata
-            - amalia_vradi
+            - amalia-vradi
             - carmen-iniesta-lopez
             - daniel-sanchez-santolaya
             - diego-quintana
             - edgar-sarria-tenes
             - fiorella-piriz-sapio
             - juan-bernardo-lince
-            - juan-luis-cano
+            - juan-luis-cano-rodriguez
             - miquel-sarrias
             - monica-dominguez
             - nikita-polovinkin
             - oriol-abril-pla
             - rajdeep-pal
-            - ricardo-ander-egg
+            - ricardo-ander-egg-aguilar
             - ruben-afonso
             - sergi-baena-miret
             - thais-ruiz-de-alda
@@ -79,14 +79,14 @@ people_sections:
       levels:
         - people_per_line: 4
           people:
-            - lpmayos
-            - natalia
+            - laura-perez-mayos
+            - natalia-padilla
             - elisabeth-ortega-carrasco
-            - amalia_vradi
-            - ariadna_fernandez_estevez
-            - paula_szewach
-            - nuria
-            - mireia
+            - amalia-vradi
+            - ariadna-fernandez
+            - paula-szewach
+            - nuria-pujol-vilanova
+            - mireia-alvarez-dominguez
 
 spansDuration: 15
 numTracks: 4

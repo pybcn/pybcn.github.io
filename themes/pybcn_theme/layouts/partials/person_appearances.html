@@ -1,9 +1,9 @@
 {{- /*
-    The pages one person appears on, as two labelled lists.
+    The pages one person appears on, as two lists with one line each.
 
-        Roles at PyBCN
-        Permanent Committee    Organizers
-        PyLadiesBCN Organizer  PyLadies BCN Organizers
+        Roles
+        Permanent Committee at Organizers
+        Organizer at PyLadies BCN
 
         Events
         Speaker at PyDay BCN (2025)
@@ -11,7 +11,10 @@
         Mentor and Speaker at Hands-on Django with PyLadiesBCN (2022)
         Organizer at PyDay BCN (2021)
 
-    In the events the roles are bold and "at" and "and" italic.
+    Every line of both lists is built the same way: the role glyph, the
+    role in bold, an italic "at", and the page it is held on. Roles was a
+    definition list laid out as a table of label and value, which said the
+    same kind of thing as the line under it in a different shape.
 
     Argument: the person page.
 
@@ -38,8 +41,8 @@
     history. They are now two lists under two headings, each one left out
     when it is empty.
 
-    Roles: grouped by label, one row per label, the pages that give it as
-    links. The order is the page and then the order the page itself lists
+    Roles: grouped by label, one line per label, the pages that give it as
+    links. A label held on two pages lists both, separated by a comma. The order is the page and then the order the page itself lists
     its levels, which is current board first: sorting them by label put
     Management Board (2018 - 2025) above Permanent Committee, and the
     PyLadies page above both. The page comes from its path, so the PyBCN
@@ -63,6 +66,29 @@
     Everyone on /organizers/ has at least that page, but the index covers
     only the people listed there, so a speaker of one event who is not an
     organizer still has an empty list. The Archive will widen this.
+
+    Each row of both lists starts with the glyph of its role from
+    data/role_emoji.yaml, as its list marker, the way each row of Social
+    Links starts with the icon of its network (see person_links.html). The
+    glyph was on the card, next to the role under the name, and read there
+    as a stray character of the italic line; as the marker of a row it has
+    a column of its own, and the three lists of the modal read as one kind
+    of thing. An events row has its roles, so the glyph is the one of the
+    first role in the sorted list: Ferran Jovell as "Mentor and Speaker"
+    gets the mentor's cap, because the row has one marker, as the social
+    rows have one icon, and the first role is the one the eye meets. A
+    roles row is keyed by its label, which is a level name through
+    roles.yaml, so a label that is a role, "Organizer", finds
+    its glyph, and a level that is not a role, "Permanent Committee" or
+    "Collaborators", takes the "*" fallback of the table.
+
+    The glyph is hidden from a screen reader in both lists. In the events
+    list the role is the text right after it, so a label would make the
+    reader say "Speaker, Speaker" on every row. In the roles list the text
+    is the level, not the role, but the glyph never says more than the
+    text does: the table is keyed by role, so a label that finds a glyph
+    is itself a role name and is read as such, and a label that does not
+    gets the neutral fallback, which says nothing a name could carry.
 */ -}}
 {{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
 {{- $groups := dict -}}
@@ -90,13 +116,17 @@
 {{- end -}}
 {{- with $roles -}}
 <section class="modal_section">
-    <h4>Roles at PyBCN</h4>
-    <dl class="appearances">
+    <h4>Roles</h4>
+    <ul class="appearances">
     {{- range sort . "key" }}
-        <dt>{{ .label }}</dt>
-        <dd>{{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</dd>
+        {{- /* The same line as an event: the glyph, the role in bold, the
+               italic "at", and the page it is held on. The two lists said
+               the same kind of thing in two shapes, this one as a table of
+               label and value, and a reader had to read each of them a
+               different way. */ -}}
+        <li><span class="role_emoji" aria-hidden="true">{{ default (index site.Data.role_emoji "*") (index site.Data.role_emoji .label) }}</span><strong>{{ .label }}</strong> <em>at</em> {{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</li>
     {{- end }}
-    </dl>
+    </ul>
 </section>
 {{- end -}}
 {{- with $list -}}
@@ -111,7 +141,7 @@
                and left "Mentor and Speaker" as one italic run where the
                "and" looked like part of a role name. */ -}}
         {{- $labels := .labels }}
-        <li>{{ range $i, $label := $labels }}{{ if $i }}{{ if eq $i (sub (len $labels) 1) }} <em>and</em> {{ else }}, {{ end }}{{ end }}<strong>{{ $label }}</strong>{{ end }} <em>at</em> <a href="{{ .url }}">{{ .title }}</a></li>
+        <li><span class="role_emoji" aria-hidden="true">{{ default (index site.Data.role_emoji "*") (index site.Data.role_emoji (index $labels 0)) }}</span>{{ range $i, $label := $labels }}{{ if $i }}{{ if eq $i (sub (len $labels) 1) }} <em>and</em> {{ else }}, {{ end }}{{ end }}<strong>{{ $label }}</strong>{{ end }} <em>at</em> <a href="{{ .url }}">{{ .title }}</a></li>
     {{- end }}
     </ul>
 </section>

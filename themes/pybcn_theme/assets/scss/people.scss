@@ -2,6 +2,15 @@
 // people section, so there is no single id to target.
 
 .people_grid {
+    // The card width, the space between two cards, and the count a row
+    // falls back to on a tablet. Declared here because the rules below use
+    // them from the first one.
+    $card: 178px;
+    $gutter: 12px;
+    // A literal divisor is not a division in Dart Sass, which emits
+    // width: 100%/3 and the browser drops the rule. A variable divides.
+    $tablet_per_line: 3;
+
     // A Bootstrap container adds its own 15px of padding inside the padding
     // the column already has. On an event page the level heading band spans
     // the full width of the col-md-9 while the row of cards sat 15px inside
@@ -13,12 +22,17 @@
         padding-right: 0;
     }
 
-    // The last row of a section rarely fills. Centring it puts the remainder
-    // in the middle instead of leaving one card alone on the left, and it
-    // means every section can keep the same cards per row, so no section ends
-    // up with wider cards than another and reads as more important.
+    // Every row of cards starts on the same left edge as the heading above
+    // it, which is the line the eye follows down the page. Three rules are
+    // needed. The row caps its own width further down, so it must not be
+    // centred in the column. The cards of a row that does not fill must not
+    // be centred under the cards above them. And the half gutter each card
+    // carries on its left has to come back off the row, so the edge of the
+    // first card, not the edge of its gutter, is what lands on the line.
     .row.level {
-        justify-content: center;
+        justify-content: flex-start;
+        margin-left: -$gutter / 2;
+        margin-right: -$gutter / 2;
     }
 
     // Every card is the same width in every section, and so is the space
@@ -32,12 +46,6 @@
     // dropped that page from four cards a row to three. As a fraction, four
     // slots of 190px fit, and the card there is the same 178px as on the
     // organizers page.
-    $card: 178px;
-    $gutter: 12px;
-    // A literal divisor is not a division in Dart Sass, which emits
-    // width: 100%/3 and the browser drops the rule. A variable divides.
-    $tablet_per_line: 3;
-
     .person_wrapper {
         flex: 0 0 auto;
         // The card is the container the type sizes against, at the end of
@@ -61,7 +69,6 @@
     @media (min-width: 768px) and (max-width: 991.98px) {
         .row.level {
             max-width: ($card + $gutter) * 3;
-            margin-left: auto;
             margin-right: auto;
 
             .person_wrapper {
@@ -76,7 +83,6 @@
         @for $n from 1 through 8 {
             .row.level.per_line_#{$n} {
                 max-width: ($card + $gutter) * $n;
-                margin-left: auto;
                 margin-right: auto;
 
                 .person_wrapper {
@@ -273,10 +279,21 @@
                 // (see .icon_x in main.scss), so it follows the same rule.
                 i {
                     font-size: clamp(18px, 16cqi, 32px);
-                    color: black;
-                    &:hover {
-                        color: $blue-pybcn;
-                    }
+                    // Grey at rest and the PyBCN blue under the pointer,
+                    // the same treatment the glyph of an appearance row
+                    // takes in the modal. They were solid black here and
+                    // the link blue in the modal, which are two answers to
+                    // the same question on one page. 4.68:1 on white, so
+                    // the grey still passes the 3:1 WCAG asks of a graphic.
+                    color: $icon-grey;
+                    transition: color 0.15s linear;
+                }
+
+                // On the link and not on the glyph, so the margin each
+                // link carries is part of the target.
+                a:hover i,
+                a:focus i {
+                    color: $blue-pybcn;
                 }
             }
 
@@ -306,39 +323,49 @@
 
             .modal {
                 .modal-dialog {
-                    // 900px, from the content and not from the window: the
-                    // 300px photo column and its 20px gap, a 548px text
-                    // column, and the 16px of body padding each side. The
-                    // text column holds the longest line the modal renders
-                    // in one line, the 498px event line "Mentor and
-                    // Organizer at Hands-on Django with PyLadiesBCN (2022)"
-                    // behind its 20px list indent, and is about 65
-                    // characters of the body font, a comfortable measure
-                    // for a bio paragraph. The old cap was 70% of the
-                    // window: 1006px at 1440px, where a line of text ran
-                    // 650px and the foot of the modal was blank to the
-                    // right of the social links, and a percentage of a
-                    // 2560px screen is wider still. Under 900px the dialog
-                    // fits the window, as a max-width does.
-                    max-width: 900px;
+                    // 580px, from the content and not from the window:
+                    // the 548px text column, which is now the whole body,
+                    // and the 16px of body padding each side. The cap was
+                    // 900px while the photo was a 300px column with a
+                    // 20px gap beside that text column. With the photo in
+                    // the header row the column and the gap are gone, and
+                    // 900px put 866px of bio on one line: 122 characters
+                    // of the 16px body font on the first line of Jordi
+                    // Bosch's bio, measured at 1440px, about twice a
+                    // comfortable measure. The 548px holds the longest
+                    // line the modal renders in one line, the 498px event
+                    // line "Mentor and Organizer at Hands-on Django with
+                    // PyLadiesBCN (2022)" behind its 38px marker column, and
+                    // is about 76 characters of the body font at the 7.15px
+                    // the average glyph of that bio measures. The header
+                    // row leaves 422px for the name after the 40px that
+                    // clears the close button, the 20px gap, and the 64px
+                    // photo, and "Elisabeth Ortega Carrasco", the longest
+                    // name on the organizers page, sits on one line there
+                    // at 28px. The cap before 900px was 70% of the window:
+                    // 1006px at 1440px, and a percentage of a 2560px
+                    // screen is wider still. Under 580px the dialog fits
+                    // the window, as a max-width does.
+                    max-width: 580px;
 
-                    // Two columns: the photo on the left, everything else
-                    // on the right. The photo used to sit in the header
-                    // only, beside the name, the role and the bio, with
-                    // the sections running full width under it: three
-                    // short lines beside a 200px photo left a gap under
-                    // the photo that the first section had to clear. The
-                    // right column now holds the sections too, so nothing
-                    // runs under the photo whatever the length of the text.
+                    // One column: a header row, then the sections at the
+                    // full width of the body. The body used to be two
+                    // columns, the photo on the left at 300px and the text
+                    // on the right, so that nothing ran under the photo.
+                    // That put a blank strip under the photo instead, as
+                    // tall as the text beside it, which for a person with
+                    // a bio is most of the modal. The photo is small and
+                    // round now and takes the corner of the header, so the
+                    // text has nothing to clear and the columns are gone.
+                    // The body is a block again, the Bootstrap default, and
+                    // the close button stays where the two-column layout
+                    // put it: absolute in the corner, at the body padding.
+                    // Bootstrap floats it, and a float beside the header
+                    // row would narrow the row by the width of the button
+                    // through the block formatting context a flex
+                    // container opens, which is true but not something a
+                    // reader of this file should have to know.
                     .modal-body {
-                        display: flex;
-                        align-items: flex-start;
-
-                        // Bootstrap floats the close button, and a flex
-                        // container ignores floats: the button would become
-                        // the first item of the row and push the photo
-                        // right. It sits in the corner instead, where the
-                        // float put it, at the body padding.
                         .close {
                             position: absolute;
                             top: 1rem;
@@ -346,47 +373,148 @@
                         }
                     }
 
-                    // The photo column is as wide as the photo and no
-                    // wider: 300px, or the short side of a smaller source
-                    // (see people_summary.html), so a 200px photo leaves
-                    // the room to the text and not to a blank strip. 300px
-                    // is a third of the dialog on a wide screen, half again
-                    // the 200px of before, which was the card's size and
-                    // small next to the text, and under the 400px that was
-                    // a quarter of the modal and the only thing a reader
-                    // saw at first. The 400px file serves it at 1x and the
-                    // 800px file at 2x.
-                    .person_photo {
-                        flex: 0 0 auto;
-                        margin-right: 20px;
+                    // The name and the role on the left, the photo on the
+                    // right, and only those two share the row: a flex row
+                    // and not a float, because a float would let the bio
+                    // run up beside the photo and collide with the section
+                    // headings and their rules. The row is as tall as the
+                    // taller of the two, and the photo is sized so that
+                    // the two are nearly the same height (see .person_photo
+                    // below), so the row ends where the text ends and the
+                    // first section starts right under the role. With the
+                    // 120px photo the row was 120px tall against 60px of
+                    // name and role, and the Bio heading sat 80px under
+                    // the role: a blank band that read as a missing
+                    // section. Centred, not top-aligned: the two differ by
+                    // 4px on one line, so centring moves the name 2px,
+                    // and when a long name wraps to two lines the photo
+                    // sits on the middle of the block instead of hanging
+                    // off its first line. Top alignment was chosen when
+                    // the photo was 120px and centring would have floated
+                    // the name 30px under the close button; at 64px that
+                    // reason is gone.
+                    //
+                    // The right padding is what keeps the photo off the
+                    // close button, which sits in the rightmost 14px of the
+                    // body, 24px tall, at the top right corner the photo
+                    // now takes too. 2.5rem is 40px: the 14px of the button
+                    // and 26px of air, so the ring of the photo does not
+                    // touch the button and the pointer has a clear target.
+                    // The padding is on the row and not on the title, so
+                    // the photo clears the button too, not only the text.
+                    .person_header {
+                        display: flex;
+                        align-items: center;
+                        padding-right: 2.5rem;
+                        // Padding and no rule. A rule under this row put a
+                        // line right above the one the BIO heading carries,
+                        // so the first section opened with two hairlines a
+                        // few pixels apart.
+                        padding-bottom: 16px;
                     }
 
                     // min-width: 0 lets a long name wrap instead of
-                    // pushing the column wider than the modal: a flex
-                    // item is as wide as its longest word by default.
-                    .person_main {
+                    // pushing the row wider than the modal: a flex item
+                    // is as wide as its longest word by default. The 20px
+                    // to the photo is the gap the two columns had.
+                    .person_heading {
                         flex: 1 1 auto;
                         min-width: 0;
+                        margin-right: 20px;
                     }
 
-                    // The right padding keeps the name clear of the close
-                    // button, which no longer floats beside it. On the
-                    // title only: the lists below do not reach that
-                    // corner and get the whole column.
+                    // The photo: a round frame that clips, with a hairline
+                    // ring, after the avatar on davidarcos.net. 160px is
+                    // the size the markup gives the image too (see
+                    // people_summary.html). This block is on its way to
+                    // becoming the header of a page per person, and a
+                    // portrait is what a person page opens with, so the
+                    // face is shown at a size a reader can read a face at.
+                    // It was 64px for one build, which is the height of
+                    // the name and the role beside it, and at that size it
+                    // is a mark, not a portrait.
+                    //
+                    // The band that costs is under the role: the row is as
+                    // tall as the photo, so a name that fits on one line
+                    // leaves (160 - 60) / 2 of air above the name and the
+                    // same under the role. The heading grows to take a
+                    // share of it, and what is left reads as the padding
+                    // of a header band rather than as a gap, because the
+                    // rule under the row closes it.
+                    //
+                    // The 160px image is the 400px card file scaled down
+                    // by the browser, no new variant and no new request:
+                    // the card has already loaded it when the modal opens.
+                    //
+                    // The ring is a box-shadow and not a border: a border
+                    // takes part in the layout and shifts the image by its
+                    // width, and a shadow is drawn outside the box. 15%
+                    // black on the white of the modal, a hairline, so the
+                    // frame has an edge where the photo is light at the rim.
+                    // The frame clips the zoom below, so the photo never
+                    // spills out of the circle.
+                    .person_photo {
+                        flex: 0 0 auto;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+
+                        // display: block, because an inline image sits on
+                        // the text baseline and leaves a few pixels of
+                        // space under it inside the frame, which the ring
+                        // would show. object-fit covers the fallback image,
+                        // which is not square; a person photo is already
+                        // square from the pipeline.
+                        img {
+                            display: block;
+                            width: 160px;
+                            height: 160px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+
+                        // On hover the photo comes closer inside the frame,
+                        // the same move the card makes. Only for a reader
+                        // who has not asked for less motion: the card
+                        // moves for everyone, and this one is the rule to
+                        // follow from now on.
+                        @media (prefers-reduced-motion: no-preference) {
+                            img {
+                                transition: transform 0.2s linear;
+                            }
+
+                            &:hover img {
+                                transform: scale(1.2);
+                            }
+                        }
+                    }
+
+                    // No right padding on the title any more: the header
+                    // row above carries it, for the photo as well.
+                    // Larger than Bootstrap's 28px, because this row is
+                    // on its way to being the header of a page per person
+                    // and the name is its title. It also takes a share of
+                    // the air the 160px photo opens beside a one line
+                    // name: the heading block goes from 60px to 66px.
                     .modal-title {
+                        font-size: 2rem;
                         margin-bottom: 2px;
-                        padding-right: 24px;
                     }
 
                     // Italic and plain, as on the card, so the pair
-                    // under the photo reads the same in both places.
+                    // beside the photo reads the same in both places. No
+                    // margin under it: the first section brings its own
+                    // 20px, the gap every section keeps from the block
+                    // above it, and the 8px that used to be here put the
+                    // Bio heading 28px under the role, 8px further than
+                    // Roles sits under the bio.
                     .person_role {
                         font-style: italic;
-                        margin-bottom: 8px;
+                        margin-bottom: 0;
                     }
 
                     // Every block of the modal below the name is a section
-                    // with a heading: Bio, Description, Roles at PyBCN,
+                    // with a heading: Bio, Description, Roles,
                     // Events, Social Links. The modal used to be a stack of
                     // blocks with no label, so a reader had to guess that a bold word was
                     // a role and a list of years was a history. A section
@@ -419,34 +547,26 @@
                         }
                     }
 
-                    // The roles the person holds, one row per label: the
-                    // label in the first column, the linked page titles
-                    // in the second. A grid rather than a table, so the
-                    // label column is as wide as its longest word and no
-                    // wider. See person_appearances.html.
-                    .appearances {
-                        display: grid;
-                        grid-template-columns: max-content 1fr;
-                        gap: 4px 12px;
-                        margin: 0;
-
-                        dt {
-                            font-weight: bold;
-                        }
-                        dd {
-                            margin: 0;
-                        }
-                    }
+                    // The roles the person holds, one line per role, built
+                    // and styled exactly as an event line: the glyph, the
+                    // role in bold, an italic "at", and the page. It was a
+                    // definition list in a two column grid, which put the
+                    // same kind of statement in a different shape from the
+                    // list right under it, and on a phone the label column
+                    // was as wide as "Management Board (2018 - 2025)" and
+                    // left 80px of a 390px screen for the page beside it.
+                    // Nothing is set here: ul.events below carries it, and
+                    // the selector lists both. See person_appearances.html.
 
                     // The two lists of the modal, the events and the
-                    // social links, with one treatment: a disc marker and
-                    // the indent that goes with it, so each reads as a
-                    // list. Both used to drop the marker and the padding,
-                    // and five events were five loose lines with nothing
-                    // to say they were one list, under a heading styled
-                    // like the one over a table. The indent is the width
-                    // of the marker and a space, no more: the browser
-                    // default of 40px pushed a list in from the headings.
+                    // social links, with one treatment: a marker and the
+                    // indent that goes with it, so each reads as a list.
+                    // Both used to drop the marker and the padding, and
+                    // five events were five loose lines with nothing to
+                    // say they were one list, under a heading styled like
+                    // the one over a table. The indent is the width of
+                    // the marker and a space, no more: the browser default
+                    // of 40px pushed a list in from the headings.
                     .modal_section ul {
                         list-style: disc;
                         padding-left: 1.25em;
@@ -458,9 +578,129 @@
                         }
                     }
 
-                    // The events, one line per event, newest first, the
-                    // role before the linked title. See
-                    // person_appearances.html.
+                    // The roles and the events, one line each, the role
+                    // before the linked page or title. See
+                    // person_appearances.html. The marker is the role
+                    // glyph that starts the row, not the disc: the row
+                    // carries it as the social rows carry the network
+                    // icon. The padding is the glyph's column, so the
+                    // text starts where it starts under a disc, at the
+                    // padding edge, and a wrapped line starts there too.
+                    // The selector repeats the ul of the rule above,
+                    // because a class alone loses to that class and
+                    // element pair, and the list kept the disc and the
+                    // 1.25em indent under the glyph.
+                    .modal_section ul.appearances,
+                    .modal_section ul.events {
+                        list-style: none;
+                        padding-left: calc(1.875em + 8px);
+
+                        // The whole row answers the pointer, not only the
+                        // link in it: the glyph, the role and the link are
+                        // one statement, and a reader aiming at any of the
+                        // three is after the same page. focus-within does
+                        // the same for the keyboard, where the link is what
+                        // takes focus. The glyph drops its grey and comes
+                        // back in colour, which is the only place on the
+                        // page a role shows its own colour.
+                        li:hover,
+                        li:focus-within {
+                            .role_emoji {
+                                filter: none;
+                            }
+
+                            strong {
+                                color: $blue-pybcn;
+                            }
+
+                            a {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        // The whole row is the link, not only its text. The
+                        // link stretches over the row with a pseudo element
+                        // rather than by wrapping the row in an anchor,
+                        // which would put the glyph and the role inside the
+                        // link text and read them out with it.
+                        //
+                        // :only-of-type is the guard. A role held on two
+                        // pages prints two links on one row, and there is
+                        // no one row to stretch: those rows keep their own
+                        // link areas. No row has two links today, out of
+                        // 135 role rows and every event row, but the
+                        // template allows it.
+                        li {
+                            position: relative;
+                        }
+
+                        li > a:only-of-type::after {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                        }
+
+                        // A colour change, not a move, so there is nothing
+                        // for prefers-reduced-motion to turn off.
+                        .role_emoji,
+                        strong {
+                            transition: color 0.15s linear, filter 0.15s linear;
+                        }
+                    }
+
+                    // The role glyph as the marker of a Roles or an Events
+                    // row, from data/role_emoji.yaml. Sized as the network
+                    // icon of .modal_links below: 1.25em in a 1.5em column
+                    // with 8px to the text, so a glyph of any width leaves
+                    // the text on one line down the list. The column is
+                    // 1.875em of the body font plus 8px, which is the
+                    // padding the two lists above set, and the negative
+                    // margin pulls the glyph back into that padding, where
+                    // a disc sits. Pulled back and not placed with
+                    // position, so it stays on the line of its row when
+                    // the row wraps.
+                    //
+                    // Desaturated, so the glyph sits with the black icons
+                    // of Social Links rather than being the one spot of
+                    // colour in the modal. grayscale and nothing else: a
+                    // colour emoji is a shaded picture, and in grey it is
+                    // a light one, which is what this list wants. The
+                    // marker labels the row; the text beside it is what
+                    // the reader is here for, and a grey mark does not
+                    // compete with it.
+                    //
+                    // Measured in Chromium with Noto Color Emoji, over
+                    // the ink of a whole modal of glyphs: grayscale alone
+                    // gives a mean luminance of 142 (0 is black) with 2%
+                    // of the ink almost black. Darkening first and then
+                    // stretching the contrast, which this rule did for one
+                    // build, gives a mean of 53 with 64% of the ink almost
+                    // black: the shaded faces of the compass and the
+                    // calendar fill in and the glyph reads as a blot. A
+                    // flat black glyph like the icons is out of reach for
+                    // a filter either way, because the emoji keeps its
+                    // shading.
+                    //
+                    // Upright and at the normal weight, because the dt is
+                    // bold and a slanted or heavy emoji is a font bug on
+                    // some platforms and never a style. line-height: 1
+                    // keeps the glyph from opening the line box of its
+                    // row further than its own height, and middle-aligned
+                    // the text sits on the centre of the glyph instead of
+                    // on its bottom edge.
+                    .role_emoji {
+                        display: inline-block;
+                        font-size: 1.25em;
+                        font-style: normal;
+                        font-weight: normal;
+                        line-height: 1;
+                        width: 1.5em;
+                        margin-left: calc(-1.5em - 8px);
+                        margin-right: 8px;
+                        text-align: center;
+                        vertical-align: middle;
+                        filter: grayscale(1);
+                    }
 
                     // The links of the card, listed with their text at the
                     // foot of the modal, so a reader can see the handle or
@@ -468,7 +708,23 @@
                     // place the modal shows them: a bare icon row next to
                     // the name said the same thing with less. See
                     // person_links.html.
-                    .modal_links {
+                    // The selector repeats the ul, as .events above does:
+                    // a class alone loses to the class and element pair of
+                    // .modal_section ul, and the list kept the disc and the
+                    // 1.25em indent that rule sets.
+                    .modal_section ul.modal_links {
+                        // The network icon is this list's marker, so the
+                        // disc goes: with both, the row carried two
+                        // markers and its text started 20px to the right
+                        // of the text in the two lists above, which now
+                        // start with a glyph of their own. The padding is
+                        // the one those two set, so the three lists share
+                        // one column. The negative margin on the icon is
+                        // what pulls it back into the padding; it is set
+                        // on i below, where the column width is.
+                        list-style: none;
+                        padding-left: calc(1.875em + 8px);
+
                         // A link text is one unbroken string, the path of
                         // a LinkedIn profile or a site address, and one of
                         // them is 600px of percent-encoded emoji. A string
@@ -479,18 +735,66 @@
                             overflow-wrap: anywhere;
                         }
 
+                        // The whole row answers the pointer and is the
+                        // link, as a row of the two lists above is: the
+                        // icon colours, the address takes an underline,
+                        // and a click anywhere on the row follows it. The
+                        // network name is bold, so it lights like the role
+                        // of a role row.
+                        li {
+                            position: relative;
+                        }
+
+                        li > a::after {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                        }
+
+                        li:hover,
+                        li:focus-within {
+                            i {
+                                color: $blue-pybcn;
+                            }
+
+                            strong {
+                                color: $blue-pybcn;
+                            }
+
+                            a {
+                                text-decoration: underline;
+                            }
+                        }
+
                         // One column for the icon whatever its width, so
                         // the text starts on one line down the list. The
                         // LinkedIn glyph is narrower than the globe, and
                         // the X mark is a box of its own (see .icon_x in
                         // main.scss) that sets neither width nor gap.
+                        // Grey at rest and the PyBCN blue under the
+                        // pointer, the same as the card above and as the
+                        // role glyph of the two lists above. The icon took
+                        // the link colour, so it was blue at rest and the
+                        // row said nothing when the pointer reached it.
+                        strong {
+                            transition: color 0.15s linear;
+                        }
+
                         i {
                             display: inline-block;
+                            color: $icon-grey;
+                            transition: color 0.15s linear;
                             // Larger than the text beside it, because these
                             // are now the only icons in the modal.
                             font-size: 1.25em;
                             width: 1.5em;
                             margin-right: 8px;
+                            // Into the padding above, where the disc used
+                            // to sit and where the role glyph of the two
+                            // lists above sits. The margin is in em of the
+                            // icon; the 8px is the gap it sets above, so the
+                            // pull is the column plus the gap.
+                            margin-left: calc(-1.5em - 8px);
                             text-align: center;
                             vertical-align: -2px;
                         }
@@ -510,55 +814,23 @@
                     .modal-dialog {
                         max-width: 100%;
 
-                        // The columns stack: the photo on top, the text
-                        // under it. Side by side, a 300px photo left 50px
-                        // of a 390px screen for the text, and the 120px
-                        // photo the modal used beside the name left the
-                        // name wrapping one word to a line. Stacked, the
-                        // photo is capped at 200px so the name is still on
-                        // the first screen: at 300px the first section
-                        // started half way down it. The title comes down
-                        // too: at Bootstrap's 28px a three-word name took
-                        // three lines of a 374px dialog.
-                        .modal-body {
-                            flex-direction: column;
+                        // A 360px screen gives the modal body 310px, and
+                        // 40px of that clears the close button and 20px is
+                        // the gap to the photo. At the desktop 160px the
+                        // name is left 90px and "Laura Perez Mayos" takes
+                        // three lines of it. 112px leaves 138px and two.
+                        .person_photo img {
+                            width: 112px;
+                            height: 112px;
                         }
 
-                        .person_photo {
-                            margin: 0 0 12px;
-
-                            img {
-                                max-width: 200px;
-                            }
-                        }
-
-                        .person_main {
-                            // The column is as wide as the dialog, not as
-                            // wide as its content, so a list does not run
-                            // past the edge.
-                            width: 100%;
-                        }
-
+                        // The title comes down too: at 32px the same name
+                        // takes four lines of that 138px, and two at
+                        // 1.4rem.
                         .modal-title {
                             font-size: 1.4rem;
-                            // No close button beside the first line any
-                            // more: it is above the photo.
-                            padding-right: 0;
                         }
 
-                        // The roles stack on a phone: the label column is
-                        // as wide as "Management Board (2018 - 2025)", which
-                        // left 80px of a 390px screen for the page title
-                        // beside it, three lines for "PyLadies BCN
-                        // Organizers". The page goes under its label,
-                        // indented, as a definition list does by default.
-                        .appearances {
-                            display: block;
-
-                            dd {
-                                margin: 0 0 4px 1em;
-                            }
-                        }
                     }
                 }
 

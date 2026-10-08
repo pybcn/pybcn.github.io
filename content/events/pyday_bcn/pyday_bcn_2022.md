@@ -57,7 +57,7 @@ people_sections:
             - cheuk-ting-ho
             - eva-martin-del-pico
             - gema-parreno
-            - jimena-escobar
+            - jimena-escobar-bermudez
             - kemalcan-bora
             - marc-pous
             - pavel-lonkin
@@ -67,10 +67,10 @@ people_sections:
     levels:
       - people_per_line: 4
         people:
-          - natalia
-          - lpmayos
-          - xavi
-          - mireia
+          - natalia-padilla
+          - laura-perez-mayos
+          - xavi-francisco-gilabert
+          - mireia-alvarez-dominguez
 
 previous_editions:
   - name: PyDay BCN 2021
