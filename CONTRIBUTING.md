@@ -37,6 +37,51 @@ the source. `master` holds the built site: the `github-pages` workflow writes
 it on every merge to `edition` and replaces its history each time, so nothing
 is edited there, and a change made on `master` is lost on the next deploy.
 
+## Your own card
+
+**You do not need Git, GitHub, or any of the rest of this file.**
+
+If you have spoken at one of our events, or you organise with us, you may have
+a card on the [organizers page](https://pybcn.org/pybcn_association/organizers/)
+or on the page of the event. Clicking it opens what the site holds about you.
+To change any of it, or to have it removed, **send an email to
+<pybcn@googlegroups.com> saying what to change**. That is enough. We do not ask
+for identity documents to correct or remove your own name.
+
+If you would rather do it yourself, every card is a file under
+`content/people/`, named after the person. Click the pencil icon on GitHub,
+change the text, and GitHub walks you through opening a pull request.
+
+### What is on your card
+
+Your name, the role you held, and the events you appeared at. The list of
+events is computed from the pages that list you, so it is not edited on your
+card: if an event is missing or wrong, tell us and we fix the event page.
+
+Everything else is yours to give or withhold:
+
+| Field | What it does |
+|---|---|
+| `photo` | A square image, under `themes/pybcn_theme/assets/images/people/` |
+| `linkedin`, `github`, `twitter`, `site` | Links under your name |
+| the body of the file | The bio, one paragraph or several |
+
+Whoever did not want a photo does not have one, and the card works without it.
+
+### If you would rather not appear
+
+Write to <pybcn@googlegroups.com> and we remove the card. We will not argue
+about it.
+
+Be aware of what removal can and cannot do, because this is a public
+repository. We remove the card from the site and from the build, and we ask
+search engines and the Internet Archive to drop their copies. We cannot remove
+it from the Git history, and we cannot remove copies other people have already
+made.
+
+If that is not acceptable to you, tell us **before** we publish. We would
+rather not publish a card than publish one we cannot properly withdraw.
+
 ## Add content without writing code
 
 Most changes to this site are content: a person, a sponsor, an event. Each one
