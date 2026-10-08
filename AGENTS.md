@@ -22,10 +22,11 @@ it over anything on `$PATH`, and checks the version from `.hugo-version`.
 **Do not `pip install hugo`.** That PyPI package now requires a Go toolchain and
 fails. `bin/install` fetches the official release binary instead.
 
-A clean build produces **317 HTML pages**: 261 Hugo-generated and 56 copied
-from `static/archives/`. If your number differs, work out why before you
-commit. Recount rather than trusting this line: the number moves with the
-content, and a stale figure here is worse than none.
+A clean build produces **109 HTML pages**: 53 Hugo-generated and 56 copied
+from `static/archives/`. Recount rather than trusting this line: the number
+moves with the content. It was 317 until #202 stopped publishing the 206
+person and sponsor pages that nothing linked to, which is how quickly a
+figure like this goes stale.
 
 ## Traps that have already cost time
 
