@@ -418,6 +418,37 @@ people_sections:
               - josep
 ```
 
+## Decisions, and where each one is written down
+
+This repository explains itself in the file that carries the decision, not in
+a folder of documents beside the code. That keeps the reason next to the thing
+it governs, and it means the reason is in front of whoever is about to change
+it. The cost is that the reasons are scattered, so this is the index.
+
+| Decision | Where it is argued |
+|---|---|
+| A person file builds no page, and `/people/` is a 404 | The `[[cascade]]` comment in `config.toml`, and issue #201 |
+| An appearance line calls a page by `appearances_title`, not by its title | `themes/pybcn_theme/layouts/partials/appearances_index.html` |
+| The modal is on its way to being a page per person, so its content cannot depend on the page it was opened from | `themes/pybcn_theme/layouts/partials/person_appearances.html` |
+| The menu sections are a disclosure, not an ARIA menu | `themes/pybcn_theme/layouts/partials/nav.html` |
+| MIT for the code, CC BY-SA 4.0 for the content, and nothing for the photographs | [LICENSING.md](LICENSING.md) |
+| `edition` is the source branch and `master` is the built site | [AGENTS.md](AGENTS.md) |
+| Raw HTML in content is gated by three checks rather than banned | [CONTRIBUTING.md](CONTRIBUTING.md) and `bin/check-html-safety` |
+
+One decision has no file of its own, because it is a decision not to act:
+
+**The heavy image blobs stay in the Git history.** The repository is 139 MB,
+and the largest objects in it are photographs that were replaced long ago,
+up to 5.9 MB each. They are all reachable from `edition` and none from
+`master`, which the deploy workflow force-pushes as a single orphan commit.
+Removing them means `git filter-repo` and a force-push, which changes every
+commit hash from the first touched blob onwards: every clone breaks, every
+open pull request has to be rebased, and every link to a commit or to a line
+of code goes dead, including the ones in our own issues. GitHub starts warning
+at 1 GB. The cost is a one-time clone, not a recurring one, so the answer is
+not now. If it is ever done, the moment is an empty pull request queue and a
+day when everybody can re-clone together.
+
 ## Licence
 
 The code of the site (the templates, the stylesheets, the scripts, the
