@@ -8,7 +8,7 @@ menu:
 weight: 4
 aliases:
   - /pyday-bcn-2022
-heroBackground: /images/photos/canodrom.png
+heroBackground: /images/photos/canodrom.jpg
 
 layout: event
 

@@ -17,7 +17,7 @@ carousel_header: true
 carousel_indicators: true
 carousel_class: home_carousel
 carousel_photos:
-- photo: /photos/canodrom_header.png
+- photo: /photos/canodrom_header.jpg
   caption: PyDay 2025
   link: events/pyday_bcn/pyday_bcn_2025/
 - photo: /photos/meetups.jpg
