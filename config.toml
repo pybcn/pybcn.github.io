@@ -69,6 +69,30 @@ unsafe=true
     short_name = "PyBCN"
     extended_name = "The Barcelona Python Association"
 
+    # Who the association is in law. Spanish law 34/2002 (LSSI-CE) article 10
+    # requires a site run by an association to publish its name, its address,
+    # an email, its entry in the register it is recorded in, and its tax
+    # number. The legal notice page is what shows them, and reads them from
+    # here rather than holding them in its own text, so that the association
+    # can correct a fact without a volunteer editing a page of legal prose.
+    #
+    # The values match the association's entry in the Registre d'Entitats de
+    # la Generalitat de Catalunya, which is public open data:
+    # https://analisi.transparenciacatalunya.cat/d/y6fz-g3ff
+    # Only the Management Board changes address, registry or registered_on:
+    # they describe the association as the register records it, not as
+    # volunteers know it. The register names the register itself, not only
+    # the number, because article 10 asks for the entry in the register and a
+    # bare number names no register. bin/check-content reports an empty
+    # address or registry as a warning. The legal notice page cannot be
+    # published while either is empty: the page is the one place the law
+    # asks for them, and a page that leaves them out does not do its job.
+    [params.association]
+        legal_name = "Associació Python Barcelona"
+        tax_id = "G67254045"
+        address = "Carrer de Concepció Arenal, 165, 08027 Barcelona"
+        registry = "Registre d'Associacions de la Generalitat de Catalunya, núm. 64158"
+
     main_contact_name_pyladies = "PyLadiesBCN Organizers"
     main_contact_email_pyladies = "pyladies-bcn@googlegroups.com"
 
