@@ -44,6 +44,11 @@
 # instructions. These carry legal and financial statements.
 /content/pybcn_association/  @pybcn/web
 
+# The code of conduct itself. The page under content/pybcn_association/
+# renders this file through the repo-markdown shortcode, so the legal text
+# lives at the root and not in content/, and the rule above does not reach it.
+/CODE_OF_CONDUCT.md          @pybcn/web
+
 # The custom domain of the GitHub Pages site. A change to this file points
 # pybcn.org somewhere else.
 /CNAME                       @pybcn/web

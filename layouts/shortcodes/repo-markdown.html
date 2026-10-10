@@ -1,0 +1,30 @@
+{{- /*
+    repo-markdown: render a Markdown file from the root of the repository.
+
+    Usage: {{< repo-markdown file="CODE_OF_CONDUCT.md" >}}
+
+    GitHub reads the code of conduct from CODE_OF_CONDUCT.md at the root of
+    the repository, never from the site, so the text has to live there. The
+    page at /pybcn_association/coc/ used to hold its own copy, and two copies
+    of one legal text drift apart. The page now renders the root file through
+    this shortcode, so the repository and the site always say the same thing.
+
+    The file name is checked against the list below, so content cannot read
+    an arbitrary file of the repository into a page.
+
+    A leading H1 is dropped: the file carries one so that it stands on its own
+    on GitHub, and the page layout already prints the title in the hero.
+*/ -}}
+{{- $allowed := slice "CODE_OF_CONDUCT.md" -}}
+{{- $file := .Get "file" -}}
+{{- if not (in $allowed $file) -}}
+	{{- errorf "repo-markdown: file %q is not one of %s (%s)" $file (delimit $allowed ", ") .Position -}}
+{{- end -}}
+{{- $text := os.ReadFile $file -}}
+{{- $text = replaceRE `^# [^\n]*\n+` "" $text -}}
+{{- /*
+    RenderString ends its output with a newline, and so does the content line
+    that calls this shortcode. One of them is trimmed, so the page is byte
+    identical to the copy it replaced.
+*/ -}}
+{{- .Page.RenderString (dict "display" "block") $text | strings.TrimSuffix "\n" | safeHTML -}}
