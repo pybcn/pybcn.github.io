@@ -1,0 +1,51 @@
+/* TEAM */
+
+    Python Barcelona (PyBCN) is run by its own members. Decisions are made by
+    a Management Board and a Permanent Committee. The work is done by work
+    groups, and anybody who joins the association can join a work group:
+
+    Meetup            Organizes, prepares and runs the monthly PyBCN meetup.
+    PyLadies          Runs the monthly PyLadies BCN workshops and activities.
+    Practice Sessions Runs the monthly PyBCN workshops and coding dojos.
+    Communication     The channels, the content, and the sponsor contact.
+    Web               This site and the process that publishes it.
+    Video             Records the talks and publishes them on YouTube.
+    Event groups      Formed for one event, such as a PyDay.
+
+    The people are named on their own pages, which stay current:
+    Organizers        https://pybcn.org/pybcn_association/organizers/
+    PyLadies BCN      https://pybcn.org/pyladies_bcn/organizers-and-speakers/
+    Speakers          On the page of each event, https://pybcn.org/events/
+
+/* THANKS */
+
+    Every speaker who prepared a talk or a workshop and gave it for free.
+    Every venue that opened its doors, about 70 of them over the years.
+    Every sponsor, listed at https://pybcn.org/sponsors/
+    Every person who came, asked a question, and stayed for the pizza.
+
+/* THE ASSOCIATION */
+
+    Name       Associacio Python Barcelona (PyBCN)
+    Form       Non-profit association, registered in 2018
+    Meeting    Barcelona, Catalonia, Spain
+    Contact    pybcn@googlegroups.com
+    Conduct    https://pybcn.org/coc/
+    Join       https://pybcn.org/pybcn_association/membership/
+
+/* NUMBERS */
+
+    Counted on 2026-09-30. They come from the Meetup group and they move.
+
+    Meetups since November 2007     207
+    Venues used                     about 70
+    Members on Meetup               4672
+    Average event rating            4.64, from 1295 ratings
+
+/* SITE */
+
+    Generator  Hugo
+    Source     https://github.com/pybcn/pybcn.github.io
+    Standards  HTML5, CSS3
+    Components Bootstrap, jQuery, Font Awesome, all served from this site
+    Language   English

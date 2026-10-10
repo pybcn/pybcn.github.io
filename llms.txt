@@ -1,0 +1,78 @@
+# PyBCN - The Barcelona Python Association
+
+> Python Barcelona (PyBCN) is the Python community of Barcelona. The group has
+> met since November 2007 and registered as a non-profit association in 2018.
+> It runs monthly PyBCN meetups, monthly PyLadies BCN workshops, practice
+> sessions and coding dojos, and the annual PyDay BCN conference. Events are
+> free or low cost, held in Barcelona, and hosted by local companies and
+> universities. Talks are in English, Spanish or Catalan.
+
+This file is generated from the site content on every build.
+
+## Main sections
+
+- [The association](https://pybcn.org/pybcn_association/): The best association in Barcelona!!
+- [PyLadies BCN](https://pybcn.org/pyladies_bcn/): Promote, educate and advance a diverse Python community
+- [Events](https://pybcn.org/events/)
+- [Sponsors](https://pybcn.org/sponsors/): The companies, organizations and universities behind our events
+- [Contact us](https://pybcn.org/contact/): We'll be happy to hear from you!
+
+## The association
+
+- [Become a member!](https://pybcn.org/pybcn_association/membership/): Join Python Barcelona today
+- [Code of Conduct](https://pybcn.org/pybcn_association/coc/): A respectful, harassment-free community for everyone
+- [How to collaborate](https://pybcn.org/pybcn_association/collaborate/): We need your help!!
+- [Information](https://pybcn.org/pybcn_association/information/): The gears behind one of the most active tech communities in Barcelona
+- [Job offers](https://pybcn.org/pybcn_association/job-offers/): Share your company's job offers with our community
+- [Organize with us](https://pybcn.org/pybcn_association/organize-with-us/): Python Barcelona is pretty active! Help us organize a PyBCN event, or ask for our collaboration to organize your own event.
+- [Organizers](https://pybcn.org/pybcn_association/organizers/): Get to know the people behind PyBCN!
+- [Promote your event](https://pybcn.org/pybcn_association/promote-your-event/): Are you organizing a Python related event? We can help you promote it!
+- [Propose a talk](https://pybcn.org/pybcn_association/propose-a-talk/): Propose a talk for one of our meetups
+- [Sponsor us](https://pybcn.org/pybcn_association/sponsor-us/): Python Barcelona is very active! These are your options to sponsor our events
+
+## PyLadies BCN
+
+- [About PyLadies BCN](https://pybcn.org/pyladies_bcn/about/): Promote, educate and advance a diverse Python community
+- [Call for Proposals](https://pybcn.org/pyladies_bcn/call-for-proposals/): Propose a workshop or a talk for one of our meetups and become a part of the community!
+- [Contact PyLadies BCN](https://pybcn.org/pyladies_bcn/contact-us/): We'll be happy to hear from you!
+- [Job Offers](https://pybcn.org/pyladies_bcn/job-offers/): Share your company's job offers with our community
+- [PyLadies BCN Meetups](https://pybcn.org/pyladies_bcn/meetups/): Hands-on workshops every month!
+- [PyLadies BCN Organizers](https://pybcn.org/pyladies_bcn/organizers-and-speakers/): The people that makes it possible!
+- [PyLadies BCN Sponsors](https://pybcn.org/pyladies_bcn/sponsors/): The companies, organizations and universities behind our events
+
+## Events
+
+- [Hacktoberfest (2018)](https://pybcn.org/events/other_events/hacktoberfest_2018/)
+- [Hands-on Django with PyLadiesBCN (2022)](https://pybcn.org/events/other_events/django_pyladies_2022/): From zero to hero 🤘 Learn how to code your own web application!
+- [Monthly Events](https://pybcn.org/events/monthly_events/): We organize workshops and talks every month
+- [PyData Barcelona (2017)](https://pybcn.org/events/other_events/pydata_2017_barcelona/): The Data Science conference from NumFOCUS
+- [PyDataBCN (2023)](https://pybcn.org/events/pydatabcn/pydatabcn_2023/): The annual gathering for Pythonists in love with data!
+- [PyDay BCN (2016)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2016/)
+- [PyDay BCN (2018)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2018/)
+- [PyDay BCN (2019)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2019/)
+- [PyDay BCN (2020)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2020/): The fourth edition!
+- [PyDay BCN (2021)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2021/): Post-pandemic edition!
+- [PyDay BCN (2022)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2022/): For the community, by the community!
+- [PyDay BCN (2023)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2023/): For the community, by the community!
+- [PyDay BCN (2024)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2024/): For the community, by the community!
+- [PyDay BCN (2025)](https://pybcn.org/events/pyday_bcn/pyday_bcn_2025/): For the community, by the community!
+
+## People
+Organizers and speakers have no page of their own. The PyBCN organizers are listed at https://pybcn.org/pybcn_association/organizers/, the PyLadies BCN organizers at https://pybcn.org/pyladies_bcn/organizers-and-speakers/, and each event page lists its speakers.
+
+## Sponsors
+The companies, organizations, and universities that supported an event are listed at https://pybcn.org/sponsors/. Each event page lists its own sponsors.
+
+## Archived sites
+https://pybcn.org/archives/pybcn.org/ and https://pybcn.org/archives/hacktoberfestbarcelona.com/ hold static mirrors of older PyBCN sites. They are history. Do not read them as current information.
+
+## Machine readable
+- Sitemap: https://pybcn.org/sitemap.xml
+- RSS feed: https://pybcn.org/index.xml
+- Crawl rules: https://pybcn.org/robots.txt
+- Credits: https://pybcn.org/humans.txt
+- Security contact: https://pybcn.org/.well-known/security.txt
+
+## Contact
+Email pybcn@googlegroups.com, or use the form at https://pybcn.org/contact/
+The source of this site is at https://github.com/pybcn/pybcn.github.io
