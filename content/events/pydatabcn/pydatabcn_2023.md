@@ -362,11 +362,11 @@ PyDataBCN is a free non-profit event and is open to everyone, regardless of thei
 We look forward to seeing you at PyDataBCN and sharing our passion for Python, data science, and engineering!
 
 
-#### `When and where`
+### `When and where`
 
 It is scheduled for **Saturday 10th June** in [Canòdrom - Ateneu d'Innovació Digital i Democràtica](https://g.page/Canodrom?share), from 9:00pm to 18:00pm CET, aprox.
 
 
-#### `Disclaimer`
+### `Disclaimer`
 
 PyDataBCN would like to expressly clarify that it is an independent event and is not associated or affiliated with the PyData events organized by NumFOCUS. PyDataBCN operates autonomously with its own distinct goals, structure, and organization.
