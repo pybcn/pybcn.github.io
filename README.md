@@ -29,7 +29,8 @@ You can bring a hugo hot reload server using the `bin/serve` script. This will b
 
 ### Publishing process
 
-During current implementation phase, the way to publish is to push new commits to the `edition` branch. However this will change in the future, to provide some review step in the publishing process.
+A change goes through a pull request against `edition`, and a merge deploys
+the site. [CONTRIBUTING.md](CONTRIBUTING.md) has the steps.
 
 
 ### How to add a new sponsor
@@ -40,20 +41,10 @@ The MarkDown file for the sponsor will have a FrontMatter section with the follo
 - `id`: Unique identifier of this sponsor. Should be a string without spaces, preferrably kebab-case.
 - `name`: Sponsor's name to be shown in all renderings.
 - `logo_image`: File name for the sponsor logo, which must be under `themes/pybcn_theme/assets/images/sponsors/`. An external URL is not accepted: copy the file into the repository. The template loads it with `resources.Get`, so a file under `static/` is not found, and `bin/check-content` reports it as an error.
-- `site`: URL of the sponsor home page. Leave it out when there is nothing to
-  link to, and the logo renders without a link. It follows the same rules as a
-  person's `site`, below, and one function checks both.
+- `url`: URL for the sponsor web page.
+- `twitter`: URL for the sponsor's twitter account.
 
-**Those four are every field a sponsor has.** A sponsor renders as its logo,
-linked to its site, and there is no page per sponsor, so nothing else in the
-file reaches a reader. `bin/check-content` rejects any other field, and rejects
-an empty value: 32 files carried a `twitter`, `linkedin`, `mastodont` or
-`instagram` URL that had never been published, written by somebody who expected
-it to show.
-
-There is no detail view, so a body under the front matter is never published.
-Put a note about the sponsor in a comment in the front matter instead, where it
-is clearly a note.
+After this FrontMatter section, any valid MarkDown will be considered generic content to be shown in detail view.
 
 Finally, add this sponsor to the sponsors list in the corresponding level of the desired sponsors page, like `content/sponsors/_index.md`, for the main sponsors page; `content/pyladies_bcn/sponsors.md`, for the PyLadies BCN Sponsors' page; or the specific event, if appropriate.
 
@@ -94,47 +85,12 @@ Once the site was archived, you can create a new link in the navigational menu u
 
 ### Collaborate
 
-A change to this site goes through a pull request. Nothing is pushed to
-`edition` directly.
-
-1. Clone the repository. `git clone --single-branch --branch edition` is enough
-   and skips the built site, which lives on its own branch.
-2. Run `bin/install`. It downloads the pinned Hugo binary into `bin/hugo` and
-   verifies its checksum. You do not need Python, Go, or npm for this step.
-3. Run `bin/serve` to see the site at `http://localhost:1313` while you work.
-4. Make the change.
-5. Run the three checks locally, so you find what the pull request would find:
-
-   ```
-   pip install pyyaml pillow
-   bin/check-content
-   bin/check-html-safety
-   bin/hugo --minify -D -d public && bin/check-rendered
-   ```
-
-   Pillow is only needed for the black and white photo check. Without it the
-   rest still runs and the check says it was skipped, so a missing Pillow
-   never fails a build for the wrong reason.
-
-6. Open the pull request against `edition`.
-
-The `pr-checks` workflow then runs the same checks on your branch, plus a build
-and a link check. **All of them have to pass**, and one approving review is
-needed before the pull request can be merged. The paths listed in
-`.github/CODEOWNERS` also request a review from the web team automatically.
-
-What each check is for:
-
-| Check | Fails when |
-|---|---|
-| Build the site | Hugo cannot build, or emits a warning |
-| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, or a field is empty. It warns, without failing, about a photo that is too small or has no colour |
-| `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay |
-| `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does, or they link to anything over `http` |
-| Check the links | Reported, never blocking, because external sites rate-limit |
-
-A merge to `edition` deploys the site. The `github-pages` workflow builds it and
-publishes the result, so a change is live within a few minutes of the merge.
+The steps to make a change and open a pull request, what the pull request
+checks, and which paths wait for a review from the web team are in
+[CONTRIBUTING.md](CONTRIBUTING.md), which GitHub links from the pull request
+form. It lives there and not here, so there is one description of the process
+and not two that drift apart. The two sections below are the detail of the
+checks it names.
 
 
 ### Content safety check
@@ -179,15 +135,8 @@ decoded, the way a browser does), an inline `<script>` or one loaded from off
 this site, an `<iframe>`, `<object>`, `<embed>` or `<base>`, a form or a `<meta
 refresh>` that sends the visitor off this site, a `style` attribute or `<style>`
 block outside a small grammar of sizes, margins and grid properties, a `<link>`,
-an image, a media file or a click beacon fetched from off this site, the three
-pieces of markup that `html.parser` and a browser read differently, and an
-`http://` URL anywhere a browser navigates to or loads from.
-
-The insecure URL rule is there because no field check can see one written in
-prose: a person's bio ended with a bare `http://` address, Hugo turned it into
-a real anchor, and the page shipped an insecure link that nothing covered. The
-frozen copies under `static/archives/` are exempt from that rule alone, since
-they are other people's old sites and not ours to change.
+an image, a media file or a click beacon fetched from off this site, and the
+three pieces of markup that `html.parser` and a browser read differently.
 
 It does what the other two checks cannot. `bin/check-content` and
 `bin/check-html-safety` read `content/`, which is what an outside contributor
@@ -247,45 +196,6 @@ The sponsor summary is defined in a separate partial `themes/pybcn_theme/layouts
 About the creation of new sponsors, the `themes/pybcn_theme/archetypes/sponsors.md` file contains the template Hugo will use when the editor runs the command `hugo new sponsors/my-new-sponsor.md`.
 
 
-### Person fields
-
-To create a person file, run `hugo new people/my-new-person.md`. It is filled
-from `themes/pybcn_theme/archetypes/people.md`.
-
-- `id`: unique identifier, kebab-case, and it has to match the file name.
-- `name`: shown on the card and in the dialog it opens.
-- `photo`: a file name under `themes/pybcn_theme/assets/images/people/`. See
-  [Person photos](#person-photos) for the shape and the size it must have.
-- `photo_anchor`: where to anchor the crop when the automatic one is wrong,
-  for example `Top`. Leave it out to let the pipeline choose.
-- `pybcn_position`: the role under the name, such as `Organizer`. Do not
-  repeat the group: a card under a PyBCN heading says `Organizer`, not `PyBCN
-  Organizer`. A PyLadies role keeps its prefix, because it names a different
-  group.
-- `linkedin`, `github`, `twitter`, `site`: where to find the person. They
-  appear on the card in that order, which is how many people have each.
-
-The bio goes in the body of the file, under the front matter, as Markdown.
-There is no `short_bio` field: there were two places to put the same text,
-nobody could tell which to use, and 98 of 136 people had filled only one of
-them, so a reader saw a different heading depending on who wrote the card.
-
-**Leave out any field the person does not have.** An empty value is the same
-as no field to Hugo, so it shows a reader nothing, and it reads as a fact
-somebody checked. Seven files carried `github: ""` and nobody had ever looked
-for a GitHub account for any of them.
-
-`bin/check-content` enforces the shape of the four URL fields, for a person
-and for a sponsor alike:
-
-| Rule | Why |
-|---|---|
-| `linkedin` starts with `https://www.linkedin.com/`, `github` with `https://github.com/`, `twitter` with `https://x.com/` | One person's LinkedIn was `ttps://www.linkedin.com/...`, missing the h, which a browser reads as a relative path. It had never worked and nobody had noticed |
-| no query parameters on a profile | A copied URL carries what the browser added: one LinkedIn value named the search session it came from. On `site` this is a warning, because there the query can be the address |
-| no trailing slash | Left to taste the values split about two to one. A host has no trailing slash, so a profile path gets none either |
-| `https`, never `http` | A link published over http invites a reader to follow it in the clear, and the site it points at is not ours to make safe |
-| no empty value | Fill it in or take the line out |
-
 ### Person photos
 
 Every person photo is a square, cut once in the repository rather than on each
@@ -324,17 +234,7 @@ All pages rely on the same template: `themes/pybcn_theme/layouts/_default/people
 
 The template iterates over the defined levels, and for each level:
 - displays the level name, if 'name' is provided
-- displays a summary of all the people listed, `people_per_line` to a row
-
-`people_per_line` takes any number from 1 to 8. It used to be limited to the
-divisors of twelve, because the grid used Bootstrap's `col-md-N` classes and
-twelve columns divide by 1, 2, 3, 4, 6 and 12: asking for 5 silently gave
-`col-md-2`, which is six cards to a row. The grid now caps the width of the
-row itself, so the number is the number.
-
-Every card is the same width on every page and in every section, so that no
-section reads as more important than another. A row that asks for more cards
-than fit in its container gets them all, a little narrower.
+- displays a summary of all the people listed, limiting the number of people per line to the provided number 'people_per_line' (which must be in [12, 6, 4, 3, 4, 1])  
 
 To add new people to the site, there is a Hugo archetype defined in `themes/pybcn_theme/archetypes/people.md` that can be used by running the command: `hugo new people/my-new-person.md`.
 
@@ -517,3 +417,48 @@ people_sections:
               - mireia
               - josep
 ```
+
+## Decisions, and where each one is written down
+
+This repository explains itself in the file that carries the decision, not in
+a folder of documents beside the code. That keeps the reason next to the thing
+it governs, and it means the reason is in front of whoever is about to change
+it. The cost is that the reasons are scattered, so this is the index.
+
+| Decision | Where it is argued |
+|---|---|
+| A person file builds no page, and `/people/` is a 404 | The `[[cascade]]` comment in `config.toml`, and issue #201 |
+| An appearance line calls a page by `appearances_title`, not by its title | `themes/pybcn_theme/layouts/partials/appearances_index.html` |
+| The modal is on its way to being a page per person, so its content cannot depend on the page it was opened from | `themes/pybcn_theme/layouts/partials/person_appearances.html` |
+| The menu sections are a disclosure, not an ARIA menu | `themes/pybcn_theme/layouts/partials/nav.html` |
+| MIT for the code, CC BY-SA 4.0 for the content, and nothing for the photographs | [LICENSING.md](LICENSING.md) |
+| `edition` is the source branch and `master` is the built site | [AGENTS.md](AGENTS.md) |
+| Raw HTML in content is gated by three checks rather than banned | [CONTRIBUTING.md](CONTRIBUTING.md) and `bin/check-html-safety` |
+
+One decision has no file of its own, because it is a decision not to act:
+
+**The heavy image blobs stay in the Git history.** The repository is 139 MB,
+and the largest objects in it are photographs that were replaced long ago,
+up to 5.9 MB each. They are all reachable from `edition` and none from
+`master`, which the deploy workflow force-pushes as a single orphan commit.
+Removing them means `git filter-repo` and a force-push, which changes every
+commit hash from the first touched blob onwards: every clone breaks, every
+open pull request has to be rebased, and every link to a commit or to a line
+of code goes dead, including the ones in our own issues. GitHub starts warning
+at 1 GB. The cost is a one-time clone, not a recurring one, so the answer is
+not now. If it is ever done, the moment is an empty pull request queue and a
+day when everybody can re-clone together.
+
+## Licence
+
+The code of the site (the templates, the stylesheets, the scripts, the
+workflows, and the configuration) is under the [MIT License](LICENSE). The
+content (the text under `content/`, the code of conduct, this README, and the
+contributing guide) is under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The
+photographs of people, the person pages, the sponsor logos, the association's
+own logos, the third-party libraries, and the archived sites are not licensed,
+each for a reason of its own. [LICENSING.md](LICENSING.md) lists every path
+and says why. The [code of conduct](CODE_OF_CONDUCT.md) was adapted from the
+PyLadies one, which is under CC BY-SA 3.0; that licence allows the adaptation
+to move to 4.0, and LICENSING.md says how.

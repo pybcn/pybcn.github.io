@@ -441,7 +441,11 @@ def main():
     args = parser.parse_args()
 
     root = args.root or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    targets = args.paths or [os.path.join(root, "content")]
+    # CODE_OF_CONDUCT.md sits at the root, where GitHub reads it, and the
+    # repo-markdown shortcode renders it on /pybcn_association/coc/. It is
+    # content that Hugo renders, so it is scanned like a file under content/.
+    targets = args.paths or [os.path.join(root, "content"),
+                             os.path.join(root, "CODE_OF_CONDUCT.md")]
 
     files, skipped, unknown = [], [], []
 
