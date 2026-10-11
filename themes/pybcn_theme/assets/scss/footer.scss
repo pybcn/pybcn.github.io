@@ -4,6 +4,16 @@ footer {
     color: white;
     margin-top: 30px;
 
+    .legal_links {
+        margin-top: 10px;
+        text-align: center;
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+        }
+    }
+
     img.logo_icon {
         width: 30px;
         height: auto;
