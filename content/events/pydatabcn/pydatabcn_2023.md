@@ -8,7 +8,7 @@ menu:
 weight: 2
 aliases:
   - /pydatabcn-2023
-heroBackground: /images/photos/canodrom.png
+heroBackground: /images/photos/canodrom.jpg
 
 layout: event
 

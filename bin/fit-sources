@@ -1,0 +1,248 @@
+#!/usr/bin/env python3
+"""Resize an image source down to the largest size the build asks of it.
+
+Hugo's image pipeline makes every file the site serves. A source only has to
+be as large as the biggest variant the templates ask for; every pixel above
+that is weight in the repository and work in the build, and none of it ever
+reaches a reader.
+
+The sponsor logos show how far that drifted. orpheus.png is 23944x5753, which
+is 138 million pixels and about 551 MB of RAM to decode, for a logo the page
+shows at 560x135. Pillow refuses an image that size by default, as a
+decompression bomb.
+
+The caps come from the templates, and the docstring of each entry in CAPS says
+which one:
+
+    sponsors    Fit 1120x300     sponsor_summary.html, the 2x variant
+    photos      1600 wide        image_hero.html, Fill 1600x450; the carousel
+                                 asks 1200 through image_resize.html
+    logo.png    920 wide         nav.html, Resize 460x, the 2x of a 230px slot
+
+The person photos are not here. bin/square-photos owns them: they are cropped
+to a square as well as resized, and the crop needs a face detector.
+
+Being over the cap is not enough on its own. A 512x512 logo shown at 300x300
+costs almost nothing and resizing it would throw away the only copy the
+repository has, so a file is left alone unless it is also heavy to carry or
+heavy to decode: over 150 KB on disk, or over 4 megapixels. Both thresholds
+are arguments. That is what picks out the 23944px logo and leaves the 512px
+one alone.
+
+Nothing is enlarged and nothing is cropped. A source inside its cap, or under
+both thresholds, is left alone byte for byte.
+
+Usage:
+    bin/fit-sources --dry-run    list what would change, change nothing
+    bin/fit-sources              rewrite the sources in place
+    bin/fit-sources --min-kb 150 --max-mpx 4    move the thresholds
+    bin/fit-sources PATH...      only these files
+
+A named path is how to rewrite a very large source without putting the
+whole run at risk. Decoding orpheus.png takes about 550 MB, and a run that
+holds that next to the rest was killed once on a machine with 8 GB. One
+file to a process gives the memory back between them:
+
+    bin/fit-sources --dry-run | cut -d: -f1 \
+        | while read f; do bin/fit-sources "themes/pybcn_theme/assets/images/$f"; done
+
+Needs pillow, which is not needed to build the site. This is run by hand when
+an image is added, not by the build and not by CI. bin/check-content fails on
+a source above its cap, which is what stops the next 23944px upload.
+"""
+
+import argparse
+import pathlib
+import sys
+
+try:
+    from PIL import Image, ImageOps
+except ImportError:
+    sys.exit("needs pillow: pip install pillow")
+
+# Pillow refuses an image over 89 million pixels, because decoding one is a
+# denial of service against whatever opens it. That is the case this script
+# exists to end, so it has to be able to open the file once.
+Image.MAX_IMAGE_PIXELS = None
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+IMAGES = ROOT / "themes" / "pybcn_theme" / "assets" / "images"
+SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
+
+# path relative to IMAGES -> (max width, max height). A height of None means
+# the width is the only cap, which is what a hero and the logo need: they are
+# cropped or scaled by width.
+CAPS = {
+    "sponsors": (1120, 300),
+    "photos": (1600, None),
+    "logo.png": (920, None),
+}
+
+# A file over the cap is only rewritten when it is also one of these. See the
+# paragraph in the docstring.
+DEFAULT_MIN_KB = 150
+DEFAULT_MAX_MPX = 4
+
+
+def cap_for(path):
+    """Return the cap that covers this file, or None when none does."""
+    rel = path.relative_to(IMAGES)
+    for key, cap in CAPS.items():
+        if rel.as_posix() == key or rel.parts[0] == key:
+            return cap
+    return None
+
+
+def target_size(width, height, cap):
+    """Return the size this file should have, keeping its aspect ratio."""
+    max_width, max_height = cap
+    scale = min(max_width / width, 1.0)
+    if max_height is not None:
+        scale = min(scale, max_height / height)
+    if scale >= 1.0:
+        return (width, height)
+    return (max(1, round(width * scale)), max(1, round(height * scale)))
+
+
+# The JPEG qualities to try, in order, and the smallest one this script will
+# settle for. See save().
+QUALITIES = (88, 84, 80, 76)
+
+
+def save(image, path, budget):
+    """Write the image back in its own format, no larger than it was.
+
+    Transparency is kept. A logo is a PNG with an alpha channel over whatever
+    the page puts behind it, and flattening it to RGB would put a white box
+    around every logo on a coloured band.
+
+    A JPEG is re-encoded, and fewer pixels do not always mean fewer bytes: a
+    source saved at a low quality, resized and written back at a high one,
+    comes out larger. Eight of the hero photos did, one of them by half again.
+    The quality steps down until the file fits the budget, which is what the
+    file weighed before. At the last step it is written anyway: the pixels
+    are what the page needs, and a hero at 1600px wide is worth more than the
+    bytes of a 2500px one.
+    """
+    suffix = path.suffix.lower()
+    if suffix in (".jpg", ".jpeg"):
+        flat = image.convert("RGB")
+        for quality in QUALITIES:
+            flat.save(path, "JPEG", quality=quality, optimize=True,
+                      progressive=True)
+            if path.stat().st_size <= budget:
+                return quality
+        return QUALITIES[-1]
+    if suffix == ".png":
+        image.save(path, "PNG", optimize=True)
+        return None
+    image.save(path)
+    return None
+
+
+# The palette size to quantise back to. 255 and not 256, so that an image
+# with transparency keeps an index for it.
+PALETTE_COLOURS = 255
+
+
+def flatten_palette(image):
+    """Return an image Pillow will resize with the filter it was given.
+
+    Image.resize() ignores the resample argument for mode P and mode 1 and
+    uses NEAREST, because there is no sensible way to average two palette
+    indices. The filter this script asks for is silently dropped.
+
+    RGBA when the palette carries transparency, RGB when it does not, so an
+    opaque image does not gain an alpha channel it has no use for.
+    """
+    if image.mode not in ("P", "1"):
+        return image
+    transparent = "transparency" in image.info
+    return image.convert("RGBA" if transparent else "RGB")
+
+
+def restore_palette(image, was_palette):
+    """Put a flattened image back on a palette, if that is where it started.
+
+    A palette PNG packs a flat logo into a fraction of what full colour
+    needs: jobfluent.png is 10.8 KB on a palette and 38.3 KB in RGBA, for
+    the same picture. Resizing has to happen off the palette, but there is
+    no reason to leave it there.
+
+    Measured against the ideal, which is the original resized straight to
+    the size the page serves: the quantised file is 2.07 of 255 away and the
+    RGBA one 1.71. A quarter of a point of mean difference, for a quarter of
+    the bytes.
+
+    FASTOCTREE because it is the one of Pillow's methods that takes RGBA and
+    keeps the alpha. The count of fully transparent pixels is unchanged.
+    """
+    if not was_palette:
+        return image
+    return image.quantize(colors=PALETTE_COLOURS,
+                          method=Image.Quantize.FASTOCTREE)
+
+
+def process(path, dry_run, min_kb, max_mpx):
+    cap = cap_for(path)
+    if cap is None:
+        return None
+    before = path.stat().st_size
+    with Image.open(path) as opened:
+        rotated = ImageOps.exif_transpose(opened)
+        was_palette = rotated.mode in ("P", "1")
+        image = flatten_palette(rotated)
+        width, height = image.size
+        target = target_size(width, height, cap)
+        if target == (width, height):
+            return None
+        heavy = before / 1024 > min_kb or width * height / 1e6 > max_mpx
+        if not heavy:
+            return None
+        note = f"{width}x{height} -> {target[0]}x{target[1]}"
+        if dry_run:
+            return f"{note}  {before / 1024:.0f} KB  {width * height / 1e6:.1f} Mpx"
+        resized = restore_palette(image.resize(target, Image.LANCZOS),
+                                  was_palette)
+        quality = save(resized, path, before)
+    after = path.stat().st_size
+    note = f"{note}  {before / 1024:.0f} KB -> {after / 1024:.0f} KB"
+    if quality is not None:
+        note += f"  q{quality}"
+    return note
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("paths", nargs="*", type=pathlib.Path)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--min-kb", type=int, default=DEFAULT_MIN_KB)
+    parser.add_argument("--max-mpx", type=float, default=DEFAULT_MAX_MPX)
+    args = parser.parse_args()
+
+    wanted = {p.resolve() for p in args.paths}
+
+    changed = 0
+    before = after = 0
+    for path in sorted(IMAGES.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in SUFFIXES:
+            continue
+        if cap_for(path) is None:
+            continue
+        if wanted and path.resolve() not in wanted:
+            continue
+        before += path.stat().st_size
+        note = process(path, args.dry_run, args.min_kb, args.max_mpx)
+        after += path.stat().st_size
+        if note:
+            changed += 1
+            print(f"{path.relative_to(IMAGES)}: {note}")
+
+    verb = "would change" if args.dry_run else "changed"
+    print(f"\n{changed} sources {verb}.")
+    print(f"{before / 1048576:.1f} MB -> {after / 1048576:.1f} MB")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
