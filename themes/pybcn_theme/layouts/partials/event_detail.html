@@ -52,13 +52,21 @@
                 {{ with $.event.video }}
                 <span class="event_video"><i class="fas fa-film"></i> <a href="{{ . }}" target="_blank">Video</a></span>
                 {{ end }}
+                {{/* markdownify wraps its result in a p of its own, so the p
+                     that used to be here nested one inside another, which no
+                     browser accepts and which the validator reports as a
+                     stray end tag: six on the PyDay BCN 2025 page. The two
+                     labels also carried a doubled closing b, which was
+                     another thirty. */}}
                 <br/>
-                <br/><p>{{ $.event.description | markdownify}}</p>
-                {{ if $.event.requirements }}
-                <br/><b>Requirements:</b></b><p>{{ $.event.requirements | markdownify}}</p>
+                {{ $.event.description | markdownify }}
+                {{ with $.event.requirements }}
+                <p><b>Requirements:</b></p>
+                {{ . | markdownify }}
                 {{ end }}
-                {{ if $.event.repositories }}
-                <br/><b>Repository:</b></b><p>{{ $.event.repositories | markdownify}}</p>
+                {{ with $.event.repositories }}
+                <p><b>Repository:</b></p>
+                {{ . | markdownify }}
                 {{ end }}
             </div>
         </div>
