@@ -1,6 +1,6 @@
 ---
 id: daniel-mesejo-leon
-name: "Daniel Mesejo Leon"
+name: "Daniel Mesejo León"
 linkedin: https://www.linkedin.com/in/daniel-alejandro-mesejo-leon
 github: https://github.com/mesejo
 
