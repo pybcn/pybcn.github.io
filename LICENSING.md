@@ -18,8 +18,7 @@ the site:
 - `layouts/`: the Hugo templates and shortcodes of the site.
 - `themes/pybcn_theme/`: the theme. Its templates and partials (`layouts/`),
   its stylesheets (`assets/scss/`), the scripts written for this site
-  (`assets/js/`, except `cookieconsent.min.js`, which is a third-party
-  library, see below), its `archetypes/`, `theme.toml`, and `README.md`. The
+  (`assets/js/`), its `archetypes/`, `theme.toml`, and `README.md`. The
   images and the vendored libraries under the theme are listed under
   [Not licensed](#not-licensed).
 - `bin/`: the build, check, and maintenance scripts.
@@ -155,9 +154,6 @@ with it:
 - `themes/pybcn_theme/static/vendor/font-awesome/webfonts/`: the Font Awesome
   fonts (SIL OFL 1.1).
 - `themes/pybcn_theme/assets/css/bootstrap.min.css`: Bootstrap 4.0.0 (MIT).
-- `themes/pybcn_theme/assets/css/cookieconsent.min.css` and
-  `themes/pybcn_theme/assets/js/cookieconsent.min.js`: the Cookie Consent
-  library by Osano (MIT).
 - `themes/pybcn_theme/assets/images/anon_member.png`: the Font Awesome `user`
   icon as a PNG (CC BY 4.0).
 

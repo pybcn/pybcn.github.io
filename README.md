@@ -441,9 +441,10 @@ it. The cost is that the reasons are scattered, so this is the index.
 
 One decision has no file of its own, because it is a decision not to act:
 
-**The heavy image blobs stay in the Git history.** The repository is 139 MB,
-and the largest objects in it are photographs that were replaced long ago,
-up to 5.9 MB each. They are all reachable from `edition` and none from
+**The heavy image blobs stay in the Git history.** The repository is many
+times the size of the site it builds (`git count-objects -vH` gives the
+figure), and the largest objects in it are photographs of several megabytes
+each that were replaced long ago by far smaller files. They are all reachable from `edition` and none from
 `master`, which the deploy workflow force-pushes as a single orphan commit.
 Removing them means `git filter-repo` and a force-push, which changes every
 commit hash from the first touched blob onwards: every clone breaks, every
