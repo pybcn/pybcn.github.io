@@ -23,11 +23,11 @@ free_text_sections:
       <b>31th October</b>: Call for proposals closing<br/>
       <b>16th November</b>: Program available<br/>
       <b>18th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
-      <b>21nd November, 9AM</b>: General registration open through <a target='_blank' href='https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587'>Eventbrite</a><br/>
+      <b>21nd November, 9AM</b>: General registration open through [Eventbrite](https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587)<br/>
       <b>26th November</b>: PyDay BCN 2022"
   - title: Registration
     id: registration
-    content: "General registration will open on Monday 21st of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587'>Eventbrite</a>."
+    content: "General registration will open on Monday 21st of November, at 9AM through [Eventbrite](https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587)."
 
 sponsor_levels:
   - sponsors_per_line: 2

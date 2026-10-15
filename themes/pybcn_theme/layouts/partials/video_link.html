@@ -2,17 +2,20 @@
     The link to the video of a talk or of a session, with the mark of its
     host in front.
 
-        [YouTube mark] Watch on YouTube
-        [YouTube mark] Ready, Set, Go with Numba on YouTube
+        [YouTube mark] Watch
+        [YouTube mark] Ready, Set, Go with Numba
 
     Argument: a dict with
         url     the address of the video
-        title   optional. With a title the link reads "<title> on YouTube",
-                which is David Arcos' rule of 2026-10-14 for a video
-                printed on its own: the title of the video is the link to
-                YouTube, with the YouTube mark in front of it. Without one
-                the link reads "Watch on YouTube", for a row that prints
-                the title just above it and would say it twice.
+        title   optional. With a title the link reads "<title>", which is
+                David Arcos' rule of 2026-10-14 for a video printed on its
+                own: the title of the video is the link to YouTube, with
+                the YouTube mark in front of it. Without one the link
+                reads "Watch", for a row that prints the title just above
+                it and would say it twice. Both forms read "... on
+                YouTube" until 2026-10-15: the mark in front already says
+                YouTube, so the words said it twice, and David asked for
+                the two words gone wherever the phrase appeared.
         blank   optional. true opens the video in a new tab, for the block
                 of the programme grid and its modal, which did so before.
 
@@ -20,17 +23,17 @@
     grid, the modal behind it, the page of the talk, and the recording of
     a whole session print the same link in the same words. The mark is
     partials/link_mark.html, the one mark per destination the whole site
-    prints, hidden from a screen reader because the words beside it name
-    the host. A host other than YouTube gets the generic mark of that
+    prints. A host other than YouTube gets the generic mark of that
     partial and other words: "Watch the video", or "<title> (video)". The
     host list is the one the Videos block of the gallery read while
     partials/gallery_content.html built it (its header has the history). Every
     link of the archive goes to www.youtube.com today, 117 of them,
     measured on 2026-10-14; the other branch is for the next one.
 
-    The words say where the link goes before the reader follows it. The
-    player itself is on the page of the talk and nowhere else: see
-    layouts/talks/single.html.
+    The mark says where the link goes before the reader follows it, and
+    the class of the anchor, video_link, is what a style or a check can
+    hold on to. The player itself is on the page of the talk and nowhere
+    else: see layouts/talks/single.html.
 */ -}}
 {{- $host := "" -}}
 {{- with urls.Parse .url }}{{ $host = lower .Host }}{{ end -}}
@@ -38,8 +41,8 @@
 <a class="video_link" href="{{ .url }}"{{ if .blank }} target="_blank" rel="noopener"{{ end }}>
     {{- partial "link_mark.html" .url -}}
     {{- with .title -}}
-        {{- . }}{{ if $youtube }} on YouTube{{ else }} (video){{ end -}}
+        {{- . }}{{ if not $youtube }} (video){{ end -}}
     {{- else -}}
-        {{- if $youtube }}Watch on YouTube{{ else }}Watch the video{{ end -}}
+        {{- if $youtube }}Watch{{ else }}Watch the video{{ end -}}
     {{- end -}}
 </a>

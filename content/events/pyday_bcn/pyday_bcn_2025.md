@@ -20,15 +20,15 @@ layout: event
 free_text_sections:
   - title: Important dates
     id: important_dates
-    content: "<b>29th September</b>: Call for proposals opening: <a href='https://forms.gle/tGnJHW5oNkCFQrXx7' target='_blank' >Workshops</a> and <a target='_blank' href='https://forms.gle/GzYmMU4qvqRHmgCh7'>Lightning talks</a><br/>
+    content: "<b>29th September</b>: Call for proposals opening: [Workshops](https://forms.gle/tGnJHW5oNkCFQrXx7) and [Lightning talks](https://forms.gle/GzYmMU4qvqRHmgCh7)<br/>
       <b>7th November</b>: Call for proposals closing<br/>
       <b>21th November</b>: Program available<br/>
       <b>24th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
-      <b>25th November, 9AM</b>: General registration open through <a target='_blank' href='https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator'>Eventbrite</a><br/>
+      <b>25th November, 9AM</b>: General registration open through [Eventbrite](https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator)<br/>
       <b>29th November</b>: PyDay BCN 2025"
   - title: Registration
     id: registration
-    content: "General registration will open on Tuesday 25th of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator'>Eventbrite</a>."
+    content: "General registration will open on Tuesday 25th of November, at 9AM through [Eventbrite](https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator)."
 
 sponsor_levels:
   - sponsors_per_line: 2

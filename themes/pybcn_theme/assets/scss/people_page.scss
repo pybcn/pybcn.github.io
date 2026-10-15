@@ -84,9 +84,16 @@
         font-size: 5rem;
     }
 
+    // The Bio and the social links, each a block under its h2, beside
+    // the portrait. The last block drops its bottom margin: the header
+    // sets the gap to what follows.
     .person_page_facts {
         flex: 1 1 16rem;
         min-width: 0;
+
+        .person_block:last-child {
+            margin-bottom: 0;
+        }
     }
 
     // The social links beside the portrait (partials/person_links.html):
@@ -103,7 +110,7 @@
         row-gap: 0.4rem;
         list-style: none;
         padding-left: 0;
-        margin: 0 0 0.8rem;
+        margin: 0;
 
         li {
             position: relative;
@@ -145,22 +152,6 @@
             a {
                 text-decoration: underline;
             }
-        }
-    }
-
-    // The sentence under the links: the roles, "at", and the number of
-    // events, the words of the row of /people/, muted like the credit
-    // line of a talk page and one step larger than body text, because it
-    // carries most of what a reader came for on a page that may hold
-    // little else. The count is in the colour of the text, so the number
-    // stands out of the grey line.
-    .person_role_line {
-        font-size: 1.15rem;
-        color: #51616e;
-        margin-bottom: 0;
-
-        strong {
-            color: #212529;
         }
     }
 

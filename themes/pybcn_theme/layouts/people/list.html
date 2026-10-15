@@ -76,8 +76,11 @@
     on pages with a year, deduplicated by page as below, which is the
     count the Events table of the page of the person has rows for. A
     person with roles and no event (a board member who never spoke)
-    prints the roles and the colon and no count: "Permanent Committee at
-    0 events" would say the person did nothing.
+    prints the roles, "at", and the pages, "Management Board (2026) at
+    PyBCN", the way the Roles list of the page of the person reads, and
+    no count: "Permanent Committee at 0 events" would say the person did
+    nothing. It read "Management Board (2026):" with the colon hanging
+    before the page until David Arcos found it (2026-10-15).
 
     Then the pages that credit the person, each with a marker: an event
     carries the emoji of its type from data/event_emoji.yaml, the glyph
@@ -324,15 +327,16 @@
                         {{- partial "person_social_icons.html" $row.page }}
                     </div>
                     {{- /* Line two: the sentence and the pages, printed only
-                           when there is one of the two to put on it. The
-                           colon closes the sentence when pages follow it,
-                           and a sentence with no pages after it (a
+                           when there is one of the two to put on it. With
+                           an event count the colon closes the sentence when
+                           pages follow it; with no count "at" leads into the
+                           pages; and a sentence with no pages after it (a
                            pybcn_position of a record no page credits) ends
-                           with no colon. */ -}}
+                           with neither. */ -}}
                     {{- if or $row.roles $row.pages }}
                     <div class="person_line row_facts">
                         {{- with $row.roles }}
-                        <p class="person_meta">{{ . }}{{ if $row.events }} <em>at</em> <strong>{{ $row.events }}</strong> {{ if eq $row.events 1 }}event{{ else }}events{{ end }}{{ end }}{{ if $row.pages }}:{{ end }}</p>
+                        <p class="person_meta">{{ . }}{{ if $row.events }} <em>at</em> <strong>{{ $row.events }}</strong> {{ if eq $row.events 1 }}event{{ else }}events{{ end }}{{ if $row.pages }}:{{ end }}{{ else if $row.pages }} <em>at</em>{{ end }}</p>
                         {{- end }}
                         {{- with $row.pages }}
                         <ul class="person_pages">

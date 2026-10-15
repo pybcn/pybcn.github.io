@@ -23,11 +23,11 @@ free_text_sections:
       <b>10th May</b>: Call for proposals closing<br/>
       <b>24th May</b>: Program available<br/>
       <b>26th May,10AM</b>: Early registration open for speakers, sponsors and PyLadiesBCN members<br/>
-      <b>29th May, 9AM</b>: General registration open through <a target='_blank' href='https://www.eventbrite.com/e/entradas-pydatabcn-2023-643559583037'>Eventbrite</a><br/>
+      <b>29th May, 9AM</b>: General registration open through [Eventbrite](https://www.eventbrite.com/e/entradas-pydatabcn-2023-643559583037)<br/>
       <b>10th June</b>: PyDataBCN 2023"
   - title: Registration
     id: registration
-    content: "General registration will open on Monday 29th of May, at 9AM through <a target='_blank' href='https://www.eventbrite.com/e/entradas-pydatabcn-2023-643559583037'>Eventbrite</a>."
+    content: "General registration will open on Monday 29th of May, at 9AM through [Eventbrite](https://www.eventbrite.com/e/entradas-pydatabcn-2023-643559583037)."
 
 
 sponsor_levels:

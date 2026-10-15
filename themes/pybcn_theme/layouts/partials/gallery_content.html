@@ -8,8 +8,9 @@
         photos  a slice of the photos the gallery renders, in page order
         videos  a slice of the recordings of the day, the rows of
                 partials/event_videos.html in programme order, on an
-                edition page (layouts/_default/event.html); an empty
-                slice on every other page
+                edition page (layouts/_default/event.html) whose
+                programme is a grid; an empty slice on every other page,
+                and on an edition page that prints its talks as rows
 
     Each photo is a dict:
 
@@ -64,11 +65,22 @@
     schedule: the Gallery is what the day left behind, with Photos (N) and
     Videos (N) subsections, and a page with neither has no gallery. The
     rows come from partials/event_videos.html, which walks the agenda and
-    then the talks the agenda does not place, so 2017, which has talks and
-    no agenda, gets its 29 from the second walk. The link on the row of a
-    talk stays as well, a mild redundancy David accepts: the row says this
-    talk was filmed while you read the programme, and the Gallery lists
-    the recordings of the day together.
+    then the talks the agenda does not place.
+
+    A page with talks and no agenda prints them as rows under a Talks
+    heading (layouts/_default/event.html, partials/talk_rows.html), and
+    each row carries the video of its talk, so that block is already the
+    list of the recordings of the day. PyData Barcelona 2017, the one
+    page in that state, printed its 29 talks twice, as the Talks block
+    and as the Talks & Videos subsection of the gallery, until David
+    Arcos asked for one list (2026-10-15): the Talks heading reads
+    "Talks (32) & Videos (29)" and the gallery of that page holds its
+    photographs alone. The Videos subsection stays for a page whose
+    programme is a grid, PyDay BCN 2020 today, where the video of a slot
+    is in the block and its modal and no list of recordings exists. The
+    link on the row of a slot stays as well, a mild redundancy David
+    accepts: the block says this talk was filmed while you read the
+    programme, and the Gallery lists the recordings of the day together.
 
     Edition pages only, the pages with layout event. A meetup page
     (layouts/_default/meetup.html) prints its talks as rows with the Watch
@@ -112,9 +124,11 @@
                 "talk" $talk) -}}
     {{- end -}}
 {{- end -}}
-{{- /* The videos, on an edition page and no other: see the header. The
-       partial reads the talk pages and the person names through
-       partialCached, so a second edition pays for neither again. */ -}}
+{{- /* The videos, on an edition page with a programme grid and no other:
+       see the header. A page with talks and no agenda prints its Talks
+       block instead. The partial reads the talk pages and the person
+       names through partialCached, so a second edition pays for neither
+       again. */ -}}
 {{- $videos := slice -}}
-{{- if eq $page.Layout "event" }}{{ $videos = partial "event_videos.html" $page }}{{ end -}}
+{{- if and (eq $page.Layout "event") (not (and $page.Params.talks (not $page.Params.agenda))) }}{{ $videos = partial "event_videos.html" $page }}{{ end -}}
 {{- return (dict "thread" $thread "photos" $photos "videos" $videos) -}}

@@ -4,7 +4,7 @@
     under it.
 
         [ player ]
-        [YouTube mark] Lightning Talk Session on YouTube
+        [YouTube mark] Lightning Talk Session
 
     Argument: the event page. Prints nothing when the page has no
     session_videos block, so a caller tests the block before it writes
@@ -38,7 +38,7 @@
     the way a reader whose browser blocks the frame reaches the video.
 
     An entry with no url is skipped, and one with no title prints the
-    "Watch on YouTube" words of the partial instead of an empty link;
+    "Watch" words of the partial instead of an empty link;
     bin/check-content is what reports both.
 */ -}}
 {{- with .Params.session_videos }}

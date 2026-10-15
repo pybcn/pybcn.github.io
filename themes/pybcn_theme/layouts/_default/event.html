@@ -1,13 +1,26 @@
 {{ define "main" }}
 
+{{- /* How many talks of this page carry a video. The heading of the Talks
+       block and the entry of the section index both say "& Videos" when
+       there are any, so the count is made once, here, before either of
+       them: a variable declared further down is not in scope above it. */ -}}
+{{- $nvideos := 0 -}}
+{{- range .Params.talks -}}
+    {{- range .links -}}
+        {{- if eq (default "" .type) "video" }}{{ $nvideos = add $nvideos 1 }}{{ break }}{{ end -}}
+    {{- end -}}
+{{- end -}}
+
 {{- /* What the gallery of this page holds, from the same partial
        partials/photo_gallery.html renders, so the section index below and the
        section itself cannot disagree. The gallery is what the day left
        behind, the photographs and the videos, in two subsections; an
        edition with neither has no gallery. PyDay BCN 2020 was held on
        YouTube with 20 videos and no photograph, so its gallery is the
-       Videos subsection alone (the header of partials/gallery_content.html
-       says why the videos are there and not under the programme). */ -}}
+       Talks & Videos subsection alone (the header of
+       partials/gallery_content.html says why the videos are there and
+       not under the programme, and why a page with a Talks block prints
+       them there instead). */ -}}
 {{ $gallery := partialCached "gallery_content.html" . .RelPermalink }}
 
 <div class="container" id="event_page">
@@ -23,7 +36,7 @@
                 {{ if .Params.call_for_proposals }}<a class="list-group-item list-group-item-action" href="#call_for_proposals_section">Call for proposals</a>{{ end }}
                 {{ if .Params.registration }}<a class="list-group-item list-group-item-action" href="#registration_section">Registration</a>{{ end }}
                 {{ if and .Params.agenda .Params.eventTimes }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
-                {{ if and .Params.talks (not .Params.agenda) }}<a class="list-group-item list-group-item-action" href="#talks_section">Talks</a>{{ end }}
+                {{ if and .Params.talks (not .Params.agenda) }}<a class="list-group-item list-group-item-action" href="#talks_section">Talks{{ with $nvideos }} &amp; Videos{{ end }}</a>{{ end }}
                 {{ if .Params.session_videos }}<a class="list-group-item list-group-item-action" href="#recordings_section">Recordings</a>{{ end }}
                 {{ if .Params.call_for_sponsors }}<a class="list-group-item list-group-item-action" href="#call_for_sponsors_section">Call for sponsors</a>{{ end }}
                 {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
@@ -109,21 +122,33 @@
                  eventTimes: PyDay BCN 2018 and 2019 carry an agenda with no
                  eventTimes on purpose (see above) and publish the programme
                  in their body, and a list of rows under it would print the
-                 programme twice. */ -}}
+                 programme twice.
+
+                 The heading carries both counts, "Talks (32) & Videos
+                 (29)": each row prints the video of its talk, so this block
+                 is the list of the recordings of the day as well, and the
+                 gallery prints no Videos subsection on a page that has it
+                 (partials/gallery_content.html). The page printed the same
+                 29 talks twice, here and under "Talks & Videos (29)" in the
+                 gallery, until David Arcos asked for one list with both
+                 counts (2026-10-15). The count is the talks with a link of
+                 type video, the ones whose row prints the Watch line. */ -}}
             {{ if and .Params.talks (not .Params.agenda) }}
             <div class="link_anchor" id="talks_section">
-                <h2 class="h1">Talks ({{ len .Params.talks }})</h2>
+                <h2 class="h1">Talks ({{ len .Params.talks }}){{ with $nvideos }} &amp; Videos ({{ . }}){{ end }}</h2>
                 {{ partial "talk_rows.html" . }}
                 <br/><br/><br/>
             </div>
             {{ end }}
 
-            {{/* The videos of the day are not here: they are the Videos
-                 subsection of the gallery at the end of the page, with the
-                 photographs (partials/photo_gallery.html). A Videos block
-                 sat here, under the grid, for one day, 2026-10-14, on PyDay
-                 BCN 2020 alone; the header of partials/gallery_content.html
-                 has the decision that moved it. */}}
+            {{/* The videos of a day with a programme grid are not here:
+                 they are the Talks & Videos subsection of the gallery at
+                 the end of the page, with the photographs
+                 (partials/photo_gallery.html). A Videos block sat here,
+                 under the grid, for one day, 2026-10-14, on PyDay BCN 2020
+                 alone; the header of partials/gallery_content.html has the
+                 decision that moved it, and the one that keeps it out of
+                 the gallery of a page with the Talks block above. */}}
 
             {{/* The recordings of a whole session, which belong to the day and
                  to no talk, right after the programme: see

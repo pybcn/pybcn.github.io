@@ -25,7 +25,7 @@ people_levels:
       people: [elisabeth-ortega-carrasco, josep-martinez-vila, loris-mularoni, laura-perez-mayos, nuria-pujol-vilanova, jose-riera-sanchez, ruben-berenguel, xavi-francisco-gilabert]
       name: Collaborators
     - people_per_line: 5
-      name: Management Board (2018 - 2025)
+      name: Former Management Board (2018 - 2025)
       # An entry with a role shows that role on this page instead of the
       # pybcn_position of the person file. See people-grid.html.
       people:

@@ -1,21 +1,27 @@
 {{- /*
     The page of one person: /people/<id>/.
 
-        [portrait]   [in] /in/davidarcos  [gh] @DZPM  [X] @DZPM  [arrow] https://davidarcos.net
-                     Mentor, Organizer, Permanent Committee, Speaker at 14 events
+        [portrait]   Bio
+                     the body of the record, when it has one
 
-        Bio          the body of the record, when it has one
+                     Social links
+                     [in] /in/davidarcos
+                     [gh] @DZPM
+                     [X] @DZPM
+                     [arrow] https://davidarcos.net
+
         Roles (N)    the levels of the association the person sat at
-        Events (N)   one row per appearance, grouped by year, newest first:
+        Organizer, Speaker, Mentor at 14 events
+                     one row per appearance, grouped by year, newest first:
                      a talk given, with the talk, or a role held
         Photos (N)   the photos of those talks, from the galleries
         Videos (N)   the video of each talk that has one, played here
         About this page   how the page is made and how to ask for a change
 
     The order is the one David Arcos set on 2026-10-15: Bio, the social
-    links, Roles, Events, Photos, Videos. The social links sit beside the
-    portrait and under no heading. Every heading over a list of things
-    carries the count.
+    links, Roles, Events, Photos, Videos. The Bio and the social links sit
+    beside the portrait, each under its heading, each only when the
+    person has it. Every heading over a list of things carries the count.
 
     The name is the h1, printed by partials/hero_header.html, which reads
     "or .Params.name .Title": the name field first, the title second. A
@@ -77,14 +83,16 @@
     The header: the portrait, or the placeholder of the row of /people/
     (partials/person_placeholder.html, the initials on a colour) when the
     record has no photo, which is 250 of the 378 records. The page showed
-    nothing there until 2026-10-15. Beside it the social links, as the
-    mark of the host and the handle (partials/person_links.html), and
-    under them the sentence of the row of /people/: the roles in the
-    order of the association (partials/role_order.html), "at", and the
-    number of events, with the same rules (see layouts/people/list.html).
-    The role line and the card of the header, "10 talks" and "14 events
-    (2013 - 2025)", went with the card of the row: the years were a
-    tombstone, and the counts are on the headings now.
+    nothing there until 2026-10-15. Beside it the Bio, the body of the
+    record, and then the social links under a "Social links" heading, as
+    the mark of the host and the handle (partials/person_links.html). The
+    header carried the sentence of the row of /people/ under the links,
+    "Permanent Committee, Organizer, Speaker, Mentor at 14 events"; David
+    Arcos asked for it gone from the header and for the Events heading to
+    carry it (2026-10-15), which partials/person_appearances.html does.
+    The card of the header, "10 talks" and "14 events (2013 - 2025)", went
+    earlier with the card of the row: the years were a tombstone, and the
+    counts are on the headings now.
 
     The portrait is a 240 px round frame, bigger than the 160 px it was,
     because the links moved beside it and a face is what the page opens
@@ -116,26 +124,7 @@
 {{ define "main" }}
 
 {{- $id := .Params.id -}}
-{{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
 {{- $talks := index (partialCached "person_talks_index.html" site "person-talks-index") $id -}}
-
-{{- /* The labels and the events of the person, the way the row of /people/
-       reads them: one label per heading, one event per page with a year. */ -}}
-{{- $labels := slice -}}
-{{- $event_count := 0 -}}
-{{- $seen := dict -}}
-{{- range index $index $id -}}
-    {{- if not (in $labels .label) }}{{ $labels = $labels | append .label }}{{ end -}}
-    {{- if index $seen .url }}{{ continue }}{{ end -}}
-    {{- $seen = merge $seen (dict .url true) -}}
-    {{- if .year }}{{ $event_count = add $event_count 1 }}{{ end -}}
-{{- end -}}
-{{- $role_text := "" -}}
-{{- if $labels -}}
-    {{- $role_text = delimit (partial "role_order.html" $labels) ", " -}}
-{{- else -}}
-    {{- with .Params.pybcn_position }}{{ $role_text = . }}{{ end -}}
-{{- end -}}
 
 {{- /* The portrait: the 400 px square of the row of /people/, shown at
        240 px, with the 800 px square for a 2x screen, cropped the way
@@ -186,22 +175,18 @@
                 {{ partial "person_placeholder.html" (dict "name" $.Params.name) }}
                 {{- end }}
                 {{- $links := partial "person_links.html" . }}
-                {{- if or $links $role_text }}
+                {{- if or .Content $links }}
                 <div class="person_page_facts">
-                    {{- $links }}
-                    {{- with $role_text }}
-                    <p class="person_role_line">{{ . }}{{ if $event_count }} <em>at</em> <strong>{{ $event_count }}</strong> {{ if eq $event_count 1 }}event{{ else }}events{{ end }}{{ end }}</p>
+                    {{- with .Content }}
+                    <section class="person_block" aria-labelledby="bio_heading">
+                        <h2 id="bio_heading">Bio</h2>
+                        {{ . }}
+                    </section>
                     {{- end }}
+                    {{- $links }}
                 </div>
                 {{- end }}
             </div>
-
-            {{- with .Content }}
-            <section class="person_block" aria-labelledby="bio_heading">
-                <h2 id="bio_heading">Bio</h2>
-                {{ . }}
-            </section>
-            {{- end }}
 
             {{- /* The roles and the events, each a table or a list under an
                    h2 of its own. */ -}}
@@ -269,11 +254,15 @@
                    default branch, which is the route CONTRIBUTING.md
                    describes; the email is for anyone without a GitHub
                    account. The repository URL is the one
-                   layouts/index.llms.txt prints. */ -}}
+                   layouts/index.llms.txt prints. The link carries the
+                   GitHub mark of partials/link_mark.html like every other
+                   link that leaves the site: it was the one external link
+                   with words and no mark on 373 pages (David Arcos,
+                   2026-10-15). */ -}}
             {{- with .File }}
             <section class="person_block person_correction" aria-labelledby="correction_heading">
                 <h2 id="correction_heading">About this page</h2>
-                <p>This page is generated from the archive of past events. The events, the photos, and the videos come from the programmes of the days this person took part in; the name, the bio, and the links come from one file. To change or remove anything on it, <a href="https://github.com/pybcn/pybcn.github.io/edit/edition/content/{{ .Path }}">edit that file on GitHub</a> and open a pull request, or write to <a href="mailto:{{ site.Params.main_contact_email }}">{{ site.Params.main_contact_email }}</a>.</p>
+                <p>This page is generated from the archive of past events. The events, the photos, and the videos come from the programmes of the days this person took part in; the name, the bio, and the links come from one file. To change or remove anything on it, <a href="https://github.com/pybcn/pybcn.github.io/edit/edition/content/{{ .Path }}">{{ partial "link_mark.html" "https://github.com/" }}edit that file on GitHub</a> and open a pull request, or write to <a href="mailto:{{ site.Params.main_contact_email }}">{{ site.Params.main_contact_email }}</a>.</p>
             </section>
             {{- end }}
 
