@@ -1,12 +1,78 @@
 ---
 title: "PyDay BCN (2016)"
 year: 2016
+# The first day of this edition, from the Meetup export, which records it per
+# event. The edition ran two days: the XXL meetup on Thursday 15 and the
+# workshop day on Saturday 17, with nothing on the Friday between them.
+date: 2016-09-15
+# The last day of this edition. The archived site under /archives/ gives it:
+# "September 17th, Saturday" on its PyDay page. The photographs agree: the ids
+# of the four posts of the photos block decode (X snowflake epoch) to 19:14,
+# 19:44, and 20:29 on Thursday 15, and the fourth to Friday 16 at 13:20,
+# saying "See you tomorrow in our workshops!". The Friday post is the one
+# outside the first day; the day it points at is the Saturday.
+end_date: 2016-09-17
+# The venue of this edition, from the Meetup export, which records it per event.
+venue: "Universitat de Barcelona"
 description: ""
 menu:
   main:
     parent: 'PyDay BCN'
 weight: 9
+
+# The index of sections in the sidebar, like every other edition.
+layout: event
 heroBackground: /images/photos/people-pyday-2016.jpg
+
+# The sponsors and collaborators of the edition, as the archived site under
+# /archives/pybcn.org/pyday-bcn-2016/ lists them, by its own levels and in its
+# own order, each resolved to a record of content/sponsors/. Five of the
+# eleven had no record and were named in sponsors_text until 2026-10-14:
+# Punt Multimèdia, Claranet, Schibsted Spain, AtlaSense, and MongoDB. Their
+# records carry the name as the archived page writes it, the @320 logo of
+# the archived page, and its site over https (bin/check-content rejects an
+# http site). The hosts of Schibsted Spain and AtlaSense no longer resolve
+# (measured 2026-10-14); check-content says a site that does not answer
+# over https is for its owner to fix, so the link stays. The venue level
+# follows the 2025 page, which lists Canòdrom among the organizers. This
+# edition has no programme: the archive holds none, and bin/check-content
+# notes the gap.
+sponsors_text: |
+  The sponsors and collaborators of the first PyDay, by the levels of the archived site of the edition. Also on the archived site:
+
+  - [The sponsorship offer of PyDay BCN 2016](/archives/pybcn.org/pyday-bcn-2016/sponsorship.html)
+  - [Backend Developer at BMAT Music Innovation, a job offer of a sponsor](/archives/pybcn.org/pyday-bcn-2016/bmat-music-innovation/backend-developer.html)
+sponsor_levels:
+  - name: Venues
+    sponsors_per_line: 3
+    sponsors:
+      - punt-multimedia
+      - ub
+  - name: Platinum
+    sponsors_per_line: 2
+    sponsors:
+      - psf
+      - claranet
+  - name: Gold
+    sponsors_per_line: 2
+    sponsors:
+      - schibsted-spain
+      - bmat
+  - name: Silver
+    sponsors_per_line: 3
+    sponsors:
+      - atlasense
+  - name: Collaborators
+    sponsors_per_line: 3
+    sponsors:
+      - skyscanner
+      - mongodb
+  - name: Thanks to
+    sponsors_per_line: 3
+    sponsors:
+      - pyladiesbcn
+      - pythones
+
 ---
 
 We are excited and glad to announce that we are organizing our first big event related to Python.
@@ -17,40 +83,3 @@ We count with an incredible group of volunteers, sponsors, and contributing enti
 Thanks to all them.
 
 We really hope you'll have a great time attending to these!!
-
-## {{< icon "fa-rocket" >}} Sponsors and collaborators {#sponsors-and-collaborators}
-
-### {{< icon "fa-university" >}} Venues {#venues}
-
-- [![Punt Multimèdia](/archives/pybcn.org/pyday-bcn-2016/punt-multimedia/punt_multimedia_logo@320.png)](/archives/pybcn.org/pyday-bcn-2016/punt-multimedia/index.html)
-- [![Facultat de Matemàtiques i Informàtia of Universitat de Barcelona](/archives/pybcn.org/pyday-bcn-2016/facultat-matematiques-informatica/universitat_barcelona@320.png)](/archives/pybcn.org/pyday-bcn-2016/facultat-matematiques-informatica/index.html)
-
-### {{< icon "fa-certificate" >}} Platinum {#platinum}
-
-- [![Python Software Foundation](/archives/pybcn.org/pyday-bcn-2016/python-software-foundation/python-software-foundation-logo@320.png)](/archives/pybcn.org/pyday-bcn-2016/python-software-foundation/index.html)
-- [![Claranet](/archives/pybcn.org/pyday-bcn-2016/claranet/claranet_logo@320.png)](/archives/pybcn.org/pyday-bcn-2016/claranet/index.html)
-
-### {{< icon "fa-certificate" >}} Gold {#gold}
-
-- [![Schibsted Spain](/archives/pybcn.org/pyday-bcn-2016/schibsted-spain/schibsted_logo@320.png)](/archives/pybcn.org/pyday-bcn-2016/schibsted-spain/index.html)
-- [![BMAT Music Innovation](/archives/pybcn.org/pyday-bcn-2016/bmat-music-innovation/logo-bmat@320.png)](/archives/pybcn.org/pyday-bcn-2016/bmat-music-innovation/index.html)
-
-### {{< icon "fa-certificate" >}} Silver {#silver}
-
-- [![AtlaSense](/archives/pybcn.org/pyday-bcn-2016/atlasense/atlasense_logo@320.png)](/archives/pybcn.org/pyday-bcn-2016/atlasense/index.html)
-
-### {{< icon "fa-cube" >}} Collaborators {#collaborators}
-
-- [![Skyscanner](/archives/pybcn.org/pyday-bcn-2016/skyscanner/skyscanner_logo@160.png)](/archives/pybcn.org/pyday-bcn-2016/skyscanner/index.html)
-- [![MongoDB](/archives/pybcn.org/pyday-bcn-2016/mongodb/mongodb_logo@160.png)](/archives/pybcn.org/pyday-bcn-2016/mongodb/index.html)
-
-### {{< icon "fa-thumbs-up" >}} Thanks to ... {#thanks-to}
-
-- [![PyLadies BCN](/archives/pybcn.org/pyday-bcn-2016/pyladies-bcn/pyladieslogo@160.png)](/archives/pybcn.org/pyday-bcn-2016/pyladies-bcn/index.html)
-- [![Asociación Python España](/archives/pybcn.org/pyday-bcn-2016/asociacion-python-espana/python-espana-logo@160.png)](/archives/pybcn.org/pyday-bcn-2016/asociacion-python-espana/index.html)
-
-### [Willing to see your company here?](/archives/pybcn.org/pyday-bcn-2016/sponsorship.html) {#sponsorship}
-
-## {{< icon "fa-industry" >}} Job Offers from our sponsors {#job-offers}
-
-- [Backend Developer at BMAT Music Innovation](/archives/pybcn.org/pyday-bcn-2016/bmat-music-innovation/backend-developer.html)
