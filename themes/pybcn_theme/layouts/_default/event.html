@@ -12,17 +12,30 @@
                 {{ if .Params.important_dates }}<a class="list-group-item list-group-item-action" href="#important_dates_section">Important dates</a>{{ end }}
                 {{ if .Params.call_for_proposals }}<a class="list-group-item list-group-item-action" href="#call_for_proposals_section">Call for proposals</a>{{ end }}
                 {{ if .Params.registration }}<a class="list-group-item list-group-item-action" href="#registration_section">Registration</a>{{ end }}
-                {{ if .Params.events }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
+                {{ if and .Params.agenda .Params.eventTimes }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
+                {{ if and .Params.talks (not .Params.agenda) }}<a class="list-group-item list-group-item-action" href="#talks_section">Talks</a>{{ end }}
                 {{ if .Params.call_for_sponsors }}<a class="list-group-item list-group-item-action" href="#call_for_sponsors_section">Call for sponsors</a>{{ end }}
                 {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
                 {{ range $section := .Params.people_sections }}
                     <a class="list-group-item list-group-item-action" href="#{{ $section.id }}">{{ $section.title }}</a>
                 {{ end }}
-                {{ if .Params.previous_editions }}<a class="list-group-item list-group-item-action" href="#previous_editions_section">Previous editions</a>{{ end }}
             </div>
         </div>
 
         <div class="col-md-9">
+            {{- /* The day, or the days, as the first line of the column. The
+                   hero above prints the title and the description and no
+                   date, and until this line an edition page said its day
+                   nowhere a reader or a machine could find it: the row of
+                   /events/ had it and the page did not. The range comes
+                   from partials/event_date.html, one time element per day,
+                   so PyData Barcelona 2017 reads "19 to 21 May 2017" and
+                   PyDay BCN 2016 "15 to 17 September 2016". Hacktoberfest
+                   2018 carries no date and prints no line. */ -}}
+            {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) -}}
+            {{- with $when.html }}
+            <p class="event_when">{{ . }}</p>
+            {{- end }}
             <div class="row" id="content">
                 {{ if .Params.content_columns }}
                     <div class="col col-md-{{.Params.content_columns}}">
@@ -48,10 +61,47 @@
                 </div>
             {{ end }}
 
-            {{ if .Params.events }}
+            {{/* The grid needs both lists and the rows to draw them on.
+                 eventTimes is what partials/agenda.html turns into the rows of
+                 the CSS grid, so a page with an agenda and no eventTimes has
+                 no grid to draw: it would emit grid-template-rows: repeat(0)
+                 and stack every block of the day on one line. The two pre-Hugo
+                 programmes, PyDay BCN 2018 and 2019, are in that state on
+                 purpose. They carry agenda, talks and rooms because a photo of
+                 the gallery joins to a talk by id, and they publish the
+                 programme the association froze in their own body: the pasted
+                 agenda table of 2018 and the calendar embed of 2019. Give
+                 either one eventTimes and numTracks and its grid appears. */ -}}
+            {{ if and .Params.agenda .Params.eventTimes }}
             <div class="link_anchor" id="agenda_section">
                 <h2 class="h1">Schedule</h2>
-                {{ partial "agenda.html" (dict "Site" .Site "legend" .Params.legend "spansDuration" .Params.spansDuration "numTracks" .Params.numTracks "eventTimes" .Params.eventTimes "events" .Params.events)}}
+                {{/* event_url is the RelPermalink of this page, which is half the
+                     key of partials/talk_pages_index.html: it is how a row of
+                     the grid finds the page of its own talk. The grid takes a
+                     dict of the fields it reads and not the page, so the page
+                     has to hand it over. */}}
+                {{ partial "agenda.html" (dict "Site" .Site "event_url" .RelPermalink "legend" .Params.legend "spansDuration" .Params.spansDuration "numTracks" .Params.numTracks "eventTimes" .Params.eventTimes "agenda" .Params.agenda "talks" .Params.talks "rooms" .Params.rooms)}}
+            </div>
+            {{ end }}
+
+            {{/* The talks of an edition that has them and has no programme
+                 grid, as rows, where the grid would be: the rows of
+                 partials/talk_rows.html, the ones a meetup page draws, so
+                 the two read alike. Each row links to the page of its talk,
+                 where its video, its slides, and its photograph are. PyData
+                 Barcelona 2017 is the one page in that state: 32 talks
+                 from the archive, 29 with a video and 17 with slides, and
+                 no record of the room or the hour of any of them, so no
+                 grid to draw. The gate is the absence of agenda and not of
+                 eventTimes: PyDay BCN 2018 and 2019 carry an agenda with no
+                 eventTimes on purpose (see above) and publish the programme
+                 in their body, and a list of rows under it would print the
+                 programme twice. */ -}}
+            {{ if and .Params.talks (not .Params.agenda) }}
+            <div class="link_anchor" id="talks_section">
+                <h2 class="h1">Talks ({{ len .Params.talks }})</h2>
+                {{ partial "talk_rows.html" . }}
+                <br/><br/><br/>
             </div>
             {{ end }}
 
@@ -75,17 +125,6 @@
                     <h2 class="h1">{{ $section.title }}</h2>
                     {{ partial "people-grid.html" (dict "levels" $section.levels "Site" $.Site "key" $section.id "section" $section.title) }}
                 </div>
-            {{ end }}
-
-            {{ if .Params.previous_editions }}
-            <div class="link_anchor" id="previous_editions_section">
-                <h2 class="h1">Previous editions</h2>
-                <ul>
-                {{ range $edition := .Params.previous_editions }}
-                    <li><a href="{{ $edition.url }}">{{ $edition.name }}</a></li>
-                {{ end }}
-                </ul>
-            </div>
             {{ end }}
 
         </div>
