@@ -374,6 +374,156 @@ agenda:
     room: room-b5
     talk: lightning-talks-session-2-closing-session-kahoot
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/1723274179888230446"
+  items:
+    - file: pyday-2023/01-welcome-to-the-pydaybcn-2023-https-pybcn-org-event.jpg
+      caption: "Welcome to the #PyDayBCN 2023! https://pybcn.org/events/pyday_bcn/pyday_bcn_2023/"
+      source: "https://x.com/PyBCN/status/1723274179888230446"
+      time: "10:39"
+    - file: pyday-2023/02-pydaybcn-is-an-event-full-of-free-python-related-w.jpg
+      caption: "#PyDayBCN is an event full of free python-related workshops and activities for the Barcelona Python community, organized once per year"
+      source: "https://x.com/PyBCN/status/1723274187488256485"
+      time: "10:39"
+    - file: pyday-2023/03-introduction-to-neural-networks-with-pytorch-by-no.jpg
+      caption: "\"Introduction to Neural Networks with PyTorch\", by Noé Casas"
+      source: "https://x.com/PyBCN/status/1723274805997179294"
+      time: "10:41"
+      talk: introduction-to-neural-networks-with-pytorch
+    - file: pyday-2023/04-quantum-computing-for-everyone-by-vyron-vasileiadi.jpg
+      caption: "\"Quantum Computing for Everyone\", by Vyron Vasileiadis, Adrià Blanco, Guille Abad and Javier Sabariego"
+      source: "https://x.com/PyBCN/status/1723275563450675247"
+      time: "10:44"
+      talk: quantum-computing-for-everyone
+    - file: pyday-2023/05-automating-networks-with-nornir-by-christian-adell.jpg
+      caption: "\"Automating networks with Nornir\", by Christian Adell"
+      source: "https://x.com/PyBCN/status/1723275859388244070"
+      time: "10:45"
+      talk: automating-networks-with-nornir
+    - file: pyday-2023/06-introduction-to-artificial-emotional-intelligence.jpg
+      caption: "\"Introduction to Artificial [Emotional] Intelligence: Decode emotions with Deep Learning and Facial Recognition\" by Emanuel Frazao"
+      source: "https://x.com/PyBCN/status/1723305285027082336"
+      time: "12:42"
+      talk: introduction-to-artificial-emotional-intelligence-decode
+    - file: pyday-2023/07-quantum-breakthrough-from-basic-quantum-algorithms.jpg
+      caption: "\"Quantum Breakthrough: From Basic Quantum Algorithms to Quantum Generative AI\" by Pavel Sulimov"
+      source: "https://x.com/PyBCN/status/1723305399871254963"
+      time: "12:43"
+      talk: quantum-breakthrough-from-basic-quantum-algorithms-to
+    - file: pyday-2023/08-python-packaging-101-by-ferran-jovell.jpg
+      caption: "\" Python Packaging 101\", by Ferran Jovell"
+      source: "https://x.com/PyBCN/status/1723306078576816327"
+      time: "12:46"
+      talk: python-packaging-101
+    - file: pyday-2023/09-had-a-great-lunch-break-thanks-sponsors.jpg
+      caption: "Had a great lunch break. Thanks, sponsors!"
+      source: "https://x.com/PyBCN/status/1723328858223501495"
+      time: "14:16"
+    - file: pyday-2023/10-creating-virtual-worlds-generating-synthetic-data.jpg
+      caption: "\"Creating Virtual Worlds: Generating Synthetic Data for AI Digital Twins\", by Alberto Labarga"
+      source: "https://x.com/PyBCN/status/1723329782849376654"
+      time: "14:20"
+      talk: creating-virtual-worlds-generating-synthetic-data-for-ai
+    - file: pyday-2023/11-creacion-de-apis-con-python-y-manejo-de-datos-by-d.jpg
+      caption: "\"Creación de APIs con Python y manejo de datos\", by Diego Giaquinta"
+      source: "https://x.com/PyBCN/status/1723330041860202798"
+      time: "14:21"
+      talk: creacion-de-apis-con-python-y-manejo-de-datos
+    - file: pyday-2023/12-create-a-personal-website-with-sphinx-by-oriol-abr.jpg
+      caption: "\"Create a personal website with sphinx\", by Oriol Abril"
+      source: "https://x.com/PyBCN/status/1723330176501596620"
+      time: "14:21"
+      talk: create-a-personal-website-with-sphinx
+    - file: pyday-2023/13-retrieval-augmented-generation-from-scratch-by-gab.jpg
+      caption: "\"Retrieval Augmented Generation from scratch\", by Gabriel de Maeztu"
+      source: "https://x.com/PyBCN/status/1723370453249479067"
+      time: "17:01"
+      talk: retrieval-augmented-generation-from-scratch
+    - file: pyday-2023/14-gabimaeztu-iomed-ehr-mojo-el-poderoso-aliado-de-py.jpg
+      caption: "\"Mojo: El poderoso aliado de Python\", by Camilo Chacón"
+      source: "https://x.com/PyBCN/status/1723370632065233082"
+      time: "17:02"
+      talk: mojo-el-poderoso-aliado-de-python
+    - file: pyday-2023/15-gabimaeztu-iomed-ehr-mob-programming-solving-codin.jpg
+      caption: "\"Mob programming: Solving coding problems collaboratively\", by Israel Saeta"
+      source: "https://x.com/PyBCN/status/1723370811296190680"
+      time: "17:03"
+      talk: mob-programming-solving-coding-problems-collaboratively
+    - file: pyday-2023/16-data-visualization-using-blender-by-muhammad-usman.jpg
+      caption: "\"Data Visualization using Blender\", by Muhammad Usman"
+      source: "https://x.com/PyBCN/status/1723389842363441256"
+      time: "18:18"
+    - file: pyday-2023/17-writing-code-is-not-your-job-thoughts-on-data-scie.jpg
+      caption: "\"Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World\", by Álvaro Durán"
+      source: "https://x.com/PyBCN/status/1723390142935687275"
+      time: "18:20"
+    - file: pyday-2023/18-pycamp-2024-by-israel-saeta.jpg
+      caption: "\"PyCamp 2024\", by Israel Saeta"
+      source: "https://x.com/PyBCN/status/1723390346946576517"
+      time: "18:20"
+    - file: pyday-2023/19-demystifying-llm-deployments-in-aws-sagemaker-by-g.jpg
+      caption: "\"Demystifying LLM deployments in AWS SageMaker\", by Guillermo Blasco"
+      source: "https://x.com/PyBCN/status/1723390541499359647"
+      time: "18:21"
+    - file: pyday-2023/20-step4ward-empowering-women-in-tech-by-susana-vazqu.jpg
+      caption: "\"Step4ward: Empowering Women in Tech\", by Susana Vázquez and Coral Olivares"
+      source: "https://x.com/PyBCN/status/1723391091230065006"
+      time: "18:23"
+    - file: pyday-2023/21-common-security-vulnerabilities-for-developers-by.jpg
+      caption: "\"Common Security Vulnerabilities for Developers\", by Dan Neciu"
+      source: "https://x.com/PyBCN/status/1723391244942864452"
+      time: "18:24"
+    - file: pyday-2023/22-machine-learning-for-time-series-analysis-in-the-c.jpg
+      caption: "\"Machine Learning for time-series analysis in the context of IoT\", by Raziel Amador"
+      source: "https://x.com/PyBCN/status/1723391406733959312"
+      time: "18:25"
+    - file: pyday-2023/23-how-to-support-the-python-open-source-ecosytem-by.jpg
+      caption: "\"How to support the Python open source ecosytem\", by Oriol Abril"
+      source: "https://x.com/PyBCN/status/1723391549793350102"
+      time: "18:25"
+    - file: pyday-2023/24-tinymem-a-game-under-40-lines-and-under-30mm-by-is.jpg
+      caption: "\"Tinymem: a game under 40 lines and under 30mm\", by Isaac Bernat"
+      source: "https://x.com/PyBCN/status/1723391728705495145"
+      time: "18:26"
+    - file: pyday-2023/25-thank-you-all-for-sponsoring-speaking-organizing-a.jpg
+      caption: "Thank you all for sponsoring, speaking, organizing, and for assisting!"
+      source: "https://x.com/PyBCN/status/1723392641125974477"
+      time: "18:29"
+    - file: pyday-2023/26-let-s-play-a-game.jpg
+      caption: "Let's play a game!"
+      source: "https://x.com/PyBCN/status/1723393250931696010"
+      time: "18:32"
+    - file: pyday-2023/27-congratulations-to-the-winners.jpg
+      caption: "Congratulations to the winners!"
+      source: "https://x.com/PyBCN/status/1723394075527630978"
+      time: "18:35"
+    - file: pyday-2023/28-thanks-qustodio-qustodio-for-sponsoring-us.jpg
+      caption: "Thanks Qustodio (@qustodio) for sponsoring us!"
+      source: "https://x.com/PyBCN/status/1723397962334691551"
+      time: "18:51"
+    - file: pyday-2023/29-thanks-travelperk-travelperk-for-sponsoring-us.jpg
+      caption: "Thanks Travelperk (@travelperk) for sponsoring us!"
+      source: "https://x.com/PyBCN/status/1723398182476873915"
+      time: "18:52"
+    - file: pyday-2023/30-thanks-iomed-iomed-ehr-for-sponsoring-us.jpg
+      caption: "Thanks IOMED (@iomed_ehr) for sponsoring us!"
+      source: "https://x.com/PyBCN/status/1723398493765583099"
+      time: "18:53"
+    - file: pyday-2023/31-thanks-flanks-flanks-io-for-sponsoring-us.jpg
+      caption: "Thanks Flanks (@Flanks_io) for sponsoring us!"
+      source: "https://x.com/PyBCN/status/1723398651215487073"
+      time: "18:53"
+    - file: pyday-2023/32-thanks-preply-preplycom-for-sponsoring-us.jpg
+      caption: "Thanks Preply (@PreplyCom) for sponsoring us!"
+      source: "https://x.com/PyBCN/status/1723398866970591424"
+      time: "18:54"
+    - file: pyday-2023/33-thank-you-for-the-pydaybcn.jpg
+      caption: "Thank you for the #PyDayBCN! ❤️"
+      source: "https://x.com/PyBCN/status/1723405506839027714"
+      time: "19:21"
 ---
 
 ## About PyDay BCN 2023

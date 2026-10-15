@@ -668,6 +668,92 @@ talks:
   links:
   - type: slides
     url: https://github.com/jtorrents/pydata_bcn_NetworkX
+photos:
+  thread: https://x.com/PyBCN/status/865470914107891717
+  items:
+  - file: pydata-2017/01-first-day-of-pydatabcn-see-you-here.jpg
+    caption: 'First day of #PyDataBCN See you here!'
+    source: https://x.com/PyBCN/status/865470914107891717
+    time: 09:35
+  - file: pydata-2017/02-about-to-start-the-workshops-pydatabcn.jpg
+    caption: 'About to start the workshops! #PyDataBCN'
+    source: https://x.com/PyBCN/status/865471272750161920
+    time: 09:36
+  - file: pydata-2017/03-taking-numpy-in-stride-by-jaime-fernandez-del-rio.jpg
+    caption: 'Taking NumPy in Stride, by Jaime Fernandez del Rio #PyDataBCN'
+    source: https://x.com/PyBCN/status/865474452238155778
+    time: 09:49
+  - file: pydata-2017/04-introduction-to-data-analysis-with-pandas-is-full.jpg
+    caption: Introduction to data analysis with Pandas is full! With Eduard Goma
+    source: https://x.com/PyBCN/status/865474697214836736
+    time: 09:50
+    talk: introduction-to-data-analysis-with-pandas
+  - file: pydata-2017/05-an-introduction-to-the-tidyverse-by-jorge-cimentad.jpg
+    caption: 'An introduction to the tidyverse, by Jorge Cimentada #PyDataBCN'
+    source: https://x.com/PyBCN/status/865510553984286722
+    time: '12:12'
+    talk: an-introduction-to-the-tidyverse
+  - file: pydata-2017/06-waves-hackaton-by-mcarricano-pydatabcn.jpg
+    caption: 'Waves hackaton, by @mcarricano #PyDataBCN'
+    source: https://x.com/PyBCN/status/865511932362539010
+    time: '12:18'
+  - file: pydata-2017/07-high-performance-python-for-data-analysis-by-guill.jpg
+    caption: 'High Performance Python for Data Analysis, by @guillemborrell #PyDataBCN'
+    source: https://x.com/PyBCN/status/865517539853344768
+    time: '12:40'
+  - file: pydata-2017/08-hdf5-and-pandas-by-francescalted-pydatabcn.jpg
+    caption: 'HDF5 and pandas, by @FrancescAlted #PyDataBCN'
+    source: https://x.com/PyBCN/status/865564323120283648
+    time: '15:46'
+  - file: pydata-2017/09-social-network-analysis-with-python-and-networkx-b.jpg
+    caption: 'Social Network Analysis with Python and NetworkX, by Jordi Torrents #PyDataBCN'
+    source: https://x.com/PyBCN/status/865564663748194305
+    time: '15:47'
+    talk: social-network-analysis-with-python-and-networkx
+  - file: pydata-2017/10-good-morning-today-we-ll-have-lightning-talks-go-t.jpg
+    caption: 'Good Morning! Today we''ll have Lightning Talks, go to the board and write down your proposal! First come, first served :) #PyDataBCN'
+    source: https://x.com/PyBCN/status/865816252920549377
+    time: 08:27
+  - file: pydata-2017/11-welcome-to-pydatabcn-2017.jpg
+    caption: 'Welcome to #PyDataBCN 2017!'
+    source: https://x.com/PyBCN/status/865829255829213184
+    time: 09:19
+  - file: pydata-2017/12-ifosch-our-great-sponsors-made-pydatabcn-possible.jpg
+    caption: 'Our great sponsors made #PyDataBCN possible, thank you all!'
+    source: https://x.com/PyBCN/status/865831488297762816
+    time: 09:28
+  - file: pydata-2017/13-first-keynote-data-science-and-machine-learning-wi.jpg
+    caption: 'First Keynote: Data science and Machine Learning with Anaconda, by @teoliphant from @ContinuumIO #PyDataBCN'
+    source: https://x.com/PyBCN/status/865832295533510656
+    time: 09:31
+  - file: pydata-2017/14-pydatabcn-keynote-speaker-teoliphant-is-on-stage-t.jpg
+    caption: '#PyDataBCN keynote speaker @teoliphant is on stage talking about data science stack and software tools!'
+    source: https://x.com/PyBCN/status/865835722003156992
+    time: 09:44
+  - file: pydata-2017/15-second-keynote-the-magic-behind-pyspark-how-it-imp.jpg
+    caption: 'Second Keynote: The Magic Behind PySpark, how it impacts perf & the "future", by @holdenkarau from @IBM #PyDataBCN'
+    source: https://x.com/PyBCN/status/865849763849285632
+    time: '10:40'
+    talk: the-magic-behind-pyspark-how-it-impacts-perf-the-future
+  - file: pydata-2017/16-third-keynote-nasa-space-apps-challenge-asteroid-p.jpg
+    caption: 'Third Keynote: NASA Space APPS Challenge: Asteroid prediction impact, by @SoyGema #PyDataBCN #TensorFlow'
+    source: https://x.com/PyBCN/status/865947122696409088
+    time: '17:07'
+    talk: nasa-space-apps-challenge-asteroid-prediction-impact
+  - file: pydata-2017/17-fourth-keynote-squeeze-gently-your-big-data-by-fra.jpg
+    caption: 'Fourth Keynote: Squeeze (Gently) Your (Big) Data, by @FrancescAlted #PyDataBCN'
+    source: https://x.com/PyBCN/status/866215737270173696
+    time: '10:54'
+  - file: pydata-2017/18-lightning-talks-pydatabcn.jpg
+    caption: 'Lightning Talks! #PyDataBCN'
+    source: https://x.com/PyBCN/status/866308840140279808
+    time: '17:04'
+  - file: pydata-2017/19-last-keynote-closing-act-security-for-data-scienti.jpg
+    caption: 'Last Keynote, Closing Act: Security for Data Scientists, by @DZPM from @LeadRatings #PyDataBCN'
+    source: https://x.com/PyBCN/status/866327528121741313
+    time: '18:19'
+    talk: security-for-data-scientists
+  album: https://www.flickr.com/photos/pydata/sets/72157684439580266/
 ---
 
 The [PyData 2017 - Barcelona edition](https://pydata.org/barcelona2017/) took place from May 19th to 21th at [ESADE](https://www.esade.edu/homesite/esp/esadeforum). The talks below link to the page of each one, with its video and its slides. The event also published an album of [photos](https://www.flickr.com/photos/pydata/sets/72157684439580266/) and a playlist of its [videos](https://www.youtube.com/playlist?list=PLGVZCDnMOq0oieXy92cJBwSirA3G2MCU1).

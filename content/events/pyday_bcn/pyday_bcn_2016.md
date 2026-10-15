@@ -73,6 +73,28 @@ sponsor_levels:
       - pyladiesbcn
       - pythones
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/776469200915337217"
+  items:
+    - file: pyday-2016/01-we-are-starting-with-tensorflow.jpg
+      caption: "We are starting with TensorFlow"
+      source: "https://x.com/PyBCN/status/776469200915337217"
+      time: "19:14"
+    - file: pyday-2016/02-and-we-re-in-our-second-talk-already-radinamatic-i.jpg
+      caption: "And we're in our second talk already. @RadinaMatic is talking about accessibility in a Django project"
+      source: "https://x.com/PyBCN/status/776476825530863617"
+      time: "19:44"
+    - file: pyday-2016/03-citybik-es-talk-at-pybcn-pydaybcn16-pydayes16.jpg
+      caption: "Citybik.es talk at @pybcn #pydaybcn16 #pydayes16"
+      source: "https://x.com/PyBCN/status/776488042647449600"
+      time: "20:29"
+    - file: pyday-2016/04-it-was-an-amazing-meetup-thanks-to-all-who-helped.jpg
+      caption: "It was an amazing meetup. Thanks to All Who helped make it possible. See you tomorrow in our workshops! #PyDayBCN16"
+      source: "https://x.com/PyBCN/status/776742531241545728"
+      time: "13:20"
 ---
 
 We are excited and glad to announce that we are organizing our first big event related to Python.

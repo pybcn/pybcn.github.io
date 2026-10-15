@@ -363,6 +363,123 @@ agenda:
     label: "Closing session & Kahoot"
     duration_minutes: 15
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/1667433149322735616"
+  items:
+    - file: pydata-2023/01-starting-the-day-our-president-lpmayos-is-introduc.jpg
+      caption: "Starting the day: our president @lpmayos is introducing Python Barcelona https://pybcn.org"
+      source: "https://x.com/PyBCN/status/1667433149322735616"
+      time: "09:26"
+    - file: pydata-2023/02-this-event-is-only-possible-thanks-to-our-sponsors.jpg
+      caption: "This event is only possible thanks to our sponsors 👏"
+      source: "https://x.com/PyBCN/status/1667433772797640704"
+      time: "09:29"
+    - file: pydata-2023/03-data-orchestration-with-airflow-by-fiorella-piriz.jpg
+      caption: "Data orchestration with Airflow, by Fiorella Piriz Sapio"
+      source: "https://x.com/PyBCN/status/1667454807328661512"
+      time: "10:53"
+      talk: data-orchestration-with-airflow
+    - file: pydata-2023/04-jupyter-notebooks-101-by-amalia-vradi.jpg
+      caption: "Jupyter Notebooks 101, by Amalia Vradi"
+      source: "https://x.com/PyBCN/status/1667455050828992514"
+      time: "10:53"
+      talk: jupyter-notebooks-101
+    - file: pydata-2023/05-convierte-tus-notebooks-de-jupyter-en-codigo-mante.jpg
+      caption: "Convierte tus notebooks de Jupyter en código mantenible con Kedro, by Juan Luis Cano Rodríguez"
+      source: "https://x.com/PyBCN/status/1667455195125633024"
+      time: "10:54"
+      talk: convierte-tus-notebooks-de-jupyter-en-codigo-mantenible-con
+    - file: pydata-2023/06-de-los-datos-al-modelo-en-produccion-by-ricardo-an.jpg
+      caption: "De los datos al modelo en producción, by Ricardo Ander-Egg Aguilar"
+      source: "https://x.com/PyBCN/status/1667455679081086976"
+      time: "10:56"
+      talk: de-los-datos-al-modelo-en-produccion
+    - file: pydata-2023/07-had-a-nice-coffee-break-let-s-do-more-workshops.jpg
+      caption: "Had a nice coffee break, let's do more workshops!"
+      source: "https://x.com/PyBCN/status/1667475551102148610"
+      time: "12:15"
+    - file: pydata-2023/08-data-analytics-with-python-by-juan-bernardo-lince.jpg
+      caption: "Data Analytics with Python, by Juan Bernardo Lince"
+      source: "https://x.com/PyBCN/status/1667476072718278658"
+      time: "12:17"
+      talk: data-analytics-with-python
+    - file: pydata-2023/09-machine-learning-robustness-and-monitoring-by-dani.jpg
+      caption: "Machine Learning Robustness and Monitoring, by Daniel Sánchez Santolaya"
+      source: "https://x.com/PyBCN/status/1667476187122114562"
+      time: "12:17"
+      talk: machine-learning-robustness-and-monitoring
+    - file: pydata-2023/10-indices-invertidos-desde-cero-by-ricardo-ander-egg.jpg
+      caption: "Índices invertidos desde cero, by Ricardo Ander-Egg Aguilar"
+      source: "https://x.com/PyBCN/status/1667476445243793408"
+      time: "12:18"
+      talk: indices-invertidos-desde-cero
+    - file: pydata-2023/11-fine-tuning-of-llm-models-for-text-processing-by-r.jpg
+      caption: "Fine-tuning of LLM models for text processing, by Ruben Afonso"
+      source: "https://x.com/PyBCN/status/1667521263726624770"
+      time: "15:17"
+      talk: fine-tuning-of-llm-models-for-text-processing
+    - file: pydata-2023/12-ask-your-data-build-a-full-pipeline-to-get-generat.jpg
+      caption: "Ask your data! Build a full pipeline to get generative answers from a text dataset, by Carmen Iniesta López"
+      source: "https://x.com/PyBCN/status/1667521428093120515"
+      time: "15:17"
+      talk: ask-your-data-build-a-full-pipeline-to-get-generative
+    - file: pydata-2023/13-foundations-of-machine-learning-exploring-use-case.jpg
+      caption: "Foundations of Machine Learning: exploring use cases and typical tasks, by Nikita Polovinkin"
+      source: "https://x.com/PyBCN/status/1667521809040670726"
+      time: "15:19"
+      talk: foundations-of-machine-learning-exploring-use-cases-and
+    - file: pydata-2023/14-com-visualitzar-incertesa-i-models-probabilistics.jpg
+      caption: "Com visualitzar incertesa i models probabilistics, by Oriol Abril Pla"
+      source: "https://x.com/PyBCN/status/1667522020345618433"
+      time: "15:20"
+      talk: com-visualitzar-incertesa-i-models-probabilistics
+    - file: pydata-2023/15-how-data-scientists-can-be-more-productive-with-th.jpg
+      caption: "How Data Scientists Can Be More Productive with the Power of Static Typing, by Alvaro Duran"
+      source: "https://x.com/PyBCN/status/1667577219026132992"
+      time: "18:59"
+    - file: pydata-2023/16-python-models-and-alerts-within-dbt-with-dbt-fal-a.jpg
+      caption: "Python models and alerts within dbt with dbt-fal and novu, by Diego Quintana"
+      source: "https://x.com/PyBCN/status/1667577221593149441"
+      time: "18:59"
+    - file: pydata-2023/17-international-data-spaces-implementing-the-europea.jpg
+      caption: "International Data Spaces: Implementing the European Strategy on Data, by Miquel Sarrias"
+      source: "https://x.com/PyBCN/status/1667577224344616960"
+      time: "18:59"
+    - file: pydata-2023/18-data-science-in-transport-modelling-by-monica-domi.jpg
+      caption: "Data Science in Transport Modelling, by Monica Dominguez"
+      source: "https://x.com/PyBCN/status/1667577226781499393"
+      time: "18:59"
+    - file: pydata-2023/19-serverless-machine-learning-streamlining-deploymen.jpg
+      caption: "Serverless Machine Learning: Streamlining Deployment and Scaling of ML Services, by Rajdeep Pal"
+      source: "https://x.com/PyBCN/status/1667577229516079104"
+      time: "18:59"
+    - file: pydata-2023/20-bundling-a-python-app-in-a-single-file-ricardo-and.jpg
+      caption: "Bundling a Python app in a single file - Ricardo Ander-Egg"
+      source: "https://x.com/PyBCN/status/1667577233127653376"
+      time: "18:59"
+    - file: pydata-2023/21-the-workshops-and-talks-are-done-let-s-play-a-game.jpg
+      caption: "The workshops and talks are done. Let's play a game!"
+      source: "https://x.com/PyBCN/status/1667577815041032195"
+      time: "19:01"
+    - file: pydata-2023/22-the-best-programming-language-is.jpg
+      caption: "The best programming language is..."
+      source: "https://x.com/PyBCN/status/1667579239321698304"
+      time: "19:07"
+    - file: pydata-2023/23-all-our-communications-are-written-by.jpg
+      caption: "All our communications are written by..."
+      source: "https://x.com/PyBCN/status/1667579241678995456"
+      time: "19:07"
+    - file: pydata-2023/24-will-you-volunteer-at-the-next-event-sure-natalias.jpg
+      caption: "Will you volunteer at the next event? Sure, @nataliasirera!!"
+      source: "https://x.com/PyBCN/status/1667579243780349952"
+      time: "19:07"
+    - file: pydata-2023/25-nataliasirera-the-pydatabcn-2023-has-been-incredib.jpg
+      caption: "The PyDataBCN 2023 has been incredible! We are grateful for all the organizers, volunteers, speakers, sponsors and assistants. See you at our next event!"
+      source: "https://x.com/PyBCN/status/1667589285262786561"
+      time: "19:47"
 ---
 
 ## About PyDataBCN 2023

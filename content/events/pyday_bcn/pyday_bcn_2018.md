@@ -207,6 +207,93 @@ agenda:
       - "scikit-learn"
       - "spacy (with Spanish model installed)"
 
+# Photos published by @PyBCN on the day, from the account's own X export.
+# One photo per tweet: the lunch tweet carried four, and a caption is also
+# the alt text, so three repeated alts help nobody. The first of the four is
+# the one kept. Nothing else of the day is left out: the export holds no
+# retweet with a photo for this date, and no photograph of a credential or
+# of a screen that says nothing about the day.
+#
+# A photo carries a talk only when its caption names that talk. The eight
+# that do are the eight sessions of the programme above, each announced as
+# it started. The other eight are the room, the welcome slides, and lunch.
+photos:
+  date: 2018-11-24
+  thread: "https://x.com/PyBCN/status/1066253610957324288"
+  items:
+    - file: pyday-2018/01-about-to-start-the-pydaybcn2018.jpg
+      caption: "About to start the #PyDayBCN2018!"
+      source: "https://x.com/PyBCN/status/1066253610957324288"
+      time: "09:54"
+    - file: pyday-2018/02-welcome-to-the-pydaybcn2018-lpmayos-is-explaining.jpg
+      caption: "Welcome to the #PyDayBCN2018! @lpmayos is explaining our recent history"
+      source: "https://x.com/PyBCN/status/1066258474206679041"
+      time: "10:13"
+    - file: pyday-2018/03-full-room-the-100-tickets-were-over-in-less-than-t.jpg
+      caption: "Full room! The ~100 tickets were over in less than two hours #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066259011425701888"
+      time: "10:15"
+    - file: pyday-2018/04-pybcn-went-from-17-to-3000-members-in-11-years-pyd.jpg
+      caption: "#PyBCN went from 17 to ~3000 members in 11 years! #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066259424862453760"
+      time: "10:17"
+    - file: pyday-2018/05-we-want-to-organize-more-activities-help-us.jpg
+      caption: "We want to organize more activities. Help us! 😊"
+      source: "https://x.com/PyBCN/status/1066259982545494016"
+      time: "10:19"
+    - file: pyday-2018/06-we-just-registered-an-association-seriousbusiness.jpg
+      caption: "We just registered an association! #SeriousBusiness #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066260675356499968"
+      time: "10:22"
+    - file: pyday-2018/07-we-re-doing-a-code-tournament-with-prizes-pydaybcn.jpg
+      caption: "We're doing a code tournament, with prizes! #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066262626718687232"
+      time: "10:29"
+    - file: pyday-2018/08-developing-a-small-application-with-git-ignasi-fos.jpg
+      caption: "Developing a small application with git - Ignasi Fosch (@ifosch) #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066271782657765376"
+      time: "11:06"
+      talk: developing-a-small-application-with-git
+    - file: pyday-2018/09-introduction-to-pytorch-bartek-skorulski-pydaybcn2.jpg
+      caption: "Introduction to pytorch - Bartek Skorulski #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066272113886224386"
+      time: "11:07"
+      talk: introduction-to-pytorch
+    - file: pyday-2018/10-data-analysis-with-jupyter-notebook-pandas-and-plo.jpg
+      caption: "Data analysis with Jupyter Notebook, Pandas and Plotly - Natàlia Padilla @nataliasirera and Laura Pérez @lpmayos (@PyLadiesBCN)"
+      source: "https://x.com/PyBCN/status/1066297782099722243"
+      time: "12:49"
+      talk: data-analysis-with-jupyter-notebook-pandas-and-plotly
+    - file: pyday-2018/11-mirror-mirror-on-the-wall-who-is-the-fairest-of-th.jpg
+      caption: "Mirror, mirror on the wall, who is the fairest of them all? (Introduction to OpenCV) - Ismael Benito"
+      source: "https://x.com/PyBCN/status/1066297904976052224"
+      time: "12:50"
+      talk: mirror-mirror-on-the-wall-introduction-to-opencv
+    - file: pyday-2018/12-lunch-time-pydaybcn2018.jpg
+      caption: "Lunch time! #PyDayBCN2018"
+      source: "https://x.com/PyBCN/status/1066316089100066816"
+      time: "14:02"
+    - file: pyday-2018/13-intro-to-nosql-db-with-pymongo-jordi-guix.jpg
+      caption: "Intro to NoSQL DB with PyMongo - Jordi Guix"
+      source: "https://x.com/PyBCN/status/1066335895740141568"
+      time: "15:21"
+      talk: intro-to-nosql-db-with-pymongo
+    - file: pyday-2018/14-python-and-elasticsearch-artur-mindiyarov.jpg
+      caption: "Python and Elasticsearch - Artur Mindiyarov"
+      source: "https://x.com/PyBCN/status/1066336198262747138"
+      time: "15:22"
+      talk: python-and-elasticsearch
+    - file: pyday-2018/15-guillotina-data-framework-ramon-navarro-bosch-bloo.jpg
+      caption: "Guillotina - Data framework - Ramon Navarro Bosch (@bloodbare)"
+      source: "https://x.com/PyBCN/status/1066366658460246017"
+      time: "17:23"
+      talk: guillotina-data-framework
+    - file: pyday-2018/16-organizando-chistes-con-nlp-julio-martinez-liopic.jpg
+      caption: "Organizando chistes con NLP - Julio Martínez (@liopic)"
+      source: "https://x.com/PyBCN/status/1066366811829088258"
+      time: "17:23"
+      talk: organizando-chistes-con-nlp
+
 # The index of sections in the sidebar, like every other edition.
 layout: event
 ---

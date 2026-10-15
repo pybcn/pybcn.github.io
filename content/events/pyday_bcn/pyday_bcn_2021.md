@@ -412,6 +412,153 @@ agenda:
     label: "Closing session & Kahoot"
     duration_minutes: 15
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/1464506413720420352"
+  items:
+    - file: pyday-2021/01-gooooood-morning-pydaybcn.jpg
+      caption: "Gooooood morning, #PyDayBCN!!"
+      source: "https://x.com/PyBCN/status/1464506413720420352"
+      time: "09:08"
+    - file: pyday-2021/02-kudos-to-our-organizing-team-lpmayos-nataliasirera.jpg
+      caption: "Kudos to our organizing team: @lpmayos @nataliasirera @DZPM @llevaNEUS @srxavi @berenguel @eloipuertas @sianna"
+      source: "https://x.com/PyBCN/status/1464529899155296257"
+      time: "10:41"
+    - file: pyday-2021/03-thanks-for-sponsoring-us.jpg
+      caption: "Thanks for sponsoring us!"
+      source: "https://x.com/PyBCN/status/1464530306246057990"
+      time: "10:43"
+    - file: pyday-2021/04-build-a-chat-application-that-lets-you-speak-multi.jpg
+      caption: "\"Build a chat application that lets you speak multiple languages\", by Diego Gonzalez from @PreplyCom"
+      source: "https://x.com/PyBCN/status/1464531105562910720"
+      time: "10:46"
+      talk: build-a-chat-application-that-lets-you-speak-multiple
+    - file: pyday-2021/05-preplycom-building-the-cloud-with-python-getting-s.jpg
+      caption: "\"Building the Cloud with Python: getting started with AWS CDK\", by Anton Caceres and Alexandre Savio"
+      source: "https://x.com/PyBCN/status/1464531763867357184"
+      time: "10:49"
+      talk: building-the-cloud-with-python-getting-started-with-aws-cdk
+    - file: pyday-2021/06-implementing-your-api-with-fastapi-by-esperanza-bu.jpg
+      caption: "\"Implementing your API with FASTAPI\", by Esperanza Buitrago (@ebuitragod)"
+      source: "https://x.com/PyBCN/status/1464531971544076290"
+      time: "10:50"
+      talk: implementing-your-api-with-fastapi
+    - file: pyday-2021/07-how-to-create-data-apps-with-python-by-sergi-ortiz.jpg
+      caption: "\"How to create Data apps with Python\", by Sergi Ortiz"
+      source: "https://x.com/PyBCN/status/1464532219498749958"
+      time: "10:51"
+      talk: how-to-create-data-apps-with-python
+    - file: pyday-2021/08-and-the-catering-for-the-coffee-break-is-ready.jpg
+      caption: "And the catering for the coffee break is ready!"
+      source: "https://x.com/PyBCN/status/1464532407172931585"
+      time: "10:51"
+    - file: pyday-2021/09-yes-we-got-the-good-stuff.jpg
+      caption: "Yes, we got the good stuff ✌️"
+      source: "https://x.com/PyBCN/status/1464545721349193729"
+      time: "11:44"
+    - file: pyday-2021/10-creating-cute-user-interfaces-in-python-with-qt-by.jpg
+      caption: "\"Creating cute user interfaces in python with Qt\", by Elisabeth Ortega (@draentropia)"
+      source: "https://x.com/PyBCN/status/1464547004923719684"
+      time: "11:49"
+      talk: creating-cute-user-interfaces-in-python-with-qt
+    - file: pyday-2021/11-microservicios-en-la-vida-moderna-un-enfoque-pytho.jpg
+      caption: "\"Microservicios en la vida moderna: Un enfoque python-centrico\", by Antonio Molina (@aydevosotros), Erik Tordera and Pablo Fernández from @qustodio"
+      source: "https://x.com/PyBCN/status/1464547526246375433"
+      time: "11:51"
+      talk: microservicios-en-la-vida-moderna-un-enfoque-python-centrico
+    - file: pyday-2021/12-aydevosotros-qustodio-introduction-to-django-by-vi.jpg
+      caption: "\"Introduction to Django\", by Vincent Choubard from Rover (@roverdotcom_es)"
+      source: "https://x.com/PyBCN/status/1464547803712172039"
+      time: "11:53"
+      talk: introduction-to-django
+    - file: pyday-2021/13-vector-search-engines-with-python-from-embeddings.jpg
+      caption: "\"Vector search engines with Python: from embeddings to similarity search\", by Gabriel de Maeztu (@gabimaeztu) from IOMED (@iomed_ehr)"
+      source: "https://x.com/PyBCN/status/1464548109808279559"
+      time: "11:54"
+      talk: vector-search-engines-with-python-from-embeddings-to
+    - file: pyday-2021/14-nice-limited-edition-pybcn-stickers.jpg
+      caption: "Nice limited-edition @PyBCN stickers!"
+      source: "https://x.com/PyBCN/status/1464548681026355201"
+      time: "11:56"
+    - file: pyday-2021/15-remember-we-ll-take-the-group-photo-at-13h-in-the.jpg
+      caption: "Remember, we'll take the group photo at 13h, in the terrace. See you there!"
+      source: "https://x.com/PyBCN/status/1464549374147678209"
+      time: "11:59"
+    - file: pyday-2021/16-at-the-end-of-each-talk-please-use-the-post-its-to.png
+      caption: "At the end of each talk, please use the post-its to leave feedback for the speakers:"
+      source: "https://x.com/PyBCN/status/1464550721731371008"
+      time: "12:04"
+    - file: pyday-2021/17-warm-coffe.jpg
+      caption: "Warm coffe!"
+      source: "https://x.com/PyBCN/status/1464554868568428548"
+      time: "12:21"
+    - file: pyday-2021/18-save-some-pastries-for-our-guys-at-the-entrance.jpg
+      caption: "Save some pastries for our guys at the entrance!!"
+      source: "https://x.com/PyBCN/status/1464555890200166403"
+      time: "12:25"
+    - file: pyday-2021/19-causal-data-science-workshop-by-jordi-mur.jpg
+      caption: "\"Causal Data Science workshop\", by Jordi Mur"
+      source: "https://x.com/PyBCN/status/1464595512926126084"
+      time: "15:02"
+      talk: causal-data-science-workshop
+    - file: pyday-2021/20-making-mlops-uncool-again-by-david-de-la-iglesia-c.jpg
+      caption: "\"Making MLOps uncool again\", by David de la Iglesia Castro (@daviddelachurch)"
+      source: "https://x.com/PyBCN/status/1464595698251358217"
+      time: "15:03"
+      talk: making-mlops-uncool-again
+    - file: pyday-2021/21-daviddelachurch-how-to-beat-imposter-syndrome-conf.jpg
+      caption: "\"How to beat imposter syndrome: confessions of a developer\", by Matteo Bruno from Onna (@onnahq)"
+      source: "https://x.com/PyBCN/status/1464596540283101190"
+      time: "15:06"
+      talk: how-to-beat-imposter-syndrome-confessions-of-a-developer
+    - file: pyday-2021/22-daviddelachurch-onnahq-building-a-dag-factory-by-a.jpg
+      caption: "\"Building a DAG Factory\", by Albert Franzi Cros (@FranziCros) from Typeform (@typeform)"
+      source: "https://x.com/PyBCN/status/1464597043339534336"
+      time: "15:08"
+      talk: building-a-dag-factory
+    - file: pyday-2021/23-burnout-paradise-buenas-practicas-para-evitar-el-b.jpg
+      caption: "\"Burnout Paradise: buenas prácticas para evitar el burnout en desarrollo\", by Alejandro Nicolás (@sander_pm) from Hybrid Theory (@HybridTheory_GL)"
+      source: "https://x.com/PyBCN/status/1464600432463032330"
+      time: "15:22"
+      talk: burnout-paradise-buenas-practicas-para-evitar-el-burnout-en
+    - file: pyday-2021/24-sander-pm-hybridtheory-gl-yes-the-lunch-was-delici.jpg
+      caption: "(Yes, the lunch was delicious)"
+      source: "https://x.com/PyBCN/status/1464600704312659973"
+      time: "15:23"
+    - file: pyday-2021/25-say-cheese.jpg
+      caption: "Say Cheese!"
+      source: "https://x.com/PyBCN/status/1464600946181292035"
+      time: "15:24"
+    - file: pyday-2021/26-build-a-machine-learning-iot-device-running-python.jpg
+      caption: "\"Build a Machine Learning IoT Device running Python\", by Marc Pous (@gy4nt)"
+      source: "https://x.com/PyBCN/status/1464619233619365899"
+      time: "16:36"
+      talk: build-a-machine-learning-iot-device-running-python
+    - file: pyday-2021/27-the-moons-of-jupyter-widgets-ecosystem-by-mariana.jpg
+      caption: "\"The moons of Jupyter: widgets ecosystem\" by Mariana Meireles (@mari_meir) and Laysa Uchoa (@laysauchoa)"
+      source: "https://x.com/PyBCN/status/1464619630924865545"
+      time: "16:38"
+      talk: the-moons-of-jupyter-widgets-ecosystem
+    - file: pyday-2021/28-signal-processing-from-neurons-to-mars-by-vivek-sh.jpg
+      caption: "\"Signal Processing - From Neurons to Mars!\", by Vivek Sharma"
+      source: "https://x.com/PyBCN/status/1464619822386397191"
+      time: "16:39"
+      talk: signal-processing-from-neurons-to-mars
+    - file: pyday-2021/29-keeping-sync-between-datasets-with-diffsync-by-chr.jpg
+      caption: "\"Keeping sync between datasets with Diffsync\", by Christian Adell (@chadell0)"
+      source: "https://x.com/PyBCN/status/1464620079518208007"
+      time: "16:40"
+      talk: keeping-sync-between-datasets-with-diffsync
+    - file: pyday-2021/30-chadell0-hey-david-hurry-up-and-finish-doing-the-k.jpg
+      caption: "Hey David, hurry up and finish doing the Kahoot!!"
+      source: "https://x.com/PyBCN/status/1464625183478755331"
+      time: "17:00"
+    - file: pyday-2021/16-finally-thanks-to-everybody-who-helped-us-organize.jpg
+      caption: "Finally, thanks to everybody who helped us organize our biggest 2021 event 💪💪 We hope to see you again in the #PyDayBCN 2022!"
+      source: "https://x.com/PyBCN/status/1465217532218982403"
+      time: "08:14"
 ---
 
 ## About PyDay BCN 2021 

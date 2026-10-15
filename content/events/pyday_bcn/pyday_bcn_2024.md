@@ -417,6 +417,116 @@ agenda:
     label: "Closing session & Kahoot"
     duration_minutes: 0
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/1855180142240272592"
+  items:
+    - file: pyday-2024/01-today-we-re-celebrating-the-pydaybcn-welcome-pleas.jpg
+      caption: "Today we're celebrating the #PyDayBCN! Welcome 👋, please get a seat!"
+      source: "https://x.com/PyBCN/status/1855180142240272592"
+      time: "10:26"
+    - file: pyday-2024/02-unboxing-machine-learning-models-predicting-with-n.jpg
+      caption: "\"Unboxing Machine Learning Models: Predicting with Numpy After Model Training\", by Xiang Xu"
+      source: "https://x.com/PyBCN/status/1855181919559790867"
+      time: "10:33"
+      talk: unboxing-machine-learning-models-predicting-with-numpy
+    - file: pyday-2024/03-discovering-etl-testing-essential-for-your-ai-solu.jpg
+      caption: "\"Discovering ETL Testing: Essential for Your AI Solutions\", by Paula Bassagañas"
+      source: "https://x.com/PyBCN/status/1855182272384663612"
+      time: "10:34"
+      talk: discovering-etl-testing-essential-for-your-ai-solutions
+    - file: pyday-2024/04-izi-record-revolutionizing-the-camera-app-by-ferra.jpg
+      caption: "\"IZI Record, revolutionizing the camera app\" by Ferran Jovell (@MrSwats)"
+      source: "https://x.com/PyBCN/status/1855211394183962886"
+      time: "12:30"
+    - file: pyday-2024/05-mrswats-a-solution-to-store-catalog-and-visualize.jpg
+      caption: "\"A solution to store, catalog and visualize images using Django and Django Rest Framework\" by Josep Sitjar Suñer"
+      source: "https://x.com/PyBCN/status/1855211686346510817"
+      time: "12:31"
+    - file: pyday-2024/06-mrswats-image-generation-with-ai-gans-and-diffusio.jpg
+      caption: "\"Image Generation with AI (GANs and Diffusion Techniques)\" by Marina Palma"
+      source: "https://x.com/PyBCN/status/1855213044026032482"
+      time: "12:37"
+      talk: image-generation-with-ai-gans-and-diffusion-techniques
+    - file: pyday-2024/07-introduccio-a-xarray-etiqueta-les-teves-dades-n-di.jpg
+      caption: "\"Introducció a xarray: etiqueta les teves dades n-dimensionals\" by Oriol Abril Pla"
+      source: "https://x.com/PyBCN/status/1855213518359834954"
+      time: "12:39"
+      talk: introduccio-a-xarray-etiqueta-les-teves-dades-n-dimensionals
+    - file: pyday-2024/08-static-typing-in-python-by-alex-molas.jpg
+      caption: "\"Static Typing in Python\" by Alex Molas"
+      source: "https://x.com/PyBCN/status/1855213686542983460"
+      time: "12:39"
+      talk: static-typing-in-python
+    - file: pyday-2024/09-building-data-pipelines-with-sqlmesh-by-marc-ramir.jpg
+      caption: "\"Building data pipelines with SQLMesh\" by Marc Ramirez"
+      source: "https://x.com/PyBCN/status/1855213884220600758"
+      time: "12:40"
+      talk: building-data-pipelines-with-sqlmesh
+    - file: pyday-2024/10-la-rosalia-unveiled-decoding-her-lyrics-with-ai-by.jpg
+      caption: "\"La Rosalía Unveiled: Decoding Her Lyrics with AI\", by Olga Ss"
+      source: "https://x.com/PyBCN/status/1855249867385307276"
+      time: "15:03"
+    - file: pyday-2024/11-a-kingdom-above-the-clouds-how-far-can-you-go-on-a.jpg
+      caption: "\"A kingdom above the clouds: How far can you go on AWS for $1 a month?\", by Kemalcan Bora"
+      source: "https://x.com/PyBCN/status/1855250188463411365"
+      time: "15:04"
+      talk: a-kingdom-above-the-clouds-how-far-can-you-go-on-aws-for-1
+    - file: pyday-2024/12-a-deep-dive-into-the-arrow-columnar-format-with-py.jpg
+      caption: "\"A deep dive into the Arrow Columnar format with pyarrow and nanoarrow\", by Raúl Cumplido"
+      source: "https://x.com/PyBCN/status/1855251365431288257"
+      time: "15:09"
+      talk: a-deep-dive-into-the-arrow-columnar-format-with-pyarrow-and
+    - file: pyday-2024/13-polars-procesando-datos-a-la-velocidad-de-la-luz-c.jpg
+      caption: "\"Polars: Procesando datos a la velocidad de la luz con recursos espartanos\", by Fernando Aparicio"
+      source: "https://x.com/PyBCN/status/1855263927799525470"
+      time: "15:59"
+    - file: pyday-2024/14-evita-bugs-amb-pre-commit-by-carles-julia-chaosct.jpg
+      caption: "\"Evita bugs amb Pre-Commit\", by Carles Julià (@chaosct)"
+      source: "https://x.com/PyBCN/status/1855267845711527972"
+      time: "16:14"
+    - file: pyday-2024/15-chaosct-predict-gender-equality-with-your-own-mach.jpg
+      caption: "\"Predict gender equality with your own Machine Learning model\", by Asia Noble"
+      source: "https://x.com/PyBCN/status/1855268923261767778"
+      time: "16:19"
+      talk: predict-gender-equality-with-your-own-machine-learning-model
+    - file: pyday-2024/16-chaosct-l-embolic-videojuegos-hechos-en-el-fronten.jpg
+      caption: "\"L'Embolic: Videojuegos hechos en el frontend por un lenguaje de backend\", by Jimena (@Jimena_y_yo)"
+      source: "https://x.com/PyBCN/status/1855269101087735918"
+      time: "16:19"
+      talk: lembolic-videojuegos-hechos-en-el-frontend-por-un-lenguaje
+    - file: pyday-2024/17-chaosct-jimena-y-yo-open-source-databases-python-d.jpg
+      caption: "\"Open Source Databases Python Devs\" by Dave Pitts"
+      source: "https://x.com/PyBCN/status/1855269396618355152"
+      time: "16:21"
+      talk: open-source-databases-python-devs
+    - file: pyday-2024/18-automate-end-to-end-mlflow-with-kestra-and-mlflow.jpg
+      caption: "\"Automate end to end MLflow with Kestra and MLFlow\", by Manuel Gijón"
+      source: "https://x.com/PyBCN/status/1855269627300827556"
+      time: "16:22"
+      talk: automate-end-to-end-mlflow-with-kestra-and-mlflow
+    - file: pyday-2024/19-la-iniciativa-scientific-python-by-oriol-abril-pla.jpg
+      caption: "\"La iniciativa Scientific Python\", by Oriol Abril Pla"
+      source: "https://x.com/PyBCN/status/1855316971211948104"
+      time: "19:30"
+    - file: pyday-2024/20-drugscope-a-ml-based-platform-for-drug-discovery-b.jpg
+      caption: "\"DrugScope: a ML-based platform for drug discovery\", by Verónica Larroy"
+      source: "https://x.com/PyBCN/status/1855317098773225775"
+      time: "19:30"
+    - file: pyday-2024/21-can-llms-power-product-recommendations-by-babaniyi.jpg
+      caption: "\"Can LLMs Power Product Recommendations?\", by Babaniyi Olaniyi\""
+      source: "https://x.com/PyBCN/status/1855317374867472871"
+      time: "19:31"
+    - file: pyday-2024/22-pixel2mechanics-automated-biomechanical-simulation.jpg
+      caption: "\"Pixel2Mechanics: Automated Biomechanical Simulations of High-Resolution Intervertebral Discs from Anisotropic MRIs\", by Sai Natarajan"
+      source: "https://x.com/PyBCN/status/1855317468480479312"
+      time: "19:32"
+    - file: pyday-2024/01-thanks-for-attending-the-pydaybcn-2024-see-you-nex.jpg
+      caption: "Thanks for attending the #PyDayBCN 2024! See you next year!"
+      source: "https://x.com/PyBCN/status/1855898395161805079"
+      time: "10:00"
 ---
 
 
