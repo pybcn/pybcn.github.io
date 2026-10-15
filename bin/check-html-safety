@@ -55,6 +55,13 @@ TEXT_SUFFIXES = (
     ".pandoc", ".pdc",                # text/pandoc
     ".txt",                           # text/plain, copied as a page resource
     ".svg",                           # image/svg+xml, XML that can carry <script>
+    # A content adapter, content/<section>/_content.gotmpl. It is not a page:
+    # it is a template Hugo runs while it assembles the content, and it adds
+    # the pages of its section. It is read because it can write a page body,
+    # through the content key of AddPage, and that body goes through goldmark
+    # like the body of a markdown file. content/talks/_content.gotmpl writes
+    # no body today, so the scan reads a template with no markup in it.
+    ".gotmpl",
 )
 BINARY_SUFFIXES = (
     ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico",

@@ -6,10 +6,11 @@ be as large as the biggest variant the templates ask for; every pixel above
 that is weight in the repository and work in the build, and none of it ever
 reaches a reader.
 
-The sponsor logos show how far that drifted. orpheus.png is 23944x5753, which
-is 138 million pixels and about 551 MB of RAM to decode, for a logo the page
-shows at 560x135. Pillow refuses an image that size by default, as a
-decompression bomb.
+The sponsor logos show how far that drifted. orpheus.png was 23944x5753,
+which is 138 million pixels and about 551 MB of RAM to decode, for a logo the
+page shows at 560x135. Pillow refuses an image that size by default, as a
+decompression bomb. This tool has since cut it to 1120x269 and 16 KB, and a
+dry run over the whole set now reports nothing to change.
 
 The caps come from the templates, and the docstring of each entry in CAPS says
 which one:
@@ -39,9 +40,9 @@ Usage:
     bin/fit-sources PATH...      only these files
 
 A named path is how to rewrite a very large source without putting the
-whole run at risk. Decoding orpheus.png takes about 550 MB, and a run that
-holds that next to the rest was killed once on a machine with 8 GB. One
-file to a process gives the memory back between them:
+whole run at risk. Decoding orpheus.png took about 550 MB before it was cut,
+and a run that holds that next to the rest was killed once on a machine with
+8 GB. One file to a process gives the memory back between them:
 
     bin/fit-sources --dry-run | cut -d: -f1 \
         | while read f; do bin/fit-sources "themes/pybcn_theme/assets/images/$f"; done
@@ -77,6 +78,16 @@ CAPS = {
     "photos": (1600, None),
     "logo.png": (920, None),
 }
+
+# The photographs the archive imports are capped lower than the 1600 above,
+# and the reason is theirs alone. They are a memory of a day, their original
+# is one click away in the post each one credits, and the gallery never shows
+# one wider than 900px. 1000 covers that at full detail and leaves the repo a
+# fifth lighter: 35.3 MB became 28.1 MB over 231 photographs, and the whole
+# archive lands near 59 MB instead of 76 MB once the monthly meetups bring
+# theirs. Above 1000 nothing is gained that a reader can see, and every byte
+# of it stays in the history for good.
+IMPORTED_PHOTO_CAP = 1000
 
 # A file over the cap is only rewritten when it is also one of these. See the
 # paragraph in the docstring.
