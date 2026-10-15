@@ -1,0 +1,55 @@
+{{- /*
+    The recordings of a whole session of one event: the list under the
+    Recordings heading of the page, one player per recording and the link
+    under it.
+
+        [ player ]
+        [YouTube mark] Lightning Talk Session on YouTube
+
+    Argument: the event page. Prints nothing when the page has no
+    session_videos block, so a caller tests the block before it writes
+    the heading:
+
+        {{ with .Params.session_videos }}
+        <h2>Recordings</h2>
+        {{ partial "session_videos.html" $ }}
+        {{ end }}
+
+    A session recording belongs to the day and to no talk: a block of
+    lightning talks, the introduction of an evening, the live stream of a
+    whole meetup. bin/import-videos writes it as an entry of the
+    event-level session_videos block, title and url, because no talk record
+    can carry it. Three meetups of the archive hold one (2016-04-21,
+    2019-02-21, 2019-06-20), measured on 2026-10-14.
+
+    Until 2026-10-14 the gallery listed these after the videos of the talks.
+    The gallery of an edition lists the videos of its talks again since
+    2026-10-15 (see the header of partials/gallery_content.html), and the
+    video of a talk sits on the row of its talk as well. A session
+    recording has no row to sit on and no talk, so it is printed here,
+    under the programme of the day and before the gallery: it is part of
+    what happened that evening, where the programme is. The player is partials/video_frame.html, the
+    frame the page of a talk uses: a recording of a session has no page of
+    its own, so the page of its day is the page about it, and a player
+    belongs on the page about the thing it plays (David Arcos, 2026-10-15;
+    the block printed a link alone until then). The title of the recording
+    is the link to YouTube under it, with the mark in front, through
+    partials/video_link.html, the rule for a video printed on its own, and
+    the way a reader whose browser blocks the frame reaches the video.
+
+    An entry with no url is skipped, and one with no title prints the
+    "Watch on YouTube" words of the partial instead of an empty link;
+    bin/check-content is what reports both.
+*/ -}}
+{{- with .Params.session_videos }}
+<ul class="session_videos">
+    {{- range $entry := . }}
+    {{- with $entry.url }}
+    <li>
+        {{- partial "video_frame.html" (dict "url" . "title" (printf "Video of %s" (default "the session" $entry.title))) }}
+        <p class="session_video_link">{{ partial "video_link.html" (dict "url" . "title" ($entry.title | default "")) }}</p>
+    </li>
+    {{- end }}
+    {{- end }}
+</ul>
+{{- end }}

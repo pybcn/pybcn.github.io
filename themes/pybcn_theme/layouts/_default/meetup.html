@@ -138,6 +138,17 @@
             </section>
             {{- end }}
 
+            {{- /* The recordings of a whole session, which belong to the day
+                   and to no talk, after the talks and before the gallery:
+                   see partials/session_videos.html. The heading is here,
+                   as the heading of the talks is. */ -}}
+            {{- with .Params.session_videos }}
+            <section class="meetup_recordings" aria-labelledby="recordings_heading">
+                <h2 id="recordings_heading">Recordings ({{ len . }})</h2>
+                {{ partial "session_videos.html" $ }}
+            </section>
+            {{- end }}
+
             {{- /* The photos of the day, the same gallery an edition page
                    draws. The heading is here and not in the partial,
                    because partials/photo_gallery.html writes its own

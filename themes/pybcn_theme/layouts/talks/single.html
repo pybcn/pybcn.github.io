@@ -15,11 +15,14 @@
     the box is an h2, so the outline is h1 then h2 with no level skipped
     (bin/check-rendered fails a page that skips one).
 
-    The video of the talk, when the day published one, is the link to
-    YouTube under its own heading, with the mark of the host in front,
-    through partials/video_link.html: the rule for a video printed on its
-    own. No player: a listing or a programme grid prints a link and no
-    frame, and so does this page.
+    The video of the talk is played here, in a frame, because this page
+    is about that one talk. David Arcos decided it on 2026-10-14 ("que
+    meta el iframe de youtube nocookies"), after a first decision for a
+    click-to-load facade. The frame is partials/video_frame.html, the
+    youtube-nocookie.com player, and its header says what the frame asks
+    of Google, where the privacy policy says so, and which other pages
+    carry a player: the Recordings block of a day and the Videos block of
+    a person. A listing or a programme grid prints a link and no frame.
 
     What is not here: the room, the start, and the end of the session.
     Those belong to the slot of the grid and not to the talk, and the
@@ -245,12 +248,23 @@
             {{- end }}
 
             {{- /* The video of the talk, when the day published one: the
-                   link to YouTube with the title of the talk as its text
-                   and the mark in front (partials/video_link.html), the
-                   rule for a video printed on its own. */ -}}
+                   player, through partials/video_frame.html, and under it
+                   the link to YouTube with the title of the talk as its
+                   text and the mark in front (partials/video_link.html),
+                   the rule for a video printed on its own. The link is
+                   there for the reader whose browser blocks third party
+                   frames, who reads with no script, or who wants the page
+                   on YouTube itself, so the video reaches every reader of
+                   this page with or without the frame. The partial prints
+                   no frame for a URL whose id has not the shape of a
+                   YouTube id; all 117 links of the archive are watch URLs
+                   with an id of that shape, measured on 2026-10-14. The
+                   partial's header says what the frame asks of Google and
+                   where the privacy policy says so. */ -}}
             {{- with $entry.video }}
             <section class="talk_video" aria-labelledby="video_heading">
                 <h2 id="video_heading">Video</h2>
+                {{ partial "video_frame.html" (dict "url" . "title" (printf "Video of %s" $.Title)) }}
                 <p class="talk_video_link">{{ partial "video_link.html" (dict "url" . "title" $.Title) }}</p>
             </section>
             {{- end }}

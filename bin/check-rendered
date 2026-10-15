@@ -494,6 +494,29 @@ ALLOWLIST = [
      "kind": "iframe",
      "prefix": "https://calendar.google.com/calendar/embed",
      "why": "the PyDay 2019 agenda, a Google Calendar through the google-embed shortcode"},
+    {"path": "talks/",
+     "kind": "iframe",
+     "prefix": "https://www.youtube-nocookie.com/embed/",
+     "why": "the player of the video of a talk, on the page of that talk: the Video "
+            "section of layouts/talks/single.html, through partials/video_frame.html. "
+            "The partial writes the id into the src only when it has the shape of a "
+            "YouTube id. youtube-nocookie.com sets no cookie until the reader presses "
+            "play; the frame still asks Google for the player when the page loads, "
+            "which the privacy policy says"},
+    {"path": "events/meetups/",
+     "kind": "iframe",
+     "prefix": "https://www.youtube-nocookie.com/embed/",
+     "why": "the player of the recording of a whole session, in the Recordings block "
+            "of the page of its meetup (partials/session_videos.html, through "
+            "partials/video_frame.html): a recording of a session has no page of "
+            "its own, so the page of its day is the page about it. Three meetups "
+            "carry one. A listing or a programme grid prints a link and no frame"},
+    {"path": "people/",
+     "kind": "iframe",
+     "prefix": "https://www.youtube-nocookie.com/embed/",
+     "why": "the player of the video of each talk of a person, in the Videos block "
+            "of the page of that person (layouts/people/single.html, through "
+            "partials/video_frame.html), the same frame the page of the talk shows"},
     {"path": "archives/pybcn.org/",
      "kind": "script-inline",
      "sha256": "34a5712b5063c64b5c8e08522ec9ffe70a3bee3b41892ae6ad8039321c58911f",

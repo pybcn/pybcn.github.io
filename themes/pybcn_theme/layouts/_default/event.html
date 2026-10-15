@@ -24,6 +24,7 @@
                 {{ if .Params.registration }}<a class="list-group-item list-group-item-action" href="#registration_section">Registration</a>{{ end }}
                 {{ if and .Params.agenda .Params.eventTimes }}<a class="list-group-item list-group-item-action" href="#agenda_section">Schedule</a>{{ end }}
                 {{ if and .Params.talks (not .Params.agenda) }}<a class="list-group-item list-group-item-action" href="#talks_section">Talks</a>{{ end }}
+                {{ if .Params.session_videos }}<a class="list-group-item list-group-item-action" href="#recordings_section">Recordings</a>{{ end }}
                 {{ if .Params.call_for_sponsors }}<a class="list-group-item list-group-item-action" href="#call_for_sponsors_section">Call for sponsors</a>{{ end }}
                 {{ if .Params.sponsor_levels }}<a class="list-group-item list-group-item-action" href="#sponsors_section">Sponsors</a>{{ end }}
                 {{ range $section := .Params.people_sections }}
@@ -123,6 +124,20 @@
                  sat here, under the grid, for one day, 2026-10-14, on PyDay
                  BCN 2020 alone; the header of partials/gallery_content.html
                  has the decision that moved it. */}}
+
+            {{/* The recordings of a whole session, which belong to the day and
+                 to no talk, right after the programme: see
+                 partials/session_videos.html. No edition carries the block
+                 today (the three that do are meetups, on
+                 layouts/_default/meetup.html); bin/import-videos may write
+                 it on any event page, so the page is ready for it. */}}
+            {{ with .Params.session_videos }}
+            <div class="link_anchor" id="recordings_section">
+                <h2 class="h1">Recordings ({{ len . }})</h2>
+                {{ partial "session_videos.html" $ }}
+                <br/><br/><br/>
+            </div>
+            {{ end }}
 
             {{ if .Params.sponsor_levels }}
             <div class="link_anchor" id="sponsors_section">

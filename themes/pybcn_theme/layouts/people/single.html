@@ -9,10 +9,11 @@
         Events (N)   one row per appearance, grouped by year, newest first:
                      a talk given, with the talk, or a role held
         Photos (N)   the photos of those talks, from the galleries
+        Videos (N)   the video of each talk that has one, played here
         About this page   how the page is made and how to ask for a change
 
     The order is the one David Arcos set on 2026-10-15: Bio, the social
-    links, Roles, Events, Photos. The social links sit beside the
+    links, Roles, Events, Photos, Videos. The social links sit beside the
     portrait and under no heading. Every heading over a list of things
     carries the count.
 
@@ -102,8 +103,8 @@
     The Roles list and the Events table come from
     partials/person_appearances.html; the talks of the person come from
     partials/person_talks_index.html, one entry per talk with its photos
-    (see partials/talk_record.html), and feed the table and the Photos
-    block. The Talks list this page had
+    and its video (see partials/talk_record.html), and feed the table,
+    the Photos block, and the Videos block. The Talks list this page had
     is gone: a talk is something the person did at an event, so it is a
     row of the Events table, and a list above the table said the same
     thing twice (David Arcos, 2026-10-15).
@@ -154,16 +155,20 @@
     {{- end -}}
 {{- end -}}
 
-{{- /* The photos of the talks, in the order of the talks:
+{{- /* The photos and the videos of the talks, in the order of the talks:
        newest day first, then the place in the programme of the day.
        Guarded by with: sort of a nil list is a build error, and 25 of the
        378 records are credited by no talk, so the list is nil on their
        pages. */ -}}
 {{- $photos := slice -}}
+{{- $videos := slice -}}
 {{- with $talks -}}
     {{- range $t := sort . "key" -}}
         {{- range $t.photos -}}
             {{- $photos = $photos | append (dict "img" .img "url" .url "title" $t.title "event_title" $t.event_title) -}}
+        {{- end -}}
+        {{- with $t.video -}}
+            {{- $videos = $videos | append $t -}}
         {{- end -}}
     {{- end -}}
 {{- end -}}
@@ -225,6 +230,34 @@
                             <a href="{{ .url }}"><img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $retina.RelPermalink }} 2x" width="240" height="240" loading="lazy" decoding="async" alt="Photo of {{ .title }}" /></a>
                             <figcaption>{{ .event_title }}</figcaption>
                         </figure>
+                    </li>
+                    {{- end }}
+                </ul>
+            </section>
+            {{- end }}
+
+            {{- /* The videos of the talks, each played in the frame the
+                   page of the talk uses (partials/video_frame.html, which
+                   says what the frame asks of Google and where the privacy
+                   policy says so), with the link to YouTube under it, the
+                   title of the talk as its text and the mark in front, and
+                   the day it was given. The link is there for the reader
+                   whose browser blocks third party frames, who reads with
+                   no script, or who wants the page on YouTube itself. One
+                   person of the archive has eight videos; the frames are
+                   lazy, so a browser asks for a player when the reader
+                   scrolls to it and not eight times on load. */ -}}
+            {{- with $videos }}
+            <section class="person_block person_videos" aria-labelledby="videos_heading">
+                <h2 id="videos_heading">Videos ({{ len . }})</h2>
+                <ul class="person_video_list">
+                    {{- range . }}
+                    <li>
+                        {{- partial "video_frame.html" (dict "url" .video "title" (printf "Video of %s" .title)) }}
+                        <p class="person_video_link">{{ partial "video_link.html" (dict "url" .video "title" .title) }}</p>
+                        {{- if .event_url }}
+                        <p class="talk_meta">at <a href="{{ .event_url }}">{{ .event_title }}</a>{{ with .date }}, {{ . }}{{ else }}{{ with .year }}, {{ . }}{{ end }}{{ end }}</p>
+                        {{- end }}
                     </li>
                     {{- end }}
                 </ul>

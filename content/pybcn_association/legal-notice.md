@@ -23,7 +23,7 @@ The Management Board is responsible for this website. You can see who sits on it
 
 ## What this site is
 
-This is an informational site. It describes the association, its events, the people who organise them and speak at them, and how to join, propose a talk, or sponsor us. Nothing is sold through this site. The membership fee is paid on PayPal's own site, not here. Some pages embed a Google Form or a Google Calendar; those are served by Google.
+This is an informational site. It describes the association, its events, the people who organise them and speak at them, and how to join, propose a talk, or sponsor us. Nothing is sold through this site. The membership fee is paid on PayPal's own site, not here. Some pages embed a Google Form or a Google Calendar, and the page of a recorded talk embeds its video in a YouTube player (youtube-nocookie.com); those frames are served by Google.
 
 The site is a set of static pages, published from a public repository on GitHub and served by GitHub Pages. We keep no server of our own and we run no analytics. The [Privacy policy](/pybcn_association/privacy-policy/) says what personal data this involves.
 
@@ -54,4 +54,4 @@ We may update this notice. Every change is visible in the [history of this page]
 
 Spanish law applies to this notice and to the use of this site. Any dispute goes to the courts of Barcelona, unless the law gives you the right to the courts of your own domicile.
 
-Last updated: 2026-10-07
+Last updated: 2026-10-14
