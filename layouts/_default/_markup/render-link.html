@@ -23,4 +23,12 @@
     escaping: a quote in a link title came back as \" , which closes the
     attribute early and leaves the rest of the title as stray attribute names.
 */ -}}
-<a href="{{ .Destination }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text }}</a>
+{{- /*
+    An external link in the body of a page carries the same mark as one a
+    template writes, through partials/link_mark.html: every link that leaves
+    this site says where it goes (David Arcos, 2026-10-15). He found the gap
+    on the page of PyData Barcelona 2017, whose body links a YouTube playlist
+    and a Flickr album, and neither had a mark: the marks had reached the
+    templates and not the prose.
+*/ -}}
+<a href="{{ .Destination }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ if $external }}{{ partial "link_mark.html" .Destination }}{{ end }}{{ .Text }}</a>

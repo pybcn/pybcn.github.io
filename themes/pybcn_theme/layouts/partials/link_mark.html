@@ -1,0 +1,64 @@
+{{- /*
+    The mark of a link that leaves the site: one glyph per destination, in
+    front of the words of the link, grey like every other icon of the site.
+
+        [YouTube mark] Watch on YouTube
+        [GitHub mark] Code on GitHub
+        [arrow mark] Read more
+
+    Argument: the URL of the link, as a string. The host decides the glyph,
+    with a leading "www." taken off first, so one row of the table below
+    covers www.github.com and github.com:
+
+        youtube.com, m.youtube.com, youtu.be     fab fa-youtube
+        github.com, gist.github.com              fab fa-github
+        gitlab.com                               fab fa-gitlab
+        bitbucket.org                            fab fa-bitbucket
+        slideshare.net, es.slideshare.net        fab fa-slideshare
+        speakerdeck.com                          fab fa-speaker-deck
+        flickr.com                               fab fa-flickr
+        drive.google.com, docs.google.com        fab fa-google-drive
+        linkedin.com                             fab fa-linkedin
+        meetup.com                               fab fa-meetup
+        x.com, twitter.com                       icon_x (the mask of main.scss)
+        any other host                           fas fa-external-link-alt
+
+    Measured over the links of the talk records on 2026-10-15, outside the
+    header and the footer: youtube.com 114, github.com 32, slideshare.net
+    5, drive.google.com and docs.google.com 4 between them, then gitlab,
+    bitbucket, speakerdeck, and slides.com once each, and about 45 hosts
+    with one link. Every brand above has a glyph in the vendored Font
+    Awesome 5.8.2 except X, which came after the Twitter rename and is the
+    CSS mask of main.scss. slides.com has no glyph and takes the generic
+    mark with the long tail.
+
+    Before this partial only YouTube and x.com carried a mark, each printed
+    where it was used, and the YouTube mark took the colour of the link
+    around it while every other icon of the site is grey. David Arcos asked
+    for one mark per destination, grey like the rest (2026-10-15). The grey
+    is .link_mark in main.scss, and a caller that needs a different gap or
+    size writes a rule on that class, as the facts box does on dt i.
+
+    The glyph is aria-hidden: the words of the link name the destination
+    ("Watch on YouTube", "Code on GitHub"), or the label beside it does
+    (the Source row of the facts box, the X row of a person page). A caller
+    whose words do not say where the link goes writes them; the mark never
+    stands in for them.
+*/ -}}
+{{- $host := "" -}}
+{{- with urls.Parse . }}{{ $host = strings.TrimPrefix "www." (lower .Host) }}{{ end -}}
+{{- $class := "fas fa-external-link-alt" -}}
+{{- if in (slice "youtube.com" "m.youtube.com" "youtu.be") $host }}{{ $class = "fab fa-youtube" -}}
+{{- else if in (slice "github.com" "gist.github.com") $host }}{{ $class = "fab fa-github" -}}
+{{- else if eq $host "gitlab.com" }}{{ $class = "fab fa-gitlab" -}}
+{{- else if eq $host "bitbucket.org" }}{{ $class = "fab fa-bitbucket" -}}
+{{- else if in (slice "slideshare.net" "es.slideshare.net") $host }}{{ $class = "fab fa-slideshare" -}}
+{{- else if eq $host "speakerdeck.com" }}{{ $class = "fab fa-speaker-deck" -}}
+{{- else if in (slice "flickr.com" "flic.kr") $host }}{{ $class = "fab fa-flickr" -}}
+{{- else if in (slice "drive.google.com" "docs.google.com") $host }}{{ $class = "fab fa-google-drive" -}}
+{{- else if eq $host "linkedin.com" }}{{ $class = "fab fa-linkedin" -}}
+{{- else if eq $host "meetup.com" }}{{ $class = "fab fa-meetup" -}}
+{{- else if in (slice "x.com" "twitter.com") $host }}{{ $class = "icon_x" -}}
+{{- end -}}
+<i class="{{ $class }} link_mark" aria-hidden="true"></i>
+{{- /* No trailing newline: the mark sits inline in front of the words. */ -}}

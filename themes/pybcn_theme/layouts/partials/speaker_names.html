@@ -1,0 +1,25 @@
+{{- /*
+    The names of a list of person ids, in the order the list gives them.
+
+    Arguments:
+        names   a dict of person id to the name the record holds
+        ids     the person ids to resolve
+
+    Returns a slice of names. An id with no record behind it becomes the id
+    with its hyphens and underscores taken out, which is what
+    partials/agenda_entry.html prints for the same case.
+
+    The caller passes the dict, built once per page, because the join reads
+    every person file: see the $people dict in partials/agenda.html. A
+    partial that built the dict itself would walk the site once per talk.
+*/ -}}
+{{- $names := .names -}}
+{{- $out := slice -}}
+{{- range $id := .ids -}}
+    {{- $name := index $names $id -}}
+    {{- if not $name -}}
+        {{- $name = $id | replaceRE "[-_]+" " " | title -}}
+    {{- end -}}
+    {{- $out = $out | append $name -}}
+{{- end -}}
+{{- return $out -}}
