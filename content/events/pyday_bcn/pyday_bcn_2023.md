@@ -1,6 +1,10 @@
 ---
 title: "PyDay BCN (2023)"
 year: 2023
+# The day of this edition, from the Meetup export, which records it per event.
+date: 2023-11-11
+# The venue of this edition, from the Meetup export, which records it per event.
+venue: "Universitat de Barcelona"
 description: "For the community, by the community!"
 menu:
   main:
@@ -25,7 +29,6 @@ free_text_sections:
     id: registration
     content: "General registration will open on Monday 6th of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/entradas-pydaybcn-2023-751258453257?aff=oddtdtcreator'>Eventbrite</a>."
 
-sponsors_text: "Would you like to sponsor this event? Please contact us at pydaybcn2023@googlegroups.com<br/><br/>"
 sponsor_levels:
   - sponsors_per_line: 2
     sponsors: [qustodio, travelperk, iomed, flanks, preply]
@@ -73,60 +76,46 @@ people_sections:
           - patricia-lamadrid-robles
           - elisabeth-ortega-carrasco
 
-previous_editions:
-  - name: PyDay BCN 2022
-    url: /events/pyday_bcn/pyday_bcn_2022/
-  - name: PyDay BCN 2021
-    url: /events/pyday_bcn/pyday_bcn_2021/
-  - name: PyDay BCN 2020
-    url: /events/pyday_bcn/pyday_bcn_2020/
-  - name: PyDay BCN 2019
-    url: /events/pyday_bcn/pyday_bcn_2019/
-  - name: PyDay BCN 2018
-    url: /events/pyday_bcn/pyday_bcn_2018/
-  - name: PyDay BCN 2016
-    url: /events/pyday_bcn/pyday_bcn_2016/
-
 spansDuration: 15
 numTracks: 3
 eventTimes:
   [
-    9:00,
-    9:15,
-    9:30,
-    9:45,
-    10:00,
-    10:15,
-    10:30,
-    10:45,
-    11:00,
-    11:15,
-    11:30,
-    11:45,
-    12:00,
-    12:15,
-    12:30,
-    12:45,
-    13:00,
-    13:15,
-    13:30,
-    13:45,
-    14:00,
-    14:15,
-    14:30,
-    14:45,
-    15:00,
-    15:15,
-    15:30,
-    15:45,
-    16:00,
-    16:15,
-    16:30,
-    16:45,
-    17:00,
-    17:15,
-    17:30,
-    17:45,
+    "9:00",
+    "9:15",
+    "9:30",
+    "9:45",
+    "10:00",
+    "10:15",
+    "10:30",
+    "10:45",
+    "11:00",
+    "11:15",
+    "11:30",
+    "11:45",
+    "12:00",
+    "12:15",
+    "12:30",
+    "12:45",
+    "13:00",
+    "13:15",
+    "13:30",
+    "13:45",
+    "14:00",
+    "14:15",
+    "14:30",
+    "14:45",
+    "15:00",
+    "15:15",
+    "15:30",
+    "15:45",
+    "16:00",
+    "16:15",
+    "16:30",
+    "16:45",
+    "17:00",
+    "17:15",
+    "17:30",
+    "17:45",
   ]
 legend:
   - type: workshop
@@ -135,300 +124,263 @@ legend:
   - level: beginner
   - level: intermediate
   - level: advanced
-events:
-  - start_time_slot: 9:00
-    end_time_slot: 9:15
-    track_length: 3
-    color: purple
-    title: "Registration & Welcome"
-    speaker: "PyDay BCN 2023 Organising Committee"
-    type: group
-    location: Room B5
-    class: middle
 
-  - speaker: "Noé Casas"
+# The rooms of this edition, in the order the grid first names them. A room is
+# a record with an id because the colour of a block now comes from it: the
+# template gives every room of an event one colour of the agenda palette and
+# keeps it for the whole day. See partials/agenda_entry.html.
+rooms:
+  - id: room-b5
+    name: "Room B5"
+  - id: room-b6
+    name: "Room B6"
+  - id: room-b3
+    name: "Room B3"
+  - id: claustre
+    name: "Claustre"
+
+# The talks of this edition: what was said, by whom, in which language. A talk
+# carries no time and no room, because it is the content and not the slot.
+# agenda below is what places it on the grid, and one talk can take more than
+# one slot. The id is derived from the title and is the anchor a photo of the
+# gallery links to, so it must not change.
+talks:
+  - id: introduction-to-neural-networks-with-pytorch
     title: "Introduction to Neural Networks with PyTorch"
-    description: "In this session, we'll delve into the fundamentals of deep learning, explore the basics of PyTorch, and learn how to create and train simple neural networks. You won't need a GPU to run the code from the workshop. All you'll need is a computer with Python, PyTorch, and Jupyter installed."
-    start_time_slot: 9:30
-    end_time_slot: 10:45
-    track_length: 1
-    color: blue
+    speakers: [noe-casas]
     type: workshop
-    language: "English"  
+    language: en
+    topic: "Data science"
+    duration_minutes: 75
+    description: "In this session, we'll delve into the fundamentals of deep learning, explore the basics of PyTorch, and learn how to create and train simple neural networks. You won't need a GPU to run the code from the workshop. All you'll need is a computer with Python, PyTorch, and Jupyter installed."
+  - id: quantum-computing-for-everyone
+    title: "Quantum Computing for Everyone"
+    speakers: [vyron-vasileiadis, adria-blanco, guillermo-abad, javier-sabariego]
+    type: workshop
+    language: en
+    topic: "Quantum Computing"
+    duration_minutes: 75
+    description: "Quantum computing stands at the forefront of the next technological revolution, offering promises to solve problems beyond the reach of classical computers. This workshop aims to demystify the complex world of quantum computing, making it accessible to a broad audience, including students, professionals, and enthusiasts with varying levels of expertise in physics and computer science. We begin with a gentle introduction to the fundamental principles of quantum computing and key concepts such as superposition, entanglement, and quantum gates.\nMoving beyond theory, the focus will shift to practical aspects with an introduction to Qibo, a new open-source framework designed for quantum simulation and experimentation. Qibo provides an intuitive platform for implementing quantum algorithms, making it an ideal tool for both beginners and experienced researchers.\nThe highlight of the talk will be live demonstrations using Qibo. These demos will showcase how to set up a quantum environment, create simple quantum circuits, and run basic quantum algorithms."
+  - id: automating-networks-with-nornir
+    title: "Automating networks with Nornir"
+    speakers: [christian-adell]
+    type: workshop
+    language: en
+    topic: "Network/Infrastructure Automation"
+    duration_minutes: 75
+    description: "In this workshop, we will leverage the Nornir Python framework to automate a network environment (but it could be applied to other infrastructure) in a multi-threaded way. We will also leverage other networking-related libraries such as NAPALM and Netmiko."
+  - id: introduction-to-artificial-emotional-intelligence-decode
+    title: "Introduction to Artificial [Emotional] Intelligence: Decode emotions with Deep Learning and Facial Recognition"
+    speakers: [emanuel-frazao]
+    type: workshop
+    language: en
+    topic: "Data Science"
+    duration_minutes: 75
+    description: "One of the most interesting applications of artificial intelligence is Deep Learning, which involves using unstructured data such as images or text in conjunction with mathematical algorithms to create predictive models that will help us make more accurate decisions and enhance our analytical capabilities."
+  - id: quantum-breakthrough-from-basic-quantum-algorithms-to
+    title: "Quantum Breakthrough: From Basic Quantum Algorithms to Quantum Generative AI"
+    speakers: [pavel-sulimov]
+    type: workshop
+    language: en
+    topic: "Quantum Computing"
+    duration_minutes: 75
+    description: "Recently, IBM has announced free access to quantum computers with 100+ qubits. Does it mean that soon anybody will be able to easily crack passwords, hack banking systems and extract government secrets? At this workshop, we'll discuss the pros and potential hurdles of quantum algorithms, as well as look at possibilities of making money with quantum technologies (and Python) - but without breaking the law: from risk assessment to option pricing."
+  - id: python-packaging-101
+    title: "Python Packaging 101"
+    speakers: [ferran-jovell]
+    type: workshop
+    language: en
+    topic: "Python Packaging"
+    duration_minutes: 75
+    description: "Have you ever wondered how does the pip install the packages? Would you like to know how to create your very own python package? In this workshop, we will go through on all the necessary steps to get started on creating python packages and uploading them to the Python Packaging Index (PyPI)."
+  - id: creating-virtual-worlds-generating-synthetic-data-for-ai
+    title: "Creating Virtual Worlds: Generating Synthetic Data for AI Digital Twins"
+    speakers: [alberto-labarga]
+    type: workshop
+    language: es
+    topic: "Data science"
+    duration_minutes: 75
+    description: "In the era of digital transformation, the concept of \"Digital Twins\" has emerged as a powerful tool for simulating, predicting, and optimizing real-world systems. At the heart of these digital replicas lies data, and often, the challenge is to have enough high-quality data to train robust AI models. This is where synthetic data generation comes into play. In this workshop, participants will be introduced to the world of synthetic data generation and its pivotal role in enabling AI-based digital twins. We will delve into the challenges of real-world data, the need for synthetic data, and the methodologies to generate it using Python"
+  - id: creacion-de-apis-con-python-y-manejo-de-datos
+    title: "Creación de APIs con Python y manejo de datos"
+    title_lang: Spanish
+    speakers: [diego-giaquinta]
+    type: workshop
+    language: es
+    topic: "API requests"
+    duration_minutes: 75
+    description: "Implementación de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones y automatizar tareas"
+  - id: create-a-personal-website-with-sphinx
+    title: "Create a personal website with sphinx"
+    speakers: [oriol-abril-pla]
+    type: workshop
+    language: en
+    topic: "Documentation and blogging"
+    duration_minutes: 75
+    description: "Personal websites are becoming more common, and there are countless alternatives to create them. Sphinx might often not make that list, but it can do everything we need, and most python projects use it for their documentation, so it won't require you to learn any new tool."
+  - id: lightning-talks-session-1-coffee-break
+    title: "Lightning talks (session 1) & Coffee break"
+    type: talk
+    duration_minutes: 15
+    description: " <h2>Lightning talks</h2>\n<b>Data Visualization using Blender</b><br> <i>Muhammad Usman</i> <p><q>Welcome to the 'Data Visualization using Python in Blender' adventure - where your data turns into a magic carpet ride through enchanted forests and talking teapots! Just like a certain enchanted rose or a friendly blue genie, we'll use Python scripting in Blender to bring your data to life in whimsical 3D visualizations, animated charts, and interactive scenes that would make any animated teapot dance with joy!</q></p>\n<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b><br> <i>Álvaro Durán </i> <p><q>ChatGPT has taken the world by storm. Self-proclaimed futurists such as Chamath Palihapitiya have predicted the disruption of many multi-million dollar companies as a result. The role of data scientists, as a result, will be diminished if a machine can understand unstructured text.</q></p>\n<b>PyCamp 2024</b><br> <i>Israel Saeta</i> <p><q>We will present the PyCamp 2024 event that will take place in Girona next spring.</q></p>\n<b>Algorithmic Fairness (Ethics in Data)</b><br> <i>Neema Balolebwami Nelly</i> <p><q>Gain a profound understanding of the ethical dimensions in data-driven systems, focusing on algorithmic fairness. Discover how to implement fairness principles to promote just and equitable outcomes in your software projects.</q></p>\n<b>Demystifying LLM deployments in AWS SageMaker</b><br> <i>Guillermo Blasco</i> <p><q>OS LLMs (falcon, lama, mistral,...) can be challenging to deploy for production, but they are not! We will deploy lince-zero (fine tune of falcon7b by clibrain) in AWS SageMaker in 3 minutes from sage maker studio notebooks with python!</q></p> "
+  - id: retrieval-augmented-generation-from-scratch
+    title: "Retrieval Augmented Generation from scratch"
+    speakers: [gabriel-de-maeztu]
+    type: workshop
+    language: en
+    topic: "Data Science"
+    duration_minutes: 75
+    description: "In this workshop, I will focus on how to build a Retrieval Augmented Generation model from scratch using Postgres pg_vector for efficient similarity search and Hugging Face Transformers for generating human-like text. This workshop is aimed at data scientists, NLP practitioners, and engineers interested in cutting-edge NLP techniques."
+  - id: mojo-el-poderoso-aliado-de-python
+    title: "Mojo: El poderoso aliado de Python"
+    title_lang: Spanish
+    speakers: [camilo-chacon-sartori]
+    type: workshop
+    language: es
+    topic: "General, Core"
+    duration_minutes: 75
+    description: "En este workshop, te invitamos a explorar las virtudes de Mojo (https://www.modular.com/mojo), un nuevo lenguaje de programación que pretende ser un aliado de Python. Mojo aspira a ofrecer todas las funcionalidades de Python, y va más allá, al incorporar características adicionales que le permiten alcanzar un rendimiento superior."
+  - id: mob-programming-solving-coding-problems-collaboratively
+    title: "Mob programming: Solving coding problems collaboratively"
+    speakers: [israel-saeta-perez]
+    type: workshop
+    language: es
+    topic: "Test driven development"
+    duration_minutes: 75
+    description: "Coding together is much more fun than coding alone! In this workshop we will learn from each other by solving a basic coding problem using mob programming and Test Driven Development techniques."
+  - id: lightning-talks-session-2-closing-session-kahoot
+    title: "Lightning talks (session 2) & Closing session & Kahoot"
+    type: talk
+    duration_minutes: 15
+    description: " <h2>Lightning talks</h2>\n<b>Creación de APIs con Python y manejo de datos</b><br> <i>Diego Giaquinta</i> <p><q>Implementación sencilla de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones.</q></p>\n<b>Step4ward: Empowering Women in Tech</b><br> <i>Susana Vázquez y Coral Olivares</i> <p><q>Come explore step4ward, a non-profit organization passionately crafted BY and FOR women. In just 5 minutes, learn how we're all about supporting women in the tech job market. We provide advice, build a community, and help with interview prep and early career steps. Let's break barriers and boost women in tech together!</q></p>\n<b>Common Security Vulnerabilities for Developers</b><br> <i>Dan Neciu</i> <p><q>Best practices for developers to protect themselves from scams and hacking attempts</q></p>\n<b>Machine Learning for time-series analysis in the context of IoT</b><br> <i>Raziel Amador</i> <p><q>In this light talk, I would like to present my implementation of temperature and humidity monitoring using Iot (Raspberry Pi, DHT22 sensor, all in Docker services), and Machine learning for time series analysis.</q></p>\n<b>How to support the Python open source ecosytem</b><br> <i>Oriol Abril</i> <p><q>I will showcase a wide array of ways for anyone to support the Python open source ecosystem, with a special focus on financial support. I won't have any special focus on special communities or libraries but will aim for a general overview: including open source contributions as part of one's job description, sponsoring events and/or libraries, donating to foundations that act as umbrella for the exisiting projects...</q></p>\n<b>Tinymem: a game under 40 lines and under 30mm</b><br> <i>Isaac Bernat</i> <p><q>We'll go through <a href='https://github.com/isaacbernat/tinymem' target='_blank'>tinymem</a>, a working example of a game programmed in MicroPython which has menus, audio, sprites, text, button inputs... All this under 40 lines of code available for the <a href='https://thumby.us/' target='_blank'>Thumby</a> hardware, which is a miniature Raspberry Pi Pico based console.</q></p> "
+
+# The grid, one row per slot of the day, in the order it is printed. A slot
+# names the talk it holds, or carries its own label and type when it holds
+# none: a break, the group photo, the welcome. The level and the requirements
+# sit here and not on the talk, because they are what the slot asks of whoever
+# walks into it. A start is always quoted: YAML 1.1 reads an unquoted 9:00 as
+# the integer 540.
+agenda:
+  - start: "9:00"
+    credited_as: "PyDay BCN 2023 Organising Committee"
+    track_length: 3
+    room: room-b5
+    type: group
+    label: "Registration & Welcome"
+    duration_minutes: 15
+  - start: "9:30"
+    track_length: 1
+    room: room-b6
+    talk: introduction-to-neural-networks-with-pytorch
     python_level: beginner
     topic_level: beginner
     requirements: "Python, PyTorch, Jupyter, Matplotlib."
-    topic: "Data science"
-    location: Room B6
-  - speaker: "Vyron Vasileiadis, Adrià Blanco, Guille Abad and Javier Sabariego"
-    title: "Quantum Computing for Everyone"
-    description: "Quantum computing stands at the forefront of the next technological revolution, offering promises to solve problems beyond the reach of classical computers. This workshop aims to demystify the complex world of quantum computing, making it accessible to a broad audience, including students, professionals, and enthusiasts with varying levels of expertise in physics and computer science.
-    We begin with a gentle introduction to the fundamental principles of quantum computing and key concepts such as superposition, entanglement, and quantum gates.
-    
-    Moving beyond theory, the focus will shift to practical aspects with an introduction to Qibo, a new open-source framework designed for quantum simulation and experimentation. Qibo provides an intuitive platform for implementing quantum algorithms, making it an ideal tool for both beginners and experienced researchers.
-    
-    The highlight of the talk will be live demonstrations using Qibo. These demos will showcase how to set up a quantum environment, create simple quantum circuits, and run basic quantum algorithms."
-    start_time_slot: 9:30
-    end_time_slot: 10:45
+  - start: "9:30"
     track_length: 1
-    color: blue
-    type: workshop
-    language: "English"  
+    room: room-b5
+    talk: quantum-computing-for-everyone
     python_level: beginner
     topic_level: beginner
     requirements: "To have the `qibo` package installed."
-    topic: "Quantum Computing"
-    location: Room B5
-  - speaker: "Christian Adell"
-    title: "Automating networks with Nornir"
-    description: "In this workshop, we will leverage the Nornir Python framework to automate a network environment (but it could be applied to other infrastructure) in a multi-threaded way. We will also leverage other networking-related libraries such as NAPALM and Netmiko."
-    start_time_slot: 9:30
-    end_time_slot: 10:45
+  - start: "9:30"
     track_length: 1
-    color: yellow
-    type: workshop
-    language: "English"
+    room: room-b3
+    talk: automating-networks-with-nornir
     python_level: beginner
     topic_level: intermediate
-    topic: "Network/Infrastructure Automation"
-    location: Room B3
-    requirements: ""
-
-  - start_time_slot: 11:00
-    end_time_slot: 11:15
+  - start: "11:00"
     track_length: 3
-    color: purple
-    title: "Coffee break"
+    room: claustre
     type: coffee
-    location: Claustre
-    class: middle
-
-  - speaker: "Emanuel Frazao"
-    title: "Introduction to Artificial [Emotional] Intelligence: Decode emotions with Deep Learning and Facial Recognition"
-    description: "One of the most interesting applications of artificial intelligence is Deep Learning, which involves using unstructured data such as images or text in conjunction with mathematical algorithms to create predictive models that will help us make more accurate decisions and enhance our analytical capabilities."
-    start_time_slot: 11:30
-    end_time_slot: 12:45
+    label: "Coffee break"
+    duration_minutes: 15
+  - start: "11:30"
     track_length: 1
-    color: blue
-    type: workshop
-    language: "English"
+    room: room-b6
+    talk: introduction-to-artificial-emotional-intelligence-decode
     python_level: beginner
     topic_level: beginner
-    requirements: ""
-    topic: "Data Science"
-    location: Room B6
-  - speaker: "Pavel Sulimov"
-    title: "Quantum Breakthrough: From Basic Quantum Algorithms to Quantum Generative AI"
-    description: "Recently, IBM has announced free access to quantum computers with 100+ qubits. Does it mean that soon anybody will be able to easily crack passwords, hack banking systems and extract government secrets? At this workshop, we'll discuss the pros and potential hurdles of quantum algorithms, as well as look at possibilities of making money with quantum technologies (and Python) - but without breaking the law: from risk assessment to option pricing."
-    start_time_slot: 11:30
-    end_time_slot: 12:45
+  - start: "11:30"
     track_length: 1
-    color: yellow
-    type: workshop
-    language: "English"
+    room: room-b5
+    talk: quantum-breakthrough-from-basic-quantum-algorithms-to
     python_level: intermediate
     topic_level: intermediate
     requirements: "Numpy, Scipy, Matplotlib, PyTorch, Qiskit"
-    topic: "Quantum Computing"
-    location: Room B5
-  - speaker: "Ferran Jovell"
-    title: "Python Packaging 101"
-    description: "Have you ever wondered how does the pip install the packages? Would you like to know how to create your very own python package? 
-    In this workshop, we will go through on all the necessary steps to get started on creating python packages and uploading them to the Python Packaging Index (PyPI)."
-    start_time_slot: 11:30
-    end_time_slot: 12:45
+  - start: "11:30"
     track_length: 1
-    color: blue
-    type: workshop
-    language: "English"
+    room: room-b3
+    talk: python-packaging-101
     python_level: beginner
     topic_level: beginner
     requirements: "Laptop with latest Python version available and git installed"
-    topic: "Python Packaging"
-    location: Room B3
-
-  - start_time_slot: 13:00
-    end_time_slot: 13:00
+  - start: "13:00"
     track_length: 3
-    color: pink
-    title: "Group photo"
+    room: claustre
     type: photo
-    location: Claustre
-    class: middle
-
-  - start_time_slot: 13:15
-    end_time_slot: 13:45
+    label: "Group photo"
+    duration_minutes: 0
+  - start: "13:15"
     track_length: 3
-    color: purple
-    title: "Lunch break"
+    room: claustre
     type: lunch
-    location: Claustre
-    class: middle
-
-  - speaker: "Alberto Labarga"
-    title: "Creating Virtual Worlds: Generating Synthetic Data for AI Digital Twins"
-    description: "In the era of digital transformation, the concept of \"Digital Twins\" has emerged as a powerful tool for simulating, predicting, and optimizing real-world systems. At the heart of these digital replicas lies data, and often, the challenge is to have enough high-quality data to train robust AI models. This is where synthetic data generation comes into play. In this workshop, participants will be introduced to the world of synthetic data generation and its pivotal role in enabling AI-based digital twins. We will delve into the challenges of real-world data, the need for synthetic data, and the methodologies to generate it using Python"
-    start_time_slot: 14:00
-    end_time_slot: 15:15
+    label: "Lunch break"
+    duration_minutes: 30
+  - start: "14:00"
     track_length: 1
-    color: yellow
-    type: workshop
-    language: "Spanish"
+    room: room-b6
+    talk: creating-virtual-worlds-generating-synthetic-data-for-ai
     python_level: intermediate
     topic_level: beginner
-    requirements: ""
-    topic: "Data science"
-    location: Room B6
-  - speaker: "Diego Giaquinta"
-    title: "Creación de APIs con Python y manejo de datos"
-    description: "Implementación de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones y automatizar tareas"
-    start_time_slot: 14:00
-    end_time_slot: 15:15
+  - start: "14:00"
     track_length: 1
-    color: yellow
-    type: workshop
-    language: "Spanish"
-    title_lang: Spanish
+    room: room-b5
+    talk: creacion-de-apis-con-python-y-manejo-de-datos
     python_level: intermediate
     topic_level: intermediate
-    topic: "API requests"
     requirements: "Python 3.8 or above, VSCode or some similar IDE, FastApi and uvicorn libraries"
-    location: Room B5
-  - speaker: "Oriol Abril"
-    title: "Create a personal website with sphinx"
-    description: "Personal websites are becoming more common, and there are countless alternatives to create them. Sphinx might often not make that list, but it can do everything we need, and most python projects use it for their documentation, so it won't require you to learn any new tool."
-    start_time_slot: 14:00
-    end_time_slot: 15:15
+  - start: "14:00"
     track_length: 1
-    color: blue
-    type: workshop
-    language: "English"
+    room: room-b3
+    talk: create-a-personal-website-with-sphinx
     python_level: beginner
     topic_level: beginner
-    requirements: ""
-    topic: "Documentation and blogging"
-    location: Room B3
-
-  - start_time_slot: 15:30
-    end_time_slot: 15:45
+  - start: "15:30"
     track_length: 3
-    color: purple
-    title: "Lightning talks (session 1) & Coffee break"
-    description: "
-<h2>Lightning talks</h2>
-
-<b>Data Visualization using Blender</b><br>
-<i>Muhammad Usman</i>
-<p><q>Welcome to the 'Data Visualization using Python in Blender' adventure – where your data turns into a magic carpet ride through enchanted forests and talking teapots! Just like a certain enchanted rose or a friendly blue genie, we'll use Python scripting in Blender to bring your data to life in whimsical 3D visualizations, animated charts, and interactive scenes that would make any animated teapot dance with joy!</q></p>
-
-<b>Writing Code Is Not Your Job: Thoughts On Data Science On A Post-chatGPT World</b><br>
-<i>Álvaro Durán </i>
-<p><q>ChatGPT has taken the world by storm. Self-proclaimed futurists such as Chamath Palihapitiya have predicted the disruption of many multi-million dollar companies as a result. The role of data scientists, as a result, will be diminished if a machine can understand unstructured text.</q></p>
-
-<b>PyCamp 2024</b><br>
-<i>Israel Saeta</i>
-<p><q>We will present the PyCamp 2024 event that will take place in Girona next spring.</q></p>
-
-<b>Algorithmic Fairness (Ethics in Data)</b><br>
-<i>Neema Balolebwami Nelly</i>
-<p><q>Gain a profound understanding of the ethical dimensions in data-driven systems, focusing on algorithmic fairness. Discover how to implement fairness principles to promote just and equitable outcomes in your software projects.</q></p>
-
-<b>Demystifying LLM deployments in AWS SageMaker</b><br>
-<i>Guillermo Blasco</i>
-<p><q>OS LLMs (falcon, lama, mistral,…) can be challenging to deploy for production, but they are not! We will deploy lince-zero (fine tune of falcon7b by clibrain) in AWS SageMaker in 3 minutes from sage maker studio notebooks with python!</q></p>
-"
-    type: talk
-    location: Room B5
-    class: middle
-
-  - speaker: "Gabriel de Maeztu"
-    title: "Retrieval Augmented Generation from scratch"
-    description: "In this workshop, I will focus on how to build a Retrieval Augmented Generation model from scratch using Postgres pg_vector for efficient similarity search and Hugging Face Transformers for generating human-like text. This workshop is aimed at data scientists, NLP practitioners, and engineers interested in cutting-edge NLP techniques."
-    start_time_slot: 16:00
-    end_time_slot: 17:15
+    room: room-b5
+    talk: lightning-talks-session-1-coffee-break
+  - start: "16:00"
     track_length: 1
-    color: red
-    type: workshop
-    language: "English"
+    room: room-b6
+    talk: retrieval-augmented-generation-from-scratch
     python_level: intermediate
     topic_level: advanced
     requirements: "Python, Docker"
-    topic: "Data Science"
-    location: Room B6
-
-  - speaker: "Camilo Chacón"
-    title: "Mojo: El poderoso aliado de Python"
-    description: "En este workshop, te invitamos a explorar las virtudes de Mojo (https://www.modular.com/mojo), un nuevo lenguaje de programación que pretende ser un aliado de Python. Mojo aspira a ofrecer todas las funcionalidades de Python, y va más allá, al incorporar características adicionales que le permiten alcanzar un rendimiento superior."
-    start_time_slot: 16:00
-    end_time_slot: 17:15
+  - start: "16:00"
     track_length: 1
-    color: yellow
-    type: workshop
-    language: "Spanish"
-    title_lang: Spanish
+    room: room-b5
+    talk: mojo-el-poderoso-aliado-de-python
     python_level: intermediate
     topic_level: intermediate
-    requirements: ""
-    topic: "General, Core"
-    location: Room B5
-
-  - speaker: "Israel Saeta"
-    title: "Mob programming: Solving coding problems collaboratively"
-    description: "Coding together is much more fun than coding alone! In this workshop we will learn from each other by solving a basic coding problem using mob programming and Test Driven Development techniques."
-    start_time_slot: 16:00
-    end_time_slot: 17:15
+  - start: "16:00"
     track_length: 1
-    color: yellow
-    type: workshop
-    language: "Spanish"
+    room: room-b3
+    talk: mob-programming-solving-coding-problems-collaboratively
     python_level: intermediate
     topic_level: beginner
-    requeriments: "Python with pytest installed, code editor, git (for downloading the exercise)."
-    topic: "Test driven development"
-    location: Room B3
-
-  - start_time_slot: 17:30
-    end_time_slot: 17:45
+    requirements: "Python with pytest installed, code editor, git (for downloading the exercise)."
+  - start: "17:30"
     track_length: 3
-    color: purple
-    title: "Lightning talks (session 2) & Closing session & Kahoot"
-    description: "
-<h2>Lightning talks</h2>
+    room: room-b5
+    talk: lightning-talks-session-2-closing-session-kahoot
 
-<b>Creación de APIs con Python y manejo de datos</b><br>
-<i>Diego Giaquinta</i>
-<p><q>Implementación sencilla de APIs con Python, para poder realizar peticiones http e intercambio de información entre aplicaciones.</q></p>
-
-<b>Step4ward: Empowering Women in Tech</b><br>
-<i>Susana Vázquez y Coral Olivares</i>
-<p><q>Come explore step4ward, a non-profit organization passionately crafted BY and FOR women. In just 5 minutes, learn how we're all about supporting women in the tech job market. We provide advice, build a community, and help with interview prep and early career steps. Let's break barriers and boost women in tech together!</q></p>
-
-<b>Common Security Vulnerabilities for Developers</b><br>
-<i>Dan Neciu</i>
-<p><q>Best practices for developers to protect themselves from scams and hacking attempts</q></p>
-
-<b>Machine Learning for time-series analysis in the context of IoT</b><br>
-<i>Raziel Amador</i>
-<p><q>In this light talk, I would like to present my implementation of temperature and humidity monitoring using Iot (Raspberry Pi, DHT22 sensor, all in Docker services), and Machine learning for time series analysis.</q></p>
-
-<b>How to support the Python open source ecosytem</b><br>
-<i>Oriol Abril</i>
-<p><q>I will showcase a wide array of ways for anyone to support the Python open source ecosystem, with a special focus on financial support. I won't have any special focus on special communities or libraries but will aim for a general overview: including open source contributions as part of one's job description, sponsoring events and/or libraries, donating to foundations that act as umbrella for the exisiting projects...</q></p>
-
-<b>Tinymem: a game under 40 lines and under 30mm</b><br>
-<i>Isaac Bernat</i>
-<p><q>We'll go through <a href='https://github.com/isaacbernat/tinymem' target='_blank'>tinymem</a>, a working example of a game programmed in MicroPython which has menus, audio, sprites, text, button inputs... All this under 40 lines of code available for the <a href='https://thumby.us/' target='_blank'>Thumby</a> hardware, which is a miniature Raspberry Pi Pico based console.</q></p>
-"
-    type: talk
-    location: Room B5
-    class: middle
 ---
 
 ## About PyDay BCN 2023
 
 We are organizing the **the seventh edition** of PyDay in Barcelona!
 
-PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the [last six editions](#previous_editions_section), PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
+PyDay is an event full of FREE **python-related workshops** and activities for the Python community, organized once per year. Over the last six editions, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!
 
 ### When and where
 

@@ -1,6 +1,11 @@
 ---
 title: "Hands-on Django with PyLadiesBCN (2022)"
 year: 2022
+# The day of this edition. It is not in the Meetup export: the date comes
+# from the X thread of the day, which the posts place on the 11th.
+date: 2022-06-11
+# The venue of this edition, from the prose of this page: this day was never a Meetup event of either group.
+venue: "Canòdrom"
 description: "From zero to hero 🤘 Learn how to code your own web application!"
 menu:
   main:
@@ -46,8 +51,7 @@ free_text_sections:
 
     - title: Call for Sponsors
       id: call_for_sponsors
-      content: "<center><h3>HELP US CREATE AN UNFORGETTABLE EXPERIENCE!!</h3><br/>
-        Contact us in pyladies-bcn@googlegroups.com</center>"
+      content: "<center><h3>HELP US CREATE AN UNFORGETTABLE EXPERIENCE!!</h3><br/></center>"
 
     - title: Registration
       id: registration
@@ -121,102 +125,93 @@ people_sections:
               - mireia-alvarez-dominguez
 
 
-previous_editions:
-    - name: DjangoGirls workshop in PyDay BCN 2019
-      url: https://djangogirls.org/en/barcelona/
-
 spansDuration: 30
 numTracks: 1
-eventTimes: [9:00, 9:30, 10:00, 10:30, 11:00, 11:30, 12:00, 12:30, 13:00, 13:30, 14:00, 14:30, 15:00, 15:30, 16:00, 16:30, 17:00, 17:30, 18:00]
-events:
-    - start_time_slot: 9:00
-      end_time_slot: 9:00
-      track_length: 1
-      color: purple
-      title: "Registration & Welcome"
-      type: group
-      location: Room Actes
-      class: middle
+eventTimes: ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"]
 
-    - title: "Hands-on Django"
-      start_time_slot: 9:30
-      end_time_slot: 10:30
-      color: blue
-      track_length: 1
-      type: workshop
-      location: Room Actes
+# The rooms of this edition, in the order the grid first names them. A room is
+# a record with an id because the colour of a block now comes from it: the
+# template gives every room of an event one colour of the agenda palette and
+# keeps it for the whole day. See partials/agenda_entry.html.
+rooms:
+  - id: room-actes
+    name: "Room Actes"
+  - id: open-air-terrace
+    name: "Open-air terrace"
 
+# The talks of this edition: what was said, by whom, in which language. A talk
+# carries no time and no room, because it is the content and not the slot.
+# agenda below is what places it on the grid, and one talk can take more than
+# one slot. The id is derived from the title and is the anchor a photo of the
+# gallery links to, so it must not change.
+talks:
+  - id: hands-on-django
+    title: "Hands-on Django"
+    type: workshop
+    duration_minutes: 60
+  - id: lightning-talks
+    title: "Lightning talks"
+    type: talk
+    duration_minutes: 0
 
-    - start_time_slot: 11:00
-      end_time_slot: 11:00
-      track_length: 1
-      color: yellow
-      title: "Coffee Break"
-      type: coffee
-      location: Open-air terrace
-      class: middle
+# The grid, one row per slot of the day, in the order it is printed. A slot
+# names the talk it holds, or carries its own label and type when it holds
+# none: a break, the group photo, the welcome. The level and the requirements
+# sit here and not on the talk, because they are what the slot asks of whoever
+# walks into it. A start is always quoted: YAML 1.1 reads an unquoted 9:00 as
+# the integer 540.
+agenda:
+  - start: "9:00"
+    track_length: 1
+    room: room-actes
+    type: group
+    label: "Registration & Welcome"
+    duration_minutes: 0
+  - start: "9:30"
+    track_length: 1
+    room: room-actes
+    talk: hands-on-django
+  - start: "11:00"
+    track_length: 1
+    room: open-air-terrace
+    type: coffee
+    label: "Coffee Break"
+    duration_minutes: 0
+  - start: "11:30"
+    track_length: 1
+    room: room-actes
+    talk: hands-on-django
+  - start: "13:00"
+    track_length: 1
+    room: room-actes
+    talk: lightning-talks
+  - start: "13:30"
+    track_length: 1
+    room: open-air-terrace
+    type: lunch
+    label: "Lunch"
+    duration_minutes: 30
+  - start: "14:30"
+    track_length: 1
+    room: room-actes
+    talk: hands-on-django
+  - start: "16:00"
+    track_length: 1
+    room: open-air-terrace
+    type: coffee
+    label: "Coffee Break"
+    duration_minutes: 0
+  - start: "16:30"
+    track_length: 1
+    room: room-actes
+    talk: hands-on-django
+  - start: "18:00"
+    track_length: 1
+    room: room-actes
+    type: group
+    label: "Closing session & Kahoot"
+    duration_minutes: 0
 
-    - title: "Hands-on Django"
-      start_time_slot: 11:30
-      end_time_slot: 12:30
-      color: blue
-      track_length: 1
-      type: workshop
-      location: Room Actes
-
-    - start_time_slot: 13:00
-      end_time_slot: 13:00
-      track_length: 1
-      color: red
-      title: "Lightning talks"
-      type: talk
-      location: Room Actes
-      class: middle
-
-    - start_time_slot: 13:30
-      end_time_slot: 14:00
-      track_length: 1
-      color: yellow
-      title: "Lunch"
-      type: lunch
-      location: Open-air terrace
-      class: middle
-
-    - title: "Hands-on Django"
-      start_time_slot: 14:30
-      end_time_slot: 15:30
-      color: blue
-      track_length: 1
-      type: workshop
-      location: Room Actes
-
-    - start_time_slot: 16:00
-      end_time_slot: 16:00
-      track_length: 1
-      color: yellow
-      title: "Coffee Break"
-      type: coffee
-      location: Open-air terrace
-      class: middle
-
-    - title: "Hands-on Django"
-      start_time_slot: 16:30
-      end_time_slot: 17:30
-      color: blue
-      track_length: 1
-      type: workshop
-      location: Room Actes
-
-    - start_time_slot: 18:00
-      end_time_slot: 18:00
-      track_length: 1
-      color: purple
-      title: "Closing session & Kahoot"
-      type: group
-      location: Room Actes
-      class: middle
-
-        
 ---
 
 Do you want to learn how to code your own web application? In this workshop for non-experienced women and LGBTIQ+ people, organised by PyLadiesBCN, **we'll learn how to code our own blog with Django** using HTML, CSS and Python.
