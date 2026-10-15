@@ -28,6 +28,9 @@ talks:
 
 
     PyData conferences aim to be accessible and community-driven, with novice to advanced level presentations. PyData tutorials and talks bring attendees the latest project features along with cutting-edge use cases.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=NBliyFXnWeo
   title_note: 'pyvideo stored the role line of the speaker where the title goes, "Chief Data Scientist and co-founder of Continuum Analytics", and no source names the talk. "Opening keynote" is what it was.'
 - id: the-magic-behind-pyspark-how-it-impacts-perf-the-future
   title: The Magic Behind PySpark, how it impacts perf & the "future"
@@ -48,6 +51,9 @@ talks:
 
 
     Hopefully no one is scared away from using Spark once they see the 300 small gnome like creatures behind the curtain, but parental guidance is encouraged for those who still believe in magic, reliable distributed systems, and vendor marketing brochures.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=TI05I_8uS3U
 - id: a-beginners-guide-to-weather-climate-data
   title: A Beginners Guide to Weather & Climate Data
   speakers:
@@ -69,6 +75,8 @@ talks:
 
     * The raw model data is processed for you when you request weather data through a REST API. Learn how to use a weather API to train a supervised model with historical weather time series and then use the weather forecast data to do predictions. This session provides you with a brief overview of the science behind weather and climate forecasts and gives you the tools to get started with weather data.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=U_Aq2cPxwss
   - type: slides
     url: https://www.slideshare.net/MargrietGroenendijk/pydata-barcelona-weather-and-climate-data
 - id: despicable-machines-how-computers-can-be-assholes
@@ -99,6 +107,9 @@ talks:
     * What''s been done so far (i.e. techniques from recently-published papers).
 
     * What to do next: unanswered questions.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=8kL71zk4KNk
 - id: how-to-manage-complexity-in-distributed-applications
   title: How to manage complexity in distributed applications
   speakers:
@@ -121,6 +132,9 @@ talks:
 
 
     This project has been funded by the Spanish Ministry of Economy and Competitivity under the grant IDI-20150936, cofinanced with FEDER funds'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=rPDZg2--5uM
 - id: feature-importance-and-ensemble-methods-a-new-perspective
   title: 'Feature Importance and Ensemble Methods : a new perspective'
   speakers:
@@ -174,6 +188,9 @@ talks:
 
 
     2) Is there a compromise performance/interpretation ?'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=qdEhJ0uT7wk
 - id: happiness-inside-a-job-a-social-network-analysis
   title: 'Happiness inside a job: a social network analysis'
   speakers:
@@ -206,6 +223,8 @@ talks:
 
     We will also review common mistakes that can happen during the modeling process and, how to prevent invalid data from getting leaked into your machine learning models. To conclude we compare the merits of using a Python framework versus R Language in terms of development time and computational performance. Data set provided by https://myhappyforce.com'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=2Ot3gyGLVA0
   - type: slides
     url: https://github.com/Guillem-db/Happiness-inside-a-job-PyDataBcn17
 - id: machine-learning-to-know-if-you-r-coming
@@ -224,6 +243,9 @@ talks:
 
 
     Some users are more likely to cancel their bookings than others, depending on several factors/conditions. Knowing these factors and how many bookings will be canceled will help hotels to optimize their incomes and maximize their occupancy.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=IlofEE7Sswc
 - id: analyzing-code-contributions-to-the-cpython-project-using
   title: Analyzing code contributions to the CPython project using NetworkX and Matplotlib
   speakers:
@@ -241,6 +263,8 @@ talks:
 
     You can download the slides for this talk from https://github.com/jtorrents/thesis/blob/master/presentations/pydata_bcn/cpython_code_contributions.pdf'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=4YqMpYqjqps
   - type: slides
     url: https://github.com/jtorrents/thesis/blob/master/presentations/pydata_bcn/cpython_code_contributions.pdf
 - id: running-jupyter-notebook-remotely-in-a-docker-swarm-cluster
@@ -259,6 +283,9 @@ talks:
 
 
     https://github.com/jordeu/pytalks/tree/master/20170520_pydata_jupyter_in_a_docker_cluster'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=0XYRr6MLrVA
 - id: tensorflow-wide-deep-advanced-classification-the-easy-way
   title: 'TensorFlow Wide & Deep: Advanced Classification the easy way'
   speakers:
@@ -275,6 +302,8 @@ talks:
 
     In this talk, we will go on an adventure to build a machine learning model that combines the benefits of linear models with deep neural networks. You will also gain some intuition about what is happening under the hood, and learn how to use this model for your own datasets! To accomplish this, we will use TensorFlow, an open-source machine learning library with a full Python interface. It has become the most popular machine learning library on GitHub, and the community around it is growing rapidly.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=WKgNNC0VLhM
   - type: slides
     url: https://storage.googleapis.com/yufengg-slides/pydataBCNslides.pdf
 - id: deepcare-chatbot-generating-answers-to-customers-using-deep
@@ -291,6 +320,8 @@ talks:
 
     A live demo will be available at https://deepcare.online on the day of the talk.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=PF0HCAmzz7U
   - type: slides
     url: https://www.slideshare.net/PascalvanKooten/deepcare-chatbot-generating-answers-to-customers-using-a-hybrid-approach-of-deep-learning-and-nlp
   title_note: 'The Slides list of the pre-Hugo page named it "DeepCare Chatbot - Generating answers to customers using a hybrid approach of Deep Learning and NLP", the title of the slides. The video names it as above.'
@@ -310,6 +341,9 @@ talks:
 
 
     src-d/jgscm is a Jupyter file system backend for Google Cloud Storage. It allows to work with notebooks and other files directly in Google Cloud Storage. It''s codebase is rather small and simple thanks to Jupyter''s modular architecture. We start from the very basics, revise how Google Cloud Storage works and how Jupyter deals with the virtual file system and end up with the complete production-tested backend implementation. The described ideas are rather versatile and can be re-used to create backends for similar cloud storage systems, e.g. Amazon.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=uLC0t5JZBZs
 - id: the-secret-life-of-rolling-pandas
   title: The Secret Life Of Rolling Pandas
   speakers:
@@ -334,6 +368,9 @@ talks:
     * How are Series.rolling().max() and .min() implemented. The beauty of clever algorithms. The use of specialized data structures: a ring buffer as a deque.
 
     * How are Series.rolling().median() and .quantile() implemented. More specialized data structures: the skip list, or why randomization can be your friend.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=XM_r5La-1tA
 - id: nasa-space-apps-challenge-asteroid-prediction-impact
   title: 'NASA Space APPS Challenge: Asteroid prediction impact'
   speakers:
@@ -347,6 +384,9 @@ talks:
 
 
     The talk will have two separate parts ; the first of it focuses on explaining Tensorflow architecture and Prophet opensource tools and the second part will dive into the Neural Net design and forecast prediction .'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=8h3uyQfiMNc
 - id: squeeze-gently-your-data
   title: Squeeze (gently) your data
   speakers:
@@ -364,6 +404,8 @@ talks:
 
     My talk will start by introducing the technological reasons behind the increasing benefit of using compression in data science, and then will show some practical cases where data compression can lead to much more efficient data pipelines. For this, I will be using well-proven compression libraries like [Blosc](https://www.blosc.org/), [Zstandard](https://github.com/facebook/zstd) and [LZ4](https://github.com/lz4/lz4) that, either in combination with data handling libraries (like [PyTables](https://www.pytables.org/), [bcolz](https://bcolz.blosc.org/en/latest/) or [zarr](https://zarr.readthedocs.io/en/latest/)), or used for handling high-speed data streams (transmitted e.g. via [gRPC](https://www.grpc.io/)).'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=o9PC4JC74tU
   - type: slides
     url: https://speakerdeck.com/francescalted/squeeze-gently-your-big-data
 - id: increasing-the-trading-prediction-by-mining-aggregated
@@ -380,6 +422,8 @@ talks:
 
     Sentiment analysis This step is observed the time series of the company''s event based on the financial news or the social media, which analyses problem of coreference in text mining that is sentiment classification. Fasttext is inspired method that focuses on the meaning of words, which solves to obscure by ambiguity and play on words. This way can classify polarity, subjectivity and intensity in the corpus. According to the results of the classification, then it changes to the word representation. Thus, prediction accuracy increases significantly at this layer that is attributed to appropriate noise-reduction from the feature-space. Model creation and prediction The first layer is termed Sentiment Integration Layer by the deep neural network, which integrates sentiment analysis capability into the algorithm by proposing a sentiment weight that reflects their sentiment. Additionally, this layer reduces the dimensions by eliminating value in terms of sentiment and thereby improves prediction accuracy. The second layer encompasses a deep neural network model creation algorithm. It updates the models with the most recent information available, the deep learning algorithm is extensively evaluated using real market data and news content across multiple years, which is a good fitting capability to evaluate and select the financial news. The third layer is that it uses the recursive neural network explore patterns and of financial news through the recursive and pooling operation.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=G2GuL-xPhJA
   - type: slides
     url: https://drive.google.com/open?id=0B19Xo1zu3JtgZmVDaWVyTk1uN3M
 - id: the-neuroscience-lab
@@ -397,6 +441,8 @@ talks:
 
     Biologists have always built their own hardware to perform unique experiments; today, new data collection and analysis techniques demand that they develop their own software as well. Often, this means that researchers without a formal education in programming must perform a wide variety of programming tasks in order to perform cutting-edge research. As a "real" programming language, Python is an excellent fit for scientists, not only for its oft-celebrated readability, active scientific community, and cross-platform support, but also for its versatility across a wide variety of domains. In this talk, we will celebrate this versatility of Python by sharing the research being done in our neuroscience laboratory, focusing how Python packages, applications, and plugins have become the tools of choice for everything from real-time machine vision and 3D graphics to data analysis and the presentation of scientific results.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=pdrX1qdjvxE
   - type: slides
     url: https://www.slideshare.net/JavierMartinezAlcant/neuroscience-lab-a-tour-through-the-eyes-of-a-pythonista-pydata-barcelona2017
   title_note: 'The Slides list of the pre-Hugo page named it "Neuroscience Lab, a tour through the eyes of a pythonista", the title of the slides, and credited Javier Martínez Alcántara alone. The video names it as above and credits both speakers.'
@@ -445,6 +491,9 @@ talks:
 
 
     In this talk we will present some of the most powerful tools for extracting data from web pages using Python. We will learn how to use Python to request information from a web server, how to perform basic handling of the server''s response, and how to begin interacting with a website in an automated fashion.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=aTwvQZjEZhk
 - id: guillotina-an-async-rest-resource-db-to-manage-millions-of
   title: Guillotina - An Async REST Resource DB to manage millions of objects
   speakers:
@@ -462,6 +511,8 @@ talks:
 
     After 15 years on Plone/Zope framework we started to design a new concept using all the lessons learned on content management to provide a CRUD storage layer for big data objects.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=IkIfxkI5qpY
   - type: slides
     url: https://www.slideshare.net/bloodbare/guillotina-76266421
 - id: lymphos2-organizing-and-sharing-biological-data
@@ -472,6 +523,8 @@ talks:
   language: en
   description: "The study of the proteome (the set of proteins expressed by a cell,\ntissue, or organism at a defined time and conditions) generates a large\namount of complex data. This data should be processed, stored, curated,\nand made easily available to researchers so it can be studied to obtain\nbiomedical knowledge. In this talk we expose the Python tools we have\nused and developed to accomplish it.\n\nAbstract\n\nAt the [LP-CSIC/UAB](https://proteomica.uab.cat) we use a technology called [Mass Spectrometry](https://en.wikipedia.org/wiki/Mass_spectrometry) to\nstudy the *phospho-proteome of human T-Lymphocytes*; this is, the group\nof proteins that are phosphorilated (modified with phosphate groups) in\nthe human [T cells](https://en.wikipedia.org/wiki/T_cell) during their activation and differentiation as part\nof the [immune response](https://en.wikipedia.org/wiki/Immune_response). The experiments involved in this study\ngenerates a *large* amount of *complex* data:\n\n- Experimental conditions and procedures metadata.\n- The spectra data and metadata obtained from the mass spectrometers\n (usually in proprietary binary formats).\n- Qualitative or identification data, consisting of search results of\n those spectra against human protein sequence databases (using\n multiple search engines, that use different output file-formats)\n linking the spectra with possible peptides (small protein sequence\n fragments) that may or may not contain phosphorylated amino-acids.\n- Semi-quantitative data about the abundance of each possible\n identified peptide.\n- Missing values, identification scores, phosphorylation reassignments,\n and a lot of relationships and inter-linked data...\n\nAnd all this data has to be **processed**, **stored**, **curated**, and\nmade **easily accessible** to researchers in our lab and worldwide, so\nthey can study it to obtain biomedical knowledge about the\nphosphorylation changes in peptides and proteins involved in the signal\ntransduction pathways of T cells after their activation during the\nspecific immune response.\n\nWe have used different Python *packages* to develop different tools and\napplications to accomplish those objectives:\n\n- The [EasierMgf](https://bitbucket.org/lp-csic-uab/easiermgf) front-end application, to extract plain text spectra\n data from proprietary binary mass spectrometer files, was developed\n using the [wxPython](https://wxpython.org/) GUI toolkit.\n- The [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping) from the [django](https://www.djangoproject.com/) framework was used to design and\n interact with the LymPHOS2 [MySQL](https://www.mysql.com/) database, which stores all the\n data and their inter-relationships.\n- Also, different modules from the Python standard library (*json*,\n *xml.etree.ElementTree*, *csv*, *zipfile*) were used to read and\n [import](https://bitbucket.org/lp-csic-uab/lymphosweb/src/c127cd7a88a5dfb0a70b9e3b6243553c6adda6fb/src/LymPHOS_v1_5/lymphos/filters.py) into the database the different files containing the data;\n and to [export](https://bitbucket.org/lp-csic-uab/lymphostools) database data into commonly used file formats for\n the researches to work with.\n- The [PQuantifier](https://bitbucket.org/lp-csic-uab/lymphospquantifier) group of tools was developed to do the statistical\n processing and analysis of the LymPHOS2 semi-quantitative data. It\n uses the [SQLAlchemy](https://www.sqlalchemy.org/) ORM for fast database storage in local\n [SQLite](https://sqlite.org/) files, the [NumPy](https://www.numpy.org/) N-dimensional array package, the\n [SciPy](https://scipy.org/scipylib) scientific computing library for the statistics, the\n [uncertainties](https://pythonhosted.org/uncertainties/) package for calculations with error propagation,\n and the [matplotlib](https://matplotlib.org/) 2D plotting library for some nice plots of\n data distributions.\n- And the full django framework itself was used to develop the\n [LymPHOS2](https://www.lymphos.org) web application. Which also uses the matplotlib library\n to dynamically generate the mass spectra images.\n\nThe final result is the `LymPHOS2 <https://bitbucket.org/lp-csic-uab/lymphosweb/branch/Web_LymPHOS_2>`_ web-oriented database, that\nnowadays (2017) contains 131.908 mass spectra, 15.566 phosphorylation\nsites from 8.273 unique phospho-peptides and 4.937 proteins (which\nrepresent a 45-fold increase over the original LymPHOS database of\n2009); aside from the new quantitative data for 1.975 of the identified\nphospho-peptides, which was not present in the previous version of\nLymPHOS.\n\n**Repositories and Presentation Slides:**\n\n- Bitbucket code repositories: https://bitbucket.org/lp-csic-uab/\n- Presentation Slides (.ODP, .PDF and .PPTX):\n https://bitbucket.org/lp-csic-uab/lymphosdocs/downloads/\n\n**Credits:**\n\nThe exposed work has been carried out at [LP-CSIC/UAB](https://proteomica.uab.cat) from\n[Catalonia](https://en.wikipedia.org/wiki/Catalonia), part of the `Spanish National Research Council (Consejo\nSuperior de Investigaciones Científicas - CSIC)`_ and of `ProteoRed\n(Proteomics National NetWork Platform)`_.\n\nThe *people* who have participated directly in the current work are:\n\n- **Data analysis, bioinformatics and informatics**: *Joaquin Abian*\n and *Óscar Gallardo*.\n- **Mass Spectrometry, experimental design and implementation**:\n *Montserrat Carrascal*, *Nguyen Tien Dung* and *Oriol Vidal-Cortes*.\n- **Sample preparation**: *Montserrat Carrascal*, *Nguyen Tien Dung*,\n *Oriol Vidal-Cortes* and *Vanessa Casas*.\n- **Past collaborators**: *David Ovelleiro* and *Marina Gay*.\n- **Direction**: *Joaquin Abian*."
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=IpZeg2siLVU
   - type: slides
     url: https://bitbucket.org/lp-csic-uab/lymphosdocs/downloads/
   title_note: 'The Slides list of the pre-Hugo page named it "LympHOS2, Organizing and Sharing Biological Data of the Human Lymphocyte Proteome using Python". The video names it as above.'
@@ -495,6 +548,8 @@ talks:
 
     In this talk, I share experiences of using this toolset for different use cases related to analysis of Internet traffic and network engineering. I''ll go over examples of how to build widgets to explore the Internet traffic and other network data, while highlighting some of its characteristics. Furthermore, I''ll describe some optimisations performed by network engineers on their traffic, such as load balancing, and how the tools can be used to evaluate them.'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=LAy8vD4PQLg
   - type: slides
     url: https://github.com/jccardonar/pydata_bcn_presentation
   title_note: 'The Slides list of the pre-Hugo page named it "Prototyping Interactive Dashboards with Jupyter Notebooks: Examples from Network Engineering". The video names it as above.'
@@ -520,6 +575,9 @@ talks:
 
 
     Finally... Fun time! All the concepts will be exemplified with a Q&A contest implemented as a smart contract where all attendants can play.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=eSaLdLrXzO4
 - id: how-to-map-a-protein-structure-into-a-network-graph-to
   title: How to map a protein structure into a network graph to understand protein folding
   speakers:
@@ -536,6 +594,9 @@ talks:
 
 
     .. [#] Sammito M1, Millán C, Rodríguez DD, de Ilarduya IM, Meindl K, De Marino I, Petrillo G, Buey RM, de Pereda JM, Zeth K, Sheldrick GM, Usón I. Exploiting tertiary structure through local folds for crystallographic phasing. Nat Methods. 2013 Nov;10(11):1099-101. doi: 10.1038/nmeth.2644. Epub 2013 Sep 15.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=aEFR7_EzMJs
 - id: python-for-visualization-of-hpc-applications
   title: Python for visualization of HPC applications
   speakers:
@@ -543,6 +604,9 @@ talks:
   type: talk
   language: en
   description: This work describes the usage of python in application that makes use of high performance application (HPC). Such applications comprise examples as computational fluid dynamics, where the analysis of large data bases is necessary in order to extract useful information. On the other hand, a common way used in the analysis of data is the visualization. It can be done by libraries as matplotlib or pandas, however more sophisticated 3D visualization can also be performed though vtk and mpi4py libraries, or even though Blender of 3d Max. The two latter case enable the use of high quality rendering.
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=0ni90h8EErQ
 - id: data-science-for-lazy-people-genetics-will-work-for-you
   title: Data science for lazy people... genetics will work for you!
   speakers:
@@ -557,6 +621,8 @@ talks:
 
     We love Data Science, but sometimes we have to do some manual and repetitive work before starting with the interesting and fun parts, but that will change. TPOT is an open source tool built on top of scikit-learn for creating and optimizing machine learning pipelines. It can be considered a data science assistant. The library will automate from feature selection to parameter optimization, it is also able to do preprocessing or construct new features from existing ones. TPOT tests a huge number of pipelines to provide you with the optimal one, this work is done with genetic algorithms. It is easy to use, has a familiar syntax if you have used Pandas or scikit-learn, and it''s very powerful. Let genetics work for you!'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=-nTLS7BtcGA
   - type: slides
     url: https://slides.com/j-diegohueltesvega/data-science-lazy-people#/
 - id: marketing-data-science
@@ -578,6 +644,9 @@ talks:
 
 
     I will provide some short examples about how we are using python jupyter notebook environment in order to gain inisghts from customers using IBM Watson API, generating new segmentation and customer experiences.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=jzuQJg3bFy8
 - id: using-network-community-clustering-algorithms-to-aid
   title: Using network community clustering algorithms to aid determination of protein structures
   speakers:
@@ -601,6 +670,8 @@ talks:
 
     From the technical point of view, the language we use for our development is Python, and the tool in which our graphs are implemented is python-igraph. There are a number of community clustering algorithms available and deciding which is the best for our case and which metrics to use to describe our structures has been an interesting process that we want to share with you. In this talk I will explain our research and development on this topic and I will link the general descriptions to our current and successful use case, possibly leaving open questions on what can we do more!'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=9g-DaHZZKDE
   - type: slides
     url: https://drive.google.com/file/d/0Bzli2ZOV2beTd01ZdHBkWHc5b2M/view
 - id: security-for-data-scientists
@@ -642,6 +713,8 @@ talks:
 
     * More Resources'
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=aicyYd8MZWo
   - type: slides
     url: https://www.slideshare.net/DZPM/security-for-data-scientists
 - id: an-introduction-to-the-tidyverse

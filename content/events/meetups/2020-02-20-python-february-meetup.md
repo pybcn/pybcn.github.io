@@ -32,6 +32,8 @@ talks:
     duration_minutes: 30
     description: "HTTP Toolkit is an open-source HTTP(S) debugging tool that can completely automatically capture and/or rewrite all HTTP(S) traffic from your Python code, for debugging & testing. That sounds a lot like magic. In this talk, we'll look at how it really works: how HTTP Toolkit can automatically man-in-the-middle all your requests, with no admin permissions or code changes necessary. We'll learn a bit about how HTTP interception works, see why this is useful, and then explore how HTTP Toolkit injects into the Python's own internals to make this happen."
     links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=1R3WiyJhpQs"
       - type: site
         url: "https://httptoolkit.tech/"
   - id: migracode-creating-a-migrant-tech-community
@@ -41,4 +43,7 @@ talks:
     language: en
     duration_minutes: 30
     description: "We are currently running Migracode: the first code school for refugees and migrants in Barcelona. Through free tech education we offer vulnerable groups to become Junior Web Developers, and we also help them connect to tech companies throughout Catalunya and Spain, and possibly throughout Europe. We would love to present our project in the Python Community and find potential partners, volunteers and other opportunities. We also have a lot to offer regarding Corporate Social Responsibility and our talk also includes this part."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=QmqrBAKSB6s"
 ---

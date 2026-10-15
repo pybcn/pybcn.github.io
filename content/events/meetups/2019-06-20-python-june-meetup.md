@@ -31,12 +31,18 @@ talks:
     language: en
     duration_minutes: 25
     description: "Make service integration easier with schemata. Services (Micro or SOA) often introduce misunderstandings between teams and parties. During development, there's always room for change and improvement - things are flexible. This can be problematic with several teams and several services in parallel. Bind them with schema. Enforce the schema programmatically and use it to test. Reuse internal standards through your ecosystem, without consistency issues on your dependents. Examples are in Python: implementation and demonstration of some principles, and how they integrate."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=pQzlYyOKSTk"
   - id: automatize-reports-using-google-slides-api
     title: "Automatize reports using Google Slides API"
     speakers: [victor-perez]
     type: talk
     duration_minutes: 15
     description: "In the presentation I'll try to show the main pain-points between the idea of creation an automatic report and the way we've solved."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=68FOP7sBDes"
   - id: from-legacy-code-to-modern-code
     title: "From legacy code to modern code"
     speakers: [stanislav-geidl]
@@ -49,4 +55,18 @@ talks:
     speakers: [andreu-vallbona-plazas]
     type: talk
     description: "Esta charla no trata sobre buenas prácticas de testing sino de la presentación y consejos de uso sobre una selección \"curada\" de plugins de pytest., dentro del gran ecosistema, que hemos ido encontrando durante el desarrollo de proyectos, sobretodo de proyectos con Django. Esta charla está pensada para introducir a los desarrolladores una serie de paquetes para usar conjuntamente con pytest para tareas de testing, bien sea para tests unitarios, funcionales o de integración, y sobretodo, aplicado a proyectos Django. Se explicará brevemente los conceptos básicos de pytest. Algunos de los paquetes que se comentaran serán: pytest-django, pytest-watch, pytest-testmon, model-mommy, pytest-flake8.."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=asdtq4WgbAw"
+# A recording of a whole session of this meetup and not of one talk: a
+# block of lightning talks, or the introduction of the evening, has no
+# talk record for a video to sit on, so the video sits on the event.
+# bin/import-videos writes this block from the YouTube export of the
+# pybcn-archive: a correction goes to the export or to the script, never
+# here. The page prints these under a Recordings heading, after the talks
+# (partials/session_videos.html). Not "videos": Hugo reads that key
+# as a list of og:video URLs, and a list of records there stops the build.
+session_videos:
+  - title: "Kiwi Python Tour Intro"
+    url: "https://www.youtube.com/watch?v=8H2PrNLEEYQ"
 ---

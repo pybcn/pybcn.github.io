@@ -39,6 +39,8 @@ talks:
     duration_minutes: 30
     description: "The talk will describe the challenges of creating python data pipelines and putting them in production in the cloud, and how Yaetos can help. It is targeted at data engineers, data scientists, analysts and python enthusiasts. Yaetos is a data framework, simplifying the use of Apache Spark in the AWS cloud, and with implementations in production at Infojobs and The Hotels Network."
     links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=jUoJGYCWSC0"
       - type: github
         url: "https://github.com/arthurprevot/yaetos"
 ---

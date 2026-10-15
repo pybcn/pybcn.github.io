@@ -30,6 +30,9 @@ talks:
     type: talk
     language: en
     duration_minutes: 30
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=CCxse-fiAr4"
   - id: does-django-scale-introduccion-a-la-escalabilidad
     title: "Does Django scale? Introducción a la escalabilidad"
     speakers: [david-arcos]
@@ -37,4 +40,7 @@ talks:
     language: es
     duration_minutes: 30
     description: "\"Vamos a repasar el concepto de escalabilidad, y cómo conseguirla en nuestra aplicación web. Pondremos de ejemplo el framework Django.\""
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=S1fZAascs04"
 ---

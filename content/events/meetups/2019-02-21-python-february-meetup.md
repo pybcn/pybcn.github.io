@@ -31,6 +31,9 @@ talks:
     language: es
     duration_minutes: 30
     description: "\"Starting a new project is always cumbersome, specially if you collaborate with others: you have to follow standards and agreements, there are some mandatory files, deploy artifacts and requirements that should be in a certain place etc. We will see how to create a repository template, talk about some standards you may follow and how to use Cookiecutter to initialize your project in a few seconds. We will also comment some CLI tools to help you maintain your repository up to date, with a special focus on how to easily handle environment variables.\""
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=TkrTM2Byj34"
   - id: recursive-generators
     title: "Recursive generators"
     speakers: [joan-vilaltella]
@@ -38,6 +41,9 @@ talks:
     language: en
     duration_minutes: 30
     description: "\"Recursive calls and generators are two well-known programming concepts. They can be easily combined in Python, with interesting results. The generator version of a tail-recursive function is good in terms of memory use, with a possible (usually acceptable) drawback in terms of speed.\""
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=vJMFYR1hF5E"
   - id: pipenv-nuevo-sistema-de-gestion-de-dependencias-de-paquetes
     title: "Pipenv: nuevo sistema de gestión de dependencias de paquetes para Python"
     speakers: [andreu-vallbona-plazas]
@@ -45,4 +51,18 @@ talks:
     language: es
     duration_minutes: 30
     description: "\"Pipenv, creado por Kenneth Reitz hace poco más de un año, se ha convertido en el recurso oficial recomendado por Python para administrar dependencias de paquetes. Pero todavía hay confusión sobre qué problemas resuelve y cómo es más útil que el flujo de trabajo estándar usando pip y un archivo requirements.txt. En esta charla se intentará explicar la solución a dichos problemas.\""
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=GblxdxaZ5Gw"
+# A recording of a whole session of this meetup and not of one talk: a
+# block of lightning talks, or the introduction of the evening, has no
+# talk record for a video to sit on, so the video sits on the event.
+# bin/import-videos writes this block from the YouTube export of the
+# pybcn-archive: a correction goes to the export or to the script, never
+# here. The page prints these under a Recordings heading, after the talks
+# (partials/session_videos.html). Not "videos": Hugo reads that key
+# as a list of og:video URLs, and a list of records there stops the build.
+session_videos:
+  - title: "February 2019 Meetup"
+    url: "https://www.youtube.com/watch?v=5lHomEoRndM"
 ---

@@ -31,4 +31,7 @@ talks:
     type: talk
     language: es
     description: "Una de los aspectos peor documentados de un proyecto de Software es la evolución de la arquitectura. Los ADR os ayudarán a hacer una foto de vuestras decisiones como desarrollador y arquitecto de software, reflexionar sobre tus motiviciones para optar por ciertas soluciones y poner por escrito tus expectativas y riesgos asumidos.\n\nEn esta charla veremos qué es un ADR, por qué hacerlo, cuando hacerlo y cómo empezar."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=QNr8p1zVd54"
 ---

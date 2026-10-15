@@ -28,16 +28,28 @@ talks:
     title: "Api By Example"
     speakers: [carles-barrobes]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=1VdEN4B2OIM"
   - id: ofxpython-embedding-python-into-c
     title: "ofxPython: embedding Python into C++"
     speakers: [carles-f-julia]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=ousMvSsY0Eo"
   - id: web-crawling-with-notebook-and-selenium
     title: "Web crawling with Notebook and Selenium"
     speakers: [silvia-puglisi]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=pPMTC2XG4Gc"
   - id: data-structures-beyond-dicts-and-lists
     title: "Data structures beyond dicts and lists"
     speakers: [sergi-sorribas]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=Nb4mJEn04rY"
 ---

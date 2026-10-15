@@ -30,6 +30,9 @@ talks:
     type: talk
     duration_minutes: 30
     description: "Does Django scale? How to manage traffic peaks? What happens when the database grows too big? How to find the bottlenecks? We will overview the basics concepts on scalability and performance, and then see some tips and tricks. These statements will be backed up with experiments and numbers, to show the timing improvements."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=xlRek0SkGZ8"
   - id: kinto-a-minimalist-json-storage-service
     title: "Kinto - A minimalist JSON storage service"
     speakers: [mathieu-leplatre]
@@ -37,6 +40,8 @@ talks:
     duration_minutes: 30
     description: "Kinto (https://kinto.readthedocs.io) is a HTTP service - built with Pyramid - with synchronisation and sharing features. It is meant to be easy to use and easy to self-host. In this talk, I'll present the main use-cases (from quick weekend hacks to delivery of security settings to millions of Firefox users), and a quick tour on how we leverage the pluggability of Pyramid."
     links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=S-8tyE62unI"
       - type: site
         url: "https://kinto.readthedocs.io"
 ---

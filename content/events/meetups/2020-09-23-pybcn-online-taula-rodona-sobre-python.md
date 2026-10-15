@@ -31,4 +31,7 @@ talks:
     type: panel
     language: ca
     description: "We kickstart the new season of PyBCN with a virtual round table where we will talk about Python, the pandemic situation and its impact on the developer labour market and remote events."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=v5AEK2ZEDyU"
 ---

@@ -31,6 +31,9 @@ talks:
     language: en
     duration_minutes: 30
     description: "We have all heard data scientists spend only about 20% of their precious time developing algorithms and building machine learning models. Let's look a bit into the less sexy aspect of Data Science which takes 80% of our time - cleaning and organizing the data - and a couple of ideas towards automating it with Python."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=b8s8a71AYd8"
   - id: python-for-the-management-of-iot-platforms-at-worldsensing
     title: "Python for the management of IoT platforms at Worldsensing"
     speakers: [toni-martinez-del-hoyo]
@@ -38,4 +41,7 @@ talks:
     language: en
     duration_minutes: 30
     description: "Overview on the tech stack and architecture at the Innovation department of Worldsensing to bridge the gap between our IoT sensors and our data monitoring application."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=JzX9WAv7PVM"
 ---

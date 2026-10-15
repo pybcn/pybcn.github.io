@@ -31,6 +31,9 @@ talks:
     language: en
     duration_minutes: 45
     description: "Back in ye olde days of Spark, using Python with Spark was an exercise in patience. Data was moving up and down from Python to Scala, being serialised constantly. Leveraging SparkSQL and avoiding UDFs made things better, as well as the constant improvement of the optimisers (Catalyst and Tungsten). But, with Spark 2.3 PySpark has speed up tremendously thanks to the (still experimental) addition of the Arrow serialisers. In this talk we will learn how PySpark has improved its performance in Apache Spark 2.3 by using Apache Arrow. To do this, we will travel through the internals of Spark to find how Python interacts with the Scala core, and some of the internals of Pandas to see how data moves from Python to Scala via Arrow."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=698441URsrc"
   - id: frozen-python-satice-ice-dataloggers
     title: "Frozen Python: satice ice dataloggers"
     speakers: [oriol-sanchez]
@@ -39,6 +42,8 @@ talks:
     duration_minutes: 35
     description: "In this talk we will be about Sea Ice buoys and embedded scientific observation platforms in extreme environments. We will learn how to use python to write drivers, custom data protocols, sensors and GPS integration. Also we will take a look on data visualisation and other painful engineering stories to bring data from field to your server."
     links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=bqphJQnp3Hw"
       - type: site
         url: "https://headingnorthweb.wordpress.com/tag/en-us/"
 ---

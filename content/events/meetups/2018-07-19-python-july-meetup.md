@@ -31,6 +31,9 @@ talks:
     language: en
     duration_minutes: 45
     description: "Dirty, obfuscated, messy code is one of the major causes of project delays, nasty bugs, developers suffering and general mankind doom. In this talk I will introduce some simple, subjective tricks based on experience to try to make our coding lives more enjoyable."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=64gY5bXuJPY"
   - id: building-nlp-models-with-python
     title: "Building NLP Models with Python"
     speakers: [gabriel-de-maeztu]
@@ -38,4 +41,7 @@ talks:
     language: en
     duration_minutes: 30
     description: "NLP, Natural Language Processing is a very powerful tool to extract value from large data repository. I'll make a short introduction to NLP and multiple techniques like named entity recognition, text classification, word embeddings. The other half of the talk I'll introduce Spacy a NLP library written in Cython and build a little model with it, showing all the steps, from getting some real world data to building and testing the model."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=prWA_rqKtVo"
 ---

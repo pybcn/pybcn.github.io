@@ -30,6 +30,9 @@ talks:
   language: en
   duration_minutes: 30
   description: 'From automating satellite hardware tests to predicting the ripeness of coffee beans, in Satellogic we use Python for all sorts of things. In this talk we will briefly introduce the company and talk about two specific things: Data Science for Products & Solutions, and satellite fleet management.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=6ELCbtx3GJU
   speakers:
   - albert-pujol-torras
   - juan-luis-cano-rodriguez
@@ -41,6 +44,9 @@ talks:
   language: en
   duration_minutes: 30
   description: Apache Spark is one of the most popular big data tools, and starting last year has had integrated support for running on Kubernetes. This talk will introduce some of the use cases of Apache Spark quickly (machine learning, ETL, etc.) and then look at the current cluster managers Spark runs on and their limitations. Most of the focus will be around running Python code, and the challenges associated with dependencies along with general challenges like scale-up & down. It's not all sunshine and roses though, I will talk about some of the limitations of our current approach and the work being done to improve this.
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=-usvyg6h3wY
 - id: codificando-atomos-con-python
   title: Codificando átomos con Python
   speakers:
@@ -49,4 +55,7 @@ talks:
   language: es
   duration_minutes: 30
   description: 'Una breve retrospectiva sobre comunidad: Un resumen sobre el recorrido por Latinoamérica con Argentina en Python, compartiendo Python y filosofía de comunidad. Codificando átomos con Python: Atomistic Simulation Environment - simulación atómica con módulos en Python para la manipulación de átomos, que nos permite analizar simulaciones o realizar visualizaciones, cuya finalidad es crear y analizar estructuras atómicas.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=t2Z2yscYaQA
 ---

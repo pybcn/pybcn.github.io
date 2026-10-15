@@ -31,6 +31,9 @@ talks:
   type: talk
   duration_minutes: 30
   description: 6 months ago I didn't know anything about Machine Learning, I want to share some very basic ideas and concepts about Machine Learning and some tools Python provides us for this interesting technology.
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=3mNktCVBGlc
 - id: geodjango-use-case-mapping-farmer-fields-all-over-spain-for
   title: 'GeoDjango Use Case: Mapping Farmer Fields all over Spain for Agroptima'
   speakers:
@@ -39,4 +42,7 @@ talks:
   type: talk
   duration_minutes: 30
   description: A true story of success using GeoDjango with several map layers servers to map millions of farmer fields all over Spain for Agroptima.
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=YFfnKTB362c
 ---

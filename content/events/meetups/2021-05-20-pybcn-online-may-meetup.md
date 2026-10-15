@@ -33,6 +33,8 @@ talks:
   language: en
   description: Authorization is an unstructured problem. Writing code to decide who can do what in your app can cover a broad set of cases. The most structure that typically gets applied to this problem area is a set of if statements and roles, but in reality, there are a lot more patterns and structure that we can apply. oso is an open source system for building authorization into applications. It's a bit like SQLAlchemy in that it provides a structured approached to authorization, much like SQLAlchemy does for data modeling and access. In this talk, we'll provide a mental model for authorization and show how to apply it using oso, Python and SQLAlchemy.
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=4kY7IfWJ_Mg
   - type: site
     url: https://www.osohq.com/
   - type: site

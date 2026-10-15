@@ -10,6 +10,12 @@ For an event photo gallery it catches what the template drops in silence: a
 declared photo with no file, a photo with no caption, a photo that points at
 a talk of another event, and a talk that credits a person with no page.
 
+For the videos it checks data/channel_videos.yaml, the inventory of the
+YouTube channel, against the pages: a video the inventory marks placed has
+its link on some event page, every YouTube link of an event front matter
+is in the inventory, and a video the inventory leaves out carries a
+reason. No network: bin/list-channel is what reads the channel.
+
 For the venues it checks data/venues.yaml, the short name the /events/ list
 prints for each venue, against the pages: every venue string of an event
 front matter has a row, and every row is the venue of some event. A venue
@@ -875,6 +881,7 @@ def check_agenda(people):
         talks = check_talks(path, data, people)
         for position, slot in enumerate(data.get("agenda") or [], start=1):
             check_slot(path, position, slot, rooms, talks)
+        check_session_videos(path, data)
 
 
 def check_rooms(path, data):
@@ -956,6 +963,105 @@ def check_links(path, label, links):
                         f"else is listed under Repository.")
 
 
+def check_session_videos(path, data):
+    """Check the event-level session_videos block, and that no video of the
+    page is listed twice.
+
+    A recording of a whole session, a block of lightning talks or the
+    introduction of an evening, belongs to no talk, so bin/import-videos
+    writes it as an entry of session_videos: a title and a url.
+    partials/session_videos.html prints those under a Recordings heading,
+    and it does what the gallery does with a photo it cannot place: an entry
+    with no url is skipped in silence, and an entry with no title prints a
+    Watch link with no title in it. The same URL on a talk link and in the
+    block, or twice in the block, renders two identical entries, which the
+    template cannot tell apart from two recordings. Nothing but this check
+    says any of that out loud.
+
+    The key is session_videos and not videos, because Hugo reads
+    .Params.videos as the og:video URLs of the page and fails the build on a
+    list of records there. An entry under that key is reported for the same
+    reason: the build would say so too, but with a stack of template frames
+    and no file name a person can act on.
+    """
+    if "videos" in data:
+        error(path, "carries 'videos', which Hugo reserves for the og:video "
+                    "URLs of a page: a list of records under it stops the "
+                    "build. The recording of a whole session goes in "
+                    "'session_videos'.")
+    seen = {}
+    for talk in data.get("talks") or []:
+        if isinstance(talk, dict):
+            label = f"talk '{talk.get('title') or talk.get('id')}'"
+            for url in video_urls_of(talk):
+                seen.setdefault(url, label)
+    for position, slot in enumerate(data.get("agenda") or [], start=1):
+        if isinstance(slot, dict) and not slot.get("talk"):
+            for url in video_urls_of(slot):
+                seen.setdefault(url, f"agenda slot {position}")
+
+    entries = data.get("session_videos")
+    if entries is None:
+        return
+    if not isinstance(entries, list):
+        error(path, f"'session_videos' holds {entries!r}, which is not a list "
+                    f"of videos. Each entry takes a title and a url.")
+        return
+    for index, entry in enumerate(entries, start=1):
+        label = f"session video {index}"
+        if not isinstance(entry, dict):
+            error(path, f"{label} holds {entry!r}, which is not a video. It "
+                        f"takes a title and a url.")
+            continue
+        if not str(entry.get("title") or "").strip():
+            error(path, f"{label} has no title. The title is the only line "
+                        f"the gallery prints over the Watch link, so the entry "
+                        f"would read as a link with no name. Use the title the "
+                        f"channel gives the recording.")
+        url = str(entry.get("url") or "").strip()
+        if not url:
+            error(path, f"{label} has no url. The gallery skips an entry it "
+                        f"cannot link, so the page shows one video fewer and "
+                        f"says nothing. Add the address, or remove the entry.")
+            continue
+        if not url.startswith("https://"):
+            error(path, f"{label} has url '{url}', which is not an https "
+                        f"address. bin/check-rendered fails a built page that "
+                        f"carries an http:// URL.")
+        if url in seen:
+            error(path, f"{label} repeats {url}, already on {seen[url]} of "
+                        f"this page. The gallery would list the same video "
+                        f"twice. Keep one of the two.")
+        else:
+            seen[url] = label
+
+
+def video_urls_of(record):
+    """Return the video URLs of one talk or one row of the grid, the links
+    of type video, as partials/agenda_entry.html and
+    layouts/_default/meetup.html read them."""
+    return [str(link.get("url")) for link in record.get("links") or []
+            if isinstance(link, dict) and link.get("type") == "video" and link.get("url")]
+
+
+# The inventory of the YouTube channel: one entry per video of the channel
+# with the decision the site took on it, placed or not and why, plus the
+# videos of other channels the event pages link. It is the list the site
+# maintains. bin/list-channel refreshes it from the channel over the
+# network; this check reads the file and the pages and never the network.
+INVENTORY = ROOT / "data" / "channel_videos.yaml"
+
+# The id of a YouTube video inside any of the URL shapes YouTube hands out.
+# The pages write watch?v= today, and a hand-written link may arrive in any
+# of the others.
+YOUTUBE_ID = re.compile(
+    r"https?://(?:www\.|m\.)?(?:youtube\.com/(?:watch\?(?:[^#\s]*&)?v=|embed/|shorts/|live/|v/)"
+    r"|youtu\.be/)([A-Za-z0-9_-]{11})")
+VIDEO_ID = re.compile(r"\A[A-Za-z0-9_-]{11}\Z")
+
+# What check_channel_videos counted, for the summary line.
+_inventory_summary = None
+
 # The short name of each venue, keyed by the exact string the venue field of
 # an event carries. layouts/_default/events_index.html prints the short name
 # in the /events/ list and falls back to the full string for a venue with no
@@ -964,6 +1070,159 @@ VENUES = ROOT / "data" / "venues.yaml"
 
 # What check_venues counted, for the summary line.
 _venue_summary = None
+
+
+def page_video_links():
+    """Return {video id: [(path, where)]} for every YouTube link in the front
+    matter of content/events/.
+
+    The three places a page carries one: the links of a talk, the links of
+    a row of the grid that holds no talk (the welcome of PyDay BCN 2020),
+    and the session_videos block. Every link counts, whatever its type: a
+    YouTube address under slides is still a video this site points at.
+    """
+    found = {}
+    for path in sorted((CONTENT / "events").rglob("*.md")):
+        data = front_matter(path)
+        if data is None:
+            continue
+        links = []
+        for talk in data.get("talks") or []:
+            if isinstance(talk, dict):
+                label = f"talk '{talk.get('id') or talk.get('title')}'"
+                links += [(label, link) for link in talk.get("links") or []]
+        for position, slot in enumerate(data.get("agenda") or [], start=1):
+            if isinstance(slot, dict) and not slot.get("talk"):
+                links += [(f"agenda slot {position}", link)
+                          for link in slot.get("links") or []]
+        for index, entry in enumerate(data.get("session_videos") or [], start=1):
+            links.append((f"session video {index}", entry))
+        for where, link in links:
+            if not isinstance(link, dict):
+                continue
+            match = YOUTUBE_ID.search(str(link.get("url") or ""))
+            if match:
+                found.setdefault(match.group(1), []).append((path, where))
+    return found
+
+
+def check_channel_videos():
+    """Check data/channel_videos.yaml against the video links of the pages.
+
+    Three rules, which together turn "a video is missing from a page" from
+    a thing a reader notices into an error here:
+
+      1. an entry marked placed has its link on some event page. A video
+         the channel holds and no page shows is the gap this inventory
+         exists to close.
+      2. every YouTube link of an event front matter is in the inventory,
+         under videos when the channel holds it and under elsewhere when
+         another channel does. A link to a video the inventory does not
+         know is a link nobody decided on.
+      3. an entry marked placed: false carries a reason. "Not placed" with
+         no reason is a video somebody forgot, which looks the same as a
+         video somebody left out on purpose.
+
+    Also reported, because the rules above mean nothing without them: an
+    id that is not an 11-character YouTube id, an id listed twice, an entry
+    with no title, an unplaced entry that a page does link, and a video of
+    another channel with no channel named.
+    """
+    global _inventory_summary
+    if not INVENTORY.is_file():
+        error(INVENTORY, "is missing. It is the inventory of the YouTube "
+                         "channel, one entry per video with the decision the "
+                         "site took on it. bin/list-channel says how to "
+                         "rebuild it from the channel.")
+        return
+    try:
+        data = yaml.safe_load(INVENTORY.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        error(INVENTORY, f"is not valid YAML: {exc}")
+        return
+    if not isinstance(data, dict):
+        error(INVENTORY, "does not hold a mapping with 'videos' and 'elsewhere'")
+        return
+
+    linked = page_video_links()
+    known = {}
+    placed = unplaced = elsewhere = 0
+    for section in ("videos", "elsewhere"):
+        entries = data.get(section)
+        if entries is None:
+            error(INVENTORY, f"has no '{section}' list")
+            continue
+        if not isinstance(entries, list):
+            error(INVENTORY, f"'{section}' holds {entries!r}, which is not a list")
+            continue
+        for index, entry in enumerate(entries, start=1):
+            label = f"{section} entry {index}"
+            if not isinstance(entry, dict):
+                error(INVENTORY, f"{label} holds {entry!r}, which is not a video. "
+                                 f"It takes an id, a title, and the decision.")
+                continue
+            video_id = str(entry.get("id") or "")
+            if not VIDEO_ID.match(video_id):
+                error(INVENTORY, f"{label} has id {video_id!r}, which is not an "
+                                 f"11-character YouTube video id")
+                continue
+            label = f"{section} entry {video_id}"
+            if video_id in known:
+                error(INVENTORY, f"{label} is listed twice, already as {known[video_id]}")
+                continue
+            known[video_id] = label
+            if not str(entry.get("title") or "").strip():
+                error(INVENTORY, f"{label} has no title. Use the title the channel "
+                                 f"shows, so a person can tell the videos apart.")
+            if section == "elsewhere":
+                elsewhere += 1
+                if not str(entry.get("channel") or "").strip():
+                    error(INVENTORY, f"{label} names no channel. An entry under "
+                                     f"elsewhere says which channel hosts the video.")
+                continue
+            decision = entry.get("placed")
+            if not isinstance(decision, bool):
+                error(INVENTORY, f"{label} has placed: {decision!r}. It is true when "
+                                 f"an event page carries the link and false, with "
+                                 f"a reason, when the video belongs to no page.")
+                continue
+            if decision:
+                placed += 1
+                if video_id not in linked:
+                    error(INVENTORY, f"{label} is marked placed, and no event page "
+                                     f"carries https://www.youtube.com/watch?v="
+                                     f"{video_id}. Write the link on the talk of "
+                                     f"its event (a link of type video), or in "
+                                     f"session_videos for the recording of a whole "
+                                     f"session, or mark it placed: false with a "
+                                     f"reason.")
+                continue
+            unplaced += 1
+            for path, where in linked.get(video_id, []):
+                error(INVENTORY, f"{label} is marked placed: false, and "
+                                 f"{path.relative_to(ROOT)} carries it on {where}. "
+                                 f"Set placed: true, or remove the link.")
+            if not str(entry.get("reason") or "").strip():
+                error(INVENTORY, f"{label} is marked placed: false with no reason. "
+                                 f"Say why the video belongs to no page, so a "
+                                 f"video left out on purpose does not look like "
+                                 f"one somebody forgot.")
+
+    for video_id, places in sorted(linked.items()):
+        if video_id in known:
+            continue
+        for path, where in places:
+            error(path, f"{where} links the YouTube video {video_id}, which "
+                        f"data/channel_videos.yaml does not list. A video of the "
+                        f"channel goes under videos with placed: true; a video "
+                        f"another channel hosts goes under elsewhere with its "
+                        f"channel.")
+
+    links = sum(len(places) for places in linked.values())
+    _inventory_summary = (f"{placed + unplaced} channel videos in the inventory, "
+                          f"{placed} placed, {unplaced} unplaced with a reason, "
+                          f"{elsewhere} videos of other channels; "
+                          f"{links} YouTube links to {len(linked)} videos on the pages.")
 
 
 def page_venues():
@@ -1320,6 +1579,7 @@ def main():
     listed_people = check_listings(people, sponsors)
     check_agenda(people)
     check_dates()
+    check_channel_videos()
     check_venues()
     check_orphans(people, listed_people)
     check_security_txt()
@@ -1333,6 +1593,8 @@ def main():
     talks = sum(len(ids) for ids in _talk_ids.values())
     print(f"\n{len(people)} people, {len(sponsors)} sponsors, "
           f"{talks} talks on {len(_talk_ids)} pages checked.")
+    if _inventory_summary:
+        print(_inventory_summary)
     if _venue_summary:
         print(_venue_summary)
     print(f"{len(errors)} errors, {len(warnings)} warnings.")

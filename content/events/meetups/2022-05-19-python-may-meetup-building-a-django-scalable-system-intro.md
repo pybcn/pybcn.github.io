@@ -32,6 +32,9 @@ talks:
   language: en
   duration_minutes: 30
   description: 'Mundimoto is the intersection between two models: modern startups and traditional companies. It has grown 25x its operations in the last year, taking an undisputed lead in the used motorbike industry in Europe. We''re not going to stop here; we''re expanding our factories internationally, this April we already opened Milan (Italy), we''re planning eight more countries in Europe, and we want to have a part in the future of mobility, doing way more than buying and selling motorbikes. To support all these challenges, we know software and talent are essential. We have a diverse team coming from Facebook, Snapchat, Glovo, Skyscanner, Typeform, Wallapop and many others. Our use cases are unique, and we see the company''s future depends on having software built specifically for us and by us. With so many moving pieces, the only way to achieve our goals is with high-quality software, data science being at the core of the system decisions, and clever UI/UX designs to support our use cases. In this talk we are going to speak about an essential part of our architecture that is how we design, test and deploy our services into production.'
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=76jG59xQzVw
 - id: introduction-to-pyscript
   title: Introduction to PyScript
   speakers:
@@ -40,4 +43,7 @@ talks:
   language: en
   duration_minutes: 30
   description: PyScript was just announced at the PyCon 2022! This new framework allows users to create rich Python applications in the browser using HTML's interface. PyScript aims to give users a first-class programming language that has consistent styling rules, is more expressive, and is easier to learn. Let's see how it works!
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=rF3pLmxr3v8
 ---
