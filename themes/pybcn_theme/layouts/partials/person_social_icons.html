@@ -1,0 +1,50 @@
+{{- /*
+    The social links of one person as a row of brand marks, for a line that
+    has no room for the list partials/person_links.html prints.
+
+        [in] [gh] [X] [globe]
+
+    Argument: the person page.
+
+    The row of /people/ prints this after the role line, so a reader who
+    found a name can reach the person outside this site without opening
+    the page of the person first. The page of the person keeps the list,
+    with the handle of each network as its text, so the two partials are
+    two shapes of one set of links: the four keys the record may carry,
+    linkedin, github, twitter, and site, which bin/check-content enforces,
+    in that order, as the list prints them. Measured over the 378 records
+    on 2026-10-14: linkedin 117, github 81, twitter 66, site 21, on 129
+    records, so about one row in three carries at least one mark and no
+    row carries more than four.
+
+    Each link has a name, not only a hover. The mark is a Font Awesome
+    brand glyph with no text, so the link would be an empty link to a
+    screen reader (axe fails that as link-name); the name is on the link,
+    "David Arcos on LinkedIn", the words the list uses for its title, and
+    the title repeats it for a mouse. The glyph itself is hidden, as the
+    glyph of a list row is. The X mark is the CSS mask of main.scss, for
+    the reason given there: Font Awesome 5 has no X.
+
+    The links open in a new tab, as every outbound link of a person does
+    on this site (person_links.html, the card of the grid), so a reader of
+    a 378-row list does not lose the row they were on.
+
+    A person with no link prints nothing, not an empty list.
+*/ -}}
+{{- $p := .Params -}}
+{{- if or $p.linkedin $p.github $p.twitter $p.site }}
+<ul class="person_social" aria-label="Social links of {{ $p.name }}">
+    {{- with $p.linkedin }}
+    <li><a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+    {{- end }}
+    {{- with $p.github }}
+    <li><a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} on GitHub" title="{{ $p.name }} on GitHub"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+    {{- end }}
+    {{- with $p.twitter }}
+    <li><a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} on X" title="{{ $p.name }} on X"><i class="icon_x" aria-hidden="true"></i></a></li>
+    {{- end }}
+    {{- with $p.site }}
+    <li><a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} personal site" title="{{ $p.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a></li>
+    {{- end }}
+</ul>
+{{- end }}

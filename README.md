@@ -230,6 +230,17 @@ for those.
 
 There are three pages displaying people: PyBCN Organizers, PyLadiesBCN Organizers and PyLadiesBCN speakers. More can be added to display, for example, collaborators of other events, etc.
 
+`/people/` is the index of the whole section, and it is a list and not a
+grid: one row per person record, grouped by the first letter of the id, with
+the roles, the events, the talks, and a link to every page that credits the
+person. It needs no front matter of its own and reads the records and
+`partials/appearances_index.html`, so a new person file gets a row by being
+added. The template is `themes/pybcn_theme/layouts/people/list.html` and the
+style is in `themes/pybcn_theme/assets/scss/people_index.scss`. Each person
+file builds a page of its own, `/people/<id>/`, from
+`themes/pybcn_theme/layouts/people/single.html`; the card of a people grid
+links to it.
+
 All pages rely on the same template: `themes/pybcn_theme/layouts/_default/people.html`. The individual person summary is defined in a separate partial template: `themes/pybcn_theme/layouts/partials/people_summary.html`, and the style are defined in `themes/pybcn_theme/assets/scss/people.scss`.
 
 The template iterates over the defined levels, and for each level:
@@ -427,7 +438,8 @@ it. The cost is that the reasons are scattered, so this is the index.
 
 | Decision | Where it is argued |
 |---|---|
-| A person file builds no page, and `/people/` is a 404 | The `[[cascade]]` comment in `config.toml`, and issue #201 |
+| A person file builds a page, `/people/<id>/`, and `/people/` is the list that reaches every one of them | The `[[cascade]]` comment in `config.toml`, `themes/pybcn_theme/layouts/people/single.html`, `themes/pybcn_theme/layouts/people/list.html`, and issue #201 |
+| `/people/` is a list and not a second card grid, ordered by letter and not by how often a person appears | `themes/pybcn_theme/layouts/people/list.html` |
 | An appearance line calls a page by `appearances_title`, not by its title | `themes/pybcn_theme/layouts/partials/appearances_index.html` |
 | A card of a people grid is a link to the page of the person, not a modal that shows a subset of it | `themes/pybcn_theme/layouts/partials/people_summary.html` |
 | The menu sections are a disclosure, not an ARIA menu | `themes/pybcn_theme/layouts/partials/nav.html` |

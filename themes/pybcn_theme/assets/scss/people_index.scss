@@ -1,0 +1,277 @@
+// The /people/ list: a heading per letter, and a row per person under it.
+// The shape is the one the /events/ and /talks/ lists use, so the three
+// indexes of the archive read alike. See layouts/people/list.html,
+// listing_table.scss and talks.scss.
+//
+// Nothing here touches .people_grid or .person_item, which is the card grid
+// of /organizers/. That grid keeps people.scss to itself.
+
+// The bar of letters above the list is .jump_bar in main.scss, which
+// /events/ draws as a bar of years from the same partial.
+
+.people_letter_group {
+    margin-bottom: 2.5rem;
+
+    // The letter is an h2 and reads as a divider, not as a page title, so
+    // it is smaller than the h2 of the rest of the site and carries a rule
+    // under it. The level is the outline and the size is the style: the two
+    // are set apart here the way event.html sets them apart with h2.h1.
+    .people_letter {
+        font-size: 1.5rem;
+        border-bottom: 1px solid #dde3e8;
+        padding-bottom: 0.3rem;
+        margin-bottom: 1.2rem;
+    }
+}
+
+.people_rows {
+    padding-left: 0;
+    list-style: none;
+
+    // A row is the mark and the two lines beside it. A grid and not a
+    // float: the lines must not flow under the photo, and the photo column
+    // is one width down the whole page, so every name starts at the same
+    // place whether the person has a photo or a placeholder.
+    .person_row {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
+        column-gap: 0.9rem;
+        align-items: start;
+        margin-bottom: 1.1rem;
+    }
+
+    // The cell of the mark is the size of the photo, so a row with a
+    // placeholder is as tall as a row with a face and the list keeps its
+    // rhythm. It is the box the zoom hangs from: see .person_zoom.
+    .person_mark {
+        position: relative;
+        // Clips the zoom, so the photograph grows inside its own 48px frame
+        // and the rows below stay where they are. The circle lives here,
+        // on the box that clips, and not on the photograph: with the radius
+        // on the image the square frame cut the corners off the circle as
+        // it grew, which is what David Arcos saw on 2026-10-15.
+        overflow: hidden;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+    }
+
+    // The avatar is a link (to the page of the person, as the name is), so
+    // a tap on a touch screen, which has no hover, lands where the zoom
+    // would have led. Block, so the link is the 48 px square and not an
+    // inline box with the baseline gap under it.
+    .person_avatar {
+        display: block;
+        width: 48px;
+        height: 48px;
+    }
+
+    // Round, as the photo of a person page is, so the same picture reads
+    // the same in both places. See people.scss.
+    .person_thumb {
+        display: block;
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+    }
+
+    // The zoom: the whole photograph at 240 px, from the 400 px square the
+    // person page builds, hidden until the pointer is on the avatar or the
+    // name link has keyboard focus. It hangs below the avatar, from the
+    // left edge of the column, so it stays inside a 390 px viewport and
+    // covers nothing of the first line of its row. It can cover the lower
+    // lines of a tall row (16 events wrap onto four lines at 1280 px),
+    // which is why the keyboard trigger is the name link and not any link
+    // of the row (:focus-within would open it over the event link the
+    // reader is on). The avatar itself is not in the tab order (tabindex
+    // -1), so the rule reads the row through :has(); a browser without
+    // The zoom is the one the cards of /pybcn_association/organizers/ have
+    // had for years (people.scss): the photograph grows inside its own
+    // frame, which is clipped, so nothing moves on the page and no row
+    // below is covered. David Arcos asked for that one on 2026-10-15,
+    // after a first try that hung a 240px copy of the picture under the
+    // avatar: it read as a popup rather than as a zoom.
+    //
+    // The keyboard gets it through the name link of the row, because the
+    // avatar repeats that link and is out of the tab order. prefers
+    // reduced motion turns the transition off and keeps the zoom, which
+    // is the information, not the movement.
+    .person_avatar:hover .person_thumb,
+    .person_row:has(.person_name a:focus-visible) .person_thumb {
+        transform: scale(1.2);
+    }
+
+    .person_thumb {
+        transition: transform 0.2s linear;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .person_thumb {
+            transition: none;
+        }
+    }
+
+    // The placeholder of a person with no photo, at the size of the photo
+    // of a row. The colours and the letters are the shared rule at the end
+    // of this file; the page of the person sets its own size in
+    // people_page.scss.
+    .person_initials {
+        width: 48px;
+        height: 48px;
+        font-size: 1.05rem;
+    }
+
+    // A line of the row: its pieces on one flex line that wraps, aligned
+    // by baseline so the sentence and the pages sit on one line of text
+    // (main.scss, .row_facts, which the second line also is).
+    .person_line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        column-gap: 0.6rem;
+        row-gap: 0.15rem;
+        margin-bottom: 0.2rem;
+
+        > p,
+        > h3,
+        > ul {
+            margin-bottom: 0;
+        }
+    }
+
+    // The name at the size of the text around it: an h3 at its default size
+    // would compete with the letter above it, and a row is a line of a list
+    // and not a section of the page.
+    .person_name {
+        font-size: 1.05rem;
+        font-weight: 600;
+    }
+
+    // The sentence of the second line, "Speaker at 3 events:", in the grey
+    // and the size of the pages after it. The italic "at" and the bold
+    // count are the markup of the row of the Events table of the person
+    // page, so the two read alike; the count is in the colour of the text,
+    // so the number stands out of the grey line.
+    .person_meta {
+        color: #51616e;
+        font-size: 0.9rem;
+
+        strong {
+            color: #212529;
+        }
+    }
+
+    // The social links as a row of brand marks (person_social_icons.html),
+    // in the grey of the icons of a card and in the blue of a link under
+    // the pointer. Each mark is a 1.6 rem touch target, which is the width
+    // of the glyph with its padding, on a line of 0.9 rem text.
+    .person_social {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0.1rem;
+        padding-left: 0;
+        list-style: none;
+        font-size: 0.95rem;
+        line-height: 1;
+
+        a {
+            display: inline-block;
+            min-width: 1.6rem;
+            padding: 0.15rem 0.2rem;
+            color: $icon-grey;
+            text-align: center;
+
+            &:hover,
+            &:focus {
+                color: $blue-pybcn;
+            }
+        }
+    }
+
+    // The pages the person is credited on: one item per page, the marker of
+    // its type and then the link, on a flex line that wraps. The items are
+    // kept apart by the gap and by the marker, so no comma is drawn: the
+    // marker is where the eye finds the next item.
+    .person_pages {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 0.9rem;
+        row-gap: 0.15rem;
+        padding-left: 0;
+        list-style: none;
+        font-size: 0.9rem;
+
+        // An item wraps inside itself: a meetup title can be a sentence,
+        // and a 390 px viewport has to break it. The marker stays with the
+        // first word of the title, as the two are one line box until then.
+
+        // The glyph of the type, as the row of /events/ draws it
+        // (listing_table.scss): upright, at the normal weight, and with
+        // line-height 1, so a slanted or heavy emoji, which is a font bug
+        // on some platforms, does not open the line.
+        .event_emoji {
+            display: inline-block;
+            margin-right: 0.25rem;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            vertical-align: -0.1em;
+        }
+    }
+}
+
+// The letter and the row are both link targets: /people/#M from the bar
+// above the list, and /people/#marc-pous from anywhere. The navbar is fixed
+// and 105px tall, so without this the target lands under it and the reader
+// sees the row before the one they asked for. listing_table.scss does the
+// same for a year.
+.people_letter,
+.person_row {
+    scroll-margin-top: 65px;   // the shrunk navigation, 61px, plus a little
+
+    // From lg the bar of letters is pinned under the navbar (.jump_bar in
+    // main.scss, which says why only from lg), 45px tall with its
+    // padding, so the target has to clear both: 105px, 45px, and 4px of
+    // air, the figure listing_table.scss uses for a year.
+    @media (min-width: 992px) {
+        scroll-margin-top: 110px;  // the shrunk navigation plus the pinned bar
+    }
+}
+
+// The placeholder of a person with no photo: the initials on a colour from
+// the name, drawn by partials/person_placeholder.html, which is the one
+// place to change it (its header says why). A round badge, white text, the
+// ten colours below: every one of them is at 5:1 or more under white (WCAG
+// 1.4.3 asks 4.5:1), measured with the WCAG relative luminance formula when
+// they were chosen. Upright and at the normal weight of a heading, and
+// line-height 1 so the letters sit in the middle of the circle. The size is
+// the caller's: 48px in a row of /people/ (above), 240px in the header of
+// the page of the person (people_page.scss), so the rule is shared and not
+// scoped to the rows.
+.person_initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #ffffff;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    user-select: none;
+
+    &.hue_0 { background-color: #1d6fa5; }
+    &.hue_1 { background-color: #2e7d32; }
+    &.hue_2 { background-color: #6a1b9a; }
+    &.hue_3 { background-color: #ad1457; }
+    &.hue_4 { background-color: #bf360c; }
+    &.hue_5 { background-color: #00695c; }
+    &.hue_6 { background-color: #5d4037; }
+    &.hue_7 { background-color: #37474f; }
+    &.hue_8 { background-color: #3949ab; }
+    &.hue_9 { background-color: #c62828; }
+}
