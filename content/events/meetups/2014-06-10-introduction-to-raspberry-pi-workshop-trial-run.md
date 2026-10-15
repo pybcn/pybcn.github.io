@@ -15,4 +15,17 @@ venue: "UPF Music Technology Group"
 attendance: 7
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/187067982/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 187067982 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introduction-to-raspberry-pi-workshop-trial-run
+    title: "Introduction to Raspberry Pi Workshop - trial run"
+    type: workshop
+    description: "The workshop will provide an introduction of what the Raspberry Pi is, what it can do, and what it can't do."
 ---

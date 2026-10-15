@@ -15,4 +15,20 @@ venue: "Punt Multimèdia La Casa del Mig"
 attendance: 21
 meetup_url: "https://www.meetup.com/python-barcelona/events/268782827/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 268782827 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: python-rabbitmq
+    title: "Python & RabbitMQ"
+    type: workshop
+    description: "We will look at how to interact with message brokers using Python with the example of RabbitMQ, one of the most popular open source message brokers."
+    links:
+      - type: github
+        url: "https://github.com/pika/pika"
 ---

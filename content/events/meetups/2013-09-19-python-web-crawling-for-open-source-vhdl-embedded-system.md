@@ -16,4 +16,17 @@ year: 2013
 attendance: 1
 meetup_url: "https://www.meetup.com/python-barcelona/events/137913492/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 137913492 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: python-web-crawling-for-open-source-vhdl-embedded-system
+    title: "Python web crawling for open-source VHDL embedded system design"
+    type: talk
+    description: "Open-source licensing of software allows people to get, modify and republish code. Opencores.org is a large (>3GB) databases of open-source VHDL code that has recently pass the 1000 project treshold offering a large number of sw tools for people interested in high-level embedded system code done in VHDL.\n\nIn this presentation I'd like to present a Python-based web crawling application that aims at taking advantage of opencores.org and offers a different kind of service for VHDL developers."
 ---

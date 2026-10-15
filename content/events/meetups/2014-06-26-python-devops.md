@@ -15,4 +15,37 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 89
 meetup_url: "https://www.meetup.com/python-barcelona/events/159792642/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 159792642 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: ansible
+    title: "Ansible"
+    speakers: [ignasi-fosch]
+    type: talk
+    description: "\"Ansible is the simplest way to automate apps and IT infrastructure\"."
+    links:
+      - type: site
+        url: "https://www.ansible.com"
+  - id: openstack
+    title: "OpenStack"
+    speakers: [xavier-queralt]
+    type: talk
+    description: "\"OpenStack Software delivers a massively scalable cloud operating system\"."
+    links:
+      - type: site
+        url: "https://www.openstack.org/"
+  - id: fabric
+    title: "Fabric"
+    speakers: [pablo-enfedaque-vidal]
+    type: talk
+    description: "\"Fabric is a library and command-line tool for streamlining the use of SSH for application deployment or systems administration tasks\"."
+    links:
+      - type: site
+        url: "https://www.fabfile.org/"
 ---

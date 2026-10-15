@@ -15,4 +15,17 @@ venue: "Punt Multimèdia La Casa del Mig"
 attendance: 8
 meetup_url: "https://www.meetup.com/python-barcelona/events/262428383/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 262428383 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: rosalind-problems
+    title: "Rosalind problems"
+    type: workshop
+    description: "We will focus on Rosalind Bioinformatics problems, find some solutions, and analyze them. This workshop will take us into concepts like Bioinformatics, Jupyter, string handling and loops, and performance optimization, ..."
 ---

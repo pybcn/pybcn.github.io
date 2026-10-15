@@ -15,4 +15,16 @@ venue: "itnig"
 attendance: 10
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/168420972/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 168420972 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introduction-to-python-static-websites
+    title: "Introduction to Python Static Websites"
+    type: workshop
 ---

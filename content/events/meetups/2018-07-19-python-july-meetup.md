@@ -15,4 +15,27 @@ venue: "Travelperk"
 attendance: 58
 meetup_url: "https://www.meetup.com/python-barcelona/events/252810319/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 252810319 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: practical-clean-code
+    title: "Practical Clean Code"
+    speakers: [israel-saeta-perez]
+    type: talk
+    language: en
+    duration_minutes: 45
+    description: "Dirty, obfuscated, messy code is one of the major causes of project delays, nasty bugs, developers suffering and general mankind doom. In this talk I will introduce some simple, subjective tricks based on experience to try to make our coding lives more enjoyable."
+  - id: building-nlp-models-with-python
+    title: "Building NLP Models with Python"
+    speakers: [gabriel-de-maeztu]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "NLP, Natural Language Processing is a very powerful tool to extract value from large data repository. I'll make a short introduction to NLP and multiple techniques like named entity recognition, text classification, word embeddings. The other half of the talk I'll introduce Spacy a NLP library written in Cython and build a little model with it, showing all the steps, from getting some real world data to building and testing the model."
 ---

@@ -15,4 +15,36 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 60
 meetup_url: "https://www.meetup.com/python-barcelona/events/203263722/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 203263722 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: conda-cross-platform-python-agnostic-binary-package-manager
+    title: "Conda - Cross-platform, Python-agnostic binary package manager"
+    speakers: [christine-doig]
+    type: talk
+    language: en
+    duration_minutes: 20
+    links:
+      - type: site
+        url: "https://conda.pydata.org"
+  - id: putting-python-inside-postgresql
+    title: "Putting Python inside PostgreSQL"
+    speakers: [brian-sutherland]
+    type: talk
+    language: en
+    duration_minutes: 20
+    description: "Practical guide to writing triggers and stored procedures for PostgreSQL in Python."
+  - id: inside-the-artificial-neural-network
+    title: "Inside the Artificial Neural Network"
+    speakers: [xavier-arrufat]
+    type: talk
+    language: en
+    duration_minutes: 40
+    description: "a visual and intuitive journey to understand how it stores knowledge and how it takes decisions."
 ---

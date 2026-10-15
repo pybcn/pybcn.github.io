@@ -15,4 +15,19 @@ venue: Kiwi.com
 attendance: 25
 meetup_url: https://www.meetup.com/pyladies-bcn/events/258333212/
 group: PyLadies BCN
+# The talks this meetup announced, read from the description of event 258333212 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+- id: data-interactive-plots
+  title: Data & interactive plots
+  type: workshop
+  description: In this sessions we will learn and practice how to get data from different sources (files, open data, APIs, etc.), work with different data formats and plot this information into interactive plots and maps.
+  speakers:
+  - nuria-pujol-vilanova
 ---

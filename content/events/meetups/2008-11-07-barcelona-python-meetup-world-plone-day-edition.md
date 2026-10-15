@@ -15,4 +15,29 @@ venue: Campus Nord UPC
 attendance: 4
 meetup_url: https://www.meetup.com/python-barcelona/events/9053205/
 group: PyBCN
+# The talks this meetup announced, read from the description of event 9053205 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+- id: introduccio-a-plone-que-es-i-per-a-que-serveix
+  title: Introducció a Plone, Què és i per a què serveix ?
+  type: talk
+  duration_minutes: 60
+  speakers:
+  - ramon-navarro-bosch
+- id: plone-highlights-features-that-make-plone-a-killer
+  title: Plone highlights, Features that make Plone a Killer Application
+  speakers:
+  - maik-roder
+  type: talk
+  duration_minutes: 30
+- id: universitat-politecnica-de-catalunya-i-plone
+  title: Universitat Politècnica de Catalunya i Plone
+  type: talk
+  duration_minutes: 60
 ---

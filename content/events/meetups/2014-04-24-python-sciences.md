@@ -15,4 +15,24 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 71
 meetup_url: "https://www.meetup.com/python-barcelona/events/169870182/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 169870182 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introduction-to-ipython-notebook
+    title: "Introduction to Ipython Notebook"
+    type: talk
+  - id: introduction-to-python-for-data-analysis-overview-of-numpy
+    title: "Introduction to Python for Data Analysis - Overview of numpy, scipy and pandas"
+    speakers: [christine-doig]
+    type: talk
+  - id: introduction-to-pandas
+    title: "Introduction to Pandas"
+    speakers: [piotr-migdal]
+    type: talk
 ---

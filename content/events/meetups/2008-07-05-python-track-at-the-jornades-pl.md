@@ -15,4 +15,42 @@ venue: "Universitat Pompeu Fabra - Campus de França"
 attendance: 6
 meetup_url: "https://www.meetup.com/python-barcelona/events/8246106/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 8246106 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: dynamic-slides-in-python
+    title: "Dynamic Slides in Python"
+    speakers: [carles-pina]
+    type: talk
+    duration_minutes: 15
+  - id: sugar-os
+    title: "Sugar OS"
+    speakers: [xavier-verges]
+    type: talk
+    duration_minutes: 30
+  - id: python-in-science
+    title: "Python in science"
+    speakers: [raik-gruenberg]
+    type: talk
+    duration_minutes: 30
+  - id: web-frameworks
+    title: "Web Frameworks"
+    speakers: [aitor-guevara]
+    type: talk
+    duration_minutes: 30
+  - id: develop-a-complete-website-in-30-minutes-using-django
+    title: "Develop a complete website in 30 minutes using Django"
+    speakers: [marc-garcia]
+    type: talk
+    duration_minutes: 30
+  - id: taller-practic
+    title: "Taller pràctic"
+    type: workshop
+    duration_minutes: 60
 ---

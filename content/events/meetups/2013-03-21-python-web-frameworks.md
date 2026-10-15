@@ -15,4 +15,61 @@ venue: Parc de Recerca Biomedica de Barcelona (PRBB)
 attendance: 62
 meetup_url: https://www.meetup.com/python-barcelona/events/103676402/
 group: PyBCN
+# The talks this meetup announced, read from the description of event 103676402 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+- id: introduction-to-django-or-rest-with-tastypie-in
+  title: Introduction to Django or REST with Tastypie in
+  speakers:
+  - colin-kingswood
+  type: talk
+  duration_minutes: 15
+- id: django-best-practices
+  title: Django - Best practices
+  speakers:
+  - david-arcos
+  type: talk
+  duration_minutes: 15
+- id: plone
+  title: Plone
+  type: talk
+  duration_minutes: 15
+  speakers:
+  - ramon-navarro-bosch
+- id: pyramid
+  title: Pyramid
+  speakers:
+  - victor-fernandez-de-alba
+  type: talk
+  duration_minutes: 15
+- id: flask
+  title: Flask
+  speakers:
+  - areski-belaid
+  type: talk
+  duration_minutes: 15
+- id: offline-websites-appcache-and-filesystem-api
+  title: Offline websites (appcache and filesystem api)
+  speakers:
+  - marc-garcia
+  type: talk
+  duration_minutes: 15
+- id: nodejs
+  title: NodeJs
+  speakers:
+  - guillem-serra
+  type: talk
+  duration_minutes: 15
+- id: interactive-session-brainstorming
+  title: Interactive Session / brainstorming
+  speakers:
+  - grzegorz-swierad
+  type: workshop
+  duration_minutes: 15
 ---

@@ -16,4 +16,19 @@ venue: "Online"
 attendance: 11
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/277660064/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 277660064 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: get-rid-of-matlab-struggling-process-from-matlab-to-python
+    title: "Get rid of Matlab! (struggling process from Matlab to Python)"
+    speakers: [anna-mujal-colilles]
+    type: talk
+    language: [en, es]
+    description: "After a long mental process I decided to switch from Matlab to Python to process my data. First, I had to decide the platform (IDLE, Spyder, Jupyter Notebook) and I chose one, but I changed after some time.\n\nThen, I started by trying to open a txt file and I spend one entire month to do so (I did not know about the libraries). After all, I am glad I took this decision, but there are still many things to learn yet. Pyhton community is lovelly and there is many work already done.\n\nThe session would consist on explaining my struggling process and exchange ideas on how to optimize it for someone else."
 ---

@@ -15,4 +15,17 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 18
 meetup_url: "https://www.meetup.com/python-barcelona/events/38412652/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 38412652 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: agile-collaboration-workshop
+    title: "Agile Collaboration Workshop"
+    type: workshop
+    description: "I will facilitate some games/exercises (amount will depend on time limits) through which we will work as teams and learn different collaboration patterns and anti-patterns. The idea is to get hands-on practice on some of the key agile software development practices that are meant to achieve high-performing teams. Disclaimer: There will be no programming."
 ---

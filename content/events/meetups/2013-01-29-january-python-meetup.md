@@ -15,4 +15,25 @@ venue: "Parc de Recerca Biomedica de Barcelona (PRBB)"
 attendance: 37
 meetup_url: "https://www.meetup.com/python-barcelona/events/98380092/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 98380092 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introducing-the-spanish-python-association
+    title: "introducing the Spanish Python Association"
+    speakers: [raul-cumplido]
+    type: talk
+  - id: tryton-a-framework-to-erp-applications
+    title: "Tryton, a framework to ERP applications"
+    speakers: [raimon-esteve]
+    type: talk
+  - id: python-packaging-the-gnu-way-with-pyconfigure
+    title: "Python-packaging the GNU way with pyconfigure"
+    speakers: [brandon-invergo]
+    type: talk
 ---

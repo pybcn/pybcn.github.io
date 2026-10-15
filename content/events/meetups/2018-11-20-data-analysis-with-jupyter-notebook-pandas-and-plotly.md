@@ -15,4 +15,17 @@ venue: "Skyscanner's offices"
 attendance: 33
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/256369543/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 256369543 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: data-analysis-with-jupyter-notebook-pandas-and-plotly
+    title: "Data analysis with Jupyter Notebook, Pandas and Plotly"
+    type: workshop
+    description: "Join us and learn how to analyze data with Jupyter Notebook and Pandas, and how to do data visualization with Plotly. We will use the Tarjetas Black dataset, containing data about the expenses of the black cards users. A fraud case of the spanish banks Caja Madrid and Bankia. Do you wanna know who used his/her card in McDonalds? Who did the biggest expense? Who was a usual user and who just used it for special occasions? Join us and learn how to analyze data! This will be a guided workshop, suitable for both experienced users and beginners with an interest in data analysis. All you need is a laptop with Python and an appetite for learning!"
 ---

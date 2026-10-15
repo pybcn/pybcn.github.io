@@ -15,4 +15,18 @@ venue: "Travelperk"
 attendance: 15
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/255576739/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 255576739 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introduccion-a-the-things-network
+    title: "Introducción a The Things Network"
+    speakers: [nuria-vega, xose-perez]
+    type: workshop
+    description: "El taller estará dividido en tres partes principales: presentación de la comunidad TTN en Barcelona y el piloto que están llevando a cabo; introducción a LoRa, LoRaWan y la red The Things Network; y un hands on sobre cómo crear sensores DIY con MicroPython connectados a TTN."
 ---

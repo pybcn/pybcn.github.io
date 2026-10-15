@@ -15,4 +15,18 @@ venue: "Universitat de Barcelona"
 attendance: 21
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/259895251/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 259895251 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: multiprocessing-versus-threading-in-a-single-workstation-in
+    title: "Multiprocessing versus threading in a single workstation in Python 2.x"
+    type: workshop
+    language: en
+    description: "In this session, we will discuss parallelization strategies. We will first cover typical computational problems that can be optimised through parallelization. Then we will cover general concepts and the important aspects to consider when designing your parallelization. In particular, we will look at parallelization in Python 2.x. and in a single machine using either processes or threads."
 ---

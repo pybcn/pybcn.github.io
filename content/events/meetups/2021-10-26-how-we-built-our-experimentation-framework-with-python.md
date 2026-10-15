@@ -16,4 +16,19 @@ venue: "Online"
 attendance: 56
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/281418180/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 281418180 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: how-we-built-our-experimentation-framework-with-python
+    title: "How we built our experimentation framework with Python"
+    speakers: [shyamala-gopalakrishnan, liss-mansurova]
+    type: talk
+    language: en
+    description: "Preply is a global language learning marketplace, connecting tutors with millions of learners from all over the world. Since the company launched in 2012, Preply has been driven by the mission to shape the future of effective learning through human tutoring. The company uses a machine learning algorithm to increase matching efficiency between learners and tutors on a variety of parameters such as price, availability, country of birth, other languages spoken, learning objectives and more. From there, the student can select their preferred tutor considering their introduction video, methodology description and reviews from other learners.\n\nIn Preply we have a strong experimentation culture and in this talk we would explain how we created our experimentation framework, step by step and with production code examples. We will show the tools we use, the metrics we check and how our value chain is, from research, design, implementation to measuring. You will learn something that you probably haven't seen before!"
 ---

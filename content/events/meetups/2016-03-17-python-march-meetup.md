@@ -15,4 +15,28 @@ venue: Skyscanner
 attendance: 57
 meetup_url: https://www.meetup.com/python-barcelona/events/229156441/
 group: PyBCN
+# The talks this meetup announced, read from the description of event 229156441 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+- id: piggybacking-trello-for-automatic-student-assessment
+  title: Piggybacking Trello for automatic student assessment
+  speakers:
+  - jordi-saludes
+  type: talk
+- id: computational-complexity-in-python
+  title: Computational complexity in Python
+  speakers:
+  - jordi-soucheiron
+  type: talk
+- id: sklearn-pandas-streamline-your-model-building-process
+  title: 'sklearn-pandas: streamline your model building process'
+  type: talk
+  speakers:
+  - israel-saeta-perez
 ---

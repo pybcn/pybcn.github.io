@@ -16,4 +16,19 @@ venue: "Online"
 attendance: 48
 meetup_url: "https://www.meetup.com/python-barcelona/events/273389765/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 273389765 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: taula-rodona-sobre-python-python-round-table
+    title: "Taula Rodona sobre Python (Python Round Table)"
+    speakers: [ruben-berenguel, alberto-camara, david-arcos, julio-martinez]
+    type: panel
+    language: ca
+    description: "We kickstart the new season of PyBCN with a virtual round table where we will talk about Python, the pandemic situation and its impact on the developer labour market and remote events."
 ---

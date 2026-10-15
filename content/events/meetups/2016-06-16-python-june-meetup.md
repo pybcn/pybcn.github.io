@@ -15,4 +15,28 @@ venue: Skyscanner
 attendance: 62
 meetup_url: https://www.meetup.com/python-barcelona/events/231531664/
 group: PyBCN
+# The talks this meetup announced, read from the description of event 231531664 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+- id: machine-learning-for-dummies-with-python
+  title: Machine Learning for Dummies with Python
+  speakers:
+  - javier-arias-losada
+  type: talk
+  duration_minutes: 30
+  description: 6 months ago I didn't know anything about Machine Learning, I want to share some very basic ideas and concepts about Machine Learning and some tools Python provides us for this interesting technology.
+- id: geodjango-use-case-mapping-farmer-fields-all-over-spain-for
+  title: 'GeoDjango Use Case: Mapping Farmer Fields all over Spain for Agroptima'
+  speakers:
+  - domenec-castillo
+  - john-powell
+  type: talk
+  duration_minutes: 30
+  description: A true story of success using GeoDjango with several map layers servers to map millions of farmer fields all over Spain for Agroptima.
 ---

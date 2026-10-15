@@ -15,4 +15,28 @@ venue: "Skyscanner"
 attendance: 61
 meetup_url: "https://www.meetup.com/python-barcelona/events/232559577/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 232559577 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: efficient-django
+    title: "Efficient Django"
+    speakers: [david-arcos]
+    type: talk
+    duration_minutes: 30
+    description: "Does Django scale? How to manage traffic peaks? What happens when the database grows too big? How to find the bottlenecks? We will overview the basics concepts on scalability and performance, and then see some tips and tricks. These statements will be backed up with experiments and numbers, to show the timing improvements."
+  - id: kinto-a-minimalist-json-storage-service
+    title: "Kinto - A minimalist JSON storage service"
+    speakers: [mathieu-leplatre]
+    type: talk
+    duration_minutes: 30
+    description: "Kinto (https://kinto.readthedocs.io) is a HTTP service - built with Pyramid - with synchronisation and sharing features. It is meant to be easy to use and easy to self-host. In this talk, I'll present the main use-cases (from quick weekend hacks to delivery of security settings to millions of Firefox users), and a quick tour on how we leverage the pluggability of Pyramid."
+    links:
+      - type: site
+        url: "https://kinto.readthedocs.io"
 ---

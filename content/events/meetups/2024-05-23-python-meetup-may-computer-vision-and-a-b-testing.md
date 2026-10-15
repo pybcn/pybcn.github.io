@@ -15,4 +15,27 @@ venue: "Aticco Bogatell - Coworking en Poblenou"
 attendance: 82
 meetup_url: "https://www.meetup.com/python-barcelona/events/300940146/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 300940146 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: using-opencv-in-ai-practical-image-processing-in-python
+    title: "Using OpenCV in AI: Practical Image Processing in Python"
+    speakers: [paula-oses]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "This talk focuses on the practical use of OpenCV in the field of artificial intelligence, particularly for Python users. The session will cover the essentials of OpenCV, including basic image operations and advanced preprocessing techniques vital for preparing data for AI models. As an AI Engineer I have used the OpenCV library since my years at university, I have prepared lots of datasets for AI models using this library as well as explored its capabilities in terms of Computer Vision models."
+  - id: cluster-experiments-a-simulation-library-to-design-ab-tests
+    title: "cluster-experiments, a simulation library to design AB tests"
+    speakers: [david-masip]
+    type: talk
+    language: en
+    duration_minutes: 45
+    description: "Cluster-experiments is an open-source library that is used at Glovo to design AB tests (assess experiment length, AA tests, etc). We use a simulation approach which can accommodate different types of tests, being more general than what more popular libraries provide."
 ---

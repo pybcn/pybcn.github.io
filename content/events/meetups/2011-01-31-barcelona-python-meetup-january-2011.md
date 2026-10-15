@@ -15,4 +15,29 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 31
 meetup_url: "https://www.meetup.com/python-barcelona/events/16005963/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 16005963 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: programming-efficient-sites-in-google-app-engine
+    title: "Programming efficient sites in Google App Engine"
+    speakers: [marc-garcia]
+    type: talk
+  - id: connecting-your-python-app-to-openerp-through-ooop
+    title: "Connecting your Python App to OpenERP through OOOP"
+    speakers: [raimon-esteve]
+    type: talk
+  - id: desktopcouch-blurring-the-cloud-and-the-desktop
+    title: "Desktopcouch, blurring the cloud and the desktop"
+    speakers: [manuel-de-la-pena]
+    type: talk
+  - id: the-basics-and-customization-of-the-satchmo-project-remarks
+    title: "The basics and customization of the Satchmo project: Remarks and Personal Experience"
+    speakers: [juan-gonzalez-vallinas]
+    type: talk
 ---

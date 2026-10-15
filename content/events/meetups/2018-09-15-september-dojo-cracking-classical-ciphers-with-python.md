@@ -15,4 +15,17 @@ venue: "Punt Multimèdia La Casa del Mig"
 attendance: 18
 meetup_url: "https://www.meetup.com/python-barcelona/events/254547971/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 254547971 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: cracking-classical-ciphers-with-python
+    title: "Cracking classical ciphers with Python"
+    type: workshop
+    description: "We are going to learn how to use and crack classical ciphers such as Scytale, Caesar cipher, Vigenère cipher, etc."
 ---

@@ -15,4 +15,17 @@ venue: "Punt Multimèdia La Casa del Mig"
 attendance: 24
 meetup_url: "https://www.meetup.com/python-barcelona/events/267705825/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 267705825 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: dealing-with-legacy-code
+    title: "Dealing with legacy code"
+    type: workshop
+    description: "In this session we'll see how to deal with legacy code, improve it and get ready to add new features with ease, using tests, coverage, golden master, ."
 ---

@@ -15,4 +15,28 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 71
 meetup_url: "https://www.meetup.com/python-barcelona/events/203249502/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 203249502 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: python-tips-tricks-and-dark-magic
+    title: "Python tips, tricks and dark magic"
+    speakers: [jordi-soucheiron]
+    type: talk
+  - id: buildbot-the-continuous-integration-python-framework
+    title: "Buildbot: The Continuous Integration Python framework"
+    speakers: [carles-san-agustin]
+    type: talk
+    links:
+      - type: site
+        url: "https://buildbot.net"
+  - id: unit-test-based-programming
+    title: "Unit-Test-Based Programming"
+    speakers: [miguel-lechon]
+    type: talk
 ---

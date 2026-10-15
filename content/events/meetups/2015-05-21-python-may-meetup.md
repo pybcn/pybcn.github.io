@@ -15,4 +15,28 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 63
 meetup_url: "https://www.meetup.com/python-barcelona/events/222342448/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 222342448 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: python-decorators
+    title: "Python Decorators"
+    speakers: [guillermo-blasco-jimenez]
+    type: talk
+    duration_minutes: 40
+  - id: python-for-data-analysis
+    title: "Python for Data Analysis"
+    speakers: [juan-gonzales-vallinas]
+    type: talk
+    duration_minutes: 40
+  - id: machine-learning-with-scikit-learn
+    title: "Machine Learning with scikit-learn"
+    speakers: [christopher-bonnett]
+    type: talk
+    duration_minutes: 30
 ---

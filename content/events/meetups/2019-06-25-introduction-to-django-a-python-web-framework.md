@@ -15,4 +15,24 @@ venue: "Verse"
 attendance: 29
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/262411770/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 262411770 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introduction-to-django-a-python-web-framework
+    title: "Introduction to Django, a python web framework"
+    speakers: [natalia-padilla]
+    type: workshop
+    language: en
+    description: "In this workshop we are going to discover Django, a framework to build websites with python. We will offer an introduction about Django based on the Django Girls Tutorial followed by some hands-on exercises."
+    links:
+      - type: site
+        url: "https://www.djangoproject.com"
+      - type: site
+        url: "https://tutorial.djangogirls.org/en/"
 ---

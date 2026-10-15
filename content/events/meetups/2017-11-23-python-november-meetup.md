@@ -15,4 +15,34 @@ venue: "Travelperk"
 attendance: 57
 meetup_url: "https://www.meetup.com/python-barcelona/events/245182869/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 245182869 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: websockets-and-chatbots
+    title: "Websockets and chatbots"
+    speakers: [carlos-fenollosa]
+    type: talk
+    language: en
+    duration_minutes: 20
+    description: "Websockets are persistent, lightweight connections to send and receive data from a web browser to a web application without constantly performing AJAX queries. An excellent use case for websockets are chatbots, since they send bidirectional data. In this talk we will show how to program a simple websocket server to interact with a basic chatbot"
+  - id: cffi-interfacing-c-libraries-using-python
+    title: "cffi: Interfacing C libraries using Python"
+    speakers: [gerard-marull-paretas]
+    type: talk
+    language: en
+    duration_minutes: 40
+    description: "cffi is a foreign function library for Python. It is an alternative to the popular ctypes to interface C libraries. cffi offers much more possibilities than ctypes. In the presentation a brief introduction to cffi will be given together with a ctypes comparison and some real examples showing the power of cffi."
+  - id: continuous-deployment-of-web-applications-the-travelperk
+    title: "Continuous deployment of Web Applications: The TravelPerk example"
+    speakers: [dave-garcia]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "In TravelPerk, we have achieved the continuous deployment of our current application stack. In this talk we will explain and show how we achieved it, the challenges we faced and the tools we have used. Also we will show possible alternatives to our current implementation."
 ---

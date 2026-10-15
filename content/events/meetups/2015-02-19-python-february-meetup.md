@@ -15,4 +15,30 @@ venue: "Parc de Recerca Biomedica de Barcelona (PRBB)"
 attendance: 72
 meetup_url: "https://www.meetup.com/python-barcelona/events/220028399/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 220028399 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: high-performance-python
+    title: "High Performance Python"
+    speakers: [marc-garcia]
+    type: talk
+    duration_minutes: 40
+  - id: zipline-a-powerful-algorithmic-trading-simulator
+    title: "Zipline, a powerful algorithmic trading simulator"
+    speakers: [jesus-corrius]
+    type: lightning
+  - id: issue-certificates-with-python-to-build-a-trust-relationship
+    title: "Issue certificates with Python to build a trust relationship"
+    speakers: [pau-freixes]
+    type: lightning
+  - id: natural-language-processing-with-python-and-nltk
+    title: "Natural Language Processing with Python and NLTK"
+    type: talk
+    duration_minutes: 20
 ---

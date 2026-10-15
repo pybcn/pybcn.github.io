@@ -15,4 +15,30 @@ venue: Le Wagon Barcelona
 attendance: 36
 meetup_url: https://www.meetup.com/python-barcelona/events/294322691/
 group: PyBCN
+# The talks this meetup announced, read from the description of event 294322691 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+- id: from-data-science-bootcamp-student-to-freelancer
+  title: From Data Science Bootcamp student to Freelancer
+  speakers:
+  - nikita-polovinkin
+  type: talk
+  language: en
+  duration_minutes: 30
+  description: Sharing valuable experience of attending a Data Science Bootcamp and applying the skills acquired to start a career in the tech sector as a Data Scientist freelancer, working for companies from different sectors, providing valuable insights in their business and provide automation
+- id: collaboration-between-data-scientists-and-data-engineers
+  title: Collaboration between Data Scientists and Data Engineers - Raise team's performance through Merge Requests
+  type: talk
+  language: en
+  duration_minutes: 40
+  description: Sometimes Data Scientists that are not computer engineers and come from different backgrounds, write Machine Learning models and to deploy them to production Data Engineers have to do some refactoring. In this talk we will see how we can improve the workflow and have Data Scientists writing production code through Merge Requests.
+  speakers:
+  - josep-martinez-vila
+  - juan-prida
 ---

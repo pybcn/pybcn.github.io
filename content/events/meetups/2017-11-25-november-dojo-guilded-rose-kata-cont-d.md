@@ -15,4 +15,17 @@ venue: "Punt Multimèdia Espanya Industrial"
 attendance: 4
 meetup_url: "https://www.meetup.com/python-barcelona/events/243106357/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 243106357 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: guilded-rose-kata-cont-d
+    title: "Guilded Rose Kata (Cont'd)"
+    type: workshop
+    description: "Since we could not finish the analysis of the Guilded Rose Kata last month, this edition, we'll take this again. We'll start doing a quick review of what was done in last meetup, and we'll see how to continue with the Refactoring."
 ---

@@ -15,4 +15,18 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 21
 meetup_url: "https://www.meetup.com/python-barcelona/events/12084917/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 12084917 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: an-introduction-to-python-for-people-who-always-wanted-to
+    title: "an introduction to Python for people who always wanted to learn Python but never got around to really dive in"
+    type: workshop
+    duration_minutes: 120
+    description: "This is the preliminary table of contents:\n\nInterpreter\nIndentation\nExpressions\nStatements\nComments\nVariables\nStandard Types\nOperators\nAttributes\nFunctions\nConditions\nLoops\nFiles"
 ---

@@ -15,4 +15,17 @@ venue: "Barcelona Supercomputing Center - Centro Nacional de Supercomputación"
 attendance: 19
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/257157681/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 257157681 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: joining-generations-of-women-in-tech
+    title: "Joining Generations of Women in Tech"
+    type: panel
+    description: "a very special event where kids, girls and women will share their vision and experiences about the topic."
 ---

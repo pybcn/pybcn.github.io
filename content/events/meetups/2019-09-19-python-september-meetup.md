@@ -15,4 +15,27 @@ venue: "BitPhy"
 attendance: 48
 meetup_url: "https://www.meetup.com/python-barcelona/events/264597651/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 264597651 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: data-quality-and-how-we-are-trying-to-break-the-80-20
+    title: "Data Quality and how we are trying to break the 80/20 cleaning rule"
+    speakers: [ana-dorofei]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "We have all heard data scientists spend only about 20% of their precious time developing algorithms and building machine learning models. Let's look a bit into the less sexy aspect of Data Science which takes 80% of our time - cleaning and organizing the data - and a couple of ideas towards automating it with Python."
+  - id: python-for-the-management-of-iot-platforms-at-worldsensing
+    title: "Python for the management of IoT platforms at Worldsensing"
+    speakers: [toni-martinez-del-hoyo]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "Overview on the tech stack and architecture at the Innovation department of Worldsensing to bridge the gap between our IoT sensors and our data monitoring application."
 ---

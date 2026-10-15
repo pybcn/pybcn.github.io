@@ -15,4 +15,31 @@ venue: "Parc de Recerca Biomedica de Barcelona (PRBB)"
 attendance: 21
 meetup_url: "https://www.meetup.com/python-barcelona/events/78173542/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 78173542 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: report-from-froscon
+    title: "Report from FrOSCon"
+    speakers: [maik-roder]
+    type: talk
+    links:
+      - type: site
+        url: "https://www.froscon.de/"
+  - id: tools-for-python-package-development
+    title: "Tools for Python package development"
+    speakers: [maik-roder]
+    type: talk
+  - id: reality-check-your-software-with-vagrant
+    title: "Reality-check your software with Vagrant"
+    speakers: [maik-roder]
+    type: talk
+    links:
+      - type: site
+        url: "https://vagrantup.com/"
 ---

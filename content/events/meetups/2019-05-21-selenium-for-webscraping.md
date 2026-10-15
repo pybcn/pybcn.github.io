@@ -15,4 +15,19 @@ venue: "letgo"
 attendance: 15
 meetup_url: "https://www.meetup.com/pyladies-bcn/events/261404541/"
 group: "PyLadies BCN"
+# The talks this meetup announced, read from the description of event 261404541 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: selenium-for-webscraping
+    title: "Selenium for WebScraping"
+    speakers: [nuria-pujol-vilanova]
+    type: workshop
+    language: en
+    description: "Come to learn how to get data from web pages (web scraping) using Selenium in Python. This workshop will take us into concepts like web scraping, automation, web api and html."
 ---

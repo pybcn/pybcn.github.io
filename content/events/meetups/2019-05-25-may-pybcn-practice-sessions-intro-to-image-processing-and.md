@@ -15,4 +15,17 @@ venue: "Punt Multimèdia La Casa del Mig"
 attendance: 26
 meetup_url: "https://www.meetup.com/python-barcelona/events/261650248/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 261650248 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: intro-to-image-processing-and-computer-vision
+    title: "Intro to Image Processing and Computer Vision"
+    type: workshop
+    description: "Come to start the journey into image processing & computer vision using PILlow & OpenCV in Python. This workshop will take us into concepts like images, filters, object recognition ..."
 ---

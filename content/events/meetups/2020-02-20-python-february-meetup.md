@@ -15,4 +15,30 @@ venue: "Holaluz"
 attendance: 28
 meetup_url: "https://www.meetup.com/python-barcelona/events/268290923/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 268290923 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: automatically-intercepting-debugging-all-python-http-s
+    title: "Automatically intercepting & debugging all Python HTTP(S)"
+    speakers: [tim-perry]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "HTTP Toolkit is an open-source HTTP(S) debugging tool that can completely automatically capture and/or rewrite all HTTP(S) traffic from your Python code, for debugging & testing. That sounds a lot like magic. In this talk, we'll look at how it really works: how HTTP Toolkit can automatically man-in-the-middle all your requests, with no admin permissions or code changes necessary. We'll learn a bit about how HTTP interception works, see why this is useful, and then explore how HTTP Toolkit injects into the Python's own internals to make this happen."
+    links:
+      - type: site
+        url: "https://httptoolkit.tech/"
+  - id: migracode-creating-a-migrant-tech-community
+    title: "Migracode: Creating a Migrant-Tech Community"
+    speakers: [vincent-van-grondelle]
+    type: talk
+    language: en
+    duration_minutes: 30
+    description: "We are currently running Migracode: the first code school for refugees and migrants in Barcelona. Through free tech education we offer vulnerable groups to become Junior Web Developers, and we also help them connect to tech companies throughout Catalunya and Spain, and possibly throughout Europe. We would love to present our project in the Python Community and find potential partners, volunteers and other opportunities. We also have a lot to offer regarding Corporate Social Responsibility and our talk also includes this part."
 ---

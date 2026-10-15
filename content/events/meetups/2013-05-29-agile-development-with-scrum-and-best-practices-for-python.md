@@ -15,4 +15,29 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 55
 meetup_url: "https://www.meetup.com/python-barcelona/events/117137012/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 117137012 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: introduction-to-agile-software-development-with-scrum
+    title: "Introduction to agile software development with Scrum"
+    speakers: [alex-ballarin]
+    type: talk
+  - id: development-work-flow-at-splendia
+    title: "Development work-flow at Splendia"
+    speakers: [christof-damian]
+    type: talk
+  - id: testing-and-continuous-integration
+    title: "Testing and continuous integration"
+    speakers: [thasso-griebel]
+    type: talk
+  - id: my-personal-python-best-practices
+    title: "My personal Python Best practices"
+    speakers: [pawe-piotr-przeradowski]
+    type: talk
 ---

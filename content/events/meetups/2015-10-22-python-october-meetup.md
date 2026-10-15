@@ -15,4 +15,29 @@ venue: "Skyscanner"
 attendance: 47
 meetup_url: "https://www.meetup.com/python-barcelona/events/225921951/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 225921951 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: api-by-example
+    title: "Api By Example"
+    speakers: [carles-barrobes]
+    type: talk
+  - id: ofxpython-embedding-python-into-c
+    title: "ofxPython: embedding Python into C++"
+    speakers: [carles-f-julia]
+    type: talk
+  - id: web-crawling-with-notebook-and-selenium
+    title: "Web crawling with Notebook and Selenium"
+    speakers: [silvia-puglisi]
+    type: talk
+  - id: data-structures-beyond-dicts-and-lists
+    title: "Data structures beyond dicts and lists"
+    speakers: [sergi-sorribas]
+    type: talk
 ---

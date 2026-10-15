@@ -15,4 +15,33 @@ venue: "Parc de Recerca Biomèdica de Barcelona (PRBB)"
 attendance: 12
 meetup_url: "https://www.meetup.com/python-barcelona/events/10191149/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 10191149 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: argparse-python-command-line-parser
+    title: "argparse: Python command line parser"
+    speakers: [timo-stollenwerk]
+    type: talk
+  - id: python-nose-a-unittest-based-testing-framework-for-python
+    title: "python-nose: A unittest-based testing framework for python that makes writing and running tests easier"
+    speakers: [timo-stollenwerk]
+    type: talk
+  - id: wxformbuilder-a-wysiwyg-gui-design-tool-for-wxwidgets
+    title: "wxFormBuilder, a WYSIWYG GUI design tool for wxWidgets"
+    speakers: [maarten-nieber]
+    type: talk
+  - id: some-examples-of-using-ipython-an-enhanced-interactive
+    title: "Some examples of using iPython, an enhanced interactive Python shell"
+    speakers: [jordi-molina]
+    type: talk
+  - id: code-review
+    title: "Code review"
+    type: workshop
+    description: "Bring your code and we'll discuss it"
 ---

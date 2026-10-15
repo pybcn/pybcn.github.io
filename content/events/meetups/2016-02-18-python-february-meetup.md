@@ -15,4 +15,25 @@ venue: "Skyscanner"
 attendance: 65
 meetup_url: "https://www.meetup.com/python-barcelona/events/228851626/"
 group: "PyBCN"
+# The talks this meetup announced, read from the description of event 228851626 in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md).
+talks:
+  - id: bokeh-from-zero-to-contributor
+    title: "Bokeh: from zero to contributor"
+    speakers: [gabriel-de-maeztu]
+    type: talk
+  - id: life-coding-packaging-deploying-and-running-a-dummy
+    title: "Life coding, packaging, deploying and running a dummy microservice with Python and Docker"
+    speakers: [javier-arias-losada]
+    type: talk
+  - id: django-channels-beyond-request-and-response
+    title: "Django Channels: beyond request and response"
+    speakers: [aitor-guevara]
+    type: talk
 ---
