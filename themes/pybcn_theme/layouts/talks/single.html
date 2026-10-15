@@ -212,6 +212,38 @@
             </section>
             {{- end }}
 
+            {{- /* The photos of the talk, from the gallery of its day, each
+                   linked to the figure it is in, in the order the gallery
+                   prints them. Every photo that names the talk, so the
+                   page shows what the card of the row of /talks/ counts
+                   (partials/listing_counts.html counts the same figures):
+                   the page printed the first one only while the card said
+                   2, on hands-on-django of the Django day of 2022. The
+                   heading carries the count, as every heading over a list
+                   of things does. The two widths are the two the gallery
+                   already builds, so a talk page asks the image pipeline
+                   for nothing new: see partials/photo_gallery.html and
+                   partials/image_resize.html.
+
+                   The image is the link, with the title of the talk as its
+                   alt text. The caption of the photo, the text of the post
+                   that published it, and the credit are on the event page,
+                   under the figure this links to, and the line under the
+                   image says so. */ -}}
+            {{- with $record.photos }}
+            <section class="talk_photo_section" aria-labelledby="photo_heading">
+                <h2 id="photo_heading">Photos ({{ len . }})</h2>
+                {{- range . }}
+                {{- $small := partial "image_resize.html" (dict "img" .img "width" 600) -}}
+                {{- $large := partial "image_resize.html" (dict "img" .img "width" 1200) -}}
+                <figure class="talk_photo card">
+                    <a href="{{ .url }}"><img class="card-img-top img-fluid" src="{{ $large.RelPermalink }}"{{ if gt $large.Width $small.Width }} srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w" sizes="(min-width: 768px) 70vw, 100vw"{{ end }} width="{{ $large.Width }}" height="{{ $large.Height }}" loading="lazy" decoding="async" alt="Photo of {{ $.Title }}"/></a>
+                    <figcaption class="card-body">In the <a href="{{ .url }}">gallery of {{ with $event }}{{ .Title }}{{ else }}the day{{ end }}</a>, with the post it was published in.</figcaption>
+                </figure>
+                {{- end }}
+            </section>
+            {{- end }}
+
             {{- /* The video of the talk, when the day published one: the
                    link to YouTube with the title of the talk as its text
                    and the mark in front (partials/video_link.html), the

@@ -1,5 +1,15 @@
 {{ define "main" }}
 
+{{- /* What the gallery of this page holds, from the same partial
+       partials/photo_gallery.html renders, so the section index below and the
+       section itself cannot disagree. The gallery is what the day left
+       behind, the photographs and the videos, in two subsections; an
+       edition with neither has no gallery. PyDay BCN 2020 was held on
+       YouTube with 20 videos and no photograph, so its gallery is the
+       Videos subsection alone (the header of partials/gallery_content.html
+       says why the videos are there and not under the programme). */ -}}
+{{ $gallery := partialCached "gallery_content.html" . .RelPermalink }}
+
 <div class="container" id="event_page">
     <div class="row">
 
@@ -19,6 +29,8 @@
                 {{ range $section := .Params.people_sections }}
                     <a class="list-group-item list-group-item-action" href="#{{ $section.id }}">{{ $section.title }}</a>
                 {{ end }}
+                {{/* Last, as the gallery is last on the page. */}}
+                {{ if or $gallery.photos $gallery.videos }}<a class="list-group-item list-group-item-action" href="#gallery">Gallery</a>{{ end }}
             </div>
         </div>
 
@@ -105,6 +117,13 @@
             </div>
             {{ end }}
 
+            {{/* The videos of the day are not here: they are the Videos
+                 subsection of the gallery at the end of the page, with the
+                 photographs (partials/photo_gallery.html). A Videos block
+                 sat here, under the grid, for one day, 2026-10-14, on PyDay
+                 BCN 2020 alone; the header of partials/gallery_content.html
+                 has the decision that moved it. */}}
+
             {{ if .Params.sponsor_levels }}
             <div class="link_anchor" id="sponsors_section">
                 <h2 class="h1">Sponsors</h2>
@@ -126,6 +145,14 @@
                     {{ partial "people-grid.html" (dict "levels" $section.levels "Site" $.Site "key" $section.id "section" $section.title) }}
                 </div>
             {{ end }}
+
+            {{/* The gallery is last, after the sponsors and the people of the
+                 day. It is what the day left behind, the photographs the
+                 association published and the recordings, and the rest of
+                 the page is the day itself: the programme, who paid for it,
+                 and who ran it. It used to sit between the schedule and the
+                 sponsors, which read as part of the programme. */}}
+            {{ partial "photo_gallery.html" . }}
 
         </div>
     </div>

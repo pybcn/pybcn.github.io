@@ -1,0 +1,107 @@
+{{- /*
+    The videos of one edition page, as rows for the Videos subsection of
+    its gallery, in the order of the programme.
+
+    Argument: the event page.
+
+    Returns a slice of rows, each a dict with:
+
+        type        the type token of the session (talk, workshop, group),
+                    or "", for the icon of the row
+        title       the title of the talk, or the label of a slot with no
+                    talk (the Welcome Session of PyDay BCN 2020)
+        title_lang  the language code of the title when it is not in
+                    English, from partials/title_lang.html, or ""
+        url         the RelPermalink of the page of the talk, or "" for a
+                    slot with no talk, which has no page
+        speakers    the names of the speakers, through
+                    partials/speaker_names.html, an empty slice when the
+                    session credits nobody
+        video       the URL of the video
+
+    Why rows of their own. A player belongs on a page about one talk and
+    a link belongs on a row (David Arcos, 2026-10-15). The grid of the
+    programme is neither: a block of the grid is a slot, at its hour and
+    in its room, and the grid of PyDay BCN 2020 was the one schedule of
+    the site that printed a video, 20 links on 20 blocks, while the page
+    of every other edition printed none. The links left the grid and
+    came here, one row per video, the row the Talks block of a meetup
+    page prints (partials/talk_rows.html): the icon of the type, the
+    title as the link to the page of the talk, where the player is, who
+    gave it, and the Watch line to YouTube. The modal behind a block of
+    the grid keeps its link: it is the detail of one session. The rows
+    were a Videos block under the grid for that one day; since
+    2026-10-15 they are the Videos subsection of the gallery, with the
+    photographs, because a recording is material added after the day
+    (the header of partials/gallery_content.html has the decision).
+
+    One row per video, in programme order. The agenda is walked first,
+    slot by slot: a slot with a talk takes the video of its talk, a slot
+    with none takes its own (the Welcome Session is the one case, see
+    partials/listing_counts.html), and a talk the grid places twice is
+    printed once. Then the talks the agenda does not place, in the order
+    of the talks block, so a video reaches the page whether or not the
+    programme has a slot for it; none is in that state today. A session
+    with no video has no row: this is the list of what was recorded, not
+    a second programme. The first link of type video is the one, the rule
+    of partials/agenda_entry.html; no session of the archive carries two.
+
+    The one caller is partials/gallery_content.html, for every edition
+    page, with or without an agenda. PyData Barcelona 2017 has 32 talks
+    and no agenda, so its 29 videos come from the second walk, in the
+    order of its talks block; its Talks block prints the Watch line on
+    each row as well, and the Gallery lists the same 29 recordings
+    together, a mild redundancy David Arcos accepts (2026-10-15): the
+    row says this talk was filmed while you read the programme.
+*/ -}}
+{{- $page := . -}}
+{{- $pages := partialCached "talk_pages_index.html" site "talk-pages-index" -}}
+{{- $names := partialCached "people_names.html" site "people-names" -}}
+{{- $here := $page.RelPermalink -}}
+{{- $talks := dict -}}
+{{- range $talk := $page.Params.talks -}}
+    {{- with $talk.id }}{{ $talks = merge $talks (dict . $talk) }}{{ end -}}
+{{- end -}}
+{{- $rows := slice -}}
+{{- $seen := dict -}}
+{{- range $slot := $page.Params.agenda -}}
+    {{- $source := $slot -}}
+    {{- $url := "" -}}
+    {{- with $slot.talk -}}
+        {{- if index $seen . }}{{ continue }}{{ end -}}
+        {{- $seen = merge $seen (dict . true) -}}
+        {{- $source = index $talks . -}}
+        {{- if not $source }}{{ continue }}{{ end -}}
+        {{- $url = default "" (index $pages (printf "%s|%s" $here .)) -}}
+    {{- end -}}
+    {{- $video := "" -}}
+    {{- range $link := $source.links -}}
+        {{- if and (not $video) (eq (default "" $link.type) "video") }}{{ $video = $link.url }}{{ end -}}
+    {{- end -}}
+    {{- if not $video }}{{ continue }}{{ end -}}
+    {{- $title := default $source.label $source.title -}}
+    {{- $rows = $rows | append (dict
+            "type" (lower (trim (printf "%v" (default "" $source.type)) " "))
+            "title" $title
+            "title_lang" (partial "title_lang.html" (dict "title_lang" $source.title_lang "title" $title))
+            "url" $url
+            "speakers" (partial "speaker_names.html" (dict "names" $names "ids" $source.speakers))
+            "video" $video) -}}
+{{- end -}}
+{{- range $talk := $page.Params.talks -}}
+    {{- if not $talk.id }}{{ continue }}{{ end -}}
+    {{- if index $seen $talk.id }}{{ continue }}{{ end -}}
+    {{- $video := "" -}}
+    {{- range $link := $talk.links -}}
+        {{- if and (not $video) (eq (default "" $link.type) "video") }}{{ $video = $link.url }}{{ end -}}
+    {{- end -}}
+    {{- if not $video }}{{ continue }}{{ end -}}
+    {{- $rows = $rows | append (dict
+            "type" (lower (trim (printf "%v" (default "" $talk.type)) " "))
+            "title" $talk.title
+            "title_lang" (partial "title_lang.html" (dict "title_lang" $talk.title_lang "title" $talk.title))
+            "url" (default "" (index $pages (printf "%s|%s" $here $talk.id)))
+            "speakers" (partial "speaker_names.html" (dict "names" $names "ids" $talk.speakers))
+            "video" $video) -}}
+{{- end -}}
+{{- return $rows -}}

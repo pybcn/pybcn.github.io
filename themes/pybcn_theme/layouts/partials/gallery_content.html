@@ -1,0 +1,120 @@
+{{- /*
+    What the gallery of one event holds: its photographs, and on an
+    edition page its videos.
+
+    Argument: the event page. Returns a dict:
+
+        thread  the URL of the thread of the day, or ""
+        photos  a slice of the photos the gallery renders, in page order
+        videos  a slice of the recordings of the day, the rows of
+                partials/event_videos.html in programme order, on an
+                edition page (layouts/_default/event.html); an empty
+                slice on every other page
+
+    Each photo is a dict:
+
+        item        the photos.items entry, as the front matter writes it
+        img         the image resource, unprocessed
+        pos         its place in the gallery, counted from 1
+        talk        the talk record it belongs to, or ""
+
+    The names of the speakers are not here. The dict carried them, resolved
+    through partials/speaker_names.html, while the gallery printed a name
+    as text; since 2026-10-14 the gallery links each speaker through
+    partials/person_page_link.html, which takes the id and the dict of
+    partials/people_names.html, so the ids of the talk record are what it
+    reads.
+
+    Three templates ask the same question, so the answer is built in one
+    place:
+
+    - partials/photo_gallery.html renders the list.
+    - layouts/_default/event.html and layouts/_default/meetup.html need to
+      know whether the page has a gallery at all, to decide the Gallery item
+      of the section index and whether to print the section.
+    - partials/talk_record.html needs the place of a photo in the gallery,
+      because that place is the id of its figure (see
+      partials/photo_anchor.html). A second count of the rendered photos
+      would let the thumbnail on the page of a person or of a talk and the
+      figure it points at drift apart.
+
+    pos counts the photos the gallery renders and no others. A photo whose
+    file does not resolve is skipped, and so is a photo with no caption: a
+    caption is the alt text, and an image with no accessible name is worse
+    on the page than one photo fewer. bin/check-content is what reports the
+    gap, not the build.
+
+    Call it through partialCached, keyed by the page, so one page builds the
+    answer once:
+
+        partialCached "gallery_content.html" $page $page.RelPermalink
+
+    The videos of an edition are here, for the Videos subsection of the
+    gallery, since 2026-10-15. They were here until 2026-10-14, when David
+    Arcos took them out ("Gallery no tiene sentido aqui: cada video podria
+    ir junto a su Talk") and each video went to the row of its talk and to
+    the page of the talk (layouts/talks/single.html). Measured across the
+    thirteen edition pages the day after: only two have a video at all,
+    PyData Barcelona 2017 with 29 and PyDay BCN 2020 with 20, and the two
+    did not look alike. 2017 printed a link on each talk row and nothing
+    else; 2020, held on YouTube with no photograph, printed a Videos block
+    under the schedule that no other page had. David Arcos decided that a
+    recording is material added after the day, like a photograph, so it
+    belongs in the Gallery at the end of the page and not under the
+    schedule: the Gallery is what the day left behind, with Photos (N) and
+    Videos (N) subsections, and a page with neither has no gallery. The
+    rows come from partials/event_videos.html, which walks the agenda and
+    then the talks the agenda does not place, so 2017, which has talks and
+    no agenda, gets its 29 from the second walk. The link on the row of a
+    talk stays as well, a mild redundancy David accepts: the row says this
+    talk was filmed while you read the programme, and the Gallery lists
+    the recordings of the day together.
+
+    Edition pages only, the pages with layout event. A meetup page
+    (layouts/_default/meetup.html) prints its talks as rows with the Watch
+    line on each, and the recording of a whole session, which belongs to
+    no talk, under its own Recordings heading (partials/session_videos.html,
+    which an edition page prints under the programme too); its gallery is
+    its photographs. partials/listing_counts.html counts the videos of a
+    day from the front matter itself, not from here, so the row of /events/
+    and this subsection agree by reading the same records.
+*/ -}}
+{{- $page := . -}}
+{{- $thread := "" -}}
+{{- $items := slice -}}
+{{- /* with, not an index into .Params: a page with no photos block has no
+       map to read items from, and reading one is a build error. */ -}}
+{{- with $page.Params.photos -}}
+    {{- with .thread }}{{ $thread = . }}{{ end -}}
+    {{- with .items }}{{ $items = . }}{{ end -}}
+{{- end -}}
+{{- /* The talks of this page by id, so a photo finds its own talk and
+       nothing else. */ -}}
+{{- $talks := dict -}}
+{{- range $talk := $page.Params.talks -}}
+    {{- with $talk.id }}{{ $talks = merge $talks (dict . $talk) }}{{ end -}}
+{{- end -}}
+{{- $photos := slice -}}
+{{- $pos := 0 -}}
+{{- range $item := $items -}}
+    {{- $img := "" -}}
+    {{- with $item.file -}}
+        {{- $img = resources.Get (printf "images/photos/%s" (strings.TrimPrefix "/" .)) -}}
+    {{- end -}}
+    {{- if and $img $item.caption -}}
+        {{- $pos = add $pos 1 -}}
+        {{- $talk := "" -}}
+        {{- with $item.talk }}{{ $talk = index $talks . }}{{ end -}}
+        {{- $photos = $photos | append (dict
+                "item" $item
+                "img" $img
+                "pos" $pos
+                "talk" $talk) -}}
+    {{- end -}}
+{{- end -}}
+{{- /* The videos, on an edition page and no other: see the header. The
+       partial reads the talk pages and the person names through
+       partialCached, so a second edition pays for neither again. */ -}}
+{{- $videos := slice -}}
+{{- if eq $page.Layout "event" }}{{ $videos = partial "event_videos.html" $page }}{{ end -}}
+{{- return (dict "thread" $thread "photos" $photos "videos" $videos) -}}

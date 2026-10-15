@@ -1,0 +1,328 @@
+{{- /*
+    The photos of one event day, one after another in a single column.
+
+    Argument: the event page.
+
+    What the gallery holds comes from partials/gallery_content.html, which
+    reads the front matter once per page and answers the same question for
+    layouts/_default/event.html and for partials/talk_record.html. This
+    template only renders it.
+
+    Two subsections under the Gallery heading, Photos (N) and Talks & Videos
+    (N). The second says both words because every row of it is a talk: the
+    title links to the page of the talk, where the player is, and the link
+    beside it goes to YouTube. "Videos" alone read as a list of films
+    (David Arcos, 2026-10-15).
+    what the day left behind, in two kinds. A subsection with nothing in
+    it is not printed, and a page with neither has no gallery. Measured
+    over the thirteen edition pages on 2026-10-15: eleven have photographs
+    and no video, PyData Barcelona 2017 has 19 photographs and 29 videos,
+    and PyDay BCN 2020, held on YouTube, has 20 videos and no photograph.
+    The videos reach this template through partials/gallery_content.html,
+    whose header has the decision (David Arcos, 2026-10-15: a recording is
+    material added after the day, like a photograph, so it belongs here
+    and not under the schedule; the gallery was photographs only for one
+    day, from 2026-10-14). The row of a talk keeps its own video link as
+    well, a mild redundancy David accepts: the row says this talk was
+    filmed while you read the programme, and the Gallery lists the
+    recordings of the day together. A video prints as the row of the
+    Talks block of a meetup page (partials/talk_rows.html): the icon of
+    the type, the title as the link to the page of the talk, where the
+    player is, who gave it, and the Watch line to YouTube; the title is
+    an h4 under the h3 of the subsection, because the outline skips no
+    level (bin/check-rendered fails a page that does).
+
+    Not a carousel. partials/carousel.html sells an event that has not
+    happened yet: three pictures at the top of a landing page, one visible
+    at a time. This is an archive, where all the photos of the day are the
+    content, so a control that shows one and hides the rest works against
+    the page. The carousel indicators are also written for exactly three
+    slides, so any other number gets an indicator row that lies.
+
+    No script either. A figure with its caption under it needs none, it
+    prints, and it works with JavaScript off, which is what an archive page
+    has to do ten years from now.
+
+    The front matter block the archive import writes:
+
+        photos:
+          date: 2019-11-16
+          thread: "https://x.com/PyBCN/status/1195623896537554944"
+          items:
+            - file: pyday-2019/11-keep-your-repo-clean.jpg
+              caption: "\"Keep your repo clean\", by @hectorcanto_dev"
+              source: "https://x.com/PyBCN/status/1195639258599563264"
+              talk: keep-your-repo-clean
+
+    file is relative to assets/images/photos/, the directory the carousel
+    reads as well. caption is the text of the post, literal: it is both the
+    visible caption and the alt text. talk, source and time are optional,
+    because a photo of a full room or of the coffee break belongs to no
+    talk.
+
+    The credit line is one link, "Via @account", pointing at the post, with
+    the X mark in front. It names the account and not a person: the
+    association published these, a member of it took them, and the account
+    is the part the post proves. It read "Photo by @account" until
+    2026-10-14, and David Arcos asked for "Via": the account is where the
+    photograph came through, not who took it, and "by" said the second.
+
+    Every photo is a figure with an id of its own, built by
+    partials/photo_anchor.html, so a link can point at one photo of the
+    day rather than at the gallery. The page of a person and the page of
+    a talk use that: a talk the gallery photographed gets a thumbnail
+    there that links to the figure here (see talk_record.html). The id
+    comes from the shared partial in both places, because a link to an id
+    that is not on the page builds and
+    renders and lands the reader at the top of the event page. The figure
+    prints a link to its own anchor as well, #3 at the right end of the
+    credit line, so a reader can copy the address of one photograph the
+    way the anchor of a heading lets them copy the address of a section.
+
+    The line under the caption, when a photo names a talk, is the title of
+    the talk linked to its page, and "by" each speaker linked to theirs.
+    The url of the talk is looked up in partials/talk_pages_index.html, so
+    the figure links to a page this build holds and to nothing else, and
+    the name goes through partials/person_page_link.html, the one place
+    that decides where a person name points.
+
+    What the template does not invent:
+
+    - A photo whose file is missing is skipped, and so is a photo with no
+      caption. A caption is the alt text, and an image with no accessible
+      name is worse on the page than one photo fewer. bin/check-content is
+      what reports the gap, not the build.
+    - A speaker id that matches no page under content/people/ is printed as
+      the id, made readable, which is the id with its hyphens taken out,
+      and as text: only an id with a person record is linked, which is the
+      rule of AGENTS.md and of partials/person_page_link.html.
+    - The account of a post comes from the URL, not from this file. Most of
+      them are the association's own account, and some are not.
+    - The source line gives the account and no date. The day of the event is
+      on the page itself, in its date, and a photo of it needs no second
+      copy of that date under every figure.
+*/ -}}
+{{- $page := . -}}
+{{- $gallery := partialCached "gallery_content.html" $page $page.RelPermalink -}}
+{{- $photos := $gallery.photos -}}
+{{- $videos := $gallery.videos -}}
+{{- /* The page of every talk, keyed by its event and its id, so the line
+       under a caption can go to the talk the photo is of. Read once for the
+       gallery and not once per figure: the index walks the site, which is
+       why it is partialCached with a constant key. See
+       partials/talk_pages_index.html. */ -}}
+{{- $talk_pages := partialCached "talk_pages_index.html" site "talk-pages-index" -}}
+{{- /* The name of every person record, by id, for the speaker links under
+       the captions: read once per build, as the talk pages read it. */ -}}
+{{- $names := partialCached "people_names.html" site "people-names" -}}
+{{- if or $photos $videos -}}
+    {{- /* The gallery is the width of the text column, so the browser needs
+           about three quarters of the viewport from the md breakpoint up,
+           where the column is col-md-9, and the whole width below it. */ -}}
+    {{- $sizes := "(min-width: 768px) 70vw, 100vw" -}}
+{{- /* The rule above the section says that the gallery is not part of the
+       programme above it: it is what the association published after the
+       day was over. Each photograph is a card of its own, on the white of
+       the page: the band of colour that held every card until 2026-10-14
+       is gone (David Arcos: "cada item tenga su propio recuadro"). See
+       assets/scss/photo_gallery.scss.
+
+       The section does not carry link_anchor, the class the other sections of
+       layouts/_default/event.html use to clear the fixed navigation bar. That
+       class is 80px of padding with 80px of negative margin, so the box of
+       the section starts 80px higher than it looks. scroll-margin-top in
+       the stylesheet moves the landing point of the anchor instead, without
+       moving the box, and it works on single.html as well, where link_anchor
+       has no rule behind it at all. */ -}}
+<hr class="gallery_rule"/>
+<section class="photo_gallery" id="gallery" aria-labelledby="gallery_heading">
+    <h2 class="h1" id="gallery_heading">Gallery</h2>
+    {{- with $photos }}
+    <section class="gallery_photos" aria-labelledby="gallery_photos_heading">
+        <h3 class="h2" id="gallery_photos_heading">Photos ({{ len . }})</h3>
+    {{- /* The thread of the day, at the start of the photos and not under
+           the last photo. The thread is where these photos were published,
+           and a reader who wants the whole day on X should not have to walk
+           33 figures to find out that it exists. The X mark in front, as on
+           the credit of every photo below: every link to x.com on this site
+           carries it (David Arcos, 2026-10-14). */ -}}
+    {{- with $gallery.thread }}
+    <p class="photo_thread"><a href="{{ . }}">{{ partial "link_mark.html" . }}The whole thread of the day on X</a></p>
+    {{- end }}
+    {{- /* An album the association kept somewhere else. The gallery holds
+           what PyBCN posted on the day, which is a selection; an album
+           usually holds the rest. The link belongs here, beside the
+           thread, and not in the body of the page above a gallery that
+           contradicts it. */ -}}
+    {{- with $.Params.photos.album }}
+    <p class="photo_album"><a href="{{ . }}">{{ partial "link_mark.html" . }}More photos of the day, in the album the association kept</a></p>
+    {{- end }}
+    {{- range . -}}
+        {{- $photo := . -}}
+        {{- $item := $photo.item -}}
+        {{- $small := partial "image_resize.html" (dict "img" $photo.img "width" 600) -}}
+        {{- $large := partial "image_resize.html" (dict "img" $photo.img "width" 1200) -}}
+        {{- /* The first photo is above the fold on every window, so it
+               loads with the page. The rest load as the reader arrives. */ -}}
+        {{- $loading := cond (eq $photo.pos 1) "eager" "lazy" }}
+    {{- /* One photo, its caption, and its credit as a card: the Bootstrap 4
+           card of themes/pybcn_theme/assets/css/bootstrap.min.css, which
+           already draws the border, the radius, and the white body this
+           needs. The figure is the card and the figcaption is its body, so
+           the markup stays one figure with one caption and gains no wrapper.
+
+           card-img-top rounds the top corners of the photo to the radius of
+           the card. It sets width 100% as well, which changes nothing here:
+           every variant the gallery serves is 1200px wide or the width of
+           its source, and the text column of the page is never that wide. */ -}}
+    {{- /* The anchor of the figure, read once: the id of the figure below
+           and the href of the link to it at the end of the credit line are
+           the same string, or a reader would copy a link to nowhere. */ -}}
+    {{- $anchor := partial "photo_anchor.html" $photo.pos }}
+    <figure class="photo_item card" id="{{ $anchor }}">
+        <img class="card-img-top img-fluid" src="{{ $large.RelPermalink }}"{{ if gt $large.Width $small.Width }} srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w" sizes="{{ $sizes }}"{{ end }} width="{{ $large.Width }}" height="{{ $large.Height }}" loading="{{ $loading }}" decoding="async" alt="{{ $item.caption }}"/>
+        <figcaption class="card-body">
+            {{- /* The caption is a quotation: the text of the post, written
+                   by whoever published the photo, and not a line this site
+                   wrote. So it is a blockquote, with the post it comes from
+                   in its cite attribute, and partials/photo_gallery.scss
+                   gives it the rule down its left side that a quotation
+                   takes. It was a paragraph with a class, which said the
+                   same thing to a reader with a stylesheet and nothing at
+                   all to a reader without one.
+
+                   partials/caption_links.html makes the mentions, the
+                   hashtags, and the URLs of the post into links. It escapes
+                   the caption before it adds any of them, which is why
+                   safeHTML is safe here and nowhere else: see the partial.
+                   The alt text below is the caption printed as text, with no
+                   markup in it. */ -}}
+            <blockquote class="photo_caption"{{ with $item.source }} cite="{{ . }}"{{ end }}>
+                <p>{{ partial "caption_links.html" $item.caption | safeHTML }}</p>
+            </blockquote>
+            {{- /* The talk of this photo, under the caption: the title, a link
+                   to the page of the talk, and then "by" and each speaker,
+                   a link to the page of the person. The line is printed for
+                   every photo that names a talk, whatever the caption says.
+
+                   It was not. Until 2026-10-14 the line printed only what the
+                   caption did not already say, both folded to lowercase
+                   with the accents and the punctuation off (a partial,
+                   fold_text.html, that went with the rule): a caption that
+                   quoted the title
+                   dropped the title, and one that named the speaker dropped
+                   the name. Most posts quote the title and credit a handle,
+                   so of the 107 photos that name a talk, 84 printed no line
+                   and 21 printed "by Héctor Canto" with the title hidden in
+                   an sr-only span, which is what David Arcos saw ("debería
+                   haber TALK_TITLE by AUTHOR (con ambos enlaces), pero solo
+                   sale by AUTHOR"). The caption is a quotation of the post,
+                   and the line is the credit of this site, with the links
+                   the post cannot give: the two say the same words for a
+                   different reason, so the second is not a duplicate.
+
+                   The page of this talk comes from
+                   partials/talk_pages_index.html, keyed by this event page
+                   and the id of the talk, and is never spelled out with
+                   printf: the path is the rule of content/talks/_content.gotmpl,
+                   and a second copy of that rule here would keep linking
+                   after the rule changed. Empty when the index holds no page
+                   for the pair, and the title then prints as text.
+
+                   Each speaker goes through partials/person_page_link.html,
+                   the one place that decides where a name points: a link
+                   for an id with a person record, the id made readable for
+                   one without, as the row of /talks/ does it. The names come
+                   from partials/people_names.html, read once per build.
+                   The credit reads "by A", "by A and B", "by A, B and C",
+                   the shape of the credit on /talks/. A talk with no
+                   speaker, the keynotes of 2019, prints the title alone. */ -}}
+            {{- with $photo.talk -}}
+                {{- $talk := . -}}
+                {{- $talk_url := "" -}}
+                {{- with $talk.id -}}
+                    {{- with index $talk_pages (printf "%s|%s" $page.RelPermalink .) }}{{ $talk_url = . }}{{ end -}}
+                {{- end }}
+            <p class="photo_talk">
+                {{- if $talk_url }}<a href="{{ $talk_url }}">{{ $talk.title }}</a>{{ else }}{{ $talk.title }}{{ end -}}
+                {{- with $talk.speakers }} by {{ range $si, $sid := . }}{{ if $si }}{{ if eq $si (sub (len $talk.speakers) 1) }} and {{ else }}, {{ end }}{{ end }}{{ partial "person_page_link.html" (dict "id" $sid "names" $names) }}{{ end }}{{ end -}}
+            </p>
+            {{- end -}}
+            {{- /* The account that published the photo, from the path of the
+                   post URL: /PyBCN/status/1195639258599563264. The credit is
+                   the account and not a person on purpose. The association
+                   published these, a member of it took them, and the account
+                   is the fact the post can prove. */ -}}
+            {{- $account := "" -}}
+            {{- with $item.source -}}
+                {{- with urls.Parse . -}}
+                    {{- with index (split (strings.TrimPrefix "/" .Path) "/") 0 -}}
+                        {{- $account = . -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end }}
+            {{- /* The mark in front of the credit comes from
+                   partials/link_mark.html, the one mark per destination the
+                   site prints: the X mark for a post on X, which is .icon_x
+                   of main.scss, the Font Awesome 6 path drawn as a CSS mask
+                   because the vendored Font Awesome is 5.8.2 and older than
+                   the rename. Grey at rest like every mark, see .link_mark.
+
+                   The icon is inside the link, unlike the page of a person,
+                   where the whole row is the target through a stretched
+                   link. Here
+                   there is no row: the icon and the words are the target. */ -}}
+            {{- /* The link to this figure, at the right end of the credit
+                   line: #3 for the third photograph of the day. The figure
+                   has had an id since the anchors came (see
+                   partials/photo_anchor.html), and the page of a person
+                   links to it, but a reader had no way to copy the address of
+                   one photograph short of reading the source. David Arcos
+                   asked for the visible link on 2026-10-14 ("cada foto
+                   debería tener un link a su anchor, tipo #1, #2, #3").
+                   The text is the number with its hash, which is what the
+                   address bar shows after the click, and the sr-only span
+                   in front of it is what a screen reader needs to tell
+                   the link from the credit beside it: the accessible name
+                   reads "Link to photo #3" and holds the visible text
+                   (WCAG 2.5.3). The line is a flex row, so the number sits
+                   at the right edge whether or not the photo has a source
+                   to print on the left. */ -}}
+            <p class="photo_source">
+                {{- if and $item.source $account -}}
+                    <a href="{{ $item.source }}">{{ partial "link_mark.html" $item.source }}Via @{{ $account }}</a>
+                {{- end -}}
+                <a class="photo_number" href="#{{ $anchor }}"><span class="sr-only">Link to photo </span>#{{ $anchor }}</a>
+            </p>
+        </figcaption>
+    </figure>
+    {{- end }}
+    </section>
+    {{- end }}
+    {{- /* The recordings of the day: one row per video, in programme
+           order, from partials/event_videos.html. The title links to the
+           page of the talk, where the player is; the Welcome Session of
+           PyDay BCN 2020 is a slot with no talk and no page, and prints
+           its label as text. No player here: twenty frames on one page
+           would ask Google for twenty players, and the page of the talk
+           has the one. */ -}}
+    {{- with $videos }}
+    <section class="gallery_videos" aria-labelledby="gallery_videos_heading">
+        <h3 class="h2" id="gallery_videos_heading">Talks &amp; Videos ({{ len . }})</h3>
+        <ul class="talk_rows">
+            {{- range $row := . }}
+            <li class="talk_row">
+                <h4 class="talk_title">{{ with $row.type }}<span class="talk_icon">{{ partial "event_type_icon.html" (dict "type" . "named" true) }}</span>{{ end }}
+                    {{- if $row.url }}<a href="{{ $row.url }}"{{ with $row.title_lang }} lang="{{ . }}"{{ end }}>{{ $row.title }}</a>
+                    {{- else }}<span{{ with $row.title_lang }} lang="{{ . }}"{{ end }}>{{ $row.title }}</span>{{ end }}</h4>
+                {{- with $row.speakers }}
+                <p class="talk_meta">{{ delimit . ", " }}</p>
+                {{- end }}
+                <p class="talk_video">{{ partial "video_link.html" (dict "url" $row.video) }}</p>
+            </li>
+            {{- end }}
+        </ul>
+    </section>
+    {{- end }}
+</section>
+{{- end -}}

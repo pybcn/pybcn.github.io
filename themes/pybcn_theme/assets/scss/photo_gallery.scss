@@ -1,0 +1,270 @@
+// The photo gallery of an event day: see
+// partials/photo_gallery.html. One column, the photos one after another at
+// the width of the text column, each caption under its own photo.
+//
+// Nothing here is positioned, and no text sits on an image. The carousel
+// does that (.carousel-caption over the slide, see carousel.scss), and it
+// works there because a hero slide is chosen to carry a line of text over
+// it. These photos were not: a caption is a sentence from the post, long
+// enough to wrap, and over the picture it is unreadable and it covers the
+// part of the photo it talks about.
+
+// The rule down the left of a caption. Light enough to stay in the
+// background of the card, since it carries no information a reader needs to
+// see: the blockquote is what says the caption is a quotation.
+$quote-rule: #ced4da;
+
+// The cap on the height of a photograph, in the gallery and on the page of
+// a talk. The column is 900px on a large window, and a portrait at 900px
+// wide is 1600px tall, which is taller than any window. 675px is 900 times
+// 3/4: the height of a 4:3 landscape at the width of the column, the most
+// common frame of a camera, so a 4:3 landscape fills the column and nothing
+// is taller than it. Measured over the 276 photographs of the archive on
+// 2026-10-14: 228 of the 251 landscapes are 4:3 or wider and keep their
+// size, the 23 taller ones, 6 of them square to the pixel, come down to
+// 675px, and so do the 10 squares and the 15 portraits, which David Arcos
+// asked for ("limite de alto, para que las fotos verticales no salgan
+// demasiado grandes"). On a 390px phone the card is 358px wide and a
+// portrait 636px tall, under the cap, so nothing changes there. Measured
+// in Chromium on the first and the twenty-first photo of PyDay BCN 2022:
+// 900x506 and 379x675 at 1280px, 358x201 and 358x636 at 390px.
+$photo-max-height: 675px;
+
+// The rule above the gallery, and the air above that. The gallery is the last
+// section of an event page, after the sponsors and the people of the day, and
+// it holds what the association published once the day was over. The rule
+// and the gap are what say so to a reader who is scrolling: three sections
+// of a programme in a row, and then something that is not one.
+//
+// There is no band of colour behind the section any more. The gallery sat on
+// a light grey band, with every card on it, until David Arcos asked for a box
+// per item on 2026-10-14 ("ahora están todos en una caja gris"): each figure
+// is its own card, the border and the white body of the Bootstrap 4 card, on
+// the white of the page, and the air between the cards is what separates
+// them. The gap above and below the thread link is in .photo_thread.
+.gallery_rule {
+    margin-top: 4rem;
+    margin-bottom: 0;
+}
+
+.photo_gallery {
+    // The gallery is the last section and it is set apart from the
+    // programme, so it does not have to sit inside the reading column the
+    // text uses. Breaking out of it gives a photograph 900px instead of
+    // 775px, measured at the 1140px container of this theme: the section is
+    // 902px, and the 1px border of the card on each side leaves 900 for the
+    // photograph. The section was 950px with 1.5rem of padding each side
+    // while it was a band; the padding went with the band, and the width
+    // came down by the same 48px so the photograph kept its 900.
+    //
+    // 900 and not the full 1100 the container allows, on purpose: the source
+    // of an imported photograph is capped at 1000px, and a column wider than
+    // that would make a normal screen scale the picture up, which looks
+    // worse than any saving is worth.
+    // 992px is the lg breakpoint of Bootstrap 4, written out because this
+    // file is compiled without the Bootstrap mixins in scope.
+    @media (min-width: 992px) {
+        width: 902px;
+        max-width: calc(100vw - 3rem);
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    // The fixed navigation bar is 80px of the window at the top, and this
+    // section does not carry the link_anchor class the other sections use to
+    // clear it: see partials/photo_gallery.html. A browser older than
+    // scroll-margin-top ignores this and lands the reader under the bar,
+    // which is what every anchor of a single.html page does today.
+    scroll-margin-top: 80px;
+
+    // Each card has a white body, so the caption and the credit inside it
+    // read on white: the credit is $icon-grey at 0.9rem, which is 4.68:1 on
+    // white, and the page around the card is white as well.
+
+    .photo_item {
+        // The width of the text column. The figure holds no float and no
+        // grid, so a portrait photo and a landscape one sit in the same
+        // column and keep their own shape.
+        margin: 0 0 3rem;
+        // Every figure is a link target, #1 to #33, and the navigation bar
+        // is fixed over the top 80px of the window.
+        scroll-margin-top: 80px;
+
+        img {
+            // .img-fluid in the markup caps the width at the column and
+            // keeps the ratio, which is what stops a photo overflowing on a
+            // narrow window. This repeats the cap so the gallery does not
+            // depend on that one class staying in Bootstrap.
+            max-width: 100%;
+            height: auto;
+            // The cap on the height: $photo-max-height, with the reason
+            // beside it. The box of the image keeps the width of the card
+            // (card-img-top sets width 100%), and the photograph is
+            // painted inside it at its own ratio, centred, so a portrait
+            // shows at 380x675 on a white card instead of 900x1600 and a
+            // landscape up to 4:3 is not touched. object-fit and not
+            // width auto: with width auto a landscape whose source is
+            // narrower than the card, 895px say, would sit 2px inside
+            // the rounded corners of the card and show a second corner.
+            max-height: $photo-max-height;
+            object-fit: contain;
+        }
+    }
+
+    // .card-body in the markup carries the padding that holds the caption
+    // off the photo and off the border, so the gap above it is gone.
+    figcaption {
+        font-size: 0.9rem;
+
+        p {
+            margin-bottom: 0.2rem;
+        }
+    }
+
+    // The text of the post, as a quotation: see the blockquote in
+    // partials/photo_gallery.html. Softer than the body text around it,
+    // because it is a caption and not the page, and with the rule down its
+    // left side that a quotation takes, so that the words of somebody else
+    // read as somebody else's with the stylesheet as well as without it.
+    //
+    // Bootstrap 4 has a .blockquote class and this does not use it: it sets
+    // font-size 1.25rem, which would print the caption larger than the body
+    // text of the page instead of smaller.
+    //
+    // Italic, as a quotation is set in print, so the words of the post read
+    // as a quotation even where the rule down the left is easy to miss, on
+    // a narrow window with the border of the card beside it. David Arcos
+    // asked on 2026-10-14 ("el blockquote, tal vez en cursiva?"). The talk
+    // line under it went upright at the same time: two italic blocks one
+    // after the other read as one, and the line under the caption is this
+    // site's own credit, not part of the quotation. The abstract of a talk
+    // (.talk_abstract in talks.scss) is italic for the same reason.
+    .photo_caption {
+        color: $dark-grey;
+        font-style: italic;
+        margin: 0 0 0.2rem;
+        padding-left: 0.75rem;
+        border-left: 3px solid $quote-rule;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        // The links of the post: a mention, a hashtag, or a URL the post
+        // wrote. Underlined, because they sit inside a run of text where a
+        // colour alone is the only thing that would mark them, and WCAG
+        // 1.4.1 asks for more than colour. A mention and a hashtag carry
+        // the X mark in front (partials/caption_links.html), smaller than
+        // the mark of a credit line because it sits inside a sentence, and
+        // the underline stops at it: .icon_x is an inline-block.
+        a {
+            color: $blue-pybcn;
+            text-decoration: underline;
+
+            .icon_x {
+                width: 0.8em;
+                height: 0.8em;
+                margin-right: 0.15em;
+            }
+        }
+    }
+
+    // The talk the photo belongs to, when it belongs to one. Upright, so
+    // it reads apart from the italic quotation above it.
+    .photo_talk {
+        color: $dark-grey;
+
+        // The line goes to the page of the talk. Same treatment as the
+        // credit below it: the colour of the line at rest with an
+        // underline, and the PyBCN blue under the pointer. The underline
+        // is the second mark WCAG 1.4.1 asks for, and keeping the grey
+        // stops two links in one figcaption from shouting at each other.
+        a {
+            color: inherit;
+            transition: color 0.15s linear;
+            text-decoration: underline;
+
+            &:hover,
+            &:focus {
+                color: $blue-pybcn;
+            }
+        }
+    }
+
+    // Where the photo came from, and at the right end of the same line the
+    // link to the figure itself (.photo_number, see the markup). Grey at
+    // rest and the PyBCN blue under the pointer, which is the treatment
+    // every icon link on the site takes (see $icon-grey in main.scss and
+    // its use in people.scss). 4.68:1 on white, so the grey passes the
+    // 4.5:1 WCAG asks of this text size.
+    //
+    // A flex row and not a float: a photo with no source prints the number
+    // alone, and a floated number in an otherwise empty paragraph would
+    // hang out of it over the border of the card.
+    .photo_source {
+        color: $icon-grey;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        // The link to this figure: #3 for the third photo of the day. It
+        // takes the same colour and underline as the credit, and the
+        // margin pushes it to the right edge when there is no credit to
+        // sit at the left.
+        .photo_number {
+            margin-left: auto;
+        }
+
+        a {
+            color: $icon-grey;
+            transition: color 0.15s linear;
+            // Underlined, so the credit reads as a link before the pointer
+            // reaches it. Grey text in a grey line said nothing, and colour
+            // alone would not say it either: WCAG 1.4.1 asks for a second
+            // mark, and this is the mark a link takes everywhere else.
+            text-decoration: underline;
+
+            &:hover,
+            &:focus {
+                color: $blue-pybcn;
+            }
+        }
+
+        // The X mark in front of the credit, see .icon_x in main.scss, with
+        // the gap the icon of a social row takes in a person modal. The
+        // underline of the link does not reach it: .icon_x is an
+        // inline-block, and a propagated text decoration is not drawn
+        // through an atomic inline-level box.
+        .icon_x {
+            margin-right: 0.4rem;
+        }
+    }
+
+    // The two subsections, Photos and Videos, under the heading of the
+    // gallery: what the day left behind, in two kinds. An edition with one
+    // kind prints one subsection (see partials/photo_gallery.html). The air
+    // above each is the air the thread link had above it while the gallery
+    // was the photographs alone, for the one day of 2026-10-14.
+    .gallery_photos,
+    .gallery_videos {
+        margin-top: 1.5rem;
+    }
+
+    // The rows of the videos take .talk_rows of talks.scss unchanged; the
+    // list stands off its heading by the air a row leaves under itself.
+    .gallery_videos .talk_rows {
+        margin-top: 1.1rem;
+    }
+
+    // The link to the whole thread, at the start of the Photos subsection
+    // and above the first card.
+    .photo_thread {
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+
+        // The X mark in front, the gap of the credit line (.photo_source).
+        .icon_x {
+            margin-right: 0.4rem;
+        }
+    }
+}
