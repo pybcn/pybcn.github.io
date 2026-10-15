@@ -64,6 +64,15 @@ jobs:
       - name: Check content for dangerous raw HTML
         run: bin/check-html-safety
 
+      - name: Check the text normalizer
+        run: python3 bin/canon.py --selftest
+
+      - name: Check the archive extraction fixtures
+        # Reads only tests/extraction/, so it needs no Meetup export. It proves
+        # the check still rejects a run that changed an accent, which is the
+        # one defect no normalizer can forgive.
+        run: bin/check-extraction --selftest
+
   links:
     name: Check the links
     runs-on: ubuntu-latest

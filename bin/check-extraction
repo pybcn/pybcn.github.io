@@ -1,0 +1,926 @@
+#!/usr/bin/env python3
+"""Validate a talk extraction against the Meetup source it was read from.
+
+The archive import cannot parse 19 years of volunteer-written Markdown with
+one parser, so a model reads each event description and returns the talks it
+announced. A model can rewrite a word instead of copying it, and a rewritten
+word on a published page looks like the real one. This check is what makes
+that impossible to miss.
+
+It compares every extracted title and description against the normalized
+source, not against the raw source. The extractor's output went through
+Markdown and the source string never did, so the raw forms cannot be
+compared at all: a link in the source ("[Yaetos](https://...)") makes a
+correct abstract look invented. bin/canon.py defines the one normalization
+both sides go through, and it never touches a letter or an accent. So a
+curly apostrophe turned straight passes, and a changed accent fails. That
+boundary is the whole point: the archive holds Catalan, Spanish, and French
+text, where "Historia" with an acute accent and with a grave accent are two
+different words.
+
+Three modes:
+
+  Literalness (the default) reads an extraction and its source events, and
+  reports every field that is not a substring of the normalized source,
+  with the divergence located and classified: spacing (a warning),
+  accent_or_case (an error), or content (an error). It also reports a field
+  the source does not ground, a description the model cut short (an error),
+  and a shape defect such as a missing event.
+
+  Two divergences from the source are not defects, and the literalness
+  mode resolves them instead of reporting them. A bare URL in parentheses
+  may be absent from a title or an abstract, because it is a reference and
+  not prose: see drop_urls(). A duration may be the span between two times
+  of the source, because reading "09:30" and "10:30" as 60 minutes is a
+  derivation: see spans_of().
+
+  The substring test has one hole by construction: a shortened text is
+  still a substring of the one it was cut from, so a model that drops half
+  an abstract passes it. Losing half a description in an archive nobody
+  reads again is exactly the silent failure this check exists to prevent,
+  so a description that stops in the middle of its own source line, at no
+  sentence end, is reported as truncated. See truncation().
+
+  Benchmark scores an extraction against tests/extraction/truth.yaml, the
+  reference read by hand before any model ran.
+
+  Selftest runs both modes over the 7 recorded runs in
+  tests/extraction/model-runs/ and compares the result with
+  tests/extraction/expectations.yaml, field by field. One recorded run is
+  corrupted on purpose and has to fail, with exactly one accent_or_case
+  error. A check that only ever sees good input proves nothing.
+
+Exit codes:
+    0  no error. Warnings do not fail the build
+    1  at least one error, or a selftest result that differs from the
+       expectations
+    2  the check could not run: bad arguments, a missing file, or a file it
+       cannot parse
+
+Usage:
+    bin/check-extraction EXTRACTION.json EVENTS.json
+    bin/check-extraction --benchmark EXTRACTION.json [--truth TRUTH.yaml]
+    bin/check-extraction --selftest
+"""
+
+import argparse
+import difflib
+import json
+import pathlib
+import re
+import sys
+import unicodedata
+
+import yaml
+
+# canon.py sits next to this script and is not an installed package.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+from canon import canon, prep, strip_time  # noqa: E402
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+FIXTURES = ROOT / "tests" / "extraction"
+MODEL_RUNS = FIXTURES / "model-runs"
+EVENTS = FIXTURES / "events.json"
+TRUTH = FIXTURES / "truth.yaml"
+EXPECTATIONS = FIXTURES / "expectations.yaml"
+
+# The two text fields the model has to copy and not write. Everything else it
+# returns is either a name, a number, or a structure, and each of those has
+# its own check below.
+TEXT_FIELDS = ("title", "description")
+
+# A schedule is "agenda" in bin/prompts/extract-talks.md. The recorded runs
+# predate that name and write "non_talk_items", so both are read: the check
+# has to work on the fixtures it ships with.
+AGENDA_KEYS = ("agenda", "non_talk_items")
+
+# The shortest run of characters that anchors the extracted text to its place
+# in the source. Three characters or fewer match by accident ("the", " a "),
+# which drags the window to the wrong paragraph and turns one changed letter
+# into a whole false divergence. A long field needs a long anchor for the
+# same reason, so the floor grows with the field: an anchor has to be at
+# least one ANCHOR_SHARE of it. Without that, an invented sentence anchored
+# on " a " and "ing" produced a window the length of the whole event and a
+# report nobody could read.
+MIN_ANCHOR = 4
+ANCHOR_SHARE = 8
+
+# How much of the source to print on each side of a divergence, how long a
+# single fragment may get before its middle is elided, and how many
+# divergences to print for one field. A field that diverges everywhere is
+# invented text, and the first few spans already say so.
+CONTEXT = 30
+MAX_FRAGMENT = 60
+MAX_SPANS = 3
+
+# How much of the field, and of the source after it, a truncation report
+# prints. Enough to show the word the cut fell inside and the clause that
+# follows it, short enough to keep each line readable.
+CONTINUATION = 50
+
+# The characters a complete description is allowed to stop at: the sentence
+# marks, a closing parenthesis, and the straight quotes canon() produces
+# from the curly ones. A description that ends on one of these is finished,
+# even when its source line carries more text after it, because the line
+# usually goes on with the next field of the template.
+SENTENCE_END = ".!?:)'\""
+
+
+# ---------------------------------------------------------------------------
+# Comparison forms
+#
+# These three reductions classify a divergence. None of them ever runs over
+# text this repository stores: fold() strips accents, which canon.py refuses
+# to do precisely because it corrupts Catalan. Here that is the point. A pair
+# that differs before folding and matches after it is a changed accent, which
+# is the defect this check exists to catch.
+# ---------------------------------------------------------------------------
+
+def as_text(value):
+    """Return value as a string, so a malformed field cannot crash the check.
+
+    An extraction is model output. A field that should hold a string can hold
+    a number or null, and the check has to report that, not raise on it.
+    """
+    if value is None:
+        return ""
+    return value if isinstance(value, str) else str(value)
+
+
+def alnum(text):
+    """Return only the letters and digits of text, in order."""
+    return "".join(character for character in text if character.isalnum())
+
+
+def fold(text):
+    """Return text lowercased and without accents, for classification only."""
+    decomposed = unicodedata.normalize("NFD", text.lower())
+    return "".join(character for character in decomposed
+                   if not unicodedata.combining(character))
+
+
+def loose(text):
+    """Return a title reduced for matching against the reference.
+
+    prep() first, then lowercase, then drop everything that is not a letter,
+    a digit, an underscore, or a space. The underscore survives, because the
+    character class keeps a word character and an underscore is one. No title
+    in the archive turns on an underscore, so that costs nothing.
+
+    The reference writes a title as the source does, and an extraction may
+    keep or drop a trailing period, a colon, or a pair of quotes without
+    being wrong about which talk it found.
+    """
+    reduced = re.sub(r"[^\w\s]", " ", prep(as_text(text)).lower(), flags=re.UNICODE)
+    return re.sub(r"\s+", " ", reduced).strip()
+
+
+# ---------------------------------------------------------------------------
+# Locating a divergence
+# ---------------------------------------------------------------------------
+
+def source_text(event):
+    """Return the normalized text an extraction of this event may copy from.
+
+    The event title counts as source. A workshop with no talk title of its
+    own takes the event's, which bin/prompts/extract-talks.md asks for, so a
+    check that read only the description would report that title as invented.
+    """
+    title = as_text(event.get("title"))
+    description = as_text(event.get("description"))
+    return prep(f"{title}\n{description}")
+
+
+def source_lines(event):
+    """Return the normalized source of this event, one entry per source line.
+
+    source_text() collapses the newlines, because a field the model copied
+    may span them and a comparison must not fail over that. Truncation needs
+    the opposite: the line is what says where a text ends. canon() keeps the
+    newlines, so the split happens on the normalized text, and prep() then
+    runs over each line on its own.
+    """
+    title = as_text(event.get("title"))
+    description = as_text(event.get("description"))
+    return [prep(line) for line in canon(f"{title}\n{description}").split("\n")]
+
+
+def truncation(lines, extracted):
+    """Return the source text that follows a cut-short field, or None.
+
+    extracted is already prep()ed, and the caller has established that it
+    copies the source. The field is cut short when its source line goes on
+    after it and it stops at no sentence end. A field that ends a line is
+    complete, whatever its last character is.
+
+    Nothing here looks at the title: a title legitimately ends on a letter,
+    and the event title sits on the same line as nothing else, so the rule
+    would report every one of them. The caller applies this to descriptions
+    only.
+    """
+    if not extracted or extracted[-1] in SENTENCE_END:
+        return None
+    rest = None
+    for line in lines:
+        start = line.find(extracted)
+        while start >= 0:
+            after = line[start + len(extracted):]
+            # One occurrence that ends its line is enough to say the field is
+            # whole, even when another copy of the same text sits mid-line.
+            if not after:
+                return None
+            if rest is None:
+                rest = after
+            start = line.find(extracted, start + 1)
+    return rest
+
+
+# The Meetup export prints a link as its visible text followed by the bare
+# address in parentheses: "Ansible (http://www.ansible.com)". A model that
+# copies the sentence it reads leaves that parenthesis out, and it is right
+# to: an address is a reference, not prose, and the model returns it in
+# `links`, which is where the import takes it from. This is the decision
+# prep() already makes for the other form the same link takes in this
+# archive, where "[text](url)" resolves to "text".
+#
+# Only a parenthesis that holds nothing but an address goes. A parenthesis
+# with prose in it is prose, and a changed word inside one still fails.
+_BARE_URL = re.compile(r"\s*\((?:https?://|www\.)[^\s()]*\)")
+
+
+def drop_urls(text):
+    """Return text without the parentheses that hold only a bare URL.
+
+    The substitution repeats until nothing changes. The export nests the
+    form inside itself when the visible text is an address as well, as in
+    "Kinto (https://kinto.readthedocs.io (https://kinto.readthedocs.io/))",
+    and one pass leaves the outer parenthesis behind.
+    """
+    while True:
+        shorter = _BARE_URL.sub("", text)
+        if shorter == text:
+            return text
+        text = shorter
+
+
+def align(source, extracted):
+    """Return the slice of source that lines up with extracted, or None.
+
+    The window is anchored on the first and the last long matching run, and
+    then extended by however much of extracted hangs off each end, so the
+    window and extracted have the same length when the only difference is a
+    substitution. None means extracted has too little in common with the
+    source to align at all, which is a content defect and needs no window.
+    """
+    matcher = difflib.SequenceMatcher(None, source, extracted, autojunk=False)
+    floor = max(MIN_ANCHOR, len(extracted) // ANCHOR_SHARE)
+    anchors = [block for block in matcher.get_matching_blocks() if block.size >= floor]
+    # Half of the field has to sit on an anchor. Below that the field is not
+    # a copy of anything in the source, and aligning it against the nearest
+    # paragraph only produces a long report about a text the source never
+    # had. "Not in the source" is both true and shorter.
+    if not anchors or sum(anchor.size for anchor in anchors) * 2 < len(extracted):
+        return None
+    first, last = anchors[0], anchors[-1]
+    start = max(0, first.a - first.b)
+    tail = len(extracted) - (last.b + last.size)
+    end = min(len(source), last.a + last.size + max(tail, 0))
+    return start, end
+
+
+def divergences(window, extracted):
+    """Return (core, spans) for a window and the text aligned against it.
+
+    core is the window with its border noise removed. A window cut out of a
+    longer source carries a head and a tail that belong to the source and not
+    to the extracted field: the "Abstract: " that sits right before the text
+    is the one that bit us. Those show up as a deletion that touches an edge
+    of the window and consumes none of the extracted text, and they are not
+    divergences. Everything else is, and comes back as a span of
+    (source fragment, extracted fragment) with its offset in core.
+    """
+    matcher = difflib.SequenceMatcher(None, window, extracted, autojunk=False)
+    opcodes = matcher.get_opcodes()
+
+    head, tail = 0, len(window)
+    kept = []
+    for index, (tag, i1, i2, j1, j2) in enumerate(opcodes):
+        if tag == "equal":
+            continue
+        border = (index == 0 and i1 == 0 and j1 == 0) or (
+            index == len(opcodes) - 1 and i2 == len(window) and j2 == len(extracted))
+        if tag == "delete" and border:
+            if i1 == 0:
+                head = i2
+            else:
+                tail = i1
+            continue
+        kept.append((i1, i2, j1, j2))
+
+    core = window[head:tail]
+    spans = [(i1 - head, window[i1:i2], extracted[j1:j2]) for i1, i2, j1, j2 in kept]
+    return core, spans
+
+
+def classify(core, extracted):
+    """Return the class of the difference between core and extracted.
+
+    spacing          the letters and digits are the same, so only space or
+                     punctuation moved. A warning: canon.py already decides
+                     the typography of what gets stored.
+    accent_or_case   the same text once accents and case are folded away, and
+                     not before. An error, and the one this check is for.
+    content          anything else: another word, another number, or text the
+                     source does not have. An error.
+    """
+    if alnum(core) == alnum(extracted):
+        return "spacing"
+    if fold(core) == fold(extracted) or fold(alnum(core)) == fold(alnum(extracted)):
+        return "accent_or_case"
+    return "content"
+
+
+def show(core, spans):
+    """Return one (source line, extracted line) pair per divergence.
+
+    Each line is the fragment in its context, with the divergence itself in
+    square brackets. A failure a human cannot read is worth nothing, and the
+    change is usually one letter in a 500-character abstract.
+    """
+    lines = []
+    for offset, from_source, from_extracted in spans[:MAX_SPANS]:
+        before = core[max(0, offset - CONTEXT):offset]
+        after = core[offset + len(from_source):offset + len(from_source) + CONTEXT]
+        lead = "..." if offset > CONTEXT else ""
+        trail = "..." if offset + len(from_source) + CONTEXT < len(core) else ""
+        lines.append((
+            f"{lead}{before}[{elide(from_source)}]{after}{trail}",
+            f"{lead}{before}[{elide(from_extracted)}]{after}{trail}",
+        ))
+    left = len(spans) - len(lines)
+    if left:
+        lines.append((f"({left} more divergences in this field)", ""))
+    return lines
+
+
+def elide(fragment):
+    """Return fragment with its middle cut out once it gets too long."""
+    if len(fragment) <= MAX_FRAGMENT:
+        return fragment
+    half = (MAX_FRAGMENT - 5) // 2
+    return f"{fragment[:half]} ... {fragment[-half:]}"
+
+
+# ---------------------------------------------------------------------------
+# Mode 1: literalness
+# ---------------------------------------------------------------------------
+
+def check_field(event_id, where, field, value, source, lines):
+    """Return the findings for one text field. An empty list means it copies.
+
+    A finding is a dict with the event, the field, the class, and the aligned
+    fragments to print.
+
+    A field that is a substring of the source copies it, which leaves only
+    one question: whether it copies all of it. lines carries the source
+    split by line, and truncation() answers that for a description.
+    """
+    extracted = prep(as_text(value))
+    if not extracted:
+        return []
+
+    # The field is read twice: as it stands, and with every bare
+    # parenthesized URL dropped from both sides. Both sides, because one
+    # abstract keeps one of those references and drops the next. The second
+    # form is only built when there is a reference to drop, so a field that
+    # carries none is compared exactly once, as before.
+    forms = [(extracted, source, lines)]
+    without_urls = drop_urls(extracted)
+    if without_urls != extracted or drop_urls(source) != source:
+        forms.append((without_urls, drop_urls(source),
+                      [drop_urls(line) for line in lines]))
+
+    for copied, within, inside in forms:
+        if copied not in within:
+            continue
+        rest = truncation(inside, copied) if field == "description" else None
+        if rest is None:
+            return []
+        return [{
+            "event_id": event_id, "where": where, "field": field,
+            "klass": "truncated",
+            "lines": [
+                (f"the field stops at:      {copied[-CONTINUATION:]!r}", ""),
+                (f"the source line goes on: {rest[:CONTINUATION]!r}", ""),
+            ],
+        }]
+
+    located = align(source, extracted)
+    if located is None:
+        return [{
+            "event_id": event_id, "where": where, "field": field,
+            "klass": "content", "lines": [("(nothing in the source)", extracted)],
+        }]
+
+    start, end = located
+    core, spans = divergences(source[start:end], extracted)
+    if not spans:
+        # The window carried only border noise, so the field does copy the
+        # source and the substring test failed on the edges alone.
+        return []
+    return [{
+        "event_id": event_id, "where": where, "field": field,
+        "klass": classify(core, extracted), "lines": show(core, spans),
+    }]
+
+
+# A clock reading in the source, written with either separator the export
+# uses: "18:30" and "18.30" are both times, which bin/canon.py already
+# documents for the schedule labels it strips a time from.
+#
+# The hour stops at 23 and the minute at 59, so a figure that cannot be a
+# time is not read as one. "Python 3.5" still reads as 3:05, and no pattern
+# tells those two apart. That costs nothing here: a duration is accepted
+# only when it equals the span between two readings, so a stray one has to
+# land on the exact number the extraction claims.
+_CLOCK = re.compile(r"(?<![\d.:])([01]?\d|2[0-3])[:.]([0-5]\d)(?!\d)")
+
+
+def spans_of(source):
+    """Return every number of minutes that two times of source are apart.
+
+    A schedule gives a talk its length without ever writing it: "09:30 -
+    10:30" says 60 minutes, and the model has to return the duration in
+    minutes. Reading 60 off that pair is a derivation and not an invention,
+    so check_grounding accepts it.
+
+    Every pair counts, not only the two readings of one slot. A description
+    prints the whole grid at the top and the abstracts below it, or gives a
+    slot its start and the next slot's start and no end at all, so the two
+    times a length comes from are not always side by side.
+
+    A duration that matches no pair is still ungrounded. That is what
+    caught a talk claiming 120 minutes in a description with no time in it.
+
+    What every pair costs: a description that prints a whole grid grounds
+    many numbers. The Jornada Python of 2008 prints 9 readings, which span
+    14 different lengths, so a wrong duration inside that set passes. The
+    alternative, only the two readings of the slot a talk sits in, needs
+    the check to know which slot that is, and the extraction does not say.
+    """
+    clock = sorted({int(hour) * 60 + int(minute)
+                    for hour, minute in _CLOCK.findall(source)})
+    return {later - earlier
+            for index, earlier in enumerate(clock)
+            for later in clock[index + 1:]}
+
+
+# A source names a language in whatever language it is writing. "Castellano",
+# "Castella", and "Espanyol" all name Spanish, and "Catala" names Catalan, so
+# a literal comparison against the English word reports a language the source
+# does state as ungrounded. The extraction writes the English name because the
+# prompt asks for a closed vocabulary, which is what makes the field usable;
+# this table is what turns the source's word into that vocabulary. It is not a
+# way of accepting a guess: a language the source does not name in any of
+# these forms is still an error.
+LANGUAGE_ALIASES = {
+    "english": ("english", "ingles", "angles", "anglais"),
+    "spanish": ("spanish", "castellano", "castella", "espanol", "espanyol"),
+    "catalan": ("catalan", "catala"),
+}
+
+
+def names_language(language, folded_source):
+    """Say whether the source names this language, in any language."""
+    key = fold(language)
+    for name, aliases in LANGUAGE_ALIASES.items():
+        if key == name or key in aliases:
+            return any(alias in folded_source for alias in aliases)
+    return key in folded_source
+
+def check_grounding(event_id, where, talk, source):
+    """Return the findings for a field the source has to ground.
+
+    A language or a duration is not copied text, so the substring test says
+    nothing about it. What it can say is whether the source names the
+    language at all, and whether the number is in the source. The source
+    writes a duration as "30 minutes", "~30 minutes", "15min", and "45 min",
+    so the number can be glued to the next word: the right boundary has to be
+    "not a digit", not "not a word character", or "15min" reads as ungrounded.
+
+    A duration the source never writes can still come from it: spans_of()
+    returns the minutes between every pair of times in the text, and a
+    number that is one of those is derived from the schedule, not invented.
+    """
+    findings = []
+    folded = fold(source)
+
+    language = as_text(talk.get("language"))
+    if language and not names_language(language, folded):
+        findings.append({
+            "event_id": event_id, "where": where, "field": "language",
+            "klass": "ungrounded",
+            "lines": [("(the source never names it)", language)],
+        })
+
+    duration = talk.get("duration_minutes")
+    if duration is not None:
+        minutes = as_text(duration).strip()
+        if not minutes.isdigit():
+            # A duration that is not a whole number of minutes grounds on
+            # nothing, whatever the source says.
+            findings.append({
+                "event_id": event_id, "where": where, "field": "duration_minutes",
+                "klass": "ungrounded",
+                "lines": [("(not a whole number of minutes)", minutes)],
+            })
+        elif (not re.search(rf"(?<!\d){int(minutes)}(?!\d)", source)
+              and int(minutes) not in spans_of(source)):
+            findings.append({
+                "event_id": event_id, "where": where, "field": "duration_minutes",
+                "klass": "ungrounded",
+                "lines": [("(the number is not in the source)", minutes)],
+            })
+    return findings
+
+
+def check_shape(extraction, events):
+    """Return (errors, warnings) for the shape of the extraction.
+
+    Every event present, in the input's order, each one once, and no event
+    the input does not have. A schedule label carries no time either: the
+    time lives in the start and end fields, and strip_time() changing the
+    label proves it was in the text too.
+    """
+    errors, warnings = [], []
+
+    expected = [str(event.get("id", "")) for event in events]
+    got = [str(entry.get("event_id", "")) for entry in extraction]
+
+    seen = set()
+    for event_id in got:
+        if event_id in seen:
+            errors.append(f"event {event_id}: listed more than once")
+        seen.add(event_id)
+    for event_id in got:
+        if event_id not in expected:
+            errors.append(f"event {event_id}: not in the source events")
+    for event_id in expected:
+        if event_id not in seen:
+            errors.append(f"event {event_id}: missing from the extraction")
+
+    # Order is read over the first appearance of each known event, so a
+    # duplicate or an unknown id is reported once, as itself, and does not
+    # also raise a second complaint about the order.
+    order, listed = [], set()
+    for event_id in got:
+        if event_id in expected and event_id not in listed:
+            order.append(event_id)
+            listed.add(event_id)
+    if order != [event_id for event_id in expected if event_id in listed]:
+        errors.append("the events are not in the order of the source: "
+                      f"{', '.join(order)}")
+
+    for entry in extraction:
+        event_id = str(entry.get("event_id", ""))
+        for key in AGENDA_KEYS:
+            for index, slot in enumerate(entry.get(key) or [], start=1):
+                # A slot is {"start", "end", "label", "talk_title"}. The
+                # recorded runs write the label as a bare string, so both
+                # forms are read.
+                label = slot if isinstance(slot, str) else as_text(
+                    slot.get("label") if isinstance(slot, dict) else slot)
+                if label and strip_time(label) != prep(label):
+                    warnings.append(
+                        f"event {event_id}: {key} {index} keeps the time inside "
+                        f"the label: '{prep(label)}'")
+    return errors, warnings
+
+
+def run_literal(extraction, events):
+    """Return the literalness result for one extraction. See report_literal."""
+    sources = {str(event.get("id", "")): source_text(event) for event in events}
+    lines = {str(event.get("id", "")): source_lines(event) for event in events}
+
+    findings = []
+    fields_checked = 0
+    for entry in extraction:
+        event_id = str(entry.get("event_id", ""))
+        source = sources.get(event_id)
+        if source is None:
+            # No source to compare against. check_shape reports the event as
+            # unknown, which is the whole finding there is to report.
+            continue
+        for index, talk in enumerate(entry.get("talks") or [], start=1):
+            where = f"talk {index}"
+            for field in TEXT_FIELDS:
+                value = talk.get(field)
+                if not prep(as_text(value)):
+                    continue
+                fields_checked += 1
+                findings += check_field(event_id, where, field, value, source,
+                                       lines.get(event_id) or [])
+            findings += check_grounding(event_id, where, talk, source)
+
+    shape_errors, shape_warnings = check_shape(extraction, events)
+
+    counted = {"spacing": 0, "accent_or_case": 0, "content": 0, "ungrounded": 0,
+               "truncated": 0}
+    for finding in findings:
+        counted[finding["klass"]] += 1
+
+    # A truncated field is not counted here: it is a literal copy of the
+    # source, which is what this number says, and it fails on its own line.
+    text_failures = counted["spacing"] + counted["accent_or_case"] + counted["content"]
+    errors = (counted["accent_or_case"] + counted["content"]
+              + counted["ungrounded"] + counted["truncated"])
+    return {
+        "verdict": "fail" if errors or shape_errors else "pass",
+        "fields_checked": fields_checked,
+        "identical_to_normalized_source": fields_checked - text_failures,
+        "spacing_warnings": counted["spacing"],
+        "accent_or_case_errors": counted["accent_or_case"],
+        "content_errors": counted["content"],
+        "truncated_errors": counted["truncated"],
+        # Reported with the benchmark, which is where expectations.yaml keeps
+        # it, but measured here: only the source can ground a field.
+        "ungrounded_fields": counted["ungrounded"],
+        "findings": findings,
+        "shape_errors": shape_errors,
+        "shape_warnings": shape_warnings,
+    }
+
+
+def report_literal(result):
+    """Print the literalness result and return the number of errors."""
+    for finding in result["findings"]:
+        level = "WARNING" if finding["klass"] == "spacing" else "ERROR  "
+        print(f"{level}  event {finding['event_id']}  {finding['where']}  "
+              f"{finding['field']}  {finding['klass']}")
+        for from_source, from_extracted in finding["lines"]:
+            if from_extracted == "":
+                print(f"         {from_source}")
+                continue
+            print(f"         source:    {from_source}")
+            print(f"         extracted: {from_extracted}")
+    for line in result["shape_warnings"]:
+        print(f"WARNING  {line}")
+    for line in result["shape_errors"]:
+        print(f"ERROR    {line}")
+
+    print(f"\n{result['fields_checked']} text fields checked, "
+          f"{result['identical_to_normalized_source']} identical to the "
+          f"normalized source.")
+    print(f"spacing (warning):        {result['spacing_warnings']}")
+    print(f"accent_or_case (error):   {result['accent_or_case_errors']}")
+    print(f"content (error):          {result['content_errors']}")
+    # A truncated field is one of the fields counted as identical above. It
+    # copies the source and stops early, so the two numbers do not add up to
+    # fields_checked, and they are not meant to.
+    print(f"truncated (error):        {result['truncated_errors']}")
+    print(f"ungrounded (error):       {result['ungrounded_fields']}")
+    print(f"shape (error):            {len(result['shape_errors'])}")
+    errors = (result["accent_or_case_errors"] + result["content_errors"]
+              + result["truncated_errors"] + result["ungrounded_fields"]
+              + len(result["shape_errors"]))
+    print(f"\n{result['verdict'].upper()}")
+    return errors
+
+
+# ---------------------------------------------------------------------------
+# Mode 2: the benchmark
+# ---------------------------------------------------------------------------
+
+def same_speaker(expected, got):
+    """Return True if two speaker names stand for the same person.
+
+    Containment either way, because the source writes a name with "et al.",
+    with an alias in parentheses, or with only a first name, and the
+    extraction copies what the source says.
+    """
+    expected, got = fold(as_text(expected)).strip(), fold(as_text(got)).strip()
+    if not expected or not got:
+        return False
+    return expected in got or got in expected
+
+
+def run_benchmark(extraction, truth):
+    """Return the score of one extraction against the hand-read reference.
+
+    An ambiguous talk counts in neither direction. The source does not settle
+    it, so finding it and leaving it out are both correct, and the recorded
+    runs disagree with each other on exactly those.
+    """
+    per_event = []
+    totals = {"talks": 0, "required_missing": 0, "spurious": 0,
+              "wrong_speakers": 0, "ambiguous_included": 0}
+
+    for entry in extraction:
+        event_id = str(entry.get("event_id", ""))
+        # truth.yaml writes the event id as a bare number, so YAML reads the
+        # key as an int, while the extraction writes it as a string. Try both
+        # and treat an event the reference does not have as empty.
+        reference = truth.get(event_id) or truth.get(
+            int(event_id) if event_id.isdigit() else event_id) or {}
+        required = reference.get("required") or []
+        ambiguous = reference.get("ambiguous") or []
+        talks = entry.get("talks") or []
+
+        titles = [(loose(talk.get("title")), talk) for talk in talks]
+        matched = set()
+
+        missing, wrong = 0, 0
+        for wanted in required:
+            key = loose(wanted["title"])
+            found = None
+            for index, (title, talk) in enumerate(titles):
+                if index not in matched and title == key:
+                    matched.add(index)
+                    found = talk
+                    break
+            if found is None:
+                missing += 1
+                continue
+            for name in wanted.get("speakers") or []:
+                if not any(same_speaker(name, got)
+                           for got in found.get("speakers") or []):
+                    wrong += 1
+
+        allowed = {loose(item["title"]) for item in ambiguous}
+        included = sum(1 for title, _ in titles if title in allowed)
+        spurious = sum(1 for index, (title, _) in enumerate(titles)
+                       if index not in matched and title not in allowed)
+
+        score = {"event_id": event_id, "talks": len(talks),
+                 "required": len(required), "required_missing": missing,
+                 "spurious": spurious, "wrong_speakers": wrong,
+                 "ambiguous_included": included}
+        per_event.append(score)
+        for key in totals:
+            totals[key] += score[key]
+
+    return {"per_event": per_event, **totals}
+
+
+def report_benchmark(score):
+    """Print the benchmark table. It never fails on an ambiguous talk.
+
+    The caller turns the totals into the exit code, so this function only
+    prints.
+
+    The table says nothing about an ungrounded field: only the source can
+    ground one, and this mode does not read the source. The literalness mode
+    reports it.
+    """
+    header = f"{'event':<12}{'talks':>6}{'required':>10}{'missing':>9}" \
+             f"{'spurious':>10}{'speakers':>10}{'ambiguous':>11}"
+    print(header)
+    print("-" * len(header))
+    for row in score["per_event"]:
+        print(f"{row['event_id']:<12}{row['talks']:>6}{row['required']:>10}"
+              f"{row['required_missing']:>9}{row['spurious']:>10}"
+              f"{row['wrong_speakers']:>10}{row['ambiguous_included']:>11}")
+    print("-" * len(header))
+    print(f"{'total':<12}{score['talks']:>6}{'':>10}{score['required_missing']:>9}"
+          f"{score['spurious']:>10}{score['wrong_speakers']:>10}"
+          f"{score['ambiguous_included']:>11}")
+
+
+# ---------------------------------------------------------------------------
+# Mode 3: the selftest
+# ---------------------------------------------------------------------------
+
+# The keys expectations.yaml records, and where each one comes from. Both
+# sections read the same measurement: ungrounded_fields is measured by the
+# literalness check and recorded under benchmark.
+LITERAL_KEYS = ("verdict", "fields_checked", "identical_to_normalized_source",
+                "spacing_warnings", "accent_or_case_errors", "content_errors",
+                "truncated_errors")
+BENCHMARK_KEYS = ("talks", "required_missing", "spurious", "wrong_speakers",
+                  "ungrounded_fields", "ambiguous_included")
+
+
+def run_selftest():
+    """Measure every recorded run and compare it with the expectations.
+
+    Return the number of runs that do not match. The fixtures are the only
+    regression test this check has, so a mismatch is a defect in the check:
+    expectations.yaml and truth.yaml are the reference, never the thing to
+    edit.
+    """
+    events = load_json(EVENTS)
+    truth = load_yaml(TRUTH)
+    expectations = load_yaml(EXPECTATIONS)
+
+    failed = 0
+    for name in sorted(expectations):
+        expected = expectations[name]
+        path = MODEL_RUNS / f"{name}.json"
+        if not path.exists():
+            print(f"FAIL  {name}: {path} is missing")
+            failed += 1
+            continue
+
+        extraction = load_json(path)
+        literal = run_literal(extraction, events)
+        benchmark = run_benchmark(extraction, truth)
+        benchmark["ungrounded_fields"] = literal["ungrounded_fields"]
+
+        got = {
+            "literal": {key: literal[key] for key in LITERAL_KEYS},
+            "benchmark": {key: benchmark[key] for key in BENCHMARK_KEYS},
+        }
+
+        differences = []
+        for section in ("literal", "benchmark"):
+            for key, want in (expected.get(section) or {}).items():
+                mine = got[section].get(key)
+                if mine != want:
+                    differences.append(f"{section}.{key}: expected {want!r}, got {mine!r}")
+
+        if differences:
+            failed += 1
+            print(f"FAIL  {name}")
+            for line in differences:
+                print(f"      {line}")
+            for finding in literal["findings"]:
+                print(f"      measured: event {finding['event_id']} "
+                      f"{finding['field']} {finding['klass']}")
+        else:
+            print(f"ok    {name}: {expected['literal']['verdict']}, "
+                  f"{got['literal']['fields_checked']} fields, "
+                  f"{got['literal']['accent_or_case_errors']} accent_or_case, "
+                  f"{got['literal']['content_errors']} content, "
+                  f"{got['benchmark']['talks']} talks, "
+                  f"{got['benchmark']['required_missing']} missing, "
+                  f"{got['benchmark']['spurious']} spurious")
+
+    total = len(expectations)
+    print(f"\n{total - failed} of {total} recorded runs match the expectations.")
+    return failed
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+def unreadable(path, problem):
+    """Leave with code 2: the check could not run, and found no defect."""
+    print(f"cannot read {path}: {problem}", file=sys.stderr)
+    sys.exit(2)
+
+
+def load_json(path):
+    try:
+        with open(path, encoding="utf-8") as handle:
+            return json.load(handle)
+    except (OSError, ValueError) as problem:
+        unreadable(path, problem)
+
+
+def load_yaml(path):
+    try:
+        with open(path, encoding="utf-8") as handle:
+            return yaml.safe_load(handle) or {}
+    except (OSError, yaml.YAMLError) as problem:
+        unreadable(path, problem)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Validate a talk extraction against its normalized source.")
+    parser.add_argument("extraction", nargs="?", help="the extraction JSON")
+    parser.add_argument("events", nargs="?", help="the source events JSON")
+    parser.add_argument("--benchmark", action="store_true",
+                        help="score the extraction against truth.yaml")
+    parser.add_argument("--truth", default=str(TRUTH),
+                        help=f"the reference to score against (default {TRUTH})")
+    parser.add_argument("--selftest", action="store_true",
+                        help="measure the recorded runs against expectations.yaml")
+    args = parser.parse_args()
+
+    if args.selftest:
+        if args.extraction or args.benchmark:
+            parser.error("--selftest takes no other argument")
+        return 1 if run_selftest() else 0
+
+    if args.benchmark:
+        if not args.extraction or args.events:
+            parser.error("--benchmark takes one extraction file")
+        score = run_benchmark(load_json(args.extraction), load_yaml(args.truth))
+        report_benchmark(score)
+        # A missing required talk, a spurious one, or a wrong speaker is an
+        # error, so this mode exits 1 like the other one. An ambiguous talk
+        # never counts, in either direction: the source does not settle it.
+        return 1 if (score["required_missing"] or score["spurious"]
+                     or score["wrong_speakers"]) else 0
+
+    if not args.extraction or not args.events:
+        parser.error("give an extraction file and an events file")
+    result = run_literal(load_json(args.extraction), load_json(args.events))
+    return 1 if report_literal(result) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
