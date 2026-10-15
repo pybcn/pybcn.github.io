@@ -198,7 +198,7 @@ plausible but different result.
 | `themes/pybcn_theme/` | The theme, **vendored in-tree**, not a submodule |
 | `themes/pybcn_theme/layouts/partials/` | Most of the interesting template logic |
 | `static/archives/` | Verbatim mirrors of pre-Hugo sites, copied unprocessed |
-| `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph |
+| `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph, `event_emoji.yaml` an event to a glyph, `venues.yaml` the exact `venue` string of an event to the short name the `/events/` list prints (the page of the meetup keeps the full string) |
 | `bin/` | Setup and build scripts, the checks, `bin/list-channel` (names a channel video the inventory lacks; needs `yt-dlp` and the network), the one-time `bin/import-*` scripts, plus the gitignored Hugo binary |
 | `.hugo-version` | The pinned Hugo version, single source of truth |
 
@@ -206,7 +206,7 @@ The checks, which are what a pull request has to pass:
 
 | Script | What it rejects |
 |---|---|
-| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, an `end_date` that is not a date or not later than `date` |
+| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, a `venue` string with no row in `data/venues.yaml`, a row of that table no event uses, an `end_date` that is not a date or not later than `date` |
 | `bin/check-html-safety` | Dangerous raw HTML in content, with an allowlist for the legitimate embeds |
 | `bin/check-rendered` | The same, on the built pages, plus any `http://` URL. Run it against a directory you built, never against `public/` while a dev server is writing there |
 

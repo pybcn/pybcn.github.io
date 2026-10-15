@@ -6,6 +6,12 @@ match its filename, a duplicate id, a page that lists a person or sponsor id
 with no page behind it, a declared photo with no file behind it, and a
 remote photo_url. It warns about a person photo with no colour in it.
 
+For the venues it checks data/venues.yaml, the short name the /events/ list
+prints for each venue, against the pages: every venue string of an event
+front matter has a row, and every row is the venue of some event. A venue
+with no row prints its full string in the list, and a row with no event is
+a name the site stopped using.
+
 For the days it checks end_date, which an event carries when it ran more
 than one day: it is a date, and it is later than date. The template prints
 one day for an end_date it cannot use, so the mistake is silent on the page.
@@ -807,6 +813,104 @@ def check_links(path, label, links):
                         f"else is listed under Repository.")
 
 
+# The short name of each venue, keyed by the exact string the venue field of
+# an event carries. layouts/_default/events_index.html prints the short name
+# in the /events/ list and falls back to the full string for a venue with no
+# row, which is the gap check_venues reports.
+VENUES = ROOT / "data" / "venues.yaml"
+
+# What check_venues counted, for the summary line.
+_venue_summary = None
+
+
+def page_venues():
+    """Return {venue string: [path]} for every venue of content/events/.
+
+    The venue field holds the name the way its source wrote it, one string
+    per page, and the string is the key: two spellings of one place are two
+    entries here and two rows of data/venues.yaml. A venue that is not a
+    string is reported and skipped, because the template would print it
+    as text and the table could never hold a row for it.
+    """
+    found = {}
+    for path in sorted((CONTENT / "events").rglob("*.md")):
+        data = front_matter(path)
+        if data is None or "venue" not in data:
+            continue
+        venue = data["venue"]
+        if not isinstance(venue, str) or not venue.strip():
+            error(path, f"venue holds {venue!r}, which is not a name. It is the "
+                        f"place as its source wrote it, one string.")
+            continue
+        found.setdefault(venue, []).append(path)
+    return found
+
+
+def check_venues():
+    """Check data/venues.yaml against the venue field of the event pages.
+
+    Two rules, one per direction, so the table cannot rot either way:
+
+      1. every venue string of an event front matter has a row. The list
+         prints the full string for a venue with no row, so a long name
+         comes back in silence the day an event arrives with a venue the
+         table does not know.
+      2. every row is the venue of at least one event. A row no page uses
+         is a name the site stopped using, or a string somebody edited in
+         the event and not here, and either way it is a row nobody checks.
+
+    Also reported: a row whose short name is empty or not a string, since
+    the list would print nothing for that venue.
+
+    Report, never crash: a missing or malformed table is an error with the
+    reason, and the rest of the check still runs.
+    """
+    global _venue_summary
+    venues = page_venues()
+    if not VENUES.is_file():
+        error(VENUES, "is missing. It is the short name of each venue, which "
+                      "the /events/ list prints, one row per venue string of "
+                      "the event pages.")
+        return
+    try:
+        table = yaml.safe_load(VENUES.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        error(VENUES, f"is not valid YAML: {exc}")
+        return
+    if not isinstance(table, dict):
+        error(VENUES, f"holds {type(table).__name__}, not a mapping of the "
+                      f"venue string to its short name")
+        return
+
+    for long_name, short_name in table.items():
+        label = f"row {long_name!r}"
+        if not isinstance(long_name, str):
+            error(VENUES, f"{label} has a key that is not a string. The key is "
+                          f"the venue string exactly as the event carries it.")
+            continue
+        if not isinstance(short_name, str) or not short_name.strip():
+            error(VENUES, f"{label} has the short name {short_name!r}. It is the "
+                          f"name the list prints, so it is a non-empty string.")
+        if long_name not in venues:
+            error(VENUES, f"{label} is the venue of no event page. Remove the "
+                          f"row, or fix the venue of the event that renamed it.")
+
+    for long_name, paths in sorted(venues.items()):
+        if long_name in table:
+            continue
+        for path in paths:
+            error(path, f"venue {long_name!r} has no row in data/venues.yaml. "
+                        f"Add the row with the short name the /events/ list "
+                        f"prints; without it the list prints the full string.")
+
+    pages = sum(len(paths) for paths in venues.values())
+    shortened = sum(1 for k, v in table.items()
+                    if isinstance(k, str) and isinstance(v, str) and k != v)
+    _venue_summary = (f"{len(table)} venues in data/venues.yaml, {shortened} "
+                      f"shortened, {len(set(table.values()))} short names; "
+                      f"{len(venues)} distinct venue strings on {pages} pages.")
+
+
 def as_date(value):
     """The date a front matter value holds, or None when it holds none.
 
@@ -1072,6 +1176,7 @@ def main():
     listed_people = check_listings(people, sponsors)
     check_agenda(people)
     check_dates()
+    check_venues()
     check_orphans(people, listed_people)
     check_security_txt()
     check_association()
@@ -1084,6 +1189,8 @@ def main():
     talks = sum(len(ids) for ids in _talk_ids.values())
     print(f"\n{len(people)} people, {len(sponsors)} sponsors, "
           f"{talks} talks on {len(_talk_ids)} pages checked.")
+    if _venue_summary:
+        print(_venue_summary)
     print(f"{len(errors)} errors, {len(warnings)} warnings.")
     return 1 if errors else 0
 

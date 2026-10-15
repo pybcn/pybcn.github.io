@@ -1,0 +1,118 @@
+# The short name the /events/ list prints for each venue. Left side: the
+# venue string exactly as the front matter of the event carries it, which
+# is the name the way its source wrote it, the Meetup export for the
+# monthly meetups. Right side: the name a person in Barcelona says out
+# loud. A row drops a marketing tagline ("El teu coworking a Gràcia"), an
+# address ("Carrer Pallars 193."), a room ("Aula B7", "4ª Planta"), and a
+# legal suffix ("and Company"), and it keeps a disambiguator when two
+# venues would otherwise collide: three UPF places and three UPC places
+# each keep the campus or the building in parentheses. It carries the
+# accents of the real name even when the source lost them ("Biomedica",
+# "Cibernarium"), because the short name is what the site prints.
+#
+# Every venue string of the content has a row, even when the short name
+# is the long one, so this file is the full inventory and a reader can
+# see what the site shows for each. Two rows with one short name are two
+# spellings of one place: "Parc de Recerca Biomedica de Barcelona (PRBB)"
+# and "Parc de Recerca Biomèdica de Barcelona (PRBB)" differ by one
+# accent and the list printed them as two venues. The rows are sorted by
+# the short name and then by the long one, so those rows sit together.
+#
+# Only the /events/ list reads this table, through
+# layouts/_default/events_index.html. The page of a meetup keeps the full
+# string: that page is about that day, and the full string is the fact its
+# source recorded. In the list the short name carries the full one as its
+# hover and as its accessible name, so nothing is lost by shortening.
+#
+# A venue with no row prints its full string in the list, and
+# bin/check-content reports it as an error, the way it reports a row
+# that no event uses, so the table cannot rot in either direction.
+# Add the row here; never shorten the string in the event file.
+
+"21 buttons": "21 Buttons"
+"Adevinta Spain": "Adevinta"
+"AlSur Cafe": "AlSur Cafe"
+"Arc Cafe": "Arc Cafe"
+"Aticco": "Aticco"
+"Aticco Bogatell - Coworking en Poblenou": "Aticco Bogatell"
+"Aticco Verdaguer - El teu coworking a Gràcia": "Aticco Verdaguer"
+"Bar del Pi": "Bar del Pi"
+"Belchica": "Belchica"
+"BitPhy": "BitPhy"
+"Barcelona Supercomputing Center - Centro Nacional de Supercomputación": "BSC"
+"bsport Tasso office": "bsport"
+"Bynder": "Bynder"
+"C/ de Sardenya, 229": "C/ de Sardenya, 229"
+"C/ dels Almogàvers, 160": "C/ dels Almogàvers, 160"
+"CahootCoworking Barcelona": "Cahoot Coworking"
+"Can Gavatxo": "Can Gavatxo"
+"Canòdrom": "Canòdrom"
+"Canòdrom - Ateneu d'Innovació Digital i Democràtica": "Canòdrom"
+"Carrer de Tànger, 122": "UPF (Poblenou)"
+"Auditori Cibernàrium - MEDIATIC": "Cibernàrium MediaTIC"
+"Cibernarium MediaTIC (Barcelona Activa)": "Cibernàrium MediaTIC"
+"CloudBlue": "CloudBlue"
+"Cloudworks": "Cloudworks"
+"CocoVail Beer Hall - Craft Beer Barcelona": "CocoVail Beer Hall"
+"Codely at Spaces22@ coworking, Carrer Pallars 193.": "Codely"
+"Codurance": "Codurance"
+"ColorSensing": "ColorSensing"
+"Diagonal 123": "Diagonal 123"
+"Dow Jones": "Dow Jones"
+"Dow Jones and Company": "Dow Jones"
+"Erni Consulting": "Erni Consulting"
+"ESADE": "ESADE"
+"espai30": "espai30"
+"gaa9": "gaa9"
+"Gartner - Center of Excellence": "Gartner"
+"Oficinas de Glovo (Yellow Park)": "Glovo"
+"Gran Via de les Corts Catalanes, 613": "Gran Via de les Corts Catalanes, 613"
+"Happy Scribe - Servicios de transcripcion": "Happy Scribe"
+"Holaluz": "Holaluz"
+"Ironhack Barcelona Tech bootcamps": "Ironhack"
+"itnig": "itnig"
+"Kernel Analytics": "Kernel Analytics"
+"Kiwi.com": "Kiwi.com"
+"La Cervesera Artesana": "La Cervesera Artesana"
+"Le Wagon Barcelona": "Le Wagon"
+"letgo": "letgo"
+"Maik Röder": "Maik Röder"
+"Marfeel": "Marfeel"
+"MediaTIC Building": "Cibernàrium MediaTIC"
+"Michael Collins": "Michael Collins Pub"
+"Michael Collins Pub": "Michael Collins Pub"
+"Mundimoto": "Mundimoto"
+"Ocado Technology": "Ocado Technology"
+"Online": "Online"
+"Onna HQ": "Onna"
+"Pasaje Montoya": "Pasaje Montoya"
+"Play Point Barcelona": "Play Point"
+"Parc de Recerca Biomedica de Barcelona (PRBB)": "PRBB"
+"Parc de Recerca Biomèdica de Barcelona (PRBB)": "PRBB"
+"Punt Multimedia": "Punt Multimèdia"
+"Punt Multimèdia Espanya Industrial": "Punt Multimèdia"
+"Punt Multimèdia La Casa del Mig": "Punt Multimèdia"
+"Satellogic": "Satellogic"
+"Servizurich - Technology Delivery Center": "Servizurich"
+"Skyscanner": "Skyscanner"
+"Skyscanner's offices": "Skyscanner"
+"Sol Soler": "Sol Soler"
+"Tiendeo": "Tiendeo"
+"TravelPerk": "TravelPerk"
+"Travelperk": "TravelPerk"
+"TravelPerk 4ª Planta": "TravelPerk"
+"Universitat de Barcelona": "UB"
+"Edifici Històric UB (Aula B7)": "UB"
+"Edifici Històric UB (Aula t1)": "UB"
+"Facultat de Matemàtiques i Informàtica - UB": "UB"
+"Facultat de Matemàtiques/ Faculty of Mathematics": "UB"
+"Un lugar de gracia": "Un lugar de gracia"
+"Campus Nord UPC": "UPC (Campus Nord)"
+"Industrials UPC 8a Planta": "UPC (Industrials)"
+"Vertex VS206A": "UPC (Campus Nord)"
+"Universitat Pompeu Fabra - Campus de França": "UPF (Campus de França)"
+"UPF Music Technology Group": "UPF (MTG)"
+"UPF, Campus de la Comunicación - Poblenou": "UPF (Poblenou)"
+"Verse": "Verse"
+"Wojo Coworking Barcelona Poblenou - Alquiler oficinas y salas de reuniones": "Wojo Coworking"
+"Worldsensing": "Worldsensing"
