@@ -93,6 +93,26 @@ problem somebody else has to find.
 the talk and meetup records. Writing them into a person's front matter guarantees
 they will eventually contradict the data.
 
+**A programme is two lists, not one.** An event page carries `agenda` (the grid:
+`start`, `track_length`, `room`, and either a `talk` id or its own `label` and
+`type`), `talks` (the content: `title`, `speaker`, `description`, `language`,
+`topic`, `duration_minutes`, `links`), and `rooms` (`id` and `name`). They are
+separate because one talk can take several slots, and because a photo of the
+gallery links to a talk by id, which a row of a grid cannot give it. The colour
+of a block and the end of a slot are computed, not stored: see
+`partials/agenda_entry.html`. **A time is always a quoted string.** YAML 1.1
+reads an unquoted `9:00` as the integer 540, sexagesimal, so Hugo renders it
+right and every Python checker reads a number.
+
+**`language` takes `en`, `es` or `ca`,** or a list of them for a session given in
+two. It was free text and carried seven spellings of those three languages,
+which is how one page printed both `Catalan` and `Català`. **A list is written
+in that order, `en`, `es`, `ca`.** The archive held `[en, es]` once and
+`[es, en]` three times for the same pair, and the page printed "English /
+Spanish" and "Spanish / English", because `partials/agenda_entry.html` prints
+the codes in the order the list gives them. `bin/check-content` rejects any
+other order.
+
 **A person attribution requires human verification.** Talk records carry
 `source` and `confidence`. **Only a human-verified record may create a person page
 or link a speaker name.** A record with `confidence: medium` or `low` renders the
@@ -184,7 +204,7 @@ The checks, which are what a pull request has to pass:
 
 | Script | What it rejects |
 |---|---|
-| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists |
+| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, an `end_date` that is not a date or not later than `date` |
 | `bin/check-html-safety` | Dangerous raw HTML in content, with an allowlist for the legitimate embeds |
 | `bin/check-rendered` | The same, on the built pages, plus any `http://` URL. Run it against a directory you built, never against `public/` while a dev server is writing there |
 
