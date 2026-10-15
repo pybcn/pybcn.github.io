@@ -434,6 +434,10 @@ it. The cost is that the reasons are scattered, so this is the index.
 | MIT for the code, CC BY-SA 4.0 for the content, and nothing for the photographs | [LICENSING.md](LICENSING.md) |
 | `edition` is the source branch and `master` is the built site | [AGENTS.md](AGENTS.md) |
 | Raw HTML in content is gated by three checks rather than banned | [CONTRIBUTING.md](CONTRIBUTING.md) and `bin/check-html-safety` |
+| Imported text is normalized in code, and the model that extracts it is told nothing about typography | `bin/canon.py` and `bin/prompts/extract-talks.md` |
+| An extraction is checked against the normalized source, and one recorded run has to fail | `bin/check-extraction` and [tests/extraction/README.md](tests/extraction/README.md) |
+| A photo PyBCN retweeted is never imported, because its copyright is somebody else's | `bin/import-x-photos` and [LICENSING.md](LICENSING.md) |
+| An import stages its result for review and never writes `content/` itself | `bin/import-x-photos` |
 
 One decision has no file of its own, because it is a decision not to act:
 

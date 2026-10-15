@@ -38,6 +38,32 @@ and checking the output, not by reading the file.
 **`merge.ff = only`.** Any local merge needs `--no-ff`. A failed merge here reports
 "Not possible to fast-forward", which is not a conflict.
 
+**The archive imports run in one order and only once.** `bin/import-meetups`,
+then `bin/import-talks`, then `bin/import-videos`. `bin/import-talks` replaces
+the whole `talks` block of a page and everything after it in the front matter,
+so running it after the others throws away what they added: a re-run over
+`content/events/meetups/` deletes every video link of the talks and every
+`session_videos` block, and puts the speaker credits a human resolved by hand
+back in `speaker_names`. Its docstring has the detail, with the figures of the
+day it was measured. Count what is at stake today with:
+
+```sh
+grep -h 'type: video' content/events/meetups/*.md | wc -l
+grep -l '^session_videos:' content/events/meetups/*.md | wc -l
+```
+
+Re-run any import with `--dry-run` first, and with `--out` pointing at a copy,
+never at `content/`.
+
+**The `bin/import-*` scripts are one-time archaeology, not maintenance.** They
+read an export, the pybcn-archive, that is not in this repository, so that a
+published fact can be traced to a source. They ran once, in the order above,
+and that is the whole of their job. Adding an event, a talk, or a video means
+writing the front matter by hand, as `CONTRIBUTING.md` describes, never
+re-running an importer against `content/`, which is the destructive thing the
+paragraph above measures. The export is not part of maintaining this site, and
+a correction to a published page goes in the page.
+
 **`unsafe=true` in `[markup.goldmark.renderer]`.** Raw HTML in front matter
 and page bodies renders unescaped. Two content files still carry it,
 `content/events/pyday_bcn/pyday_bcn_2018.md` and `pyday_bcn_2019.md`, which
@@ -151,7 +177,7 @@ plausible but different result.
 | `themes/pybcn_theme/layouts/partials/` | Most of the interesting template logic |
 | `static/archives/` | Verbatim mirrors of pre-Hugo sites, copied unprocessed |
 | `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph |
-| `bin/` | Setup and build scripts, plus the gitignored Hugo binary |
+| `bin/` | Setup and build scripts, the checks, `bin/list-channel` (names a channel video the inventory lacks; needs `yt-dlp` and the network), the one-time `bin/import-*` scripts, plus the gitignored Hugo binary |
 | `.hugo-version` | The pinned Hugo version, single source of truth |
 
 The checks, which are what a pull request has to pass:

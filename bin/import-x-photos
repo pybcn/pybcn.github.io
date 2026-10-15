@@ -1,0 +1,945 @@
+#!/usr/bin/env python3
+"""Stage the X photos of one event, ready for a human to curate.
+
+PyBCN posted photos live from each PyDay on X. Those photos are the only
+record of the day that the association still owns, and the X export is the
+only copy that comes with the text that was published next to each one. This
+script turns one event out of that export into a staging directory: the
+photo files under deterministic names, a photos.yaml block to paste into the
+event's front matter, and a report.md for the person who curates the set.
+
+Two editions were imported before this script could do all of it, and each
+one cost a person the same four decisions by hand: keep one photo per post,
+drop what the gallery does not want, point each photo at the talk it shows,
+and write the front matter. Nine editions are left, so those four decisions
+are options here:
+
+    --until         an event can last more than one day, and the Meetup date
+                    gives only the first. PyData 2017 ran on the 19th, 20th,
+                    and 21st of May, and PyDay 2016 on the 15th and 16th of
+                    September. Searching one date at a time loses 11 own
+                    photos over those two events.
+    --one-per-tweet a post with several photos publishes one text for all of
+                    them, and the caption is the alt text, so the second
+                    photo of a post arrives with the caption of the first.
+                    One photo per post is the rule the two imported
+                    editions followed by hand.
+    --drop          a caption pattern that the gallery does not want. The
+                    report names what each pattern dropped, because a silent
+                    drop is the one thing a curation list must not do.
+    --event         match a caption against the talks of an event file. The
+                    caption carries the title of a talk in 46% of the photos:
+                    107 of the 231 the galleries hold on 2026-10-13 name one,
+                    now that every talk has an id.
+    --install       copy the photos that survive into the theme, which is
+                    the last step once the set is curated.
+
+It never writes into content/. The event front matter stays a human edit:
+photos.yaml is a block to paste, not a block this script pastes. Under
+--install it copies the staged image files into the theme's own photo
+directory, and nothing else of the theme is touched.
+
+Retweets are counted and reported, but never imported. A retweet carries
+somebody else's photo, so its copyright is somebody else's too, and each one
+needs its own permission before it can be published. The report names the
+original account of every excluded retweet, which is the list to ask.
+
+Privacy: the export also holds direct messages, Grok chats, and moments.
+None of that is public, and none of it is needed here, so the script reads
+only data/tweets.js and data/tweets_media/. Any path that carries one of the
+private markers stops the run with exit code 2 instead of being opened.
+
+Captions are literal. The text comes from the tweet, with the t.co links
+resolved, and goes through canon() from bin/canon.py, which normalizes the
+typography and never touches a letter. prep() is NOT used for a caption:
+prep() also drops the Markdown markup characters and the emoji, which is
+what makes it right for comparing two strings and wrong for storing one.
+Nothing is rewritten, shortened, or translated.
+
+One thing does come off: the mentions X writes in front of a reply, to name
+who it answers. The account never typed them, and a caption that opens with
+"@MrSwats" says nothing about the photo under it. See REPLY_PREFIX for the
+rule and for why a field of the export cannot give it. The report names
+every caption this changed.
+
+Exit codes:
+    0  the event was staged, with no problem found
+    1  the event was staged, but something needs a look: no own photo for
+       the dates, or a media file the export does not carry
+    2  the script could not run: bad arguments, a missing export, an --out
+       inside content/ or themes/, an unreadable event file, or a path that
+       touches private data
+
+Usage:
+    bin/import-x-photos --date YYYY-MM-DD [--until YYYY-MM-DD]
+                        --export DIR --out DIR [--slug NAME]
+                        [--event FILE] [--install] [--one-per-tweet]
+                        [--drop PATTERN ...]
+
+--export is the directory that holds one subdirectory per account, each with
+the unpacked export inside it (DIR/PyBCN/extracted/data/tweets.js). --slug is
+the media directory the site will serve the photos from, and it prefixes
+every "file" value in photos.yaml. It defaults to the first date, so a real
+import usually passes the site's own name, for example --slug pyday-2019.
+"""
+
+import argparse
+import datetime
+import html
+import json
+import pathlib
+import re
+import shutil
+import sys
+import unicodedata
+from email.utils import parsedate_to_datetime
+from zoneinfo import ZoneInfo
+
+import yaml
+
+# canon.py sits next to this script and is not an installed package.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+from canon import canon, prep  # noqa: E402
+from titlematch import TITLE_MINIMUM, fold, match_title  # noqa: E402
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+# Where --install puts the photos. partials/photo_gallery.html resolves a
+# declared file as images/photos/<file> with resources.Get, so this is the
+# directory that makes a staged photo render.
+INSTALL_ROOT = ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "photos"
+
+# The two accounts that posted from a PyDay: the association's own account
+# and the one of the member who live-tweeted several editions.
+ACCOUNTS = ("PyBCN", "DZPM")
+
+# The photo times are reported in Barcelona local time, because that is the
+# order the day happened in and the only form a curator can place against a
+# schedule. The dates themselves are matched in UTC, which is what created_at
+# carries, so the day boundary does not move with the summer time rule of
+# whichever machine runs this.
+LOCAL_ZONE = ZoneInfo("Europe/Madrid")
+
+# A file name has to stay readable in a URL and in a directory listing, so
+# the caption slug is cut here. The number keeps the chronological order, so
+# a cut tail loses nothing that identifies the photo.
+SLUG_LIMIT = 50
+
+# The export directories this script must never open. Direct messages, Grok
+# chats, and moments are private, and no part of this import needs them. The
+# check is on the name, so it also stops a symlink or a --export that points
+# somewhere else from reaching them.
+PRIVATE_MARKERS = ("direct_message", "grok_chat", "moments")
+
+# The only data files this script reads. A large export splits the tweets
+# over numbered parts, so both forms are accepted, and nothing else is.
+TWEETS_FILE = re.compile(r"\Atweets(-part\d+)?\.js\Z")
+
+# tweets.js is a JavaScript assignment ("window.YTD.tweets.part0 = [...]"),
+# not JSON. Everything up to the first "=" is the assignment, and the rest
+# parses as JSON.
+ASSIGNMENT = "="
+
+# A t.co link is X's own shortener for a URL or for the attached media. It
+# resolves to nothing useful in a caption on the site, and the media link
+# just points back at the photo the caption sits under.
+T_CO = re.compile(r"https?://t\.co/\S+")
+
+# A retweet has no field of its own in the export: the only marker is the
+# "RT @account:" prefix that X writes into full_text.
+RETWEET = re.compile(r"\ART @([A-Za-z0-9_]+):")
+
+# The run of mentions X writes in front of a reply, to name who is being
+# replied to. A handle is at most 15 characters of [A-Za-z0-9_], and the run
+# can hold several of them.
+#
+# Why a pattern and not a field of the export. The live X API marks this run:
+# display_text_range starts after it, and entities.user_mentions lists each
+# recipient with its indices. The archive export does neither reliably.
+# Measured over the 3195 posts of the PyBCN account and the 15 reply posts
+# behind the galleries: display_text_range starts at 0 on every one of them,
+# including the replies, so it cannot mark anything; and user_mentions is
+# empty on 2 of the 15 (both replies to @MrSwats) and misses the second
+# recipient of a third (@HybridTheory_GL), because a mention of an account
+# that no longer resolves is dropped from entities but stays in the text.
+# Trusting entities would therefore have left three captions with the prefix
+# the import is here to remove.
+#
+# What the export does carry, on all 15 and on 6943 of the 7021 posts that
+# open with a mention, is in_reply_to_status_id_str. That is the fact the
+# rule uses: the prefix is removed only from a reply, which is the only post
+# X writes one on. A post that is not a reply keeps a leading mention,
+# because there it is the text the account wrote.
+REPLY_PREFIX = re.compile(r"\A(?:@[A-Za-z0-9_]{1,15}\s+)+")
+
+# The YAML front matter of a Hugo page, the same shape bin/check-content
+# reads: the first block between two "---" lines.
+FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
+
+# The length guard of a title match, and the comparison form itself, come
+# from bin/titlematch.py: bin/import-videos matches the same titles against
+# the title of a YouTube upload, and one rule cannot live in two files.
+_NOT_SLUG = re.compile(r"[^a-z0-9]+")
+
+
+def plural(count, noun):
+    """Return "1 photo" or "4 photos": a count a person reads out loud."""
+    return f"{count} {noun}" if count == 1 else f"{count} {noun}s"
+
+
+def fail(message):
+    """Stop the run with exit code 2: the script cannot do its job."""
+    print(f"import-x-photos: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def check_private(path):
+    """Stop the run if path names private export data.
+
+    This is the privacy rule in code rather than in a comment. Every read
+    goes through it, so a future change to the file selection cannot quietly
+    start opening a direct message archive.
+    """
+    lowered = str(path).lower()
+    for marker in PRIVATE_MARKERS:
+        if marker in lowered:
+            fail(f"refusing to read private export data ({marker}): {path}")
+
+
+def check_out(out):
+    """Stop the run if out is inside the site's content or theme tree."""
+    for tree in ("content", "themes"):
+        guarded = ROOT / tree
+        if out == guarded or guarded in out.parents:
+            fail(f"--out is inside {tree}/, which this script never writes: {out}")
+
+
+def read_tweets(account_dir):
+    """Return the tweet records of one account, with the media directory.
+
+    Reads only the tweets files and reports the directory the photos sit in.
+    No other file of the export is opened.
+    """
+    data_dir = account_dir / "extracted" / "data"
+    if not data_dir.is_dir():
+        fail(f"no export data directory: {data_dir}")
+
+    media_dir = data_dir / "tweets_media"
+    check_private(media_dir)
+    if not media_dir.is_dir():
+        fail(f"no media directory: {media_dir}")
+
+    paths = sorted(path for path in data_dir.iterdir() if TWEETS_FILE.match(path.name))
+    if not paths:
+        fail(f"no tweets.js in {data_dir}")
+
+    records = []
+    for path in paths:
+        check_private(path)
+        text = path.read_text(encoding="utf-8")
+        if ASSIGNMENT not in text:
+            fail(f"not a JavaScript assignment: {path}")
+        body = text[text.index(ASSIGNMENT) + 1:]
+        try:
+            records.extend(json.loads(body))
+        except json.JSONDecodeError as error:
+            fail(f"cannot parse {path}: {error}")
+
+    return records, media_dir
+
+
+def photos_of(tweet):
+    """Return the photo media of a tweet, in the order it published them.
+
+    A tweet can also carry a video or an animated GIF. Only a photo is
+    imported, so the type filter is what decides whether a tweet counts.
+    """
+    media = (tweet.get("extended_entities") or {}).get("media") or []
+    return [item for item in media if item.get("type") == "photo"]
+
+
+def strip_reply_prefix(text, is_reply):
+    """Return text without the mentions X wrote in front of a reply.
+
+    Only the run at the very start comes off, and only on a reply. A mention
+    inside the sentence is text the account wrote ("by Jimena (@Jimena_y_yo)")
+    and stays where it is.
+
+    The whole text is kept when the prefix is all there is. A caption is also
+    the alt text of the photo, and the gallery skips a photo with no caption,
+    so a post whose text is nothing but recipients would lose its photo. That
+    is a curation decision and not one this function may take in silence.
+    """
+    if not is_reply:
+        return text
+    stripped = REPLY_PREFIX.sub("", text or "")
+    return stripped if stripped.strip() else text
+
+
+def caption_of(full_text, urls=None, is_reply=False):
+    """Return the caption of a tweet: its text, with the t.co links resolved.
+
+    A reply also loses the mentions X wrote in front of it. See REPLY_PREFIX:
+    they name who the post answers, they were never typed by the account, and
+    a caption that opens with "@MrSwats" says nothing about the photo under
+    it.
+
+    canon() does the normalization, not prep(). The difference matters here.
+    prep() is built to compare two strings, so it also strips the Markdown
+    markup characters and the emoji, and in a caption that is destruction:
+    "#PyDayBCN" loses its hash, "@hectorcanto_dev" loses the underscore of a
+    real handle, and the applause of a thank-you tweet disappears. canon()
+    normalizes the typography and nothing else.
+
+    X shortens every link in the text to a t.co URL, and the export keeps
+    what each one said in entities.urls. A t.co link that is NOT in that list
+    is the link to the attached media, which points back at the photo the
+    caption sits under, so it comes off. One that IS in the list is real text:
+    the wifi SSID of a 2019 tweet reads as a t.co link in full_text, and
+    dropping it leaves the sentence saying "use SSID" and nothing else.
+    """
+    # X stores the text with its HTML entities, so a post that wrote "&"
+    # arrives as "&amp;" and printed that way on the page. Unescape before
+    # anything else: a t.co URL carries no entity, and from here the caption
+    # is plain text, which the template escapes again when it prints it.
+    text = strip_reply_prefix(html.unescape(full_text or ""), is_reply)
+    for short, expanded in (urls or {}).items():
+        text = text.replace(short, expanded)
+    text = canon(T_CO.sub(" ", text))
+    # A caption becomes an alt attribute, which is one line. canon() collapses
+    # spaces and tabs but keeps a newline, because a newline matters in the
+    # body text it normalizes elsewhere. Here it does not: a tweet that broke
+    # its sentence over two lines reads as one sentence in a caption.
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def slugify(text):
+    """Return a file-name slug of text: lowercase ASCII words and hyphens.
+
+    The accents are folded here, which canon() deliberately never does. That
+    is safe in this one place because the result is a file name and not
+    reading text: "Història" and "Historia" both slug to "historia", and the
+    caption next to it keeps the accent that the tweet published.
+    """
+    folded = unicodedata.normalize("NFKD", text)
+    folded = "".join(character for character in folded
+                     if not unicodedata.combining(character))
+    slug = _NOT_SLUG.sub("-", folded.lower()).strip("-")
+    # The cut can land in the middle of a word and leave a trailing hyphen,
+    # so the strip runs again after it.
+    return slug[:SLUG_LIMIT].strip("-") or "photo"
+
+
+def extension_of(media_url):
+    """Return the file extension of a media URL, lowercased."""
+    return pathlib.PurePosixPath(media_url).suffix.lower() or ".jpg"
+
+
+def local_path(media_dir, tweet_id, media_url):
+    """Return the exported file of one photo.
+
+    The export names a media file after the tweet that published it plus the
+    last segment of the media URL.
+    """
+    return media_dir / f"{tweet_id}-{pathlib.PurePosixPath(media_url).name}"
+
+
+def read_talks(path):
+    """Return the talks of an event file, each with its caption match form.
+
+    Only the id and the title are read. The id is what a photo stores, and
+    the title is the one field a caption can carry, because a live post
+    quotes the title of the talk it shows.
+    """
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as error:
+        fail(f"cannot read --event file: {error}")
+
+    match = FRONT_MATTER.match(text)
+    if not match:
+        fail(f"--event file has no YAML front matter: {path}")
+
+    try:
+        data = yaml.safe_load(match.group(1)) or {}
+    except yaml.YAMLError as error:
+        fail(f"cannot parse the front matter of {path}: {error}")
+
+    records = data.get("talks") or []
+    talks, unusable = [], []
+    for position, record in enumerate(records, start=1):
+        if not isinstance(record, dict):
+            unusable.append(f"position {position} is not a talk")
+            continue
+        talk_id, title = record.get("id"), record.get("title")
+        if not talk_id or not title:
+            unusable.append(f"'{title or talk_id or position}' has no id or no title")
+            continue
+        talks.append({"id": talk_id, "title": title, "folded": fold(title)})
+
+    if not talks:
+        fail(f"no talk with an id and a title in {path}")
+    return talks, unusable
+
+
+def match_talk(caption, talks):
+    """Return (talk id, ambiguous ids) for one caption.
+
+    A talk matches when its folded title is contained in the folded caption,
+    which is what a live post does: it quotes the title and adds the speaker
+    ("Causal Inference: a brief introduction, by Ubaldo Hervas"). When two
+    talks match one caption, the return is no id and both of them: an
+    ambiguous link is worse than no link, because the gallery would point
+    the reader at the wrong talk and nothing on the page would say so.
+    """
+    return match_title(caption, [(talk["id"], talk["folded"]) for talk in talks])
+
+
+def collect(export_dir, start, end):
+    """Return the own tweets and the excluded retweets of a date range.
+
+    A tweet counts when it carries at least one photo and its created_at,
+    read as UTC, falls on or between the two dates. Both accounts are
+    walked, and the result is sorted chronologically over the two of them
+    together, because the numbering has to follow the event and not the
+    account.
+    """
+    own, retweets = [], []
+
+    for account in ACCOUNTS:
+        account_dir = export_dir / account
+        if not account_dir.is_dir():
+            fail(f"no export for account {account}: {account_dir}")
+        records, media_dir = read_tweets(account_dir)
+
+        for record in records:
+            tweet = record.get("tweet") or {}
+            media = photos_of(tweet)
+            if not media:
+                continue
+
+            moment = parsedate_to_datetime(tweet["created_at"])
+            if not start <= moment.astimezone(datetime.timezone.utc).date() <= end:
+                continue
+
+            full_text = tweet.get("full_text") or ""
+            entry = {
+                "account": account,
+                "id": tweet["id_str"],
+                "utc": moment.astimezone(datetime.timezone.utc),
+                "local": moment.astimezone(LOCAL_ZONE),
+                "media": media,
+                "media_dir": media_dir,
+                "full_text": full_text,
+                # Whether X wrote the recipients in front of the text. See
+                # REPLY_PREFIX: this is the one field of the export that says
+                # so on every post of the galleries.
+                "is_reply": bool(tweet.get("in_reply_to_status_id_str")),
+                # X shortens every link in the text to a t.co URL, including a
+                # token that only looks like one: the wifi SSID of one PyDay
+                # tweet reads as "https://t.co/..." in full_text. Removing the
+                # t.co links therefore removes real content, and entities.urls
+                # is the only place that still holds what it said.
+                "urls": {url["url"]: (url.get("expanded_url") or url["url"])
+                         for url in (tweet.get("entities") or {}).get("urls", [])
+                         if url.get("url")},
+            }
+
+            retweet = RETWEET.match(full_text)
+            if retweet:
+                entry["source_account"] = retweet.group(1)
+                retweets.append(entry)
+            else:
+                entry["caption"] = caption_of(full_text, entry["urls"],
+                                              entry["is_reply"])
+                own.append(entry)
+
+    key = lambda entry: (entry["utc"], entry["id"])  # noqa: E731
+    own.sort(key=key)
+    retweets.sort(key=key)
+    return own, retweets
+
+
+def enumerate_photos(own, talks):
+    """Return one record per photo of the event, named, numbered, and matched.
+
+    The name of a photo is its tweet's chronological number, the slug of the
+    caption, and the original extension. The number is per tweet, so the
+    photos of one tweet sort together; a second photo of the same tweet gets
+    a -2 suffix, a third -3, because they share the one caption.
+
+    Every photo is named here, dropped or not, and the number counts the
+    tweets of the event and not the photos that survive. So a name never
+    moves when a filter changes, and the gap a dropped photo leaves in the
+    numbering is a record that something was dropped.
+    """
+    photos = []
+    taken = set()
+
+    for number, tweet in enumerate(own, start=1):
+        stem = f"{number:02d}-{slugify(tweet['caption'])}"
+        talk, ambiguous = match_talk(tweet["caption"], talks) if talks else (None, [])
+        for index, media in enumerate(tweet["media"], start=1):
+            extension = extension_of(media["media_url_https"])
+            name = stem if index == 1 else f"{stem}-{index}"
+            candidate = f"{name}{extension}"
+            # A collision cannot happen with the numbering above, but a
+            # duplicate name would silently overwrite a photo, so the loop
+            # guards it anyway.
+            suffix = index
+            while candidate in taken:
+                suffix += 1
+                candidate = f"{stem}-{suffix}{extension}"
+            taken.add(candidate)
+
+            photos.append({
+                "file": candidate,
+                "index": index,
+                "caption": tweet["caption"],
+                "account": tweet["account"],
+                "id": tweet["id"],
+                "date": tweet["local"].date(),
+                "time": tweet["local"].strftime("%H:%M"),
+                "media": media,
+                "media_dir": tweet["media_dir"],
+                "full_text": tweet["full_text"],
+                "urls": tweet["urls"],
+                "talk": talk,
+                "ambiguous": ambiguous,
+                "drop": None,
+                "bytes": None,
+            })
+
+    return photos
+
+
+def apply_filters(photos, one_per_tweet, patterns):
+    """Mark the photos that a filter drops, with the reason for each one.
+
+    --one-per-tweet runs first, so an extra photo of a post is reported as
+    the extra it is, rather than as a pattern hit that happens to be true of
+    its inherited caption. A pattern is tried in the order it was given on
+    the command line, and the first one that matches is the reason recorded:
+    one reason per photo reads as a decision, a list of them does not.
+    """
+    for photo in photos:
+        if one_per_tweet and photo["index"] > 1:
+            photo["drop"] = ("one-per-tweet",
+                             f"photo {photo['index']} of the post, same caption as photo 1")
+            continue
+        for pattern, regex in patterns:
+            if regex.search(photo["caption"]):
+                photo["drop"] = ("drop", pattern)
+                break
+
+
+def stage(photos, out_dir):
+    """Copy the photos that no filter dropped into out_dir.
+
+    A photo the export names but does not carry is marked dropped too, with
+    the path that is missing, so it appears in the curation list instead of
+    just in a warning at the end of the run.
+    """
+    staged, missing = [], []
+
+    for photo in photos:
+        if photo["drop"]:
+            continue
+        source = local_path(photo["media_dir"], photo["id"], photo["media"]["media_url_https"])
+        check_private(source)
+        if not source.is_file():
+            photo["drop"] = ("missing", str(source))
+            missing.append(source)
+            continue
+
+        target = out_dir / photo["file"]
+        shutil.copy2(source, target)
+        photo["bytes"] = target.stat().st_size
+        staged.append(photo)
+
+    return staged, missing
+
+
+def install(staged, out_dir, slug):
+    """Copy the staged photos into the theme and return the directory.
+
+    This is the one write outside the staging directory, and it is only the
+    image files: content/ is never touched, so the front matter that names
+    them stays a human edit.
+    """
+    target_dir = INSTALL_ROOT / slug
+    target_dir.mkdir(parents=True, exist_ok=True)
+    for photo in staged:
+        shutil.copy2(out_dir / photo["file"], target_dir / photo["file"])
+    return target_dir
+
+
+def yaml_string(text):
+    """Return text as a double-quoted YAML scalar."""
+    escaped = text.replace("\\", "\\\\").replace('"', '\\"')
+    return f'"{escaped}"'
+
+
+def tweet_url(account, tweet_id):
+    return f"https://x.com/{account}/status/{tweet_id}"
+
+
+def write_photos_yaml(path, slug, own, staged):
+    """Write the front matter block to paste into the event file.
+
+    No "credit" field is emitted: who a photo is credited to is what the
+    human curation decides. "talk" is emitted for a photo whose caption
+    carried the title of exactly one talk of the --event file, which is the
+    one link a caption can prove on its own.
+    """
+    lines = ["photos:"]
+    if own:
+        first = own[0]
+        lines.append(f'  thread: {yaml_string(tweet_url(first["account"], first["id"]))}')
+    lines.append("  items:")
+    for item in staged:
+        lines.append(f'    - file: {slug}/{item["file"]}')
+        lines.append(f'      caption: {yaml_string(item["caption"])}')
+        lines.append(f'      source: {yaml_string(tweet_url(item["account"], item["id"]))}')
+        lines.append(f'      time: {yaml_string(item["time"])}')
+        if item["talk"]:
+            lines.append(f'      talk: {item["talk"]}')
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def normalization_notes(staged):
+    """Return the captions that differ from the raw text of the post.
+
+    Three changes can do it. A t.co link is replaced by what entities.urls
+    says it stood for; the t.co link of the attached media is removed; and a
+    reply loses the mentions X wrote in front of it. All three are a visible
+    change to what the post said, so every one of them is reported for a
+    human to read back.
+    """
+    notes = []
+    for item in staged:
+        plain = canon(T_CO.sub(" ", item["full_text"])).strip()
+        plain = re.sub(r"\s+", " ", plain)
+        if plain != item["caption"]:
+            notes.append((item["file"], plain, item["caption"]))
+    return notes
+
+
+def date_label(start, end):
+    """Return the heading form of the date range."""
+    return start.isoformat() if start == end else f"{start.isoformat()} to {end.isoformat()}"
+
+
+def write_report(path, start, end, slug, own, retweets, photos, staged, missing,
+                 patterns, talks, event_path, unusable, installed):
+    """Write the report a human reads to curate the set.
+
+    The curation list is the point of this file: every photo of the event in
+    order, with the caption, the time, the talk it was matched to, and, when
+    it was dropped, which option dropped it. That is enough to decide the
+    set without opening the export or the JSON behind it.
+    """
+    retweet_photos = sum(len(entry["media"]) for entry in retweets)
+    accounts = {}
+    for entry in retweets:
+        source = entry["source_account"]
+        accounts[source] = accounts.get(source, 0) + len(entry["media"])
+
+    dropped_extra = [p for p in photos if p["drop"] and p["drop"][0] == "one-per-tweet"]
+    dropped_pattern = [p for p in photos if p["drop"] and p["drop"][0] == "drop"]
+    matched = [p for p in staged if p["talk"]]
+    ambiguous = [p for p in staged if p["ambiguous"]]
+
+    lines = [
+        f"# X photo import for {date_label(start, end)}",
+        "",
+        f"Staged into `{slug}/`. Nothing was written to `content/`: paste the"
+        " photos.yaml block into the event file by hand, and set the credits there.",
+        "",
+    ]
+    if installed:
+        lines += [f"Installed into `{installed.relative_to(ROOT)}/`,"
+                  f" {plural(len(staged), 'file')}."
+                  f" The front matter is still a human edit.", ""]
+    else:
+        lines += ["Not installed: this run staged only. Add `--install` to copy the"
+                  " surviving photos into the theme.", ""]
+
+    lines += ["## Curation list", "",
+              "Every photo of the event, in the order it was posted. A number is the"
+              " position of the post, so a gap is a photo that a filter dropped.", ""]
+    for photo in photos:
+        if photo["drop"]:
+            reason, detail = photo["drop"]
+            if reason == "one-per-tweet":
+                status = f"dropped by --one-per-tweet ({detail})"
+            elif reason == "drop":
+                status = f"dropped by --drop `{detail}`"
+            else:
+                status = f"dropped, missing from the export ({detail})"
+        elif photo["talk"]:
+            status = f"staged, talk `{photo['talk']}`"
+        elif photo["ambiguous"]:
+            status = ("staged, no talk: the caption matches "
+                      + ", ".join(f"`{talk_id}`" for talk_id in photo["ambiguous"])
+                      + ", so neither is linked")
+        elif talks:
+            status = "staged, no talk matched"
+        else:
+            status = "staged"
+        when = photo["time"] if start == end else f"{photo['date'].isoformat()} {photo['time']}"
+        lines.append(f"- `{photo['file']}` {when}: {status}")
+        lines.append(f"  - caption: {photo['caption'] or '(empty)'}")
+        lines.append(f"  - source: {tweet_url(photo['account'], photo['id'])}")
+    if not photos:
+        lines.append("No own photo in the date range.")
+    lines.append("")
+
+    lines += ["## Totals", "", "| What | Count |", "|---|---|",
+              f"| Own posts with a photo | {len(own)} |",
+              f"| Photos in them | {len(photos)} |",
+              f"| Dropped by --one-per-tweet | {len(dropped_extra)} |",
+              f"| Dropped by --drop | {len(dropped_pattern)} |",
+              f"| Dropped, missing from the export | {len(missing)} |",
+              f"| Photos staged | {len(staged)} |",
+              f"| Staged photos matched to a talk | {len(matched)} |",
+              f"| Staged photos with an ambiguous title match | {len(ambiguous)} |",
+              f"| Retweet photos excluded | {retweet_photos} |",
+              ""]
+
+    lines += ["## Dropped by a pattern", ""]
+    if not patterns:
+        lines.append("No --drop pattern was given.")
+    else:
+        lines.append("A pattern that dropped nothing is reported too, because a pattern"
+                     " that matches nothing is usually a typo and not an empty set:")
+        lines.append("")
+        for pattern, _ in patterns:
+            hits = [p for p in dropped_pattern if p["drop"][1] == pattern]
+            lines.append(f"- `{pattern}`: {plural(len(hits), 'photo')}")
+            for photo in hits:
+                lines.append(f"  - `{photo['file']}`: {photo['caption']}")
+    lines.append("")
+
+    lines += ["## Talk matches", ""]
+    if not talks:
+        lines.append("No --event file was given, so no photo was matched to a talk.")
+    else:
+        short = [talk for talk in talks if len(talk["folded"]) < TITLE_MINIMUM]
+        lines.append(f"Read {len(talks)} talks from `{event_path}`. A caption matches a"
+                     f" talk when the normalized title is contained in the normalized"
+                     f" caption, and a title shorter than {TITLE_MINIMUM} characters is"
+                     f" never matched, because a short title also appears inside"
+                     f" unrelated prose.")
+        lines.append("")
+        if short:
+            lines.append("Too short to be matched, so a photo of one of these has to be"
+                         " linked by hand:")
+            lines.append("")
+            lines += [f"- `{talk['id']}`: {talk['title']}" for talk in short]
+            lines.append("")
+        if unusable:
+            lines.append("Not usable as a match target:")
+            lines.append("")
+            lines += [f"- {note}" for note in unusable]
+            lines.append("")
+        if ambiguous:
+            lines.append("Ambiguous, left unlinked. More than one title fits the"
+                         " caption, so the link would be a guess:")
+            lines.append("")
+            for photo in ambiguous:
+                lines.append(f"- `{photo['file']}`: "
+                             + ", ".join(f"`{i}`" for i in photo["ambiguous"]))
+                lines.append(f"  - caption: {photo['caption']}")
+            lines.append("")
+        unmatched = [p for p in staged if not p["talk"] and not p["ambiguous"]]
+        lines.append(f"Matched {len(matched)} of {len(staged)} staged photos."
+                     f" The {len(unmatched)} below carry no title, so each one is a"
+                     f" human decision:")
+        lines.append("")
+        lines += [f"- `{photo['file']}`: {photo['caption'] or '(empty)'}"
+                  for photo in unmatched]
+    lines.append("")
+
+    lines += ["## Retweets excluded", "",
+              f"- Retweets with at least one photo: {len(retweets)}",
+              f"- Photos in them: {retweet_photos}",
+              "",
+              "A retweet carries somebody else's photo, so the copyright is theirs.",
+              "Each account below has to give permission before any of its photos is"
+              " published.",
+              ""]
+
+    if accounts:
+        lines.append("| Account | Photos |")
+        lines.append("|---|---|")
+        for account, count in sorted(accounts.items(), key=lambda pair: (-pair[1], pair[0])):
+            lines.append(f"| @{account} | {count} |")
+    else:
+        lines.append("No retweet with a photo in the date range.")
+    lines.append("")
+
+    empty = [item["file"] for item in staged if not item["caption"]]
+    lines += ["## Empty captions", ""]
+    if empty:
+        lines.append("The tweet had no text left after the t.co links came off."
+                     " Write a caption by hand:")
+        lines.append("")
+        lines += [f"- `{name}`" for name in empty]
+    else:
+        lines.append("None: every staged photo has a caption.")
+    lines.append("")
+
+    notes = normalization_notes(staged)
+    lines += ["## Captions that differ from the text of the post", ""]
+    if notes:
+        lines.append("A t.co link was replaced by what it stood for, or removed because"
+                     " it pointed at the photo itself, or the post is a reply and lost"
+                     " the mentions X wrote in front of it. Read the two lines back:")
+        lines.append("")
+        for name, plain, caption in notes:
+            lines.append(f"- `{name}`")
+            lines.append(f"  - tweet: {plain}")
+            lines.append(f"  - caption: {caption}")
+    else:
+        lines.append("None.")
+    lines.append("")
+
+    lost = [(item["file"], item["urls"]) for item in staged if item["urls"]]
+    lines += ["## Links removed from a caption", ""]
+    if lost:
+        lines.append("A t.co link comes off the caption, because it points at the photo"
+                     " itself or reads as noise on the page. X also shortens a token that"
+                     " only looks like a link, so one of these may be text the caption"
+                     " needs. Put it back by hand:")
+        lines.append("")
+        for name, urls in lost:
+            lines.append(f"- `{name}`: " + ", ".join(urls))
+    else:
+        lines.append("None.")
+    lines.append("")
+
+    if missing:
+        lines += ["## Missing media files", ""]
+        lines.append("The export names these photos but does not carry the file:")
+        lines.append("")
+        lines += [f"- `{path_}`" for path_ in missing]
+        lines.append("")
+
+    lines += ["## Files written", "", "| File | Time | Bytes |", "|---|---|---|"]
+    for item in staged:
+        lines.append(f'| `{item["file"]}` | {item["time"]} | {item["bytes"]} |')
+    lines.append("")
+    lines.append(f"Total: {len(staged)} files,"
+                 f" {sum(item['bytes'] for item in staged)} bytes.")
+
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def parse_date(value, flag):
+    try:
+        return datetime.date.fromisoformat(value)
+    except ValueError:
+        fail(f"{flag} is not a YYYY-MM-DD date: {value}")
+
+
+def compile_patterns(values):
+    """Return the --drop patterns as (text, regex) pairs.
+
+    Case is ignored, because a caption is prose a human typed live: "Lunch"
+    and "lunch" are the same photo to drop. The text is kept next to the
+    regex so the report can name the pattern the way it was typed.
+    """
+    patterns = []
+    for value in values or []:
+        try:
+            patterns.append((value, re.compile(value, re.IGNORECASE)))
+        except re.error as error:
+            fail(f"--drop is not a valid regular expression: {value} ({error})")
+    return patterns
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Stage the X photos of one event for a human to curate.")
+    parser.add_argument("--date", required=True, help="the first event day, as YYYY-MM-DD")
+    parser.add_argument("--until", help="the last event day, as YYYY-MM-DD, for an event"
+                                        " that lasts more than one day (default: --date)")
+    parser.add_argument("--export", required=True,
+                        help="the directory holding one subdirectory per account")
+    parser.add_argument("--out", required=True, help="the staging directory to write")
+    parser.add_argument("--slug", help="the media directory name used in photos.yaml"
+                                       " (default: the first date)")
+    parser.add_argument("--event", help="the event file whose talks a caption is matched"
+                                        " against")
+    parser.add_argument("--install", action="store_true",
+                        help="also copy the staged photos into the theme")
+    parser.add_argument("--one-per-tweet", action="store_true",
+                        help="keep only the first photo of each post")
+    parser.add_argument("--drop", action="append", metavar="PATTERN",
+                        help="drop a photo whose caption matches this regular"
+                             " expression, case insensitive. Repeatable")
+    args = parser.parse_args()
+
+    start = parse_date(args.date, "--date")
+    end = parse_date(args.until, "--until") if args.until else start
+    if end < start:
+        fail(f"--until is before --date: {end.isoformat()} < {start.isoformat()}")
+
+    export_dir = pathlib.Path(args.export).expanduser().resolve()
+    check_private(export_dir)
+    if not export_dir.is_dir():
+        fail(f"no such export directory: {export_dir}")
+
+    out_dir = pathlib.Path(args.out).expanduser().resolve()
+    check_out(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    slug = args.slug or start.isoformat()
+    patterns = compile_patterns(args.drop)
+
+    talks, unusable, event_path = [], [], None
+    if args.event:
+        event_file = pathlib.Path(args.event).expanduser().resolve()
+        if not event_file.is_file():
+            fail(f"no such --event file: {event_file}")
+        talks, unusable = read_talks(event_file)
+        try:
+            event_path = event_file.relative_to(ROOT)
+        except ValueError:
+            event_path = event_file
+
+    own, retweets = collect(export_dir, start, end)
+    photos = enumerate_photos(own, talks)
+    apply_filters(photos, args.one_per_tweet, patterns)
+    staged, missing = stage(photos, out_dir)
+    installed = install(staged, out_dir, slug) if args.install else None
+
+    write_photos_yaml(out_dir / "photos.yaml", slug, own, staged)
+    write_report(out_dir / "report.md", start, end, slug, own, retweets, photos, staged,
+                 missing, patterns, talks, event_path, unusable, installed)
+
+    retweet_photos = sum(len(entry["media"]) for entry in retweets)
+    matched = sum(1 for photo in staged if photo["talk"])
+    print(f"{date_label(start, end)}: {plural(len(own), 'own post')}, "
+          f"{plural(len(photos), 'photo')}, {len(staged)} staged, "
+          f"{matched} matched to a talk, "
+          f"{plural(len(retweets), 'retweet')} excluded "
+          f"({plural(retweet_photos, 'photo')})")
+    if installed:
+        print(f"installed {plural(len(staged), 'file')} into {installed}")
+    print(f"wrote {out_dir}/photos.yaml and {out_dir}/report.md")
+
+    if missing:
+        for path_ in missing:
+            print(f"missing media file: {path_}", file=sys.stderr)
+        return 1
+    if not staged:
+        print(f"no own photo found for {date_label(start, end)}", file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

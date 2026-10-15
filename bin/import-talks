@@ -1,0 +1,561 @@
+#!/usr/bin/env python3
+"""Write the talks of each monthly meetup into the page of that meetup.
+
+bin/import-meetups wrote 266 of the 268 pages of content/events/meetups/
+out of the Meetup export: the day, the venue, the group, and the
+registrations. The other two are the call for papers mentoring sessions,
+which that import skips with the large editions and which were written by
+hand.
+The talks were not in it, because the export announces them in prose
+written by a different volunteer over 19 years and no single parser reads
+that. A model reads each description instead, and bin/check-extraction
+compares every title and every description it returns against the
+normalized source, field by field. This script is the last step: it puts a
+checked extraction into the pages.
+
+Run the check first. This script does not re-run it, and it cannot: the
+check needs the source events, which are in the export and not in this
+repository. An extraction that fails the check must not be imported.
+
+    bin/check-extraction out-a.json a-2021-2026.json
+    bin/import-talks out-a.json out-b.json out-c.json --out content/events/meetups
+
+The talks block it writes, and why each field is in it or not:
+
+  id              slugify() of the title, the same rule that makes the file
+                  name of a meetup, because this id is an address too:
+                  content/talks/_content.gotmpl builds one page per talk at
+                  /talks/<event file>/<talk id>/. Unique inside its own file,
+                  which is the scope the adapter and a photo reference need.
+                  Two talks of one meetup with the same title get -2 and -3,
+                  in the order the extraction lists them, so the id of a talk
+                  does not move when the file is written again.
+  title           copied, through canon()
+  speakers        the ids of the content/people/ records the announced names
+                  resolve to, which is the field partials/agenda_entry.html
+                  reads and bin/check-content validates. A name resolves
+                  only to a record whose own name is the same text ignoring
+                  accents, case, and the punctuation slugify() drops. That
+                  is the comparison the 132 names of the thirteen large
+                  editions were resolved with, and it is the whole rule:
+                  this script never matches a surname alone, never matches a
+                  shorter name against a longer one, and never matches a
+                  single word, because AGENTS.md forbids merging two people
+                  on a first name and the existing ids hold bare first
+                  names. A record with draft: true is not a person and is
+                  never matched.
+  speaker_names   the names the announcement wrote that resolve to no
+                  record, and only those. The field is where a name waits:
+                  no template reads it, so the page credits nobody, which is
+                  what AGENTS.md requires until a human verifies the person
+                  and a record exists. A name in speakers is not repeated
+                  here, so the two fields never hold the same person twice.
+  type            the controlled vocabulary of partials/event_types.html
+  language        en, es or ca, and a list of them in that order for a
+                  session given in two, which is what AGENTS.md requires.
+                  The extraction writes the name of the language, because
+                  that is what its source says; the code is this repository's
+                  form, so the map below is here and not in the model output.
+  duration_minutes  an integer, left out when the extraction has none
+  description     copied, through canon(), left out when there is none
+
+  links           the addresses of the talk itself, in the form the thirteen
+                  large editions use. The extraction holds 115 links and 63
+                  of them are written. See LINKS below for what each of the
+                  other 52 is and why it stays out.
+  title_lang      NOT written. It is the language of the title, which is not
+                  the language of the talk (see partials/title_lang.html),
+                  and the extraction does not carry it. A Spanish title with
+                  no title_lang is read by a screen reader with an English
+                  voice, so this is a gap and not a finished job.
+
+Every string this script writes goes through canon(), the one
+normalization of imported text in this repository. The extraction is
+already normalized, so this is a second application of an idempotent
+function, and it is here so that the rule holds whatever the input did.
+
+Writing a page again replaces the whole talks block, and with it
+everything that follows the block in the front matter: rewrite() cuts the
+front matter at the "talks:" key and writes the block at the end, so the
+session_videos block bin/import-videos puts after it goes too. Nothing
+before the block is touched, and a file whose meetup announced no talk gets
+no block at all and no empty list, but everything another tool or a person
+added inside or after the block is lost, because the extraction does not
+carry it. This script is the first writer of the block and it is not safe
+to run after the others.
+
+Measured on 2026-10-13, in the tree with 89 channel videos, a re-run over
+content/events/meetups/ with the three current extractions changes 77
+files and would:
+
+  delete all 65 video links of the talks, the whole output of
+  bin/import-videos for the monthly meetups, because a link of type video
+  is not in the extraction, and the 3 session_videos blocks after them.
+
+  put 51 names back in speaker_names, 30 of them distinct, that are
+  credited in speakers today. They were resolved by hand, against a
+  person record whose name is spelled longer than the meetup announced
+  ("Ramon Navarro" against ramon-navarro-bosch), which is a judgement
+  this script will not make.
+
+So the order is bin/import-meetups, then this script, then
+bin/import-videos, and a re-run of this script means running
+bin/import-videos again after it and redoing the hand resolutions. Check
+a re-run with --dry-run and a diff against a copy of the directory, never
+against content/ itself.
+
+Exit codes:
+    0  every page was written
+    1  an event of the extraction has no page, or a page could not be read
+    2  the script could not run: bad arguments, or a missing file
+
+Usage:
+    bin/import-talks EXTRACTION.json [EXTRACTION.json ...] --out DIR
+    bin/import-talks EXTRACTION.json --out DIR --people DIR --dry-run
+"""
+
+import argparse
+import json
+import pathlib
+import re
+import sys
+import unicodedata
+
+import yaml
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+from canon import canon
+from slug import slugify
+
+# The language name the extraction writes, and the code this site stores.
+# AGENTS.md: language takes en, es or ca, and a list is written in that
+# order, because partials/agenda_entry.html prints the codes in the order
+# the list gives them and two orders print the same pair two ways.
+LANGUAGES = {
+    "English": ["en"],
+    "Spanish": ["es"],
+    "Catalan": ["ca"],
+    "English/Spanish": ["en", "es"],
+    "English/Catalan": ["en", "ca"],
+}
+
+# The id of the meetup inside meetup_url, which is the only field of the
+# page that carries it. The comment at the top of the file names the export
+# record too, but a comment is not a field.
+MEETUP_ID = re.compile(r"/events/(\d+)/?")
+
+# The default location of the person records, so the usual run needs no
+# extra argument. --people overrides it.
+PEOPLE_DIR = pathlib.Path(__file__).resolve().parent.parent / "content" / "people"
+
+# LINKS. The extraction holds 115 links. 63 are written and 52 are not, and
+# each of the three groups that stay out is a decision and not an accident.
+#
+# 44 are type speaker_profile: the social account of the person who gave
+# the talk, read out of an event description written years ago. AGENTS.md
+# forbids rendering those, in the clearest rule it has, so none of them is
+# written. Two of the 44 are not even addresses ("twitter.com/mrswats",
+# "x.com@pol_avec"), which is a second reason for the same answer.
+#
+# 4 are a social account the extraction labelled site or github instead of
+# speaker_profile. The label is wrong and the content is the same thing: a
+# GitHub profile is a path of one segment, github.com/<user>, and not a
+# repository, and a medium.com/@handle is a handle. The rule follows the
+# content, so these are listed by hand below and stay out with the other
+# 44. The personal web site of a speaker, which the label site also brought
+# in twice, is not a handle and is written: it is an address of the talk's
+# own material in the same sentence of the source.
+SOCIAL_PROFILES = frozenset([
+    "https://github.com/vperezb",
+    "https://github.com/SaxMan96/",
+    "https://github.com/oscarbc96",
+    "https://medium.com/@victor.perez.berruezo",
+])
+
+# 27 of the remaining 71 are http://, which bin/check-rendered rejects on a
+# built page, and rightly: an http:// link on an https:// page is a
+# downgrade the reader does not choose. They are 26 distinct addresses, and
+# each was requested over https on 2026-10-13 with curl -L. 22 answered and
+# are written with the https scheme and the same host and path, which is
+# the whole change: no redirect target is followed into the stored value,
+# because where a site moved to in 2026 is not what the announcement said.
+# The four that answered nothing over https are dropped, and they are named
+# below so that the next run does not have to find out again.
+#
+# One of the 22, the afitnerd.com kata post, answers 404 over https and
+# over http alike: the host is there and the page is gone. It meets the
+# test this table applies, so it is written, and it is the one link here
+# worth a second look by a human.
+HTTPS_VERIFIED = frozenset([
+    "http://aws.amazon.com/",
+    "http://aws.amazon.com/dynamodb/",
+    "http://aws.amazon.com/ec2/",
+    "http://afitnerd.com/2012/11/10/change-kata/",
+    "http://agilekatas.co.uk/katas/Tamagotchi-Kata",
+    "http://boto.readthedocs.org/en/latest/",
+    "http://buildbot.net",
+    "http://chalice.readthedocs.io",
+    "http://conda.pydata.org",
+    "http://docs.python.org/library/re.html",
+    "http://guillotina.readthedocs.io/en/latest/",
+    "http://hadoop.apache.org/",
+    "http://httptoolkit.tech/",
+    "http://legacy.python.org/dev/peps/pep-0020/",
+    "http://pandas.pydata.org/",
+    "http://vagrantup.com/",
+    "http://webpy.org/",
+    "http://www.ansible.com",
+    "http://www.fabfile.org/",
+    "http://www.froscon.de/",
+    "http://www.mongodb.org/",
+    "http://www.nltk.org/",
+])
+
+# The four http:// addresses with no https at all, and what the request
+# said. A host that fails the TLS handshake or never answers on 443 cannot
+# be rewritten: the link would be dead, and a dead link is worse than a
+# missing one.
+HTTPS_NO_ANSWER = {
+    "http://codekata.com/kata/kata06-anagrams/": "connection reset on 443",
+    "http://flask.pocoo.org/": "certificate does not cover the host",
+    "http://iamnotmyself.com/2011/02/13/refactor-this-the-gilded-rose-kata/":
+        "no answer on 443",
+    "http://python3porting.com/": "nothing listening on 443",
+}
+
+# The comment that says where the block comes from, as every other block of
+# these files does. %s is the Meetup event id.
+BLOCK_COMMENT = """\
+# The talks this meetup announced, read from the description of event %s in
+# the pybcn-archive export by a model and compared field by field against
+# that description by bin/check-extraction. bin/import-talks writes this
+# block: a correction goes to the extraction or to the script, never here.
+# speakers holds the content/people/ record the announced name resolves to,
+# by the same name, ignoring accents and case. speaker_names holds a name
+# that resolves to no record: no template reads it, so the page credits
+# nobody until a human verifies the person (AGENTS.md)."""
+
+
+def yaml_string(value):
+    """Return value as a double quoted YAML scalar, on one line.
+
+    The same escaping bin/import-meetups writes, plus the newline: a talk
+    description holds paragraphs, and the published programmes write those
+    as \\n inside a one line scalar. Only the backslash, the double quote,
+    the newline, and the tab need escaping inside double quotes.
+    """
+    body = (value.replace("\\", "\\\\").replace('"', '\\"')
+                 .replace("\n", "\\n").replace("\t", "\\t"))
+    return '"%s"' % body
+
+
+def fold(name):
+    """Return name with its accents, case, and punctuation set aside.
+
+    slugify() already strips the accents, lowercases, and turns everything
+    that is not a letter or a digit into a hyphen, which is exactly the
+    comparison the thirteen large editions resolved their 132 names with:
+    "Carles Barrobes" and "Carles Barrobés" are one person, and so are
+    "Laura Perez-Mayos" and "Laura Pérez Mayos", because a hyphen and a
+    space are the same separator in a name written by two volunteers.
+
+    It is not a latinizing transform of stored text: nothing this returns
+    is ever written to a page. canon() is the rule for what is stored, and
+    it never touches a letter. This function only compares.
+    """
+    return slugify(unicodedata.normalize("NFC", name))
+
+
+def person_index(people_dir):
+    """Return the id of each person record, keyed by the folded name.
+
+    Keyed by the folded id as well, because an id is the folded name of the
+    person in every record of this repository and a source that writes the
+    name with a middle name dropped still has to miss, not guess.
+
+    A record with draft: true is left out: content/people/canary.md is a
+    fixture for bin/check-rendered and not a person, and crediting a talk
+    to it would publish the fixture.
+
+    A key two records share is dropped from the index and reported, because
+    a name that matches two people resolves to neither. That cannot happen
+    today, and the day a second Jordi Mas gets a record it must fail here
+    and not pick one of them.
+    """
+    if not people_dir.is_dir():
+        sys.exit("import-talks: no %s" % people_dir)
+    index, clashes = {}, {}
+    for path in sorted(people_dir.glob("*.md")):
+        if path.name == "_index.md":
+            continue
+        text = path.read_text(encoding="utf-8")
+        found = re.match(r"^---\n(.*?)\n---", text, re.S)
+        if not found:
+            sys.exit("import-talks: %s has no front matter" % path)
+        data = yaml.safe_load(found.group(1)) or {}
+        if data.get("draft"):
+            continue
+        person_id, name = data.get("id"), data.get("name")
+        if not person_id or not name:
+            sys.exit("import-talks: %s has no id or no name" % path)
+        for key in {fold(name), fold(person_id)}:
+            if key in index and index[key] != person_id:
+                clashes.setdefault(key, {index[key]}).add(person_id)
+            index[key] = person_id
+    for key, ids in sorted(clashes.items()):
+        print("WARN  '%s' is the name of %s, so a source that writes it "
+              "resolves to nobody" % (key, " and ".join(sorted(ids))))
+        index.pop(key, None)
+    return index
+
+
+def resolve_speakers(names, index):
+    """Return (ids, unresolved) for the announced names of one talk.
+
+    A name of one word never resolves. AGENTS.md: never merge two people on
+    a first-name match, and the ids of this site include bare first names.
+    The source writes "David", "Nuria", "Loris", "Areski", and "Garito",
+    and not one of those five says which person it means.
+
+    A name the index does not hold stays in unresolved, in the text the
+    announcement used. Order is kept on both lists, and a name that repeats
+    inside one talk is written once.
+    """
+    ids, unresolved = [], []
+    for name in names:
+        key = fold(name)
+        person_id = index.get(key) if key.count("-") else None
+        if person_id:
+            if person_id not in ids:
+                ids.append(person_id)
+        elif name not in unresolved:
+            unresolved.append(name)
+    return ids, unresolved
+
+
+def talk_links(talk):
+    """Return the links of one talk that reach the page, in source order.
+
+    See LINKS at the top of the file for the three groups that do not, and
+    for what was measured about each. An http:// address that is in
+    HTTPS_VERIFIED is written with the https scheme and nothing else
+    changed; one that is in neither table stops the run, because an
+    unmeasured address must not be guessed either way.
+    """
+    kept = []
+    for link in talk.get("links") or []:
+        url, kind = link.get("url") or "", link.get("type") or ""
+        if kind == "speaker_profile" or url in SOCIAL_PROFILES:
+            continue
+        if url.startswith("http://"):
+            if url in HTTPS_NO_ANSWER:
+                continue
+            if url not in HTTPS_VERIFIED:
+                sys.exit("import-talks: %s is an http:// address that neither "
+                         "HTTPS_VERIFIED nor HTTPS_NO_ANSWER names. Request "
+                         "it over https and put it in one of them." % url)
+            url = "https://" + url[len("http://"):]
+        elif not url.startswith("https://"):
+            sys.exit("import-talks: %r is not an address, and only the two "
+                     "speaker_profile entries were. Say what it is." % url)
+        if not kind:
+            sys.exit("import-talks: %s has no type, and bin/check-content "
+                     "rejects a link without one." % url)
+        if (kind, url) not in kept:
+            kept.append((kind, url))
+    return kept
+
+
+def pages_by_id(out_dir):
+    """Return the page of each meetup, keyed by the Meetup event id.
+
+    A directory with no page stops the run before anything is written: an
+    id that matches nothing is either the wrong extraction or the wrong
+    directory, and both of those have to be seen and not half applied.
+    """
+    pages = {}
+    for path in sorted(out_dir.glob("*.md")):
+        if path.name == "_index.md":
+            continue
+        found = MEETUP_ID.search(path.read_text(encoding="utf-8"))
+        if not found:
+            sys.exit("import-talks: %s carries no meetup_url" % path)
+        event_id = found.group(1)
+        if event_id in pages:
+            sys.exit("import-talks: event %s is on %s and on %s"
+                     % (event_id, pages[event_id].name, path.name))
+        pages[event_id] = path
+    if not pages:
+        sys.exit("import-talks: no page in %s" % out_dir)
+    return pages
+
+
+def talk_ids(talks):
+    """Return one id per talk, unique inside this page.
+
+    A title that slugifies to nothing, which an all emoji title does, falls
+    back to its position, so every talk gets a page. A repeated slug takes
+    a counter in the order the extraction lists the talks, so the id is a
+    function of the extraction and does not move between two runs.
+    """
+    ids, used = [], {}
+    for position, talk in enumerate(talks, start=1):
+        base = slugify(canon(talk.get("title") or "")) or "talk-%d" % position
+        used[base] = used.get(base, 0) + 1
+        ids.append(base if used[base] == 1 else "%s-%d" % (base, used[base]))
+    return ids
+
+
+def talk_block(event_id, talks, people, tally):
+    """Return the talks block of one page, comment included, as lines.
+
+    people is the index of person_index(). tally counts what the run
+    resolved, so main() can report it: this is the one place that sees
+    every name and every link of every talk.
+    """
+    lines = BLOCK_COMMENT.split("\n")
+    lines = [line % event_id if "%s" in line else line for line in lines]
+    lines.append("talks:")
+    for talk_id, talk in zip(talk_ids(talks), talks):
+        lines.append("  - id: %s" % talk_id)
+        lines.append("    title: %s" % yaml_string(canon(talk["title"]).strip()))
+        names = [canon(name).strip() for name in talk.get("speakers") or []]
+        ids, unresolved = resolve_speakers(names, people)
+        tally["names"] += len(names)
+        tally["resolved"] += len(names) - len(unresolved)
+        tally["unresolved"].update(unresolved)
+        tally["credited"].update(ids)
+        if ids:
+            lines.append("    speakers: [%s]" % ", ".join(ids))
+        if unresolved:
+            lines.append("    speaker_names: [%s]"
+                         % ", ".join(yaml_string(name) for name in unresolved))
+        lines.append("    type: %s" % talk["type"])
+        language = LANGUAGES.get(talk.get("language"))
+        if language:
+            lines.append("    language: %s"
+                         % (language[0] if len(language) == 1 else
+                            "[%s]" % ", ".join(language)))
+        elif talk.get("language"):
+            sys.exit("import-talks: event %s talk '%s' has language %r, which "
+                     "is not one of %s" % (event_id, talk_id, talk["language"],
+                                           ", ".join(sorted(LANGUAGES))))
+        if talk.get("duration_minutes") is not None:
+            lines.append("    duration_minutes: %d" % int(talk["duration_minutes"]))
+        description = canon(talk.get("description") or "").strip()
+        if description:
+            lines.append("    description: %s" % yaml_string(description))
+        links = talk_links(talk)
+        tally["links"] += len(links)
+        if links:
+            lines.append("    links:")
+            for kind, url in links:
+                lines.append("      - type: %s" % kind)
+                lines.append("        url: %s" % yaml_string(url))
+    return lines
+
+
+def rewrite(text, block):
+    """Return the page text with block as its talks block.
+
+    The block goes at the end of the front matter, which is where the two
+    blocks these pages are waiting for belong: the front matter is the page
+    (see layouts/_default/meetup.html) and the body is empty on purpose.
+    An earlier block of this script, and the comment above it, is replaced,
+    so a second run writes the same file and not a second block.
+    """
+    lines = text.split("\n")
+    if lines[0].strip() != "---":
+        return None
+    try:
+        close = lines.index("---", 1)
+    except ValueError:
+        return None
+
+    head = lines[:close]
+    for position, line in enumerate(head):
+        if line.rstrip() == "talks:":
+            # Back up over the comment that introduces the block, so the
+            # comment is replaced with it and does not pile up.
+            start = position
+            while start and head[start - 1].startswith("#"):
+                start -= 1
+            head = head[:start]
+            break
+
+    return "\n".join(head + list(block) + lines[close:])
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Write the talks of each meetup into the page of that meetup.")
+    parser.add_argument("extraction", nargs="+", type=pathlib.Path,
+                        help="the checked extraction JSON files")
+    parser.add_argument("--out", type=pathlib.Path, required=True,
+                        help="the directory of the meetup pages")
+    parser.add_argument("--people", type=pathlib.Path, default=PEOPLE_DIR,
+                        help="the directory of the person records "
+                             "(default: content/people)")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="report what would be written and write nothing")
+    args = parser.parse_args()
+
+    if not args.out.is_dir():
+        sys.exit("import-talks: no %s" % args.out)
+    for path in args.extraction:
+        if not path.is_file():
+            sys.exit("import-talks: no %s" % path)
+
+    pages = pages_by_id(args.out)
+    entries = []
+    for path in args.extraction:
+        entries += json.loads(path.read_text(encoding="utf-8"))
+
+    missing = [str(entry.get("event_id")) for entry in entries
+               if str(entry.get("event_id")) not in pages]
+    if missing:
+        print("FAIL  %d event(s) of the extraction have no page in %s: %s"
+              % (len(missing), args.out, ", ".join(missing)))
+        return 1
+
+    people = person_index(args.people)
+    tally = {"names": 0, "resolved": 0, "links": 0,
+             "unresolved": set(), "credited": set()}
+    written, talks, empty, disambiguated = 0, 0, 0, 0
+    for entry in entries:
+        event_id = str(entry["event_id"])
+        path = pages[event_id]
+        found = entry.get("talks") or []
+        if not found:
+            empty += 1
+            continue
+        bases = [slugify(canon(talk.get("title") or "")) for talk in found]
+        disambiguated += len(bases) - len(set(bases))
+        text = path.read_text(encoding="utf-8")
+        new = rewrite(text, talk_block(event_id, found, people, tally))
+        if new is None:
+            print("FAIL  %s has no front matter to write into" % path)
+            return 1
+        if not args.dry_run and new != text:
+            path.write_text(new, encoding="utf-8")
+        written += 1
+        talks += len(found)
+
+    print("%s %d talks into %d of the %d pages in %s"
+          % ("would write" if args.dry_run else "wrote", talks, written,
+             len(pages), args.out))
+    print("%d events announced no talk and get no talks block" % empty)
+    print("%d talk id(s) needed a counter to stay unique inside their page"
+          % disambiguated)
+    print("%d of %d announced names resolve to %d of the %d person records; "
+          "%d names, %d of them distinct, wait in speaker_names"
+          % (tally["resolved"], tally["names"], len(tally["credited"]),
+             len(set(people.values())),
+             tally["names"] - tally["resolved"], len(tally["unresolved"])))
+    print("%d links written of the 115 in the extraction" % tally["links"])
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

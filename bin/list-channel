@@ -1,0 +1,243 @@
+#!/usr/bin/env python3
+"""Print what the YouTube channel holds that data/channel_videos.yaml does not.
+
+This is how a new video gets noticed. When the board uploads a recording,
+nothing on this site changes until a person writes the link on the talk of
+its event page. This script names the video, so that step is a known step
+and not a thing somebody finds by eye on a meetup page months later.
+
+The channel is read with yt-dlp, one call per tab that holds videos: the
+videos tab and the streams tab (a live stream lands in streams and never
+in videos). The shorts tab holds none and is not read. Nothing is cached:
+every run reads the channel as it is.
+
+Two videos of the inventory show in no tab, because they were uploaded
+unlisted and only a playlist reveals them. The inventory marks them with
+unlisted: true, so their absence from the tabs is expected and reported as
+such. A video the inventory holds, not marked unlisted, that no tab shows
+is a different thing: it was removed from the channel, or made unlisted,
+and a person has to open its URL and decide. Both directions are reported
+and named apart.
+
+yt-dlp is not in this repository and not in CI, and this script is never
+part of a check or of the build, because reading the channel is a network
+call. Pass the binary with --yt-dlp, or let the script find it on PATH or
+at the one place this site's maintainer keeps it.
+
+Exit codes:
+    0  the inventory and the channel agree
+    1  there is something for a person to do: a new video, an entry no tab
+       shows that is not marked unlisted, an unlisted entry a tab now
+       shows, or a title the channel changed
+    2  the script could not run: no yt-dlp, no inventory, or the channel
+       could not be read
+
+Usage:
+    bin/list-channel [--yt-dlp PATH] [--yaml]
+
+--yaml prints each new video as an inventory entry ready to paste into
+data/channel_videos.yaml, with placed: false and an empty reason, which
+bin/check-content rejects until a person fills in the decision.
+"""
+
+import argparse
+import json
+import pathlib
+import shutil
+import subprocess
+import sys
+
+import yaml
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+INVENTORY = ROOT / "data" / "channel_videos.yaml"
+
+# The Python Barcelona channel. The inventory names it too, and the two have
+# to agree, or the comparison below means nothing.
+CHANNEL = "UCEhI2CfdT5--TYq47K4en4A"
+
+# The tabs of a channel that list videos. shorts holds none on this channel.
+TABS = ("videos", "streams")
+
+# Where the maintainer of this site keeps yt-dlp, in a virtualenv of its
+# own, when it is not on PATH. The message below says how to install it.
+KNOWN_YT_DLP = pathlib.Path.home() / ".venvs" / "yt-dlp" / "bin" / "yt-dlp"
+
+INSTALL = ("yt-dlp is not installed. It is a Python package: "
+           "python3 -m venv ~/.venvs/yt-dlp && "
+           "~/.venvs/yt-dlp/bin/pip install yt-dlp, "
+           "then run bin/list-channel --yt-dlp ~/.venvs/yt-dlp/bin/yt-dlp")
+
+# yt-dlp waits on the network, and a channel of 90 videos takes seconds, so
+# this is a stuck call and not a slow one.
+TIMEOUT_SECONDS = 300
+
+
+def fail(message):
+    """Stop the run with exit code 2: the script cannot do its job."""
+    print("list-channel: %s" % message, file=sys.stderr)
+    sys.exit(2)
+
+
+def plural(count, noun):
+    """Return "1 video" or "4 videos": a count a person reads out loud."""
+    return "%d %s" % (count, noun if count == 1 else noun + "s")
+
+
+def find_yt_dlp(given):
+    """Return the path of yt-dlp, or stop with the message that says how to
+    install it."""
+    if given:
+        if not given.is_file():
+            fail("no such file: %s. %s" % (given, INSTALL))
+        return given
+    found = shutil.which("yt-dlp")
+    if found:
+        return pathlib.Path(found)
+    if KNOWN_YT_DLP.is_file():
+        return KNOWN_YT_DLP
+    fail(INSTALL)
+
+
+def read_tab(yt_dlp, channel, tab):
+    """Return the entries of one tab of the channel: a list of (id, title).
+
+    One network call. --flat-playlist lists the videos without reading each
+    one, and --dump-single-json gives the whole tab as one document.
+    """
+    url = "https://www.youtube.com/channel/%s/%s" % (channel, tab)
+    try:
+        run = subprocess.run(
+            [str(yt_dlp), "--flat-playlist", "--dump-single-json",
+             "--no-warnings", url],
+            capture_output=True, text=True, timeout=TIMEOUT_SECONDS, check=False)
+    except subprocess.TimeoutExpired:
+        fail("yt-dlp did not answer in %d seconds for %s" % (TIMEOUT_SECONDS, url))
+    if run.returncode != 0:
+        fail("yt-dlp failed on %s (exit %d): %s"
+             % (url, run.returncode, run.stderr.strip() or "no message"))
+    try:
+        data = json.loads(run.stdout)
+    except ValueError as error:
+        fail("yt-dlp wrote no JSON for %s: %s" % (url, error))
+    if data.get("channel_id") not in (None, channel):
+        fail("yt-dlp read channel %s, not %s" % (data.get("channel_id"), channel))
+    entries = []
+    for entry in data.get("entries") or []:
+        if not isinstance(entry, dict) or not entry.get("id"):
+            continue
+        entries.append((entry["id"], (entry.get("title") or "").strip()))
+    return entries
+
+
+def read_inventory(path):
+    """Return the inventory as {id: entry} for the channel videos, and the
+    channel id it names."""
+    if not path.is_file():
+        fail("no inventory at %s" % path)
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError as error:
+        fail("cannot parse %s: %s" % (path, error))
+    videos = {}
+    for entry in data.get("videos") or []:
+        if isinstance(entry, dict) and entry.get("id"):
+            videos[str(entry["id"])] = entry
+    return videos, data.get("channel")
+
+
+def entry_yaml(video_id, title):
+    """Return one inventory entry for a new video, ready to paste."""
+    return "\n".join([
+        "  - id: %s" % json.dumps(video_id),
+        "    title: %s" % json.dumps(title, ensure_ascii=False),
+        "    placed: false",
+        '    reason: ""',
+    ])
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Print what the YouTube channel holds that the inventory does not.")
+    parser.add_argument("--yt-dlp", type=pathlib.Path, default=None,
+                        help="the yt-dlp binary (default: PATH, then %s)" % KNOWN_YT_DLP)
+    parser.add_argument("--inventory", type=pathlib.Path, default=INVENTORY,
+                        help="the inventory (default: data/channel_videos.yaml)")
+    parser.add_argument("--yaml", action="store_true",
+                        help="print each new video as an inventory entry to paste")
+    args = parser.parse_args()
+
+    yt_dlp = find_yt_dlp(args.yt_dlp)
+    inventory, channel = read_inventory(args.inventory)
+    if channel and channel != CHANNEL:
+        fail("%s names channel %s and this script reads %s"
+             % (args.inventory, channel, CHANNEL))
+
+    listed, tab_of = {}, {}
+    counts = {}
+    for tab in TABS:
+        entries = read_tab(yt_dlp, CHANNEL, tab)
+        counts[tab] = len(entries)
+        for video_id, title in entries:
+            listed.setdefault(video_id, title)
+            tab_of.setdefault(video_id, tab)
+
+    print("channel %s: %s, %s distinct; inventory: %s"
+          % (CHANNEL,
+             ", ".join("%d in %s" % (counts[tab], tab) for tab in TABS),
+             len(listed), "%d entries" % len(inventory)))
+
+    new = sorted((video_id for video_id in listed if video_id not in inventory),
+                 key=lambda video_id: (tab_of[video_id], listed[video_id]))
+    unlisted = sorted(video_id for video_id, entry in inventory.items()
+                      if video_id not in listed and entry.get("unlisted"))
+    gone = sorted(video_id for video_id, entry in inventory.items()
+                  if video_id not in listed and not entry.get("unlisted"))
+    surfaced = sorted(video_id for video_id, entry in inventory.items()
+                      if video_id in listed and entry.get("unlisted"))
+    renamed = sorted(video_id for video_id, entry in inventory.items()
+                     if video_id in listed and listed[video_id]
+                     and str(entry.get("title") or "").strip() != listed[video_id])
+
+    print()
+    print("%s in the channel and not in the inventory: write the link on the "
+          "talk of its event page, then add the entry"
+          % plural(len(new), "video"))
+    for video_id in new:
+        print("  NEW %-12s %-8s %s" % (video_id, tab_of[video_id], listed[video_id]))
+        print("      https://www.youtube.com/watch?v=%s" % video_id)
+    if args.yaml and new:
+        print()
+        print("entries to paste under videos: in %s" % args.inventory)
+        for video_id in new:
+            print(entry_yaml(video_id, listed[video_id]))
+
+    print()
+    print("%s in the inventory and in no tab, marked unlisted, which is expected"
+          % plural(len(unlisted), "video"))
+    for video_id in unlisted:
+        print("  unlisted %-12s %s" % (video_id, inventory[video_id].get("title")))
+
+    print("%s in the inventory and in no tab, not marked unlisted: removed from "
+          "the channel, or made unlisted; open the URL and decide"
+          % plural(len(gone), "video"))
+    for video_id in gone:
+        print("  GONE %-12s %s" % (video_id, inventory[video_id].get("title")))
+        print("       https://www.youtube.com/watch?v=%s" % video_id)
+
+    print("%s marked unlisted that a tab now shows: drop the unlisted mark"
+          % plural(len(surfaced), "video"))
+    for video_id in surfaced:
+        print("  PUBLIC %-12s %-8s %s" % (video_id, tab_of[video_id], listed[video_id]))
+
+    print("%s whose title the channel changed: copy the new title into the "
+          "inventory" % plural(len(renamed), "video"))
+    for video_id in renamed:
+        print("  RENAMED %-12s inventory: %s" % (video_id, inventory[video_id].get("title")))
+        print("          channel:   %s" % listed[video_id])
+
+    return 1 if (new or gone or surfaced or renamed) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
