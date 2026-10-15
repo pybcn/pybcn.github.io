@@ -1,0 +1,134 @@
+{{- /*
+    One page per talk, built from the programme of every event.
+
+    The talks of this archive live in the front matter of the event that
+    gave them, under the talks block, and that is where they stay: a talk
+    is a record of one day, and the day owns it. This adapter reads those
+    blocks and adds a page for each talk, so a talk gets a URL, a title, a
+    photo, and its links, without 165 new files that would hold a second
+    copy of data the event page already carries.
+
+    What it adds per talk, and nothing more:
+
+        path    <event file name>/<talk id>, so /talks/pyday_bcn_2025/...
+        title   the title of the talk
+        dates   the date of the event, as date and as lastmod
+        params  talk, the id; event, the content path of the event page;
+                title_lang, when the title is not in English
+
+    Everything else is resolved when the page renders, by
+    partials/talk_record.html, which reads the talk out of the event page
+    through site.GetPage. So the description, the speakers, the language,
+    the links, and the photo have one source, the event front matter, and
+    cannot drift from what the programme grid and the gallery of that day
+    print.
+
+    Why the event is part of the path. A talk id is unique inside its
+    event and not across the archive: "lightning-talks-session-2-closing-
+    session-kahoot" is both a row of PyDay BCN 2022 and a row of PyDay BCN
+    2023, and a recurring session of a recurring event is exactly the kind
+    of title that repeats. A flat /talks/<id>/ would need a tie-break, and
+    every tie-break that keeps the bare id for one of the two depends on
+    what else the site holds: importing an older event could then move the
+    URL of a talk that is already published and already linked to. With the
+    event in the path, the URL of a talk is a function of its own two ids
+    and of nothing else, so no later import can move it. The event segment
+    is the base name of its content file, the same segment its own URL
+    uses, so the two read alike:
+
+        /events/pyday_bcn/pyday_bcn_2025/
+        /talks/pyday_bcn_2025/build-advanced-agentic-llm-apps-with-langgraph-and-langchain/
+
+    Hugo builds no page for the middle segment, /talks/pyday_bcn_2025/: a
+    content adapter adds the pages it is asked for and creates no section
+    node above them. The index at /talks/ lists every talk of every year,
+    so nothing is only reachable through a URL that is not built.
+
+    Why this template reads the files itself. A content adapter runs while
+    the content is still being assembled, so site.Pages is not available
+    yet: Hugo answers "this method cannot be called before the site is
+    fully initialized". The event front matter is therefore read from disk
+    with os.ReadFile and parsed with transform.Unmarshal. Every file under
+    content/events/ opens with a YAML front matter block and holds exactly
+    one line that is "---" on its own, which is the one that closes it, so
+    splitting on the first "\n---" is safe. A file with no front matter, or
+    with no talks block, adds nothing.
+
+    Why the front matter goes through resources.FromString first. Given a
+    plain string, transform.Unmarshal has to guess the format, and it
+    guesses by which of "," "{" "=" ":" "<" appears first. So a front
+    matter that opens with a comment holding a comma, before the colon of
+    its first field, is read as CSV, and the whole build stops with "record
+    on line 3: wrong number of fields" and no file name in it. That is what
+    the 266 meetup files did when they arrived: each one opens with the
+    comment that says which export record it came from. Wrapping the text
+    in a resource named .yaml states the format instead of leaving it to
+    the order of the punctuation, so a comment is just a comment again.
+    The name is the base name of the event file, which makes a parse error
+    name the file it came from.
+
+    The walk covers content/events/ and one level of directories under it,
+    which is the shape of that section: the four series, pyday_bcn,
+    pydatabcn, other_events and meetups, each with its editions. A
+    directory nested deeper logs a warning rather than losing its talks in
+    silence.
+*/ -}}
+{{- $root := "content/events" -}}
+
+{{- /* The files to read: the markdown of content/events/ and of each series
+       under it. An _index.md is the container of a section and carries no
+       programme of its own. */ -}}
+{{- $files := slice -}}
+{{- range $entry := os.ReadDir $root -}}
+    {{- $here := path.Join $root $entry.Name -}}
+    {{- if $entry.IsDir -}}
+        {{- range $child := os.ReadDir $here -}}
+            {{- if $child.IsDir -}}
+                {{- warnf "talks adapter: %q is nested deeper than this walk reads, so any talk in it gets no page." (path.Join $here $child.Name) -}}
+            {{- else -}}
+                {{- $files = $files | append (path.Join $here $child.Name) -}}
+            {{- end -}}
+        {{- end -}}
+    {{- else -}}
+        {{- $files = $files | append $here -}}
+    {{- end -}}
+{{- end -}}
+
+{{- range $file := $files -}}
+    {{- if ne (path.Ext $file) ".md" }}{{ continue }}{{ end -}}
+    {{- if eq (path.Base $file) "_index.md" }}{{ continue }}{{ end -}}
+    {{- $raw := os.ReadFile $file -}}
+    {{- if not (hasPrefix $raw "---") }}{{ continue }}{{ end -}}
+    {{- $front := strings.TrimPrefix "---" (index (split $raw "\n---") 0) -}}
+    {{- $event := resources.FromString (printf "events/%s.yaml" (path.BaseName $file)) $front | transform.Unmarshal -}}
+    {{- with $event.talks -}}
+        {{- /* The content path of the event page, which site.GetPage reads
+               at render time, and the segment its URL uses. */ -}}
+        {{- $path := strings.TrimSuffix ".md" (strings.TrimPrefix "content" $file) -}}
+        {{- $slug := path.BaseName $file -}}
+        {{- /* The date of the event is the date of every talk of it. One
+               edition of the section carries no date, Hacktoberfest 2018,
+               and it carries no talks either; a programme with no date
+               would still get its pages, dated by the build. */ -}}
+        {{- $dates := dict -}}
+        {{- with $event.date -}}
+            {{- $dates = dict "date" (time.AsTime .) "lastmod" (time.AsTime .) -}}
+        {{- end -}}
+        {{- range $talk := . -}}
+            {{- if not $talk.id -}}
+                {{- warnf "talks adapter: a talk of %q has no id, so it gets no page." $file -}}
+                {{- continue -}}
+            {{- end -}}
+            {{- $params := dict "talk" $talk.id "event" $path -}}
+            {{- with $talk.title_lang -}}
+                {{- $params = merge $params (dict "title_lang" .) -}}
+            {{- end -}}
+            {{- $.AddPage (dict
+                    "kind" "page"
+                    "path" (printf "%s/%s" $slug $talk.id)
+                    "title" $talk.title
+                    "dates" $dates
+                    "params" $params) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}

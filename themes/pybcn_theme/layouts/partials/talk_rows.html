@@ -26,10 +26,13 @@
     The styles are .talk_rows of talks.scss, which the person page uses as
     well.
 */ -}}
+{{- $pages := partialCached "talk_pages_index.html" site "talk-pages-index" -}}
 {{- $names := partialCached "people_names.html" site "people-names" -}}
+{{- $here := .RelPermalink -}}
 <ul class="talk_rows">
     {{- range $talk := .Params.talks }}
     {{- $url := "" -}}
+    {{- with $talk.id }}{{ $url = index $pages (printf "%s|%s" $here .) }}{{ end -}}
     {{- $speakers := partial "speaker_names.html" (dict "names" $names "ids" $talk.speakers) -}}
     {{- $title_lang := partial "title_lang.html" (dict "title_lang" $talk.title_lang "title" $talk.title) -}}
     {{- $video := "" -}}
