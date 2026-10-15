@@ -1,0 +1,46 @@
+{{- /*
+    The legend of a listing: each marker the page draws, with how many
+    rows carry it.
+
+        👥 155 monthly meetups · 👭 71 PyLadies BCN meetups · 🥋 23 coding dojos
+
+    Arguments:
+        label   the aria-label of the list, "Event types" or "Talk types"
+        items   a slice of dicts, one per entry of the vocabulary, each with:
+                    emoji   the glyph of an event type, or
+                    type    the token of a talk type, for event_type_icon.html
+                    one     the noun after a count of 1, "coding dojo"
+                    many    the noun after any other count, "coding dojos"
+                    count   how many rows of the page carry the marker
+
+    Only the markers the page has. An item with a count of zero is left
+    out, so the legend names what the reader can see and nothing the
+    vocabulary could hold: /talks/ lists no coffee break. The items are
+    sorted here, by count and then by noun, so the two pages read the same
+    way and two builds give one order.
+
+    The counts come from partials/listing_counts.html and the markers from
+    the vocabulary the rows read, so the legend cannot name a marker the
+    rows do not draw. It is the second way to the name of a marker: the
+    first is the accessible name and the hover of the marker itself, and a
+    touch screen has no hover.
+
+    The glyph is decorative here. The words beside it are its meaning, and
+    a screen reader hears the name on the row itself, so a name here would
+    be read twice. The whole line is a list, so a reader who moves by list
+    item gets one marker at a time and can skip the lot.
+*/ -}}
+{{- $items := slice -}}
+{{- range .items -}}
+    {{- if not .count }}{{ continue }}{{ end -}}
+    {{- $items = $items | append (merge . (dict "key" (printf "%06d %s" (sub 999999 .count) .many))) -}}
+{{- end -}}
+{{- with $items }}
+<ul class="marker_legend" aria-label="{{ $.label }}">
+    {{- range sort . "key" }}
+    <li>
+        {{- with .emoji }}<span class="marker_legend_glyph" aria-hidden="true">{{ . }}</span>{{ end -}}
+        {{- with .type }}<span class="marker_legend_icon">{{ partial "event_type_icon.html" . }}</span>{{ end }} {{ .count }} {{ cond (eq .count 1) .one .many }}</li>
+    {{- end }}
+</ul>
+{{- end }}

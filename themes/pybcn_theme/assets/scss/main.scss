@@ -258,6 +258,181 @@ button:focus:not(:focus-visible),
 .modal-title {
     line-height: 1.2;
 }
+// The paragraph a page opens with, above the list or the cards it is the
+// index of: .section_intro on /events/, /people/, /talks/ and
+// /events/meetups/, .page-intro on the two monthly meetup pages. A link
+// inside a sentence needs a second mark besides the colour, which is WCAG
+// 1.4.1 and the rule this repository already applies to .photo_source and
+// to the caption of a talk photo. axe reported this one as
+// link-in-text-block on 7 links over 4 pages.
+.section_intro a,
+.page-intro a {
+    text-decoration: underline;
+}
+
+// The bar of links above a long index, one link per group: the letters of
+// /people/ and the years of /events/. It is the only way to reach the far
+// end of 169 or 279 rows without scrolling the lot. See
+// layouts/partials/jump_bar.html, which both pages draw it with.
+//
+// The bar wraps, with no script: the list is a flex row with flex-wrap,
+// and a link that does not fit goes to the next line. The years of
+// /events/ are 20 links, 2007 to 2026, and one more every year, so the
+// bar outgrows a narrow screen already. Measured in Chromium: at 1280px
+// the 20 years sit on one line, and at 390px they take four lines and the
+// document is 390px wide, so nothing overflows sideways. The 24 letters
+// of /people/ take three lines at 390px.
+.jump_bar {
+    margin-bottom: 1.8rem;
+
+    // Pinned under the fixed navigation bar as the page scrolls, from the
+    // lg breakpoint and not below it (David Arcos, 2026-10-15). Measured
+    // in Chromium: at 1280px the bar is one line of 29px and /people/
+    // runs to 28107px, so a reader otherwise scrolls back up through 35
+    // screens to jump to another letter. At 390px the bar is three lines
+    // of letters, 99px, or four lines of years, 134px, and pinned under
+    // the 105px navigation it would hold 204px or 239px of the window,
+    // over a quarter of 800px, for a list a thumb scrolls anyway: there
+    // it stays in the flow. 992px is the lg breakpoint of Bootstrap 4,
+    // written out because the Bootstrap mixins are not in scope in this
+    // file. top is the height of the navigation bar, 105px, the figure
+    // #main_content clears above. The white background covers the rows
+    // that pass under it, and the padding is the air between the links
+    // and the rows on both sides; the bar is 45px tall with it. Every
+    // anchor the bar points at clears the navigation with
+    // scroll-margin-top (65px, listing_table.scss and people_index.scss)
+    // and, from lg, the pinned bar as well: see those rules.
+    @media (min-width: 992px) {
+        position: sticky;
+        // 61px, the navigation once it has shrunk, not the 105px it measures
+        // at the top of the page: navbar.scss gives it the navbar_small class
+        // on scroll and the logo drops to 40px. A bar pinned at 105 left a
+        // 44px gap under the navigation through which whole rows showed,
+        // which is what David Arcos saw on 2026-10-15. Measured in Chromium:
+        // nav bottom 105px at scroll 0, 63px at 300, 61px from there on.
+        position: sticky;
+        top: 61px;
+        z-index: 10;
+        padding: 0.5rem 0;
+        background: #ffffff;
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    a {
+        display: inline-block;
+        min-width: 2rem;
+        padding: 0.1rem 0.35rem;
+        border: 1px solid #dde3e8;
+        border-radius: 3px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    // /people/ centres its letters (David Arcos asked for it); /events/
+    // keeps its years at the left, over the first column of its table.
+    // The class is the optional argument of partials/jump_bar.html.
+    &.jump_bar_centered ul {
+        justify-content: center;
+    }
+}
+
+// The legend above a long index: each marker the rows draw, with how many
+// rows carry it. One line that wraps, in the colour of the facts under a
+// row, so it reads as information about the list and not as a row of it.
+// See layouts/partials/marker_legend.html, which /events/ and /talks/ draw
+// it with.
+.marker_legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    padding-left: 0;
+    margin-bottom: 1.2rem;
+    list-style: none;
+    color: #51616e;
+    font-size: 0.9rem;
+
+    li {
+        white-space: nowrap;
+    }
+
+    // The glyph as the rows draw it: upright, at the normal weight, and
+    // with line-height 1, for the reason listing_table.scss gives.
+    .marker_legend_glyph {
+        display: inline-block;
+        font-size: 1.15em;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        vertical-align: middle;
+    }
+
+    .marker_legend_icon {
+        display: inline-block;
+        width: 1.3em;
+        text-align: center;
+    }
+}
+
+// The line of facts under the title of a row: the words (the date and
+// the venue, the speaker and the day, the roles and the years) and the
+// card of counts beside them. A flex line that wraps, so at a width where
+// both fit the card follows the words, and at 390px it drops under them.
+// Baseline alignment keeps the number of the card on the line of the
+// words. See layouts/_default/events_index.html, layouts/talks/list.html,
+// and layouts/people/list.html, which print one each.
+.row_facts {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.75rem;
+    row-gap: 0.2rem;
+
+    > p {
+        margin-bottom: 0;
+    }
+}
+
+// The card of counts of a row: one icon and one number per kind of thing
+// the row holds. See layouts/partials/count_card.html, which the three
+// listings of the archive print it with. A bordered pill in the colour of
+// the facts, with the border and the radius of a link of .jump_bar, so it
+// reads as a box of figures and not as a sentence. The items never wrap
+// inside the card: the card wraps as a whole, through .row_facts.
+.count_card {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 0 0.7rem;
+    padding: 0.05rem 0.5rem;
+    margin-bottom: 0;
+    border: 1px solid #dde3e8;
+    border-radius: 3px;
+    list-style: none;
+    color: #51616e;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    vertical-align: baseline;
+
+    li {
+        display: inline-block;
+    }
+
+    // The icon takes one width whatever the glyph, so the numbers of two
+    // cards in two rows start at the same distance from their icon.
+    i {
+        width: 1.3em;
+        text-align: center;
+    }
+}
+
 // Fallback index for sections and taxonomies with no layout of their own.
 .section_index {
     margin: 2rem 0;

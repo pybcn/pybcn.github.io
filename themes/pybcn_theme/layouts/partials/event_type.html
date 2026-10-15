@@ -1,0 +1,47 @@
+{{- /*
+    The type of an event page, as a key of data/event_emoji.yaml.
+
+    Argument: the event page. Returns the token, "*" when no rule matches.
+
+    The order of precedence is the one the header of data/event_emoji.yaml
+    explains: the series from the folder and then the title, the PyLadies
+    BCN group, the kind from a word of the title with workshop last, the
+    meetups folder, and the fallback. This partial is the one place the
+    rules live, so the row of /events/ and the legend above it, which
+    counts the rows by type, cannot disagree about one event.
+
+    The title is lowered once: the archive writes "Dojo", "dojo" and
+    "Coding Dojo", and "Practice Sessions" with a capital.
+*/ -}}
+{{- $type := "*" -}}
+{{- $folder := path.Base .File.Dir -}}
+{{- $title := lower .Title -}}
+{{- $group := default "" .Params.group -}}
+{{- if eq $folder "pyday_bcn" -}}
+    {{- $type = "pyday" -}}
+{{- else if eq $folder "pydatabcn" -}}
+    {{- $type = "pydata" -}}
+{{- else if and (ne $folder "meetups") (hasPrefix $title "pydata") -}}
+    {{- $type = "pydata" -}}
+{{- else if and (ne $folder "meetups") (hasPrefix $title "pyday") -}}
+    {{- $type = "pyday" -}}
+{{- else if eq $group "PyLadies BCN" -}}
+    {{- $type = "pyladies" -}}
+{{- else if strings.Contains $title "dojo" -}}
+    {{- $type = "dojo" -}}
+{{- else if strings.Contains $title "practice session" -}}
+    {{- $type = "practice" -}}
+{{- else if strings.Contains $title "barbecue" -}}
+    {{- $type = "barbecue" -}}
+{{- else if or (strings.Contains $title "hacktoberfest") (strings.Contains $title "hackathon") -}}
+    {{- $type = "hackathon" -}}
+{{- else if strings.Contains $title "sprint" -}}
+    {{- $type = "sprint" -}}
+{{- else if strings.Contains $title "coderetreat" -}}
+    {{- $type = "coderetreat" -}}
+{{- else if strings.Contains $title "workshop" -}}
+    {{- $type = "workshop" -}}
+{{- else if eq $folder "meetups" -}}
+    {{- $type = "meetup" -}}
+{{- end -}}
+{{- return $type -}}

@@ -38,6 +38,12 @@
        than itself. A page with no title_lang gets the h1 it had. */ -}}
 {{- $title := or .Params.name .Title -}}
 {{- $title_lang := partial "title_lang.html" (dict "title_lang" .Params.title_lang "title" $title) -}}
-<h1{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $title }}</h1>
+{{- /* The three listings of the archive carry their total in the h1,
+       "Events (281)", counted from the pages this build holds by
+       partials/listing_total.html, so the heading says how long the list
+       under it is and cannot say a number the rows do not add up to. Any
+       other page gets the h1 it had. */ -}}
+{{- $total := partial "listing_total.html" . -}}
+<h1{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $title }}{{ with $total }} ({{ . }}){{ end }}</h1>
     {{ end }}
 {{ end }}

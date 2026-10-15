@@ -1,0 +1,30 @@
+{{- /*
+    The number of rows a listing page draws, or 0 for any other page.
+
+    Argument: the page. Returns an int.
+
+    Three pages are a list of the whole archive: /events/, /talks/, and
+    /people/. Their h1 carries the total, and this is where the page is
+    told apart from the rest. /events/ is the one page that selects the
+    events_index layout; the series pages under it are sections of the
+    same section and keep the fallback list. /talks/ and /people/ are the
+    section page of a section that holds no other section, so the kind
+    and the section name are enough.
+
+    The totals come from partials/listing_counts.html, cached once per
+    build, and are counted by the rule of the page that draws the rows:
+    the legend of the page, the heading above it, and the rows add up.
+*/ -}}
+{{- $total := 0 -}}
+{{- $listing := "" -}}
+{{- if eq .Layout "events_index" -}}
+    {{- $listing = "events_total" -}}
+{{- else if and (eq .Kind "section") (eq .Section "talks") -}}
+    {{- $listing = "talks_total" -}}
+{{- else if and (eq .Kind "section") (eq .Section "people") -}}
+    {{- $listing = "people_total" -}}
+{{- end -}}
+{{- with $listing -}}
+    {{- $total = index (partialCached "listing_counts.html" site "listing-counts") . -}}
+{{- end -}}
+{{- return $total -}}
