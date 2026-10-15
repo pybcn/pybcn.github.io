@@ -1,0 +1,105 @@
+{{- /*
+    The talks each person gave, as talk pages, inverted from the pages
+    themselves.
+
+    Returns a map from person id to a list of talks, each a dict with:
+
+        title        the title of the talk, which is the title of its page
+        title_lang   the language code of the title when it is not in
+                     English, from partials/title_lang.html, or ""
+        url          the RelPermalink of the talk page
+        type         the type token of the talk (talk, workshop, ...), or ""
+        event_title  the title of the event page that gave the talk
+        event_url    its RelPermalink, or "" when the event resolves to
+                     no page (partials/talk_record.html warns about that)
+        year         the year of the event, or of the page as a fallback,
+                     as an int, or 0
+        date         the date of the event as the html of
+                     partials/event_date.html, a time element, or "" for
+                     the one edition that carries no date
+        photos       the photos of this talk in the gallery of its day,
+                     each a dict with img and url, an empty slice when
+                     there is none (see talk_record.html)
+        video        the URL of the video of the talk, or "" when the day
+                     published none (see agenda_entry.html)
+        key          a sort key: newest day first, then the event, then
+                     the place of the talk in the programme of that day
+
+    No argument is read: the data comes from site.RegularPages. Call it
+    through partialCached with a constant variant, so the site is walked
+    once per build and not once per person page:
+
+        partialCached "person_talks_index.html" site "person-talks-index"
+
+    Why a second index next to appearances_index.html. The appearances
+    index answers "which pages credit this person, under which heading",
+    and it has one row per
+    heading and page, so a person who gave two talks on one day is one
+    row there. The page of one person lists the talks themselves, each as
+    a link to its talk page, which is a different question: one row per
+    talk, with the day it was given. The talk pages carry the two ids and
+    no copy of the record (see content/talks/_content.gotmpl), so each one
+    is resolved through partials/talk_record.html, which is cheap and no
+    longer cached (its header says why: Hugo's partialCached holds 1000
+    entries, and a key per talk was most of them).
+
+    The photos and the video of a talk come from the same record, so the
+    page of a person with two photographed talks at one event gets both,
+    and a talk with two photographs gets both as well (the record carried
+    the first photo only until 2026-10-15). An index keyed by person and
+    event, talk_photos_index.html, gave the modal of a person card one
+    thumbnail per event row; the modal and that index are gone (see
+    people_summary.html).
+
+    A talk with no speaker indexes nothing. A speaker id with no record
+    is indexed all the same, and no page reads it: the page of a person
+    is rendered from a record, so an id with none has no page to print
+    the list on. bin/check-content fails the build for the broken
+    reference.
+
+    Drafts are skipped by name as well, as in appearances_index.html:
+    site.RegularPages drops them in a normal build, but a server run with
+    -D would index content/canary.md.
+*/ -}}
+{{- $index := dict -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if $pg.Draft }}{{ continue }}{{ end -}}
+    {{- if ne $pg.Section "talks" }}{{ continue }}{{ end -}}
+    {{- $record := partial "talk_record.html" $pg -}}
+    {{- $talk := $record.talk -}}
+    {{- if not $talk }}{{ continue }}{{ end -}}
+    {{- $event_title := "" -}}
+    {{- $event_url := "" -}}
+    {{- $year := 0 -}}
+    {{- $ordinal := 0 -}}
+    {{- $date := "" -}}
+    {{- with $record.event -}}
+        {{- $event_title = .Title -}}
+        {{- $event_url = .RelPermalink -}}
+        {{- with .Params.year }}{{ $year = int . }}{{ end -}}
+        {{- /* Cached by event, the key layouts/talks/list.html uses, so
+               224 events are parsed and not 607 talks. */ -}}
+        {{- $when := partialCached "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) .RelPermalink -}}
+        {{- with $when.start }}{{ $ordinal = int (time.Format "20060102" .) }}{{ end -}}
+        {{- with $when.html }}{{ $date = . }}{{ end -}}
+    {{- end -}}
+    {{- if and (not $year) (not $pg.Date.IsZero) }}{{ $year = $pg.Date.Year }}{{ end -}}
+    {{- $type := "" -}}
+    {{- with $record.entry.type }}{{ $type = lower (trim (printf "%v" .) " ") }}{{ end -}}
+    {{- $entry := dict
+            "title" $pg.Title
+            "title_lang" (partial "title_lang.html" (dict "title_lang" $pg.Params.title_lang "title" $pg.Title))
+            "url" $pg.RelPermalink
+            "type" $type
+            "event_title" $event_title
+            "event_url" $event_url
+            "year" $year
+            "date" $date
+            "photos" $record.photos
+            "video" (default "" $record.entry.video)
+            "key" (printf "%08d %s %03d" (sub 99999999 $ordinal) $event_url $record.position) -}}
+    {{- range $id := $talk.speakers -}}
+        {{- $index = merge $index (dict $id (append $entry (default slice (index $index $id)))) -}}
+    {{- end -}}
+{{- end -}}
+{{- return $index -}}

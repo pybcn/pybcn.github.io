@@ -11,8 +11,10 @@
 
     An event page renders this partial once per people section, and the same
     person can sit in more than one of them. The key goes into every id the
-    grid emits, so the row ids and the modal ids stay unique on the page.
-    Styles hook on the people_grid class, not on an id.
+    grid emits, so the row ids stay unique on the page. Styles hook on the
+    people_grid class, not on an id. A card has no id of its own: it used to
+    carry a modal, whose id needed the key, and it is a link to the page of
+    the person now (see people_summary.html).
 
     An entry of a people list is a bare id, or a map with an id and a role:
 
@@ -22,19 +24,19 @@
             role: Former President
 
     The role replaces the pybcn_position of the person file on this page
-    only, on the card and in the modal. It exists so that one person file
+    only, on the card. It exists so that one person file
     can sit in two sections of /organizers/ with a different role in each:
     Laura Pérez Mayos is an Organizer under Collaborators and the Former
     President under the old board. Before this, each role was a second
-    person file with its own id, and the modal of the second one listed
+    person file with its own id, and the second one was credited with
     none of the events the first one was in.
 
     With no entry role, the role is the one the heading of the grid gives,
     and only then the pybcn_position of the person file. The heading is the
     level name when the level has one and the section title when it does
-    not, which is the rule appearances_index.html indexes the modal's
-    appearance list by, so the card and the modal name the same role for
-    the same listing. The heading goes through data/roles.yaml: "Speakers"
+    not, which is the rule appearances_index.html indexes the appearance
+    list of the page of the person by, so the card and that page name the
+    same role for the same listing. The heading goes through data/roles.yaml: "Speakers"
     gives Speaker. A heading that the file does not map gives nothing, and
     the card falls through to pybcn_position: the four level names of
     /organizers/ (Management Board, Permanent Committee, Collaborators) are
@@ -79,7 +81,7 @@
                 {{ $role = default $section_role $role }}
                 {{ range $page := where $pages ".Params.id" "eq" $id }}
                 <div class="person_wrapper">
-                    {{ partial "people_summary.html" (dict "person" $page "role" $role "key" (printf "%s_%d_%d" $key $idx $pidx)) }}
+                    {{ partial "people_summary.html" (dict "person" $page "role" $role) }}
                 </div>
                 {{ end }}
             {{ end }}

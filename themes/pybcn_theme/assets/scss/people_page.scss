@@ -1,0 +1,528 @@
+// The page of one person. See layouts/people/single.html.
+//
+// The shape is the one the page of one talk and the page of one meetup use:
+// a header under the h1, then a block per section with an h2 the size of
+// every other h2 of the site. The Roles list and the Events table have
+// their row rules at the end of this file; they were a mixin of people.scss
+// while the modal of a person card printed the same lists, and the modal is
+// gone (see people_summary.html).
+.person_page {
+
+    // The portrait and the links beside it. A flex row and not a float: a
+    // float would let the bio flow around the photo and collide with the
+    // headings under it. The row wraps, so on a narrow screen the links
+    // drop under the portrait instead of squeezing beside it.
+    .person_page_header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 24px 32px;
+        margin-bottom: 1.6rem;
+    }
+
+    // A round frame at 240px: a portrait is what a person page opens with,
+    // and the links sit beside it now, so it has the room it did not have
+    // over a role line and a card. The markup gives the image the same
+    // width and height, so the box is laid out before the file arrives.
+    // The pipeline cuts the square; the radius cuts the circle, and a
+    // hairline ring gives it an edge where the photo is light at the rim.
+    .person_portrait {
+        display: block;
+        flex: 0 0 auto;
+        width: 240px;
+        height: 240px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    }
+
+    // The zoom of the portrait: the photograph grows inside its own frame,
+    // which is clipped, so nothing on the page moves. It is the zoom the
+    // cards of /pybcn_association/organizers/ have had for years, in
+    // people.scss, and David Arcos asked for that one on 2026-10-15 after
+    // a first try hung a 400px copy of the picture under the portrait and
+    // read as a popup.
+    //
+    // The portrait stays a link, so the keyboard has something to focus
+    // and a touch screen, which has no hover, has somewhere to land: it
+    // goes to the 800px file, the largest square the page builds.
+    // prefers-reduced-motion turns the movement off and keeps the zoom.
+    .person_portrait_link {
+        // Clips the zoom, the same frame the organizers cards use. The
+        // circle is here, on the box that clips, and not on the
+        // photograph: with the radius on the image the square frame cut
+        // the corners off the circle as it grew.
+        overflow: hidden;
+        border-radius: 50%;
+        position: relative;
+        display: block;
+        flex: 0 0 auto;
+        width: 240px;
+        height: 240px;
+    }
+
+    .person_portrait {
+        transition: transform 0.2s linear;
+    }
+
+    .person_portrait_link:hover .person_portrait,
+    .person_portrait_link:focus-visible .person_portrait {
+        transform: scale(1.2);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .person_portrait {
+            transition: none;
+        }
+    }
+
+    // The placeholder of a person with no photo, at the size of the
+    // portrait: the initials on a colour, the shared rule of
+    // people_index.scss, five times the size of the row.
+    .person_initials {
+        flex: 0 0 auto;
+        width: 240px;
+        height: 240px;
+        font-size: 5rem;
+    }
+
+    .person_page_facts {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    // The social links beside the portrait (partials/person_links.html):
+    // one link per line, each the mark of the host and the handle, in the
+    // size of body text. No marker: the mark is the marker. They were one
+    // line that wrapped: at 1280px three handles sat on the line and the
+    // site dropped under them, which read as misaligned, so David Arcos
+    // asked for one per line (2026-10-15), and the marks line up down the
+    // left. The handle of a site is a free URL, and one of them is 600px
+    // of percent-encoded characters; it breaks where it has to.
+    .person_links {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.4rem;
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 0.8rem;
+
+        li {
+            position: relative;
+            min-width: 0;
+        }
+
+        a {
+            overflow-wrap: anywhere;
+        }
+
+        // The whole item is the link, the mark included, through a pseudo
+        // element rather than by wrapping the mark in the anchor, which
+        // would read the mark out with the handle.
+        li > a::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
+        // Grey at rest and the PyBCN blue under the pointer, as the brand
+        // marks of the row of /people/ and the role glyph below.
+        i {
+            display: inline-block;
+            color: $icon-grey;
+            font-size: 1.15em;
+            width: 1.5em;
+            text-align: center;
+            margin-right: 4px;
+            vertical-align: -2px;
+            transition: color 0.15s linear;
+        }
+
+        li:hover,
+        li:focus-within {
+            i {
+                color: $blue-pybcn;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // The sentence under the links: the roles, "at", and the number of
+    // events, the words of the row of /people/, muted like the credit
+    // line of a talk page and one step larger than body text, because it
+    // carries most of what a reader came for on a page that may hold
+    // little else. The count is in the colour of the text, so the number
+    // stands out of the grey line.
+    .person_role_line {
+        font-size: 1.15rem;
+        color: #51616e;
+        margin-bottom: 0;
+
+        strong {
+            color: #212529;
+        }
+    }
+
+    // Each block gets the same air under its heading, and the h2 is the
+    // size of the h2 of the rest of the site, as on the talk and meetup
+    // pages. Both kinds of block, the page's own and the three lists.
+    .person_block,
+    .person_section {
+        margin-bottom: 2rem;
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+    }
+
+    // The roles and the events: the rules at the end of this file. They
+    // set the list under .person_section, which is why the photos and the
+    // videos sit in a block of another class: .person_section ul would
+    // give their lists a disc and a 1.25em indent on top of their own.
+
+    // The day under a video is a grey line with a link in it, and a link
+    // inside a line of the same colour needs a second mark (WCAG 1.4.1),
+    // the rule talks.scss applies to a caption and meetup.scss to the
+    // source line. axe reported link-in-text-block on every talk row.
+    .talk_meta a {
+        text-decoration: underline;
+    }
+
+    // The videos of the talks: one player each (partials/video_frame.html,
+    // the .video_frame box of talks.scss), the link under it, and the day
+    // under that, a block of air between one video and the next.
+    .person_video_list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 1.6rem;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        .person_video_link {
+            margin-bottom: 0.2rem;
+
+            a {
+                text-decoration: underline;
+            }
+        }
+
+        .talk_meta {
+            color: #51616e;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+    }
+
+    // The last block, how the page is made and how to correct it: smaller
+    // than the content it follows, and it reads as a note, as the source
+    // line of a meetup page does. A link inside a sentence needs a second mark besides the
+    // colour (WCAG 1.4.1), the rule meetup.scss and talks.scss apply.
+    .person_correction p {
+        color: #51616e;
+        font-size: 0.9rem;
+        margin-bottom: 0;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    // The photos of the talks, as a grid of squares that fills the column:
+    // 240px each on a desktop, two across on a phone of 390px. A figure
+    // per photo, the image as the link and the day under it.
+    .person_photo_grid {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 240px));
+        gap: 16px;
+
+        figure {
+            margin: 0;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        figcaption {
+            color: #51616e;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        // A picture does not underline on hover, so the photo answers the
+        // pointer and the keyboard with a ring.
+        a:hover img,
+        a:focus-visible img {
+            outline: 2px solid $blue-pybcn;
+            outline-offset: 2px;
+        }
+    }
+    // The roles the person holds, one line per role, built
+    // and styled exactly as an event row: the glyph, the
+    // role in bold, an italic "at", and the page. It was a
+    // definition list in a two column grid, which put the
+    // same kind of statement in a different shape from the
+    // list right under it, and on a phone the label column
+    // was as wide as "Management Board (2018 - 2025)" and
+    // left 80px of a 390px screen for the page beside it.
+    // The events are a table grouped by year since the
+    // review of 2026-10-14 (see person_appearances.html,
+    // and .person_event_cell below for the row rules the
+    // two still share).
+
+    // The list of the page, the roles, with the treatment
+    // the social links had while they were a list under a
+    // heading: a marker and the indent that goes with it,
+    // so it reads as a list.
+    // Both used to drop the marker and the padding, and
+    // five events were five loose lines with nothing to
+    // say they were one list, under a heading styled like
+    // the one over a table. The indent is the width of
+    // the marker and a space, no more: the browser default
+    // of 40px pushed a list in from the headings.
+    .person_section ul {
+        list-style: disc;
+        padding-left: 1.25em;
+        // The section above sets the gap.
+        margin: 0;
+
+        li {
+            margin-bottom: 4px;
+        }
+    }
+
+    // The roles, one line each, and the events, one cell
+    // each, the role before the linked page or title. See
+    // person_appearances.html. The marker is the role
+    // glyph that starts the row, not the disc: the row
+    // carries it as the social rows carry the network
+    // icon. The padding is the glyph's column, so the
+    // text starts where it starts under a disc, at the
+    // padding edge, and a wrapped line starts there too.
+    // The selector repeats the ul of the rule above,
+    // because a class alone loses to that class and
+    // element pair, and the list kept the disc and the
+    // 1.25em indent under the glyph. The event cell has
+    // no list style to drop and takes the same padding,
+    // under lg, where a cell of the reflowed table has no
+    // padding of its own; from lg the cell padding of
+    // listing_table.scss is added to it, below.
+    .person_section ul.appearances,
+    .person_section .person_event_cell {
+        list-style: none;
+        padding-left: calc(1.875em + 8px);
+
+        // The whole row answers the pointer, not only the
+        // link in it: the glyph, the role and the link are
+        // one statement, and a reader aiming at any of the
+        // three is after the same page. focus-within does
+        // the same for the keyboard, where the link is what
+        // takes focus. The glyph drops its grey and comes
+        // back in colour, which is the only place on the
+        // page a role shows its own colour.
+        li:hover,
+        li:focus-within {
+            .role_emoji {
+                filter: none;
+            }
+
+            strong {
+                color: $blue-pybcn;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+        }
+
+        // The whole row is the link, not only its text. The
+        // link stretches over the row with a pseudo element
+        // rather than by wrapping the row in an anchor,
+        // which would put the glyph and the role inside the
+        // link text and read them out with it.
+        //
+        // :only-of-type is the guard. A role held on two
+        // pages prints two links on one row, and there is
+        // no one row to stretch: those rows keep their own
+        // link areas. No row has two links today, out of
+        // 135 role rows and every event row, but the
+        // template allows it. An event row had a second
+        // anchor, the thumbnail of the talk photo, while
+        // the modal of a person card printed this list;
+        // the page prints the photos as a block of their
+        // own, so every event row has one link.
+        //
+        // The event row is a table cell, and the box that
+        // positions the link is the cell: position on a
+        // tr is not laid out the same in every browser,
+        // and the cell is the whole line of text anyway.
+        li,
+        &.person_event_cell {
+            position: relative;
+        }
+
+        li > a:only-of-type::after,
+        &.person_event_cell > a:only-of-type::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
+
+        // A colour change, not a move, so there is nothing
+        // for prefers-reduced-motion to turn off.
+        .role_emoji,
+        strong {
+            transition: color 0.15s linear, filter 0.15s linear;
+        }
+    }
+
+    // The events table: the listing_table rules of
+    // listing_table.scss, as on /events/ and /talks/, with
+    // the air of a list under the h2 and not the 2rem a
+    // whole-page table leaves. From lg the cell has the
+    // 0.5rem cell padding of that stylesheet, and the hang
+    // of the glyph is added to it, so the glyph sits in
+    // the padding as it does under a disc. The year, the
+    // month, and the day are the 1% nowrap columns of the
+    // shared rule, the card is its 8rem, and the event
+    // column takes the rest.
+    .person_event_table {
+        margin-bottom: 0;
+    }
+
+    // The Gallery column of the table takes its content and no more. The
+    // shared rule of listing_table.scss fixes it at 8rem, the width that
+    // holds the widest card of two counts on /events/ and lets a card of
+    // three wrap. Here a card holds at most one photo and one video, of
+    // one talk, so the 128px column stood mostly empty and the Event
+    // column wrapped 128px short of the right edge every other block
+    // reaches, which David Arcos read as a narrower table (2026-10-15).
+    // 1% is the trick of the three narrow columns of that stylesheet: the
+    // column is as wide as its widest card. Measured on
+    // /people/david-arcos/ at 1280px: the table 825px before and after,
+    // the Event column 548px before and 597px after, and the Gallery
+    // column 128px and 78px.
+    @media (min-width: 992px) {
+        .person_event_table .listing_gallery,
+        .person_event_table .listing_gallery_col {
+            width: 1%;
+        }
+    }
+
+    // The two marks inside the cell: the emoji of the type
+    // of the event before the event, as the row of /people/
+    // draws it (people_index.scss), and the icon of the type
+    // of the talk before the talk, as the row of /talks/
+    // draws it. Upright, at the normal weight, and with
+    // line-height 1, so a slanted or heavy emoji, which is a
+    // font bug on some platforms, does not open the line.
+    .person_event_cell {
+        .event_emoji {
+            display: inline-block;
+            margin-right: 0.25rem;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            vertical-align: -0.1em;
+        }
+
+        .talk_marker {
+            display: inline-block;
+            margin-right: 0.3rem;
+            color: $icon-grey;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .person_event_table .person_event_cell {
+            padding-left: calc(0.5rem + 1.875em + 8px);
+        }
+    }
+
+    // The role glyph as the marker of a Roles or an Events
+    // row, from data/role_emoji.yaml. Sized as the network
+    // icon of .person_links below: 1.25em in a 1.5em column
+    // with 8px to the text, so a glyph of any width leaves
+    // the text on one line down the list. The column is
+    // 1.875em of the body font plus 8px, which is the
+    // padding the two lists above set, and the negative
+    // margin pulls the glyph back into that padding, where
+    // a disc sits. Pulled back and not placed with
+    // position, so it stays on the line of its row when
+    // the row wraps.
+    //
+    // Desaturated, so the glyph sits with the black icons
+    // of Social Links rather than being the one spot of
+    // colour in the lists. grayscale and nothing else: a
+    // colour emoji is a shaded picture, and in grey it is
+    // a light one, which is what this list wants. The
+    // marker labels the row; the text beside it is what
+    // the reader is here for, and a grey mark does not
+    // compete with it.
+    //
+    // Measured in Chromium with Noto Color Emoji, over
+    // the ink of a whole list of glyphs: grayscale alone
+    // gives a mean luminance of 142 (0 is black) with 2%
+    // of the ink almost black. Darkening first and then
+    // stretching the contrast, which this rule did for one
+    // build, gives a mean of 53 with 64% of the ink almost
+    // black: the shaded faces of the compass and the
+    // calendar fill in and the glyph reads as a blot. A
+    // flat black glyph like the icons is out of reach for
+    // a filter either way, because the emoji keeps its
+    // shading.
+    //
+    // Upright and at the normal weight, because the dt is
+    // bold and a slanted or heavy emoji is a font bug on
+    // some platforms and never a style. line-height: 1
+    // keeps the glyph from opening the line box of its
+    // row further than its own height, and middle-aligned
+    // the text sits on the centre of the glyph instead of
+    // on its bottom edge.
+    .role_emoji {
+        display: inline-block;
+        font-size: 1.25em;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        width: 1.5em;
+        margin-left: calc(-1.5em - 8px);
+        margin-right: 8px;
+        text-align: center;
+        vertical-align: middle;
+        filter: grayscale(1);
+    }
+}
+
+// On a phone the portrait gives up some of its size: 240px of 390px is
+// most of the screen for one face, and the links wrap under it anyway.
+@media (max-width: 575.98px) {
+    .person_page .person_portrait,
+    .person_page .person_portrait_link,
+    .person_page .person_initials {
+        width: 160px;
+        height: 160px;
+    }
+
+    // The zoom at the size of the row's, which fits a 390px screen with
+    // the margin of the column to spare.
+
+    .person_page .person_initials {
+        font-size: 3.4rem;
+    }
+}

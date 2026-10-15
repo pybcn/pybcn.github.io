@@ -1,31 +1,46 @@
 {{- /*
-    One person card, plus the modal that holds the long bio.
+    One person card: the photo, the name, and the role, as one link to the
+    page of the person, /people/<id>/, with the social links of the record
+    as a row of icons under it.
+
+    The card used to open a Bootstrap modal that held the bio, the roles,
+    the events, and the social links of the person. Every person has a page
+    with all of that and more (the talks and the photos) since the Archive
+    gave the person files a URL each (see layouts/people/single.html), and
+    the modal showed a subset of that page: two renderings of one person,
+    only one of them linkable. So the card links to the page. What that
+    removes: the modal markup from every card (22 dialogs on /organizers/:
+    the minified page went from 122702 to 33443 bytes, measured on
+    2026-10-14), a heading tree inside a dialog that
+    bin/check-rendered had to cut out of the outline of the page, the
+    Bootstrap 4 limit on a modal inside a modal (which is why a photo
+    thumbnail in the modal had to be a link and not a viewer), and the
+    dependency on JavaScript for reading about a person. The page of the
+    person needs none of it.
+
+    One link, not two. The photo and the name used to be two buttons for
+    one dialog, with the photo at tabindex="-1" so a keyboard user did not
+    stop twice on every card. One anchor around the photo and the text is
+    one tab stop and one target with no trick, and the social links under
+    it stay outside it: an anchor cannot hold another anchor. The alt of
+    the photo is empty, because the name is the text of the same link and
+    an alt that repeats it makes a screen reader say the name twice (axe
+    reports that as image-redundant-alt). The title carries the whole
+    name, because a name too long for the card is cut with an ellipsis
+    (see people.scss) and the hover shows it whole.
 
     Photos come from assets/images/people/ and go through the Hugo image
     pipeline. The grid slot is 350 px wide at most, so one 400 px WebP
-    serves it, with an 800 px variant for a 2x screen. The modal shows the
-    same file at 64 px: the card has already loaded it by the time the
-    modal opens, so the modal costs no request, and a file sized for the
-    modal would be one more download for the same picture. A person with no
-    photo falls back to anon_member.png.
-
-    The modal shows the photo no larger than the source. image_square.html
-    enlarges a small source to 400 px for the grid, where every slot has to
-    be one size, and bin/check-content warns about the 28 photos that are
-    under 400 px. The modal has no slot to fill, so a photo with a short
-    side under the shown size is shown at its own size instead. At 160 px
-    one source is under it, patricio-reyes-valenzuela.jpg at 120 px square,
-    and it is shown at 120. Every other source is 199 px or more. The rule
-    matters more than the count: it is what stops the modal showing an
-    enlarged, soft face, which is what it did at 300 px, where 21 photos
-    came out half again their size.
+    serves it, with an 800 px variant for a 2x screen. A person with no
+    photo falls back to anon_member.png. image_square.html enlarges a small
+    source to 400 px, where every slot has to be one size, and
+    bin/check-content warns about the photos that are under 400 px.
 
     Arguments:
         person  the person page
         role    optional, the role to show instead of pybcn_position: the
                 one the page entry carries, or else the one the heading of
                 the grid gives (see people-grid.html)
-        key     the grid key, so the modal id is unique on the page
 
     A remote photo is not supported. The template used to accept photo_url
     and print it in a plain img, which made every page that lists the person
@@ -33,8 +48,6 @@
     person used the field, and bin/check-content now rejects it.
 */ -}}
 {{- $role := default $.person.Params.pybcn_position $.role -}}
-{{- $modal := printf "modal_%s" $.person.Params.id -}}
-{{- with $.key -}}{{- $modal = printf "modal_%s_%s" . $.person.Params.id -}}{{- end -}}
 {{- $photo := $.person.Params.photo -}}
 {{- $img := "" -}}
 {{- if $photo -}}
@@ -44,12 +57,7 @@
     {{- $img = resources.Get "images/anon_member.png" -}}
 {{- end -}}
 {{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
-{{- /* The side the modal shows the photo at: 64 px, or the short side of
-       the source when that is smaller. See the note at the top. The same
-       number is in people.scss, as the size of the round frame. */ -}}
-{{- $shown := 160 -}}
 {{- with $img -}}
-    {{- $shown = int (math.Min 160 (math.Min .Width .Height)) -}}
     {{- $anchor := default "Smart" $.person.Params.photo_anchor -}}
     {{- $small = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
     {{- $large = partial "image_square.html" (dict "img" . "size" 800 "anchor" $anchor) -}}
@@ -59,32 +67,23 @@
 {{- end -}}
 <div class="person_item">
 
-    <div class="img-wrap">
-        {{/* A button, not a link: it opens a dialog rather than navigating.
-             The alt names the person, because the photo is the only content. */}}
-        {{/* tabindex="-1": the name below opens the same dialog, so a keyboard
-             user would otherwise stop twice on every card for one action. The
-             photo stays clickable with a pointer. */}}
-        <button type="button" class="modal_trigger" tabindex="-1" data-toggle="modal" data-target="#{{ $modal }}" aria-label="More about {{ $.person.Params.name }}">
-            <img class="img-fluid img-people" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="{{ if $photo }}{{ $.person.Params.name }}{{ end }}" />
-        </button>
-    </div>
-    <div class="person_data">
-        {{/* title carries the whole name, because a name too long for the
-             card is cut with an ellipsis (see people.scss). The modal shows
-             it in full as well. */}}
-        <h3><button type="button" class="modal_trigger" data-toggle="modal" data-target="#{{ $modal }}" title="{{ $.person.Params.name }}">{{ $.person.Params.name }}</button></h3>
-        {{/* Left out when empty, as in the modal below: a person with no
-             position under a heading roles.yaml does not map has no role,
-             and the line used to print as an empty paragraph. The text
-             alone: the role glyph of data/role_emoji.yaml sat here for
-             one commit, and it read as a stray character of the italic
-             line rather than as a mark. It is the list marker of the
-             Roles and Events rows of the modal now, where it has a column
-             of its own, like the network icon in Social Links (see
-             person_appearances.html). */}}
-        {{ with $role }}<p>{{ . }}</p>{{ end }}
-    </div>
+    <a class="person_card_link" href="{{ $.person.RelPermalink }}" title="{{ $.person.Params.name }}">
+        <div class="img-wrap">
+            <img class="img-fluid img-people" src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="" />
+        </div>
+        <div class="person_data">
+            <h3>{{ $.person.Params.name }}</h3>
+            {{/* Left out when empty: a person with no position under a
+                 heading roles.yaml does not map has no role, and the line
+                 used to print as an empty paragraph. The text alone: the
+                 role glyph of data/role_emoji.yaml sat here for one
+                 commit, and it read as a stray character of the italic
+                 line rather than as a mark. It is the list marker of the
+                 Roles and Events rows of the page of the person now, where
+                 it has a column of its own (see person_appearances.html). */}}
+            {{ with $role }}<p>{{ . }}</p>{{ end }}
+        </div>
+    </a>
     <div class="social_links">
         {{ if $.person.Params.linkedin }}
             <a href="{{ $.person.Params.linkedin }}" target="_blank" aria-label="{{ $.person.Params.name }} on LinkedIn" title="{{ $.person.Params.name }} on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
@@ -98,72 +97,6 @@
         {{ if $.person.Params.site }}
             <a href="{{ $.person.Params.site }}" target="_blank" aria-label="{{ $.person.Params.name }} personal site" title="{{ $.person.Params.name }} personal site"><i class="fas fa-globe" aria-hidden="true"></i></a>
         {{ end }}
-    </div>
-
-    <div class="modal fade" id="{{ $modal }}" role="dialog" aria-labelledby="{{ $modal }}_title" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    {{/* One column. A header row holds the name and the
-                         role on the left and the photo on the right, and
-                         the sections run the full width under it. The
-                         photo used to be a 300px column on the left with
-                         everything else in a column on the right, which
-                         left a tall blank strip under the photo whenever
-                         the text was longer than the photo, which it is
-                         for most people with a bio. The photo is small
-                         and round now, so it takes the corner and not a
-                         column, and no text has to clear it. A flex row
-                         and not a float: a float would let the bio flow
-                         around the photo and collide with the section
-                         headings and their rules. The heading column
-                         comes first in the markup, so a screen reader
-                         meets the name before the picture. */}}
-                    <div class="person_header">
-                        <div class="person_heading">
-                            {{/* The name only. The links used to sit next to it as
-                                 bare icons, which repeated the list at the foot of the
-                                 modal, where each one also says where it goes. */}}
-                            <h3 class="modal-title" id="{{ $modal }}_title">{{ $.person.Params.name }}</h3>
-                            {{/* Italic under the name, as on the card, so the pair
-                                 reads the same in both places. Most speakers have
-                                 no position, and the line used to print empty. */}}
-                            {{ with $role }}<p class="person_role">{{ . }}</p>{{ end }}
-                        </div>
-                        <div class="person_photo">
-                            {{/* alt is empty here: the name is in the modal heading next to it.
-                                 width and height are the shown size, not the file's, so
-                                 the browser lays out the right box before the image loads. */}}
-                            <img src="{{ $small.RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="{{ $shown }}" height="{{ $shown }}" loading="lazy" decoding="async" alt="" />
-                        </div>
-                    </div>
-                    {{/* One section of free text about the person, with a
-                         heading like the sections under it. The text is the
-                         body of the person file. It used to come from two
-                         places, a short_bio field and the body, shown here
-                         as a "Bio" and a "Description" section. For 98 of
-                         136 people only one of the two was filled, and
-                         which one was down to whoever filled the card in,
-                         so the heading changed from person to person over
-                         the same kind of text. The field is gone, the body
-                         holds it all, and bin/check-content rejects the
-                         field. The heading is "Bio", because this is a
-                         person, and the section is left out when the body
-                         is empty, which is 14 people. */}}
-                    {{ with $.person.Content }}
-                    <section class="modal_section">
-                        <h4>Bio</h4>
-                        {{ . }}
-                    </section>
-                    {{ end }}
-                    {{ partial "person_appearances.html" $.person }}
-                    {{ partial "person_links.html" $.person }}
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>

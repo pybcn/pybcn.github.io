@@ -1,17 +1,16 @@
 {{- /*
-    The social links of one person as a list, each one a line built the way
-    a role line and an event line are built: the icon, the name of the
-    network in bold, and then the part a reader needs to know where the
-    link goes, as the link. That is the LinkedIn path, the GitHub or X user
-    name with its at sign, or the address of a personal site.
+    The social links of one person, as a row beside the portrait of the
+    page of the person: the mark of the host and the handle, nothing else.
 
-    Argument: the person page.
+        [in] /in/davidarcos    [gh] @DZPM    [X] @DZPM    [arrow] https://davidarcos.net
 
-    The modal title used to show the same links as a row of bare icons.
-    That row said which networks the person is on and nothing more, so a
-    reader had to follow a link to learn the handle. This list is now the
-    only one, the last section of the modal, under its own heading like
-    the sections above it (see people_summary.html).
+    Argument: the person page. The one caller is layouts/people/single.html,
+    which prints the row in the header, beside the portrait. The row was a
+    list under a "Social Links" heading, each line the name of the network
+    in bold and the handle; David Arcos asked for the heading gone and the
+    handle itself printed beside the portrait (2026-10-15), so a reader
+    finds the links where the face is, as on a card, and the page gets no
+    block that holds four words.
 
     The text comes from the stored URL, not from a separate field. The
     person files carry one form per network, which bin/check-content
@@ -20,33 +19,36 @@
     it keeps a second copy of the handle out of the front matter, where
     it would drift from the URL. A GitHub or X name is shown with the at
     sign the two networks write it with, which the URL does not carry. A
-    site is a free URL and is shown whole.
+    LinkedIn profile is shown as its path, "/in/davidarcos". A site is a
+    free URL and is shown whole.
 
-    The icon and the name of the network are outside the link, as the glyph
-    and the role are outside the link of a role line. The whole row is the
-    target anyway: see the stretched link in people.scss.
+    The mark is partials/link_mark.html, the mark of the host of the URL,
+    so a GitHub row and a GitHub link elsewhere on the site carry one
+    glyph; a personal site takes the generic mark of that partial. The
+    mark is outside the link and hidden from a screen reader; the link
+    carries the name of the network as its accessible name ("David Arcos
+    on GitHub"), as the brand marks of the row of /people/ do
+    (partials/person_social_icons.html), because the handle alone does
+    not say where the link goes. The row itself is named, so a reader who
+    moves by landmark hears what the four links are.
 
-    The heading says "Social Links", not "Links": the modal links to event
-    pages and to the organizers pages as well, and "Links" alone did not say
-    which of them this list held.
+    The links open in a new tab, as every outbound link of a person does
+    on this site. A person with no link prints nothing, not an empty list.
 */ -}}
 {{- $p := .Params -}}
 {{- if or $p.linkedin $p.github $p.twitter $p.site -}}
-<section class="modal_section">
-    <h4>Social Links</h4>
-    <ul class="modal_links">
+<ul class="person_links" aria-label="Social links of {{ $p.name }}">
     {{- with $p.linkedin }}
-        <li><i class="fab fa-linkedin" aria-hidden="true"></i><strong>LinkedIn:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn">{{ strings.TrimPrefix "https://www.linkedin.com" . }}</a></li>
+    <li>{{ partial "link_mark.html" . }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} on LinkedIn" title="{{ $p.name }} on LinkedIn">{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://www.linkedin.com" .) }}</a></li>
     {{- end }}
     {{- with $p.github }}
-        <li><i class="fab fa-github" aria-hidden="true"></i><strong>GitHub:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on GitHub" title="{{ $p.name }} on GitHub">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://github.com/" .) }}</a></li>
+    <li>{{ partial "link_mark.html" . }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} on GitHub" title="{{ $p.name }} on GitHub">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://github.com/" .) }}</a></li>
     {{- end }}
     {{- with $p.twitter }}
-        <li><i class="icon_x" aria-hidden="true"></i><strong>X:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} on X" title="{{ $p.name }} on X">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://x.com/" .) }}</a></li>
+    <li>{{ partial "link_mark.html" . }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} on X" title="{{ $p.name }} on X">@{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://x.com/" .) }}</a></li>
     {{- end }}
     {{- with $p.site }}
-        <li><i class="fas fa-globe" aria-hidden="true"></i><strong>Site:</strong> <a href="{{ . }}" target="_blank" aria-label="{{ $p.name }} personal site" title="{{ $p.name }} personal site">{{ . }}</a></li>
+    <li>{{ partial "link_mark.html" . }}<a href="{{ . }}" target="_blank" rel="noopener" aria-label="{{ $p.name }} personal site" title="{{ $p.name }} personal site">{{ . }}</a></li>
     {{- end }}
-    </ul>
-</section>
+</ul>
 {{- end -}}

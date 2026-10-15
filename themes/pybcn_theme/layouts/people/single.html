@@ -1,0 +1,251 @@
+{{- /*
+    The page of one person: /people/<id>/.
+
+        [portrait]   [in] /in/davidarcos  [gh] @DZPM  [X] @DZPM  [arrow] https://davidarcos.net
+                     Mentor, Organizer, Permanent Committee, Speaker at 14 events
+
+        Bio          the body of the record, when it has one
+        Roles (N)    the levels of the association the person sat at
+        Events (N)   one row per appearance, grouped by year, newest first:
+                     a talk given, with the talk, or a role held
+        Photos (N)   the photos of those talks, from the galleries
+        About this page   how the page is made and how to ask for a change
+
+    The order is the one David Arcos set on 2026-10-15: Bio, the social
+    links, Roles, Events, Photos. The social links sit beside the
+    portrait and under no heading. Every heading over a list of things
+    carries the count.
+
+    The name is the h1, printed by partials/hero_header.html, which reads
+    "or .Params.name .Title": the name field first, the title second. A
+    person record carries id and name and no title (all 378 files, none
+    with a title key), so .Title is empty on every person page and the
+    h1 is the name, never empty. The title element of the head reads the
+    same way (partials/head.html). An empty h1 was one of the defects
+    #201 listed, so this is checked on the built pages, not assumed.
+
+    Every block below the header is left out when the person has nothing
+    for it, which is the rule layouts/_default/meetup.html and
+    layouts/people/list.html follow: nothing on this page reads "unknown"
+    and nothing reads "0". A record that no page credits, which is six of
+    the 377 records today, renders as its name, its portrait or the
+    placeholder, its bio, and its links, and no more.
+
+    Everything the Archive says here is computed at build time from the
+    talk and page records and never stored in the person file, so this
+    page cannot be wrong about whether its subject spoke or sat on a
+    board (AGENTS.md: never store a role that can be computed). The
+    guard on a talk credit is the one this tree has: a talk credits a
+    person only through a resolved id in its speakers list, which
+    bin/import-talks wrote only when it matched an announced name to a
+    person record, and bin/check-content fails the build on an id with no
+    record. 87 of the 607 talks credit nobody and reach no person page.
+    No content file of this tree carries a confidence field: the branch
+    work/archive-structure gated a credit on "confidence: high", and
+    that guard does not exist here, so do not look for it.
+
+    The links of the record use four keys, linkedin, github, twitter, and
+    site, the vocabulary partials/person_links.html and
+    bin/check-content already enforce. Measured over the 378 files:
+    linkedin 117, github 81, twitter 66, site 21. A fifth, xxxgitlab, is
+    one disabled key in one file and reaches no template.
+
+    The last block says how the page is made and offers a way to correct
+    or remove it, by a pull request on the one file or by email: a person
+    must be able to fix a page about them without a GitHub account being
+    the only route (the GDPR right to rectification, and CONTRIBUTING.md
+    already says a speaker edits their own file). The email is the
+    association contact of config.toml. It was headed "Correct this page"
+    and read as a notice; David Arcos asked for plain words (2026-10-15).
+
+    Why a page per person. The person files built no page from #202 until
+    the Archive (see the cascade in config.toml, which has the history),
+    because a page was a heading with nothing under it and nothing linked
+    to it. Now 371 of the 377 records are credited by a talk or by a page
+    block, and David Arcos decided for a page with a URL per person, the
+    way the site has a page per event and a page per talk. The speaker
+    name of every talk row of /talks/ links here through
+    partials/person_page_link.html, and the row of /people/ does too.
+
+    What is here comes from two sources and no other: the record under
+    content/people/, and the pages of the Archive that credit it. The
+    page publishes nothing about a person that the site does not publish
+    elsewhere already: no email, no employer, no location, and nothing
+    read off an event description. AGENTS.md has the rule.
+
+    The header: the portrait, or the placeholder of the row of /people/
+    (partials/person_placeholder.html, the initials on a colour) when the
+    record has no photo, which is 250 of the 378 records. The page showed
+    nothing there until 2026-10-15. Beside it the social links, as the
+    mark of the host and the handle (partials/person_links.html), and
+    under them the sentence of the row of /people/: the roles in the
+    order of the association (partials/role_order.html), "at", and the
+    number of events, with the same rules (see layouts/people/list.html).
+    The role line and the card of the header, "10 talks" and "14 events
+    (2013 - 2025)", went with the card of the row: the years were a
+    tombstone, and the counts are on the headings now.
+
+    The portrait is a 240 px round frame, bigger than the 160 px it was,
+    because the links moved beside it and a face is what the page opens
+    with. The alt is empty: the name is the h1 right above it, and an alt
+    that repeats it makes a screen reader say the name twice (axe reports
+    that as image-redundant-alt on /people/). The 400 px file is the one
+    the row of /people/ builds for its zoom, and the 800 px one serves a
+    2x screen, so a person with a photo costs the pipeline nothing new.
+    The portrait zooms as the avatar of the row does: the whole square,
+    hidden until the pointer is on it or the link around it has keyboard
+    focus (.person_zoom in people_page.scss, the mechanism of
+    people_index.scss). The link is what the keyboard focuses, and it
+    goes to the 800 px file; its name says what it is, because an image
+    with an empty alt gives the link none.
+
+    The Roles list and the Events table come from
+    partials/person_appearances.html; the talks of the person come from
+    partials/person_talks_index.html, one entry per talk with its photos
+    (see partials/talk_record.html), and feed the table and the Photos
+    block. The Talks list this page had
+    is gone: a talk is something the person did at an event, so it is a
+    row of the Events table, and a list above the table said the same
+    thing twice (David Arcos, 2026-10-15).
+
+    The outline is h1, h2 with no level skipped: the hero prints the h1
+    and each block is an h2, which bin/check-rendered checks on every
+    built page.
+*/ -}}
+{{ define "main" }}
+
+{{- $id := .Params.id -}}
+{{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
+{{- $talks := index (partialCached "person_talks_index.html" site "person-talks-index") $id -}}
+
+{{- /* The labels and the events of the person, the way the row of /people/
+       reads them: one label per heading, one event per page with a year. */ -}}
+{{- $labels := slice -}}
+{{- $event_count := 0 -}}
+{{- $seen := dict -}}
+{{- range index $index $id -}}
+    {{- if not (in $labels .label) }}{{ $labels = $labels | append .label }}{{ end -}}
+    {{- if index $seen .url }}{{ continue }}{{ end -}}
+    {{- $seen = merge $seen (dict .url true) -}}
+    {{- if .year }}{{ $event_count = add $event_count 1 }}{{ end -}}
+{{- end -}}
+{{- $role_text := "" -}}
+{{- if $labels -}}
+    {{- $role_text = delimit (partial "role_order.html" $labels) ", " -}}
+{{- else -}}
+    {{- with .Params.pybcn_position }}{{ $role_text = . }}{{ end -}}
+{{- end -}}
+
+{{- /* The portrait: the 400 px square of the row of /people/, shown at
+       240 px, with the 800 px square for a 2x screen, cropped the way
+       every other person photo is. */ -}}
+{{- $portrait := "" -}}
+{{- $srcset := "" -}}
+{{- $zoom_href := "" -}}
+{{- with .Params.photo -}}
+    {{- with resources.Get (printf "images/people/%s" .) -}}
+        {{- $anchor := default "Smart" $.Params.photo_anchor -}}
+        {{- $portrait = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
+        {{- $large := partial "image_square.html" (dict "img" . "size" 800 "anchor" $anchor) -}}
+        {{- $zoom_href = $large.RelPermalink -}}
+        {{- if gt $large.Width $portrait.Width -}}
+            {{- $srcset = printf "%s 1x, %s 2x" $portrait.RelPermalink $large.RelPermalink -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* The photos of the talks, in the order of the talks:
+       newest day first, then the place in the programme of the day.
+       Guarded by with: sort of a nil list is a build error, and 25 of the
+       378 records are credited by no talk, so the list is nil on their
+       pages. */ -}}
+{{- $photos := slice -}}
+{{- with $talks -}}
+    {{- range $t := sort . "key" -}}
+        {{- range $t.photos -}}
+            {{- $photos = $photos | append (dict "img" .img "url" .url "title" $t.title "event_title" $t.event_title) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 main_column person_page">
+
+            <div class="person_page_header">
+                {{- with $portrait }}
+                <a class="person_portrait_link" href="{{ $zoom_href }}" aria-label="Photograph of {{ $.Params.name }}">
+                    <img class="person_portrait" src="{{ .RelPermalink }}"{{ with $srcset }} srcset="{{ . }}"{{ end }} width="240" height="240" decoding="async" alt="" />
+                </a>
+                {{- else }}
+                {{ partial "person_placeholder.html" (dict "name" $.Params.name) }}
+                {{- end }}
+                {{- $links := partial "person_links.html" . }}
+                {{- if or $links $role_text }}
+                <div class="person_page_facts">
+                    {{- $links }}
+                    {{- with $role_text }}
+                    <p class="person_role_line">{{ . }}{{ if $event_count }} <em>at</em> <strong>{{ $event_count }}</strong> {{ if eq $event_count 1 }}event{{ else }}events{{ end }}{{ end }}</p>
+                    {{- end }}
+                </div>
+                {{- end }}
+            </div>
+
+            {{- with .Content }}
+            <section class="person_block" aria-labelledby="bio_heading">
+                <h2 id="bio_heading">Bio</h2>
+                {{ . }}
+            </section>
+            {{- end }}
+
+            {{- /* The roles and the events, each a table or a list under an
+                   h2 of its own. */ -}}
+            {{ partial "person_appearances.html" (dict "page" . "talks" $talks) }}
+
+            {{- /* The photos of the talks, one figure each. The image is
+                   the link, to the figure of the photo in the gallery of
+                   its day, where the caption, the post it came from, and
+                   the credit are. A link and not a viewer: the reader sees
+                   the photo with the rest of the day around it, which is
+                   more than a lightbox would give, and it works with
+                   JavaScript off. The alt is the title of the talk, and the
+                   caption under it names the day, so neither repeats the
+                   other to a screen reader. 240 px shown, with a 480 px
+                   file for a 2x screen, square from the pipeline: the
+                   sources are 1024 px wide or more. */ -}}
+            {{- with $photos }}
+            <section class="person_block person_photos" aria-labelledby="photos_heading">
+                <h2 id="photos_heading">Photos ({{ len . }})</h2>
+                <ul class="person_photo_grid">
+                    {{- range . }}
+                    {{- $thumb := partial "image_square.html" (dict "img" .img "size" 240) -}}
+                    {{- $retina := partial "image_square.html" (dict "img" .img "size" 480) -}}
+                    <li>
+                        <figure>
+                            <a href="{{ .url }}"><img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $retina.RelPermalink }} 2x" width="240" height="240" loading="lazy" decoding="async" alt="Photo of {{ .title }}" /></a>
+                            <figcaption>{{ .event_title }}</figcaption>
+                        </figure>
+                    </li>
+                    {{- end }}
+                </ul>
+            </section>
+            {{- end }}
+
+            {{- /* How the page is made and how to ask for a change. The edit
+                   link opens the one file the page is built from, on the
+                   default branch, which is the route CONTRIBUTING.md
+                   describes; the email is for anyone without a GitHub
+                   account. The repository URL is the one
+                   layouts/index.llms.txt prints. */ -}}
+            {{- with .File }}
+            <section class="person_block person_correction" aria-labelledby="correction_heading">
+                <h2 id="correction_heading">About this page</h2>
+                <p>This page is generated from the archive of past events. The events, the photos, and the videos come from the programmes of the days this person took part in; the name, the bio, and the links come from one file. To change or remove anything on it, <a href="https://github.com/pybcn/pybcn.github.io/edit/edition/content/{{ .Path }}">edit that file on GitHub</a> and open a pull request, or write to <a href="mailto:{{ site.Params.main_contact_email }}">{{ site.Params.main_contact_email }}</a>.</p>
+            </section>
+            {{- end }}
+
+        </div>
+    </div>
+</div>
+
+{{ end }}

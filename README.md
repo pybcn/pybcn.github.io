@@ -234,7 +234,7 @@ All pages rely on the same template: `themes/pybcn_theme/layouts/_default/people
 
 The template iterates over the defined levels, and for each level:
 - displays the level name, if 'name' is provided
-- displays a summary of all the people listed, limiting the number of people per line to the provided number 'people_per_line' (which must be in [12, 6, 4, 3, 4, 1])  
+- displays a summary of all the people listed, limiting the number of people per line to the provided number 'people_per_line' (which must be in [12, 6, 4, 3, 2, 1])  
 
 To add new people to the site, there is a Hugo archetype defined in `themes/pybcn_theme/archetypes/people.md` that can be used by running the command: `hugo new people/my-new-person.md`.
 
@@ -429,7 +429,7 @@ it. The cost is that the reasons are scattered, so this is the index.
 |---|---|
 | A person file builds no page, and `/people/` is a 404 | The `[[cascade]]` comment in `config.toml`, and issue #201 |
 | An appearance line calls a page by `appearances_title`, not by its title | `themes/pybcn_theme/layouts/partials/appearances_index.html` |
-| The modal is on its way to being a page per person, so its content cannot depend on the page it was opened from | `themes/pybcn_theme/layouts/partials/person_appearances.html` |
+| A card of a people grid is a link to the page of the person, not a modal that shows a subset of it | `themes/pybcn_theme/layouts/partials/people_summary.html` |
 | The menu sections are a disclosure, not an ARIA menu | `themes/pybcn_theme/layouts/partials/nav.html` |
 | MIT for the code, CC BY-SA 4.0 for the content, and nothing for the photographs | [LICENSING.md](LICENSING.md) |
 | `edition` is the source branch and `master` is the built site | [AGENTS.md](AGENTS.md) |
