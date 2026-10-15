@@ -1,0 +1,82 @@
+// The box of facts of a page. See layouts/partials/facts_box.html, which
+// says what it is, why it is a description list, and why its glyphs are
+// Font Awesome.
+//
+// A grid of two columns on the dl itself: the label column as wide as the
+// longest label of the box, the value column the rest. Each pair sits in a
+// div, so a row is one element in the markup, and the div is display:
+// contents so its dt and dd take the two cells of a row of the grid. The box
+// is the bordered pill of .count_card (main.scss) at full width, in the
+// colour of the facts, so the two read as one kind of thing: a box of
+// figures. At 390px the two columns still fit, because the longest label
+// takes about a third of the width and a long value wraps inside its cell.
+.facts_box {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 0.3rem;
+    align-items: baseline;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1.6rem;
+    border: 1px solid #dde3e8;
+    border-radius: 3px;
+    color: #51616e;
+
+    .facts_row {
+        display: contents;
+    }
+
+    dt {
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    // The glyph takes one width whatever it is, so the labels start at the
+    // same distance from the border down the box, as the numbers of a count
+    // card do from their icons. A row with no glyph gets an empty box of the
+    // same width.
+    dt i {
+        display: inline-block;
+        width: 1.3em;
+        margin-right: 0.35rem;
+        text-align: center;
+    }
+
+    dd {
+        margin-bottom: 0;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    // A link inside the box needs a second mark besides the colour, which
+    // is WCAG 1.4.1 and the rule this repository applies to .photo_source
+    // and to the caption of a talk photo. The credit row holds text between
+    // two links ("A and B"), which is where axe reports link-in-text-block.
+    dd a {
+        text-decoration: underline;
+    }
+
+    // The note behind a value: a native disclosure, smaller than the value
+    // it explains, with the marker of the browser as its toggle, so the
+    // state is drawn and announced with no script. The summary is the tap
+    // target, so it gets the height of a finger (about 31px at this size,
+    // above the 24px of WCAG 2.5.8) and, for a keyboard, the ring every
+    // other control of the site shows.
+    .facts_note {
+        font-size: 0.9rem;
+
+        summary {
+            cursor: pointer;
+            padding: 0.3rem 0;
+        }
+
+        summary:focus-visible {
+            outline: 3px solid $focus-ring;
+            outline-offset: 2px;
+        }
+
+        p {
+            margin: 0.1rem 0 0.2rem;
+        }
+    }
+}

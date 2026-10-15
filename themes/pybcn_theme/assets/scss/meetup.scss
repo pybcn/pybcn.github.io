@@ -1,0 +1,33 @@
+// The page of one monthly meetup. See layouts/_default/meetup.html.
+//
+// The shape is the one the page of one talk uses: a line under the h1, then
+// the box of facts (facts.scss, printed by partials/facts_box.html: the
+// venue, the group, the registrations, and the source), then a block per
+// section. The box is the one component on both pages; the rules below are
+// what this page has of its own.
+//
+// The talks of a meetup, when it has them, take .talk_rows from talks.scss
+// unchanged: the shape the /talks/ index had before it became a table, and
+// which talks.scss keeps for this page. Nothing for them is here.
+.meetup_page {
+
+    // The day, as the line under the title, muted like the facts under it.
+    // It carries most of what a reader came for on a page that holds four
+    // facts, so it is a step larger than the box below it.
+    .meetup_when {
+        font-size: 1.15rem;
+        color: #51616e;
+        margin-bottom: 1.2rem;
+    }
+
+    // Each block of the page gets the same air under its heading, and the h2
+    // is the size of the h2 of the rest of the site.
+    section {
+        margin-bottom: 2rem;
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+    }
+}

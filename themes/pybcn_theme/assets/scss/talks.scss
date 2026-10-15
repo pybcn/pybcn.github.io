@@ -1,0 +1,171 @@
+// The /talks/ list and the page of one talk.
+// See layouts/talks/list.html and layouts/talks/single.html.
+
+// One talk. Under the h1 sits the box of facts (facts.scss, printed by
+// partials/facts_box.html: the credit, the event, the day, the type, the
+// language, the topic, the length, and the source), then the blocks: the
+// description, the photo, the video, and the links.
+.talk_page {
+
+    // Each block of the page gets the same air under its heading, and the
+    // h2 is the size of the h2 of the rest of the site.
+    section {
+        margin-bottom: 2rem;
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+    }
+
+    // The description, as a quotation: the words of the speaker or of the
+    // announcement, with the rule down the left side that the caption of a
+    // gallery photo takes (.photo_caption in photo_gallery.scss, which has
+    // the reason for not using Bootstrap's .blockquote: it sets 1.25rem and
+    // would print the abstract larger than the page). The colour of the
+    // body text stays, because the abstract is the body of this page.
+    // Italic, as the caption is and as a quotation is set in print, so
+    // the two blockquotes of the site read alike; it was upright and did
+    // not read as a quotation (David Arcos, 2026-10-15).
+    .talk_abstract {
+        margin: 0;
+        padding-left: 0.75rem;
+        border-left: 3px solid #ced4da;
+        font-style: italic;
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    // The link under the player: the title of the talk, with the mark in
+    // front, through partials/video_link.html. Same treatment as the line
+    // of a row (.talk_video below).
+    .talk_video_link {
+        margin-bottom: 0;
+
+        a {
+            text-decoration: underline;
+        }
+
+        i {
+            display: inline-block;
+            margin-right: 0.4rem;
+        }
+    }
+}
+
+// The rows of the talks of a meetup, on the page of the meetup (see
+// layouts/_default/meetup.html). This was the shape of the /talks/ index
+// before it became the table of listing_table.scss, which holds every
+// rule of that page now; the meetup page keeps the list, one row per
+// talk with the facts under the title, because a page of one day has no
+// year, month, or event to group by.
+.talk_rows {
+    padding-left: 2.5rem;
+    list-style: none;
+
+    .talk_row {
+        margin-bottom: 1.1rem;
+    }
+
+    // The title of the talk, at the size of the text around it: an h3 at
+    // its default size would compete with the year above it, and the row is
+    // a line of a list and not a section of the page.
+    .talk_title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 0.15rem;
+    }
+
+    // The icon of the type as the marker of the row, hanging in the padding
+    // of the list so the titles line up whatever the icon is.
+    .talk_icon {
+        display: inline-block;
+        width: 1.5em;
+        margin-left: calc(-1.5em - 8px);
+        margin-right: 8px;
+        text-align: center;
+        color: #51616e;
+    }
+
+    .talk_meta {
+        color: #51616e;
+        margin-bottom: 0;
+    }
+
+    // The video of the talk, under the names: the link
+    // partials/video_link.html prints, with the YouTube mark in front.
+    // Underlined, because colour alone cannot mark a link in a run of
+    // text (WCAG 1.4.1, the rule .photo_source already follows). The mark
+    // is an inline-block, so the underline is not drawn through it.
+    .talk_video {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+
+        a {
+            text-decoration: underline;
+        }
+
+        i {
+            display: inline-block;
+            margin-right: 0.4rem;
+        }
+    }
+}
+
+// The player of a video, see partials/video_frame.html: the Video section
+// of the page of a talk, the Recordings block of the page of a meetup or
+// an edition, and the Videos block of the page of a person. The wrapper is
+// a 16:9 box as wide as the column, laid out before the frame loads, so
+// the page does not move when the player arrives and the frame is never
+// wider than the column at 390px. The frame fills the box; the width and
+// height on the element serve a reader with no stylesheet.
+.video_frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 0.8rem;
+
+    iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+}
+
+// The recordings of a whole session, on the page of a meetup
+// (layouts/_default/meetup.html) and of an edition
+// (layouts/_default/event.html): one player per recording, and under it
+// the title as the link, the mark in front. No marker, because the mark is
+// the marker. A recording stands a block of air off the next one, as the
+// talks of the page do.
+.session_videos {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        margin-bottom: 1.2rem;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    i {
+        display: inline-block;
+        margin-right: 0.4rem;
+    }
+}
+
+// A link inside a sentence needs a second mark besides the colour, which is
+// WCAG 1.4.1 and the rule this repository already applies to .photo_source.
+// axe reported this one as link-in-text-block.
+.talk_photo figcaption a,
+figcaption.card-body a {
+    text-decoration: underline;
+}
