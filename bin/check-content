@@ -6,6 +6,10 @@ match its filename, a duplicate id, a page that lists a person or sponsor id
 with no page behind it, a declared photo with no file behind it, and a
 remote photo_url. It warns about a person photo with no colour in it.
 
+For an event photo gallery it catches what the template drops in silence: a
+declared photo with no file, a photo with no caption, a photo that points at
+a talk of another event, and a talk that credits a person with no page.
+
 For the venues it checks data/venues.yaml, the short name the /events/ list
 prints for each venue, against the pages: every venue string of an event
 front matter has a row, and every row is the venue of some event. A venue
@@ -54,6 +58,15 @@ LOGO_DIRS = [
 PHOTO_DIRS = [
     ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "people",
     ROOT / "assets" / "images" / "people",
+]
+
+# The photos of an event gallery. partials/photo_gallery.html resolves a
+# declared file as images/photos/<file> with resources.Get, which reads the
+# theme assets and the project ones, so a file in either place renders. Same
+# two roots as PHOTO_DIRS, and static/ counts for neither.
+GALLERY_DIRS = [
+    ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "photos",
+    ROOT / "assets" / "images" / "photos",
 ]
 
 FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
@@ -280,6 +293,54 @@ def report_small(small):
          f"the grid. Smallest: {shown}. Replacing the file is the only fix.")
 
 
+def check_gallery(people):
+    """Every item of an event photo gallery must reach the page it declares.
+
+    partials/photo_gallery.html skips an item whose file it cannot resolve,
+    and an item with no caption, on purpose. A missing asset would otherwise
+    stop the build, and an image with no accessible name is worse on the page
+    than one photo fewer: bin/check-rendered fails the site for an img with
+    no alt, and the caption is that alt. The template drops a talk id it
+    cannot find just as quietly, and prints a speaker id that matches no
+    person as the id with its hyphens taken out.
+
+    Every one of those is a data mistake that reaches a reader as a page with
+    something missing from it, and nothing else reports it. So the silence of
+    the template is only safe while this check says the words out loud: the
+    file, the item, and what to fix.
+
+    The gallery of one event points only at the talks of its own file, the
+    way the template builds its talk index, so a photo that names a talk of
+    another edition is an error and not a near miss.
+    """
+    for path in sorted((CONTENT / "events").rglob("*.md")):
+        data = front_matter(path)
+        if data is None or not data.get("photos"):
+            continue
+        photos = data["photos"]
+        if not isinstance(photos, dict):
+            error(path, f"'photos' holds {photos!r}, which is not a photos "
+                        f"block. It takes a date, a thread, and items.")
+            continue
+        talk_ids = talk_ids_of(path, data, people)
+
+        # Two models of a programme in one file. The migration to talks is
+        # closing this, and a file is expected to carry both while it runs,
+        # so a warning: what it costs is a reader seeing the same session
+        # twice, once from each.
+        if data.get("events"):
+            warn(path, "declares both 'events' and 'talks'. The page renders "
+                       "the schedule from both, so a session can show twice. "
+                       "Keep 'talks' and drop 'events' once it is converted.")
+
+        for index, item in enumerate(photos.get("items") or [], start=1):
+            if not isinstance(item, dict):
+                error(path, f"photo {index} holds {item!r}, which is not a "
+                            f"photo. It takes a file and a caption.")
+                continue
+            check_gallery_item(path, index, item, talk_ids)
+
+
 _talk_ids = {}
 
 
@@ -366,6 +427,88 @@ def report_unnamed(path, unnamed, talks):
     warn(path, f"no speaker for {len(unnamed)} of the {len(talks)} talks, so "
                f"a photo of one of them shows the title alone: {shown}. "
                f"Correct when the source names nobody.")
+
+
+def check_gallery_item(path, index, item, talk_ids):
+    """Check one photo of a gallery: its file, caption, talk, and source."""
+    name = item.get("file")
+    label = f"photo {index} '{name}'" if name else f"photo {index}"
+    found = gallery_file(path, label, name)
+    if found:
+        gallery_size(path, label, name, found)
+
+    # The caption is the alt text as well as the visible line, so an item
+    # without one is skipped rather than rendered without an accessible name.
+    caption = item.get("caption")
+    if not str(caption if caption is not None else "").strip():
+        error(path, f"{label} has no caption. The caption is the alt text of "
+                    f"the image too, so the gallery leaves the photo out "
+                    f"rather than publish an image nobody can read. Copy the "
+                    f"text of the post.")
+
+    talk_ref = item.get("talk")
+    if talk_ref and talk_ref not in talk_ids:
+        known = ", ".join(sorted(talk_ids)) or "none"
+        error(path, f"{label} points at talk '{talk_ref}', which is not a "
+                    f"talk of this file. The gallery credits a photo to a "
+                    f"talk of its own event only, so the line is dropped. "
+                    f"Use one of: {known}.")
+
+    # The credit line is "Via @account", and the account is the first
+    # segment of the path of this URL. So a value that is not a post URL
+    # credits the photo to whatever that segment happens to hold.
+    source = item.get("source")
+    if source is not None and not str(source).strip().startswith("https://"):
+        error(path, f"{label} has source '{source}', which is not an https "
+                    f"URL. The gallery reads the account that gets the credit "
+                    f"out of the path of that URL. Use the address of the "
+                    f"post, or remove the line.")
+
+
+def gallery_file(path, label, name):
+    """Return the directory that holds this photo, or None after an error."""
+    if not name:
+        error(path, f"{label} has no file. Every item names a file under "
+                    f"{GALLERY_DIRS[0].relative_to(ROOT)}.")
+        return None
+    # resources.Get resolves a '..' segment, so a relative path reaches any
+    # asset of the repository, and the existence check below would pass. Same
+    # hole bare_file_name closes for a person photo, which cannot be reused
+    # here: a gallery file is a path, one directory per event.
+    if ".." in pathlib.PurePosixPath(str(name)).parts:
+        error(path, f"{label} has a '..' segment. A file is named relative to "
+                    f"{GALLERY_DIRS[0].relative_to(ROOT)} and stays inside "
+                    f"it.")
+        return None
+    found = next((d for d in GALLERY_DIRS if (d / str(name)).is_file()), None)
+    if not found:
+        where = ", ".join(str(d.relative_to(ROOT)) for d in GALLERY_DIRS)
+        error(path, f"{label} is in none of: {where}. The gallery skips a "
+                    f"photo it cannot resolve, so the page shows one photo "
+                    f"fewer and says nothing. Add the file, or remove the "
+                    f"item.")
+    return found
+
+
+def gallery_size(path, label, name, found):
+    """Warn about a photo larger than the widest variant the gallery asks for.
+
+    The cap is the one SOURCE_CAPS already declares for this directory, so
+    the two checks cannot drift apart. A warning here and not an error:
+    check_sources is what fails the build for a source that is both over the
+    cap and heavy, and this names the gallery photo it belongs to.
+    """
+    cap = source_cap(pathlib.PurePosixPath("photos") / str(name))
+    dimensions = image_size(found / str(name))
+    if not cap or not dimensions:
+        return
+    max_width, max_height = cap
+    width, height = dimensions
+    if width > max_width or (max_height and height > max_height):
+        fits = f"{max_width}x{max_height}" if max_height else f"{max_width} wide"
+        warn(path, f"{label} is {width}x{height}, over the {fits} the gallery "
+                   f"asks of it, so the build carries pixels no reader gets. "
+                   f"Run bin/fit-sources.")
 
 
 # One form per network, so a reader of the files can tell at a glance that two
@@ -1170,6 +1313,7 @@ def main():
     people = collect_ids("people")
     sponsors = collect_ids("sponsors")
     check_photos(people)
+    check_gallery(people)
     check_logos(sponsors)
     check_social(people, sponsors)
     check_sources()

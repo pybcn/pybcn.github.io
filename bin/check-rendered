@@ -90,11 +90,14 @@ the same way.
 
 The canary. content/sponsors/canary.md and content/people/canary.md carry a
 name that is harmless as text and unmistakable as markup: it closes the
-attribute it sits in and opens a link to CANARY_HOST. content/canary.md is a
-draft page that renders both through the real sponsor and people grids. A
-draft is not built without -D, so the production site never carries them,
-and a build made with -D does. The check fails if the canary page is missing
-or if the two names did not reach it as text, so the fixture cannot silently
+attribute it sits in and opens a link to CANARY_HOST. The photo caption of
+content/canary.md does the same with a protocol relative address, because
+that page reaches a template through safeHTML by design, see the note in
+CANARY_NAMES. content/canary.md is a draft page that renders all three
+through the real sponsor grid, people grid and photo gallery. A draft is not
+built without -D, so the production site never carries them, and a build made
+with -D does. The check fails if the canary page is missing or if any of the
+three values did not reach it as text, so the fixture cannot silently
 disappear. --without-canary scans a build made without -D.
 
 Findings are matched against ALLOWLIST. An entry names the page or the
@@ -128,6 +131,14 @@ CANARY_PAGE = "canary/index.html"
 CANARY_NAMES = {
     "sponsor": 'Canary sponsor "><a href="https://canary.invalid/sponsor">canary</a><span x="',
     "person": 'Canary person "><a href="https://canary.invalid/person">canary</a><span x="',
+    # The caption of a gallery photo is the one field that reaches a template
+    # through safeHTML: partials/caption_links.html escapes it and then makes
+    # the mentions, the hashtags, and the URLs of the post into links. So this
+    # name carries no https:// URL, which that partial turns into a link on
+    # purpose, and names the canary host without a scheme instead. A browser
+    # reads //canary.invalid/caption as a URL on that host, so the rule above
+    # still sees it, and the partial does not.
+    "caption": 'Canary caption "><a href="//canary.invalid/caption">canary</a><span x="',
 }
 
 
@@ -815,9 +826,11 @@ def scan(build, site_host):
 HEADING_EXEMPT = ("archives/",)
 
 HEADING = re.compile(r"<h([1-6])\b", re.I)
-# The modal of a person card holds its own h3 and h4, a heading tree of its
-# own inside a dialog that is closed until a reader opens it. It is not part
-# of the outline of the page around it.
+# The detail modal of a programme block (partials/event_detail.html, opened
+# from partials/agenda.html) holds its own h3, a heading inside a dialog that
+# is closed until a reader opens it. It is not part of the outline of the
+# page around it. The modal of a person card, which held an h3 and h4 tree,
+# is gone: the card is a link to the page of the person.
 MODAL = re.compile(r'<div class="?modal fade.*?</div></div></div></div>', re.S)
 MAIN = re.compile(r"<main\b[^>]*>(.*)</main>", re.S)
 
@@ -975,7 +988,8 @@ def main():
                   "The fixture in content/ or the grid that lists it has changed."
                   % (CANARY_PAGE, " or the ".join(missing)))
         else:
-            print("\nCanary: both names reached %s as text, not as markup." % CANARY_PAGE)
+            print("\nCanary: all %d names reached %s as text, not as markup."
+                  % (len(CANARY_NAMES), CANARY_PAGE))
 
     if failed:
         return 1

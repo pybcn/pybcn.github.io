@@ -149,11 +149,12 @@ shortcode, a partial, the theme, a Hugo internal template or the minifier.
 
 The check needs a build made with `-D`. Three draft pages are a canary: a
 sponsor and a person whose name closes the attribute it sits in and opens a
-link to `canary.invalid`, listed on `content/canary.md` through the real
-sponsor and people grids. The check fails if either name did not reach that
-page as text, or if the page is missing, so the fixture cannot disappear
-without notice. The deploy workflow builds without `-D`, so the canary never
-reaches the live site.
+link to `canary.invalid`, plus a photo caption that does the same with a
+protocol relative address, listed on `content/canary.md` through the real
+sponsor grid, people grid and photo gallery. The check fails if any of the
+three did not reach that page as text, or if the page is missing, so the
+fixture cannot disappear without notice. The deploy workflow builds without
+`-D`, so the canary never reaches the live site.
 
 ```
 ./bin/hugo --minify -D -d public

@@ -112,6 +112,26 @@ of the people in them, and that permission can be withdrawn. The event
 photographs are the same case: the photographer keeps the copyright, and the
 people in them keep their image rights.
 
+#### Where the event photographs come from
+
+Most of them were taken by a member of the association at the event and
+published on the association's own social media on the day. The archive
+import brings those back here. Each one credits the account that published
+it and links to the post it came from, so the origin is on the page and the
+post itself can prove it. The account is not the photographer: a member of
+the association took the photograph, and the copyright stays with them.
+
+A photograph the association only **shared**, rather than took, is never
+imported. Its copyright belongs to whoever took it, and sharing a post is not
+permission to republish the image. `bin/import-x-photos` separates those and
+lists them for a human to ask one by one.
+
+An event photograph also shows people who came to listen, and they gave no
+permission for anything. The association prefers a wide view of a room or a
+speaker on stage, over a portrait of somebody who came to learn. **To ask for
+a photograph to come down, write to the association.** It comes down, and
+nobody has to explain why.
+
 ### Person pages
 
 `content/people/` holds one page per person. Each person wrote their own text
