@@ -121,6 +121,16 @@
                 "rooms" dict
                 "colors" dict
                 "people" $people) -}}
+        {{- $gallery := partialCached "gallery_content.html" $event $event.RelPermalink -}}
+        {{- range $item := $gallery.photos -}}
+            {{- with $item.talk -}}
+                {{- if eq .id $id -}}
+                    {{- $photos = $photos | append (dict
+                            "img" $item.img
+                            "url" (printf "%s#%s" $event.RelPermalink (partial "photo_anchor.html" $item.pos))) -}}
+                {{- end -}}
+            {{- end -}}
+        {{- end -}}
     {{- end -}}
 {{- end -}}
 {{- return dict "event" $event "talk" $talk "position" $position "entry" $entry "photos" $photos -}}

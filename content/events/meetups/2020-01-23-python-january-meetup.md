@@ -33,6 +33,8 @@ talks:
   duration_minutes: 30
   description: I'll tell you about jazz chords progressions generation using recurrent neural networks. Staring with "what is a chord?" I'll go through "How we can represent chord?" and "How we can embed chords?". There will be a lot about music from a computer point of view. I'll show how I've prepared the music data, and how to use recurrent neural networks to generate jazz chords sequences. We will analyze the results and discuss the future of music in a world of AI.
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=SMXlwINeKyQ
   - type: site
     url: https://www.mateuszdorobek.pl/
 - id: using-pydantic-for-security-static-analysis-of-aws
@@ -43,6 +45,9 @@ talks:
   language: en
   duration_minutes: 30
   description: In Skyscanner we've developed CFRipper, a tool that checks for security issues in cloudformation files. In order to write this tool we use pydantic heavily to model the cloudformation files. In this talk we'll introduce pydantic and use cfripper and pycfmodel as use cases for the library.
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=GnQlVBIcunk
 - id: inversion-de-control-e-inyeccion-de-dependencias-teoria-y
   title: Inversión de control e Inyección de dependencias, Teoría y ejemplos usando Injector
   speakers:
@@ -53,6 +58,8 @@ talks:
   duration_minutes: 30
   description: La charla constará de dos partes, primero se explicarán los conceptos de Inversión de Control e Inyección de dependencias y para qué podemos usar estas técnicas; a continuación se mostrarán ejemplos de cómo usar estas técnicas en Python mediante la librería Injector.
   links:
+  - type: video
+    url: https://www.youtube.com/watch?v=u-KDwDqMbCI
   - type: github
     url: https://github.com/alecthomas/injector
 ---

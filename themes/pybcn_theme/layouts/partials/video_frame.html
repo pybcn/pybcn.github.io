@@ -1,0 +1,61 @@
+{{- /*
+    The player of one video: the youtube-nocookie.com frame in a 16:9 box.
+
+        <div class="video_frame"><iframe src=".../embed/<id>" title="..."></iframe></div>
+
+    Argument: a dict with
+        url     the address of the video, as the record writes it
+        title   the accessible name of the frame, "Video of <talk title>":
+                a screen reader otherwise announces an unnamed frame, and
+                axe fails it (frame-title)
+
+    Prints nothing when the URL is not a YouTube watch or youtu.be URL
+    with an id of the shape a YouTube id has, eleven characters of
+    [A-Za-z0-9_-]. The URL is content, and a content field never reaches
+    the page through safeHTML (AGENTS.md): the src below is a fixed prefix
+    and a string that passed that check. The caller prints the link to the
+    video under the frame in every case (partials/video_link.html), so a
+    video whose id does not pass still reaches the reader, as does the
+    reader whose browser blocks third party frames or runs no script.
+
+    Where a player goes. On a page about one talk, the page of the talk
+    (layouts/talks/single.html), and on the one page a recording of a
+    whole session has, the Recordings block of the page of its day
+    (partials/session_videos.html), and on the page of a person, in the
+    Videos block of the talks they gave (layouts/people/single.html). A
+    listing or a programme grid prints a link and no frame: the PyDay BCN
+    2020 page has a video on almost every row, and a frame per row would
+    make one request to Google per row before a reader asked for any of
+    them. bin/check-rendered allows the frame on those paths with this one
+    src prefix and nowhere else. David Arcos decided for the frame on
+    2026-10-14 ("que meta el iframe de youtube nocookies") and for the
+    players on the Recordings block on 2026-10-15.
+
+    The frame: www.youtube-nocookie.com, which sets no cookie until play is
+    pressed. It is not nothing: the frame still asks Google for the player
+    when the page loads, and Google sees the IP address and the browser of
+    the reader at that moment. The privacy policy
+    (content/pybcn_association/privacy-policy.md, Embedded Google content)
+    and the legal notice say so. loading=lazy defers the request for the
+    player until the frame is near the viewport. The wrapper holds a 16:9
+    box through aspect-ratio (talks.scss, .video_frame), so the page does
+    not move when the player arrives; the width and height on the element
+    are the same ratio, for a reader with no stylesheet. referrerpolicy
+    keeps the path of this page out of the request to Google; allow lists
+    what the player may ask of the browser and nothing more.
+*/ -}}
+{{- $id := "" -}}
+{{- with urls.Parse .url -}}
+    {{- $host := lower .Host -}}
+    {{- if in (slice "youtube.com" "www.youtube.com" "m.youtube.com") $host -}}
+        {{- $id = .Query.Get "v" -}}
+    {{- else if eq $host "youtu.be" -}}
+        {{- $id = strings.TrimPrefix "/" .Path -}}
+    {{- end -}}
+{{- end -}}
+{{- if not (findRE `^[A-Za-z0-9_-]{11}$` $id) }}{{ $id = "" }}{{ end -}}
+{{- with $id }}
+<div class="video_frame">
+    <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" title="{{ $.title }}" width="560" height="315" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" allow="fullscreen; picture-in-picture"></iframe>
+</div>
+{{- end }}

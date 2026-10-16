@@ -34,9 +34,15 @@ talks:
   speakers:
   - jordi-soucheiron
   type: talk
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=Tppi9Fsiwp4
 - id: sklearn-pandas-streamline-your-model-building-process
   title: 'sklearn-pandas: streamline your model building process'
   type: talk
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=3V1AEXT3PrI
   speakers:
   - israel-saeta-perez
 ---

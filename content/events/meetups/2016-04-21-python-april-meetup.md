@@ -28,10 +28,16 @@ talks:
     title: "Ingesting 35 Million Hotel Images With Python In The Cloud"
     speakers: [alex-vinyals]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=2VP2d_Ukj3E"
   - id: introduction-to-testing-and-py-test
     title: "Introduction to testing and py.test"
     speakers: [ignasi-fosch]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=QIy-XGTP4WM"
   - id: comprehensions-in-5-min
     title: "Comprehensions in 5 min"
     speakers: [jordi-soucheiron]
@@ -47,4 +53,15 @@ talks:
     speakers: [ignasi-fosch]
     type: lightning
     duration_minutes: 5
+# A recording of a whole session of this meetup and not of one talk: a
+# block of lightning talks, or the introduction of the evening, has no
+# talk record for a video to sit on, so the video sits on the event.
+# bin/import-videos writes this block from the YouTube export of the
+# pybcn-archive: a correction goes to the export or to the script, never
+# here. The page prints these under a Recordings heading, after the talks
+# (partials/session_videos.html). Not "videos": Hugo reads that key
+# as a list of og:video URLs, and a list of records there stops the build.
+session_videos:
+  - title: "Lightning Talk Session"
+    url: "https://www.youtube.com/watch?v=R3R9q5mf8Uw"
 ---

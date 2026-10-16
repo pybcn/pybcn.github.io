@@ -31,4 +31,7 @@ talks:
     language: en
     duration_minutes: 45
     description: "Creating and deploying telegram bots is easy with the Python Telegram Bot Library and Heroku! In this talk, we'll take a look at all the components and how you can quickly get up and running with your own Telegram bot."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=pOg3IbFEnlw"
 ---

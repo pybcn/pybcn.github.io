@@ -7,7 +7,7 @@
         Permanent Committee at Organizers
         Organizer at PyLadies BCN
 
-        Events (14)
+        Organizer, Speaker, Mentor at 14 events
         Year  Month  Day  Event                                            Gallery
         2025  Nov    29   [mic] Speaker at [snake] PyDay BCN (2025):
                           [comment] Introduction to Analog Quantum Computing  [camera] 1
@@ -24,7 +24,8 @@
     Each list is a section of class person_section under an h2, the level
     under the h1 of the hero (bin/check-rendered fails a page that skips a
     level), and people_page.scss styles the rows. The heading carries the
-    count, as every heading over a list of things does on this page.
+    count, as every heading over a list of things does on this page; the
+    heading of the Events table carries the roles as well.
 
     The index comes from appearances_index.html, built once per build.
     The list includes the pages that link here, because this page has one
@@ -77,9 +78,18 @@
     can pick the role out of the line. The role glyph is hidden from a
     screen reader: the role is the text right after it.
 
-    The heading counts events, not rows: "Events (14)" is the sentence of
-    the row of /people/ and of the header of this page, and a row is an
-    appearance, which the caption says.
+    The heading of the table is a sentence, "Organizer, Speaker, Mentor at
+    14 events": the roles held at an event, in the order of the
+    association (partials/role_order.html), "at", and the number of
+    events. It read "Events (14)" and the header of the page carried the
+    sentence; David Arcos asked for the sentence here and nothing in the
+    header (2026-10-15). The roles are the ones the rows of this table
+    print, the labels of the pages with a year, and no other: Permanent
+    Committee is held on the PyBCN page, which has no year, so it is a row
+    of the Roles list above and not of this table, and a heading that
+    named it would say the table holds a row it does not. The count is
+    the events, not the rows: a row is an appearance, which the caption
+    says, and one event may have two rows.
 
     A person with no appearance gets nothing: no heading, no empty list.
 */ -}}
@@ -184,9 +194,17 @@
     </ul>
 </section>
 {{- end -}}
+{{- /* The roles of the heading: every label of every event, once, in
+       the order of the association. */ -}}
+{{- $event_labels := slice -}}
+{{- range $url, $ev := $events -}}
+    {{- range $ev.labels -}}
+        {{- if not (in $event_labels .) }}{{ $event_labels = $event_labels | append . }}{{ end -}}
+    {{- end -}}
+{{- end -}}
 {{- with $year_groups -}}
 <section class="person_section person_events" aria-labelledby="events_heading">
-    <h2 id="events_heading">Events ({{ len $events }})</h2>
+    <h2 id="events_heading">{{ delimit (partial "role_order.html" $event_labels) ", " }} <em>at</em> {{ len $events }} {{ if eq (len $events) 1 }}event{{ else }}events{{ end }}</h2>
     <table class="listing_table person_event_table" role="table">
         <caption class="listing_caption">Newest first, one row per appearance: a talk given, or a role held at the event. The year, the month, and the day print once, on the first row of their group.</caption>
         <thead role="rowgroup">

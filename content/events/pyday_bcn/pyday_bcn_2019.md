@@ -237,6 +237,107 @@ agenda:
     talk: quick-data-exploration-with-jupyter-and-ipywidgets
     level: beginner
 
+# Photos published by PyBCN on the day. One per tweet, so no two share a
+# caption, and the caption is also the alt text. PyBCN organisers took them,
+# David Arcos all but the one he is standing in. The page credits the account
+# that published them, which is the part the post itself proves.
+photos:
+  date: 2019-11-16
+  thread: "https://x.com/PyBCN/status/1195623896537554944"
+  # The album the organisers kept at the time. It holds more of the day than
+  # the posts do, so the gallery links it instead of the body of the page.
+  album: "https://drive.google.com/drive/folders/1kODXtBARnTbZmQwVW1Qx2EvBCDSqhZjX?usp=sharing"
+  items:
+    - file: pyday-2019/01-the-pydaybcn-just-started-keynote-by-our-president.jpg
+      caption: "The #PyDayBCN just started! Keynote, by our President @lpmayos. This is what we do!"
+      source: "https://x.com/PyBCN/status/1195623896537554944"
+      time: "09:45"
+      talk: opening-keynote
+    - file: pyday-2019/03-python-barcelona-is-doing-lots-of-events.jpg
+      caption: "Python Barcelona is doing lots of events!"
+      source: "https://x.com/PyBCN/status/1195624998209232896"
+      time: "09:49"
+    - file: pyday-2019/04-this-is-us-the-social-media-guy.jpg
+      caption: "This is us! - the social media guy"
+      source: "https://x.com/PyBCN/status/1195625223665704960"
+      time: "09:50"
+    - file: pyday-2019/05-help-python-barcelona-send-a-proposal-become-a-mem.jpg
+      caption: "Help Python Barcelona! Send a proposal, become a member 😊"
+      source: "https://x.com/PyBCN/status/1195625991529541633"
+      time: "09:53"
+    - file: pyday-2019/06-introducing-the-djangogirlsbcn-event-by-ellaquimic.jpg
+      caption: "Introducing the #DjangoGirlsBCN event, by @EllaQuimica"
+      source: "https://x.com/PyBCN/status/1195628735539625984"
+      time: "10:04"
+    - file: pyday-2019/07-me-oh-no-a-g-balloon-is-broken-djangogirlsbcn-hold.jpg
+      caption: "- me: oh no, a \"G\" balloon is broken! - @DjangoGirlsBCN: hold my beer... #quickhack"
+      source: "https://x.com/PyBCN/status/1195630182075420674"
+      time: "10:10"
+    - file: pyday-2019/08-this-is-the-agenda-for-our-three-workshop-track.jpg
+      caption: "This is the agenda for our three workshop track:"
+      source: "https://x.com/PyBCN/status/1195637939285430272"
+      time: "10:41"
+    - file: pyday-2019/09-deep-learning-for-image-classification-using-tenso.jpg
+      caption: "Deep Learning for Image Classification using TensorFlow"
+      source: "https://x.com/PyBCN/status/1195638268727042051"
+      time: "10:42"
+      talk: deep-learning-for-image-classification-using-tensorflow
+    - file: pyday-2019/10-arquitectura-limpia-para-microservicios-un-caso-pr.jpg
+      caption: "Arquitectura limpia para microservicios: Un caso practico"
+      source: "https://x.com/PyBCN/status/1195638580137406464"
+      time: "10:43"
+      talk: arquitectura-limpia-para-microservicios
+    - file: pyday-2019/11-keep-your-repo-clean-by-hectorcanto-dev-from-bluel.jpg
+      caption: "\"Keep your repo clean\", by @hectorcanto_dev from @blueliv"
+      source: "https://x.com/PyBCN/status/1195639258599563264"
+      time: "10:46"
+      talk: keep-your-repo-clean
+    - file: pyday-2019/12-great-materials-on-our-djangogirls-track.jpg
+      caption: "Great materials on our #DjangoGirls track:"
+      source: "https://x.com/PyBCN/status/1195645166138228737"
+      time: "11:09"
+    - file: pyday-2019/13-decoradores-en-evolucion.jpg
+      caption: "\"Decoradores en evolución\""
+      source: "https://x.com/PyBCN/status/1195662968203153410"
+      time: "12:20"
+      talk: decoradores-en-evolucion
+    - file: pyday-2019/14-refactoring-a-web-application-with-python.jpg
+      caption: "\"Refactoring a Web Application with Python\""
+      source: "https://x.com/PyBCN/status/1195663218259243010"
+      time: "12:21"
+      talk: refactoring-a-web-application-with-python
+    - file: pyday-2019/15-thanks-codekiwicom-for-bringing-churros-con-chocol.jpg
+      caption: "Thanks @codekiwicom for bringing churros con chocolate, and hot wine! 👏👏👏 #PyDay"
+      source: "https://x.com/PyBCN/status/1195680425752051712"
+      time: "13:30"
+    - file: pyday-2019/16-building-interactive-data-visualizations-with-plot.jpg
+      caption: "\"Building Interactive Data Visualizations with Plotly and Dash\" by Anna Fedotova"
+      source: "https://x.com/PyBCN/status/1195729247731630080"
+      time: "16:44"
+      talk: building-interactive-data-visualizations-with-plotly-and-dash
+    - file: pyday-2019/17-sqlalchemy-from-0-to-proficient-by-bustawin.jpg
+      caption: "\"SQLAlchemy from 0 to proficient\" by @bustawin"
+      source: "https://x.com/PyBCN/status/1195729652893077504"
+      time: "16:45"
+      talk: sqlalchemy-from-0-to-proficient
+    - file: pyday-2019/18-quick-data-exploration-with-jupyter-and-ipywidgets.jpg
+      caption: "\"Quick data exploration with Jupyter and ipywidgets\""
+      source: "https://x.com/PyBCN/status/1195729783734202368"
+      time: "16:46"
+      talk: quick-data-exploration-with-jupyter-and-ipywidgets
+    - file: pyday-2019/19-thanks-codekiwicom-for-the-quiz-and-the-prizes-pyd.jpg
+      caption: "Thanks @codekiwicom for the quiz and the prizes! #PyDayBCN"
+      source: "https://x.com/PyBCN/status/1195777282914304000"
+      time: "19:54"
+    - file: pyday-2019/20-great-ending-keynote-from-dzpm-hey-is-that-a-napki.jpg
+      caption: "Great ending keynote from @DZPM! (Hey, is that a napkin?)"
+      source: "https://x.com/PyBCN/status/1195779452829097984"
+      time: "20:03"
+      talk: closing-keynote
+    - file: pyday-2019/21-finally-our-gratitude-to-the-python-barcelona-comm.jpg
+      caption: "Finally, our gratitude to the Python Barcelona community! @PyBCN, @PyLadiesBCN, @DjangoGirlsBCN, and all our awesome organizers, coaches, speakers, volunteers and assistants! 👏👏👏"
+      source: "https://x.com/PyBCN/status/1197534799130497024"
+      time: "16:18"
 ---
 <p><img src="/archives/pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg" style="width:100%" alt="The group photograph of PyDay BCN 2019, in the cloister of the Universitat de Barcelona" /></p>
 <h2>Archived content</h2>

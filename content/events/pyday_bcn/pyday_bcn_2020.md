@@ -19,7 +19,7 @@ layout: event
 free_text_sections:
     - title: Registration
       id: registration
-      content: "All attendeed must **<a href='https://www.meetup.com/python-barcelona/events/274983461/' target='_blank'>register to the event through Meetup</a>**, which will be the main communication channel with attendees before the event. All registered attendees will receive the links to the YouTube playlists and Slack channels through Meetup."
+      content: "All attendeed must **[register to the event through Meetup](https://www.meetup.com/python-barcelona/events/274983461/)**, which will be the main communication channel with attendees before the event. All registered attendees will receive the links to the YouTube playlists and Slack channels through Meetup."
 
 sponsor_levels:
     - sponsors_per_line: 2
@@ -231,7 +231,7 @@ talks:
     language: en
     topic: "Data Science, ML, DL"
     duration_minutes: 15
-    description: "We will explain how to switch from Pandas to Dask in order to analyze a large dataset that does not fit into single-machine memory.<br/><br/>Repository: <a href='https://github.com/ber2/pyday2020-counting-votes-with-dask' target='_blank'>https://github.com/ber2/pyday2020-counting-votes-with-dask</a>"
+    description: "We will explain how to switch from Pandas to Dask in order to analyze a large dataset that does not fit into single-machine memory.<br/><br/>Repository: https://github.com/ber2/pyday2020-counting-votes-with-dask"
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=KOpW86J56CU"

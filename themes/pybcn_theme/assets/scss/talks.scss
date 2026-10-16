@@ -57,6 +57,30 @@
             margin-right: 0.4rem;
         }
     }
+
+    // The photos, each as the card the gallery of an event draws, so the
+    // same photo looks the same on both pages. See photo_gallery.scss,
+    // which holds the cap on the height and the reason for it. A talk
+    // with two photographs prints two figures, one under the other with
+    // a line of air between them, and the last one carries no margin:
+    // the section under it sets the gap.
+    .talk_photo {
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        img {
+            display: block;
+            max-height: $photo-max-height;
+            object-fit: contain;
+        }
+
+        figcaption {
+            color: #51616e;
+        }
+    }
 }
 
 // The rows of the talks of a meetup, on the page of the meetup (see

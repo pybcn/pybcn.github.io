@@ -212,6 +212,63 @@ agenda:
     label: "Closing session & Kahoot"
     duration_minutes: 0
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+# The last two were posted on the 13th, the Monday after, and they show the
+# closing session of the 11th: the same room, the same screen, and the same
+# speaker as photo 1. The search ran to the 13th for them, and it found no
+# photo at all on the 12th, so no other event of that weekend is in this set.
+photos:
+  thread: "https://x.com/PyBCN/status/1535567826257420288"
+  items:
+    - file: django-2022/01-today-we-re-doing-the-hands-on-django-with-pyladie.jpg
+      caption: "Today we're doing the \"Hands-on Django with @PyLadiesBCN\": https://pybcn.org/events/other_events/django_pyladies_2022/ Here is @lpmayos, doing the intro:"
+      source: "https://x.com/PyBCN/status/1535567826257420288"
+      time: "12:21"
+      talk: hands-on-django
+    - file: django-2022/02-full-house-10-mentors-and-30-mentees-coding-their.jpg
+      caption: "Full house! 10 mentors and >30 mentees, coding their first blog in #Django"
+      source: "https://x.com/PyBCN/status/1535573510210441216"
+      time: "12:43"
+    - file: django-2022/03-we-re-doing-a-few-lightning-talks-before-lunch.jpg
+      caption: "We're doing a few lightning talks before lunch"
+      source: "https://x.com/PyBCN/status/1535581935594004487"
+      time: "13:17"
+      talk: lightning-talks
+    - file: django-2022/04-cool-catalan-sign-language-recognition-by-roser-ro.jpg
+      caption: "Cool! Catalan Sign Language recognition, by Roser @roser_13"
+      source: "https://x.com/PyBCN/status/1535587088107814912"
+      time: "13:37"
+    - file: django-2022/05-best-conference-lunch-ever.jpg
+      caption: "Best conference lunch ever! 🤤"
+      source: "https://x.com/PyBCN/status/1535609923727392769"
+      time: "15:08"
+    - file: django-2022/06-no-siesta-only-coding.jpg
+      caption: "No siesta, only coding! 💪"
+      source: "https://x.com/PyBCN/status/1535610876107145220"
+      time: "15:12"
+    - file: django-2022/07-let-s-play-a-game.jpg
+      caption: "Let's play a game!"
+      source: "https://x.com/PyBCN/status/1535659317659160577"
+      time: "18:24"
+    - file: django-2022/08-kathrin-wins-the-prize.jpg
+      caption: "Kathrin wins the prize!"
+      source: "https://x.com/PyBCN/status/1535659398210764803"
+      time: "18:25"
+    - file: django-2022/09-thanks-for-attending-it-s-been-great.jpg
+      caption: "Thanks for attending, it's been great!"
+      source: "https://x.com/PyBCN/status/1535666276240080897"
+      time: "18:52"
+    - file: django-2022/10-the-hands-on-django-with-pyladiesbcn-was-a-huge-su.jpg
+      caption: "The \"Hands-on Django with @PyLadiesBCN\" was a huge success! It was possible thanks to our sponsors:"
+      source: "https://x.com/PyBCN/status/1536275433578184704"
+      time: "11:13"
+      talk: hands-on-django
+    - file: django-2022/11-finally-a-big-applause-to-all-our-organizers-mento.jpg
+      caption: "Finally, a big applause to all our Organizers, Mentors, Speakers, Volunteers, and Atendees! @PyLadiesBCN, you rock 🤟"
+      source: "https://x.com/PyBCN/status/1536275453626961920"
+      time: "11:13"
 ---
 
 Do you want to learn how to code your own web application? In this workshop for non-experienced women and LGBTIQ+ people, organised by PyLadiesBCN, **we'll learn how to code our own blog with Django** using HTML, CSS and Python.

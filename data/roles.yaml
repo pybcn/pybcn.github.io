@@ -14,8 +14,13 @@
 # itself is not mapped: no level falls back to it,
 # and a new unnamed level under it would show the title as written, which
 # is the signal to name the level.
+#
+# Collaborators is a level name of the organizers page and of PyDay BCN
+# 2016. Unmapped, it printed "Collaborators at PyBCN" on the page of one
+# person, a plural for one (David Arcos, 2026-10-15).
 Speakers: Speaker
 Organizers: Organizer
+Collaborators: Collaborator
 Mentors: Mentor
 Volunteers: Volunteer
 PyLadiesBCN Organizers: Organizer

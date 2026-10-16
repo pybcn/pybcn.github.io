@@ -93,6 +93,9 @@
         {{- $events_total = add $events_total 1 -}}
         {{- $type := partial "event_type.html" $pg -}}
         {{- $events = merge $events (dict $type (add 1 (int (default 0 (index $events $type))))) -}}
+        {{- /* The gallery with the key the page of the day uses, so this
+               is a cache hit and not a second walk of the photos. */ -}}
+        {{- $gallery := partialCached "gallery_content.html" $pg $pg.RelPermalink -}}
         {{- $day_talks := 0 -}}
         {{- with $pg.Params.talks }}{{ $day_talks = len . }}{{ end -}}
         {{- /* The video links of the day, as the page prints them: on each
@@ -114,7 +117,7 @@
         {{- end -}}
         {{- $event_rows = merge $event_rows (dict $pg.RelPermalink (dict
                 "talks" $day_talks
-                "photos" 0
+                "photos" (len $gallery.photos)
                 "videos" $day_videos)) -}}
     {{- else if eq $pg.Section "talks" -}}
         {{- $record := partial "talk_record.html" $pg -}}
@@ -130,6 +133,12 @@
         {{- $photos := 0 -}}
         {{- $videos := 0 -}}
         {{- $links := 0 -}}
+        {{- with $record.event -}}
+            {{- $gallery := partialCached "gallery_content.html" . .RelPermalink -}}
+            {{- range $gallery.photos -}}
+                {{- with .talk }}{{ if eq .id $pg.Params.talk }}{{ $photos = add $photos 1 }}{{ end }}{{ end -}}
+            {{- end -}}
+        {{- end -}}
         {{- with $record.talk -}}
             {{- range .links -}}
                 {{- if not .url }}{{ continue }}{{ end -}}

@@ -23,11 +23,11 @@ free_text_sections:
       <b>31th October</b>: Call for proposals closing<br/>
       <b>16th November</b>: Program available<br/>
       <b>18th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
-      <b>21nd November, 9AM</b>: General registration open through <a target='_blank' href='https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587'>Eventbrite</a><br/>
+      <b>21nd November, 9AM</b>: General registration open through [Eventbrite](https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587)<br/>
       <b>26th November</b>: PyDay BCN 2022"
   - title: Registration
     id: registration
-    content: "General registration will open on Monday 21st of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587'>Eventbrite</a>."
+    content: "General registration will open on Monday 21st of November, at 9AM through [Eventbrite](https://www.eventbrite.es/e/entradas-pydaybcn-2022-470666304587)."
 
 sponsor_levels:
   - sponsors_per_line: 2
@@ -377,6 +377,152 @@ agenda:
     room: sala-dactes-ada-lovelace
     talk: lightning-talks-session-2-closing-session-kahoot
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/1596420421569908741"
+  items:
+    - file: pyday-2022/01-welcome-to-the-pydaybcn-our-president-lpmayos-is-d.jpg
+      caption: "Welcome to the #PyDayBCN! Our president @lpmayos is doing the welcome, please come to the main room! https://pybcn.org/events/pyday_bcn/pyday_bcn_2022/"
+      source: "https://x.com/PyBCN/status/1596420421569908741"
+      time: "09:27"
+    - file: pyday-2022/02-our-association-is-run-by-volunteers-we-need-your.jpg
+      caption: "Our association is run by volunteers. We need your help!"
+      source: "https://x.com/PyBCN/status/1596421097028812800"
+      time: "09:30"
+    - file: pyday-2022/03-companies-are-welcome-too-we-need-your-venues-and.jpg
+      caption: "Companies are welcome too, we need your venues and pizzas!"
+      source: "https://x.com/PyBCN/status/1596421507483586562"
+      time: "09:32"
+    - file: pyday-2022/04-today-we-ll-have-3-tracks-pf-workshops-2-lightning.jpg
+      caption: "Today we'll have 3 tracks pf workshops, 2 lightning sessions, a kahoot game with prizes, group picture, free lunch and coffee breaks, sponsor booths woth goodies, and many, many surprises! Hello world! @lpmayos"
+      source: "https://x.com/PyBCN/status/1596422075698532352"
+      time: "09:34"
+    - file: pyday-2022/05-machine-learning-en-produccion-experimentos-con-ve.jpg
+      caption: "\"Machine Learning en producción: Experimentos con versionado de datos con DVC y VSCode\" by Gema Parreño @SoyGema"
+      source: "https://x.com/PyBCN/status/1596440972757708801"
+      time: "10:49"
+      talk: machine-learning-en-produccion-experimentos-con-versionado
+    - file: pyday-2022/06-friendly-fuzzing-for-your-python-saas-applications.jpg
+      caption: "\"Friendly fuzzing for your Python SaaS applications\" by Pavel Lonkin @pavel_lonkin"
+      source: "https://x.com/PyBCN/status/1596441500862513152"
+      time: "10:51"
+      talk: friendly-fuzzing-for-your-python-saas-applications
+    - file: pyday-2022/07-how-many-ants-can-carry-an-elephant-pushing-the-li.jpg
+      caption: "\"How many ants can carry an elephant? Pushing the limits of AWS Chalice\" by Kemalcan Bora @KemalcanBora"
+      source: "https://x.com/PyBCN/status/1596442007328550912"
+      time: "10:53"
+      talk: how-many-ants-can-carry-an-elephant-pushing-the-limits-of
+    - file: pyday-2022/08-build-air-quality-sensors-with-python-and-choose-y.jpg
+      caption: "\"Build Air Quality Sensors with Python and choose your own adventure!\" Marc Pous @gy4nt"
+      source: "https://x.com/PyBCN/status/1596463444550483968"
+      time: "12:18"
+      talk: build-air-quality-sensors-with-python-and-choose-your-own
+    - file: pyday-2022/09-build-a-full-stack-app-with-flask-and-vue-by-eva-m.jpg
+      caption: "\"Build a full-stack app with Flask and Vue\" by Eva Martín del Pico"
+      source: "https://x.com/PyBCN/status/1596466419746889735"
+      time: "12:30"
+      talk: build-a-full-stack-app-with-flask-and-vue
+    - file: pyday-2022/10-python-as-a-gis-tools-howtos-and-gotchas-by-biel-s.jpg
+      caption: "\"Python as a GIS: Tools, howtos and gotchas\" by Biel Stela"
+      source: "https://x.com/PyBCN/status/1596466719924576266"
+      time: "12:31"
+      talk: python-as-a-gis-tools-howtos-and-gotchas
+    - file: pyday-2022/11-pyton-chupito.jpg
+      caption: "\"Pyton\" = chupito 🥃"
+      source: "https://x.com/PyBCN/status/1596467078600482819"
+      time: "12:33"
+    - file: pyday-2022/12-had-a-great-lunch.jpg
+      caption: "Had a great lunch! 🍴"
+      source: "https://x.com/PyBCN/status/1596494809623326720"
+      time: "14:23"
+    - file: pyday-2022/13-building-an-end-to-end-open-source-modern-data-pla.jpg
+      caption: "\"Building an End-to-End Open-Source Modern Data Platform for Biomedical Data\", by Alberto Labarga @alabarga"
+      source: "https://x.com/PyBCN/status/1596497893430812673"
+      time: "14:35"
+      talk: building-an-end-to-end-open-source-modern-data-platform-for
+    - file: pyday-2022/14-cuando-los-precios-suben-scrapy-by-jimena-escobar.jpg
+      caption: "\"Cuando los precios suben: Scrapy\" by Jimena Escobar @Jimena_y_yo"
+      source: "https://x.com/PyBCN/status/1596501266368167940"
+      time: "14:48"
+      talk: cuando-los-precios-suben-scrapy
+    - file: pyday-2022/15-inside-out-or-how-to-get-your-app-observable-by-an.jpg
+      caption: "\"Inside out. Or how to get your app observable\" by Antonio Molina @aydevosotros"
+      source: "https://x.com/PyBCN/status/1596501481338929152"
+      time: "14:49"
+      talk: inside-out-or-how-to-get-your-app-observable
+    - file: pyday-2022/16-lightning-talks-amp-coffee.jpg
+      caption: "Lightning talks & coffee!"
+      source: "https://x.com/PyBCN/status/1596517293474910208"
+      time: "15:52"
+    - file: pyday-2022/17-very-interesting-lightning-talks-we-astropy.jpg
+      caption: "Very interesting lightning talks, we ❤️ @astropy!"
+      source: "https://x.com/PyBCN/status/1596518550944243714"
+      time: "15:57"
+    - file: pyday-2022/18-making-sense-of-your-data-platform-with-openmetada.jpg
+      caption: "\"Making sense of your Data Platform with OpenMetadata\" by Pere Miquel Brull"
+      source: "https://x.com/PyBCN/status/1596528205611114496"
+      time: "16:36"
+      talk: making-sense-of-your-data-platform-with-openmetadata
+    - file: pyday-2022/19-tdd-coding-dojo-by-ana-eliza-barbosa.jpg
+      caption: "\"TDD Coding Dojo\" by Ana Eliza Barbosa"
+      source: "https://x.com/PyBCN/status/1596528574160580609"
+      time: "16:37"
+      talk: tdd-coding-dojo
+    - file: pyday-2022/20-using-numba-effectively-today-by-cheuk-ting-ho-che.jpg
+      caption: "\"Using Numba Effectively Today\" by Cheuk Ting Ho @cheukting_ho"
+      source: "https://x.com/PyBCN/status/1596528814645182465"
+      time: "16:38"
+      talk: using-numba-effectively-today
+    - file: pyday-2022/21-thank-you-thisiscloudblue-for-sponsoring-the-pyday.jpg
+      caption: "Thank you @ThisisCloudBlue for sponsoring the #PyDayBCN!"
+      source: "https://x.com/PyBCN/status/1596530443809079301"
+      time: "16:44"
+    - file: pyday-2022/22-thank-you-qustodio-for-sponsoring-the-pydaybcn.jpg
+      caption: "Thank you @qustodio for sponsoring the #PyDayBCN!"
+      source: "https://x.com/PyBCN/status/1596530641885138945"
+      time: "16:45"
+    - file: pyday-2022/23-thank-you-insideveriff-for-sponsoring-the-pydaybcn.jpg
+      caption: "Thank you @insideveriff for sponsoring the #PyDayBCN!"
+      source: "https://x.com/PyBCN/status/1596531130702139394"
+      time: "16:47"
+    - file: pyday-2022/24-thank-you-roverdotcom-es-for-sponsoring-the-pydayb.jpg
+      caption: "Thank you @roverdotcom_es for sponsoring the #PyDayBCN!"
+      source: "https://x.com/PyBCN/status/1596531320288866306"
+      time: "16:48"
+    - file: pyday-2022/25-thank-you-apsl-web-for-sponsoring-the-pydaybcn.jpg
+      caption: "Thank you @apsl_web for sponsoring the #PyDayBCN!"
+      source: "https://x.com/PyBCN/status/1596531705892204544"
+      time: "16:49"
+    - file: pyday-2022/26-now-the-second-bunch-of-lightning-talks-and-the-fi.jpg
+      caption: "Now, the second bunch of lightning talks, and the final contest! 🎉🎉"
+      source: "https://x.com/PyBCN/status/1596543523389845505"
+      time: "17:36"
+    - file: pyday-2022/27-let-s-trash-the-regular-expressions.jpg
+      caption: "Let's trash the regular expressions 🔝"
+      source: "https://x.com/PyBCN/status/1596545675742908417"
+      time: "17:45"
+    - file: pyday-2022/28-optimal-binning-using-python.jpg
+      caption: "Optimal binning using Python:"
+      source: "https://x.com/PyBCN/status/1596547451921596418"
+      time: "17:52"
+    - file: pyday-2022/29-quiz.jpg
+      caption: "Quiz!"
+      source: "https://x.com/PyBCN/status/1596564226457280512"
+      time: "18:59"
+    - file: pyday-2022/30-thank-you-lpmayos-nataliasirera-sianna-and-mochi.jpg
+      caption: "Thank you @lpmayos, @nataliasirera, @sianna... and Mochi!"
+      source: "https://x.com/PyBCN/status/1596564666586628100"
+      time: "19:00"
+    - file: pyday-2022/31-the-winners.jpg
+      caption: "The winners! 🎉"
+      source: "https://x.com/PyBCN/status/1596564775512989696"
+      time: "19:01"
+    - file: pyday-2022/32-thank-you-all-for-attending-the-pydaybcn.jpg
+      caption: "Thank you all for attending the #PyDayBCN!! 🥰"
+      source: "https://x.com/PyBCN/status/1596567778798014466"
+      time: "19:13"
 ---
 
 ## About PyDay BCN 2022

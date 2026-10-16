@@ -20,15 +20,15 @@ layout: event
 free_text_sections:
   - title: Important dates
     id: important_dates
-    content: "<b>29th September</b>: Call for proposals opening: <a href='https://forms.gle/tGnJHW5oNkCFQrXx7' target='_blank' >Workshops</a> and <a target='_blank' href='https://forms.gle/GzYmMU4qvqRHmgCh7'>Lightning talks</a><br/>
+    content: "<b>29th September</b>: Call for proposals opening: [Workshops](https://forms.gle/tGnJHW5oNkCFQrXx7) and [Lightning talks](https://forms.gle/GzYmMU4qvqRHmgCh7)<br/>
       <b>7th November</b>: Call for proposals closing<br/>
       <b>21th November</b>: Program available<br/>
       <b>24th November, 9AM</b>: Early registration open for PyBCN members, PyDay speakers and sponsors<br/>
-      <b>25th November, 9AM</b>: General registration open through <a target='_blank' href='https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator'>Eventbrite</a><br/>
+      <b>25th November, 9AM</b>: General registration open through [Eventbrite](https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator)<br/>
       <b>29th November</b>: PyDay BCN 2025"
   - title: Registration
     id: registration
-    content: "General registration will open on Tuesday 25th of November, at 9AM through <a target='_blank' href='https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator'>Eventbrite</a>."
+    content: "General registration will open on Tuesday 25th of November, at 9AM through [Eventbrite](https://www.eventbrite.es/e/pyday-2025-tickets-1924233868299?aff=oddtdtcreator)."
 
 sponsor_levels:
   - sponsors_per_line: 2
@@ -524,6 +524,112 @@ agenda:
     room: sala-dactes-ada-lovelace
     talk: lightning-talks-closing-session-kahoot
 
+# Photos published by PyBCN on the day, one per post so no two share a caption,
+# which is also the alt text. Imported with bin/import-x-photos, which excludes
+# anything the account only shared: that copyright belongs to somebody else.
+photos:
+  thread: "https://x.com/PyBCN/status/1994662616132673581"
+  items:
+    - file: pyday-2025/01-18-years-since-our-first-meetup-https-www-meetup-c.jpg
+      caption: "18 years since our first meetup! https://www.meetup.com/python-barcelona/events/6778043/"
+      source: "https://x.com/PyBCN/status/1994662616132673581"
+      time: "08:00"
+    - file: pyday-2025/02-today-we-re-celebrating-the-pydaybcn-2025.jpg
+      caption: "Today we're celebrating the #PyDayBCN 2025!"
+      source: "https://x.com/PyBCN/status/1994684222666412236"
+      time: "09:25"
+    - file: pyday-2025/03-welcome-to-the-pyday-please-grab-your-lanyard.jpg
+      caption: "Welcome to the PyDay! Please grab your lanyard"
+      source: "https://x.com/PyBCN/status/1994702575589822690"
+      time: "10:38"
+    - file: pyday-2025/04-build-advanced-agentic-llm-apps-with-langgraph-and.jpg
+      caption: "Build advanced Agentic LLM Apps with LangGraph and LangChain, by Enric Domingo"
+      source: "https://x.com/PyBCN/status/1994704711178748154"
+      time: "10:47"
+      talk: build-advanced-agentic-llm-apps-with-langgraph-and-langchain
+    - file: pyday-2025/05-from-zero-to-chatbot-create-your-own-ai-assistant.jpg
+      caption: "From Zero to Chatbot: Create Your Own AI Assistant with Python, by Ester Jara"
+      source: "https://x.com/PyBCN/status/1994707695165702368"
+      time: "10:59"
+      talk: from-zero-to-chatbot-create-your-own-ai-assistant-with
+    - file: pyday-2025/06-introduction-to-analog-quantum-computing-by-natali.jpg
+      caption: "Introduction to Analog Quantum Computing, by Natàlia Padilla, Amir Azam, David Arcos, Javier Sabariego, Ely Farrés & Flavie Le Bars"
+      source: "https://x.com/PyBCN/status/1994709800337154471"
+      time: "11:07"
+      talk: introduction-to-analog-quantum-computing
+    - file: pyday-2025/07-testeando-api-s-like-a-boss-con-bdd-javier-ramos-p.jpg
+      caption: "Testeando API's like a boss con BDD, Javier Ramos Panduro"
+      source: "https://x.com/PyBCN/status/1994709904108786052"
+      time: "11:07"
+      talk: testeando-apis-like-a-boss-con-bdd
+    - file: pyday-2025/08-del-texto-al-dato-como-entienden-las-maquinas-el-l.jpg
+      caption: "Del texto al dato: cómo entienden las maquinas el lenguaje humano con Python, by Cristina Cosma"
+      source: "https://x.com/PyBCN/status/1994722041816318026"
+      time: "11:56"
+      talk: del-texto-al-dato-como-entienden-las-maquinas-el-lenguaje
+    - file: pyday-2025/09-crea-un-agente-llm-desde-cero-sin-frameworks-by-ri.jpg
+      caption: "Crea un agente LLM desde cero, sin frameworks, by Ricardo Ander-Egg"
+      source: "https://x.com/PyBCN/status/1994722652775502202"
+      time: "11:58"
+      talk: crea-un-agente-llm-desde-cero-sin-frameworks
+    - file: pyday-2025/10-building-multi-agent-system-with-pydantic-ai-by-al.jpg
+      caption: "Building Multi-Agent System with Pydantic AI, by Alberto Camara"
+      source: "https://x.com/PyBCN/status/1994722776759111743"
+      time: "11:59"
+      talk: building-multi-agent-system-with-pydantic-ai
+    - file: pyday-2025/11-mastering-word-automation-with-python-by-jordi-bos.jpg
+      caption: "Mastering Word Automation with Python, by Jordi Bosch"
+      source: "https://x.com/PyBCN/status/1994723082851029329"
+      time: "12:00"
+      talk: mastering-word-automation-with-python
+    - file: pyday-2025/12-lunch.jpg
+      caption: "Lunch!"
+      source: "https://x.com/PyBCN/status/1994776732851921080"
+      time: "15:33"
+    - file: pyday-2025/13-keywords-bm25-y-vectores-construyendo-un-buscador.jpg
+      caption: "Keywords, BM25 y vectores: construyendo un buscador de texto desde cero, by Ricardo Ander-Egg"
+      source: "https://x.com/PyBCN/status/1994776783711863011"
+      time: "15:33"
+      talk: keywords-bm25-y-vectores-construyendo-un-buscador-de-texto
+    - file: pyday-2025/14-del-desorden-visual-al-significado-una-aventura-co.jpg
+      caption: "Del Desorden Visual al Significado: Una Aventura con Transformers y Donut, by Kevin Sanchez"
+      source: "https://x.com/PyBCN/status/1994777272277164346"
+      time: "15:35"
+      talk: del-desorden-visual-al-significado-una-aventura-con
+    - file: pyday-2025/15-house-controlled-by-ai-what-could-go-wrong-by-kema.jpg
+      caption: "House, Controlled by AI (What Could Go Wrong?), by Kemalcan Bora"
+      source: "https://x.com/PyBCN/status/1994777475922997289"
+      time: "15:36"
+      talk: house-controlled-by-ai-what-could-go-wrong
+    - file: pyday-2025/16-models-de-regressio-bayesians-by-oriol-abril.jpg
+      caption: "Models de regressió bayesians, by Oriol Abril"
+      source: "https://x.com/PyBCN/status/1994777557820924408"
+      time: "15:36"
+      talk: models-de-regressio-bayesians
+    - file: pyday-2025/17-agentes-inteligentes-que-evolucionan-software-auto.jpg
+      caption: "Agentes Inteligentes que Evolucionan: Software Automodificable con LLMs y Python, by Camilo Chacón Sartori"
+      source: "https://x.com/PyBCN/status/1994801610967716187"
+      time: "17:12"
+      talk: agentes-inteligentes-que-evolucionan-software
+    - file: pyday-2025/18-fabric-en-accion-conectando-bloques-datos-y-magia.jpg
+      caption: "Fabric en Acción: conectando bloques, datos y magia en python, by Victor Garcia"
+      source: "https://x.com/PyBCN/status/1994802306496565681"
+      time: "17:15"
+      talk: fabric-en-accion-conectando-bloques-datos-y-magia-en-python
+    - file: pyday-2025/19-htmx-a-love-story-between-a-backend-dev-and-a-fron.jpg
+      caption: "HTMX: A love story between a backend dev and a frontend \"framework\", by Eric Massip"
+      source: "https://x.com/PyBCN/status/1994802513367715964"
+      time: "17:15"
+      talk: htmx-a-love-story-between-a-backend-dev-and-a-frontend
+    - file: pyday-2025/20-causal-inference-a-brief-introduction-by-ubaldo-he.jpg
+      caption: "Causal Inference: a brief introduction, by Ubaldo Hervas"
+      source: "https://x.com/PyBCN/status/1994802560104841660"
+      time: "17:16"
+      talk: causal-inference-a-brief-introduction
+    - file: pyday-2025/02-the-pydaybcn-2025-was-a-success-140-attendants-16.jpg
+      caption: "The #PyDayBCN 2025 was a success! 140 attendants, 16 workshops, many lightning talks, and hundreds of coffees! Thanks for coming, and see you next year!"
+      source: "https://x.com/PyBCN/status/1995426809425613242"
+      time: "10:36"
 ---
 
 

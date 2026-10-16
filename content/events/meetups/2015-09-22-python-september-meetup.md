@@ -30,12 +30,18 @@ talks:
     type: talk
     language: en
     duration_minutes: 10
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=QJ1YKtM0Kjw"
   - id: tecnicas-osint-python
     title: "Técnicas OSINT & Python"
     speakers: [albert-sanchez]
     type: talk
     language: es
     duration_minutes: 30
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=1mr0Gx7qJ5E"
   - id: image-processing-for-beginners
     title: "Image processing for beginners"
     speakers: [prassanna-ganesh]

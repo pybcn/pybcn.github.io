@@ -71,6 +71,19 @@ re-running an importer against `content/`, which is the destructive thing the
 paragraph above measures. The export is not part of maintaining this site, and
 a correction to a published page goes in the page.
 
+The one feed that keeps moving is the YouTube channel. `data/channel_videos.yaml`
+is its inventory, the list this site maintains: one entry per video of the
+channel, with the id, the title as the channel shows it, and the decision,
+`placed: true` when an event page carries the link, or `placed: false` with a
+reason. `bin/list-channel` reads the channel with `yt-dlp` and prints what the
+inventory does not hold, which is how a new video gets noticed: write its link
+on the talk of its event page (a link of type `video`, or an entry of
+`session_videos` for the recording of a whole session), then add the entry.
+`bin/check-content` fails on a placed entry no page carries, on a YouTube link
+no entry lists, and on an unplaced entry with no reason, and it never reads the
+network. `yt-dlp` is not in this repository and not in CI: `bin/list-channel`
+says how to install it when it is absent.
+
 **`unsafe=true` in `[markup.goldmark.renderer]`.** Raw HTML in front matter
 and page bodies renders unescaped. Two content files still carry it,
 `content/events/pyday_bcn/pyday_bcn_2018.md` and `pyday_bcn_2019.md`, which
@@ -205,7 +218,7 @@ plausible but different result.
 | `themes/pybcn_theme/` | The theme, **vendored in-tree**, not a submodule |
 | `themes/pybcn_theme/layouts/partials/` | Most of the interesting template logic |
 | `static/archives/` | Verbatim mirrors of pre-Hugo sites, copied unprocessed |
-| `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph, `event_emoji.yaml` an event to a glyph, `venues.yaml` the exact `venue` string of an event to the short name the `/events/` list prints (the page of the meetup keeps the full string) |
+| `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph, `event_emoji.yaml` an event to a glyph, `venues.yaml` the exact `venue` string of an event to the short name the `/events/` list prints (the page of the meetup keeps the full string). Plus `channel_videos.yaml`, the inventory of the YouTube channel, which `bin/check-content` reads and `bin/list-channel` refreshes |
 | `bin/` | Setup and build scripts, the checks, `bin/list-channel` (names a channel video the inventory lacks; needs `yt-dlp` and the network), the one-time `bin/import-*` scripts, plus the gitignored Hugo binary |
 | `.hugo-version` | The pinned Hugo version, single source of truth |
 
@@ -213,7 +226,7 @@ The checks, which are what a pull request has to pass:
 
 | Script | What it rejects |
 |---|---|
-| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, a `venue` string with no row in `data/venues.yaml`, a row of that table no event uses, an `end_date` that is not a date or not later than `date` |
+| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, a gallery photo the template would skip in silence, a session video with no title or no url or listed twice on its page, a channel video the inventory marks placed that no page carries, a YouTube link the inventory does not list, an unplaced video with no reason, a `venue` string with no row in `data/venues.yaml`, a row of that table no event uses, an `end_date` that is not a date or not later than `date` |
 | `bin/check-html-safety` | Dangerous raw HTML in content, with an allowlist for the legitimate embeds |
 | `bin/check-rendered` | The same, on the built pages, plus any `http://` URL. Run it against a directory you built, never against `public/` while a dev server is writing there |
 

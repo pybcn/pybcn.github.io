@@ -31,4 +31,7 @@ talks:
     type: panel
     language: ca
     description: "Wardley mapping is a visual technique to analyse certain \"problem spaces\", like businesses, security and others. It is very helpful in providing a share understanding of the problem and also in finding new areas to explore, issues to fix and potential wins. In our case (aside from explaining the technique for everybody!) we want to see what we can learn together about how PyBCN works, how we can make it more efficient and better for all our members."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=Ga5Wiq0swS8"
 ---

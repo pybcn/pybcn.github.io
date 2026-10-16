@@ -31,6 +31,9 @@ talks:
     language: en
     duration_minutes: 40
     description: "At BackMarket, we have dozens of developers working on our Django monolith that holds most of our features. As we have a lot of interdependent applications, it's hard for developers to identify which part of the code their modifications will have an impact on, and it's only by running the full test suite that they can feel confident enough that they don't break anything outside of their scope. Since we have around 18K tests, they usually push code to the CI without knowing if tests will pass, making the feedback loop bad. To improve that, we used a feature of Python coverage library called Who tests what that indicates which tests ran which parts of the code. With that, developers now know which tests to run based on the code they are updating, effectively reducing the feedback loop."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=j7pTZtDUeRc"
   - id: aprendizaje-a-traves-de-grafos-graph-neural-networks
     title: "Aprendizaje a través de grafos: Graph Neural Networks"
     speakers: [camilo-chacon-sartori]
@@ -38,4 +41,7 @@ talks:
     language: es
     duration_minutes: 40
     description: "Muchos sistemas que usamos a diario se pueden modelar con grafos: redes sociales, el transporte público, los resultados que nos devuelve un motor de búsqueda, e incluso, nuestro propio lenguaje natural. ¿Qué ocurría si combináramos la flexibilidad de los grafos con técnicas de Deep Learning? Pues obtenemos: Graph Neural Networks, la capacidad de crear predicciones aprovechando la estructura de los grafos."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=a8smnNogLQU"
 ---

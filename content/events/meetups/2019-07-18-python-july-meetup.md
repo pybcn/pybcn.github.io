@@ -30,10 +30,16 @@ talks:
     type: talk
     language: en
     description: "We will show you the importance of detecting and preventing fraud before it takes place and how Machine Learning-based solutions can help with such issues. We will introduce you to the process of detection of anomalies in users' behaviour in Verse and demonstrate why Python is a great tool for achieving this."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=ihK7TZeHakY"
   - id: python-on-ucontrollers
     title: "Python on uControllers"
     speakers: [juan-biondi]
     type: talk
     language: en
     description: "Python language has made programming more accessible but It was designed to run on machines with plenty of resources. Is there anything that works flawlessly on embedded systems to implement quick prototypes? Yes, that were MicroPython comes in."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=xOT4pg5jqVU"
 ---

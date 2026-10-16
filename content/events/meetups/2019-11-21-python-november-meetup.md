@@ -31,6 +31,9 @@ talks:
     language: en
     duration_minutes: 30
     description: "At ColorSensing, a spin-off from University of Barcelona, we are developing both a general SaaS solution to digitalize colorimetric sensors and also a specific solution with colorimetric gas sensors to study the behaviour of food modified athmosphere packaging (MAP). We aim to impact the value chain in the food market with real traceability of the sealed food packages."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=BOkeUX9d1Ko"
   - id: machine-learning-with-electronic-health-record-ehr-systems
     title: "Machine Learning with Electronic Health Record (EHR) Systems"
     speakers: [gabriel-de-maeztu]

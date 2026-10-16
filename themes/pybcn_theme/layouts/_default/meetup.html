@@ -68,6 +68,11 @@
 */ -}}
 {{ define "main" }}
 
+{{- /* The gallery of this page, from the partial partials/photo_gallery.html
+       renders, so the Photos heading and the gallery cannot disagree. The
+       same call layouts/_default/event.html makes. */ -}}
+{{- $gallery := partialCached "gallery_content.html" . .RelPermalink -}}
+
 <div class="container">
     <div class="row">
         <div class="col-md-9 main_column meetup_page">
@@ -131,6 +136,26 @@
                 <h2 id="talks_heading">Talks ({{ len . }})</h2>
                 {{ partial "talk_rows.html" $ }}
             </section>
+            {{- end }}
+
+            {{- /* The recordings of a whole session, which belong to the day
+                   and to no talk, after the talks and before the gallery:
+                   see partials/session_videos.html. The heading is here,
+                   as the heading of the talks is. */ -}}
+            {{- with .Params.session_videos }}
+            <section class="meetup_recordings" aria-labelledby="recordings_heading">
+                <h2 id="recordings_heading">Recordings ({{ len . }})</h2>
+                {{ partial "session_videos.html" $ }}
+            </section>
+            {{- end }}
+
+            {{- /* The photos of the day, the same gallery an edition page
+                   draws. The heading is here and not in the partial,
+                   because partials/photo_gallery.html writes its own
+                   headings for the pages that already use it; the block
+                   below only appears when the page has something to show. */ -}}
+            {{- with $gallery.photos }}
+            {{ partial "photo_gallery.html" $ }}
             {{- end }}
 
         </div>

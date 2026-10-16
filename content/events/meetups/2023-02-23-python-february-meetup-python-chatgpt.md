@@ -32,4 +32,7 @@ talks:
   description: Have you talked to the new kid in the building? I have, and a lot. Let me show you the capabilities of ChatGPT, and its limitations. Let us explore how to use it in a daily basis to enhance our Python programming experience from dummy scripts to create bots, to professional work using ChatGPT as your peer-programming colleague.
   speakers:
   - ismael-benito
+  links:
+  - type: video
+    url: https://www.youtube.com/watch?v=2xqQwC2MwYY
 ---

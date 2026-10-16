@@ -1,0 +1,87 @@
+{{- /*
+    The caption of a gallery photo with its mentions, its hashtags, and its
+    URLs as links.
+
+    Argument: the caption, as the front matter holds it. Returns HTML, which
+    the caller prints through safeHTML:
+
+        {{ partial "caption_links.html" $item.caption | safeHTML }}
+
+    A caption is the text of a post, written by somebody else. It reaches
+    this partial as data and leaves it as markup, so the order of the two
+    steps is the whole point:
+
+    1. htmlEscape first. Everything the caption holds becomes text: a <
+       becomes &lt; and cannot open a tag. AGENTS.md asks for no field that
+       reaches a template through safeHTML, and this is the one exception
+       the rule allows for, a field that is escaped before anything is
+       added to it. bin/check-html-safety and bin/check-rendered are what
+       hold the line, and both run on every pull request.
+    2. Then the three patterns below add the links, and nothing else can
+       add markup, because the only < and > left in the string are the ones
+       this partial wrote.
+
+    What becomes a link:
+
+        @pybcn      https://x.com/pybcn
+        #PyDayBCN   https://x.com/hashtag/PyDayBCN
+        https://... itself
+
+    A mention and a hashtag go to x.com, and they carry no mark. Every
+    other link to x.com on this site carries the X mark (David Arcos,
+    2026-10-14), and this is the one exception, on purpose. The mark is
+    there to say where a link goes, and the figure already says it once:
+    the credit under the photograph reads "Via @PyBCN" with the mark. A
+    mark on each mention inside the quotation repeats that, and a caption
+    holds up to several mentions, so the marks read as clutter in a
+    sentence somebody wrote. Put them back by writing the i element of
+    .icon_x into the two replacements below, after the escape, which is
+    where markup this partial wrote belongs. A URL of the post keeps no
+    mark either, because it may go anywhere.
+
+    Three rules keep a link from eating what is next to it.
+
+    A token has to start the caption, or follow a space, a "(", or a
+    quotation mark. The quotation mark is written &#34; or &#39; at this
+    point, which is why the pattern names the two entities: a caption like
+    "Keep your repo clean", by @hectorcanto_dev reaches here with every
+    quote escaped. The rule is what stops the "#" of a URL fragment and
+    the "@" of a URL with a user name from being read as a hashtag or a
+    mention, and it stops any of the three patterns from matching inside
+    the markup an earlier one wrote: a "(" or a space never follows the
+    href= of a link.
+
+    A URL may not end on a full stop, a comma, a colon, a semicolon, an
+    exclamation mark, or a closing bracket, so the punctuation of the
+    sentence stays outside the link. It may end on a "/", because that is
+    part of the path: the 2022 caption carries
+    https://pybcn.org/events/pyday_bcn/pyday_bcn_2022/ and the trailing
+    slash belongs to it. A bracketed pair inside the URL is kept whole,
+    which is how a link to a page with a bracket in its name survives
+    while (https://pybcn.org) keeps its brackets outside the link.
+
+    A URL may hold &amp;, which is what a query string of two parameters
+    looks like after step 1, and may hold nothing else that starts with an
+    "&". So a URL followed by a quotation mark ends at the quotation mark,
+    rather than swallowing the &#34; that stands for it.
+
+    The alt text of the photo is not this string. It is the caption itself,
+    printed as text, because an alt attribute carries no markup: see the
+    img of partials/photo_gallery.html.
+
+    Measured over the 231 captions of the archive: 149 links on 97
+    captions, 5 of them URLs, with no link that holds the punctuation after
+    it and none that holds a closing bracket of the sentence around it.
+
+    Three captions store "&amp;" where the post wrote "&", so they print
+    "&amp;" on the page. That is the stored text, and it printed that way
+    before this partial existed: the fix belongs in the content, not here.
+*/ -}}
+{{- $text := htmlEscape . -}}
+{{- /* The three patterns run in this order. A URL first, so that a "#" or
+       an "@" inside one is already part of a link before the two patterns
+       that read those two characters run. */ -}}
+{{- $text = replaceRE `(^|[\s(]|&#34;|&#39;)(https?://(?:&amp;|[-\w+@#/%?=~_|!:,.()\[\]])*(?:\([^\s()]*\)|[-\w+@#/%=~_|]))` `$1<a href="$2">$2</a>` $text -}}
+{{- $text = replaceRE `(^|[\s(]|&#34;|&#39;)@(\w+)` `$1<a href="https://x.com/$2">@$2</a>` $text -}}
+{{- $text = replaceRE `(^|[\s(]|&#34;|&#39;)#(\w+)` `$1<a href="https://x.com/hashtag/$2">#$2</a>` $text -}}
+{{- return $text -}}

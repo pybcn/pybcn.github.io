@@ -1,0 +1,31 @@
+{{- /*
+    The id of the figure that holds one gallery photo, from its place in the
+    gallery.
+
+    Argument: the place of the photo, counted from 1, as
+    partials/gallery_content.html counts it.
+
+    The id is the number itself, so the first photo of a day is at #1 and
+    the fourth at #4. It was the base name of the file, which gave ids like
+    photo-04-build-advanced-agentic-llm-apps: correct, unique, and too long
+    to read, to say out loud, or to type. The number is what a reader of an
+    archive page needs, because the figures are one column in page order and
+    nothing else on the page is numbered.
+
+    A number is a valid HTML id: the id attribute takes any non-empty string
+    with no space in it. It is not a valid CSS selector, so #1 cannot be
+    written in a stylesheet and document.querySelector("#1") throws. Nothing
+    selects a figure by its id today. A stylesheet needs .photo_item, which
+    every figure carries, and a script would need the escaped form,
+    querySelector("#\\31 ").
+
+    Two templates need the same string. photo_gallery.html puts it on the
+    figure of the event page, and talk_record.html builds the link that
+    the page of a person and the page of a talk point at. The same
+    expression written twice would
+    let the link and its target drift apart, and a link to an id that is
+    not on the page still builds and still renders: the browser lands at
+    the top of the event page and the reader never sees the photo. One
+    partial means one string.
+*/ -}}
+{{- return (printf "%d" (int .)) -}}

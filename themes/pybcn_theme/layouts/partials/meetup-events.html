@@ -24,6 +24,11 @@
   So the text below no longer claims the past events as well. They are on
   this site now, and a card that sent a reader to Meetup for them would
   send them away from the better page.
+
+  The link carries the Meetup mark of partials/link_mark.html, as every
+  link that leaves the site does. This anchor was written before that
+  partial existed and was one of the links with words and no mark that
+  David Arcos found on 2026-10-15.
 */}}
 {{ range .list }}
 <div class="col-md-{{ $.width }}">
@@ -39,7 +44,7 @@
                 </li>
             </ul>
             <div class="item-button">
-                <a href="https://www.meetup.com/{{ .id }}/" target="_blank" rel="noopener">Visit the {{ .name }} Meetup page</a>
+                <a href="https://www.meetup.com/{{ .id }}/" target="_blank" rel="noopener">{{ partial "link_mark.html" "https://www.meetup.com/" }}Visit the {{ .name }} Meetup page</a>
             </div>
         </div>
     </div>

@@ -31,6 +31,9 @@ talks:
     language: en
     duration_minutes: 30
     description: "QA bots, copilots, workflow automation - LLMs are evolving to control our software through natural language. The endgame is APIs. LLMs that can convert user intents directly into HTTP requests, like Talk2Apis does today, will have the flexibility to access any service. This creates a machine-first software economy with big implications for developers. Python examples included."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=9ASVfIPj_M8"
   - id: ragtime-an-approach-to-retrieval-augmented-generation
     title: "Ragtime: An Approach to Retrieval-Augmented Generation"
     speakers: [javier-martinez-alcantara]
@@ -38,4 +41,7 @@ talks:
     language: en
     duration_minutes: 30
     description: "In this session, we'll explore a pattern that has sparked significant interest in the world of natural language models (LLMs): Retrieval-Augmented Generation (RAG). We'll walk through a practical implementation, dive into its details, and share insights based on our experiences working with these methods. Whether you're a beginner or an expert, we encourage you to join-what matters most is your interest in LLMs, machine learning, and engineering, and how to leverage these technologies to bring value to your company or organization."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=h_LXliq1Wik"
 ---

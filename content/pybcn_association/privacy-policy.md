@@ -20,7 +20,7 @@ PyBCN is a volunteer association. This page says what personal data this website
 **Associació Python Barcelona** (CIF G67254045) is the data controller.
 
 - **Email**: [pybcn@googlegroups.com](mailto:pybcn@googlegroups.com)
-- **Registered address**: *pending. The association must add its registered address here before this page is published.*
+- **Registered address**: Carrer de Concepció Arenal, 165, 08027 Barcelona
 
 The Management Board handles requests about personal data. We have no data protection officer: the law does not require one for an association of our size and activity.
 
@@ -61,7 +61,14 @@ Our contact addresses, such as pybcn@googlegroups.com and pyladies-bcn@googlegro
 
 ### Embedded Google content
 
-A few pages embed a Google Form or a Google Calendar in a frame. The frame is served by Google: when the page loads, Google sees your IP address and browser details, and may set its own cookies inside the frame. Google's [privacy policy](https://policies.google.com/privacy) applies to that.
+A few pages embed a Google Form or a Google Calendar in a frame: the two talk proposal forms and the agenda of PyDay BCN 2019. The frame is served by Google: when the page loads, Google sees your IP address and browser details, and may set its own cookies inside the frame. Google's [privacy policy](https://policies.google.com/privacy) applies to that.
+
+The page of a talk that was recorded embeds the video in a frame from **youtube-nocookie.com**, the YouTube player Google serves for sites that do not want it to set cookies. Only the page of a recorded talk carries one, one frame per talk. No other page has one: the lists of talks and the event pages carry a link to the video and nothing else. What the frame does and does not do:
+
+- When you open the page of a recorded talk and scroll near the video, your browser asks Google for the player. Google then sees your IP address and browser details, and that you opened a talk page on this site, as it would for an image loaded from its servers. This happens before you press play.
+- Until you press play, Google states that this player stores nothing in your browser and sets no cookie.
+- When you press play, you are watching a YouTube video inside this page, and Google's [privacy policy](https://policies.google.com/privacy) applies as it would on youtube.com.
+- Under every player there is the plain link to the same video on youtube.com, so you can watch it there instead, and the page reads fine with the frame blocked.
 
 ### Cookies
 
@@ -73,7 +80,7 @@ The site is served by [GitHub Pages](https://pages.github.com). GitHub may log t
 
 ## Who else sees your data
 
-Nobody buys or receives your data from us. The companies named above see it because we use their services: Google (forms, calendar, mailing lists, documents), PayPal (payments), and GitHub (hosting and the source repository). All three are based in the USA. Each publishes the safeguards it applies to data from the EU, and we rely on those.
+Nobody buys or receives your data from us. The companies named above see it because we use their services: Google (forms, calendar, mailing lists, documents, and the YouTube player on the talk pages), PayPal (payments), and GitHub (hosting and the source repository). All three are based in the USA. Each publishes the safeguards it applies to data from the EU, and we rely on those.
 
 ## Your rights
 
@@ -94,4 +101,4 @@ If you think we handle your data wrongly, you can complain to the Spanish data p
 
 We may update this policy. Every change is visible in the [history of this page](https://github.com/pybcn/pybcn.github.io/commits/edition/content/pybcn_association/privacy-policy.md) on GitHub.
 
-Last updated: 2026-10-07
+Last updated: 2026-10-14

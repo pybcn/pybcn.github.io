@@ -2,7 +2,7 @@
     The mark of a link that leaves the site: one glyph per destination, in
     front of the words of the link, grey like every other icon of the site.
 
-        [YouTube mark] Watch on YouTube
+        [YouTube mark] Watch
         [GitHub mark] Code on GitHub
         [arrow mark] Read more
 
@@ -40,10 +40,13 @@
     size writes a rule on that class, as the facts box does on dt i.
 
     The glyph is aria-hidden: the words of the link name the destination
-    ("Watch on YouTube", "Code on GitHub"), or the label beside it does
-    (the Source row of the facts box, the X row of a person page). A caller
-    whose words do not say where the link goes writes them; the mark never
-    stands in for them.
+    ("Code on GitHub", "edit that file on GitHub"), or the label beside it
+    does (the Source row of the facts box, the X row of a person page), or
+    the words around it do (the title of a talk right above its "Watch"
+    link: David Arcos asked for "on YouTube" out of the video links on
+    2026-10-15, because the mark already says it). A caller whose words do
+    not say where the link goes writes them; the mark never stands in for
+    them.
 */ -}}
 {{- $host := "" -}}
 {{- with urls.Parse . }}{{ $host = strings.TrimPrefix "www." (lower .Host) }}{{ end -}}

@@ -28,12 +28,21 @@ talks:
     title: "Functional programming"
     speakers: [guillermo-blasco-jimenez]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=TLuqx4cwGPQ"
   - id: ipython-parallel
     title: "IPython parallel"
     speakers: [jordi-deu-pons]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=RQc7KL-ne3A"
   - id: python-for-porn
     title: "Python for porn"
     speakers: [gabriel-gavilan]
     type: talk
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=pTFM5-ur8e8"
 ---

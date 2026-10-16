@@ -31,4 +31,7 @@ talks:
     language: en
     duration_minutes: 45
     description: "Have you ever wondered how does the pip install? Would you like to know how to create your very own python package? This talk will go through on all the necessary steps to get started on creating python packages and uploading them to the Python Packaging Index (PyPI)."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=VE-JE4G53c8"
 ---

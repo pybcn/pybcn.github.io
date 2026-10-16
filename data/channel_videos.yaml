@@ -1,0 +1,406 @@
+# The videos of the Python Barcelona YouTube channel, and what this site does
+# with each one. One entry per video of the channel, with the id, the title
+# as the channel shows it, and the decision: placed, which means some event
+# page carries a link to it, or placed: false with the reason it belongs to
+# no page.
+#
+# This is the list the site maintains. It is not a copy of the pybcn-archive
+# export, which is one-time archaeology that is not in this repository: the
+# export says where a published fact came from, this file says what the
+# channel holds today and whether the site accounts for it.
+#
+# bin/check-content reads this file and fails on three things: a placed
+# entry that no event front matter carries, a YouTube video link in the
+# front matter that no entry lists, and an unplaced entry with no reason.
+# It never touches the network.
+#
+# How to refresh it: run bin/list-channel. It reads the two tabs of the
+# channel that hold videos (videos and streams) with yt-dlp and prints every
+# video the channel has and this list does not, and every entry of this list
+# the tabs no longer show. For a new video, write its link on the talk of
+# the event page by hand (a link of type video, or an entry of
+# session_videos for the recording of a whole session), then add the entry
+# here with placed: true. A video that belongs to no page gets placed: false
+# and a reason. bin/list-channel --yaml prints the new entries ready to
+# paste.
+#
+# unlisted: true marks a video the channel holds but no tab shows, because
+# it was uploaded unlisted and only a playlist reveals it. bin/list-channel
+# expects those to be absent from the tabs and says so, instead of reporting
+# them as removed.
+#
+# The order of the entries is by id and means nothing. Append a new entry at
+# the end if that is easier.
+#
+# First generated on 2026-10-13 from the two channel tabs read with yt-dlp
+# (84 in videos, 3 in streams) plus the two unlisted videos the export
+# found through its playlists, crossed with the video links of
+# content/events/.
+
+channel: UCEhI2CfdT5--TYq47K4en4A
+
+videos:
+  - id: "-usvyg6h3wY"
+    title: "PyBCN Meetup 2019/03 - PySpark on Kubernetes: Avoiding the pain of YARN by H. Karau"
+    placed: true
+  - id: "04ZPyA_lE8Y"
+    title: "PyBCN Meetup 2020/05 - Chatops 101 with Python and Opsdroid, by À. Fernández (@anxodio)"
+    placed: true
+  - id: "1R3WiyJhpQs"
+    title: "PyBCN Meetup 2020/02 - Intercepting & debugging all Python http(s) by T. Perry"
+    placed: true
+  - id: "1VdEN4B2OIM"
+    title: "PyBCN Meetup 2015/10 - API by example by C. Barrobés"
+    placed: true
+  - id: "1mr0Gx7qJ5E"
+    title: "PyBCN Meetup 2015/09 - Técnicas OSINT & Python by A. Sánchez"
+    placed: true
+  - id: "2VP2d_Ukj3E"
+    title: "PyBCN Meetup 2016/04 - Ingesting 35 Million Hotel Images With Python In the Cloud by A. Vinyals"
+    placed: true
+  - id: "2xqQwC2MwYY"
+    title: "PyMeetup 2023/02/23 Python & ChatGPT by Ismael Benito Altamirano"
+    placed: true
+  - id: "3V1AEXT3PrI"
+    title: "PyBCN Meetup 2016/03 - sklearn-pandas: streamline your model building process by I. Saeta"
+    placed: true
+  - id: "3mNktCVBGlc"
+    title: "PyBCN Meetup 2016/06 - Machine Learning for Dummies with Python by J. Arias"
+    placed: true
+  - id: "4-OPxy4CLAw"
+    title: "PyDayBCN 2020 Track 2 - A Day Has Only 24±1 Hours by M. Šedivý"
+    placed: true
+  - id: "4kY7IfWJ_Mg"
+    title: "PyBCN Meetup 2021/05/20 A principled approach to authorization with SQLAlchemy by Sam Scott"
+    placed: true
+  - id: "4oc0OTkks0k"
+    title: "PyDayBCN 2020 Track 1 - Transformers the all in one tool for NLP by J. Martínez"
+    placed: true
+  - id: "5lHomEoRndM"
+    title: "February 2019 Meetup"
+    placed: true
+  - id: "64gY5bXuJPY"
+    title: "PyBCN Meetup 2018/06 - Practical clean code by I. Saeta"
+    placed: true
+  - id: "68FOP7sBDes"
+    title: "Python May 2019 Meetup - Automatize reports using Google Slides API by Victor Perez"
+    placed: true
+  - id: "698441URsrc"
+    title: "PyBCN June 2018 - PySpark and Arrow - Rubén Berenguel"
+    placed: true
+  - id: "6ELCbtx3GJU"
+    title: "PyBCN Meetup 2019/03 - Houston, we have a snake: Python at Satellogic by A. Pujol & J.L. Cano"
+    placed: true
+  - id: "76jG59xQzVw"
+    title: "PyMeetup 2022/05/19 Building a Django scalable system by Samuel Parra"
+    placed: true
+  - id: "8H2PrNLEEYQ"
+    title: "PyBCN Meetup 2019/06 - Kiwi Python Tour Intro"
+    placed: true
+  - id: "8UjkfOKh6jA"
+    title: "PyDayBCN 2020 Track 2 - Alexa, te elijo a ti by E. Ortega-Carrasco"
+    placed: true
+  - id: "9ASVfIPj_M8"
+    title: "PyMeetup 2024/09 From text to actions: LLMs as the new software consumers by Pol Alvarez Vecino"
+    placed: true
+  - id: "B0YM3XkNkQs"
+    title: "PyDayBCN 2020 Track 1 - Ho sento, no ets el meu tipus by C. Barrobés"
+    placed: true
+  - id: "BOkeUX9d1Ko"
+    title: "PyBCN Meetup 2019/10 - Avoid food waste with QR codes and computer vision by I. Benito"
+    placed: true
+  - id: "BoaGrcmfVH8"
+    title: "PyDayBCN 2020 Track 1 - Documentation driven development for Python web APIs by J. Haro"
+    placed: true
+  - id: "CCxse-fiAr4"
+    title: "PyBCN Meetup 2019/04 - Building a validation scheme for a REST API using Voluptuous by A. Camara"
+    placed: true
+  - id: "Ga5Wiq0swS8"
+    title: "PyBCN Meetup 2021/10/27 Wardley mapping the Python Barcelona Association"
+    placed: true
+  - id: "GblxdxaZ5Gw"
+    title: "PyBCN Meetup 2019/02 - Pipenv: nuevo sistema de gestión de dependencias by A. Vallbona"
+    placed: true
+  - id: "GnQlVBIcunk"
+    title: "PyBCN Meetup 2020/01 - Using Pydantic for security static analysis of cloudformation by O. Blanco"
+    placed: true
+  - id: "Hnr7MH9Pd5s"
+    title: "PyDayBCN 2020 Track 1 - Lifebox a virtual ecosystem by F. Fábregas:"
+    placed: true
+  - id: "JYCcPr4QW_k"
+    title: "PyLadies Barcelona & Python Barcelona - Presentación comunidad local - PyConES 2020"
+    placed: false
+    unlisted: true
+    reason: "a presentation of the Barcelona community given at PyConES 2020, which is no event of the association"
+  - id: "JzX9WAv7PVM"
+    title: "PyBCN Meetup 2019/09 - Python for the management of IoT platforms at Worldsensing by T. Martínez"
+    placed: true
+  - id: "KOpW86J56CU"
+    title: "PyDayBCN 2020 Track 1 - Counting votes: analyzing a large dataset with Dask by A. Camara"
+    placed: true
+  - id: "LAQY4ucheQA"
+    title: "PyDayBCN 2020 Track 2 - Investigating Digital Crimes using Python by  G. Deshpande"
+    placed: true
+  - id: "LvvwLYk9aIo"
+    title: "PyDayBCN 2020 Track 2 - Alice in Pythonland: Object oriented programming in [...] by M. T. Grifa"
+    placed: true
+  - id: "LwchtmM-d-s"
+    title: "PyMeetup 2026/09/16 Why LLMs Can't Make Your Code Simpler by Pol Alvarez"
+    placed: true
+  - id: "Nb4mJEn04rY"
+    title: "PyBCN Meetup 2015/10 - Data structures beyond dicts and lists by S. Sorribas"
+    placed: true
+  - id: "QIy-XGTP4WM"
+    title: "PyBCN Meetup 2016/04 - Introduction to testing and py.test by I. Fosch"
+    placed: true
+  - id: "QJ1YKtM0Kjw"
+    title: "PyBCN Meetup 2015/09 - Hacking the BCN housing market by T. Barbu"
+    placed: true
+  - id: "QNr8p1zVd54"
+    title: "PyBCN Meetup 2021/01 - Architecture Decision Records: documenta tu arquitectura [...] by H. Canto"
+    placed: true
+  - id: "QmqrBAKSB6s"
+    title: "PyBCN Meetup 2020/02 - Migracode: Creating a Migrant-Tech Community by V. van Grondelle"
+    placed: true
+  - id: "R3R9q5mf8Uw"
+    title: "PyBCN Meetup 2016/04 - Lightning Talk Session"
+    placed: true
+  - id: "RQc7KL-ne3A"
+    title: "PyBCN Meetup 2015/12 - IPython parallel by J. Deu-Pons"
+    placed: true
+  - id: "S-8tyE62unI"
+    title: "PyBCN Meetup 2016/07 - Kinto: A minimalist JSON storage service by M. Leplatre"
+    placed: true
+  - id: "S1fZAascs04"
+    title: "PyBCN Meetup 2019/04 - Does Django scale? Introducción a la escalabilidad by David Arcos"
+    placed: true
+  - id: "S3ebYJxXBRU"
+    title: "PyDayBCN 2020 Track 2 - Antifragile Software: Code that gains from disorder by A. Duran"
+    placed: true
+  - id: "SMXlwINeKyQ"
+    title: "PyBCN Meetup 2020/01 - Jazz chord generation using Deep Learning by M. Dorobek"
+    placed: true
+  - id: "Se3FmYvn6sM"
+    title: "PyDayBCN 2020 Track 2 - Network automation using Python by C. Adell"
+    placed: true
+  - id: "TLuqx4cwGPQ"
+    title: "PyBCN Meetup 2015/12 - Functional Programming by G. Blasco"
+    placed: true
+  - id: "TkrTM2Byj34"
+    title: "PyBCN Meetup 2019/02 - Repository templates with Cookiecutter by H. Cantó"
+    placed: true
+  - id: "Tppi9Fsiwp4"
+    title: "PyBCN Meetup 2016/03 - Computational complexity in Python by J. Soucheiron"
+    placed: true
+  - id: "UhNQRmAUJj0"
+    title: "PyBCN Meetup 2020/05 - Impact of the COVID-19 pandemic in the IT labor market by D. Martos"
+    placed: true
+  - id: "UtK-npeVsH0"
+    title: "PyDayBCN 2020 Track 1 - JINA AI: An Open Source Neural Search Framework by J. Fontanals"
+    placed: true
+  - id: "VE-JE4G53c8"
+    title: "PyMeetup 2023/04/27 Python Packaging 101 by Ferran Jovell"
+    placed: true
+  - id: "YFfnKTB362c"
+    title: "PyBCN Meetup 2016/06 - GeoDjango in Agroptima: Mapping Farmer Fields by D. Castillo & J. Powell"
+    placed: true
+  - id: "a8smnNogLQU"
+    title: "PyBCN Meetup 2022/03/04 Aprendizaje a través de grafos: Graph Neural Networks by @camilo_chacon_s"
+    placed: true
+  - id: "asdtq4WgbAw"
+    title: "PyBCN Meetup 2019/06 - Pytest: recomendaciones, paquetes básicos para testing [...] by A. Vallbona"
+    placed: true
+  - id: "b8s8a71AYd8"
+    title: "PyBCN Meetup 2019/09 - Data Quality and how we are trying to break the […] by A. Dorofei"
+    placed: true
+  - id: "bqphJQnp3Hw"
+    title: "PyBCN Meetup 2018/06 - Frozen Python by O. Sánchez"
+    placed: true
+  - id: "cmi4B41oOd8"
+    title: "PyDayBCN 2020 Track 2 - Efficiently share data on a [...] by F. Faraone"
+    placed: true
+  - id: "dvN0lMgQ9Pc"
+    title: "PyBCN Meetup 2019/05 - Damegender: gender detection with NLTK and Scikit by D. Arroyo"
+    placed: true
+  - id: "g2kggih_7-A"
+    title: "PyBCN Meetup 2018/11 - Time series regression with deep neural networks by S. Totaro"
+    placed: true
+  - id: "hFdOAUVAKM0"
+    title: "PyBCN Meetup 2021/03/18 Good to the last drop: Writing robust Flask and Django apps by I. Evans"
+    placed: true
+  - id: "h_LXliq1Wik"
+    title: "PyMeetup 2024/09/26 Ragtime. An Approach to Retrieval-Augmented Generation by Javier Martinez"
+    placed: true
+  - id: "ihK7TZeHakY"
+    title: "PyBCN Meetup 2019/07 - ML Against Fraud by G. Oliveira-Barra"
+    placed: true
+  - id: "j0z7GJW0EMA"
+    title: "PyBCN Meetup 2018/11 Python in metal additive manufacturing Industrial Robotics by H. Canales"
+    placed: true
+  - id: "j7pTZtDUeRc"
+    title: "PyBCN Meetup 2022/04/21 Shorter feedback loop by running impacted tests only by Mathieu Kniewallner"
+    placed: true
+  - id: "jUoJGYCWSC0"
+    title: "PyMeetup 2022/06/15 Creating Python Data Pipelines with Yaetos by Arthur Prevot"
+    placed: true
+  - id: "kwa58dEhPNY"
+    title: "PyDayBCN 2020 Track 2 - Retrying, a better way by C. Adell"
+    placed: true
+  - id: "nWVJ7HfFC5E"
+    title: "PyDayBCN 2020 Track 2 - Building My First Python IoT Device with Containers in 20 minutes by M. Pous"
+    placed: true
+  - id: "oLB0eo7tpj0"
+    title: "PyDayBCN 2020 -  Welcome Session"
+    placed: true
+    unlisted: true
+  - id: "ousMvSsY0Eo"
+    title: "PyBCN Meetup 2015/10 - ofxPython: embedding Python into C++ by C. Julià"
+    placed: true
+  - id: "pOg3IbFEnlw"
+    title: "PyBCN Meetup 2022/03/24 Telegram bots - From idea to production by Ferran Jovell"
+    placed: true
+  - id: "pPMTC2XG4Gc"
+    title: "PyBCN Meetup 2015/10 - Web crawling with Notebook and Selenium by S. Puglisi"
+    placed: true
+  - id: "pQzlYyOKSTk"
+    title: "PyBCN Meetup 2019/06 - Don't talk, scheme! by T. Marković"
+    placed: true
+  - id: "pTFM5-ur8e8"
+    title: "PyBCN Meetup 2015/12 - Python for Porn by G. Gavilan"
+    placed: true
+  - id: "prWA_rqKtVo"
+    title: "PyBCN July 2018 - Building NLP Models with Python by Gabriel de Maeztu"
+    placed: true
+  - id: "qqse-zvnNn0"
+    title: "PyBCN Meetup 2019/05 - Mocking and Patching Pitfalls by E. Jung"
+    placed: true
+  - id: "rF3pLmxr3v8"
+    title: "PyMeetup 2022/05/19 Introduction to PyScript by David Arcos"
+    placed: true
+  - id: "r_upsuTDED4"
+    title: "Python Meetup 2026/09/16 What: Nothing has beaten our 14b classifier by Marta Rodriguez"
+    placed: true
+  - id: "t2Z2yscYaQA"
+    title: "PyBCN Meetup 2019/03 - Codificando átomos con Python by J. Sánchez"
+    placed: true
+  - id: "u-KDwDqMbCI"
+    title: "PyBCN Meetup 2020/01 - Inversión de control e inyección de dependencias - M. Gomez & D. Albarral"
+    placed: true
+  - id: "uUwmknHAIhU"
+    title: "PyDayBCN 2020 Track 1 - Kornia: differentiable Computer Vision with PyTorch by E. Riba"
+    placed: true
+  - id: "uzjlrbqq26M"
+    title: "PyDayBCN 2020 Track 1 - Working with Text Data in Pandas by D. Mesejo"
+    placed: true
+  - id: "v5AEK2ZEDyU"
+    title: "PyBCN Online: Taula Rodona sobre Python"
+    placed: true
+  - id: "v75bTfShH-M"
+    title: "PyDayBCN 2020 Track 1 - Performing Sentiment Analysis on Video with Serverless by E. Cespedes"
+    placed: true
+  - id: "vJMFYR1hF5E"
+    title: "PyBCN Meetup 2019/02 - Recursive generators by Joan Vilaltella"
+    placed: true
+  - id: "w9cYczex79M"
+    title: "PyDayBCN 2020 Track 1 - Ready, Set, Go with Numba by A. Mahato"
+    placed: true
+  - id: "xOT4pg5jqVU"
+    title: "PyBCN Meetup 2019/07 - Python on uControllers by J. Biondi"
+    placed: true
+  - id: "xlRek0SkGZ8"
+    title: "PyBCN Meetup 2016/06 - Efficient Django by David Arcos"
+    placed: true
+
+# Videos the event pages link that another channel hosts, so bin/list-channel
+# never expects them in the tabs above. Today these are the recordings of
+# PyData Barcelona 2017, on the PyData channel, which pyvideo kept and the
+# archive import carried over. An entry takes the id, the title as that
+# channel shows it, and the channel.
+elsewhere:
+  - id: "-nTLS7BtcGA"
+    title: "Diego Hueltes - Data science for lazy people... genetics will work for you!"
+    channel: "PyData"
+  - id: "0XYRr6MLrVA"
+    title: "Jordi Deu-Pons - Running jupyter notebook remotely in a docker swarm cluster"
+    channel: "PyData"
+  - id: "0ni90h8EErQ"
+    title: "Miguel Zavala-Ake - Python for visualization of HPC applications"
+    channel: "PyData"
+  - id: "2Ot3gyGLVA0"
+    title: "Guillem Duran Ballester - Happiness inside a job: a social network analysis"
+    channel: "PyData"
+  - id: "4YqMpYqjqps"
+    title: "Jordi Torrents - Analyzing code contributions to the CPython project using NetworkX and Matplotlib"
+    channel: "PyData"
+  - id: "8h3uyQfiMNc"
+    title: "Gema Parreño - NASA Space APPS Challenge: Asteroid prediction impact"
+    channel: "PyData"
+  - id: "8kL71zk4KNk"
+    title: "Maciej Siwek - Despicable machines: how computers can be assholes"
+    channel: "PyData"
+  - id: "9g-DaHZZKDE"
+    title: "Claudia Millán - Using network community clustering algorithms [...]"
+    channel: "PyData"
+  - id: "G2GuL-xPhJA"
+    title: "Yang Liu - Increasing the trading prediction by mining aggregated human texting messages"
+    channel: "PyData"
+  - id: "IkIfxkI5qpY"
+    title: "Ramon Navarro Bosch - Guillotina - An Async REST Resource DB to manage millions of objects"
+    channel: "PyData"
+  - id: "IlofEE7Sswc"
+    title: "Claudia Guirao - Machine Learning to know if you R coming"
+    channel: "PyData"
+  - id: "IpZeg2siLVU"
+    title: "Óscar Gallardo Román - LympHOS2, Organizing and Sharing Biological Data"
+    channel: "PyData"
+  - id: "LAy8vD4PQLg"
+    title: "Camilo Cardona - Prototyping Interactive Dashboards with Jupyter Notebooks"
+    channel: "PyData"
+  - id: "NBliyFXnWeo"
+    title: "Travis Oliphant - Chief Data Scientist and co-founder of Continuum Analytics"
+    channel: "PyData"
+  - id: "PF0HCAmzz7U"
+    title: "Pascal van Kooten - DeepCare Chatbot - Generating answers to customers using Deep Learning and NLP"
+    channel: "PyData"
+  - id: "TI05I_8uS3U"
+    title: "Holden Karau - The Magic Behind PySpark, how it impacts perf & the \"future\""
+    channel: "PyData"
+  - id: "U_Aq2cPxwss"
+    title: "Margriet Groenendijk - A Beginners Guide to Weather & Climate Data"
+    channel: "PyData"
+  - id: "WKgNNC0VLhM"
+    title: "Yufeng Guo - TensorFlow Wide & Deep: Advanced Classification the easy way"
+    channel: "PyData"
+  - id: "XM_r5La-1tA"
+    title: "Jaime Fernandez del Rio - The Secret Life Of Rolling Pandas"
+    channel: "PyData"
+  - id: "aEFR7_EzMJs"
+    title: "Massimo Domenico Sammito - How to map a protein structure into a network graph [...]"
+    channel: "PyData"
+  - id: "aTwvQZjEZhk"
+    title: "Carles Illa - Web Scraping with Python"
+    channel: "PyData"
+  - id: "aicyYd8MZWo"
+    title: "David Arcos - Security for Data Scientists"
+    channel: "PyData"
+  - id: "eSaLdLrXzO4"
+    title: "Guillem Borrell Nogueras - Blockchain and smart contracts explained (and simplified)"
+    channel: "PyData"
+  - id: "jzuQJg3bFy8"
+    title: "Joaquin Pais - Marketing Data Science"
+    channel: "PyData"
+  - id: "o9PC4JC74tU"
+    title: "Francesc Alted - Squeeze (gently) your data"
+    channel: "PyData"
+  - id: "pdrX1qdjvxE"
+    title: "Nicholas A. Del Grosso, Javier Martinez Alcantara - The Neuroscience Lab"
+    channel: "PyData"
+  - id: "qdEhJ0uT7wk"
+    title: "Constant Bridon - Feature Importance and Ensemble Methods : a new perspective"
+    channel: "PyData"
+  - id: "rPDZg2--5uM"
+    title: "Guillem Borrell Nogueras - How to manage complexity in distributed applications"
+    channel: "PyData"
+  - id: "uLC0t5JZBZs"
+    title: "Egor Bulychev - Extending Jupyter with Google Cloud Storage file system backend"
+    channel: "PyData"

@@ -4,10 +4,9 @@
 # of the event page through roles.yaml. For a roles row it is the label of
 # the row, which is a level name of an organizers page through roles.yaml,
 # and a level name that is not a role ("Permanent Committee",
-# "Collaborators", "Management Board (2026)") is not here and takes the
-# "*" entry. Right side: one emoji. A role that is not here takes the "*"
+# "Management Board (2026)") is not here and takes the "*" entry. Right side: one emoji. A role that is not here takes the "*"
 # entry, so a new role shows up with a neutral glyph rather than with
-# none, and the row does not change shape when it is added. The four
+# none, and the row does not change shape when it is added. The three
 # level names above are the live test of that fallback.
 #
 # Every emoji here has emoji presentation by default (Emoji_Presentation
@@ -46,6 +45,5 @@ Events: 📅
 # needs a row of its own, and until it has one its glyph is the neutral
 # one, not a wrong one.
 Permanent Committee: 🧭
-Collaborators: 🤝
 Management Board (2026): 📋
-Management Board (2018 - 2025): 📋
+Former Management Board (2018 - 2025): 📋

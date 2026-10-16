@@ -31,4 +31,7 @@ talks:
     type: talk
     language: en
     description: "Dani Martos, Recruitment Manager at Travelperk and member of PyBCN, will share with us some insights about the present and future changes in the labour due the Covid-19 pandemic."
+    links:
+      - type: video
+        url: "https://www.youtube.com/watch?v=UhNQRmAUJj0"
 ---
