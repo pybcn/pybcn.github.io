@@ -1,0 +1,155 @@
+{{- /*
+    What the three listings of the archive hold, counted once per build.
+
+    Returns a dict:
+
+        events        a map from event type (a key of data/event_emoji.yaml)
+                      to the number of rows of /events/ that carry it
+        events_total  the number of rows of /events/
+        talks         a map from talk type (a key of event_types.html) to
+                      the number of rows of /talks/ that carry it
+        talks_total   the number of rows of /talks/
+        people_total  the number of rows of /people/
+        event_rows    a map from the RelPermalink of a row of /events/ to
+                      what that day holds: talks, photos, videos
+        talk_rows     a map from the RelPermalink of a row of /talks/ to
+                      what that talk has: photos, videos, links
+
+    The three maps feed partials/count_card.html, the card a row of each
+    listing prints its counts in, so the card and the legend of a page
+    come from the same walk, and the rule of what a count counts is here
+    and in no layout.
+
+    What a count counts. The talks of a day are its talks block, and its
+    photos are what the gallery of its page renders, read from
+    partials/gallery_content.html with the key the page itself uses, so a
+    count on the row of /events/ is the count a reader finds on the page:
+    a photo the gallery skips is not counted (bin/check-content reports
+    it). The videos of a day are every video link its page prints: the
+    links of type video of its talks, the link of type video of a slot of
+    its agenda that holds no talk (the Welcome Session of PyDay BCN 2020
+    is the one case), and the entries of its session_videos block, the
+    recording of a whole session. They were read from the gallery until
+    2026-10-14, and the slot video was never counted then, because the
+    gallery read only the talks; the gallery of an edition lists the
+    videos again since 2026-10-15 (see the header of
+    partials/gallery_content.html), and this count keeps reading the
+    front matter, so the two agree by reading the same records. The photos of a talk
+    are the photos of that gallery that name the talk, the videos of a
+    talk are its links of type video, and the links of a talk are every
+    other link of its record, whatever the type. The card counted a link
+    only when its type was slides, and the record of a talk carries six
+    types: measured over every talk and agenda row of the content on
+    2026-10-15, github 26, site 52, slides 18, notebooks 1, link 1, and
+    video 114, so four of the six were invisible to the card, and the
+    page of introduction-to-analog-quantum-computing (PyDay BCN 2025)
+    showed two links while its row said one. One count under one mark,
+    because a mark per type would put five marks on a row to say very
+    little: 74 talks have exactly one link that is not the video, 8 have
+    two, 1 has three, and 1 has five. A slot
+    video and a session video belong to the day and to no talk, so each
+    counts once, on the row of the day, and on no row of /talks/. The map
+    person_talks, the talks of each person counted from the speaker
+    credits, left with the card of the row of /people/ (2026-10-15): the
+    row says the number of events in a sentence, and the page of the
+    person lists the talks themselves, one row each.
+
+    No argument is read: the data comes from site.RegularPages and, for
+    the people, from site.Pages. Call it through partialCached with a
+    constant variant, so the site is walked once per build and not once
+    per legend and once per heading:
+
+        partialCached "listing_counts.html" site "listing-counts"
+
+    The rule of what is a row is the rule of the page that draws it, and
+    nothing else, so that a legend or a heading counts what the page
+    renders. A row of /events/ is a regular page of the events section
+    that carries a year, which is the test of
+    layouts/_default/events_index.html, and its type comes from
+    partials/event_type.html, the partial the row reads its marker from.
+    A row of /talks/ is a talk page with a year to group it under, the
+    year of its event or else the date of the page, which is the test of
+    layouts/talks/list.html, and its type is what partials/talk_record.html
+    resolves for it; that partial is resolved on each call (its header
+    says why it is not cached). A talk with no type has a row and no
+    marker, so it counts in the total and in no type. A row of /people/ is
+    a page of the people section with an id and a name, which is the test
+    of layouts/people/list.html, read from site.Pages the way that layout
+    reads them. They are regular pages as well since the person pages
+    came back (config.toml has the history); the read did not change.
+
+    Drafts are not skipped, because neither page skips them: a build with
+    -D draws them, and the count has to be the count of that build.
+*/ -}}
+{{- $events := dict -}}
+{{- $events_total := 0 -}}
+{{- $talks := dict -}}
+{{- $talks_total := 0 -}}
+{{- $event_rows := dict -}}
+{{- $talk_rows := dict -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if eq $pg.Section "events" -}}
+        {{- if not $pg.Params.year }}{{ continue }}{{ end -}}
+        {{- $events_total = add $events_total 1 -}}
+        {{- $type := partial "event_type.html" $pg -}}
+        {{- $events = merge $events (dict $type (add 1 (int (default 0 (index $events $type))))) -}}
+        {{- $day_talks := 0 -}}
+        {{- with $pg.Params.talks }}{{ $day_talks = len . }}{{ end -}}
+        {{- /* The video links of the day, as the page prints them: on each
+               talk, on a slot of the agenda with no talk (a slot with a
+               talk prints the links of the talk, which are counted once
+               above), and in the session_videos block. The type is read
+               through with, as partials/gallery_content.html read it: a
+               link that declares none is a record no template places. */ -}}
+        {{- $day_videos := 0 -}}
+        {{- range $pg.Params.talks -}}
+            {{- range .links }}{{ with .type }}{{ if eq . "video" }}{{ $day_videos = add $day_videos 1 }}{{ end }}{{ end }}{{ end -}}
+        {{- end -}}
+        {{- range $pg.Params.agenda -}}
+            {{- if .talk }}{{ continue }}{{ end -}}
+            {{- range .links }}{{ with .type }}{{ if eq . "video" }}{{ $day_videos = add $day_videos 1 }}{{ end }}{{ end }}{{ end -}}
+        {{- end -}}
+        {{- range $pg.Params.session_videos -}}
+            {{- with .url }}{{ $day_videos = add $day_videos 1 }}{{ end -}}
+        {{- end -}}
+        {{- $event_rows = merge $event_rows (dict $pg.RelPermalink (dict
+                "talks" $day_talks
+                "photos" 0
+                "videos" $day_videos)) -}}
+    {{- else if eq $pg.Section "talks" -}}
+        {{- $record := partial "talk_record.html" $pg -}}
+        {{- $year := 0 -}}
+        {{- with $record.event }}{{ with .Params.year }}{{ $year = int . }}{{ end }}{{ end -}}
+        {{- if and (not $year) (not $pg.Date.IsZero) }}{{ $year = $pg.Date.Year }}{{ end -}}
+        {{- if not $year }}{{ continue }}{{ end -}}
+        {{- $talks_total = add $talks_total 1 -}}
+        {{- with $record.entry.type -}}
+            {{- $type := lower (trim (printf "%v" .) " ") -}}
+            {{- $talks = merge $talks (dict $type (add 1 (int (default 0 (index $talks $type))))) -}}
+        {{- end -}}
+        {{- $photos := 0 -}}
+        {{- $videos := 0 -}}
+        {{- $links := 0 -}}
+        {{- with $record.talk -}}
+            {{- range .links -}}
+                {{- if not .url }}{{ continue }}{{ end -}}
+                {{- if eq (default "" .type) "video" }}{{ $videos = add $videos 1 }}{{ else }}{{ $links = add $links 1 }}{{ end -}}
+            {{- end -}}
+        {{- end -}}
+        {{- $talk_rows = merge $talk_rows (dict $pg.RelPermalink (dict "photos" $photos "videos" $videos "links" $links)) -}}
+    {{- end -}}
+{{- end -}}
+{{- $people_total := 0 -}}
+{{- range where site.Pages "Section" "people" -}}
+    {{- if not .Params.id }}{{ continue }}{{ end -}}
+    {{- if not .Params.name }}{{ continue }}{{ end -}}
+    {{- $people_total = add $people_total 1 -}}
+{{- end -}}
+{{- return dict
+    "events" $events
+    "events_total" $events_total
+    "talks" $talks
+    "talks_total" $talks_total
+    "people_total" $people_total
+    "event_rows" $event_rows
+    "talk_rows" $talk_rows -}}

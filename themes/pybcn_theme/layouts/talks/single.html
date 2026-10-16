@@ -73,7 +73,7 @@
                 {{- with .speakers -}}
                     {{- $names := partialCached "people_names.html" site "people-names" -}}
                     {{- range . -}}
-                        {{- $credit_links = $credit_links | append (default (. | replaceRE "[-_]+" " " | title) (index $names .)) -}}
+                        {{- $credit_links = $credit_links | append (partial "person_page_link.html" (dict "id" . "names" $names)) -}}
                     {{- end -}}
                     {{- if gt (len .) 1 }}{{ $credit_label = "Speakers" }}{{ end -}}
                 {{- end -}}

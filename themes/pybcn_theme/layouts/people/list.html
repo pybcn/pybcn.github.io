@@ -1,0 +1,354 @@
+{{- /*
+    The /people/ page: every person record the site holds, grouped by the
+    first letter of its id, A first.
+
+        M
+          [photo]  Marc Pous  [in] [gh]
+                   Speaker at 3 events:  🐍 PyDay BCN 2022  🐍 PyDay BCN 2021  🐍 PyDay BCN 2020
+
+    A list and not the card grid of /organizers/. The grid is built for one
+    screen of a dozen faces: it gives each person a square photo, a role and
+    a modal, and it pays for that with about 230 px of height per person.
+    This section holds 378 records, which is 32 screens of grid and no way
+    to find a name in them. A row is one person on two or three lines, so
+    the whole association fits in a page a reader can scan and a browser can
+    search with Ctrl+F.
+
+    Why a letter and not a count. The question this page answers is "is this
+    person in the archive, and what did they do here", which starts from a
+    name, so the order has to start from a name as well. Ordering by the
+    number of appearances would answer a question nobody asked and would
+    publish a ranking of volunteers that the association never made: the
+    first row would read as the most important person in it. The year of the
+    first appearance is no better, because a record carries no joining date,
+    only the events it is credited at.
+
+    The group key is the first letter of the id and not of the name, so the
+    two names of the section that begin with an accent file under the letter
+    a reader looks for: Àngel Fernández Ibáñez and Álvaro Durán Barata are
+    both under A, because their ids are angel-fernandez-ibanez and
+    alvaro-duran-barata. bin/check-content requires the id to match the file
+    name, and the file names are ASCII, so the fold is already done and this
+    template needs no transliteration of its own. The id orders the rows
+    inside a letter for the same reason.
+
+    The order is by the name as the site writes it, which is the given name
+    first: Marc Pous files under M. A person record carries one name field
+    and no family name, so there is nothing to sort by surname with, and
+    inventing a split ("the last word") breaks on a compound surname, which
+    most of this section has.
+
+    The letter is an h2 with the letter as its id, so /people/#M links to a
+    letter from anywhere, the way /events/#2019 and /talks/#2019 link to a
+    year. Each row carries its own id as well, the person id, so
+    /people/#marc-pous is a stable address for one row. The person has a
+    page of their own as well, /people/marc-pous/, and the name of the row
+    is the link to it (see layouts/people/single.html).
+
+    The outline is h1, h2, h3 with no level skipped: the hero prints the h1,
+    a letter is an h2, and a name is an h3 (bin/check-rendered fails a page
+    that skips a level).
+
+    What a row says. The photo at 48 px, then two lines beside it, which is
+    what David Arcos asked for: "2 lineas por persona". Two lines because
+    the avatar is 48 px tall and one line of text is not; a person is not
+    an event, so the row is not the six-column table of /events/ and
+    /talks/.
+
+    The first line: the name, which is the link to the page of the person,
+    then the social links of the record as brand marks
+    (partials/person_social_icons.html).
+
+    The second line: a sentence, then the pages that credit the person.
+    The sentence is the roles and the headings every page lists them
+    under, from partials/appearances_index.html, the same set the Roles
+    and Events lists of the page of the person print, then "at", in
+    italics, then the number of events, in bold, and a colon:
+
+        Speaker at 1 event:
+        Mentor, Organizer, Permanent Committee, Speaker at 14 events:
+
+    The row carried a card instead, "10 talks" and "14 events (2013 -
+    2025)", with the years of the first and the last event. David Arcos
+    asked for the years gone ("a tombstone") and the count in a sentence
+    (2026-10-15); the count of talks went with the card, the events are
+    the count he wants. The event count is the appearances of the person
+    on pages with a year, deduplicated by page as below, which is the
+    count the Events table of the page of the person has rows for. A
+    person with roles and no event (a board member who never spoke)
+    prints the roles and the colon and no count: "Permanent Committee at
+    0 events" would say the person did nothing.
+
+    Then the pages that credit the person, each with a marker: an event
+    carries the emoji of its type from data/event_emoji.yaml, the glyph
+    the row of /events/ carries for the same page, and a page with no
+    year (a board page) carries the glyph of the role from
+    data/role_emoji.yaml, the glyph the Roles list of the person page
+    uses. The marker is an image with the name of the type as its
+    accessible name and its hover, as on /events/, so a screen reader
+    hears "PyDay BCN edition" before the link and a mouse gets the same
+    words. A person with many events wraps onto more lines, which the
+    request accepts ("si son muchos events, aceptamos que ocupe mas de una
+    linea").
+
+    A piece with no data behind it is left out rather than printed as
+    unknown, which is the rule layouts/_default/events_index.html and
+    layouts/talks/list.html already follow for a row of theirs: a person
+    with neither a role nor an event gets no second line, unless the
+    record holds a pybcn_position, which is then the line.
+
+    The links are the pages and the person. A row links to every page that
+    credits the person, the roles first and then the events newest first,
+    because those pages are where the content is: the programme of the day,
+    the photos of it, and the grid that lists them. The name links to the
+    page of the person, /people/<id>/, which holds the bio, the talks, the
+    photos, and the three lists in one place. The row used to link nowhere
+    itself, because a person file built no page (config.toml has the
+    history); the rest of the row is unchanged, and restructuring it is a
+    block of its own.
+
+    What an identity record looks like here. 240 of the 378 records carry
+    an id and a name and nothing else: they exist so that a talk of a
+    programme can credit its speaker by id. A row of one of those is a
+    name, the role the archive credits it with, and the day it was
+    credited, which is everything the site knows. It gets no photo, because
+    it has none: the anonymous silhouette of the grid, anon_member.png,
+    fills a square slot that this page does not have, and 250 silhouettes
+    down a column would say that the association has 250 faceless members. A
+    record with no photo gets the placeholder of
+    partials/person_placeholder.html instead, the initials of the name on
+    a colour derived from the name, which is the one place that
+    placeholder lives: the row used to print the emoji of the first role
+    there, which put the same microphone on some 230 rows. A record that
+    no page credits at all, which is 6 of them, has a row of its name, its
+    pybcn_position when the file holds one, and its links.
+    bin/check-content reports both cases.
+
+    The avatar zooms. A photo of 48 px is a square too small to recognise
+    a face in, so the avatar shows the whole photograph at 240 px under
+    the pointer, the 400 px square the page of the person builds for its
+    portrait (no new file: the same operation gives the same resource).
+    The zoom opens below the avatar and not over the first line beside it,
+    so the name stays readable while it shows. A hover is nothing to a
+    touch screen or a keyboard, so the zoom also opens while the name link
+    has keyboard focus, which is how a keyboard reader reaches a row, and
+    the avatar is itself a link to the page of the person, which a touch
+    reaches with a tap and which carries the same portrait at 160 px. The
+    zoom is therefore never the only way to see the photograph. That
+    avatar link repeats the name link beside it, so it is hidden from a
+    screen reader and out of the tab order (aria-hidden, tabindex -1): two
+    links to one page in a row would be read as two, and the name is the
+    one with words. See people_index.scss.
+
+    Drafts are skipped by Hugo, not here: site.Pages drops them in a normal
+    build. A server run with -D adds content/people/canary.md, the fixture
+    bin/check-rendered reads, and its row proves on every such build that
+    this template prints a name as text and not as markup.
+*/ -}}
+{{ define "main" }}
+<div class="container">
+
+    {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
+
+    {{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
+
+    {{- $groups := dict -}}
+    {{- range $person := where site.Pages "Section" "people" -}}
+        {{- /* The section page itself has no id, and neither has a record
+               with no name: partials/people_names.html leaves the same two
+               out for the same reason. */ -}}
+        {{- $id := $person.Params.id -}}
+        {{- if not $id }}{{ continue }}{{ end -}}
+        {{- if not $person.Params.name }}{{ continue }}{{ end -}}
+
+        {{- /* The appearances of this person, split the way
+               partials/person_appearances.html splits them: a page with a
+               year is an event, a page with none is a role. Both are
+               deduplicated by URL, because one page can credit one person
+               under two headings (an organizer who also spoke), and the
+               row names each page once. */ -}}
+        {{- $labels := slice -}}
+        {{- $roles := slice -}}
+        {{- $events := slice -}}
+        {{- $seen := dict -}}
+        {{- range index $index $id -}}
+            {{- if not (in $labels .label) }}{{ $labels = $labels | append .label }}{{ end -}}
+            {{- if index $seen .url }}{{ continue }}{{ end -}}
+            {{- $seen = merge $seen (dict .url true) -}}
+            {{- if .year -}}
+                {{- /* 9999 minus the year, so an ascending sort reads
+                       newest first, as in events_index.html. The marker is
+                       the emoji of the type of the event, with its label
+                       as the name, the pair the row of /events/ prints. */ -}}
+                {{- $marker := default (index site.Data.event_emoji "*") (index site.Data.event_emoji .type) -}}
+                {{- $events = $events | append (dict "title" .title "url" .url "year" .year "emoji" $marker.emoji "mark_label" $marker.label "key" (printf "%04d %s %s" (sub 9999 .year) .title .url)) -}}
+            {{- else -}}
+                {{- /* ord is the place of the heading in the page, which is
+                       the order the organizers page lists its levels in,
+                       current board first. The marker is the glyph of the
+                       label (a level of the association, or a role) from
+                       data/role_emoji.yaml, named by the label, as the
+                       Roles list of the person page draws it. */ -}}
+                {{- $glyph := default (index site.Data.role_emoji "*") (index site.Data.role_emoji .label) -}}
+                {{- $roles = $roles | append (dict "title" .title "url" .url "emoji" $glyph "mark_label" .label "key" (printf "%s %04d" .url .ord)) -}}
+            {{- end -}}
+        {{- end -}}
+
+        {{- /* The roles, in the order of the association, through
+               partials/role_order.html: the board, the committee, then
+               Organizer, Collaborator, Speaker, Mentor, Volunteer, and any
+               other label after them. A label is a heading of the page that
+               lists the person, through data/roles.yaml, so the set mixes a
+               role ("Speaker") with a level of the association ("Permanent
+               Committee"). The labels of one person come from several pages
+               and there is no one page order to follow, and two builds have
+               to give one order; the line was alphabetical until David Arcos
+               asked for the order of importance (2026-10-15).
+
+               A record no page credits has no label, and falls back to the
+               pybcn_position of its own file, when it holds one: for a
+               record in that state nothing else says what the person did
+               here. */ -}}
+        {{- $role_text := "" -}}
+        {{- if $labels -}}
+            {{- $role_text = delimit (partial "role_order.html" $labels) ", " -}}
+        {{- else -}}
+            {{- with $person.Params.pybcn_position }}{{ $role_text = . }}{{ end -}}
+        {{- end -}}
+
+        {{- /* 48 px shown, with a 96 px file for a 2x screen, cropped
+               square by the pipeline as every other person photo is. The
+               400 px file of the card is not the thumbnail: a reader of
+               this page loads one photo per row, and 128 of them at 400
+               px would be some megabytes to paint a column of 48 px
+               squares. It is the zoom, which is fetched on hover or focus
+               and not on load. */ -}}
+        {{- $thumb := "" -}}
+        {{- $srcset := "" -}}
+        {{- $zoom := "" -}}
+        {{- with $person.Params.photo -}}
+            {{- with resources.Get (printf "images/people/%s" .) -}}
+                {{- $anchor := default "Smart" $person.Params.photo_anchor -}}
+                {{- $thumb = partial "image_square.html" (dict "img" . "size" 48 "anchor" $anchor) -}}
+                {{- $retina := partial "image_square.html" (dict "img" . "size" 96 "anchor" $anchor) -}}
+                {{- if gt $retina.Width $thumb.Width -}}
+                    {{- $srcset = printf "%s 1x, %s 2x" $thumb.RelPermalink $retina.RelPermalink -}}
+                {{- end -}}
+                {{- /* The zoom: the 400 px square of the person page and
+                       of the card, the same operation on the same source,
+                       so Hugo reuses the file it already wrote. Every
+                       source is square (bin/check-content rejects one that
+                       is not), so this square is the whole photograph. */ -}}
+                {{- $zoom = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
+            {{- end -}}
+        {{- end -}}
+
+        {{- /* The pages of the row: the roles first, in the order their
+               page lists its levels, and then the events, newest first.
+               That is the order partials/person_appearances.html gives the
+               two lists of the modal, so the row and the modal read the
+               same way. Each half is sorted only when it has a row. */ -}}
+        {{- $pages := slice -}}
+        {{- with $roles }}{{ $pages = $pages | append (sort . "key") }}{{ end -}}
+        {{- with $events }}{{ $pages = $pages | append (sort . "key") }}{{ end -}}
+
+        {{- $row := dict
+                "id" $id
+                "name" $person.Params.name
+                "url" $person.RelPermalink
+                "thumb" $thumb
+                "srcset" $srcset
+                "zoom" $zoom
+                "page" $person
+                "roles" $role_text
+                "events" (len $events)
+                "pages" $pages
+                "key" $id -}}
+        {{- $letter := upper (substr $id 0 1) -}}
+        {{- $groups = merge $groups (dict $letter (append $row (default slice (index $groups $letter)))) -}}
+    {{- end -}}
+
+    {{- $letters := slice -}}
+    {{- range $letter, $rows := $groups -}}
+        {{- $letters = $letters | append (dict "letter" $letter "rows" (sort $rows "key")) -}}
+    {{- end -}}
+    {{- $letters = sort $letters "letter" -}}
+
+    {{- /* The letters, as links to the groups below, through the bar
+           partials/jump_bar.html draws for this page and for /events/.
+           Only the letters that have a row are here: a dead A to Z bar
+           would send a reader to a heading that is not on the page. */}}
+    {{- $jump := slice -}}
+    {{- range $letters }}{{ $jump = $jump | append (dict "anchor" .letter "text" .letter) }}{{ end }}
+    {{ partial "jump_bar.html" (dict "label" "Jump to a letter" "items" $jump "class" "jump_bar_centered") }}
+
+    {{ range $letters }}
+    <section class="people_letter_group" aria-labelledby="{{ .letter }}">
+        <h2 class="people_letter" id="{{ .letter }}">{{ .letter }}</h2>
+        <ul class="people_rows">
+            {{- range $row := .rows }}
+            <li class="person_row" id="{{ $row.id }}">
+                {{- /* The avatar: the photo, or the placeholder when there
+                       is none. One column either way, so the names line up
+                       down the page. */ -}}
+                <span class="person_mark">
+                    {{- with $row.thumb }}
+                    {{- /* The link repeats the name link beside it, so it is
+                           out of the tab order and hidden from a screen
+                           reader (the header says why); it is there for a
+                           pointer and a finger. The photo is decorative:
+                           the name is the heading right beside it, so an
+                           alt that repeats it makes a screen reader say the
+                           name twice. axe reports that as
+                           image-redundant-alt on all 128 photos of this
+                           page. The zoom is lazy and hidden until the
+                           avatar is hovered or the name is focused, so a
+                           browser fetches it then and not 128 times on
+                           load. */ -}}
+                    <a class="person_avatar" href="{{ $row.url }}" tabindex="-1" aria-hidden="true">
+                        <img class="person_thumb" src="{{ .RelPermalink }}"{{ with $row.srcset }} srcset="{{ . }}"{{ end }} width="48" height="48" loading="lazy" decoding="async" alt="" />
+                    </a>
+                    {{- else }}
+                    {{ partial "person_placeholder.html" (dict "name" $row.name) }}
+                    {{- end }}
+                </span>
+                <div class="person_lines">
+                    {{- /* Line one: the name and the social links. The name
+                           at the size of the text around it: an h3 at its
+                           default size would compete with the letter above
+                           it, and a row is a line of a list and not a
+                           section of the page. The level is the outline and
+                           the size is the style, as in events_index.html. */}}
+                    <div class="person_line">
+                        <h3 class="person_name"><a href="{{ $row.url }}">{{ $row.name }}</a></h3>
+                        {{- partial "person_social_icons.html" $row.page }}
+                    </div>
+                    {{- /* Line two: the sentence and the pages, printed only
+                           when there is one of the two to put on it. The
+                           colon closes the sentence when pages follow it,
+                           and a sentence with no pages after it (a
+                           pybcn_position of a record no page credits) ends
+                           with no colon. */ -}}
+                    {{- if or $row.roles $row.pages }}
+                    <div class="person_line row_facts">
+                        {{- with $row.roles }}
+                        <p class="person_meta">{{ . }}{{ if $row.events }} <em>at</em> <strong>{{ $row.events }}</strong> {{ if eq $row.events 1 }}event{{ else }}events{{ end }}{{ end }}{{ if $row.pages }}:{{ end }}</p>
+                        {{- end }}
+                        {{- with $row.pages }}
+                        <ul class="person_pages">
+                            {{- range . }}
+                            <li><span class="event_emoji" role="img" aria-label="{{ .mark_label }}" title="{{ .mark_label }}">{{ .emoji }}</span><a href="{{ .url }}">{{ .title }}</a></li>
+                            {{- end }}
+                        </ul>
+                        {{- end }}
+                    </div>
+                    {{- end }}
+                </div>
+            </li>
+            {{- end }}
+        </ul>
+    </section>
+    {{ end }}
+
+</div>
+{{ end }}

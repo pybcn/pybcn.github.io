@@ -26,15 +26,48 @@
 {{- else }}
 {{- $pages = $pctx.Pages }}
 {{- end }}
-{{- /* No content file carries a date, so .Date and .PublishDate are zero and the
-     default order is by title. .Lastmod comes from git (enableGitInfo), the same
-     source as the sitemap's lastmod: last change first, and the item date is the
-     date of the last commit that touched the file. */ -}}
-{{- /* A page with _build.render = "never" stays in the collections (the people
-     and sponsor files feed the grids that way) but has no permalink. The feed
+{{- /* The order was .ByLastmod, the commit date from enableGitInfo, with
+     the reason that the day an event happened is not a publication date and
+     would put a PyDay of 2016 at the end of the feed for good. That held
+     while the site carried a handful of events. It broke when the archive
+     import added 282 of them: they all arrived in one commit, so they all
+     carried one lastmod, and 268 meetup pages took the top of the feed and
+     pushed the 34 real items out of the window a reader keeps.
+     The order is now .ByDate, and a PyDay of 2016 at the end of the feed is
+     the right answer: a reader asks a feed what is new, a page about an
+     evening in 2014 is not, and a meetup held next month surfaces on its
+     own with no rule to maintain. */ -}}
+{{- /* A page with _build.render = "never" stays in the collections (the
+     sponsor files feed the grid that way) but has no permalink. The feed
      lists only pages a person can visit. */ -}}
 {{- $pages = where $pages "Permalink" "ne" "" }}
-{{- $pages = $pages.ByLastmod.Reverse }}
+{{- /* The person pages are not in the feed either, for the reason the talk
+     pages below are not: /people/<id>/ is one page per record of
+     content/people/, 377 of them, and the whole set arrived in one build when
+     the cascade in config.toml stopped hiding them. None of them is a
+     publication, and 377 items with a lastmod of one day would be the whole
+     feed. They are in the sitemap, where a page of the site belongs. */ -}}
+{{- $pages = where $pages "Section" "ne" "people" }}
+{{- /* The talk pages are not in the feed. There is one per talk of every
+     programme the association has published (bin/check-content prints the
+     count), and they are built from the front matter of the events, which
+     the feed already carries (see content/talks/_content.gotmpl). None of
+     them is a publication: the date of a talk is the day it was given, as
+     the date of an event page is the day the event happened, and the whole
+     set arrives in one commit. A feed that takes hundreds of items in one
+     build pushes every item a reader could use out of the window their
+     reader keeps. They are in the sitemap, where a page of the site
+     belongs. */ -}}
+{{- $pages = where $pages "Section" "ne" "talks" }}
+{{- /* By the day the thing happened, not by the day it was committed.
+     ByLastmod sorts by the commit date, because enableGitInfo is on, so a
+     set imported in one go arrives with one timestamp and takes the whole
+     feed: the archive import put 268 meetup pages on top at once and left
+     34 real items below them. The date of an event page is the evening it
+     happened, which is what a reader of a feed is asking about, so a
+     meetup of 2014 sinks on its own and the next one surfaces when it is
+     held. The limit is what keeps the window small enough to read. */ -}}
+{{- $pages = $pages.ByDate.Reverse }}
 {{- $limit := .Site.Config.Services.RSS.Limit }}
 {{- if ge $limit 1 }}
 {{- $pages = $pages | first $limit }}
@@ -60,7 +93,7 @@
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
-      <pubDate>{{ .Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{- with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
       <guid>{{ .Permalink }}</guid>
       <description>{{ .Summary | transform.XMLEscape | safeHTML }}</description>

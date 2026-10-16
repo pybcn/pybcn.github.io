@@ -1,0 +1,60 @@
+{{- /*
+    The link to the page of a person, by id: the one place that decides
+    where a name goes when a listing links it.
+
+    The file was partials/person_link.html until 2026-10-14. The branch
+    work/archive-structure (six commits of 2026-09-30, never merged) has a
+    partials/person_link.html of its own that renders one social link of a
+    person, the job partials/person_links.html does here. Two jobs under
+    one name would collide in silence at a merge, so this one carries the
+    word page. That branch also has a layouts/people/single.html, read
+    before ours was written; see the header of ours for what was kept.
+
+    Arguments:
+        id      the person id, a key of content/people/
+        names   the dict partials/people_names.html returns, id to name,
+                passed in by the caller so the 378 person files are read
+                once per build and not once per credit
+
+    Prints the name as a link when the id has a person record, and the
+    name as plain text when it has none, in which case the text is the id
+    with its hyphens taken out, which is what partials/agenda_entry.html
+    and partials/speaker_names.html print for the same case.
+
+    THE TARGET IS THE PAGE OF THE PERSON, /people/<id>/. David Arcos
+    decided on 2026-10-13: a page per person, with its own URL, the same
+    way the site has a page per event and a page per talk. Until then the
+    person files built no page (see the cascade history in config.toml),
+    and the link went to the row of the person on /people/, the anchor
+    /people/#<id>, which this partial called provisional. The row keeps
+    its anchor, and its name now links to the same page as this does.
+
+    Why the href is read from the page and not written out. The
+    RelPermalink of the person page is what Hugo built, so a baseURL with
+    a path, or a rename of the section, moves the link with it. The page
+    is found with site.GetPage by its content path, /people/<id>, which is
+    a map read and not a walk: bin/check-content requires the id of a
+    record to match its file name, so the path is the id. A record whose
+    page is not built, which no record is today, falls back to the anchor
+    on /people/, so the name still goes somewhere a reader can find it.
+
+    Why a record is the condition. AGENTS.md: only a human-verified record
+    may link a speaker name. An id reaches a speakers list only when
+    bin/import-talks resolved an announced name to a person record, and a
+    name it could not resolve stays in speaker_names, which no template
+    reads. So an id with a record is the verified case, and an id with none
+    is a broken reference bin/check-content fails the build for: the name
+    still prints, as text, so the page reads while the build is red.
+*/ -}}
+{{- $id := .id -}}
+{{- $name := index .names $id -}}
+{{- if $name -}}
+    {{- $href := "" -}}
+    {{- with site.GetPage (printf "/people/%s" $id) }}{{ $href = .RelPermalink }}{{ end -}}
+    {{- if not $href -}}
+        {{- $href = printf "%s#%s" (site.GetPage "/people").RelPermalink $id -}}
+    {{- end -}}
+    <a class="person_link" href="{{ $href }}">{{ $name }}</a>
+{{- else -}}
+    {{- $id | replaceRE "[-_]+" " " | title -}}
+{{- end -}}

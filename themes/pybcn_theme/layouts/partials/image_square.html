@@ -9,8 +9,10 @@
         anchor  where to crop from, "Smart" by default
 
     A person photo has to be square, because the grid shows it in a square
-    slot. Only 76 of the 132 photos in the repository are, with ratios from
-    0.54 to 1.33, so the rest need cropping. The old grid did that in CSS, by
+    slot. Only 76 of the 132 photos in the repository were when this partial
+    was written, with ratios from 0.54 to 1.33, so the rest needed cropping.
+    bin/square-photos has since cut every one in the repository: all 128 are
+    square today. The old grid cropped in CSS, by
     overflowing a square box and hiding the rest, which broke as soon as an
     element was added between the box and the photo. Cropping here instead
     means the emitted file is already square and the stylesheet needs no
@@ -24,19 +26,21 @@
     Smart anchor crops even when the ratios match: smartcrop looks for the
     most interesting window of the wanted ratio, and that window can be
     smaller than the whole picture, so it zooms in. On a square portrait that
-    silently cropped the frame tighter than the author chose. Seventy six of
-    the photos are already square and none of them needs cropping at all.
+    silently cropped the frame tighter than the author chose, and every
+    photo in the repository is square now, so none of them needs cropping
+    at all.
 
-    Smart is a guess and it does get portraits wrong. Twenty five of the
-    photos are taller than they are wide, and a square crop of one of those
-    throws away a third of the height, so a bad guess cuts off a head. A page
+    Smart is a guess and it does get portraits wrong. A portrait is taller
+    than it is wide, and a square crop of one throws away a third of the
+    height, so a bad guess cuts off a head. A page
     can set photo_anchor in its front matter to decide instead: Top is the
     one that usually helps, because a face sits in the upper part of a
     portrait.
 
     Every photo is emitted at the size asked for, upscaling a small source
-    rather than leaving it small. Six of the photos in the repository are
-    200px or less, and leaving them at their own size produced a grid of
+    rather than leaving it small. Some of the photos in the repository are
+    200px or less (bin/check-content reports the ones under PHOTO_SIDE), and
+    leaving them at their own size produced a grid of
     three different sizes: the stylesheet stretched them to the slot anyway,
     so the browser upscaled them on every view and the width attribute in the
     HTML described a size nobody saw. Upscaling here is the same picture, is

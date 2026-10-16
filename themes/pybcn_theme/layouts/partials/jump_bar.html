@@ -1,0 +1,49 @@
+{{- /*
+    A row of links to the groups of a long index, above the groups
+    themselves.
+
+    Arguments:
+        label   the aria-label of the nav, "Jump to a letter"
+        items   a slice of dicts, each with:
+                    anchor  the id of the heading of the group
+                    text    what the link reads
+        class   optional, one more class on the nav: /people/ passes
+                jump_bar_centered, which centres the letters (David Arcos:
+                "el indice de letras, perfecto, pero ponlo centrado"), and
+                /events/ keeps its years at the left edge of the table
+                under them. See .jump_bar in main.scss.
+
+    Two pages of this site are one list of several hundred rows under a
+    heading per group, and neither of them can be read to the far end without
+    scrolling the lot: /people/, 378 rows under 24 letters, and /events/, 281
+    rows under 20 years. This is the bar that takes a reader to one group,
+    written once so the two read the same way and stay that way.
+
+    A list of links and not a run of anchors, so a reader who moves by list
+    item gets them one at a time, and a nav so that the same reader can skip
+    the lot. The label is an argument because "Jump to a letter" and "Jump to
+    a year" name what the bar does on each page, and a nav with no label is
+    one more unnamed landmark.
+
+    Only the groups the page has. A caller passes the groups it is about to
+    draw, so a bar never sends a reader to a heading that is not there.
+
+    The anchor is the id of the group, which both lists already carry for
+    a reason of their own: /people/#M and /events/#2019 are addresses other
+    pages link to. On /people/ it is the h2 of the letter, and on /events/
+    the year cell that heads the rows of the year, which is a table. The
+    element carries scroll-margin-top, so a jump lands under the fixed
+    navigation bar and not behind it, and from the lg breakpoint under
+    this bar as well, which is pinned beneath the navigation there (see
+    .jump_bar in main.scss for why only there). See people_index.scss and
+    listing_table.scss.
+*/ -}}
+{{- with .items }}
+<nav class="jump_bar{{ with $.class }} {{ . }}{{ end }}" aria-label="{{ $.label }}">
+    <ul>
+        {{- range . }}
+        <li><a href="#{{ .anchor }}">{{ .text }}</a></li>
+        {{- end }}
+    </ul>
+</nav>
+{{- end }}

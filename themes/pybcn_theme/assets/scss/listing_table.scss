@@ -1,0 +1,485 @@
+// The table of a listing of the archive: /events/ and /talks/, six columns
+// each, the year and the month once per group, spanning their rows. The
+// shared classes are listing_*, and each page adds its own: event_* in
+// layouts/_default/events_index.html, talk_* in layouts/talks/list.html.
+// The Events table of a person page (partials/person_appearances.html) is
+// the third: the year, the month, and the day of /talks/, then the
+// appearance and the card, with the same group markup, so it takes these
+// rules and adds person_event_* below and in people_page.scss.
+// The header comment of events_index.html says why it is a table and what
+// each cell holds, and talks/list.html says what its own columns add. One
+// stylesheet for the two pages, so a rule tuned on one holds on the other
+// and the pair cannot drift.
+//
+// Two layouts. From the lg breakpoint (992px, where the container is 960px)
+// the table is a table, and below it every row is its own grid: the year
+// and the month, when the row carries them, are bands across the row, and
+// the row proper is the day at the left of the title, with the venue and
+// the card on one line under it (on /events/; on /talks/ the event is a
+// third band and the credit goes under the title, in the rules below). A
+// six-column table does not fit in the 360px of
+// content a 390px screen gives, and the page must not scroll sideways. The
+// switch is at lg and not at md (720px) because the five narrow columns
+// take about 34rem between them, which at md leaves the title about 170px
+// and wraps most of the 281 titles, and at lg leaves it about 400px.
+//
+// The media queries are written out, not through Bootstrap's
+// media-breakpoint-up: the mixins are not in scope in this file, which
+// main.scss imports before Bootstrap's own, and people.scss writes its
+// queries by hand for the same reason. The breakpoints are Bootstrap 4's
+// documented values.
+
+.listing_table {
+    width: 100%;
+    margin-bottom: 2rem;
+    border-collapse: collapse;
+
+    // The caption reads as a note about the table, in the colour and the
+    // size of the facts, above the header row where a reader looks first.
+    .listing_caption {
+        caption-side: top;
+        padding: 0 0 0.6rem;
+        color: #51616e;
+        font-size: 0.9rem;
+        text-align: left;
+    }
+
+    // The glyph of the type, from data/event_emoji.yaml, as the marker of
+    // the title. Upright and at the normal weight, because a slanted or
+    // heavy emoji is a font bug on some platforms and never a style, and
+    // line-height 1 keeps the glyph from opening the line box further than
+    // its own height. One width whatever the glyph, in rem so the title
+    // can hang by the same amount, so the titles of two rows start at the
+    // same place.
+    .event_emoji {
+        display: inline-block;
+        width: 1.75rem;
+        margin-right: 0.35rem;
+        font-size: 1.15rem;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        text-align: center;
+        text-indent: 0;
+        vertical-align: middle;
+    }
+
+    // A title that wraps hangs: the second line starts under the first
+    // word and not under the marker, which is 2.1rem of glyph and margin.
+    // The padding is the cell padding plus the hang, and the negative
+    // indent pulls the first line, which starts with the marker, back to
+    // the cell padding. text-indent is inherited, and the marker is an
+    // inline-block with a first line of its own, so without the
+    // text-indent: 0 above the glyph is drawn 2.1rem left of its box, over
+    // the day. Measured in Chromium: the box 8px into the cell and the
+    // glyph touching the day.
+    .event_title {
+        padding-left: calc(0.5rem + 2.1rem);
+        text-indent: -2.1rem;
+
+        a {
+            font-weight: 600;
+        }
+    }
+
+    // The venue, in italics, the way the columns were asked for, and the
+    // short name with the full string as its title. The dotted underline
+    // is the one a browser draws under an abbr with a title, and it says
+    // the same thing here: there is more on hover. Without it the hover is
+    // a secret.
+    .event_venue_cell {
+        font-style: italic;
+        color: #51616e;
+    }
+
+    .event_venue {
+        text-decoration: underline dotted;
+        text-underline-offset: 0.15em;
+        cursor: help;
+    }
+
+    // The marker of a talk: the icon of its type, in the box of the
+    // event emoji above, so the titles of the two tables hang by the
+    // same 2.1rem. The icon is text, so it takes the colour of the facts.
+    .talk_marker {
+        display: inline-block;
+        width: 1.75rem;
+        margin-right: 0.35rem;
+        color: #51616e;
+        text-align: center;
+        text-indent: 0;
+        vertical-align: middle;
+    }
+
+    // The talk cell hangs like the title of /events/: the padding is the
+    // cell padding plus the hang, and the negative indent pulls the first
+    // line, which starts with the marker, back to the cell padding. The
+    // title link is bold, and the links of the credit are not: a reader
+    // scans the column by title.
+    .talk_cell {
+        padding-left: calc(0.5rem + 2.1rem);
+        text-indent: -2.1rem;
+
+        > a {
+            font-weight: 600;
+        }
+    }
+
+    // "by" and the speakers. The names are links
+    // (partials/person_page_link.html) and read as the title link beside
+    // them does: the link blue at rest, underlined under the pointer. They
+    // were underlined at rest in the grey of the line, so they did not read
+    // as links and the pointer changed nothing (David Arcos, 2026-10-15).
+    // The "by" is italic and a lighter grey, $icon-grey, 4.68:1 on white,
+    // and the names are upright: the slant is the second mark WCAG 1.4.1
+    // asks of a link inside a line of text, in place of the underline, and
+    // what axe reads as a distinct style for link-in-text-block.
+    .talk_credit {
+        color: $icon-grey;
+        font-style: italic;
+
+        a {
+            font-style: normal;
+        }
+    }
+
+    // The event, in the weight of the month and the colour of the text:
+    // it is a group header, and it is a link.
+    .talk_event_cell {
+        font-weight: 600;
+    }
+
+    .listing_day {
+        color: #51616e;
+        white-space: nowrap;
+    }
+
+    // The two header cells of a group, in the colour of the facts: they
+    // are labels in a margin and not titles.
+    .listing_year,
+    .listing_month {
+        font-weight: 600;
+        color: #51616e;
+    }
+}
+
+// The year is a link target: a person card points at /events/#2019, and
+// the jump bar above the table points at the same ids. The navbar is fixed
+// and 105px tall, so without this the year lands under it and the reader
+// sees the year before the one they asked for.
+.listing_year {
+    scroll-margin-top: 65px;   // the shrunk navigation, 61px, plus a little
+
+    // From lg the bar of years is pinned under the navbar (.jump_bar in
+    // main.scss, which says why only from lg), 45px tall with its
+    // padding, so the target has to clear both: 105px, 45px, and 4px of
+    // air. Get this wrong and every jump lands under the bar and reads
+    // as a broken link.
+    @media (min-width: 992px) {
+        scroll-margin-top: 110px;  // the shrunk navigation plus the pinned bar
+    }
+}
+
+// Up to md: one grid per row. The table elements lose their display, which
+// is why the template writes every role out (see its header).
+@media (max-width: 991.98px) {
+    .listing_table,
+    .listing_table tbody,
+    .listing_table tr,
+    .listing_table th,
+    .listing_table td,
+    .listing_table .listing_caption {
+        display: block;
+    }
+
+    // The header row stays in the tree for the roles to point at and is
+    // taken off the screen: the bands of the year and the month say what
+    // those cells are, and the day, the title, the venue, and the card
+    // read without a label the way they did before the table.
+    .listing_table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    // The row: four lines of areas, of which the first two are empty on
+    // every row but the first of its group. An empty area of auto height
+    // is 0px tall, so the gap between rows is a margin on the cells and
+    // never a row-gap, which would open a blank line where the year and
+    // the month are absent. The day column is the width of a two-digit
+    // day at the least, so the titles of "9 Jun" and "29 Nov" start at one
+    // place. The venue and
+    // the card share the last line, the venue at the left and the card at
+    // the right, which is one line less per row than a line each: the
+    // page is 281 rows tall, and a line each is 281 lines more.
+    .listing_table .listing_row {
+        display: grid;
+        grid-template-columns: minmax(2.2rem, auto) minmax(0, 1fr) auto;
+        column-gap: 0.75rem;
+        margin-bottom: 0.7rem;
+    }
+
+    // The areas of a row of /events/. The talk_* areas of /talks/ are in
+    // its own block below: it has one more group level, the event.
+    .event_table .listing_row {
+        grid-template-areas:
+            "year year year"
+            "month month month"
+            "day title title"
+            "day venue gallery";
+    }
+
+    // The areas of a row of /talks/. The third line is the event group:
+    // the day at the left of the event title, on the first row of the
+    // event and on no other, so it reads as the heading of the talks
+    // under it. The fourth line is the talk, indented by the day column
+    // like the title of /events/, with the card at the right. The credit
+    // is a block inside the talk cell here (below), so the card, aligned
+    // to the end of the cell, sits beside the credit line the way the
+    // card of /events/ sits beside the venue.
+    .talk_table .listing_row {
+        grid-template-areas:
+            "year year year"
+            "month month month"
+            "day event event"
+            ". talk gallery";
+    }
+
+    // The areas of a row of the Events table of a person page
+    // (partials/person_appearances.html): the year and the month as bands,
+    // then the day at the left of the appearance, with the card at the
+    // right, the line of /events/ with the title and the venue in one
+    // cell. The cell has no padding of its own in this layout, so the hang
+    // of the role glyph is the padding alone (people_page.scss).
+    .person_event_table .listing_row {
+        grid-template-areas:
+            "year year year"
+            "month month month"
+            "day event gallery";
+    }
+
+    .listing_table .person_event_cell {
+        grid-area: event;
+    }
+
+    // The year, as the band it was before the table: an h2 in size and in
+    // rule, a cell in role.
+    .listing_table .listing_year {
+        grid-area: year;
+        margin: 0.6rem 0 0.6rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid #dde3e8;
+        font-size: 1.5rem;
+        color: inherit;
+    }
+
+    // The month, as a small band: 164 of them on the page, so its height
+    // is paid 164 times, and it is the size of the text with a margin of a
+    // quarter of a line.
+    .listing_table .listing_month {
+        grid-area: month;
+        margin-bottom: 0.25rem;
+        font-size: 0.95rem;
+    }
+
+    .listing_table .listing_day {
+        grid-area: day;
+        text-align: right;
+        font-weight: 600;
+    }
+
+    // The title hangs here as well, and the cell has no padding of its
+    // own in this layout, so the padding is the hang alone.
+    .listing_table .event_title {
+        grid-area: title;
+        padding-left: 2.1rem;
+        font-size: 1.05rem;
+    }
+
+    .listing_table .event_venue_cell {
+        grid-area: venue;
+        font-size: 0.9rem;
+    }
+
+    .listing_table .listing_gallery {
+        grid-area: gallery;
+        align-self: start;
+    }
+
+    // The event, as the band of its group: on the line of the day, in
+    // the weight of the month band, with air above it so the group it
+    // opens stands off the last talk of the group before. 224 of them on
+    // the page.
+    .listing_table .talk_event_cell {
+        grid-area: event;
+        margin: 0.35rem 0 0.2rem;
+        font-size: 1rem;
+    }
+
+    // The talk hangs here as well, and the cell has no padding of its
+    // own in this layout, so the padding is the hang alone.
+    .listing_table .talk_cell {
+        grid-area: talk;
+        padding-left: 2.1rem;
+        font-size: 1.05rem;
+    }
+
+    // The credit on its own line under the title, as the venue of
+    // /events/ is: a line of 1.05rem title and 0.9rem credit wraps less
+    // than one of both. text-indent 0, so the line starts under the
+    // first word of the title and not under the marker.
+    .listing_table .talk_credit {
+        display: block;
+        font-size: 0.9rem;
+        text-indent: 0;
+    }
+
+    // The card at the end of the row, beside the credit.
+    .talk_table .listing_gallery {
+        align-self: end;
+    }
+}
+
+// From lg: the table as a table.
+@media (min-width: 992px) {
+    .listing_table {
+        th,
+        td {
+            padding: 0.3rem 0.5rem;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        // The header is small type, because on the three narrow columns
+        // it is the widest thing: "MONTH" at 0.9rem and 0.03em took 55px
+        // where the widest month, "May", takes 31px, so the header set the
+        // column. At 0.8rem and 0.02em it takes 48px.
+        thead th {
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #dde3e8;
+            color: #51616e;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        // A rule between two rows, on the cells of the row and not on the
+        // row, so the cells a group header spans stay unbroken: with
+        // border-collapse a border on a td does not cross the th beside
+        // it. A heavier rule between two years, on the first row of the
+        // group, which is the row that carries the year.
+        tbody td,
+        tbody th {
+            border-top: 1px solid #eef1f4;
+        }
+
+        tbody + tbody tr:first-child th,
+        tbody + tbody tr:first-child td {
+            border-top: 1px solid #dde3e8;
+        }
+
+        // Three narrow columns take their content width and the title
+        // takes the rest. 1% is the trick that makes a column of an auto
+        // table as narrow as its widest cell and no wider. Their cells
+        // take less side padding than the rest: a year, a month, and a
+        // day are short, and the 0.5rem of the other cells made the
+        // three of them 202px between them at 1280px, measured before
+        // the Day column stopped printing a range.
+        .listing_year,
+        .listing_month,
+        .listing_day,
+        .listing_year_col,
+        .listing_month_col,
+        .listing_day_col {
+            width: 1%;
+            padding-left: 0.35rem;
+            padding-right: 0.35rem;
+            white-space: nowrap;
+        }
+
+        // The gallery is a fixed width: the one that holds the widest
+        // card of two items, 107px on /events/ and 91px on /talks/,
+        // measured at 1280px. One card per page holds three items (PyDay
+        // BCN 2019 on /events/, one talk on /talks/), and at 1% that
+        // card set the column: 173px on /events/, 149px on /talks/. At
+        // 8rem the card of three wraps onto two lines and the column is
+        // 128px on both pages. The items of the card stay whole: each one
+        // is an inline-block.
+        .listing_gallery,
+        .listing_gallery_col {
+            width: 8rem;
+            white-space: nowrap;
+
+            .count_card {
+                flex-wrap: wrap;
+            }
+        }
+
+        // The venue is a fixed width and wraps past it. Not 1%: a column
+        // that wraps shrinks to its longest word under that rule, and
+        // "UB (Facultat de Matemàtiques)" took three lines while the
+        // title had room to spare, measured at 1280px. The width is the
+        // trade between the venue and the title, which take the room the
+        // four 1% columns leave (about 300px at the paddings above), and
+        // the title is what the reader reads, so the venue gives way at
+        // lg: 11rem there, where the container is 960px, and 12rem from
+        // xl (1200px, container 1140px). It was 15rem from xl, and at
+        // 1280px the table was shortest at 12rem: 10695px against 10899px
+        // at 15rem, with 24 titles wrapping instead of 35 and 2 venues
+        // instead of 1, measured over the 281 rows on 2026-10-15.
+        .event_venue_cell,
+        .event_venue_col {
+            width: 11rem;
+        }
+
+        // The year and the day align right, and so do their headers: the
+        // unit digit of "6" sits under the unit digit of "29".
+        .listing_year,
+        .listing_year_col,
+        .listing_day,
+        .listing_day_col {
+            text-align: right;
+        }
+
+        .listing_year {
+            font-size: 1.15rem;
+        }
+
+        // The hang of the title, over the cell padding of this layout.
+        .event_title,
+        .talk_cell {
+            padding-left: calc(0.5rem + 2.1rem);
+        }
+
+        // The event column of /talks/ is a fixed width and wraps past it,
+        // for the reason the venue column is: 224 event titles with a
+        // median of 33 characters and a longest of 79, and the talk is
+        // what the reader reads. 13rem at every width from lg: it was
+        // 16rem from xl, and at 1280px the table was shortest at 13rem,
+        // 30542px against 30910px at 16rem, with 254 talk cells wrapping
+        // instead of 314 and 158 event cells instead of 125, measured
+        // over the 607 rows on 2026-10-15. An event cell spans the rows
+        // of its talks, so a wrapped event title costs height only when
+        // it needs more lines than the talks under it.
+        .talk_event_cell,
+        .talk_event_col {
+            width: 13rem;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .listing_table {
+        .event_venue_cell,
+        .event_venue_col {
+            width: 12rem;
+        }
+    }
+}

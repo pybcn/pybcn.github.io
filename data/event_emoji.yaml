@@ -1,0 +1,123 @@
+# The emoji that marks each row of the /events/ list. Left side: the type of
+# the event. Right side: the emoji, the label the marker is called by, and
+# the noun the legend prints after a count, in its singular (one) and its
+# plural (many). A type that is not here takes the "*" entry, so a new type
+# shows up with a neutral glyph rather than with none, and the row does not
+# change shape when it is added. See
+# themes/pybcn_theme/layouts/_default/events_index.html.
+#
+# The type is not a field of the content. partials/event_type.html reads it
+# from the page, in this order of precedence:
+#
+#   1. The series, from the folder of the page first and from its title
+#      second: a page under content/events/pyday_bcn/ is a pyday, a page
+#      under content/events/pydatabcn/ is a pydata, and a page in any other
+#      folder but meetups/ is whichever of the two its title starts with.
+#      That is what makes "PyData Barcelona (2017)" a pydata although it
+#      sits in other_events/. The title does not decide inside meetups/,
+#      where "PyDayBCN 2019 Call for Papers mentoring session" is a meetup
+#      about a PyDay and not an edition of one.
+#   2. The group. A page whose front matter carries group: "PyLadies BCN"
+#      is a pyladies, whatever its title says: a PyLadies dojo shows the
+#      PyLadies marker and not the dojo one, because the community that
+#      organised it is the more distinctive fact.
+#   3. The kind, from a word of the title: dojo, practice session,
+#      barbecue, hacktoberfest or hackathon (one kind), sprint,
+#      coderetreat, and workshop last. Three titles carry two of those
+#      words ("October dojo: Pyzmq workshop" and two "Practice Sessions:
+#      ... workshop"), and the dojo or the practice session is the format
+#      of the day while the workshop is its content, so the format wins.
+#   4. A page under content/events/meetups/ is a meetup, the plain monthly
+#      one.
+#   5. Everything else takes "*".
+#
+# A field in the edition files would say again what the folder, the title,
+# and the group already say, and a field can drift from them.
+#
+# Why this many types. Before the group and the kinds were read, 266 of the
+# 279 rows of the list were meetups, 95 per cent of the page under one
+# glyph: a marker that nearly every row shares marks nothing. Everything
+# that is not a plain monthly meetup now takes a different glyph, PyLadies
+# BCN has its own, and a kind with one row of its own keeps its glyph all
+# the same, so that the legend of the page can name it.
+#
+# The glyphs. Two people and not a party popper, a calendar or a beer for
+# the monthly meetup: a meetup is the people who came to it, and 👤 is the
+# neutral glyph of data/role_emoji.yaml, which marks one person, so 👥
+# reads as a group next to it rather than against it. Two women for
+# PyLadies BCN, for the same reason: the row is a meetup of that
+# community, and the glyph says so next to 👥. A martial arts uniform for
+# a coding dojo, which is a kata in the sense the word came with. Books
+# for a practice session, a laptop for a workshop (the icon the workshop
+# talks of a programme carry already, fa-laptop), meat on a bone for a
+# barbecue, a wrench for a hackathon, a runner for a sprint, and a person
+# in lotus position for a coderetreat, which is a day of retreat.
+#
+# Every emoji here has emoji presentation by default (Emoji_Presentation in
+# the Unicode emoji data), is one code point, needs no U+FE0F, the
+# variation selector, and is no ZWJ sequence. The selector and the joiner
+# are banned, for the reason data/role_emoji.yaml gives: a selector or a
+# joiner is one glyph to one font and two to another, so the marker column
+# would depend on the font the visitor has. Keep to that set when adding a
+# row, and check a candidate against emoji-data.txt rather than from
+# memory: a weight lifter, a hammer and wrench, and a heart all fail it.
+pyday:
+  emoji: 🐍
+  label: PyDay BCN edition
+  one: PyDay BCN edition
+  many: PyDay BCN editions
+pydata:
+  emoji: 📊
+  label: PyDataBCN edition
+  one: PyDataBCN edition
+  many: PyDataBCN editions
+pyladies:
+  emoji: 👭
+  label: PyLadies BCN meetup
+  one: PyLadies BCN meetup
+  many: PyLadies BCN meetups
+dojo:
+  emoji: 🥋
+  label: Coding dojo
+  one: coding dojo
+  many: coding dojos
+practice:
+  emoji: 📚
+  label: Practice session
+  one: practice session
+  many: practice sessions
+barbecue:
+  emoji: 🍖
+  label: Barbecue
+  one: barbecue
+  many: barbecues
+hackathon:
+  emoji: 🔧
+  label: Hackathon
+  one: hackathon
+  many: hackathons
+sprint:
+  emoji: 🏃
+  label: Sprint
+  one: sprint
+  many: sprints
+coderetreat:
+  emoji: 🧘
+  label: Coderetreat
+  one: coderetreat
+  many: coderetreats
+workshop:
+  emoji: 💻
+  label: Workshop
+  one: workshop
+  many: workshops
+meetup:
+  emoji: 👥
+  label: Monthly meetup
+  one: monthly meetup
+  many: monthly meetups
+"*":
+  emoji: 🎉
+  label: Other event
+  one: other event
+  many: other events

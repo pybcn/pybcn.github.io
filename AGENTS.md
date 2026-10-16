@@ -22,11 +22,18 @@ it over anything on `$PATH`, and checks the version from `.hugo-version`.
 **Do not `pip install hugo`.** That PyPI package now requires a Go toolchain and
 fails. `bin/install` fetches the official release binary instead.
 
-A clean build produces **109 HTML pages**: 53 Hugo-generated and 56 copied
-from `static/archives/`. Recount rather than trusting this line: the number
-moves with the content. It was 317 until #202 stopped publishing the 206
-person and sponsor pages that nothing linked to, which is how quickly a
-figure like this goes stale.
+A clean build with `-D` produces **1369 HTML pages**: 1313 Hugo-generated and
+56 copied from `static/archives/`. Recount rather than trusting this line: the
+number moves with the content. It was 317 until #202 stopped publishing the
+206 person and sponsor pages that nothing linked to, 109 until the archive
+import added a page per meetup and per talk, and 991 until the person pages
+came back with the Archive (378 of them, one per record of `content/people/`,
+the canary fixture included), which is how quickly a figure like this goes
+stale. Recount with:
+
+```sh
+find <built-dir> -name '*.html' | wc -l
+```
 
 ## Traps that have already cost time
 
@@ -198,7 +205,7 @@ plausible but different result.
 | `themes/pybcn_theme/` | The theme, **vendored in-tree**, not a submodule |
 | `themes/pybcn_theme/layouts/partials/` | Most of the interesting template logic |
 | `static/archives/` | Verbatim mirrors of pre-Hugo sites, copied unprocessed |
-| `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph |
+| `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph, `event_emoji.yaml` an event to a glyph, `venues.yaml` the exact `venue` string of an event to the short name the `/events/` list prints (the page of the meetup keeps the full string) |
 | `bin/` | Setup and build scripts, the checks, `bin/list-channel` (names a channel video the inventory lacks; needs `yt-dlp` and the network), the one-time `bin/import-*` scripts, plus the gitignored Hugo binary |
 | `.hugo-version` | The pinned Hugo version, single source of truth |
 
@@ -206,7 +213,7 @@ The checks, which are what a pull request has to pass:
 
 | Script | What it rejects |
 |---|---|
-| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, an `end_date` that is not a date or not later than `date` |
+| `bin/check-content` | A broken reference, a photo that is not square, a source far larger than the build asks for, a field that no longer exists, a `venue` string with no row in `data/venues.yaml`, a row of that table no event uses, an `end_date` that is not a date or not later than `date` |
 | `bin/check-html-safety` | Dangerous raw HTML in content, with an allowlist for the legitimate embeds |
 | `bin/check-rendered` | The same, on the built pages, plus any `http://` URL. Run it against a directory you built, never against `public/` while a dev server is writing there |
 

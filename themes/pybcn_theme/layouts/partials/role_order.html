@@ -1,0 +1,48 @@
+{{- /*
+    The roles of a person in the order of the association, for the role
+    line of a row of /people/, the header of the page of a person, and
+    the roles of a row of the Events table of that page.
+
+    Argument: a slice of labels, the headings of partials/appearances_index.html.
+
+    Returns the same labels, sorted:
+
+        Management Board, Permanent Committee, Organizer, Collaborator,
+        Speaker, Mentor, Volunteer
+
+    and any label the list above does not name after them, in
+    alphabetical order, so a role added later is printed rather than
+    dropped. The line read "Mentor, Organizer, Permanent Committee,
+    Speaker", which is alphabetical, and David Arcos wants it by
+    importance in the association (2026-10-15): he gave Permanent
+    Committee, Organizer, Speaker, Mentor. The board sits above the
+    committee, and Collaborator between Organizer and Speaker because it
+    is a formal role of the association rather than something a person
+    did at one event.
+
+    The match is on the role and not on the whole label, by prefix: a
+    board label carries its term, "Management Board (2026)" and
+    "Management Board (2018 - 2025)", and the archive spells one role
+    "Collaborators" on eight rows and "Collaborator" on one. Both
+    spellings sort to the same place and both print as they are: the
+    sort orders the labels and rewrites none, so a label with a defect
+    (a trailing colon, a plural) still shows the defect where a reader
+    can see it. Two labels of one rank keep the alphabetical order.
+
+    Measured over the 378 rows of /people/ on 2026-10-15: Speaker 358,
+    Organizer 21, Mentor 10, Collaborators 8, Permanent Committee 6,
+    Management Board (2026) 4, Management Board (2018 - 2025) 3,
+    Volunteer 1, Collaborator 1.
+*/ -}}
+{{- $ranks := slice "Management Board" "Permanent Committee" "Organizer" "Collaborator" "Speaker" "Mentor" "Volunteer" -}}
+{{- $keyed := slice -}}
+{{- range $label := . -}}
+    {{- $rank := len $ranks -}}
+    {{- range $i, $role := $ranks -}}
+        {{- if and (eq $rank (len $ranks)) (hasPrefix $label $role) }}{{ $rank = $i }}{{ end -}}
+    {{- end -}}
+    {{- $keyed = $keyed | append (dict "label" $label "key" (printf "%03d %s" $rank $label)) -}}
+{{- end -}}
+{{- $out := slice -}}
+{{- with $keyed }}{{ range sort . "key" }}{{ $out = $out | append .label }}{{ end }}{{ end -}}
+{{- return $out -}}

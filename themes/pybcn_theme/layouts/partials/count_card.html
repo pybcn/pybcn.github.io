@@ -1,0 +1,91 @@
+{{- /*
+    The card of counts a row of a listing prints: what that row holds,
+    one icon and one number per kind of thing.
+
+        [ (comment) 17   (camera) 20   (video) 3 ]
+
+    Argument: a dict with items, a slice of dicts, each with:
+        kind    a key of the vocabulary below: talk, photo, video, links,
+                or event
+        count   how many of them the row holds
+        detail  optional, a short text that belongs to the count, printed
+                after it in parentheses: the years of the events of a
+                person, "2016 - 2019"
+
+    The three listings pass their own set, and the card does not know
+    which page it is on. A row of /events/ passes how many talks, photos,
+    and videos the day holds; a row of /talks/ how many photos, videos,
+    and other links the talk has; the Events table of a person page what
+    each talk of the person left behind. The counts come from
+    partials/listing_counts.html, one walk of the site, so the card and
+    the legend above the rows cannot disagree. The items print in the
+    order the caller gives them.
+
+    An item with a count of zero is left out: a card that reads "0
+    videos" is noise, and 245 of the 281 rows of /events/ would read it.
+    A row with nothing to count prints no card at all, not an empty box.
+
+    The icon is the name and the number is the text. Each icon is an
+    image with the noun of its kind as its accessible name and as its
+    hover, the way the type markers of /events/ and /talks/ carry theirs
+    (see event_type_icon.html), so a screen reader hears "Talks 17" and a
+    mouse gets the same word. A bare aria-hidden icon next to a number
+    would leave the reader with "17" and nothing to say what it counts.
+    The noun agrees with the count, "Talk 1" and "Talks 17", because the
+    name is read with the number beside it. The card is a list, so a
+    reader who moves by list item gets one count at a time and can skip
+    the lot.
+
+    Why Font Awesome and not an emoji. The type of a row is an emoji
+    (data/event_emoji.yaml) and a count is a Font Awesome icon, which is
+    the one split the site keeps: x.com and YouTube have no emoji, so a
+    brand mark has to be Font Awesome, and the counts sit next to those
+    marks. Font Awesome is loaded on every page.
+
+    The vocabulary. Five kinds, each with an icon and the noun in the
+    singular and the plural. "links" is every link of a talk record that
+    is not its video, under one mark, the chain link of Font Awesome: the
+    slides, the code, a notebook, a site. The kind was "slides" and
+    counted that one type, so a talk with a slides link and a notebooks
+    link said 1 where its page showed 2 (partials/listing_counts.html has
+    the figures). The talk and the photo take their icon from
+    event_types.html, the vocabulary of agenda entry types, by token, so
+    the comment of a talk and the camera of a photo are the glyphs the
+    programme grid already draws for them, and a change there reaches
+    here. The nouns are this table's own: the "photo" entry of that table
+    is the group photo slot of a programme, and a photo counted here is a
+    picture of a gallery. The other three kinds are not entry types,
+    which is why they are not added to that table: a token of
+    event_types.html is a value a talk's type field may hold, and a talk
+    typed "video" or "event" has to stay the warning
+    partials/event_type_icon.html logs for it. Icon classes come from
+    this table only; a caller selects a kind, it never supplies markup.
+    An unknown kind prints nothing and logs a build warning, as an
+    unknown type does.
+*/ -}}
+{{- $types := partialCached "event_types.html" "event_types" -}}
+{{- $kinds := dict
+    "talk"   (dict "icon" (index $types "talk").icon  "one" "Talk"       "many" "Talks")
+    "photo"  (dict "icon" (index $types "photo").icon "one" "Photo"      "many" "Photos")
+    "video"  (dict "icon" "fa-video"                  "one" "Video"      "many" "Videos")
+    "links"  (dict "icon" "fa-link"                   "one" "Link"       "many" "Links")
+    "event"  (dict "icon" "fa-calendar-day"           "one" "Event"      "many" "Events")
+-}}
+{{- $items := slice -}}
+{{- range .items -}}
+    {{- $count := int (default 0 .count) -}}
+    {{- if not $count }}{{ continue }}{{ end -}}
+    {{- $kind := index $kinds .kind -}}
+    {{- if not $kind -}}
+        {{- warnf "count_card: unknown kind %q." .kind -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $items = $items | append (dict "icon" $kind.icon "name" (cond (eq $count 1) $kind.one $kind.many) "count" $count "detail" (default "" .detail)) -}}
+{{- end -}}
+{{- with $items }}
+<ul class="count_card">
+    {{- range . }}
+    <li><i class="fas {{ .icon }}" role="img" aria-label="{{ .name }}" title="{{ .name }}"></i> {{ .count }}{{ with .detail }} ({{ . }}){{ end }}</li>
+    {{- end }}
+</ul>
+{{- end }}
