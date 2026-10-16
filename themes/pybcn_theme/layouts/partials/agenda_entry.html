@@ -1,0 +1,196 @@
+{{- /*
+    agenda_entry: one row of the schedule, with its talk joined in.
+
+    Argument: a dict with
+      slot    one entry of the agenda list of the page
+      talks   the talks of the page, keyed by id
+      rooms   the rooms of the page, keyed by id
+      colors  the colour of each room, keyed by room id
+      people  the name of every person record, keyed by id
+      event_url  the RelPermalink of the event page, or absent. It is half
+                 the key of partials/talk_pages_index.html, so a caller
+                 that passes it gets the url of the page of the talk back
+
+    Returns a flat entry that agenda.html and event_detail.html render. The
+    join lives here, in one place, because a block of the grid and the modal
+    behind it print the same fields and must not disagree about them.
+
+    The page carries two lists and not one. agenda is the grid: when, for how
+    long, in which room, over how many tracks. talks is the content: the
+    title, who gave it, what it was about. The two are separate because one
+    talk can take more than one slot (Hands-on Django with PyLadiesBCN is one
+    workshop in four) and because a photo of the gallery links to a talk by
+    id, which a row of a grid cannot give it.
+
+    A slot with no talk is a row of the day and not a session: a break, the
+    group photo, the welcome. It carries its own label, its own type, and
+    whatever else the day gave it, because there is nothing else to read it
+    from.
+
+    What this partial computes rather than reads from the page:
+
+    - The colour. It used to be written on every entry, and it meant
+      nothing: across the eight editions 24 colour-and-room combinations
+      covered more than one room and only 20 mapped to a single room, and
+      the colour followed neither the type, nor the topic, nor the level.
+      Now every room of an event gets one colour of the palette below and
+      keeps it for the whole day, so a reader can follow a track down the
+      grid. A slot with no room gets grey.
+
+    - The end of the slot, from its start and the duration of what fills it.
+      The end used to be written too, and 27 of the 157 entries of the
+      archive wrote it equal to the start.
+
+    - The url of the page of the talk, looked up in
+      partials/talk_pages_index.html and empty when the slot holds no talk
+      or the caller passes no event_url. See the comment on it below.
+*/ -}}
+{{- $slot := .slot -}}
+{{- $talk := "" -}}
+{{- with $slot.talk -}}
+	{{- $talk = index $.talks . -}}
+	{{- if not $talk -}}
+		{{- warnf "agenda_entry: slot at %v names talk %q, which this page does not define." $slot.start . -}}
+	{{- end -}}
+{{- end -}}
+
+{{- /* The talk is what a slot that holds one says; the slot itself is all
+       there is when it holds none. */ -}}
+{{- $source := $slot -}}
+{{- with $talk }}{{ $source = . }}{{ end -}}
+
+{{- $title := $slot.label -}}
+{{- with $talk }}{{ $title = .title }}{{ end -}}
+
+{{- /* The palette agenda.scss defines, in the order a room takes it. */ -}}
+{{- $palette := slice "purple" "blue" "yellow" "red" "orange" "grey" "green" "pink" -}}
+{{- $color := "grey" -}}
+{{- $room := "" -}}
+{{- with $slot.room -}}
+	{{- with index $.rooms . }}{{ $room = .name }}{{ end -}}
+	{{- with index $.colors . }}{{ $color = . }}{{ end -}}
+{{- end -}}
+
+{{- /* duration_minutes sits on the talk, and on the slot when no talk fills
+       it. A duration of zero is a real value in this archive, so the lookup
+       cannot use default: a 0 would fall through it. */ -}}
+{{- $duration := 0 -}}
+{{- with index $slot "duration_minutes" }}{{ $duration = . }}{{ end -}}
+{{- with $talk }}{{ with index . "duration_minutes" }}{{ $duration = . }}{{ end }}{{ end -}}
+{{- $parts := split $slot.start ":" -}}
+{{- $end := add (add (mul 60 (int (index $parts 0))) (int (index $parts 1))) $duration -}}
+{{- $end = printf "%d:%02d" (int (math.Floor (div $end 60))) (mod $end 60) -}}
+
+{{- /* language is a code, or a list of codes for a session given in two.
+       The field used to be free text and carried seven spellings of three
+       languages, so the page printed "Catalan" and "Català" for the same
+       language and three different joins of Spanish and English.
+
+       The labels print in the order the list gives them, so the order of the
+       list is content and not formatting. A list is written en, es, ca, the
+       order of the table below, and bin/check-content rejects any other:
+       the archive held one [en, es] and three [es, en] for the same pair. */ -}}
+{{- $names := dict "en" "English" "es" "Spanish" "ca" "Catalan" -}}
+{{- $labels := slice -}}
+{{- with $source.language -}}
+	{{- $codes := cond (reflect.IsSlice .) . (slice .) -}}
+	{{- range $codes -}}
+		{{- with index $names . -}}
+			{{- $labels = $labels | append . -}}
+		{{- else -}}
+			{{- warnf "agenda_entry: unknown language %q on %q. Use en, es or ca." . $title -}}
+		{{- end -}}
+	{{- end -}}
+{{- end -}}
+
+{{- /* The speakers of a session are a list of person ids, and the name
+       printed is the one the person record holds. The field was free text,
+       one string per talk, and it carried three joins of two names ("A and
+       B", "A, B", "A & B"), an affiliation in parentheses, a first name
+       with no surname, and an accent missing from a name the person record
+       spells with it. None of that could be checked against anything:
+       bin/check-content validates talks[].speakers against the person
+       records, and a string is not an id, so none of the 101 talks that
+       carried one was ever checked against anything.
+
+       An id with no record behind it prints as the id with its hyphens
+       taken out, the way photo_gallery.html does it, and warns. The check
+       is what fails the build for it; the page still reads.
+
+       A slot with no talk reads its own speakers, and a slot that credits
+       no person carries none: the organising committee of an edition is not
+       a person and gets no record. */ -}}
+{{- $names := slice -}}
+{{- range $id := $source.speakers -}}
+	{{- $name := index $.people $id -}}
+	{{- if not $name -}}
+		{{- warnf "agenda_entry: %q credits speaker id %q, which no person record defines." $title $id -}}
+		{{- $name = $id | replaceRE "[-_]+" " " | title -}}
+	{{- end -}}
+	{{- $names = $names | append $name -}}
+{{- end -}}
+
+{{- /* credited_as is the credit of something that is not a person, so it has
+       no record to point at: the organising committee of an edition runs the
+       registration, the breaks, and the closing. Moving speakers to person
+       ids dropped those eight credits, because a committee cannot have a
+       person record. A session never has both: speakers names people, and
+       credited_as names whoever else. */ -}}
+{{- if and (not $names) $source.credited_as -}}
+	{{- $names = slice $source.credited_as -}}
+{{- end -}}
+
+{{- /* The page of this talk, when the caller says which event page it is
+       reading. Every talk with an id gets a page of its own, built by
+       content/talks/_content.gotmpl, and partials/talk_pages_index.html
+       holds the page the adapter actually added, keyed by the event and the
+       id. The url is looked up and never spelled out: the adapter owns the
+       rule that makes the path, and a second copy of that rule here would
+       go on emitting a link after the rule changed.
+
+       Empty when the slot holds no talk, when the slot names a talk this
+       page does not define, when the caller passes no event_url, and when
+       the index holds no page for the pair. A caller that gets no url
+       prints what it printed before, so a missing page costs the reader
+       nothing and never leaves a dead link on the page.
+
+       partials/talk_record.html passes no event_url: it renders the page of
+       one talk, which does not link to itself. */ -}}
+{{- $url := "" -}}
+
+{{- /* video and repositories were two fields and are now one list, because
+       a session can publish more than one address and one of them did it as
+       raw HTML inside the repositories string. The video keeps its own line
+       on the block and in the modal; everything else is listed under
+       Repository in the modal. */ -}}
+{{- $video := "" -}}
+{{- $repositories := slice -}}
+{{- range $source.links -}}
+	{{- if eq .type "video" -}}
+		{{- if not $video }}{{ $video = .url }}{{ end -}}
+	{{- else -}}
+		{{- $repositories = $repositories | append . -}}
+	{{- end -}}
+{{- end -}}
+
+{{- return dict
+	"title" $title
+	"title_lang" $source.title_lang
+	"type" $source.type
+	"speaker" (delimit $names ", " " and ")
+	"description" $source.description
+	"topic" $source.topic
+	"language" (delimit $labels " / ")
+	"python_level" $slot.python_level
+	"topic_level" $slot.topic_level
+	"requirements" $slot.requirements
+	"sponsor" $slot.sponsor
+	"room" $room
+	"color" $color
+	"start" $slot.start
+	"end" $end
+	"track_length" $slot.track_length
+	"url" $url
+	"video" $video
+	"repositories" $repositories
+-}}

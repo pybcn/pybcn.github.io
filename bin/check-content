@@ -6,6 +6,10 @@ match its filename, a duplicate id, a page that lists a person or sponsor id
 with no page behind it, a declared photo with no file behind it, and a
 remote photo_url. It warns about a person photo with no colour in it.
 
+For the days it checks end_date, which an event carries when it ran more
+than one day: it is a date, and it is later than date. The template prints
+one day for an end_date it cannot use, so the mistake is silent on the page.
+
 Exit code 1 if any error is found. Warnings do not fail the build.
 
 Usage:
@@ -268,6 +272,94 @@ def report_small(small):
     note(f"{len(small)} of the person photos are smaller than {PHOTO_SIDE}px on "
          f"their short side, so the build enlarges them and they look soft in "
          f"the grid. Smallest: {shown}. Replacing the file is the only fix.")
+
+
+_talk_ids = {}
+
+
+def talk_ids_of(path, data, people):
+    """Return the talk ids of one page, reporting a duplicate or a bad speaker.
+
+    A photo finds its talk by id inside its own file, and so does a slot of
+    the agenda, so two talks under one id leave the second unreachable: every
+    photo of it shows the title of the first, and so does every slot.
+
+    This used to run from check_gallery only, which skips a page with no
+    photos block. Two of the ten files that carry a programme have one, so
+    the speaker ids of 21 talks were checked and the other 113 were not, and
+    those 113 were exactly the ones that needed it: they credited a speaker
+    as free text, which an id check cannot see at all. The walk now runs for
+    every page that declares talks, from check_agenda, and check_gallery asks
+    it for the ids it needs. The result is kept per path so the two callers
+    report each mistake once.
+    """
+    if path in _talk_ids:
+        return _talk_ids[path]
+    talks = data.get("talks") or []
+    if not talks:
+        # Not kept: there is nothing to report twice, and a page with no
+        # programme would otherwise count towards the coverage figure below.
+        return set()
+    talk_ids = set()
+    unnamed = []
+    for position, talk in enumerate(talks, start=1):
+        if not isinstance(talk, dict):
+            error(path, f"'talks' holds {talk!r} at position {position}, "
+                        f"which is not a talk")
+            continue
+        talk_id = talk.get("id")
+        title = talk.get("title") or talk_id or f"position {position}"
+        if talk_id in talk_ids:
+            error(path, f"talk '{title}' repeats the id '{talk_id}', which an "
+                        f"earlier talk of this file already uses. A photo "
+                        f"points at a talk by id, so the second talk is "
+                        f"unreachable. Give it an id of its own.")
+        elif talk_id:
+            talk_ids.add(talk_id)
+
+        # speaker, singular, was free text: one string with the names of
+        # everyone who gave the talk. No template reads it any more, so a
+        # file that still carries one shows no speaker at all on the block
+        # and in the modal, and the id check below never sees those names.
+        if "speaker" in talk:
+            error(path, f"talk '{title}' carries 'speaker' "
+                        f"{talk['speaker']!r}, the free-text field that "
+                        f"'speakers' replaced. Nothing renders it, so the "
+                        f"block and the modal credit nobody. Use speakers, a "
+                        f"list of ids of content/people/.")
+
+        speakers = talk.get("speakers") or []
+        if not speakers:
+            unnamed.append(title)
+        for ref in speakers:
+            if not isinstance(ref, str):
+                error(path, f"talk '{title}' lists {ref!r} as a speaker, "
+                            f"which is not an id")
+            elif ref not in people:
+                error(path, f"talk '{title}' lists unknown speaker id "
+                            f"'{ref}'. Add content/people/{ref}.md, or fix "
+                            f"the id: the gallery prints an id it cannot "
+                            f"find as the id with its hyphens taken out.")
+    report_unnamed(path, unnamed, talks)
+    _talk_ids[path] = talk_ids
+    return talk_ids
+
+
+def report_unnamed(path, unnamed, talks):
+    """A talk with no speaker is correct when the source names nobody.
+
+    It is still worth a figure on every run. The printed agenda of PyDay BCN
+    2019 names no speaker at all, and the thread announced only some of the
+    sessions, so eleven of its fifteen talks credit nobody and a reader of
+    the gallery sees the title alone. A count that grows is the sign that a
+    source was read carelessly.
+    """
+    if not unnamed:
+        return
+    shown = ", ".join(f"'{title}'" for title in unnamed[:3])
+    warn(path, f"no speaker for {len(unnamed)} of the {len(talks)} talks, so "
+               f"a photo of one of them shows the title alone: {shown}. "
+               f"Correct when the source names nobody.")
 
 
 # One form per network, so a reader of the files can tell at a glance that two
@@ -557,6 +649,12 @@ def check_listings(people, sponsors):
     pages were listed by name, so a rename switched that check off in silence.
 
     Returns the set of person ids that some page lists, for the orphan check.
+    The speakers of the talks count: a talk credits a person by id, the page
+    prints the name of that person record on the block and in the detail
+    modal, and partials/appearances_index.html gives the person that event as
+    an appearance. The ids themselves are checked in check_talk_ids, which
+    reports an unknown one with the title of its talk, so this walk only
+    collects the ones that resolve.
     """
     listed_people = set()
     for path in sorted(CONTENT.rglob("*.md")):
@@ -573,49 +671,321 @@ def check_listings(people, sponsors):
                     error(path, f"'{key}' references unknown {noun} id '{ref}'")
                 elif kind == "people":
                     listed_people.add(ref)
+        for talk in data.get("talks") or []:
+            if not isinstance(talk, dict):
+                continue
+            for ref in talk.get("speakers") or []:
+                if isinstance(ref, str) and ref in people:
+                    listed_people.add(ref)
     return listed_people
 
 
-# The colour classes agenda.scss defines for an entry of the schedule. The
-# entry's color value lands in the class attribute as it is, so a missing or
-# misspelt value gets the fallback background instead of a brand colour.
-AGENDA_COLOURS = {"blue", "green", "grey", "orange", "pink", "purple", "red", "yellow"}
+# The types partials/event_types.html knows. A slot that holds no talk names
+# its own type, and an unknown one renders no icon and only warns at build
+# time, which nobody reads.
+ENTRY_TYPES = {"workshop", "talk", "lightning", "keynote", "panel", "group",
+               "coffee", "lunch", "photo", "qa"}
+
+# The closed vocabulary of the language field. It used to be free text and
+# carried seven spellings of these three languages.
+#
+# A list, for a session given in two languages, is written in this order. The
+# archive held "en, es" once and "es, en" three times for the same pair, and
+# the page printed "English / Spanish" and "Spanish / English" for it, because
+# partials/agenda_entry.html prints the codes in the order the list gives
+# them. The order below is the one AGENTS.md and the label table of that
+# partial already declare, so there is one order and not two.
+LANGUAGE_ORDER = ("en", "es", "ca")
+LANGUAGES = set(LANGUAGE_ORDER)
 
 
-def check_agenda():
-    """Every entry of a schedule must carry one of the agenda colour classes."""
+def check_agenda(people):
+    """Check the schedule of an event page: its rooms, its talks, its grid.
+
+    The page carries the grid (agenda) apart from the content (talks),
+    joined by a talk id, and that join fails in silence: a slot that names a
+    talk the page does not define renders as an empty block, which looks
+    like a gap in the programme and not like a mistake.
+
+    The colour of a block is no longer checked here, because it is no longer
+    in the content. partials/agenda_entry.html gives every room of an event
+    one colour of the palette agenda.scss defines. The old check demanded a
+    colour on every entry, which is how the archive ended up with 157 of
+    them that meant nothing.
+    """
     for path in sorted(CONTENT.rglob("*.md")):
         data = front_matter(path)
-        if data is None or not data.get("events"):
+        if data is None:
             continue
-        for entry in data["events"]:
-            if not isinstance(entry, dict):
-                error(path, f"'events' holds {entry!r}, which is not an entry")
-                continue
-            colour = entry.get("color")
-            title = entry.get("title") or entry.get("speaker") or "?"
-            if not colour:
-                error(path, f"agenda entry '{title}' has no color; use one of: "
-                            f"{', '.join(sorted(AGENDA_COLOURS))}")
-            elif colour not in AGENDA_COLOURS:
-                error(path, f"agenda entry '{title}' has color '{colour}', which is "
-                            f"not one of: {', '.join(sorted(AGENDA_COLOURS))}")
+        if data.get("events"):
+            error(path, "carries 'events', the schedule model that 'agenda' "
+                        "and 'talks' replaced. The template no longer reads "
+                        "it, so the whole schedule of this page is missing "
+                        "from the built site.")
+        rooms = check_rooms(path, data)
+        talks = check_talks(path, data, people)
+        for position, slot in enumerate(data.get("agenda") or [], start=1):
+            check_slot(path, position, slot, rooms, talks)
+
+
+def check_rooms(path, data):
+    """Return the room ids of one page, reporting a missing or repeated id."""
+    found = set()
+    for position, room in enumerate(data.get("rooms") or [], start=1):
+        if not isinstance(room, dict):
+            error(path, f"'rooms' holds {room!r} at position {position}, "
+                        f"which is not a room")
+            continue
+        room_id = room.get("id")
+        if not room_id:
+            error(path, f"room {position} has no id. A slot of the agenda "
+                        f"names its room by id, and the colour of the block "
+                        f"comes from it.")
+        elif room_id in found:
+            error(path, f"room {position} repeats the id '{room_id}'. Two "
+                        f"records under one id leave the second unreachable.")
+        else:
+            found.add(room_id)
+        if not str(room.get("name") or "").strip():
+            error(path, f"room '{room_id}' has no name. The name is what the "
+                        f"block of the grid prints.")
+    return found
+
+
+def check_talks(path, data, people):
+    """Return the talk ids of one page, checking the fields the grid reads."""
+    found = talk_ids_of(path, data, people)
+    for position, talk in enumerate(data.get("talks") or [], start=1):
+        if not isinstance(talk, dict):
+            continue  # talk_ids_of already reports this one
+        talk_id = talk.get("id")
+        title = talk.get("title") or talk_id or f"position {position}"
+        language = talk.get("language")
+        codes = [language] if isinstance(language, str) else language or []
+        for code in codes:
+            if code not in LANGUAGES:
+                error(path, f"talk '{title}' has language '{code}'. Use "
+                            f"{', '.join(LANGUAGE_ORDER)}, or a list of "
+                            f"them for a session given in two.")
+        known = [code for code in codes if code in LANGUAGES]
+        if len(known) > 1:
+            expected = [code for code in LANGUAGE_ORDER if code in known]
+            if known != expected:
+                error(path, f"talk '{title}' lists its languages as "
+                            f"{known}. A list is written in the order "
+                            f"{list(LANGUAGE_ORDER)}, because the page prints "
+                            f"the codes in the order the list gives them: two "
+                            f"orders print the same pair two ways. Use "
+                            f"{expected}.")
+        if talk.get("type") not in ENTRY_TYPES:
+            error(path, f"talk '{title}' has type '{talk.get('type')}', which "
+                        f"is not one of: {', '.join(sorted(ENTRY_TYPES))}")
+        # Optional: the printed programme of PyDay BCN 2018 gives no length
+        # at all, so none of its talks stores one. A value that is there has
+        # to be a number, because the end of the slot is computed from it.
+        if "duration_minutes" in talk and not isinstance(talk["duration_minutes"], int):
+            error(path, f"talk '{title}' has duration_minutes "
+                        f"{talk['duration_minutes']!r}, which is not a whole "
+                        f"number of minutes. The end of the slot is computed "
+                        f"from it.")
+        check_links(path, f"talk '{title}'", talk.get("links"))
+    return found
+
+
+def check_links(path, label, links):
+    for position, link in enumerate(links or [], start=1):
+        if not isinstance(link, dict):
+            error(path, f"{label} holds {link!r} as link {position}, which "
+                        f"is not a link")
+            continue
+        if not str(link.get("url") or "").startswith("http"):
+            error(path, f"{label} has link {position} with url "
+                        f"{link.get('url')!r}, which is not an address")
+        if not link.get("type"):
+            error(path, f"{label} has link {position} with no type. Only a "
+                        f"video gets its own line on the block; everything "
+                        f"else is listed under Repository.")
+
+
+def as_date(value):
+    """The date a front matter value holds, or None when it holds none.
+
+    An unquoted 2016-09-17 arrives as a date from the YAML parser, a quoted
+    one as a string, and a value with a time as a datetime. Hugo reads all
+    three the same way, so all three count.
+    """
+    if isinstance(value, datetime.datetime):
+        return value.date()
+    if isinstance(value, datetime.date):
+        return value
+    if isinstance(value, str):
+        try:
+            return datetime.date.fromisoformat(value.strip())
+        except ValueError:
+            return None
+    return None
+
+
+def check_dates():
+    """An event that ran more than one day carries end_date, its last day.
+
+    date is the first day and end_date the last, both YAML dates, and
+    partials/event_date.html prints the two as one range. The partial
+    treats an end_date that is not after date as absent, so a mistake in
+    the key turns a two day edition back into one day in silence: the page
+    builds and reads right. This says it: when end_date is there, it is a
+    date, date is there too, and end_date is strictly later than date. A
+    one day event has no end_date at all.
+
+    Report, never crash: a value that is not a date is an error with the
+    value in it, and the rest of the check runs.
+    """
+    for path in sorted((CONTENT / "events").rglob("*.md")):
+        data = front_matter(path)
+        if data is None or "end_date" not in data:
+            continue
+        raw_end = data["end_date"]
+        end = as_date(raw_end)
+        if end is None:
+            error(path, f"end_date is {raw_end!r}, which is not a date. Write "
+                        f"the last day of the event as YYYY-MM-DD, or remove "
+                        f"the key for an event of one day.")
+            continue
+        raw_start = data.get("date")
+        start = as_date(raw_start)
+        if start is None:
+            error(path, f"end_date {end} needs a date to be the end of, and "
+                        f"date is {raw_start!r}. Write the first day as "
+                        f"YYYY-MM-DD.")
+            continue
+        if end == start:
+            error(path, f"end_date {end} is the same day as date. An event of "
+                        f"one day carries no end_date: remove the key.")
+        elif end < start:
+            error(path, f"end_date {end} is before date {start}. end_date is "
+                        f"the last day of the event, so it is later than "
+                        f"date.")
+
+
+def check_slot(path, position, slot, rooms, talks):
+    """Check one row of the grid: where it sits, and what fills it."""
+    if not isinstance(slot, dict):
+        error(path, f"'agenda' holds {slot!r} at position {position}, which "
+                    f"is not a slot")
+        return
+    where = f"agenda slot {position}"
+    start = slot.get("start")
+    # An unquoted 9:00 is the integer 540 in YAML 1.1, sexagesimal. Hugo's
+    # parser reads it as a string and the page looks right, so nothing but
+    # this says the value is not what the file appears to hold.
+    if not isinstance(start, str) or not re.fullmatch(r"\d{1,2}:\d{2}", start):
+        error(path, f"{where} has start {start!r}. A start is a quoted H:MM "
+                    f"string: YAML 1.1 reads an unquoted 9:00 as the integer "
+                    f"540.")
+    else:
+        where = f"agenda slot {position} ({start})"
+    if not isinstance(slot.get("track_length"), int):
+        error(path, f"{where} has track_length "
+                    f"{slot.get('track_length')!r}, which is not a number of "
+                    f"tracks. The block spans that many columns.")
+    room = slot.get("room")
+    if room is not None and room not in rooms:
+        known = ", ".join(sorted(rooms)) or "none"
+        error(path, f"{where} names room '{room}', which this page does not "
+                    f"declare. Use one of: {known}.")
+    talk = slot.get("talk")
+    if talk is not None and talk not in talks:
+        known = ", ".join(sorted(talks)) or "none"
+        error(path, f"{where} names talk '{talk}', which this page does not "
+                    f"declare. The block renders empty, which reads as a gap "
+                    f"in the programme. Use one of: {known}.")
+    if slot.get("speaker") is not None:
+        error(path, f"{where} carries 'speaker' {slot['speaker']!r}, the "
+                    f"free-text field that 'speakers' replaced. Nothing "
+                    f"renders it. Use speakers, a list of ids of "
+                    f"content/people/, or leave the slot with none: the "
+                    f"organising committee of an edition is not a person.")
+    if talk is None:
+        if slot.get("type") not in ENTRY_TYPES:
+            error(path, f"{where} holds no talk and has type "
+                        f"{slot.get('type')!r}. A slot with no talk is a row "
+                        f"of the day and names its own type, one of: "
+                        f"{', '.join(sorted(ENTRY_TYPES))}")
+        if not isinstance(slot.get("duration_minutes"), int):
+            error(path, f"{where} holds no talk and has duration_minutes "
+                        f"{slot.get('duration_minutes')!r}. With no talk to "
+                        f"read it from, the slot carries its own length.")
+        check_links(path, where, slot.get("links"))
+
+
+# What a row of /people/ can show about a person, apart from the name: the
+# photo, the social links, the position, and the body of the file. A record
+# with none of the four, and with no page crediting it either, is a row of a
+# bare name. See themes/pybcn_theme/layouts/people/list.html.
+PERSON_CONTENT_FIELDS = ("photo", "github", "linkedin", "twitter", "site",
+                         "pybcn_position")
+
+
+def body(path):
+    """The text under the front matter, which is the bio of a person file."""
+    text = path.read_text(encoding="utf-8").lstrip("﻿")
+    match = FRONT_MATTER.match(text)
+    return (text[match.end():] if match else text).strip()
 
 
 def check_orphans(people, listed_people):
-    """A person page no listing points at renders, but nobody can reach it.
+    """A person record the site publishes and can say nothing about.
 
-    The check compares against the ids check_listings collected from the
-    front matter keys, so only a real listing counts. The old check searched
-    the text of every page with a word-boundary regex, and a regex boundary
-    sits between a letter and a hyphen: 'ricardo' matched inside
-    'ricardo-ander-egg' and 'jordi' inside 'jordi-bosch', so those two pages
-    passed with no listing at all. Prose that happens to contain an id does
-    not count as a reference either.
+    This used to report a person no listing points at, because the page of
+    that person rendered and nothing linked to it. That is no longer the
+    state: /people/ lists every file of the section, so every record has an
+    inbound link and a row by being in the folder, and the row links to the
+    page of the person, /people/<id>/, which came back with the Archive
+    (config.toml has the history). Being unlisted no longer hides a record;
+    it only empties its row and its page.
+
+    So the error this looks for now is a row with nothing in it: no page
+    credits the record, and the file carries no photo, no social link, no
+    position, and no bio. The name is then the whole row, which is a
+    published claim that this person was part of the association with
+    nothing behind it. Either the programme that names them is missing, and
+    crediting the talk fixes the row, or the file is a leftover and goes.
+
+    The uncredited records are reported together as one note, not one
+    warning each. They are not a defect of the file: most of them hold a
+    photo, a bio, or both, and what is missing is the page that says where
+    they served. One line names them all, so a reader sees the shape of the
+    gap instead of a line per record that each says a part of it.
+
+    listed_people is the set check_listings collected from the front matter
+    keys and from the speakers of the talks, so only a real listing counts.
+    A page that carries a programme and no people_sections, PyData Barcelona
+    2017, PyDay BCN 2018, or PyDay BCN 2019, reaches its speakers through
+    the talks alone. An earlier version searched the text of every page with
+    a word-boundary regex, and a regex boundary sits between a letter and a
+    hyphen: 'ricardo' matched inside 'ricardo-ander-egg' and 'jordi' inside
+    'jordi-bosch', so those two pages passed with no listing at all. Prose
+    that happens to contain an id does not count as a reference either.
     """
-    for page_id, path in people.items():
-        if page_id not in listed_people:
-            warn(path, f"person '{page_id}' is not listed by any event or page")
+    uncredited = []
+    for page_id, path in sorted(people.items()):
+        if page_id in listed_people:
+            continue
+        uncredited.append(page_id)
+        data = front_matter(path) or {}
+        if any(data.get(field) for field in PERSON_CONTENT_FIELDS):
+            continue
+        if body(path):
+            continue
+        warn(path, f"person '{page_id}' holds a name and nothing else, and no "
+                   f"event or page credits it, so its row on /people/ is the "
+                   f"name alone. Credit the talk or the page the person "
+                   f"belongs to, or delete the file.")
+    if uncredited:
+        note(f"{len(uncredited)} person records are credited by no event and "
+             f"no page, so their row on /people/ and their own page carry no "
+             f"role, no year and no event: {', '.join(uncredited)}. A record is credited by the "
+             f"people block of a page, or by the speakers of a talk.")
 
 
 SECURITY_TXT = ROOT / "static" / ".well-known" / "security.txt"
@@ -700,7 +1070,8 @@ def main():
     check_social(people, sponsors)
     check_sources()
     listed_people = check_listings(people, sponsors)
-    check_agenda()
+    check_agenda(people)
+    check_dates()
     check_orphans(people, listed_people)
     check_security_txt()
     check_association()
@@ -710,7 +1081,9 @@ def main():
     for line in errors:
         print(f"ERROR    {line}")
 
-    print(f"\n{len(people)} people, {len(sponsors)} sponsors checked.")
+    talks = sum(len(ids) for ids in _talk_ids.values())
+    print(f"\n{len(people)} people, {len(sponsors)} sponsors, "
+          f"{talks} talks on {len(_talk_ids)} pages checked.")
     print(f"{len(errors)} errors, {len(warnings)} warnings.")
     return 1 if errors else 0
 

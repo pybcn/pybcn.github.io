@@ -150,7 +150,7 @@ What each check is for:
 | Check | Fails when |
 |---|---|
 | Build the site | Hugo cannot build, or emits a warning |
-| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, or a field is empty. It warns, without failing, about a photo that is too small or has no colour |
+| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, a field is empty, or an `end_date` is not later than `date`. It warns, without failing, about a photo that is too small or has no colour |
 | `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay. See [Content safety check](README.md#content-safety-check) |
 | `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does, or they link to anything over `http`. See [Rendered page check](README.md#rendered-page-check) |
 | `bin/canon.py --selftest` | The one normalization of imported text stops being idempotent, or changes what it strips |

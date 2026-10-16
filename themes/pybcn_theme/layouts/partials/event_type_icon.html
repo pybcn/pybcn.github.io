@@ -1,14 +1,36 @@
 {{- /*
     event_type_icon: render the icon of an agenda entry type.
 
-    Context: the type token as a string. See event_types.html for the list.
-    An unknown token renders nothing and logs a build warning.
+    Context: the type token as a string, or a dict with the token under
+    "type" and "named" set to true. See event_types.html for the list. An
+    unknown token renders nothing and logs a build warning.
+
+    A bare token draws the icon as decoration, aria-hidden, which is right
+    where the label is printed next to it in words: the agenda legend, the
+    facts of a talk page. A named icon carries the label of its type as its
+    accessible name and as its hover, from the one field of
+    event_types.html, so the two cannot disagree. The rows of a listing
+    (/talks/, the programme of a meetup) want that: nothing else on the row
+    says that a talk was a workshop or a lightning talk. A title attribute
+    on a hidden icon would have been a hover for a mouse and nothing for a
+    screen reader, which is the reader the name is for, so the icon is an
+    image with a name instead.
 */ -}}
-{{- $token := lower (trim (printf "%v" .) " ") -}}
+{{- $named := false -}}
+{{- $type := . -}}
+{{- if reflect.IsMap . -}}
+	{{- $named = .named -}}
+	{{- $type = .type -}}
+{{- end -}}
+{{- $token := lower (trim (printf "%v" $type) " ") -}}
 {{- with $token -}}
 	{{- $entry := index (partialCached "event_types.html" "event_types") . -}}
 	{{- if $entry -}}
+		{{- if $named -}}
+		<i class="fas {{ $entry.icon }}" role="img" aria-label="{{ $entry.label }}" title="{{ $entry.label }}"></i>
+		{{- else -}}
 		<i class="fas {{ $entry.icon }}" aria-hidden="true"></i>
+		{{- end -}}
 	{{- else -}}
 		{{- warnf "event_type_icon: unknown event type %q." . -}}
 	{{- end -}}

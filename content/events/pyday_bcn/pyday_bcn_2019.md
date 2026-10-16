@@ -1,19 +1,244 @@
 ---
 title: "PyDay BCN (2019)"
 year: 2019
+# The day of this edition, from the Meetup export, which records it per event.
+date: 2019-11-16
+# The venue of this edition, from the Meetup export, which records it per event.
+venue: "Universitat de Barcelona"
 description: ""
 menu:
   main:
     parent: 'PyDay BCN'
 weight: 7
 heroBackground: /images/photos/people-pyday-2019.jpg
----
 
-<div class="container">
-            <div class="row main_content">
-                <div class="col-md-9 main_column">
-  <p><strong>This event has ended!</strong> You can see some photos <a href="https://drive.google.com/drive/folders/1kODXtBARnTbZmQwVW1Qx2EvBCDSqhZjX?usp=sharing" target="_blank">here</a>.</p>
-<p><img src="/archives/pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg" style="width:100%"/></p>
+# This page is on layouts/_default/event.html, like the editions from 2020
+# on, so it gets the sticky index of sections down the left of the page. It
+# was on layouts/_default/single.html, which renders the body and the
+# gallery and nothing else, so the page had no way to jump to its own
+# gallery. The index lists what this file declares: About the event, and
+# Gallery. There is no Schedule entry, because the grid needs eventTimes
+# and numTracks and this page carries neither (see the comment on agenda below). PyDay BCN 2016 and 2018
+# are still on single.html and still have no index.
+layout: event
+
+# The programme of this edition, read from the printed agenda that the live
+# thread on X photographed (tweet 1195637939285430272, the photo on this page).
+# The Google Calendar embed that held it is gone, and the Meetup description
+# never carried it, so that photograph is the source. Titles are copied from
+# the sheets, typos included: the sheets print "Decoradores en evolucion" and
+# "Un caso practico" without their accents.
+#
+# The sheets name no speaker at all. The four that are named here come from the
+# thread, which announced them. The other eleven are unknown, and that is what
+# the source says. The caption of one photo credits the handle @bustawin for
+# SQLAlchemy from 0 to proficient, but a handle is not a name, so that talk
+# carries no speaker until somebody says who it is.
+talks:
+  # The two keynotes. The printed sheets announce the opening one in all three
+  # tracks and give it no title, and the closing one is not on them at all: the
+  # thread tweeted it at 20:03, well after the 18:30 the sheets end at. David
+  # Arcos supplied both titles, which is why they are plain and not quoted.
+  - id: opening-keynote
+    title: "Opening keynote"
+    speakers: [laura-perez-mayos]
+    type: keynote
+    source: "https://x.com/PyBCN/status/1195623896537554944"
+  - id: closing-keynote
+    title: "Closing keynote"
+    speakers: [david-arcos]
+    type: keynote
+    source: "https://x.com/PyBCN/status/1195779452829097984"
+  - id: arquitectura-limpia-para-microservicios
+    title: "Arquitectura limpia para microservicios: Un caso practico"
+    duration_minutes: 90
+    language: es
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195638580137406464"
+  - id: fast-bayesian-ab-and-multivariate-testing
+    title: "Fast Bayesian A/B and multivariate testing"
+    duration_minutes: 45
+    language: en
+    type: talk
+  - id: tell-me-why
+    title: "Tell me Why"
+    duration_minutes: 90
+    language: en
+    type: workshop
+  - id: tips-for-optimize-django-database-queries
+    title: "Tips for optimize Django database queries"
+    duration_minutes: 90
+    language: en
+    type: workshop
+  - id: deep-learning-for-image-classification-using-tensorflow
+    title: "Deep Learning for Image Classification using TensorFlow"
+    duration_minutes: 75
+    language: en
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195638268727042051"
+  - id: decoradores-en-evolucion
+    title: "Decoradores en evolucion"
+    duration_minutes: 60
+    language: es
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195662968203153410"
+  - id: the-magic-of-pyspark
+    title: "The magic of PySpark"
+    duration_minutes: 105
+    language: en
+    type: workshop
+  - id: sqlalchemy-from-0-to-proficient
+    title: "SQLAlchemy from 0 to proficient"
+    duration_minutes: 90
+    language: en
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195729652893077504"
+  - id: migracode
+    title: "Migracode: the first code school for youth migrants and refugees in Barcelona"
+    duration_minutes: 30
+    language: en
+    type: talk
+  - id: keep-your-repo-clean
+    title: "Keep your repo clean"
+    speakers: [hector-canto]
+    duration_minutes: 45
+    language: es
+    type: talk
+    source: "https://x.com/PyBCN/status/1195639258599563264"
+  - id: refactoring-a-web-application-with-python
+    title: "Refactoring a Web Application with Python"
+    duration_minutes: 90
+    language: en
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195663218259243010"
+  - id: building-interactive-data-visualizations-with-plotly-and-dash
+    title: "Building Interactive Data Visualizations with Plotly and Dash"
+    speakers: [anna-fedotova]
+    duration_minutes: 90
+    language: en
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195729247731630080"
+  - id: quick-data-exploration-with-jupyter-and-ipywidgets
+    title: "Quick data exploration with Jupyter and ipywidgets"
+    duration_minutes: 90
+    language: en
+    type: workshop
+    source: "https://x.com/PyBCN/status/1195729783734202368"
+
+# The rooms the sheets name. Three parallel tracks, one level each.
+rooms:
+  - id: b6
+    name: "B6"
+    track: Advanced
+  - id: b5
+    name: "B5"
+    track: Intermediate
+  - id: b3
+    name: "B-3"
+    track: Beginner
+
+# The grid, one row per session of the day, in the order the sheets print it:
+# by time, and then by the track order of rooms above. A slot is when and
+# where; the talk it names is what was said. The two were one list until this
+# edition was converted, and the eight later editions already carry them
+# apart.
+#
+# level is the one level the sheets give a session, which is the level of its
+# track. It is not the python_level and topic_level pair that the editions
+# from 2020 on carry, because the source names one level and not two.
+#
+# No slot carries a track_length other than 1: the three tracks ran in
+# parallel all day and no session spanned two of them.
+#
+# The hand-drawn arrow on the sheet swapped the two B5 slots, 10:00 and
+# 16:30. The comment that records it is on both of them, where the time it
+# corrects now lives.
+#
+# This page declares no eventTimes, so no grid is rendered from this list.
+# The programme a reader sees is the Google Calendar embed in the body, which
+# is what the association published. The list is here because a photo of the
+# gallery joins to a talk by id, and because the nine photo days still to
+# import need one shape for a programme and not two.
+agenda:
+  # The sheets print the opening keynote in all three tracks at 9:30, so it is
+  # one slot across the grid. The closing keynote has no slot: it is not on
+  # them, and the thread gives the time of the tweet, not of the session.
+  - start: "9:30"
+    track_length: 3
+    room: b6
+    talk: opening-keynote
+  - start: "10:00"
+    track_length: 1
+    room: b6
+    talk: arquitectura-limpia-para-microservicios
+    level: advanced
+  - start: "10:00"
+    track_length: 1
+    room: b5
+    talk: deep-learning-for-image-classification-using-tensorflow
+    # The printed sheet has these two the other way round, with a hand-drawn
+    # arrow swapping them. The thread confirms the arrow, not the print.
+    level: intermediate
+  - start: "10:00"
+    track_length: 1
+    room: b3
+    talk: migracode
+    level: beginner
+  - start: "10:30"
+    track_length: 1
+    room: b3
+    talk: keep-your-repo-clean
+    level: beginner
+  - start: "12:00"
+    track_length: 1
+    room: b6
+    talk: fast-bayesian-ab-and-multivariate-testing
+    level: advanced
+  - start: "12:00"
+    track_length: 1
+    room: b5
+    talk: decoradores-en-evolucion
+    level: intermediate
+  - start: "12:00"
+    track_length: 1
+    room: b3
+    talk: refactoring-a-web-application-with-python
+    level: beginner
+  - start: "14:30"
+    track_length: 1
+    room: b6
+    talk: tell-me-why
+    level: advanced
+  - start: "14:30"
+    track_length: 1
+    room: b5
+    talk: the-magic-of-pyspark
+    level: intermediate
+  - start: "14:30"
+    track_length: 1
+    room: b3
+    talk: building-interactive-data-visualizations-with-plotly-and-dash
+    level: beginner
+  - start: "16:30"
+    track_length: 1
+    room: b6
+    talk: tips-for-optimize-django-database-queries
+    level: advanced
+  - start: "16:30"
+    track_length: 1
+    room: b5
+    talk: sqlalchemy-from-0-to-proficient
+    # The printed sheet has these two the other way round, with a hand-drawn
+    # arrow swapping them. The thread confirms the arrow, not the print.
+    level: intermediate
+  - start: "16:30"
+    track_length: 1
+    room: b3
+    talk: quick-data-exploration-with-jupyter-and-ipywidgets
+    level: beginner
+
+---
+<p><img src="/archives/pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg" style="width:100%" alt="The group photograph of PyDay BCN 2019, in the cloister of the Universitat de Barcelona" /></p>
 <h2>Archived content</h2>
 <p>We are excited to announce that we are organizing the third edition of PyDay in Barcelona!</p>
 <p>PyDay Barcelona 2019 is going to take place on <strong>November 16th</strong> <em>fgin Universitat de Barcelona</em>, a full day full of FREE python-related activities for the Python community. Over the last two editions, PyDay has become a great opportunity to share our love for Python and engage users, companies and newcomers into it!</p>
@@ -34,36 +259,33 @@ heroBackground: /images/photos/people-pyday-2019.jpg
 <h2>Sponsors</h2>
 <h3>Venue</h3>
 <center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/ub.jpg" style="width: 350px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/psf.png" style="width: 350px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/ub.jpg" style="width: 350px; margin: 20px 20px auto;" alt="Universitat de Barcelona logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/psf.png" style="width: 350px; margin: 20px 20px auto;" alt="Python Software Foundation logo">
 </center><h3>Platinum</h3>
 <center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/upcloud.png" style="width: 180px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/kiwicom.png" style="width: 150px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/invisiblebits.png" style="width: 180px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/chartboost.png" style="width: 180px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/king.png" style="width: 130px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/qustodio.png" style="width: 190px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/upcloud.png" style="width: 180px; margin: 20px 20px auto;" alt="UpCloud logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/kiwicom.png" style="width: 150px; margin: 20px 20px auto;" alt="Kiwi.com logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/invisiblebits.png" style="width: 180px; margin: 20px 20px auto;" alt="Invisible Bits logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/chartboost.png" style="width: 180px; margin: 20px 20px auto;" alt="Chartboost logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/king.png" style="width: 130px; margin: 20px 20px auto;" alt="King logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/qustodio.png" style="width: 190px; margin: 20px 20px auto;" alt="Qustodio logo">
 </center><h3>Coffee Sponsor</h3>
 <center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/affectv.png" style="width: 100px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/affectv.png" style="width: 100px; margin: 20px 20px auto;" alt="Affectv logo">
 </center><h3>Gold</h3>
 <center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/thoughtworks.png" style="width: 150px; margin: 20px 0px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/bmat.png" style="width: 70px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/holaluz.png" style="width: 80px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/thoughtworks.png" style="width: 150px; margin: 20px 0px auto;" alt="ThoughtWorks logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/bmat.png" style="width: 70px; margin: 20px 20px auto;" alt="BMAT logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/holaluz.png" style="width: 80px; margin: 20px 20px auto;" alt="Holaluz logo">
 <br />
-<img src="/archives/pybcn.org/pyday-bcn-2019/travelperk.png" style="width: 150px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/elastic.png" style="width: 110px; margin: 20px 10px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/verse.png" style="width: 110px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/travelperk.png" style="width: 150px; margin: 20px 20px auto;" alt="TravelPerk logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/elastic.png" style="width: 110px; margin: 20px 10px auto;" alt="Elastic logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/verse.png" style="width: 110px; margin: 20px 20px auto;" alt="Verse logo">
 <br />
-<img src="/archives/pybcn.org/pyday-bcn-2019/fundacion-ci.jpg" style="width: 110px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/fundacion-ci.jpg" style="width: 110px; margin: 20px 20px auto;" alt="Fundación Cibervoluntarios logo">
 </center><h3>Silver</h3>
 <center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/kschool.png" style="width: 100px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/satellogic.png" style="width: 100px; margin: 20px 20px auto;">
-<img src="/archives/pybcn.org/pyday-bcn-2019/blueliv.png" style="width: 100px; margin: 20px 20px auto;">
+<img src="/archives/pybcn.org/pyday-bcn-2019/kschool.png" style="width: 100px; margin: 20px 20px auto;" alt="KSchool logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/satellogic.png" style="width: 100px; margin: 20px 20px auto;" alt="Satellogic logo">
+<img src="/archives/pybcn.org/pyday-bcn-2019/blueliv.png" style="width: 100px; margin: 20px 20px auto;" alt="Blueliv logo">
 </center>
-                </div>
-            </div>
-        </div>

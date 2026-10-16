@@ -1,6 +1,6 @@
 ---
 id: julio-martinez
-name: Julio Martinez
+name: "Julio Martínez"
 photo: julio-martinez.jpg
 
 twitter: https://x.com/liopic

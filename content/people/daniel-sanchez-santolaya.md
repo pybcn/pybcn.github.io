@@ -1,6 +1,6 @@
 ---
 id: daniel-sanchez-santolaya
-name: Daniel Sanchez Santolaya
+name: "Daniel Sánchez Santolaya"
 photo: daniel-sanchez-santolaya.jpg
 twitter: https://x.com/danisbd89
 linkedin: https://www.linkedin.com/in/daniel-sanchez-santolaya

@@ -32,6 +32,29 @@ $primary: $blue-pybcn;
     mask-size: contain;
 }
 
+// The mark of a link that leaves the site, printed by
+// partials/link_mark.html in front of the words of the link: the YouTube
+// mark, the GitHub mark, the X mark above, or the generic arrow. Grey at
+// rest, the $icon-grey of every icon of the site, and the colour of the
+// link under the pointer or the keyboard, which is the rule the social
+// glyphs of a person card follow. The YouTube mark took the blue of the
+// link around it until 2026-10-15 while every other icon was grey; David
+// Arcos asked for one colour. An inline-block, so the underline of the
+// link stops at the words and is not drawn through the glyph. The gap is
+// the one the credit of a gallery photo and the video line of a talk row
+// already set.
+.link_mark {
+    display: inline-block;
+    margin-right: 0.4rem;
+    color: $icon-grey;
+    transition: color 0.15s linear;
+}
+
+a:hover .link_mark,
+a:focus .link_mark {
+    color: inherit;
+}
+
 .semitransparent {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;

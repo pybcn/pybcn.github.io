@@ -2,6 +2,15 @@
 
     margin-bottom: 2em;
 
+    // The day of the edition, the first line of the column, muted like the
+    // day line of a meetup page (.meetup_when in meetup.scss) and a step
+    // larger than the body text, because it is the first fact of the page.
+    .event_when {
+        font-size: 1.15rem;
+        color: #51616e;
+        margin-bottom: 1.2rem;
+    }
+
     #index_sections {
         top:100px;
     }

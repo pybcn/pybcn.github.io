@@ -98,6 +98,31 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             }
         }
 
+        /*
+            The title of a row that holds a talk goes to the page of that
+            talk. Underlined, so it reads as a link before the pointer
+            reaches it: colour alone cannot say it here, because the whole
+            block is one colour and the title takes the same white or dark
+            text as the rest of it. WCAG 1.4.1 asks for a second mark, and
+            the underline is the mark a link takes everywhere else on this
+            site (see .photo_source in photo_gallery.scss).
+
+            The type icon sits inside the link and is made an
+            inline-block, so the underline is not drawn through it: a
+            propagated text decoration does not cross an atomic
+            inline-level box, which is the same mechanism that keeps the
+            rule off .icon_x in the gallery credit. text-decoration: none
+            on the glyph would do nothing, because the rule belongs to the
+            anchor and not to the child.
+        */
+        .agenda_talk_link {
+            text-decoration: underline;
+
+            i {
+                display: inline-block;
+            }
+        }
+
         span {
             display: block;
             width: 100%;
@@ -107,8 +132,20 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             color: white;
         }
 
+        // The video of the session, through partials/video_link.html: the
+        // mark is inside the link, and made an inline-block so the
+        // underline of the link stops at the words, as .agenda_talk_link
+        // does with the type icon above.
         .event_video {
             margin-top: 5%;
+
+            a {
+                text-decoration: underline;
+            }
+
+            i {
+                display: inline-block;
+            }
         }
 
         /*

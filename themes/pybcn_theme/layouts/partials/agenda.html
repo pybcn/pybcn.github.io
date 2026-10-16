@@ -21,6 +21,30 @@
 </style>
 
 {{ partial "agenda_legend.html" .legend }}
+{{- /* The talks and the rooms of this page by id, so a slot of the agenda
+       finds its own and nothing else. Same join as photo_gallery.html.
+
+       One colour per room as well, taken in the order the grid first names
+       them and kept for the whole day. See agenda_entry.html. */ -}}
+{{- $talks := dict -}}
+{{- range $talk := .talks -}}
+	{{- with $talk.id }}{{ $talks = merge $talks (dict . $talk) }}{{ end -}}
+{{- end -}}
+{{- /* The name of every person record, by id, so a talk that credits a
+       speaker by id prints the name the record holds. Same join as
+       photo_gallery.html and people-grid.html: the person files are read
+       from site.Pages, as they were when they built no page. Built once
+       per event page and passed down, rather than once per slot. */ -}}
+{{- $people := dict -}}
+{{- range $person := where .Site.Pages "Section" "people" -}}
+	{{- with $person.Params.id }}{{ $people = merge $people (dict . $person.Params.name) }}{{ end -}}
+{{- end -}}
+{{- $rooms := dict -}}
+{{- $colors := dict -}}
+{{- $palette := slice "purple" "blue" "yellow" "red" "orange" "grey" "green" "pink" -}}
+{{- range $position, $room := .rooms -}}
+	{{- with $room.id }}{{ $rooms = merge $rooms (dict . $room) }}{{ $colors = merge $colors (dict . (index $palette (mod $position (len $palette)))) }}{{ end -}}
+{{- end }}
 
 <div class="scheduleContainer span{{ .spansDuration }}min">
 
@@ -28,31 +52,71 @@
 		<div class="time start-{{ replace $time ":" "" }}">{{$time}}</div>
 	{{ end }}
 
-	{{ range $index, $event := .events }}
+	{{- $numTracks := int .numTracks -}}
+	{{ range $index, $slot := .agenda }}
+		{{- $event := partial "agenda_entry.html" (dict "slot" $slot "talks" $talks "rooms" $rooms "colors" $colors "people" $people "event_url" $.event_url) }}
 		{{/* A title that is not in English gets a lang attribute, so a screen
 		     reader reads it with the right voice. The language field is the
 		     language of the talk, not of the title, so the attribute comes
 		     only from title_lang. See partials/title_lang.html. */}}
 		{{ $title_lang := partial "title_lang.html" $event }}
-		<div class="event {{ $event.class }} {{ $event.color }} start-{{ replace $event.start_time_slot ":" "" }} end-{{ replace $event.end_time_slot ":" "" }} length-{{ $event.track_length }}">
+		{{- /* A slot that spans every track is a banner: the registration, a
+		       break, the lunch, or a closing session that fills the room. Its
+		       text is centred. The retired "class: middle" said the same by
+		       hand, on 46 of the 54 rows that span the full width, so the
+		       other 8 sat left-aligned for no reason. Width is the rule, not
+		       whether the row holds a talk: the closing session of 2025 is a
+		       talk, spans every track, and was centred. */ -}}
+		{{- $banner := ge (int $event.track_length) $numTracks -}}
+		<div class="event {{ $event.color }}{{ if $banner }} middle{{ end }} start-{{ replace $event.start ":" "" }} end-{{ replace $event.end ":" "" }} length-{{ $event.track_length }}">
 
+			{{/* Two actions on one block, and each one does a different thing:
+			     the plus icon opens the detail of this session in place, and the
+			     title goes to the page of the talk. They are separated rather
+			     than merged because they are not the same answer. The modal is
+			     the quick look at the row the reader is standing on, and it is
+			     the only place this site prints the fields that belong to the
+			     slot and not to the talk: requirements, which 69 of the 179
+			     rows of the archive carry. The page of the talk is the record
+			     itself, with a URL to share, the photo of the day, the links
+			     the speaker published, and no script needed to read it.
+
+			     The title used to be a second trigger of the same modal, so the
+			     block had one action written twice: that is why the plus icon
+			     carried tabindex="-1" and sat outside the tab order. The title
+			     is a link now, so the icon is the only way to the modal and
+			     takes its place in the tab order back. Each control has its own
+			     accessible name, "Details of <title>" on the icon and the title
+			     on the link, so a block of the grid is two tab stops that read
+			     as two different destinations.
+
+			     A row with no talk keeps exactly what it had. No such row of
+			     the archive carries a description today, so none of them opens
+			     a modal, but the branch stays correct if one ever does. */}}
 			{{ if $event.description }}
-				<button type="button" class="detail_link modal_trigger" tabindex="-1" data-toggle="modal" data-target="#modal_{{ $index }}" aria-label="Details of {{ $event.title }}">
+				<button type="button" class="detail_link modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}" aria-label="Details of {{ $event.title }}">
 					<i class="fas fa-plus-square" aria-hidden="true"></i>
 				</button>
 			{{ end }}
 
 
 			<h3>
-				{{/* The button opens before the icon, so the button box holds the
-				     whole line and the title wraps as it did before. */}}
-				{{ if $event.description }}
+				{{/* The wrapper opens before the icon, so the box holds the
+				     whole line and the title wraps as it did before. The link
+				     wins over the button when the talk has a page: a reader who
+				     follows the title gets the whole record, which is more than
+				     the modal holds. */}}
+				{{ if $event.url }}
+					<a class="agenda_talk_link" href="{{ $event.url }}">
+				{{ else if $event.description }}
 					<button type="button" class="modal_trigger" data-toggle="modal" data-target="#modal_{{ $index }}">
 				{{ end }}
 				{{ partial "event_type_icon.html" $event.type }}
 
 				{{ with $title_lang }}<span lang="{{ . }}">{{ $event.title }}</span>{{ else }}{{ $event.title }}{{ end }}
-				{{ if $event.description }}
+				{{ if $event.url }}
+					</a>
+				{{ else if $event.description }}
 					</button>
 				{{ end }}
 			</h3>
@@ -68,10 +132,10 @@
 			{{ end }}
 
 
-			{{ with $event.location }}
+			{{ with $event.room }}
 				<br/><span class="event_topic"><i class="fas fa-terminal"></i>
 					{{ if or (in . "www") (in . "http") }}
-						<a class="event_location" href="{{ $event.location }}" target="_blank">{{ . }}</a>
+						<a class="event_location" href="{{ $event.room }}" target="_blank">{{ . }}</a>
 					{{ else }}
 						{{ . }}
 					{{ end }}
@@ -89,9 +153,14 @@
 			{{ with $event.topic_level }}
 				<span class="event_level"><i class="fas fa-terminal" aria-hidden="true"></i> Topic level: {{ partial "level_badge.html" . }}</span>
 			{{ end }}
-			{{ with $event.video }}
-			<span class="event_video"><i class="fas fa-film"></i> <a target="_blank" href="{{ . }}">Video</a></span>
-		    {{ end }}
+			{{/* No video on the block. A player belongs on a page about one
+			     talk and a link belongs on a row, and a block of the grid is
+			     neither: the grid of PyDay BCN 2020 printed 20 video links, the
+			     one schedule of the site that printed any (David Arcos,
+			     2026-10-15). The videos of the day are the Videos block of the
+			     page, under the grid, one row per video, from
+			     partials/event_videos.html; the modal behind this block keeps
+			     the link, as the detail of one session. */}}
 		</div>
 		{{ if $event.description }}
 			{{ partial "event_detail.html" (dict "event" $event "index" $index) }}

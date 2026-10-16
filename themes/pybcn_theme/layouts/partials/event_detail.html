@@ -2,6 +2,12 @@
      reader reads it with the right voice. The language field is the
      language of the talk, not of the title, so the attribute comes
      only from title_lang. See partials/title_lang.html. */}}
+{{/* repositories is a list of links now, and no longer one string. Two of
+     the strings it replaces held more than one address, with a label around
+     each in raw HTML. The label is data here and this template owns the
+     markup, so the <br> scaffolding those two carried is gone. A single
+     unlabelled address renders as it did: markdownify turns a bare URL into
+     a link. */ -}}
 {{ $title_lang := partial "title_lang.html" $.event }}
 <div class="modal fade" id="modal_{{ $.index }}" role="dialog" aria-labelledby="modal_{{ $.index }}_title" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog" role="document">
@@ -28,7 +34,7 @@
                 {{ end }}
 
 
-                {{ with $.event.location }}
+                {{ with $.event.room }}
                     <br/><br/><span class="event_topic"><i class="fas fa-terminal"></i>
                         {{ if or (in . "www") (in . "http") }}
                             <a class="event_location" href="{{ . }}" target="_blank">{{ . }}</a><br/>
@@ -49,8 +55,11 @@
                 {{ with $.event.topic_level }}
                     <span class="event_level"><i class="fas fa-terminal" aria-hidden="true"></i> Topic level: {{ partial "level_badge.html" . }}</span><br/>
                 {{ end }}
+                {{/* The same link the block of the grid prints, through the
+                     same partial, so the modal and the block agree on the
+                     words and the mark. */}}
                 {{ with $.event.video }}
-                <span class="event_video"><i class="fas fa-film"></i> <a href="{{ . }}" target="_blank">Video</a></span>
+                <span class="event_video">{{ partial "video_link.html" (dict "url" . "blank" true) }}</span>
                 {{ end }}
                 {{/* markdownify wraps its result in a p of its own, so the p
                      that used to be here nested one inside another, which no
@@ -66,7 +75,17 @@
                 {{ end }}
                 {{ with $.event.repositories }}
                 <p><b>Repository:</b></p>
-                {{ . | markdownify }}
+                {{ range $position, $link := . }}{{ if $position }}<br>{{ end }}{{ with $link.label }}<b>{{ . }}</b>: {{ end }}{{ $link.url | markdownify }}{{ end }}
+                {{ end }}
+                {{/* The way out of the modal, last in the body. The modal is the
+                     quick look at one row of the grid and the page of the talk
+                     is the record, so a reader who opened the peek and wants
+                     the rest should not have to close it and hunt for the
+                     title. The url comes from partials/agenda_entry.html, which
+                     looks it up in partials/talk_pages_index.html, so it is
+                     empty for a row that has no page and no link is printed. */}}
+                {{ with $.event.url }}
+                <p class="modal_talk_link"><a href="{{ . }}">Read the page of this talk</a></p>
                 {{ end }}
             </div>
         </div>

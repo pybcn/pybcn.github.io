@@ -1,0 +1,51 @@
+{{- /*
+    The talks of one event page, one row per talk, in the order of the
+    talks list of the page.
+
+    Argument: the page. Its Params.talks is the list; the caller checks
+    that the list is not empty and writes the heading and the wrapper, so
+    the rows sit inside whatever block the page draws around them: the
+    section of layouts/_default/meetup.html, the link_anchor of
+    layouts/_default/event.html.
+
+    A row has the icon of the type, named so that its label is its
+    accessible name and its hover, the title as the link to the page of
+    the talk, and who gave it under the title. A talk with no page of its
+    own, which happens when it has no id, is printed as text rather than
+    dropped. The first link of type video of the talk is the Watch line,
+    the rule partials/agenda_entry.html applies for the block of the grid;
+    no talk of the archive carries two. The slides and the photograph of
+    the talk are on its page, which the title links to, so a row does not
+    repeat them.
+
+    The markup is the one the meetup page carried until the edition page
+    needed the same rows: PyData Barcelona 2017 holds 32 talks and no
+    programme grid, and listed its slides in its body as a numbered list
+    with the speaker names typed in, a worse copy of its own talk records.
+    One partial, so the two pages read alike and a change reaches both.
+    The styles are .talk_rows of talks.scss, which the person page uses as
+    well.
+*/ -}}
+{{- $names := partialCached "people_names.html" site "people-names" -}}
+<ul class="talk_rows">
+    {{- range $talk := .Params.talks }}
+    {{- $url := "" -}}
+    {{- $speakers := partial "speaker_names.html" (dict "names" $names "ids" $talk.speakers) -}}
+    {{- $title_lang := partial "title_lang.html" (dict "title_lang" $talk.title_lang "title" $talk.title) -}}
+    {{- $video := "" -}}
+    {{- range $link := $talk.links -}}
+        {{- if and (not $video) (eq (default "" $link.type) "video") }}{{ $video = $link.url }}{{ end -}}
+    {{- end -}}
+    <li class="talk_row">
+        <h3 class="talk_title">{{ with $talk.type }}<span class="talk_icon">{{ partial "event_type_icon.html" (dict "type" . "named" true) }}</span>{{ end }}
+            {{- if $url }}<a href="{{ $url }}"{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $talk.title }}</a>
+            {{- else }}<span{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $talk.title }}</span>{{ end }}</h3>
+        {{- with $speakers }}
+        <p class="talk_meta">{{ delimit . ", " }}</p>
+        {{- end }}
+        {{- with $video }}
+        <p class="talk_video">{{ partial "video_link.html" (dict "url" .) }}</p>
+        {{- end }}
+    </li>
+    {{- end }}
+</ul>

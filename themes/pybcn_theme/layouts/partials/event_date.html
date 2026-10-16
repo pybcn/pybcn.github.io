@@ -1,0 +1,124 @@
+{{- /*
+    The date of an event, answered once for every page that prints one.
+
+    Argument: a dict with date, the first day, and end_date, the last day,
+    which an edition carries only when it ran more than one day. Pass the
+    two params of the event page:
+
+        partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date)
+
+    plus "weekday" true to put the weekday in front of each day, which the
+    page of a meetup wants. Both keys go through time.AsTime, so a YAML date
+    and a quoted string both work.
+
+    Returns a dict, empty when there is no date (Hacktoberfest 2018 carries
+    none, so a caller tests what it gets and prints nothing):
+
+      start, end           the two days as times. end is nil for a one day
+                           event, and also when end_date is not after
+                           date: the page then prints one day, and
+                           bin/check-content reports the mistake.
+      year, month, day     the first day in parts, as strings: "2016",
+                           "Sep", "15". One per column of a listing that
+                           sets the date in columns.
+      end_year, end_month, end_day
+                           the last day in the same parts, empty strings
+                           for a one day event.
+      short                "15 Sep", "15 to 17 Sep", "30 Sep to 2 Oct", for
+                           a line under a heading that says the year.
+      text                 "15 September 2016", "15 to 17 September 2016",
+                           for prose.
+      html                 text, with each day inside its own time element.
+
+    Why the format is what it is. The order is day, month, year, the one
+    the site prints already ("Monday, 2 January 2006" on a meetup page) and
+    the one a reader in Barcelona says. A range collapses what its two ends
+    share, the way a person says it: "15 to 17 September 2016", never
+    "15 September 2016 to 17 September 2016". A range inside one month
+    repeats neither the month nor the year, a range inside one year repeats
+    the month and not the year, and a range across two years prints both
+    ends whole. The word between the ends is "to" and not a dash: a screen
+    reader skips a dash between two numbers or reads it as "minus", and the
+    site uses no em dash.
+
+    The machine readable form. The datetime attribute of a time element
+    holds one valid date string, so a range is two time elements, one per
+    end, and never one element whose datetime holds two dates:
+    bin/check-rendered and axe-core run over the result. The collapse is in
+    the text only: the first element reads "15" and the second "17
+    September 2016", and each one carries its whole date in datetime.
+
+    safeHTML, once, on html: every character of it comes from time.Format
+    of a parsed date, so no content field reaches it (AGENTS.md: never add
+    a field that reaches a template through safeHTML). A date that does not
+    parse stops the build in time.AsTime.
+*/ -}}
+{{- $start := "" -}}
+{{- with .date }}{{ $start = time.AsTime . }}{{ end -}}
+{{- $end := "" -}}
+{{- with .end_date }}{{ $end = time.AsTime . }}{{ end -}}
+{{- if and $start $end -}}
+    {{- if not ($end.After $start) }}{{ $end = "" }}{{ end -}}
+{{- end -}}
+
+{{- $out := dict -}}
+{{- if $start -}}
+    {{- $iso := "2006-01-02" -}}
+    {{- $short := "" -}}
+    {{- $text := "" -}}
+    {{- $html := "" -}}
+    {{- $end_year := "" -}}
+    {{- $end_month := "" -}}
+    {{- $end_day := "" -}}
+    {{- if $end -}}
+        {{- /* How much of the first day is printed is how much the two
+               ends do not share: the day alone inside one month, the day
+               and the month inside one year, the whole date across two.
+               The last day is always whole, less the year when both ends
+               share it in the short form. */ -}}
+        {{- $first_long := "2 January 2006" -}}
+        {{- $first_short := "2 Jan 2006" -}}
+        {{- $last_short := "2 Jan 2006" -}}
+        {{- if eq $start.Year $end.Year -}}
+            {{- $first_long = "2 January" -}}
+            {{- $first_short = "2 Jan" -}}
+            {{- $last_short = "2 Jan" -}}
+            {{- if eq $start.Month $end.Month -}}
+                {{- $first_long = "2" -}}
+                {{- $first_short = "2" -}}
+            {{- end -}}
+        {{- end -}}
+        {{- $last_long := "2 January 2006" -}}
+        {{- if .weekday -}}
+            {{- $first_long = printf "Monday %s" $first_long -}}
+            {{- $last_long = printf "Monday %s" $last_long -}}
+        {{- end -}}
+        {{- $first := time.Format $first_long $start -}}
+        {{- $last := time.Format $last_long $end -}}
+        {{- $end_year = time.Format "2006" $end -}}
+        {{- $end_month = time.Format "Jan" $end -}}
+        {{- $end_day = time.Format "2" $end -}}
+        {{- $short = printf "%s to %s" (time.Format $first_short $start) (time.Format $last_short $end) -}}
+        {{- $text = printf "%s to %s" $first $last -}}
+        {{- $html = printf "<time datetime=\"%s\">%s</time> to <time datetime=\"%s\">%s</time>" (time.Format $iso $start) $first (time.Format $iso $end) $last -}}
+    {{- else -}}
+        {{- $long := "2 January 2006" -}}
+        {{- if .weekday }}{{ $long = "Monday, 2 January 2006" }}{{ end -}}
+        {{- $short = time.Format "2 Jan" $start -}}
+        {{- $text = time.Format $long $start -}}
+        {{- $html = printf "<time datetime=\"%s\">%s</time>" (time.Format $iso $start) $text -}}
+    {{- end -}}
+    {{- $out = dict
+        "start" $start
+        "end" $end
+        "year" (time.Format "2006" $start)
+        "month" (time.Format "Jan" $start)
+        "day" (time.Format "2" $start)
+        "end_year" $end_year
+        "end_month" $end_month
+        "end_day" $end_day
+        "short" $short
+        "text" $text
+        "html" ($html | safeHTML) -}}
+{{- end -}}
+{{- return $out -}}

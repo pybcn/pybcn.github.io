@@ -1,0 +1,33 @@
+{{- /*
+    The name of every person record, by id.
+
+    No argument is read: the data comes from the files under
+    content/people/. Call it through partialCached with a constant variant,
+    so the 378 person files are read once per build:
+
+        partialCached "people_names.html" site "people-names"
+
+    The person files are read from site.Pages, which is how
+    partials/people-grid.html joins a person to an event. Same join here.
+    They built no page of their own until the Archive brought the pages
+    back (config.toml has the history); the join did not change.
+
+    An id with no name behind it is left out, and partials/speaker_names.html
+    is what turns a missing id into something readable.
+
+    partials/agenda.html builds the same dict inline, once per event page,
+    because it needs it for the page it is rendering (so did
+    partials/gallery_content.html, until the gallery started linking its
+    speakers through this dict on 2026-10-14). This partial exists for the
+    talk pages, which are 607 pages that each need one name or two: a dict
+    built per page there would read the 378 person files 607 times.
+*/ -}}
+{{- $names := dict -}}
+{{- range $person := where site.Pages "Section" "people" -}}
+    {{- with $person.Params.id -}}
+        {{- with $person.Params.name -}}
+            {{- $names = merge $names (dict $person.Params.id .) -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- return $names -}}

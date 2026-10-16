@@ -1,9 +1,11 @@
 {{- /*
     event_types: the controlled vocabulary of agenda entry types.
 
-    Returns a map of token to icon class and human label. It is the single
-    source of truth for the agenda grid, the event detail modal and the
-    agenda legend, so the three cannot drift apart.
+    Returns a map of token to icon class, human label, and the noun a
+    legend prints after a count, singular (one) and plural (many). It is
+    the single source of truth for the agenda grid, the event detail modal,
+    the agenda legend, the rows of /talks/, and the legend above them, so
+    none of them can drift apart.
 
     "sponsor" is not an entry type. It is listed here because the legend
     explains the same star icon that the agenda puts next to a sponsor name.
@@ -12,13 +14,15 @@
     never supplies markup.
 */ -}}
 {{- return dict
-	"talk"      (dict "icon" "fa-comment"         "label" "Talk")
-	"workshop"  (dict "icon" "fa-laptop"          "label" "Workshop")
-	"coffee"    (dict "icon" "fa-mug-hot"         "label" "Coffee break")
-	"lunch"     (dict "icon" "fa-utensils"        "label" "Lunch")
-	"photo"     (dict "icon" "fa-camera"          "label" "Group photo")
-	"group"     (dict "icon" "fa-users"           "label" "Plenary session")
-	"qa"        (dict "icon" "fa-question-circle" "label" "Questions and answers")
-	"lightning" (dict "icon" "fa-bolt"            "label" "Lightning talk")
-	"sponsor"   (dict "icon" "fa-star gold"       "label" "Sponsored event")
+	"talk"      (dict "icon" "fa-comment"         "label" "Talk"                  "one" "talk"                          "many" "talks")
+	"workshop"  (dict "icon" "fa-laptop"          "label" "Workshop"              "one" "workshop"                      "many" "workshops")
+	"coffee"    (dict "icon" "fa-mug-hot"         "label" "Coffee break"          "one" "coffee break"                  "many" "coffee breaks")
+	"lunch"     (dict "icon" "fa-utensils"        "label" "Lunch"                 "one" "lunch"                         "many" "lunches")
+	"photo"     (dict "icon" "fa-camera"          "label" "Group photo"           "one" "group photo"                   "many" "group photos")
+	"group"     (dict "icon" "fa-users"           "label" "Plenary session"       "one" "plenary session"               "many" "plenary sessions")
+	"qa"        (dict "icon" "fa-question-circle" "label" "Questions and answers" "one" "questions and answers session" "many" "questions and answers sessions")
+	"lightning" (dict "icon" "fa-bolt"            "label" "Lightning talk"        "one" "lightning talk"                "many" "lightning talks")
+	"keynote"   (dict "icon" "fa-microphone"      "label" "Keynote"               "one" "keynote"                       "many" "keynotes")
+	"panel"     (dict "icon" "fa-comments"        "label" "Panel"                 "one" "panel"                         "many" "panels")
+	"sponsor"   (dict "icon" "fa-star gold"       "label" "Sponsored event"       "one" "sponsored event"               "many" "sponsored events")
 -}}
