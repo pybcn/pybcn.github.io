@@ -1,0 +1,231 @@
+#!/usr/bin/env python3
+"""Write one content file per monthly meetup, from the Meetup export.
+
+The site publishes the large editions, PyDay BCN and PyDataBCN, and nothing
+else. The monthly meetups are the body of the archive: 19 years of events
+that exist only in the Meetup export, because the Meetup REST API that
+served them is retired (see partials/meetup-events.html). This script turns
+each of those records into a page, so the association holds its own archive
+and the /events/ list reaches all of it.
+
+It writes the skeleton and no more: the title, the day, the year, the venue,
+the registrations, the source URL, and which group organized the event.
+Every one of those is a copy of one field of the export, with canon() from
+bin/canon.py as the only transform, so the result is deterministic and the
+same input always gives the same file. Nothing here needs a judgement.
+
+The talks are not in it. Each description announces its sessions in prose
+written by a different volunteer over 19 years, which no single parser
+reads, so a model extracts them and bin/check-extraction compares every
+field against the source. That work is separate and comes after this one.
+
+The Meetup description is never published. It is the logistics of signing
+up: the door policy, "only register if you can attend", the call for
+proposals, and a social media footer. An archive records what happened, not
+how to register for something that is over. The talks inside it are the part
+worth keeping, and they arrive as talks.
+
+Two rules this import keeps, from AGENTS.md:
+
+  RSVPs are not attendance. attendedCount is zero on almost every event, so
+  yesCount is the only figure the export gives. It is stored as
+  `attendance`, which the page has to render as registrations, and it names
+  nobody.
+
+  No personal data beyond what is already published. eventHosts, the host
+  names, and the description are all read past and never written out. Only
+  a count of RSVPs leaves this script.
+
+Why this import may write content/ while bin/import-x-photos may not: a
+photo needs a person to choose it, caption it, and clear its copyright, so
+that import stages a set for review. Here there is nothing to choose. Each
+field is one field of the export, and the only transform never touches a
+letter. --out is still required, so the directory the script writes is
+always something a person typed.
+
+Exit codes:
+    0  every file was written
+    1  nothing was written, or a name collided
+    2  the script could not run: bad arguments, or a missing export
+
+Usage:
+    bin/import-meetups EXPORT_DIR --out content/events/meetups
+    bin/import-meetups EXPORT_DIR --out content/events/meetups --dry-run
+"""
+
+import argparse
+import json
+import pathlib
+import re
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+from canon import canon
+from slug import slugify
+
+# The two Meetup groups of the association, and the name the site already
+# calls each one by: content/_index.md and content/events/monthly_events.md
+# both print "PyBCN" and "PyLadies BCN". The id is the directory of the
+# export and the first path segment of every eventUrl.
+GROUPS = {
+    "python-barcelona": "PyBCN",
+    "pyladies-bcn": "PyLadies BCN",
+}
+
+# The large editions, which the site already publishes under
+# content/events/pyday_bcn/, content/events/pydatabcn/ and
+# content/events/other_events/. Their Meetup records are skipped here, so no
+# day gets two pages. The test is the title, because the export has no field
+# for it: any title that says PyDay or PyData matches, 19 of the 285
+# records. Two of the 19 are false positives: the call for papers mentoring
+# sessions of PyDataBCN 2017 and PyDay BCN 2019 say the name of the
+# conference without being it, and they were days of the association that
+# existed nowhere on the site. Their pages under content/events/meetups/
+# were written by hand, each one saying so in its own front matter, and a
+# re-run of this import does not recreate them.
+BIG_EDITION = re.compile(r"pyda(y|ta)", re.I)
+
+
+def yaml_string(value):
+    """Return value as a double quoted YAML scalar.
+
+    Double quotes and not plain style: a title carries a colon, a leading
+    emoji, a quote, an asterisk, and an ampersand, and several of those end
+    a plain scalar or change its meaning. Only the backslash and the double
+    quote need escaping inside double quotes.
+    """
+    return '"%s"' % value.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def read_export(export_dir):
+    """Return the meetup records of both groups, newest last.
+
+    Each record keeps the group it came from. A group directory with no
+    events.json stops the run: a silent half import would look like a group
+    with no history.
+    """
+    events = []
+    for group_id in sorted(GROUPS):
+        path = export_dir / group_id / "events.json"
+        if not path.is_file():
+            sys.exit("import-meetups: no %s" % path)
+        for event in json.loads(path.read_text(encoding="utf-8")):
+            event["group_id"] = group_id
+            events.append(event)
+    events.sort(key=lambda event: (event["dateTime"], event["group_id"]))
+    return events
+
+
+def venue_of(event):
+    """Return the venue to store, and the comment that says where it is from.
+
+    An online event has no room, and the export says so twice: eventType is
+    ONLINE and the venue it carries is the placeholder "Online event". The
+    stored value is "Online", the word the page should print.
+
+    Seven events of 2013 to 2015 carry no venue at all. The field is left
+    out rather than guessed, which is the rule the /events/ list already
+    follows for a fact it does not have: Hacktoberfest 2018 prints no date
+    because no source gives its day.
+
+    A hybrid event keeps its room. One event is HYBRID, and it names a real
+    venue, so the place it happened in is known.
+    """
+    if event.get("eventType") == "ONLINE":
+        return "Online", "The export records this event as ONLINE, so it had no room."
+    name = canon((event.get("venue") or {}).get("name") or "").strip()
+    if not name:
+        return None, None
+    return name, None
+
+
+def front_matter(event):
+    """Return the content file of one meetup record, front matter only.
+
+    No body. The Meetup description is the only prose the export carries and
+    it is not published, so a body would be invented text.
+    """
+    group_id = event["group_id"]
+    lines = [
+        "---",
+        "# One monthly meetup, imported from data/raw/meetup/%s/events.json in" % group_id,
+        "# the pybcn-archive export, which is not in this repository, event %s." % event["id"],
+        "# bin/import-meetups writes this file from that record: a correction goes",
+        "# to the export or to the script, never here. The Meetup description is",
+        "# the logistics of signing up and is not published, and the talks it",
+        "# announces arrive separately. See content/events/meetups/_index.md.",
+        "title: %s" % yaml_string(canon(event["title"]).strip()),
+        "date: %s" % event["dateTime"][:10],
+        "year: %s" % event["dateTime"][:4],
+    ]
+    venue, note = venue_of(event)
+    if note:
+        lines.append("# %s" % note)
+    if venue:
+        lines.append("venue: %s" % yaml_string(venue))
+    else:
+        lines.append("# No venue: the export carries none for this event, and no other")
+        lines.append("# source gives it, so the page says nothing rather than a guess.")
+    attendance = (event.get("rsvps") or {}).get("yesCount") or 0
+    lines.append("# Who said yes on Meetup, not who came: attendedCount is zero on almost")
+    lines.append("# every record, so this is the only figure the export gives. It names")
+    lines.append("# nobody, which is what makes it publishable.")
+    if attendance:
+        lines.append("attendance: %d" % attendance)
+    else:
+        lines.append("# No attendance: yesCount is zero on this record.")
+    lines.append("meetup_url: %s" % yaml_string(event["eventUrl"]))
+    lines.append("group: %s" % yaml_string(GROUPS[group_id]))
+    lines.append("---")
+    return "\n".join(lines) + "\n"
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Write one content file per monthly meetup.")
+    parser.add_argument("export", type=pathlib.Path,
+                        help="the raw/meetup directory of the pybcn-archive export")
+    parser.add_argument("--out", type=pathlib.Path, required=True,
+                        help="the directory to write the files in")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="report what would be written and write nothing")
+    args = parser.parse_args()
+
+    if not args.export.is_dir():
+        sys.exit("import-meetups: no %s" % args.export)
+
+    events = read_export(args.export)
+    meetups = [e for e in events if not BIG_EDITION.search(e["title"])]
+    skipped = len(events) - len(meetups)
+
+    files = {}
+    for event in meetups:
+        slug = slugify(event["title"])
+        name = "%s-%s.md" % (event["dateTime"][:10], slug) if slug else "%s.md" % event["dateTime"][:10]
+        if name in files:
+            print("FAIL  %s is the name of event %s and of event %s"
+                  % (name, files[name]["id"], event["id"]))
+            return 1
+        files[name] = event
+
+    if not args.dry_run:
+        args.out.mkdir(parents=True, exist_ok=True)
+        for name, event in files.items():
+            (args.out / name).write_text(front_matter(event), encoding="utf-8")
+
+    online = sum(1 for e in meetups if e.get("eventType") == "ONLINE")
+    no_venue = sum(1 for e in meetups if venue_of(e) == (None, None))
+    attendance = sum((e.get("rsvps") or {}).get("yesCount") or 0 for e in meetups)
+    print("%s %d files in %s"
+          % ("would write" if args.dry_run else "wrote", len(files), args.out))
+    print("%d large editions skipped, of %d records in the export"
+          % (skipped, len(events)))
+    print("%s to %s, %d online, %d with no venue, %d registrations in total"
+          % (meetups[0]["dateTime"][:10], meetups[-1]["dateTime"][:10],
+             online, no_venue, attendance))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

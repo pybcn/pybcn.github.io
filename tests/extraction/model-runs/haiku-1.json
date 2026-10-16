@@ -1,0 +1,309 @@
+[
+  {
+    "event_id": "286238841",
+    "talks": [
+      {
+        "title": "Run the extra mile with serverless",
+        "speakers": [
+          "Mohammed Bouabid"
+        ],
+        "description": "sennder is migration from monolith to microservices. We will explain the requirements and architecture that they're working on, and see some live coding on how to consume Kafka events using AWS Lambda.",
+        "language": "English",
+        "duration_minutes": 30,
+        "links": [
+          {
+            "type": "speaker_profile",
+            "url": "https://www.linkedin.com/in/mohammed-bouabid-a326b74a/"
+          }
+        ]
+      },
+      {
+        "title": "Creating Python Data Pipelines with Yaetos",
+        "speakers": [
+          "Arthur Prevot"
+        ],
+        "description": "The talk will describe the challenges of creating python data pipelines and putting them in production in the cloud, and how Yaetos can help. It is targeted at data engineers, data scientists, analysts and python enthusiasts. Yaetos is a data framework, simplifying the use of Apache Spark in the AWS cloud, and with implementations in production at Infojobs and The Hotels Network.",
+        "language": "English",
+        "duration_minutes": 30,
+        "links": [
+          {
+            "type": "speaker_profile",
+            "url": "https://www.linkedin.com/in/arthurprevot/"
+          },
+          {
+            "type": "github",
+            "url": "https://github.com/arthurprevot/yaetos"
+          },
+          {
+            "type": "speaker_profile",
+            "url": "https://twitter.com/arprevot"
+          }
+        ]
+      }
+    ],
+    "non_talk_items": []
+  },
+  {
+    "event_id": "303407709",
+    "talks": [
+      {
+        "title": "From text to actions: LLMs as the new software consumers",
+        "speakers": [
+          "Pol Alvarez Vecino"
+        ],
+        "description": "QA bots, copilots, workflow automation - LLMs are evolving to control our software through natural language. The endgame is APIs. LLMs that can convert user intents directly into HTTP requests, like Talk2Apis does today, will have the flexibility to access any service. This creates a machine-first software economy with big implications for developers. Python examples included.",
+        "language": "English",
+        "duration_minutes": 30,
+        "links": []
+      },
+      {
+        "title": "Ragtime: An Approach to Retrieval-Augmented Generation",
+        "speakers": [
+          "Javier Martinez Alcantara"
+        ],
+        "description": "In this session, we'll explore a pattern that has sparked significant interest in the world of natural language models (LLMs): Retrieval-Augmented Generation (RAG). We'll walk through a practical implementation, dive into its details, and share insights based on our experiences working with these methods. Whether you're a beginner or an expert, we encourage you to join—what matters most is your interest in LLMs, machine learning, and engineering, and how to leverage these technologies to bring value to your company or organization.",
+        "language": "English",
+        "duration_minutes": 30,
+        "links": []
+      }
+    ],
+    "non_talk_items": [
+      "Welcome",
+      "Networking",
+      "Bye"
+    ]
+  },
+  {
+    "event_id": "315383583",
+    "talks": [
+      {
+        "title": "Feedback immediat per estudiants de programació: Powered by Python",
+        "speakers": [
+          "Moisès Gómez Girón"
+        ],
+        "description": "Presentació d'una eina per a l'ensenyament de la programació, creada per minimitzar el temps entre la resolució de l'exercici i la recepció de la retroacció. L'eina ha estat desenvolupada al llarg dels anys en paral·lel al seu ús a l'aula, sota pressió per terminis ajustats, canvis de temari i estudiants amb imaginació per trobar maneres enginyoses d'enganyar el sistema. El resultat és una història de compromisos i solucions creatives, des de prohibir funcionalitats concretes del llenguatge fins a l'ús exclusiu de tecnologies gratuïtes.",
+        "language": "Catalan",
+        "duration_minutes": 45,
+        "links": []
+      },
+      {
+        "title": "Python-powered Cybersecurity Lab: Caldera, Elastic Stack & ATT&CK simluation",
+        "speakers": [
+          "Mauricio Volcanes"
+        ],
+        "description": "En esta charla mostraremos un laboratorio completo de ciberseguridad compuesto por máquinas virtuales, Elastic Stack y el framework MITRE Caldera (Python). A través de una demostración guiada, analizaremos cómo simular técnicas del framework MITRE ATT&CK y cómo correlacionarlas en tiempo real con logs de sistemas Linux para detectar comportamiento malicioso.",
+        "language": "Spanish",
+        "duration_minutes": 45,
+        "links": []
+      }
+    ],
+    "non_talk_items": [
+      "Welcome",
+      "Networking",
+      "Bye"
+    ]
+  },
+  {
+    "event_id": "203258202",
+    "talks": [
+      {
+        "title": "An introduction to SQLAlchemy and ORM in Python",
+        "speakers": [
+          "Oriol Andrés"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 20,
+        "links": []
+      },
+      {
+        "title": "How to open a bar in Python",
+        "speakers": [
+          "Edward van Kuik"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 20,
+        "links": []
+      },
+      {
+        "title": "Continuous Integration on a large open source software: Plone & Plone 5 is here!",
+        "speakers": [
+          "Ramon Navarro Bosch"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 40,
+        "links": []
+      }
+    ],
+    "non_talk_items": []
+  },
+  {
+    "event_id": "247592204",
+    "talks": [],
+    "non_talk_items": []
+  },
+  {
+    "event_id": "261650248",
+    "talks": [
+      {
+        "title": "Intro to Image Processing and Computer Vision",
+        "speakers": [],
+        "description": null,
+        "language": null,
+        "duration_minutes": null,
+        "links": []
+      }
+    ],
+    "non_talk_items": []
+  },
+  {
+    "event_id": "9801883",
+    "talks": [
+      {
+        "title": "Python tips for the perl-minded system administrator",
+        "speakers": [
+          "Jordi Molina"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 30,
+        "links": []
+      },
+      {
+        "title": "The Zope Component Architecture - a Component Architecture for Python",
+        "speakers": [
+          "Timo Stollenwerk et al."
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 30,
+        "links": []
+      }
+    ],
+    "non_talk_items": []
+  },
+  {
+    "event_id": "16488025",
+    "talks": [
+      {
+        "title": "Introduction to Python",
+        "speakers": [
+          "Maik Röder"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 45,
+        "links": []
+      },
+      {
+        "title": "Leveraging multiple processors on a given machine with the Python multiprocessing module",
+        "speakers": [
+          "Jørgen Skancke"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Statistics and Plotting with Python",
+        "speakers": [
+          "Juan González-Vallinas"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 30,
+        "links": []
+      }
+    ],
+    "non_talk_items": []
+  },
+  {
+    "event_id": "103676402",
+    "talks": [
+      {
+        "title": "Introduction to Django or REST with Tastypie in",
+        "speakers": [
+          "Colin Kingswood"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Django - Best practices",
+        "speakers": [
+          "David Arcos"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Plone",
+        "speakers": [
+          "Ramon Navarro"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Pyramid",
+        "speakers": [
+          "Víctor Fernández de Alba"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Flask",
+        "speakers": [
+          "Areski Belaid"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Offline websites (appcache and filesystem api)",
+        "speakers": [
+          "Marc Garcia"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "NodeJs",
+        "speakers": [
+          "Guillem serra"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      },
+      {
+        "title": "Interactive Session / brainstorming",
+        "speakers": [
+          "Grzegorz Świerad"
+        ],
+        "description": null,
+        "language": null,
+        "duration_minutes": 15,
+        "links": []
+      }
+    ],
+    "non_talk_items": []
+  }
+]

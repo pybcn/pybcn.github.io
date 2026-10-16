@@ -122,12 +122,14 @@ Nothing is pushed to `edition` directly.
    verifies its checksum. You do not need Python, Go, or npm for this step.
 3. Run `bin/serve` to see the site at `http://localhost:1313` while you work.
 4. Make the change.
-5. Run the three checks locally, so you find what the pull request would find:
+5. Run the five checks locally, so you find what the pull request would find:
 
    ```
    pip install pyyaml pillow
    bin/check-content
    bin/check-html-safety
+   python3 bin/canon.py --selftest
+   bin/check-extraction --selftest
    bin/hugo --minify -D -d public && bin/check-rendered
    ```
 
@@ -151,6 +153,8 @@ What each check is for:
 | `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, or a field is empty. It warns, without failing, about a photo that is too small or has no colour |
 | `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay. See [Content safety check](README.md#content-safety-check) |
 | `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does, or they link to anything over `http`. See [Rendered page check](README.md#rendered-page-check) |
+| `bin/canon.py --selftest` | The one normalization of imported text stops being idempotent, or changes what it strips |
+| `bin/check-extraction --selftest` | The recorded model runs of `tests/extraction/` stop giving the verdict they are recorded with, one of which has to be a failure |
 | Check the links | Reported, never blocking, because external sites rate-limit |
 
 A merge to `edition` deploys the site. The `github-pages` workflow builds it and

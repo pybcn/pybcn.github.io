@@ -1,0 +1,827 @@
+#!/usr/bin/env python3
+"""Write the video of a talk into the page of the event that held it.
+
+The PyBCN YouTube channel holds 89 videos. The export enumerates the
+channel itself, its videos and streams tabs, and then its 14 playlists: a
+video of a monthly meetup sits in the by-year playlist and in "PyBCN Meetup
+Videos" as well, six videos sit in no playlist at all, and two unlisted
+ones show in no tab and only a playlist reveals them. So this script reads
+one normalized record per video and never a playlist or a tab count.
+
+A video belongs to a talk and not to a day. Each one is written as a link of
+type video on the talk record of the event front matter, the form the
+thirteen large editions already use, which gives the talk page its Video
+section (layouts/talks/single.html) and the row of the talk on the event
+page its Watch link (layouts/_default/meetup.html, partials/agenda.html).
+The player is on the talk page and on no other: a youtube-nocookie.com
+frame, which sets no cookie until the reader presses play, but which still
+asks Google for the player when the page loads, so Google sees the IP
+address of the reader of that one page. An event page or a listing prints
+the link and no frame, so that a page of 19 videos makes no request to
+Google before a reader asks for one. The privacy policy of the site says
+what the frame does.
+
+Three recordings of the channel are of a whole session and not of one
+talk: a block of lightning talks, the introduction of an evening, and the
+live stream of a whole evening. No talk title can ever match them, and the
+export says so, with attaches_to "meetup", "session_level" in flags, and
+meetup_id naming the event, which the export picked out of the candidates
+of that month by series (the monthly meetup, not the coding dojo or the
+practice session held days earlier), or which a person declared (see
+below). Such a video is written as an entry of an event-level
+session_videos block, title and url, which partials/session_videos.html
+prints under a Recordings heading after the talks. The script writes it
+only when the
+page meetup_id names exists and meetup_id is one of the candidates the
+export considered; a record that fails either test is reported and left
+out. The block is not called videos: Hugo's internal opengraph template
+reads .Params.videos as a list of URL strings for og:video, and a list of
+records under that key stops the build of the page.
+
+Three records of the export are declared, not parsed. The title grammar of
+the export reads the day, the talk, and the speaker out of a video title,
+and three titles defeat it: a short name an uploader wrote for a long
+title ("PySpark and Arrow"), a live stream with no date in its title, and
+a live stream of a whole evening whose title names no talk. For each one a
+person read the programme of its day and wrote the facts by id in
+tools/parse_youtube.py of the pybcn-archive: the title the programme uses,
+the event, whether the video is of one talk or of the whole session, and
+the reason. The record then carries "declared" in flags and in match, and
+declared_reason, with no candidates, because the person named the event
+and the grammar never got to choose. The export is the right place for
+that decision: it is where the raw title and the evidence sit side by side,
+where a reader of this site can trace a published fact back to its source,
+and a decision written there survives a rebuild of the export, which a
+hand edit of a content file does not. This script treats a declared record
+as what it is, evidence a human recorded: it looks the declared title up
+on the one page the record names, by name and not by fuzzy match, and
+writes the link on that talk, or the entry in session_videos when the
+record attaches to the meetup. Every declared placement is reported in its
+own group with its reason, the way the PROGRAMME group reports a video
+placed on another day, so a human always sees them. A declared record that
+names no page of this tree, or a title that names no talk of that page, is
+reported and left out.
+
+How a video finds its talk, and what stops a wrong match:
+
+  the title   bin/titlematch.py, the rule bin/import-x-photos matches a
+              talk title inside a tweet caption with, both_ways because the
+              uploader cuts a long title and writes "[...]" where the cut
+              is, so the YouTube title can be the shorter of the two. The
+              length guard TITLE_MINIMUM is what keeps a short title from
+              matching unrelated words.
+  the day     the title of a video carries the day of the meetup, as a
+              month ("PyBCN Meetup 2019/03") or as a full date. The talks
+              of an event on that day are the first candidates. When none
+              of them matches and exactly one talk of the whole archive
+              does, the video goes on that talk, on the day of that other
+              event: the month in a title is a label the uploader typed
+              weeks after the day, and a title that matches one talk of
+              the whole archive is a fact of the programme, so the
+              programme wins. Measured on 2026-10-13, six of the 83 videos
+              are placed that way, and each one is named in its own group
+              of the report, with the day the title claims and the event
+              that announced the talk, so a human always sees them. The
+              risk this accepts: a talk given twice, where the archive
+              recorded only one of the two occurrences, would take the
+              video of the other one. No case of that exists in the current
+              data. The uniqueness guard below is what keeps the rule from
+              reaching further: a title that matches talks of two other
+              days is still reported and not written.
+  uniqueness  two candidate talks that match one video are reported and
+              neither is written. A video on the wrong talk is worse than a
+              video that is missing, because the page would state it and
+              nothing on it would say the match was a guess.
+
+Everything the run could not place with those facts is printed and left
+out, with what is known about it: a video whose title matches no talk of
+the day, a video whose day holds no talk record at all, a video with no day
+in its title, and a session recording whose event the export does not
+name or this tree does not hold. A human decides each one.
+
+One record of the export is not a failure of the matching. The channel
+holds a presentation of the Barcelona community given at PyCon ES 2020,
+which is not a talk of any PyBCN event, and the export marks it as such:
+"out_of_scope" in flags, with an out_of_scope_reason a person wrote. The
+run reports it on its own line, with that reason, and places it nowhere.
+That is correct and expected, not an error, so it does not fail the run.
+
+Exit codes:
+    0  every video was placed, or was already in place
+    1  a video could not be placed, or a page could not be written
+    2  the script could not run: bad arguments, or a missing file
+
+Usage:
+    bin/import-videos VIDEOS.json [--out content/events] [--dry-run]
+
+VIDEOS.json is data/normalized/videos.json of the pybcn-archive export,
+which is not in this repository. One record per video, with the title of the
+talk, the day read from the video title, the URL, and the id of the video,
+which the report names it by and which falls back to the URL.
+"""
+
+import argparse
+import datetime
+import json
+import pathlib
+import re
+import sys
+
+import yaml
+
+# canon.py and titlematch.py sit next to this script and are not installed
+# packages.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+from canon import canon  # noqa: E402
+from titlematch import fold, match_title  # noqa: E402
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+# The default location of the event pages, so the usual run needs no extra
+# argument.
+EVENTS_DIR = ROOT / "content" / "events"
+
+# The YAML front matter of a Hugo page, the same shape bin/check-content and
+# bin/import-x-photos read: the first block between two "---" lines.
+FRONT_MATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.S)
+
+# The talks block is written in two indentations. The thirteen large
+# editions and 189 meetup pages put the dash of a record two spaces in from
+# the "talks:" key, a field four in, the dash of a link six, and a field of
+# the link eight. The 35 pages that a YAML dump wrote put the dash of a
+# record under the key, so a field sits two in, the dash of a link two as
+# well, and a field of the link four. Both parse to the same records, so
+# the offset of a dash from its key is read from the first record of the
+# block and the link is written the same way. A guess that comes out wrong
+# is caught before the write, because the edited text has to parse back to
+# the same front matter plus one link (see unchanged_apart_from).
+TALKS_KEY = re.compile(r"^talks:[ \t]*$")
+RECORD_LINE = re.compile(r"^( *)- id: (.*?)[ \t]*$")
+
+# The event-level session_videos block, for a recording of a whole session.
+# Written in the indentation of the large editions, two spaces to the dash,
+# four to a field, whatever the talks block of the same page uses: the two
+# are separate blocks and YAML reads each one by its own indentation. The
+# key is not "videos", which Hugo reserves for og:video (see the docstring).
+VIDEOS_KEY = re.compile(r"^session_videos:[ \t]*$")
+VIDEOS_COMMENT = [
+    "# A recording of a whole session of this meetup and not of one talk: a",
+    "# block of lightning talks, or the introduction of the evening, has no",
+    "# talk record for a video to sit on, so the video sits on the event.",
+    "# bin/import-videos writes this block from the YouTube export of the",
+    "# pybcn-archive: a correction goes to the export or to the script, never",
+    "# here. The page prints these under a Recordings heading, after the talks",
+    "# (partials/session_videos.html). Not \"videos\": Hugo reads that key",
+    "# as a list of og:video URLs, and a list of records there stops the build.",
+]
+VIDEO_TITLE = "  - title: %s"
+VIDEO_URL = '    url: "%s"'
+
+
+def fail(message):
+    """Stop the run with exit code 2: the script cannot do its job."""
+    sys.exit("import-videos: %s" % message)
+
+
+def plural(count, noun):
+    """Return "1 video" or "4 videos": a count a person reads out loud."""
+    return "%d %s" % (count, noun if count == 1 else noun + "s")
+
+
+def read_events(events_dir):
+    """Return one record per event page, with the talks of each.
+
+    A page with no front matter, and a talk with no id or no title, is
+    skipped: bin/check-content is what reports those, and this script only
+    needs the records it can address.
+    """
+    events = []
+    for path in sorted(events_dir.rglob("*.md")):
+        match = FRONT_MATTER.match(path.read_text(encoding="utf-8"))
+        if not match:
+            continue
+        try:
+            data = yaml.safe_load(match.group(1)) or {}
+        except yaml.YAMLError as error:
+            fail("cannot parse the front matter of %s: %s" % (path, error))
+        day = data.get("date")
+        if isinstance(day, datetime.datetime):
+            day = day.date()
+        if not isinstance(day, datetime.date):
+            day = None
+        talks, held = [], {}
+        for record in data.get("talks") or []:
+            if not isinstance(record, dict):
+                continue
+            talk_id, title = record.get("id"), record.get("title")
+            if not talk_id or not title:
+                continue
+            videos = videos_of(record)
+            held.update({url: "talk '%s'" % talk_id for url in videos})
+            talks.append({"id": talk_id, "title": title,
+                          "folded": fold(title), "videos": videos})
+        # A session with no talk record of its own carries its video on the
+        # row of the grid, which is where the welcome of PyDay BCN 2020
+        # holds one (see partials/agenda_entry.html). No video is ever
+        # written there by this script, because a monthly meetup has no
+        # grid, but a video already in place has to be recognised wherever
+        # it sits or a second copy of it would be written.
+        for slot in data.get("agenda") or []:
+            if not isinstance(slot, dict) or slot.get("talk"):
+                continue
+            label = slot.get("label") or slot.get("type") or "a row of the grid"
+            held.update({url: "the grid row '%s'" % label for url in videos_of(slot)})
+        # The recording of a whole session, which this script writes on the
+        # event (see the docstring), has to be recognised on a second run.
+        for entry in data.get("session_videos") or []:
+            if isinstance(entry, dict) and entry.get("url"):
+                held[entry["url"]] = "the session_videos block of the event"
+        events.append({"path": path, "name": path.stem, "day": day,
+                       "talks": talks, "held": held})
+    return events
+
+
+def videos_of(record):
+    """Return the video URLs of one talk or one row of the grid."""
+    return [link.get("url") for link in record.get("links") or []
+            if isinstance(link, dict) and link.get("type") == "video"]
+
+
+def day_agrees(video, day):
+    """Return True when an event day is the day the video title names.
+
+    A full date in the title has to be that date. A month has to be that
+    month. A video whose title carries no day at all is matched on the year
+    alone, which is the only fact left, and the uniqueness guard is then
+    what decides whether it can be placed.
+    """
+    if day is None:
+        return False
+    if video.get("date"):
+        return str(day) == video["date"]
+    if video.get("year") and video.get("month"):
+        return day.year == video["year"] and day.month == video["month"]
+    if video.get("year"):
+        return day.year == video["year"]
+    return False
+
+
+def candidates_of(events, video, on_the_day):
+    """Return the talks to match one video against, as titlematch pairs.
+
+    on_the_day picks the two uses: the talks of the day the title names,
+    which is where a video may be placed, and the talks of every event,
+    which is how a title that matches another day gets reported instead of
+    silently lost.
+    """
+    pairs, where = [], {}
+    for event in events:
+        if on_the_day and not day_agrees(video, event["day"]):
+            continue
+        for talk in event["talks"]:
+            key = (event["name"], talk["id"])
+            pairs.append((key, talk["folded"]))
+            where[key] = (event, talk)
+    return pairs, where
+
+
+def classify(video, events):
+    """Return (state, detail) for one video.
+
+    The states, and what each one means for the page:
+
+      placed        one talk of the day matches, and the page gets the link
+      already       a page already carries this URL, so nothing is written
+      other_video   the matched talk carries another video, for a human to
+                    compare
+      ambiguous     two talks of the day match, so neither is written
+      off_day       no talk of the day matches, but exactly one talk of
+                    another day does, so the programme wins over the label
+                    in the title and the page of that other day gets the
+                    link
+      other_day     no talk of the day matches, and talks of two other days
+                    do, so the programme cannot say which one and neither
+                    is written
+      no_talk       no talk anywhere matches this title
+      out_of_scope  the export says this video belongs to no PyBCN event,
+                    so it is never placed, and that is not an error
+      session       a recording of a whole session, which the export
+                    attaches to an event by meetup_id, and that event page
+                    gets an entry of its session_videos block
+      no_session    a recording of a whole session whose meetup_id is
+                    missing, is not one of the candidates of the export,
+                    or names no page of this tree, so nothing is written
+      declared      a person declared the placement in the export, by id
+                    and with a reason, and the page the record names
+                    holds the talk it names, or gets an entry of its
+                    session_videos block when the record attaches to the
+                    meetup
+      no_declared   a declared record that names no page of this tree, or
+                    a title that names no talk of that page, so nothing is
+                    written
+    """
+    # A URL already on a page is in place, wherever on that page it sits.
+    # This is what makes a second run of the script write nothing, and what
+    # keeps the twenty videos of PyDay BCN 2020 where a human put them.
+    for event in events:
+        if video["url"] in event["held"]:
+            return "already", (event, event["held"][video["url"]])
+
+    flags = video.get("flags") or []
+    if "out_of_scope" in flags:
+        return "out_of_scope", video.get("out_of_scope_reason") or "no reason given"
+    if "declared" in flags:
+        return classify_declared(video, events)
+    if "session_level" in flags and video.get("attaches_to") == "meetup":
+        return classify_session(video, events)
+
+    title = video.get("talk_title") or ""
+    pairs, where = candidates_of(events, video, on_the_day=True)
+    key, hits = match_title(title, pairs, both_ways=True)
+    if key:
+        event, talk = where[key]
+        if talk["videos"]:
+            return "other_video", (event, talk)
+        return "placed", (event, talk)
+    if hits:
+        return "ambiguous", [where[hit] for hit in hits]
+
+    pairs, where = candidates_of(events, video, on_the_day=False)
+    key, hits = match_title(title, pairs, both_ways=True)
+    if key:
+        event, talk = where[key]
+        if talk["videos"]:
+            return "other_video", (event, talk)
+        return "off_day", (event, talk)
+    if hits:
+        return "other_day", [where[hit] for hit in hits]
+    return "no_talk", [event for event in events if day_agrees(video, event["day"])]
+
+
+def classify_session(video, events):
+    """Return (state, detail) for the recording of a whole session.
+
+    The export names the event in meetup_id, chosen among the candidates of
+    the month by series. Three facts have to hold before anything is
+    written: meetup_id is there, it is one of those candidates (so the
+    export did not name an event it never considered), and this tree holds
+    a page of that name whose day agrees with the title. The first two are
+    read from the export, the third from the pages.
+    """
+    meetup_id = video.get("meetup_id")
+    if not meetup_id:
+        return "no_session", "the export names no meetup_id"
+    candidates = video.get("candidates") or []
+    if meetup_id not in candidates:
+        return "no_session", ("meetup_id %r is not one of the candidates of the "
+                              "export: %s" % (meetup_id, ", ".join(candidates) or "none"))
+    event = next((event for event in events if event["name"] == meetup_id), None)
+    if event is None:
+        return "no_session", "no page of content/events is named %r" % meetup_id
+    if not day_agrees(video, event["day"]):
+        return "no_session", ("the page %s is dated %s, and the title says %s"
+                              % (meetup_id, event["day"], label_of(video)))
+    return "session", event
+
+
+def classify_declared(video, events):
+    """Return (state, detail) for a record a person declared in the export.
+
+    The declaration names the event in meetup_id and the talk by the title
+    the programme uses (see the docstring). The record has no candidates,
+    because the person chose and the grammar did not, so the tests are:
+    meetup_id names a page of this tree, the day of that page agrees with
+    the record, and, for a video of one talk, exactly one talk of that page
+    carries the declared title. The title is compared folded, the way the
+    archive compares every title, but never matched partially: a declared
+    title is the name of the talk, not a label an uploader cut short. The
+    detail is (event, talk), with talk None for a recording of the whole
+    session, which goes in session_videos.
+    """
+    meetup_id = video.get("meetup_id")
+    if not meetup_id:
+        return "no_declared", "the declared record names no meetup_id"
+    event = next((event for event in events if event["name"] == meetup_id), None)
+    if event is None:
+        return "no_declared", "no page of content/events is named %r" % meetup_id
+    if not day_agrees(video, event["day"]):
+        return "no_declared", ("the page %s is dated %s, and the record says %s"
+                               % (meetup_id, event["day"], label_of(video)))
+    if video.get("attaches_to") == "meetup":
+        return "declared", (event, None)
+    folded = fold(video["talk_title"])
+    found = [talk for talk in event["talks"] if talk["folded"] == folded]
+    if not found:
+        return "no_declared", ("no talk of %s is titled %r"
+                               % (meetup_id, video["talk_title"]))
+    if len(found) > 1:
+        return "no_declared", ("%d talks of %s are titled %r: %s"
+                               % (len(found), meetup_id, video["talk_title"],
+                                  ", ".join(talk["id"] for talk in found)))
+    if found[0]["videos"]:
+        return "other_video", (event, found[0])
+    return "declared", (event, found[0])
+
+
+def record_bounds(lines, close, talk_id):
+    """Return the first line, the end line, and the dash offset of one talk.
+
+    The record starts at its "- id:" line and runs to the line before the
+    next record of the block, or before the end of the front matter. Every
+    field of a record, and every item of a list inside it, is indented
+    further than the dash, which is what ends the scan. The offset is the
+    indentation of the dash from the "talks:" key, 0 or 2, which is also the
+    indentation of the dash of a link from its "links:" key in the same
+    file.
+    """
+    try:
+        opened = next(i for i in range(close) if TALKS_KEY.match(lines[i]))
+    except StopIteration:
+        return None, None, None
+    offset, start = None, None
+    for position in range(opened + 1, close):
+        found = RECORD_LINE.match(lines[position])
+        if not found:
+            continue
+        if offset is None:
+            offset = len(found.group(1))
+        if len(found.group(1)) != offset:
+            break  # a list of another block, deeper or shallower
+        if found.group(2).strip("'\"") == talk_id:
+            start = position
+            break
+        if not lines[position].startswith(" " * offset):
+            break
+    if start is None:
+        return None, None, None
+    field = " " * (offset + 2)
+    end = start + 1
+    while end < close and lines[end].startswith(field):
+        end += 1
+    return start, end, offset
+
+
+def insert_video(text, talk_id, url):
+    """Return the page text with a video link on one talk, or None.
+
+    The link goes first in the list, which is the order the thirteen large
+    editions write (video, then slides), and a list that is not there yet is
+    written at the end of the record. None means the record was not found,
+    which the caller reports rather than writing a page it did not
+    understand.
+    """
+    lines = text.split("\n")
+    if not lines or lines[0].strip() != "---":
+        return None
+    try:
+        close = lines.index("---", 1)
+    except ValueError:
+        return None
+
+    start, end, offset = record_bounds(lines, close, talk_id)
+    if start is None:
+        return None
+
+    field = " " * (offset + 2)
+    links = field + "links:"
+    link = [field + " " * offset + "- type: video",
+            field + " " * offset + '  url: "%s"' % url]
+    for position in range(start, end):
+        if lines[position] == links:
+            return "\n".join(lines[:position + 1] + link + lines[position + 1:])
+    return "\n".join(lines[:end] + [links] + link + lines[end:])
+
+
+def insert_session_video(text, title, url):
+    """Return the page text with one entry in the event-level session_videos
+    block.
+
+    A block already there gets the entry at its end, after the entries it
+    holds. A page without one gets the block at the end of the front
+    matter, under the comment that says what it is. None means the front
+    matter was not found, which the caller reports rather than writing a
+    page it did not understand.
+    """
+    lines = text.split("\n")
+    if not lines or lines[0].strip() != "---":
+        return None
+    try:
+        close = lines.index("---", 1)
+    except ValueError:
+        return None
+    entry = [VIDEO_TITLE % json.dumps(title, ensure_ascii=False), VIDEO_URL % url]
+    opened = next((i for i in range(1, close) if VIDEOS_KEY.match(lines[i])), None)
+    if opened is None:
+        return "\n".join(lines[:close] + VIDEOS_COMMENT + ["session_videos:"] + entry + lines[close:])
+    end = opened + 1
+    while end < close and lines[end].startswith("  "):
+        end += 1
+    return "\n".join(lines[:end] + entry + lines[end:])
+
+
+def unchanged_apart_from_session(before, after, title, url):
+    """Return True when the only difference between two front matters is one
+    more entry at the end of the event-level session_videos block."""
+    if {k: v for k, v in (before or {}).items() if k != "session_videos"} \
+            != {k: v for k, v in (after or {}).items() if k != "session_videos"}:
+        return False
+    was = (before or {}).get("session_videos") or []
+    return (after or {}).get("session_videos") == was + [{"title": title, "url": url}]
+
+
+def write_session(video, event, dry_run):
+    """Put the recording of a whole session on its event. Return None, or
+    what went wrong."""
+    path = event["path"]
+    title = video["talk_title"] or video.get("title_raw") or video["video_id"]
+    text = path.read_text(encoding="utf-8")
+    updated = insert_session_video(text, title, video["url"])
+    if updated is None:
+        return "no front matter to write the session_videos block into"
+    if not unchanged_apart_from_session(front_matter_of(text), front_matter_of(updated),
+                                        title, video["url"]):
+        return "the edit would change more than the session_videos block"
+    if not dry_run:
+        path.write_text(updated, encoding="utf-8")
+        data = front_matter_of(path.read_text(encoding="utf-8")) or {}
+        urls = [entry.get("url") for entry in data.get("session_videos") or []
+                if isinstance(entry, dict)]
+        if video["url"] not in urls:
+            return "the page does not carry the URL after the write"
+    event["held"][video["url"]] = "the session_videos block of the event"
+    return None
+
+
+def written_talk(path, talk_id):
+    """Return the talk record of a page as the front matter now parses it.
+
+    The page is read again from disk, so what is reported is what the file
+    holds and not what this script meant to write.
+    """
+    match = FRONT_MATTER.match(path.read_text(encoding="utf-8"))
+    if not match:
+        return None
+    data = yaml.safe_load(match.group(1)) or {}
+    for record in data.get("talks") or []:
+        if isinstance(record, dict) and record.get("id") == talk_id:
+            return record
+    return None
+
+
+def unchanged_apart_from(before, after, talk_id, url):
+    """Return True when the only difference between two front matters is the
+    video link on one talk.
+
+    The page is written as text, so this is the check that the text edit did
+    what the record says: everything else of the front matter, every other
+    talk, and every other field of this talk have to come back equal, and
+    this talk has to carry the URL as the first link of type video.
+    """
+    before_talks = (before or {}).get("talks") or []
+    after_talks = (after or {}).get("talks") or []
+    if len(before_talks) != len(after_talks):
+        return False
+    if {k: v for k, v in (before or {}).items() if k != "talks"} \
+            != {k: v for k, v in (after or {}).items() if k != "talks"}:
+        return False
+    for was, now in zip(before_talks, after_talks):
+        if not isinstance(was, dict) or not isinstance(now, dict):
+            return False
+        if was.get("id") != talk_id:
+            if was != now:
+                return False
+            continue
+        if {k: v for k, v in was.items() if k != "links"} \
+                != {k: v for k, v in now.items() if k != "links"}:
+            return False
+        links = now.get("links") or []
+        if links[:1] != [{"type": "video", "url": url}]:
+            return False
+        if links[1:] != (was.get("links") or []):
+            return False
+    return True
+
+
+def front_matter_of(text):
+    """Return the parsed front matter of a page text, or None."""
+    match = FRONT_MATTER.match(text)
+    if not match:
+        return None
+    return yaml.safe_load(match.group(1)) or {}
+
+
+def write(video, event, talk, dry_run):
+    """Put one video on one talk. Return None, or what went wrong."""
+    path = event["path"]
+    text = path.read_text(encoding="utf-8")
+    updated = insert_video(text, talk["id"], video["url"])
+    if updated is None:
+        return "no record '%s' in the talks block" % talk["id"]
+    if not unchanged_apart_from(front_matter_of(text), front_matter_of(updated),
+                                talk["id"], video["url"]):
+        return ("the edit would change more than the links of '%s'"
+                % talk["id"])
+    if not dry_run:
+        path.write_text(updated, encoding="utf-8")
+        record = written_talk(path, talk["id"])
+        urls = [link.get("url") for link in (record or {}).get("links") or []
+                if isinstance(link, dict) and link.get("type") == "video"]
+        if video["url"] not in urls:
+            return "the page does not carry the URL after the write"
+    talk["videos"] = [video["url"]] + talk["videos"]
+    return None
+
+
+def label_of(video):
+    """Return the day a video title names, as it reads in a report."""
+    if video.get("date"):
+        return video["date"]
+    if video.get("year") and video.get("month"):
+        return "%04d-%02d" % (video["year"], video["month"])
+    if video.get("year"):
+        return str(video["year"])
+    return "no day in the title"
+
+
+def report(groups, dry_run):
+    """Print what the run did and what it left for a human."""
+    placed = groups["placed"]
+    off_day = groups["off_day"]
+    already = groups["already"]
+    pages = sorted({event["path"].name for video, event, talk in placed})
+    talks = {(event["name"], talk["id"]) for video, event, talk in placed}
+
+    print()
+    print("%s on %s, over %s"
+          % (plural(len(placed), "video"), plural(len(talks), "talk"),
+             plural(len(pages), "page")))
+    # Counted apart from the line above on purpose: a video placed on a day
+    # its title does not name is a decision the programme took over the
+    # label, and a human has to be able to see every one of them.
+    print("%s placed where the programme announced the talk, "
+          "not on the day the title says" % plural(len(off_day), "video"))
+    print("%s written on the event as the recording of a whole session"
+          % plural(len(groups["session"]), "video"))
+    # Counted apart as well: a declared placement is a decision a person
+    # wrote in the export, not a match the grammar found, and a human has to
+    # be able to see every one of them with its reason.
+    print("%s placed as a person declared in the export, by id and with a reason"
+          % plural(len(groups["declared"]), "video"))
+    print("%s already in place and not touched" % plural(len(already), "video"))
+    for video, (event, where) in sorted(already, key=lambda row: row[1][0]["name"]):
+        print("  in place %-12s %-62s -> %s, on %s"
+              % (video["video_id"], video["talk_title"][:62], event["name"], where))
+    for state, heading in (
+            ("ambiguous", "left out, two talks of the day match one video"),
+            ("other_video", "left out, the talk already carries another video"),
+            ("other_day", "left out, the day in the title and the programme disagree"),
+            ("no_talk", "left out, no talk of the archive carries this title"),
+            ("no_session", "left out, a session recording with no page to go to"),
+            ("no_declared", "left out, a declared record that names no page or no talk of this tree"),
+            ("failed", "left out, the page could not be written"),
+            ("out_of_scope", "out of scope, which the export says and is not an error")):
+        group = groups[state]
+        print("%s %s" % (plural(len(group), "video"), heading))
+
+    for video, event, talk in sorted(placed, key=lambda row: row[1]["name"]):
+        print("  placed  %-12s %-62s -> %s / %s"
+              % (video["video_id"], video["talk_title"][:62], event["name"], talk["id"]))
+    for video, event, talk in sorted(off_day, key=lambda row: row[1]["name"]):
+        print("  PROGRAMME %-12s title says %s, %r is announced by %s / %s"
+              % (video["video_id"], label_of(video), video["talk_title"],
+                 event["name"], talk["id"]))
+    for video, event in sorted(groups["session"], key=lambda row: row[1]["name"]):
+        print("  SESSION %-12s %r -> %s, in the session_videos block of the event"
+              % (video["video_id"], video["talk_title"], event["name"]))
+    for video, event, talk in sorted(groups["declared"], key=lambda row: row[1]["name"]):
+        where = ("%s / %s" % (event["name"], talk["id"]) if talk
+                 else "%s, in the session_videos block of the event" % event["name"])
+        print("  DECLARED %-12s %r -> %s: %s"
+              % (video["video_id"], video["talk_title"], where,
+                 video.get("declared_reason") or "no reason given"))
+    for video, found in groups["ambiguous"]:
+        print("  AMBIGUOUS %-12s %r matches %s"
+              % (video["video_id"], video["talk_title"],
+                 ", ".join("%s / %s" % (event["name"], talk["id"]) for event, talk in found)))
+    for video, (event, talk) in groups["other_video"]:
+        print("  OTHER VIDEO %-12s %s / %s already carries %s"
+              % (video["video_id"], event["name"], talk["id"],
+                 ", ".join(talk["videos"])))
+    for video, found in groups["other_day"]:
+        print("  OTHER DAY %-12s title says %s, %r is announced by %s"
+              % (video["video_id"], label_of(video), video["talk_title"],
+                 ", ".join("%s / %s" % (event["name"], talk["id"]) for event, talk in found)))
+    for video, found in groups["no_talk"]:
+        where = ", ".join(event["name"] for event in found) or "no event of that day"
+        print("  NO TALK %-12s title says %s, %r, day holds: %s"
+              % (video["video_id"], label_of(video), video["talk_title"], where))
+    for video, why in groups["no_session"]:
+        print("  NO SESSION PAGE %-12s title says %s, %r: %s"
+              % (video["video_id"], label_of(video), video["talk_title"], why))
+    for video, why in groups["no_declared"]:
+        print("  NO DECLARED PAGE %-12s record says %s, %r: %s"
+              % (video["video_id"], label_of(video), video["talk_title"], why))
+    for video, why in groups["failed"]:
+        print("  FAILED  %-12s %s" % (video["video_id"], why))
+    for video, why in groups["out_of_scope"]:
+        print("  OUT OF SCOPE %-12s %r: %s" % (video["video_id"], video["talk_title"], why))
+
+    if dry_run:
+        print("\n--dry-run: no page was written.")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Write the video of a talk into the page of its event.")
+    parser.add_argument("videos", type=pathlib.Path,
+                        help="the normalized videos.json of the archive export")
+    parser.add_argument("--out", type=pathlib.Path, default=EVENTS_DIR,
+                        help="the directory of the event pages "
+                             "(default: content/events)")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="report what would be written, and write nothing")
+    args = parser.parse_args()
+
+    if not args.videos.is_file():
+        fail("no such file: %s" % args.videos)
+    if not args.out.is_dir():
+        fail("no such directory: %s" % args.out)
+
+    try:
+        videos = json.loads(args.videos.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as error:
+        fail("cannot read %s: %s" % (args.videos, error))
+    if not isinstance(videos, list):
+        fail("%s does not hold a list of videos" % args.videos)
+
+    seen, records = set(), []
+    for video in videos:
+        if not isinstance(video, dict) or not video.get("url"):
+            fail("a record of %s has no url" % args.videos)
+        # An address of this archive is https. bin/check-rendered fails a
+        # built page that carries an http:// URL, and a video link reaches
+        # the page as written.
+        if not video["url"].startswith("https://"):
+            fail("video %s has the URL %r, which is not https"
+                 % (video.get("video_id"), video["url"]))
+        # The playlists overlap, so the export is read by video id and a
+        # repeated id would write one link twice.
+        video_id = video.get("video_id") or video["url"]
+        if video_id in seen:
+            fail("video %s appears twice in %s" % (video_id, args.videos))
+        seen.add(video_id)
+        # The id is written back, because the report names every video by it
+        # and a record without one would end the run with a KeyError after
+        # the pages were already written.
+        video["video_id"] = video_id
+        video["talk_title"] = canon(video.get("talk_title") or "").strip()
+        records.append(video)
+
+    events = read_events(args.out)
+    groups = {state: [] for state in ("placed", "off_day", "already",
+                                      "session", "declared", "ambiguous",
+                                      "other_video", "other_day", "no_talk",
+                                      "no_session", "no_declared", "failed",
+                                      "out_of_scope")}
+    for video in records:
+        state, detail = classify(video, events)
+        if state in ("placed", "off_day"):
+            event, talk = detail
+            problem = write(video, event, talk, args.dry_run)
+            if problem:
+                groups["failed"].append((video, problem))
+            else:
+                groups[state].append((video, event, talk))
+        elif state == "declared":
+            event, talk = detail
+            if talk:
+                problem = write(video, event, talk, args.dry_run)
+            else:
+                problem = write_session(video, event, args.dry_run)
+            if problem:
+                groups["failed"].append((video, problem))
+            else:
+                groups["declared"].append((video, event, talk))
+        elif state == "session":
+            problem = write_session(video, detail, args.dry_run)
+            if problem:
+                groups["failed"].append((video, problem))
+            else:
+                groups["session"].append((video, detail))
+        elif state == "already":
+            groups["already"].append((video, detail))
+        elif state == "other_video":
+            groups["other_video"].append((video, detail))
+        else:
+            groups[state].append((video, detail))
+
+    report(groups, args.dry_run)
+    left = sum(len(groups[state]) for state in
+               ("ambiguous", "other_video", "other_day", "no_talk",
+                "no_session", "no_declared", "failed"))
+    return 1 if left else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

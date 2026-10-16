@@ -1,0 +1,121 @@
+# Ground truth for the extraction benchmark.
+#
+# Read by hand from the Meetup export before any model ran, so the benchmark
+# measures a model against a human reference and not against another model.
+# Never regenerate this file with a model.
+#
+# required: every talk that any correct extraction must find.
+# ambiguous: the source does not settle it. Finding it or not is both correct,
+#   so these count neither as a miss nor as a spurious talk. This file records
+#   what the source supports, not what we chose to do about it:
+#   bin/prompts/extract-talks.md settles both of these by convention, so a run
+#   made with that prompt is expected to include them. The recorded runs under
+#   model-runs/ predate the convention, which is why they disagree here.
+# speakers: the expected speaker names, as the source writes them.
+
+286238841:
+  date: 2022-06-15
+  event_title: "Python June Meetup: Running Serverless & Data Pipelines with Yaetos"
+  note: "2021-2026 era. The What/Who/Duration/Language template."
+  required:
+    - title: "Run the extra mile with serverless"
+      speakers: ["Mohammed Bouabid"]
+    - title: "Creating Python Data Pipelines with Yaetos"
+      speakers: ["Arthur Prevot"]
+  ambiguous: []
+
+303407709:
+  date: 2024-09-26
+  event_title: "Python Meetup September: AI Goes Back To School"
+  note: "2021-2026 era. Template plus a schedule with non-talk slots."
+  required:
+    - title: "From text to actions: LLMs as the new software consumers"
+      speakers: ["Pol Alvarez Vecino"]
+    - title: "Ragtime: An Approach to Retrieval-Augmented Generation"
+      speakers: ["Javier Martinez Alcantara"]
+  ambiguous: []
+
+315383583:
+  date: 2026-06-30
+  event_title: "Python Meetup June: Summer is already here!"
+  note: "2021-2026 era. Catalan and Spanish titles, and a real typo in the source: simluation."
+  required:
+    - title: "Feedback immediat per estudiants de programació: Powered by Python"
+      speakers: ["Moisès Gómez Girón"]
+    - title: "Python-powered Cybersecurity Lab: Caldera, Elastic Stack & ATT&CK simluation"
+      speakers: ["Mauricio Volcanes"]
+  ambiguous: []
+
+203258202:
+  date: 2015-01-22
+  event_title: "Python January Meetup"
+  note: "2014-2020 era. A list of 'title by NAME - N min', no abstracts."
+  required:
+    - title: "An introduction to SQLAlchemy and ORM in Python"
+      speakers: ["Oriol Andrés"]
+    - title: "How to open a bar in Python"
+      speakers: ["Edward van Kuik"]
+    - title: "Continuous Integration on a large open source software: Plone & Plone 5 is here!"
+      speakers: ["Ramon Navarro Bosch"]
+  ambiguous: []
+
+247592204:
+  date: 2018-03-10
+  event_title: "Pandas Documentation Sprint"
+  note: "2014-2020 era. A documentation sprint. It announces no talk, so zero is the right answer."
+  required: []
+  ambiguous: []
+
+261650248:
+  date: 2019-05-25
+  event_title: "May PyBCN Practice Sessions: Intro to Image Processing and Computer Vision"
+  note: "2014-2020 era. A workshop with no talk title of its own. Ambiguous on purpose."
+  required: []
+  ambiguous:
+    - title: "Intro to Image Processing and Computer Vision"
+
+9801883:
+  date: 2009-02-26
+  event_title: "Barcelona Python Meetup February 2009"
+  note: "2007-2013 era. A numbered list of 'NAME: title'."
+  required:
+    - title: "Python tips for the perl-minded system administrator"
+      speakers: ["Jordi Molina"]
+    - title: "The Zope Component Architecture - a Component Architecture for Python"
+      speakers: ["Timo Stollenwerk"]
+  ambiguous: []
+
+16488025:
+  date: 2011-02-24
+  event_title: "Barcelona Python Meetup February 2011"
+  note: "2007-2013 era. Free prose, no separators, three talks run together. The hardest case."
+  required:
+    - title: "Introduction to Python"
+      speakers: ["Maik Röder"]
+    - title: "Leveraging multiple processors on a given machine with the Python multiprocessing module"
+      speakers: ["Jørgen Skancke"]
+    - title: "Statistics and Plotting with Python"
+      speakers: ["Juan González-Vallinas"]
+  ambiguous: []
+
+103676402:
+  date: 2013-03-21
+  event_title: "Python Web Frameworks"
+  note: "2007-2013 era. A numbered grid of 'title / NAME'. One title is cut short in the source."
+  required:
+    - title: "Introduction to Django or REST with Tastypie in"
+      speakers: ["Colin Kingswood"]
+    - title: "Django - Best practices"
+      speakers: ["David Arcos"]
+    - title: "Plone"
+      speakers: ["Ramon Navarro"]
+    - title: "Pyramid"
+      speakers: ["Víctor Fernández de Alba"]
+    - title: "Flask"
+      speakers: ["Areski Belaid"]
+    - title: "Offline websites (appcache and filesystem api)"
+      speakers: ["Marc Garcia"]
+    - title: "NodeJs"
+      speakers: ["Guillem serra"]
+  ambiguous:
+    - title: "Interactive Session / brainstorming"

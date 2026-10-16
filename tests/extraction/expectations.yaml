@@ -1,0 +1,137 @@
+# What bin/check-extraction must say about each recorded model run.
+#
+# These are real outputs from the 2026-10-11 measurement, kept so the check
+# itself has a regression test. Six runs must pass and one must fail: a check
+# that only ever sees good input proves nothing.
+#
+# literal: the verdict of the literalness check against the normalized source.
+# benchmark: the score against truth.yaml.
+
+haiku-1:
+  note: "Haiku 4.5, plain prompt, run 1 of 3. Clean."
+  literal:
+    verdict: pass
+    fields_checked: 29
+    identical_to_normalized_source: 29
+    spacing_warnings: 0
+    accent_or_case_errors: 0
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 23
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 2
+
+haiku-2:
+  note: "Haiku 4.5, plain prompt, run 2 of 3. Clean."
+  literal:
+    verdict: pass
+    fields_checked: 30
+    identical_to_normalized_source: 30
+    spacing_warnings: 0
+    accent_or_case_errors: 0
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 23
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 2
+
+haiku-3:
+  note: "Haiku 4.5, plain prompt, run 3 of 3. Clean. It leaves one ambiguous talk out, which is allowed."
+  literal:
+    verdict: pass
+    fields_checked: 28
+    identical_to_normalized_source: 28
+    spacing_warnings: 0
+    accent_or_case_errors: 0
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 22
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 1
+
+haiku-typography-rule-1:
+  note: "Haiku 4.5 with a prompt rule that forbids changing the typography, run 1 of 2. Clean, but it finds neither ambiguous talk."
+  literal:
+    verdict: pass
+    fields_checked: 27
+    identical_to_normalized_source: 27
+    spacing_warnings: 0
+    accent_or_case_errors: 0
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 21
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 0
+
+haiku-typography-rule-2:
+  note: "Haiku 4.5 with the same rule, run 2 of 2. THIS RUN MUST FAIL. The rule did not stop it from changing the apostrophe, and it wrote Historia with an acute accent where the source has Historia with a grave accent. That is a spelling change, not typography, so no normalizer can forgive it. This fixture is what proves the check rejects a corrupted run."
+  literal:
+    verdict: fail
+    fields_checked: 29
+    identical_to_normalized_source: 28
+    spacing_warnings: 0
+    accent_or_case_errors: 1
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 22
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 1
+
+sonnet-1:
+  note: "Sonnet 5. Clean. The model the import uses."
+  literal:
+    verdict: pass
+    fields_checked: 30
+    identical_to_normalized_source: 30
+    spacing_warnings: 0
+    accent_or_case_errors: 0
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 23
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 2
+
+opus-1:
+  note: "Opus 5. Clean. Identical to sonnet-1 in all six fields of every talk
+    once the Markdown is resolved. Raw, one of the 138 fields differs: an
+    abstract where Opus wrote a link as its visible text and Sonnet kept the
+    Markdown. Opus buys nothing over Sonnet here."
+  literal:
+    verdict: pass
+    fields_checked: 30
+    identical_to_normalized_source: 30
+    spacing_warnings: 0
+    accent_or_case_errors: 0
+    content_errors: 0
+    truncated_errors: 0
+  benchmark:
+    talks: 23
+    required_missing: 0
+    spurious: 0
+    wrong_speakers: 0
+    ungrounded_fields: 0
+    ambiguous_included: 2
