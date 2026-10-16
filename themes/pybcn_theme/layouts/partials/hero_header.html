@@ -28,6 +28,16 @@
   </div>
 </div>
     {{ else }}
-<h1>{{ or .Params.name .Title }}</h1>
+{{- /* A page whose own title is not in English carries title_lang, and the
+       h1 then gets a lang attribute, so a screen reader reads it with the
+       right voice (WCAG 3.1.2 Language of Parts). The talk pages are what
+       set it: 22 of the 607 titles of the archive are in Spanish or
+       Catalan. partials/title_lang.html is the same partial the agenda
+       grid and the modal of a session read for the same reason, and it
+       takes the field and the title, so a page passes its params rather
+       than itself. A page with no title_lang gets the h1 it had. */ -}}
+{{- $title := or .Params.name .Title -}}
+{{- $title_lang := partial "title_lang.html" (dict "title_lang" .Params.title_lang "title" $title) -}}
+<h1{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $title }}</h1>
     {{ end }}
 {{ end }}

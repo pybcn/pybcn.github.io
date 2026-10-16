@@ -1,0 +1,269 @@
+{{- /*
+    The page of one talk: what it was, who gave it, the day it was given,
+    and everything the speaker published about it.
+
+    The page itself holds no data. content/talks/_content.gotmpl adds it
+    with the id of the talk and the content path of its event, and
+    partials/talk_record.html joins the record out of the front matter of
+    that event at render time. So this page and the row of the programme
+    grid of that day print the same facts from the same place.
+
+    The h1 is the title of the talk, printed by partials/hero_header.html
+    like the h1 of every other page. Under it, the box of facts
+    (partials/facts_box.html): who gave it, at which event and on which
+    day, what it was, and where the record was read from. Each block below
+    the box is an h2, so the outline is h1 then h2 with no level skipped
+    (bin/check-rendered fails a page that skips one).
+
+    The video of the talk, when the day published one, is the link to
+    YouTube under its own heading, with the mark of the host in front,
+    through partials/video_link.html: the rule for a video printed on its
+    own. No player: a listing or a programme grid prints a link and no
+    frame, and so does this page.
+
+    What is not here: the room, the start, and the end of the session.
+    Those belong to the slot of the grid and not to the talk, and the
+    event page is where the day is.
+*/ -}}
+{{ define "main" }}
+
+{{- $record := partial "talk_record.html" . -}}
+{{- $talk := $record.talk -}}
+{{- $entry := $record.entry -}}
+{{- $event := $record.event -}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 main_column talk_page">
+
+            {{- /* The box of facts, partials/facts_box.html: who gave it,
+                   where and when, what it was, and where the record was
+                   read from, in that order, because the name on the badge
+                   of the day and the day itself are what a reader needs
+                   first. A row is left out when the record does not carry
+                   its fact, which the partial does for every row whose
+                   value is empty. The glyph of each row is a decoration
+                   next to its label; the type row takes the icon of its
+                   type from partials/event_types.html, the glyph the grid
+                   draws for it. */ -}}
+            {{- $items := slice -}}
+
+            {{- /* The credit. The speakers of the record are person ids,
+                   and each one goes through partials/person_page_link.html,
+                   the one place that decides where a name points, so the
+                   row of /talks/ and this box send a name to the same page.
+                   It prints a name as text when the id has no record,
+                   which bin/check-content fails the build for. The names
+                   are joined the way partials/agenda_entry.html joins them
+                   for the grid: ", " and " and ". 87 of the 607 talks
+                   credit nobody and get no row. credited_as, the committee
+                   that ran a session, is a field of a slot of the grid
+                   (the registration, the closing) and never of a talk
+                   record: the 8 of the archive all sit on slots with no
+                   talk, so no talk page has one to print, and this box
+                   does not look for it. The links go to the box as a
+                   list, which it joins itself: delimit returns a string,
+                   which the template would escape, and the anchor would
+                   print as text. Every character of a link came out of a
+                   template of this theme, and no content field goes
+                   through safeHTML. */ -}}
+            {{- $credit_links := slice -}}
+            {{- $credit_label := "Speaker" -}}
+            {{- with $talk -}}
+                {{- with .speakers -}}
+                    {{- $names := partialCached "people_names.html" site "people-names" -}}
+                    {{- range . -}}
+                        {{- $credit_links = $credit_links | append (default (. | replaceRE "[-_]+" " " | title) (index $names .)) -}}
+                    {{- end -}}
+                    {{- if gt (len .) 1 }}{{ $credit_label = "Speakers" }}{{ end -}}
+                {{- end -}}
+            {{- end -}}
+            {{- $items = $items | append (dict "label" $credit_label "icon" "fa-user" "values" $credit_links) -}}
+
+            {{- /* The event, as the link to its page, and its date. The
+                   date of the talk is the date of the event, read from the
+                   event page through partials/event_date.html, so a talk of
+                   an edition that ran more than one day prints the range of
+                   the edition (the adapter writes only the first day onto
+                   the talk page, as its own date). One edition of the
+                   archive carries no date, so the year of its front matter
+                   is the fallback. The marker glyph is "where", the one the
+                   venue of a meetup carries, and the calendar is "when". */ -}}
+            {{- with $event -}}
+                {{- $items = $items | append (dict "label" "Event" "icon" "fa-map-marker-alt" "value" .Title "url" .RelPermalink) -}}
+                {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) -}}
+                {{- $day := $when.html -}}
+                {{- if not $day }}{{ with .Params.year }}{{ $day = printf "%v" . }}{{ end }}{{ end -}}
+                {{- $items = $items | append (dict "label" "Date" "icon" "fa-calendar-day" "value" $day) -}}
+            {{- end -}}
+
+            {{- /* The type, the language, the topic, and the length. The
+                   type label and its icon come from partials/event_types.html,
+                   the controlled vocabulary the grid and the legend read,
+                   and the language labels come through
+                   partials/agenda_entry.html from the same table the grid
+                   prints. */ -}}
+            {{- with $entry.type -}}
+                {{- with index (partialCached "event_types.html" "event_types") (lower (trim (printf "%v" .) " ")) -}}
+                    {{- $items = $items | append (dict "label" "Type" "icon" .icon "value" .label) -}}
+                {{- end -}}
+            {{- end -}}
+            {{- $items = $items | append (dict "label" "Language" "icon" "fa-language" "value" $entry.language) -}}
+            {{- $items = $items | append (dict "label" "Topic" "icon" "fa-tag" "value" $entry.topic) -}}
+            {{- with $talk -}}
+                {{- with index . "duration_minutes" -}}
+                    {{- if gt (int .) 0 -}}
+                        {{- $items = $items | append (dict "label" "Length" "icon" "fa-clock" "value" (printf "%d minutes" (int .))) -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+
+            {{- /* Where the record was read from, so a reader can check the
+                   facts above against it. A record of its own source, which
+                   10 talks of PyDay BCN 2019 carry, is a post of the live
+                   thread on X that announced the session (see the comment
+                   in content/events/pyday_bcn/pyday_bcn_2019.md). A talk of
+                   a meetup was read from the announcement of the day on
+                   Meetup, the record the page of the meetup names as its
+                   own source (see the comment above the talks block of any
+                   file under content/events/meetups/). A talk of an edition
+                   with neither gets no row. */ -}}
+            {{- $source := "" -}}
+            {{- $source_url := "" -}}
+            {{- /* The glyph of the row is the mark of the host of the URL,
+                   through partials/link_mark.html: the X mark for a post
+                   on X, the Meetup mark for an announcement, the generic
+                   mark for the rest, because every link that leaves the
+                   site carries the mark of its destination (David Arcos,
+                   2026-10-14 and 2026-10-15). The mark sits on the dt, in
+                   front of the label, where the row keeps its glyph; the
+                   link is the dd. */ -}}
+            {{- with $talk -}}
+                {{- with .source -}}
+                    {{- $source_url = . -}}
+                    {{- $host := "" -}}
+                    {{- with urls.Parse . }}{{ $host = lower .Host }}{{ end -}}
+                    {{- if in (slice "x.com" "www.x.com" "twitter.com" "www.twitter.com") $host -}}
+                        {{- $source = "The post on X it was read from" -}}
+                    {{- else -}}
+                        {{- $source = "The record it was read from" -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+            {{- if not $source_url -}}
+                {{- with $event }}{{ with .Params.meetup_url -}}
+                    {{- $source_url = . -}}
+                    {{- $source = "The announcement of the day on Meetup" -}}
+                {{- end }}{{ end -}}
+            {{- end -}}
+            {{- $items = $items | append (dict "label" "Source" "mark_url" $source_url "value" $source "url" $source_url) -}}
+
+            {{ partial "facts_box.html" (dict "items" $items) }}
+
+            {{- /* The description, as markdown and as a block: a one
+                   paragraph description through markdownify comes back with
+                   no p around it, because markdownify renders inline, and
+                   the text would then sit straight inside the section.
+                   RenderString with display block gives every paragraph of
+                   it a p of its own.
+
+                   The scheme of an http URL is raised to https first. This
+                   page is the first to render these descriptions: the
+                   PyDataBCN 2017 programme carries no eventTimes, so it
+                   draws no grid and opens no modal, and the text of its
+                   talks reached no page of this site until now. The site
+                   publishes no insecure link, which bin/check-rendered
+                   enforces, and goldmark turns a bare URL of a description
+                   into one.
+
+                   Measured when this was written: 14 http URLs, every one
+                   of them in a talk description of PyDataBCN 2017, and 10
+                   of them rendered as a link. Nine of the thirteen hosts
+                   answered over https, and the four that did not,
+                   bcolz.blosc.org, deepcare.online, www.lymphos.org and
+                   proteomica.uab.cat, answered over http no better: the
+                   rewrite breaks no link that works. Those descriptions
+                   were moved to https in the content afterwards, so no
+                   talk of the archive holds an http URL today, and this
+                   rewrite is the guard against the next one.
+
+                   The data is where this belongs, and three of these
+                   descriptions need more than a scheme: they are
+                   reStructuredText from the pyvideo import, so they print
+                   their reference names and their link definitions as
+                   text.
+
+                   The description is a blockquote. It is the abstract the
+                   speaker wrote, or the words the announcement of the day
+                   used, and not a line this site wrote about the talk, so
+                   it is marked as a quotation, the way the caption of a
+                   gallery photo is (partials/photo_gallery.html), and
+                   talks.scss gives it the rule down its left side that a
+                   quotation takes. David Arcos asked for it on 2026-10-14
+                   ("About this talk: estilo blockquote"). 424 of the 607
+                   talk records carry a description, measured in the build
+                   of that day. */ -}}
+            {{- with $entry.description }}
+            <section class="talk_description" aria-labelledby="about_heading">
+                <h2 id="about_heading">About this talk</h2>
+                <blockquote class="talk_abstract">
+                    {{ $.RenderString (dict "display" "block") (replaceRE "(?i)http://" "https://" .) }}
+                </blockquote>
+            </section>
+            {{- end }}
+
+            {{- /* The video of the talk, when the day published one: the
+                   link to YouTube with the title of the talk as its text
+                   and the mark in front (partials/video_link.html), the
+                   rule for a video printed on its own. */ -}}
+            {{- with $entry.video }}
+            <section class="talk_video" aria-labelledby="video_heading">
+                <h2 id="video_heading">Video</h2>
+                <p class="talk_video_link">{{ partial "video_link.html" (dict "url" . "title" $.Title) }}</p>
+            </section>
+            {{- end }}
+
+            {{- /* Whatever else the speaker published: the slides, the code,
+                   a notebook, a write-up. A link carries a type, and a label
+                   of its own when the record gives it one: four links of the
+                   archive do, and the label is then the name the speaker
+                   used. The table below names the rest, and an unknown type
+                   falls back to the type itself, so a new kind of link shows
+                   up on the page rather than not at all. Each link carries
+                   the mark of its host in front, through
+                   partials/link_mark.html: GitHub, SlideShare, Google
+                   Drive, or the generic mark for a site of its own. */ -}}
+            {{- with $entry.repositories }}
+                {{- $labels := dict
+                        "github" "Code on GitHub"
+                        "slides" "Slides"
+                        "notebooks" "Notebooks"
+                        "link" "Read more" }}
+            {{- /* The count on the heading, as on Photos above and on every
+                   heading over a list of things of this site ("Events (N)",
+                   "Videos (N)" on the page of a person). Every link of a
+                   record carries a url, bin/check-content fails one that
+                   does not, so the length of the list is the number of
+                   links printed. */ -}}
+            <section class="talk_links" aria-labelledby="links_heading">
+                <h2 id="links_heading">Links ({{ len . }})</h2>
+                <ul>
+                    {{- range $link := . }}
+                    {{- with $link.url }}
+                        {{- $label := "" -}}
+                        {{- with $link.label }}{{ $label = . }}{{ end -}}
+                        {{- if not $label }}{{ with $link.type }}{{ $label = index $labels . }}{{ end }}{{ end -}}
+                        {{- if not $label }}{{ with $link.type }}{{ $label = . | replaceRE "[-_]+" " " | title }}{{ end }}{{ end -}}
+                        {{- if not $label }}{{ $label = "Read more" }}{{ end }}
+                    <li><a href="{{ . }}">{{ partial "link_mark.html" . }}{{ $label }}</a></li>
+                    {{- end }}
+                    {{- end }}
+                </ul>
+            </section>
+            {{- end }}
+
+        </div>
+    </div>
+</div>
+
+{{ end }}

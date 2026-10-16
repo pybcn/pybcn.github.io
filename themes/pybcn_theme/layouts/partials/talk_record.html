@@ -1,0 +1,126 @@
+{{- /*
+    Everything one talk page needs, resolved from the event that gave the
+    talk.
+
+    Argument: the talk page, which content/talks/_content.gotmpl added. It
+    carries two params and no copy of the record: talk, the id of the talk,
+    and event, the content path of the event page.
+
+    Returns a dict:
+
+        event   the event page, or "" when the path resolves to nothing
+        talk    the talk record, as the front matter of that event writes it
+        position  the place of the talk in the programme of that event,
+                counted from 1, which is the order the index at /talks/
+                lists the talks of one day in
+        entry   what partials/agenda_entry.html resolves for that record:
+                title, type, speaker, description, topic, language, video,
+                and repositories
+        photos  the photographs of this talk in the gallery of the event,
+                in the order the gallery prints them, each a dict with
+                img, the image resource, and url, the figure of that
+                photo in the gallery. An empty slice when the day has no
+                photo of this talk.
+
+    Call it through partial, not partialCached:
+
+        partial "talk_record.html" $page
+
+    It was cached by talk page, so that the index at /talks/, the page of
+    the talk, partials/listing_counts.html, and
+    partials/person_talks_index.html resolved one record once. That was
+    607 cache entries, and Hugo's partialCached is an LRU of 1000 entries
+    (tpl/partials/partials.go, lazycache MaxEntries: 1000, in v0.139.4,
+    not configurable). With a gallery cached per page as well, the site
+    sat near that limit, and the 378 person pages that came back with the
+    Archive pushed it over: each person page reads four site-wide indexes
+    (appearances, talk photos, listing counts, person talks), each index
+    reads hundreds of per-page entries, and every entry it filled evicted
+    an index that the next page then rebuilt. Measured on 2026-10-14: 20
+    extra cached gallery entries cost 87 seconds, the same 20 uncached
+    cost nothing, and the full build did not finish in 15 minutes. So the
+    per-page caches are now the ones that pay, the gallery of an event
+    (224 keys), and this one is resolved on each call: a map read, a loop
+    over the talks of one event, and partials/agenda_entry.html, about
+    2,400 calls per build. The warnings below repeat once per caller for
+    a broken reference, which bin/check-content fails the build for
+    anyway.
+
+    The record is read and never copied. A content adapter cannot see
+    site.Pages, so the pages are added with the two ids above and the data
+    is joined here, at render time, out of the event front matter. That is
+    the decision this archive already took for the talks: the event owns its
+    programme, and a page of one talk is a view of it.
+
+    Why agenda_entry.html and not a second join. That partial is where the
+    archive resolves a talk already: it turns the speaker ids into the names
+    the person records hold, the language codes into English, Spanish and
+    Catalan, and the links list into the video and the rest. The grid of the
+    event page and the modal behind it both read it, so reading it here
+    keeps the three from disagreeing about the same talk, and a language
+    code added to the table there reaches these pages with no second edit.
+
+    It takes a slot of an agenda, because that is what the grid has. A talk
+    page has no slot: it is the talk, wherever the grid put it. So the slot
+    passed in names the talk and a start of "0:00", and the start, the end,
+    the room, and the colour of the answer are not read. The fields a slot
+    owns rather than the talk, python_level, topic_level, requirements, and
+    sponsor, come back empty for the same reason, and this page does not
+    print them: they describe a session of a day, and the row of the grid
+    is where the day is.
+
+    The photo comes from partials/gallery_content.html, keyed by the event
+    page, the same call and the same key the event page makes, so the
+    gallery of one day is built once for the page, for the person pages,
+    and for every talk page of it. The place of the photo in that gallery is
+    the id of its figure, through partials/photo_anchor.html, so the link
+    lands on the photo and not at the top of the event page.
+
+    Every photo of the talk, not the first one. The key was photo,
+    singular, the first figure of the gallery that named the talk, while
+    partials/listing_counts.html counted every figure that named it: the
+    row of /talks/ said 2 photos for hands-on-django of the Django day of
+    2022 and the page of the talk showed 1. Measured on 2026-10-15: that
+    talk has 2 photographs, both files exist, and the gallery renders all
+    11 of the day. The talk page, the person page, and the card now read
+    one list.
+*/ -}}
+{{- $page := . -}}
+{{- $event := "" -}}
+{{- with $page.Params.event -}}
+    {{- $event = site.GetPage . -}}
+{{- end -}}
+{{- $talk := "" -}}
+{{- /* An empty map and not an empty string, so that a page whose record
+       cannot be found still renders: the templates read fields of it, and a
+       field of a string is a build error. */ -}}
+{{- $entry := dict -}}
+{{- $photos := slice -}}
+{{- $position := 0 -}}
+{{- if not $event -}}
+    {{- warnf "talk_record: %q names event %q, which is no page of this site." $page.RelPermalink $page.Params.event -}}
+{{- else -}}
+    {{- $id := $page.Params.talk -}}
+    {{- /* The talks of that event by id, so the lookup finds this talk and
+           nothing else. Same join as partials/agenda.html. */ -}}
+    {{- $talks := dict -}}
+    {{- range $place, $record := $event.Params.talks -}}
+        {{- with $record.id -}}
+            {{- $talks = merge $talks (dict . $record) -}}
+            {{- if eq . $id }}{{ $position = add $place 1 }}{{ end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- $talk = index $talks $id -}}
+    {{- if not $talk -}}
+        {{- warnf "talk_record: %q names talk %q, which %q does not define." $page.RelPermalink $id $event.RelPermalink -}}
+    {{- else -}}
+        {{- $people := partialCached "people_names.html" site "people-names" -}}
+        {{- $entry = partial "agenda_entry.html" (dict
+                "slot" (dict "talk" $id "start" "0:00")
+                "talks" $talks
+                "rooms" dict
+                "colors" dict
+                "people" $people) -}}
+    {{- end -}}
+{{- end -}}
+{{- return dict "event" $event "talk" $talk "position" $position "entry" $entry "photos" $photos -}}

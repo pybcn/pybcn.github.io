@@ -1,9 +1,29 @@
 {{/*
-  The Meetup REST API (api.meetup.com) was retired and returns HTTP 404,
-  so the old JSONP event list could never load. This block is static and
-  sends the visitor to Meetup instead.
-  TODO: replace this with a local list of meetups kept in content/, so the
-  site shows its own events and does not depend on Meetup.
+  The Meetup REST API (api.meetup.com) was retired and returns HTTP 404, so
+  the old JSONP event list could never load. This block is static and sends
+  the visitor to Meetup instead.
+
+  The TODO that stood here asked for a local list of meetups in content/, so
+  the site would show its own events and not depend on Meetup. Half of it is
+  done. content/events/meetups/ holds one page per past meetup, 2007 to
+  2026, out of the Meetup export plus the two written by hand (the header
+  of content/events/meetups/_index.md counts them), /events/meetups/ is the
+  list of them, and each one has a page with its day, venue, group, and
+  registrations. The body of content/events/monthly_events.md links that
+  list, and every one of those pages also has a row on /events/.
+
+  The other half cannot be closed from this repository. This block is about
+  the meetup that has not happened yet, and no local record of one exists:
+  the export is history, and the API that served the upcoming events is
+  gone. A local list of upcoming meetups needs the association to write a
+  file before each meetup instead of only announcing it on Meetup, which is
+  a decision about how the association works and not a template change.
+  Until that decision is taken, the next meetup is on Meetup, and the link
+  below is the honest way to say so.
+
+  So the text below no longer claims the past events as well. They are on
+  this site now, and a card that sent a reader to Meetup for them would
+  send them away from the better page.
 */}}
 {{ range .list }}
 <div class="col-md-{{ $.width }}">
@@ -14,8 +34,8 @@
             </div>
             <ul class="items-list">
                 <li class="items-entry">
-                    We announce every {{ .name }} meetup on Meetup. Upcoming and
-                    past events, with the venue and the talks, are listed there.
+                    We announce every {{ .name }} meetup on Meetup. That is
+                    where the next one is, and where you register for it.
                 </li>
             </ul>
             <div class="item-button">

@@ -1,0 +1,139 @@
+{{- /*
+    facts_box: the box of facts about the subject of a page, one labelled
+    row per fact.
+
+        [ (user)     Speaker   Marc Pous                       ]
+        [ (calendar) Event     PyDay BCN 2020                  ]
+        [ (clock)    Length    30 minutes                      ]
+        [ (link)     Source    The announcement of the day ... ]
+
+    David Arcos asked for it on the page of a talk, on 2026-10-14: the
+    facts in "un formato estándar, tipo una caja", one glyph per line, with
+    the credit, the event, the date, and the source in the same box, and
+    then the same box "para el resto de facts de todos los modelos donde
+    aplique". layouts/talks/single.html and layouts/_default/meetup.html
+    print it; the rows of the three listings print their own line and the
+    card of partials/count_card.html, and the header of a person page
+    prints the role line and that card, which this box does not replace
+    (see the headers of those layouts for why).
+
+    Argument: a dict with items, a slice of dicts, each with:
+        label       the word of the row: "Speaker", "Venue"
+        value       the fact. A plain string is escaped by the template,
+                    as content always is here. The output of a partial,
+                    partials/person_page_link.html for a name or the html
+                    of partials/event_date.html for a day, is HTML a
+                    template of this theme already escaped, and prints as
+                    it is. No content field reaches this partial through
+                    safeHTML (AGENTS.md).
+        values      instead of value: a list, joined here with ", " and
+                    " and " the way partials/agenda_entry.html joins the
+                    names of a session. Each element prints as a value
+                    does, so a list of links stays a list of links; a
+                    caller that joined them with delimit would get a
+                    string, which the template escapes.
+        url         optional. The value then prints as a link to it, with
+                    the value as the text, so a caller never builds the
+                    anchor and the text is escaped here like any value.
+        icon        optional, a Font Awesome class: fa-user. The glyph
+                    is decoration, aria-hidden, because the label next to
+                    it says the same thing in words (the rule of
+                    partials/event_type_icon.html for an icon with its
+                    label beside it). A row with no icon keeps its place
+                    in the column. A class that starts with icon_ is one
+                    of the masks of main.scss and not a Font Awesome
+                    glyph, so it prints on its own: icon_x is the X mark,
+                    which the Source row of a talk read from a post on X
+                    took, because every link to x.com carries it.
+        mark_url    optional, instead of icon: the URL of an outbound
+                    link, whose host picks the glyph through
+                    partials/link_mark.html, the one mark per destination
+                    the whole site prints. The Source row of a talk and
+                    of a meetup pass the URL of the value, so the row
+                    carries the mark of Meetup, of X, or the generic one.
+        note        optional, a sentence that explains the value, kept
+                    behind a disclosure, with:
+        note_label  the words of the disclosure: "Who is counted". Set
+                    it on every row that carries a note, because a page
+                    may hold two and a screen reader lists them by name.
+        lang        optional, the language of the value when it is not
+                    English, printed on the dd (WCAG 3.1.2).
+
+    An item with no value is left out, so a caller may pass every fact it
+    knows the name of and the box prints only the ones the record holds.
+    Nothing reads "unknown" and nothing reads "0": that is the rule of
+    layouts/_default/meetup.html and layouts/people/list.html, and this
+    partial keeps it for every caller. A box with no row prints nothing.
+
+    The shape: a description list. The content is pairs of a label and a
+    value, which is what dl, dt and dd are for, and a screen reader
+    announces the pair as a term and its description and gives the count
+    of rows up front; a ul of "Label: value" strings would read the colon
+    aloud or lose it, and a table of two columns would announce a header
+    the box does not have. Each pair sits in a div, which the HTML
+    standard allows inside a dl, so the pair is one element to style; the
+    div is display: contents in facts.scss and the dt and dd land in the
+    two columns of the grid of the dl, the label column as wide as its
+    longest label. At 390px the two columns still fit: the longest label,
+    Registrations, takes about a third of the width, and a long value
+    wraps inside its cell. The box is the bordered pill of
+    partials/count_card.html at full width, in the colour of the facts,
+    so the two read as the same kind of thing: a box of figures.
+
+    The icons are Font Awesome and not emoji. David wrote "un emoji por
+    línea". The site already keeps three vocabularies of glyph with one
+    job each: an emoji is the type of an event (data/event_emoji.yaml,
+    the rows of /events/ and /people/), a Font Awesome icon is a count
+    (partials/count_card.html) or a type of session (the programme grid,
+    partials/event_types.html), and a Font Awesome brand mark is where a
+    link goes (partials/person_social_icons.html). An emoji per fact
+    would be a fourth, and it would sit on the page of a person next to
+    the count card, whose icons are Font Awesome, with the two sets
+    meaning the same kind of thing in two alphabets. The type row of a
+    talk takes the icon of its type from partials/event_types.html, the
+    glyph the grid draws for it, so a reader meets one glyph per type
+    across the site. To flip to emoji: give each caller an emoji in the
+    icon field and change the i element below to a span with the glyph as
+    its text, one line.
+
+    The disclosure is a details element with a summary and no script.
+    David wrote "(que funcione en mobile!)": a title attribute is a hover,
+    which a touch screen does not have and a keyboard reaches
+    unreliably, so the note is one tap or one Enter away, the browser
+    announces it as expanded or collapsed, and a page with no JavaScript
+    still opens it. The sentence about the registrations of a meetup
+    being the people who said yes and not a count of who came lives
+    behind one of these, because AGENTS.md requires it and the end of
+    the page, where it was, is gone.
+*/ -}}
+{{- $rows := slice -}}
+{{- range .items -}}
+    {{- if not (or .value .values) }}{{ continue }}{{ end -}}
+    {{- $rows = $rows | append . -}}
+{{- end -}}
+{{- with $rows }}
+<dl class="facts_box">
+    {{- range $row := . }}
+    <div class="facts_row">
+        <dt>{{ with $row.mark_url }}{{ partial "link_mark.html" . }}{{ else }}{{ with $row.icon }}<i class="{{ if hasPrefix . "icon_" }}{{ . }}{{ else }}fas {{ . }}{{ end }}" aria-hidden="true"></i>{{ else }}<i class="facts_no_icon" aria-hidden="true"></i>{{ end }}{{ end }}{{ $row.label }}</dt>
+        <dd{{ with $row.lang }} lang="{{ . }}"{{ end }}>
+            {{- /* A list of values is joined here and not by the caller:
+                   delimit returns a string, which the template then
+                   escapes, so an anchor joined that way prints as text. */ -}}
+            {{- with $row.values -}}
+                {{- $last := sub (len .) 1 -}}
+                {{- range $i, $v := . }}{{ if gt $i 0 }}{{ if eq $i $last }} and {{ else }}, {{ end }}{{ end }}{{ $v }}{{ end -}}
+            {{- else -}}
+                {{- with $row.url }}<a href="{{ . }}">{{ $row.value }}</a>{{ else }}{{ $row.value }}{{ end -}}
+            {{- end }}
+            {{- with $row.note }}
+            <details class="facts_note">
+                <summary>{{ default "Details" $row.note_label }}</summary>
+                <p>{{ . }}</p>
+            </details>
+            {{- end }}
+        </dd>
+    </div>
+    {{- end }}
+</dl>
+{{- end }}

@@ -157,6 +157,10 @@
        partials/talk_record.html passes no event_url: it renders the page of
        one talk, which does not link to itself. */ -}}
 {{- $url := "" -}}
+{{- if and $talk $.event_url -}}
+	{{- $pages := partialCached "talk_pages_index.html" site "talk-pages-index" -}}
+	{{- with index $pages (printf "%s|%s" $.event_url $slot.talk) }}{{ $url = . }}{{ end -}}
+{{- end -}}
 
 {{- /* video and repositories were two fields and are now one list, because
        a session can publish more than one address and one of them did it as

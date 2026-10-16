@@ -1,0 +1,70 @@
+{{- /*
+    The page of each talk, keyed by the event that gave it and the id of the
+    talk, so an event page can link a row of its programme or a photo of its
+    gallery to the talk itself.
+
+    Returns a flat map. The key is "<event RelPermalink>|<talk id>" and the
+    value is the RelPermalink of the talk page.
+
+    No argument is read: the data comes from site.RegularPages. Call it
+    through partialCached with a constant variant, so the site is walked
+    once per build and not once per row of a grid, which is the rule
+    partials/appearances_index.html sets and the reason it exists:
+
+        partialCached "talk_pages_index.html" site "talk-pages-index"
+
+    There are 607 talk pages, 10 programme grids with 138 rows that hold a
+    talk, and 107 gallery photos that name one. An index built per event
+    page would walk the talk pages ten times, and one built per row 138.
+
+    Why the lookup is not a printf of the URL. The path of a talk page is
+    "<base name of the event file>/<talk id>", and
+    content/talks/_content.gotmpl is what decides that: it owns the rule and
+    explains why the event is part of the path. A template that spelled the
+    same rule a second time would keep building a URL after the adapter
+    changed it, and the link would 404 with no warning and no failing check.
+    This index asks Hugo for the page the adapter actually added, so a link
+    is emitted only for a page that exists in this build.
+
+    Why the key carries the event and not the id alone. A talk id is unique
+    inside its event and not across the archive:
+    "lightning-talks-session-2-closing-session-kahoot" is a row of PyDay BCN
+    2022 and a row of PyDay BCN 2023. An index keyed by the bare id would
+    hold one of the two and point the rows of both years at it.
+
+    The event is read from the params the adapter writes, talk and event,
+    and resolved with site.GetPage, as partials/talk_record.html resolves
+    it. So the key is built from the pages themselves on both sides: the
+    index keys by the RelPermalink of the event page, and an event page
+    looks up its own RelPermalink.
+
+    A talk page whose event does not resolve is left out and warns, rather
+    than taking a key no caller can build.
+
+    Drafts are skipped by name as well, as in appearances_index.html:
+    site.RegularPages drops them in a normal build, but a server run with
+    -D would index content/canary.md.
+*/ -}}
+{{- $index := dict -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if $pg.Draft }}{{ continue }}{{ end -}}
+    {{- if ne $pg.Section "talks" }}{{ continue }}{{ end -}}
+    {{- $id := $pg.Params.talk -}}
+    {{- if not $id -}}
+        {{- warnf "talk_pages_index: %q is a talk page with no talk id, so no row can link to it." $pg.RelPermalink -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $event := "" -}}
+    {{- with $pg.Params.event }}{{ $event = site.GetPage . }}{{ end -}}
+    {{- if not $event -}}
+        {{- warnf "talk_pages_index: %q names event %q, which is no page of this site, so no row can link to it." $pg.RelPermalink $pg.Params.event -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $key := printf "%s|%s" $event.RelPermalink $id -}}
+    {{- with index $index $key -}}
+        {{- warnf "talk_pages_index: %q and %q are both talk %q of %q. The index keeps the first." . $pg.RelPermalink $id $event.RelPermalink -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $index = merge $index (dict $key $pg.RelPermalink) -}}
+{{- end -}}
+{{- return $index -}}

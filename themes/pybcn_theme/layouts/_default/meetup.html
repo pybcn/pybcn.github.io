@@ -1,0 +1,140 @@
+{{- /*
+    The page of one monthly meetup: the day it was held, the place, the group
+    that ran it, how many people signed up, and the Meetup announcement the
+    page was read from.
+
+    Reached through a cascade in content/events/meetups/_index.md, which sets
+    layout: meetup on every page of the section, the way
+    content/events/monthly_events.md names its own layout. Hugo resolves the
+    layout of a page in a nested section from its top level section, so a
+    layouts/events/meetups/single.html is never looked up, and a
+    layouts/events/single.html would also take the 13 larger editions off
+    layouts/_default/event.html.
+
+    These files carry no body, on purpose: the Meetup description is the door
+    policy and the logistics of signing up, and an archive records what
+    happened and not how to register for something that is over (see
+    content/events/meetups/_index.md). So the front matter is the page, and
+    this template is what prints it. .Content is still rendered, for the day
+    a file carries a paragraph of its own.
+
+    An almost empty page is the normal case here and not a failure. 266
+    events came out of the export, and most of them will never hold more
+    than a day, a place, and a count of registrations. The page prints the
+    facts it has in the box of partials/facts_box.html and leaves out a
+    fact with no data behind it, which is the rule
+    layouts/_default/events_index.html and layouts/people/list.html already
+    follow for a row of theirs: nothing reads "unknown" and nothing reads
+    "0". A file with no venue (a few of the early meetups) or with no
+    registrations gets a shorter box rather than a row that says the field
+    is missing.
+
+    attendance is the yesCount of the Meetup RSVPs, so this page says
+    registrations and never attendance. AGENTS.md requires that, because
+    attendedCount is zero on almost every record and nobody counted the
+    room. The row of the box says it in words as well, behind the
+    disclosure of the number: it used to be the paragraph of a Source
+    block at the end of the page, and David Arcos asked on 2026-10-14 for
+    the source to join the box and that paragraph to go ("el texto del
+    source al final, desaparece"), with its detail kept where a touch
+    screen can reach it.
+
+    The blocks under the box, each left out when the page has nothing for
+    it:
+
+    - talks renders as rows, one per talk, with the facts under the title
+      (see talks.scss). A row links to the page of its talk, which
+      content/talks/_content.gotmpl builds for every event under
+      content/events/, the meetups included, and the URL comes from
+      partials/talk_pages_index.html, so a link is emitted only for a page
+      this build holds. A talk that has a video prints the link to it on
+      its row, with the YouTube mark in front, through
+      partials/video_link.html: the video sits with its talk, and the
+      gallery of a meetup is its photographs. The Videos subsection of a
+      gallery is an edition thing (the header of
+      partials/gallery_content.html has the decision).
+    - session_videos, the recording of a whole evening or of a block of
+      lightning talks, which belongs to no talk, renders as the Recordings
+      block through partials/session_videos.html, after the talks, with a
+      player per recording: the page of the day is the one page about a
+      recording that has no talk. A heading over a list of things carries
+      the count, "Talks (3)", "Recordings (1)".
+    - photos renders through partials/photo_gallery.html, the partial the
+      edition pages use, so a gallery reads the same wherever it is.
+
+    The outline is h1 then h2 with no level skipped (bin/check-rendered fails
+    a page that skips one): the hero prints the h1, and every block below is
+    an h2, as on layouts/talks/single.html.
+*/ -}}
+{{ define "main" }}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 main_column meetup_page">
+
+            {{- /* The day, as the first line under the title. A machine
+                   readable date on the time element, and the weekday in
+                   front of it, because a meetup is a weekday evening and
+                   that is part of what the row of the archive says. Both
+                   come from partials/event_date.html, the one place that
+                   formats an event date, so a meetup that ran two days
+                   would print its range the way an edition does. Every
+                   file carries a date today; a file with none still
+                   prints the rest of the page. */ -}}
+            {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date "weekday" true) -}}
+            {{- with $when.html }}
+            <p class="meetup_when">{{ . }}</p>
+            {{- end }}
+
+            {{- /* The box of facts, partials/facts_box.html: the place, the
+                   group, the registrations, and the record the page was
+                   read from, each row left out when the front matter does
+                   not carry it, which the partial does for a row with no
+                   value. The source is the last row because it is the
+                   provenance of the page and not a part of the day. The
+                   marker glyph of the venue is the one the event row of a
+                   talk page carries: "where". The caveat on the
+                   registrations is the note of its row (AGENTS.md: RSVPs
+                   are not attendance), one tap away on a touch screen.
+                   Every file carries a meetup_url today, the ones from the
+                   export and the two written by hand alike; the guard is
+                   for the file that does not. */ -}}
+            {{- $registrations := "" -}}
+            {{- with .Params.attendance -}}
+                {{- $signups := int . -}}
+                {{- if gt $signups 0 -}}
+                    {{- $registrations = printf "%d %s" $signups (cond (eq $signups 1) "person" "people") -}}
+                {{- end -}}
+            {{- end -}}
+            {{- $source := "" -}}
+            {{- with .Params.meetup_url }}{{ $source = "The announcement of the day on Meetup" }}{{ end -}}
+            {{ partial "facts_box.html" (dict "items" (slice
+                (dict "label" "Venue" "icon" "fa-map-marker-alt" "value" .Params.venue)
+                (dict "label" "Group" "icon" "fa-user-friends" "value" .Params.group)
+                (dict "label" "Registrations" "icon" "fa-user-check" "value" $registrations
+                      "note" "The people who said yes on Meetup. It is the only figure the record holds, so it is not a count of who came."
+                      "note_label" "Who is counted")
+                (dict "label" "Source" "mark_url" .Params.meetup_url "value" $source "url" .Params.meetup_url))) }}
+
+            {{- with .Content }}
+            <div class="meetup_content">{{ . }}</div>
+            {{- end }}
+
+            {{- /* The programme, when the announcement of this meetup has
+                   been read. The row is the row of the /talks/ index: the
+                   icon of the type, the title as the link to the page of
+                   the talk, who gave it, and the Watch line of its video:
+                   the rows of partials/talk_rows.html, which the edition
+                   page with talks and no programme grid draws as well. */ -}}
+            {{- with .Params.talks }}
+            <section class="meetup_talks" aria-labelledby="talks_heading">
+                <h2 id="talks_heading">Talks ({{ len . }})</h2>
+                {{ partial "talk_rows.html" $ }}
+            </section>
+            {{- end }}
+
+        </div>
+    </div>
+</div>
+
+{{ end }}
