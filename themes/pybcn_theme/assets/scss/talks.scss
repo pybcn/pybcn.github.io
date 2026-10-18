@@ -7,14 +7,14 @@
 // description, the photo, the video, and the links.
 .talk_page {
 
-    // Each block of the page gets the same air under its heading, and the
-    // h2 is the size of the h2 of the rest of the site.
+    // Each block of the page is a block of the home page: the section title
+    // of main.scss over it, with the title gap under the title, and the
+    // block gap under the block.
     section {
-        margin-bottom: 2rem;
+        margin-bottom: $block-gap;
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
+            @include section_title;
         }
     }
 
@@ -26,7 +26,7 @@
     // body text stays, because the abstract is the body of this page.
     // Italic, as the caption is and as a quotation is set in print, so
     // the two blockquotes of the site read alike; it was upright and did
-    // not read as a quotation (David Arcos, 2026-10-15).
+    // not read as a quotation.
     .talk_abstract {
         margin: 0;
         padding-left: 0.75rem;
@@ -66,6 +66,9 @@
     // the section under it sets the gap.
     .talk_photo {
         margin-bottom: 1rem;
+        // The frame of every card of the site over the one Bootstrap's
+        // .card draws, as in the gallery.
+        @include site_frame;
 
         &:last-child {
             margin-bottom: 0;
@@ -78,7 +81,7 @@
         }
 
         figcaption {
-            color: #51616e;
+            color: $text-grey;
         }
     }
 }
@@ -114,11 +117,23 @@
         margin-left: calc(-1.5em - 8px);
         margin-right: 8px;
         text-align: center;
-        color: #51616e;
+        color: $text-grey;
+    }
+
+    // The glyph of the speaker role, in front of the names, in the box
+    // the glyph of a role takes on /people/.
+    .talk_speaker_glyph {
+        display: inline-block;
+        margin-right: 0.25rem;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        vertical-align: -0.1em;
     }
 
     .talk_meta {
-        color: #51616e;
+        color: $text-grey;
         margin-bottom: 0;
     }
 
