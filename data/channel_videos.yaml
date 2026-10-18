@@ -2,7 +2,10 @@
 # with each one. One entry per video of the channel, with the id, the title
 # as the channel shows it, and the decision: placed, which means some event
 # page carries a link to it, or placed: false with the reason it belongs to
-# no page.
+# no event page. One unplaced video is on the site all the same: the
+# presentation of the community at PyConES 2020, which the home page plays
+# (about_video in content/_index.md); its reason says so. placed stays
+# about the event pages, which is what bin/check-content reads.
 #
 # This is the list the site maintains. It is not a copy of the pybcn-archive
 # export, which is one-time archaeology that is not in this repository: the
@@ -131,7 +134,7 @@ videos:
     title: "PyLadies Barcelona & Python Barcelona - Presentación comunidad local - PyConES 2020"
     placed: false
     unlisted: true
-    reason: "a presentation of the Barcelona community given at PyConES 2020, which is no event of the association"
+    reason: "a presentation of the Barcelona community given at PyConES 2020, which is no event of the association; the home page plays it in its About PyBCN block (about_video in content/_index.md)"
   - id: "JzX9WAv7PVM"
     title: "PyBCN Meetup 2019/09 - Python for the management of IoT platforms at Worldsensing by T. Martínez"
     placed: true

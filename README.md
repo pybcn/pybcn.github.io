@@ -21,6 +21,15 @@ do not need Python, Go, or npm.
 The version lives in `.hugo-version`, which is the single source of truth.
 To move to a new Hugo release, edit that file and run `bin/install` again.
 
+The site search is built after Hugo, by [Pagefind](https://pagefind.app/),
+over the pages Hugo wrote. `bin/install-pagefind` downloads the release
+pinned in `.pagefind-version` the same way, checks its SHA256 and puts it at
+`bin/pagefind`; `bin/search public` then writes the index to
+`public/pagefind/`. CI does both after every build. `bin/serve` runs no
+Pagefind, so `/search/` on the dev server says the search is not available
+there: build with `bin/hugo --minify -d public && bin/search public` and
+serve `public/` with any static server to try it.
+
 
 ### Running local server
 
@@ -91,6 +100,23 @@ checks, and which paths wait for a review from the web team are in
 form. It lives there and not here, so there is one description of the process
 and not two that drift apart. The two sections below are the detail of the
 checks it names.
+
+
+### The sources of the archive
+
+The pages of the archive were written from the Meetup export of both groups,
+the X exports of the association, the playlists of our channel, the records
+pyvideo keeps of PyData Barcelona 2017, and the frozen copies of the old site
+under `static/archives/`. Those sources, the tools that read them, and the
+reports of the import live in a separate repository of this organisation,
+`pybcn/pybcn-archive`, which is **private**: a copy of a public page is not a
+secret, but 950 Meetup comments with the name of whoever wrote them, and the
+email addresses, the phone numbers, and the personal profiles that the event
+descriptions still carry, add up to something that is. Ask a member of the
+board for access.
+
+Nothing in this repository needs it. It is the record of where each page came
+from, and the insurance policy if a page has to be written again.
 
 
 ### Content safety check
@@ -192,6 +218,8 @@ Currently, there are two sponsor pages implemented: The PyBCN sponsors and the P
 
 The template collects all the pages under sponsors content and iterates over the levels defined in the corresponding sponsors page, rendering the level name, if any, and then all the summaries for each sponsor defined in the level's sponsors list.
 
+A page that defines no `sponsor_levels` gets one level with every sponsor under `content/sponsors/`, sorted by name, 4 to the line. `/sponsors/` is that page. It used to carry the list by hand and the list had drifted: 25 sponsors were on their edition page and not on it. The two association accounts, `pybcn` and `pyladiesbcn`, are left out of that automatic list, because an edition page lists them under an Organizers level and they are not sponsors of themselves. The PyLadies BCN page defines its own levels, so it keeps its own list.
+
 The sponsor summary is defined in a separate partial `themes/pybcn_theme/layouts/partials/sponsor_summary.html`. This partial receives the sponsor page to render the summary from.
 
 About the creation of new sponsors, the `themes/pybcn_theme/archetypes/sponsors.md` file contains the template Hugo will use when the editor runs the command `hugo new sponsors/my-new-sponsor.md`.
@@ -254,6 +282,49 @@ The `photo` field names a file under `themes/pybcn_theme/assets/images/people/`.
 A remote `photo_url` is not supported: it would load from a third party on
 every page that lists the person and tell that party who viewed it, and
 `bin/check-content` reports it as an error.
+
+
+### Import a meetup
+
+`bin/new-meetup <the Meetup URL of a past event>` writes
+`content/events/meetups/<date>-<slug>.md`. One command, one GET of the public
+event page, no API key and no login: Meetup serves the whole event as JSON in
+the `__NEXT_DATA__` script tag its own front end reads. The retired REST API
+is why the archive needed an export at all; this page is what replaced it.
+
+It writes the fields that are a copy of one field each, which is the same set
+and the same order the 268 pages of the archive carry, through the same
+function in `bin/import-meetups`: `title`, `date`, `year`, `venue`,
+`attendance`, `meetup_url`, and `group`. `attendance` is who said yes on
+Meetup, not who came.
+
+It refuses an event that is not `PAST`, because the registrations are not
+final and the archive records what happened, and an event whose title says
+PyDay or PyData, because the large editions have their own pages. `--force`
+overrides both. It refuses to overwrite a page that is already there.
+`--dry-run` prints the file instead of writing it.
+
+What it does not write, and what to do about each:
+
+| Not written | Why, and the next step |
+|---|---|
+| The talks | The announcement says them in prose, which no parser reads. `--description` prints that prose; `bin/prompts/extract-talks.md` is the prompt a model reads it with; `bin/check-extraction` compares every extracted field against the source; `bin/import-talks` writes the block |
+| The description | It is the logistics of signing up, and an archive records what happened and not how to register for something that is over |
+| A video | It comes from the YouTube channel after the day, through `bin/import-videos`, and `data/channel_videos.yaml` is the inventory `bin/check-content` reads |
+| A person page | A page publishes a named person. A speaker who just spoke is reachable, so ask that person first |
+| A venue short name | The script reports a `venue` string that `data/venues.yaml` does not name. The short name is a choice somebody makes |
+
+`bin/new-meetup --discover` answers the other half: **which** meetups are
+missing. It reads the past events page of both groups, which carries the ten
+most recent as JSON in the same script tag, names the ones no page records,
+and prints the command for each. It writes nothing. Ten is more than a year
+of a group that meets monthly; a longer gap than that is what the
+pybcn-archive export is for.
+
+So the whole path for the meetup of last Tuesday is: `bin/new-meetup
+--discover` to see what is missing, `bin/new-meetup URL --description`,
+extract the talks, `bin/check-extraction`, `bin/import-talks`,
+`bin/check-content`, and `bin/import-videos` once the recording is up.
 
 
 ### Monthly event page implementation details

@@ -14,22 +14,35 @@ bin/install     # downloads the pinned Hugo binary, verifies its SHA256
 bin/serve       # dev server, Hugo's default :1313
 bin/build       # writes to docs/
 bin/hugo --quiet -d /tmp/out     # the binary directly
+bin/install-pagefind             # the pinned Pagefind binary, verifies its SHA256
+bin/search /tmp/out              # the search index of a built site, after the build
 ```
 
 **The Hugo binary lives at `bin/hugo` and is gitignored.** `bin/helpers` prefers
 it over anything on `$PATH`, and checks the version from `.hugo-version`.
 
+**The search index is not built by Hugo.** `bin/search <built-dir>` runs
+Pagefind (pinned in `.pagefind-version`, binary at the gitignored
+`bin/pagefind`) over the pages Hugo wrote, and CI runs it right after
+`hugo --minify`. The dev server has none, so `/search/` says so there. What
+is indexed is what the templates mark `data-pagefind-body`: the record of
+each talk, event and person, and the photo captions, not the whole page.
+`partials/search_kind.html` says which pages, and `partials/hero_header.html`
+and the layouts of the three kinds say what of each.
+
 **Do not `pip install hugo`.** That PyPI package now requires a Go toolchain and
 fails. `bin/install` fetches the official release binary instead.
 
-A clean build with `-D` produces **1369 HTML pages**: 1313 Hugo-generated and
+A clean build with `-D` produces **1377 HTML pages**: 1321 Hugo-generated and
 56 copied from `static/archives/`. Recount rather than trusting this line: the
 number moves with the content. It was 317 until #202 stopped publishing the
 206 person and sponsor pages that nothing linked to, 109 until the archive
-import added a page per meetup and per talk, and 991 until the person pages
+import added a page per meetup and per talk, 991 until the person pages
 came back with the Archive (378 of them, one per record of `content/people/`,
-the canary fixture included), which is how quickly a figure like this goes
-stale. Recount with:
+the canary fixture included), and 1363 until the tabs of `/talks/` and
+`/people/` added a page per talk type and per role (the two content adapters
+under `content/`), which is how quickly a figure like this goes stale.
+Recount with:
 
 ```sh
 find <built-dir> -name '*.html' | wc -l
@@ -44,6 +57,26 @@ and checking the output, not by reading the file.
 
 **`merge.ff = only`.** Any local merge needs `--no-ff`. A failed merge here reports
 "Not possible to fast-forward", which is not a conflict.
+
+**A photograph belongs to the event its text names, not to the day it was
+posted.** `bin/import-x-photos --ids FILE` takes the posts to import, and the
+day stops deciding. Reading the export by date looks right and is wrong three
+ways, each found the hard way on 2026-10-17:
+
+- The account replies to its own posts of years before, so following the chain
+  of replies builds threads that run from 2014 to 2021. Cut the chain at four
+  days from the photograph.
+- A talk titled in two or three generic words matches any post that uses them:
+  a 2014 talk swallowed every post that said "machine learning" since. A title
+  has to be long and belong to one event before it can attribute on its own.
+- Some titles repeat anyway. There are several "Introduction to Python", and
+  "Barcelona Python Meetup" is both the name of the event of 2007 and what
+  every monthly meetup is called. There the text says what the event is and
+  the day says which one of them, which is the rule a person would use.
+
+A post with photographs and no text at all is not imported: the caption is the
+alt text of the image, and a gallery leaves a photograph out rather than
+publish one nobody can read.
 
 **The archive imports run in one order and only once.** `bin/import-meetups`,
 then `bin/import-talks`, then `bin/import-videos`. `bin/import-talks` replaces
@@ -219,8 +252,9 @@ plausible but different result.
 | `themes/pybcn_theme/layouts/partials/` | Most of the interesting template logic |
 | `static/archives/` | Verbatim mirrors of pre-Hugo sites, copied unprocessed |
 | `data/` | Tables the templates read: `roles.yaml` maps a heading to a role, `role_emoji.yaml` a role to a glyph, `event_emoji.yaml` an event to a glyph, `venues.yaml` the exact `venue` string of an event to the short name the `/events/` list prints (the page of the meetup keeps the full string). Plus `channel_videos.yaml`, the inventory of the YouTube channel, which `bin/check-content` reads and `bin/list-channel` refreshes |
-| `bin/` | Setup and build scripts, the checks, `bin/list-channel` (names a channel video the inventory lacks; needs `yt-dlp` and the network), the one-time `bin/import-*` scripts, plus the gitignored Hugo binary |
+| `bin/` | Setup and build scripts, the checks, `bin/list-channel` (names a channel video the inventory lacks; needs `yt-dlp` and the network), `bin/new-meetup` (writes the page of one past meetup from its Meetup URL, and `--discover` names the ones with no page; needs the network), the one-time `bin/import-*` scripts, plus the gitignored Hugo binary |
 | `.hugo-version` | The pinned Hugo version, single source of truth |
+| `.pagefind-version` | The pinned Pagefind version, same rule; `bin/install-pagefind` reads it |
 
 The checks, which are what a pull request has to pass:
 
