@@ -1,0 +1,132 @@
+{{- /*
+    One row of the events listing, as a dict, from the page of the event.
+
+    Argument: the event page. Returns a dict with:
+
+        year        the year the row files under, as a string
+        month       the month of the first day, "Sep", or "" with no date
+        month_key   the month as yyyymm, the key rows of one year group by
+        day         the day of the first day, "16", or ""
+        start_iso   the first day as yyyy-mm-dd, for the datetime attribute
+        title       the title of the event
+        url         where the row links: the page, or the url of its menu
+                    entry when it declares one
+        emoji       the glyph of the type, from data/event_emoji.yaml
+        type_label  the name of the type, the accessible name of the glyph
+        venue       a dict with text, the short name, and full, the whole
+                    string when it says more than the short name; empty
+                    with no venue
+        card        the items of partials/count_card.html: the talks, the
+                    photos, and the videos of the day
+        key         the sort key: an ascending sort by it reads newest first
+
+    partials/event_table.html prints a list of these as the table of
+    /events/. layouts/_default/events_index.html builds one per event for
+    that page, and layouts/_default/home.html builds the same rows and
+    keeps the ten newest, so the home page and the listing print one event
+    the same way and cannot drift: this partial is the one place a row is
+    computed, moved here from events_index.html when the home page needed
+    it (2026-10-16). The header of events_index.html says why each column
+    is what it is.
+
+    The type, from the folder, the title, and the group, through the one
+    partial that holds the rules. See the header of data/event_emoji.yaml.
+
+    The date, in the parts the three date columns print, from
+    partials/event_date.html, which reads date and end_date. An edition
+    with no date leaves every part empty, and the row prints empty cells.
+    month_key is the month as yyyymm, the key the rows of one year are
+    grouped by: the name alone would file "May 2017" and "May 2016"
+    together if a year ever held two, and it cannot, but the key costs
+    nothing.
+
+    The venue: the short name from data/venues.yaml, or the string of the
+    front matter when the table has no row for it. venue is the place, and
+    it comes from the Meetup export, which records one per event. It is not
+    rooms: that lists the rooms inside the venue, so its first entry is the
+    first column of the programme, which printed "B6" where the reader
+    expects "Universitat de Barcelona". It goes through the escaping of the
+    template and never through safeHTML: a venue is content, and AGENTS.md
+    says to assume any content field can inject HTML.
+
+    There is no hover. The cell used to carry the string of the source in a
+    title attribute whenever it said more than the short name, and what it
+    said was the noise the short name exists to remove: "Cibernarium
+    MediaTIC (Barcelona Activa)" over "Cibernàrium MediaTIC". The hovers
+    that repeated the name went on 2026-10-15, and the rest on 2026-10-16.
+    data/venues.yaml is what decides
+    how a venue reads, and the page of the event holds the whole record.
+
+    The card: what the day holds, the talks of its programme, the photos
+    its gallery renders, and the videos it prints, from
+    partials/listing_counts.html, the one walk of the site. The card
+    leaves out a count of zero, so no row reads "0 photos", and a day with
+    nothing to count gets no card.
+
+    The key. Within one year the rows read newest first, by date, the way
+    the years themselves do, and the months fall out of that order as runs
+    of rows: the grouping of event_table.html cuts a run where the month
+    changes. The order used to be the title and then the URL, borrowed
+    from person_appearances.html, and it stopped being readable the moment
+    a year held more than one or two rows: with the 266 monthly meetups,
+    2026 read 30 Apr, 25 Feb, 30 Jun, 21 May, 16 Sep. A year of this list
+    is a sequence of days, and the day is on every row, so an order that
+    ignores it contradicts what the reader can see.
+
+    The key is 99999999 minus the date as yyyymmdd, so an ascending sort
+    reads newest first, the way the groups use 9999 minus the year. A row
+    with no date gets the ordinal 0, whose key is 99999999, and therefore
+    sorts after every dated row of its year. That is Hacktoberfest 2018,
+    the one edition of the archive that no source gives a day for: it
+    keeps its row, at the end of its year, rather than being guessed into
+    a place between two dated rows. The title and the URL stay on the key
+    as the tiebreak for two events on one day, so two builds give one
+    order. The year leads the key, as 9999 minus the year, so one sort
+    over the rows of every year puts the years newest first as well: a
+    row of 2018 with no date sorts after the dated rows of 2018 and
+    before every row of 2017.
+*/ -}}
+{{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
+{{- $year := int .Params.year -}}
+
+{{- $type := partial "event_type.html" . -}}
+{{- $marker := default (index site.Data.event_emoji "*") (index site.Data.event_emoji $type) -}}
+
+{{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) -}}
+{{- $date := dict "month" "" "month_key" "" "day" "" "start_iso" "" -}}
+{{- with $when.start -}}
+    {{- $date = dict
+        "month" $when.month
+        "month_key" (time.Format "200601" .)
+        "day" $when.day
+        "start_iso" (time.Format "2006-01-02" .) -}}
+{{- end -}}
+
+{{- $venue := dict -}}
+{{- with .Params.venue -}}
+    {{- $venue = dict "text" (default . (index site.Data.venues .)) -}}
+{{- end -}}
+
+{{- $facts := index $counts.event_rows .RelPermalink -}}
+{{- $card := slice -}}
+{{- with $facts -}}
+    {{- $card = slice
+            (dict "kind" "talk" "count" .talks)
+            (dict "kind" "photo" "count" .photos)
+            (dict "kind" "video" "count" .videos) -}}
+{{- end -}}
+
+{{- $url := .RelPermalink -}}
+{{- with .Params.menu }}{{ with .main }}{{ with .url }}{{ $url = . }}{{ end }}{{ end }}{{ end -}}
+
+{{- $ordinal := 0 -}}
+{{- with .Params.date }}{{ $ordinal = int (time.Format "20060102" .) }}{{ end -}}
+{{- return merge $date (dict
+        "year" (string $year)
+        "title" .Title
+        "url" $url
+        "emoji" $marker.emoji
+        "type_label" $marker.label
+        "venue" $venue
+        "card" $card
+        "key" (printf "%04d %08d %s %s" (sub 9999 $year) (sub 99999999 $ordinal) .Title .RelPermalink)) -}}

@@ -1,0 +1,187 @@
+{{- /*
+    The table of talks: the rows it is given, in one table, grouped by
+    year, by month, and by event, newest first, with the bar of years
+    above it.
+
+        Year  Month  Day  Event             Talk                                   Gallery
+        2025  Nov    29   PyDay BCN (2025)  💻 Build advanced Agentic LLM Apps ... by Enric Domingo   [ 1 photo ]
+                                            💻 Introduction to Analog Quantum ... by Natàlia Padilla, Amir Azam and ...   [ 1 photo  1 slide deck ]
+              Jun    11   Python Meetup ... 💬 Shorter testing feedback by ...
+        2017  May    19   PyData Barcelona 2017  💬 ...
+
+    Argument: rows, a slice of the rows of partials/talks_index.html. The
+    caller chooses them: /talks/ passes every row, and the page of one
+    type (layouts/talks/talk_type.html) passes the rows of that type. The
+    grouping, the rowspans, and the bar of years are computed here from
+    the rows given, so a page that lists 172 workshops gets the years and
+    the spans of those 172 and not of the 607.
+
+    Six columns: the year, the
+    month, the day, the event, the talk with its speakers, and the gallery
+    card. It is the table layouts/_default/events_index.html draws for
+    /events/, with the same structure, the same roles written out, the
+    same rowspan group headers, the same caption and column headers, and
+    the same stylesheet, listing_table.scss, so the two pages cannot
+    drift. The header comment of that template says why a table, why the
+    roles are written out, why the header row is hidden and not removed
+    under the lg breakpoint, and why the day column prints the first day
+    of an edition and not its range. None of that is repeated here; what
+    follows is what this table adds.
+
+    One more group level. /events/ has one row per day, so the year and
+    the month are its groups. Here a row is a talk, and the 607 rows sit
+    under 224 events: the event is a third group, between the month and
+    the row, and it prints once, on the first row of its talks, spanning
+    them with rowspan the way the month spans its rows. The event is a
+    column of its own, as in the sketch, and a rowheader of scope row: a
+    reader who moves down the Talk column of a screen reader hears the
+    event of any talk from the header cell that covers it.
+
+    The day spans the event too. The rows of one event share one day, so
+    a day on every row would print "29" seventeen times under PyDay BCN
+    (2025) and say nothing the event cell does not say. On /events/ the
+    day is on every row because every row is a day. So the day cell takes
+    the rowspan of its event, and holds the first day of an edition that
+    ran more than one day, with the rule and the time element of
+    events_index.html.
+
+    The event cell carries the emoji of the type of the event, from
+    data/event_emoji.yaml through partials/event_type.html, the same
+    glyph and the same label the row of /events/ gives that event. The
+    two markers of a row are two taxonomies and not one repeated: the
+    emoji says what the day was, a PyDay or a monthly meetup, and the
+    icon in the talk cell says what the entry was, a workshop or a
+    keynote.
+
+    The talk cell. The marker is the icon of its type from
+    partials/event_types.html, named, so its label is the accessible name
+    and the hover (see partials/event_type_icon.html): nothing else on the
+    row says that a talk was a workshop. The title links to the page of
+    the talk. After it, "by" and the speakers, each name a link through
+    partials/person_page_link.html, which is the one place that decides
+    where a speaker name goes: the page of that person, /people/<id>/,
+    since every person has a page. A talk that credits
+    nobody, 87 of the 607, prints the title alone: a piece with no data
+    behind it is left out rather than printed as unknown. Under lg the
+    credit drops to its own line under the title, as the venue of
+    /events/ does.
+
+    The gallery is partials/count_card.html: a photo of the day that
+    names the talk, its video, its other links, counted by
+    partials/listing_counts.html, and the card leaves out a count of
+    zero.
+
+    Headers and outline. The year is a th of scope rowgroup in its own
+    tbody, with the year as its id, so /talks/#2019 links to a year from
+    anywhere and the bar above the table reads the same ids. The month is
+    a th of scope row, the event is a th of scope row. The table has its
+    own outline, so the page has one heading, the h1 of the hero, which
+    reads "Talks (607)" from partials/listing_total.html.
+
+    The order. Years newest first, and inside a year the rows by the
+    date of their event newest first, then the event title and its URL as
+    the tiebreak for two events on one day, then the place of the talk in
+    the programme of its event: a day is a sequence, and the first talk of
+    the morning is not the one whose title starts with an A. The months
+    and the events fall out of that order as runs of rows, and the render
+    loop opens a group where the key of a row differs from the row before
+    it. The rowspans are counted first, in one pass over the rows.
+*/ -}}
+{{- $people := partialCached "people_names.html" site "people-names" -}}
+
+{{- $byYear := dict -}}
+{{- $month_count := dict -}}
+{{- $event_count := dict -}}
+{{- range $row := .rows -}}
+    {{- $month_count = merge $month_count (dict $row.month_group (add 1 (int (default 0 (index $month_count $row.month_group))))) -}}
+    {{- $event_count = merge $event_count (dict $row.event_group (add 1 (int (default 0 (index $event_count $row.event_group))))) -}}
+    {{- $key := string $row.year -}}
+    {{- $byYear = merge $byYear (dict $key (append $row (default slice (index $byYear $key)))) -}}
+{{- end -}}
+
+{{- /* 9999 minus the year, so an ascending sort reads newest first, as
+       in events_index.html. */ -}}
+{{- $groups := slice -}}
+{{- range $year, $rows := $byYear -}}
+    {{- $groups = $groups | append (dict "year" $year "rows" (sort $rows "key") "key" (printf "%04d" (sub 9999 (int $year)))) -}}
+{{- end -}}
+{{- with $groups }}{{ $groups = sort . "key" }}{{ end -}}
+
+{{- /* The years, as links to the groups below, through the bar
+       partials/jump_bar.html draws for /events/ and /people/. The far
+       end of 607 rows is many screens of scrolling away. */}}
+{{- $jump := slice -}}
+{{- range $groups }}{{ $jump = $jump | append (dict "anchor" .year "text" .year) }}{{ end }}
+{{ partial "jump_bar.html" (dict "label" "Jump to a year" "items" $jump) }}
+
+<table class="listing_table talk_table" role="table">
+    {{- /* No caption. It said the order and how the year, the month, and
+           the event are grouped, which the first columns say by
+           themselves, and it is out of every listing. */ -}}
+    <thead role="rowgroup">
+        <tr role="row">
+            <th scope="col" role="columnheader" class="listing_year_col">Year</th>
+            <th scope="col" role="columnheader" class="listing_month_col">Month</th>
+            <th scope="col" role="columnheader" class="listing_day_col">Day</th>
+            <th scope="col" role="columnheader" class="talk_event_col">Event</th>
+            <th scope="col" role="columnheader" class="talk_col">Talk</th>
+            <th scope="col" role="columnheader" class="listing_gallery_col">Gallery</th>
+        </tr>
+    </thead>
+    {{- range $groups }}
+    {{- $year := . }}
+    <tbody class="listing_year_group" role="rowgroup">
+        {{- range $i, $row := .rows }}
+        {{- /* A row opens a month, or an event, when its key differs
+               from the row before it; the first row of the year opens
+               both. The rows are sorted by date, so the rows of one
+               month and of one event are together, and one comparison
+               is enough. */ -}}
+        {{- $prev := dict -}}
+        {{- if $i }}{{ $prev = index $year.rows (sub $i 1) }}{{ end -}}
+        {{- $opens_month := or (not $i) (ne $row.month_group $prev.month_group) -}}
+        {{- $opens_event := or (not $i) (ne $row.event_group $prev.event_group) -}}
+        <tr class="listing_row" role="row">
+            {{- /* The year, the month, and the event, each on the
+                   first row of its group and spanning the group, as
+                   rowheaders, with aria-rowspan as well as rowspan
+                   for the reflow under lg, where no table layout
+                   computes the span for the tree. The day takes the
+                   rowspan of its event. */ -}}
+            {{- if not $i }}
+            <th class="listing_year" id="{{ $year.year }}" scope="rowgroup" role="rowheader" rowspan="{{ len $year.rows }}" aria-rowspan="{{ len $year.rows }}">{{ $year.year }}</th>
+            {{- end }}
+            {{- if $opens_month }}
+            {{- $span := index $month_count $row.month_group }}
+            {{- with $row.month }}
+            <th class="listing_month" scope="row" role="rowheader" rowspan="{{ $span }}" aria-rowspan="{{ $span }}">{{ . }}</th>
+            {{- else }}
+            <td class="listing_month" role="cell" rowspan="{{ $span }}" aria-rowspan="{{ $span }}"></td>
+            {{- end }}
+            {{- end }}
+            {{- if $opens_event }}
+            {{- $span := index $event_count $row.event_group }}
+            <td class="listing_day" role="cell" rowspan="{{ $span }}" aria-rowspan="{{ $span }}">
+                {{- with $row.day }}<time datetime="{{ $row.start_iso }}">{{ . }}</time>{{ end -}}
+            </td>
+            {{- with $row.event_url }}
+            <th class="talk_event_cell" scope="row" role="rowheader" rowspan="{{ $span }}" aria-rowspan="{{ $span }}">{{ with $row.event_emoji }}<span class="event_emoji" role="img" aria-label="{{ $row.event_type_label }}" title="{{ $row.event_type_label }}">{{ . }}</span>{{ end }}<a href="{{ . }}">{{ $row.event_title }}</a></th>
+            {{- else }}
+            <td class="talk_event_cell" role="cell" rowspan="{{ $span }}" aria-rowspan="{{ $span }}"></td>
+            {{- end }}
+            {{- end }}
+            <td class="talk_cell" role="cell">
+                {{- with $row.type }}<span class="talk_marker">{{ partial "event_type_icon.html" (dict "type" . "named" true) }}</span>{{ end -}}
+                <a href="{{ $row.url }}"{{ with $row.title_lang }} lang="{{ . }}"{{ end }}>{{ $row.title }}</a>
+                {{- /* The credit: "by A", "by A and B", "by A, B and
+                       C", the join partials/agenda_entry.html prints,
+                       with each name through person_page_link.html. */ -}}
+                {{- with $row.speakers }} <span class="talk_credit">by {{ range $si, $sid := . }}{{ if $si }}{{ if eq $si (sub (len $row.speakers) 1) }} and {{ else }}, {{ end }}{{ end }}{{ partial "person_page_link.html" (dict "id" $sid "names" $people) }}{{ end }}</span>
+                {{- else }}{{ with $row.credited_as }} <span class="talk_credit">by {{ . }}</span>{{ end }}{{ end -}}
+            </td>
+            <td class="listing_gallery" role="cell">{{ partial "count_card.html" (dict "items" $row.card) }}</td>
+        </tr>
+        {{- end }}
+    </tbody>
+    {{- end }}
+</table>

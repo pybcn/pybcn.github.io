@@ -22,14 +22,16 @@
     (layouts/talks/single.html), and on the one page a recording of a
     whole session has, the Recordings block of the page of its day
     (partials/session_videos.html), and on the page of a person, in the
-    Videos block of the talks they gave (layouts/people/single.html). A
-    listing or a programme grid prints a link and no frame: the PyDay BCN
-    2020 page has a video on almost every row, and a frame per row would
-    make one request to Google per row before a reader asked for any of
-    them. bin/check-rendered allows the frame on those paths with this one
-    src prefix and nowhere else. David Arcos decided for the frame on
-    2026-10-14 ("que meta el iframe de youtube nocookies") and for the
-    players on the Recordings block on 2026-10-15.
+    Videos block of the talks they gave (layouts/people/single.html), and
+    on the home page, in the About PyBCN block (layouts/_default/home.html),
+    which plays the presentation of the community at PyConES 2020, the one
+    video of the channel that belongs to no event and so to no page of the
+    archive. A listing or a programme grid prints a link and no frame: the
+    PyDay BCN 2020 page has a video on almost every row, and a frame per
+    row would make one request to Google per row before a reader asked for
+    any of them. bin/check-rendered allows the frame on those paths with
+    this one src prefix and nowhere else. The frame is here since
+    2026-10-14, and the players of the Recordings block since 2026-10-15.
 
     The frame: www.youtube-nocookie.com, which sets no cookie until play is
     pressed. It is not nothing: the frame still asks Google for the player

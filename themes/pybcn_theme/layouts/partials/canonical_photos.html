@@ -1,0 +1,71 @@
+{{- /*
+    The canonical photo of every event that has one, newest first.
+
+    Argument: the site. Returns a slice of dicts, one per event:
+
+        photo     the path the carousel wants, "/photos/<file>"
+        caption   the title of the event, which is what a slide says
+        alt       the caption of the photo in the gallery of that event,
+                  or the title when the photo is not a gallery item
+        link      the address of the page of the event
+        year      the year of the event, as a string
+        key       what the slice is sorted by, newest first
+
+    canonical_photo is one line of the front matter of an event: the group
+    photo of the day when the day has one, and the picture that says most
+    about it when it does not. The photo is named in the front matter
+    rather than chosen by a rule, because no rule can
+    tell a group photo from a photograph of a slide: the gallery of PyDay
+    BCN 2016 holds four pictures and three of them are a projector.
+
+    heroBackground is not that photo and cannot stand in for it. Thirteen
+    events carry one and they share seven images: canodrom.jpg is the hero
+    of four editions, so a carousel built on it would show the same
+    building four times.
+
+    The file is resolved under images/photos/, the same root the gallery
+    uses, so a canonical photo can be a picture of the gallery of its event
+    or one of the pictures that live loose in that directory, as the two
+    oldest editions need.
+
+    No limit on the number of slides:
+    every event that names a photo is a slide.
+*/ -}}
+{{- $slides := slice -}}
+{{- range where .RegularPages "Section" "events" -}}
+    {{- $page := . -}}
+    {{- with .Params.canonical_photo -}}
+        {{- $file := . -}}
+        {{- /* The caption of the same file in the gallery of this event,
+               which is the text of the post that published it. A photo
+               that is not a gallery item has none. */ -}}
+        {{- $alt := $page.Title -}}
+        {{- with $page.Params.photos -}}
+            {{- range .items -}}
+                {{- if eq .file $file -}}{{- $alt = .caption -}}{{- end -}}
+            {{- end -}}
+        {{- end -}}
+        {{- /* The order: the day of the event, newest first, with the year
+               as the fallback for an edition whose day the sources never
+               recorded. 99999999 less the day sorts descending with the
+               ascending sort Hugo gives. */ -}}
+        {{- $ordinal := 0 -}}
+        {{- $year := "" -}}
+        {{- with $page.Params.year }}{{ $year = string . }}{{ end -}}
+        {{- $when := partial "event_date.html" (dict "date" $page.Params.date "end_date" $page.Params.end_date) -}}
+        {{- with $when.start -}}
+            {{- $ordinal = int (time.Format "20060102" .) -}}
+            {{- if not $year }}{{ $year = time.Format "2006" . }}{{ end -}}
+        {{- else -}}
+            {{- with $year }}{{ $ordinal = mul (int .) 10000 }}{{ end -}}
+        {{- end -}}
+        {{- $slides = $slides | append (dict
+                "photo" (printf "/photos/%s" $file)
+                "caption" $page.Title
+                "alt" $alt
+                "link" $page.RelPermalink
+                "year" $year
+                "key" (printf "%08d" (sub 99999999 $ordinal))) -}}
+    {{- end -}}
+{{- end -}}
+{{- return sort $slides "key" -}}

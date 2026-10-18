@@ -1,0 +1,77 @@
+{{- /*
+    A list of people grouped by the first letter of their id, A first,
+    with the bar of letters above it.
+
+        A | B | C | ...
+        M
+          [photo]  Marc Pous  [in] [gh]
+                   🎤 Speaker at 3 events:  🐍 PyDay BCN 2022  ...
+
+    Argument: rows, a slice of the rows of partials/people_index.html. The
+    caller chooses them: /people/ passes every row, and the page of one
+    role (layouts/people/role.html) passes the rows that hold it. The
+    letters and the bar are computed here from the rows given, so the
+    page of the ten mentors has the letters of those ten and no dead
+    letter in its bar.
+
+    Why a letter and not a count. The question a people listing answers
+    is "is this person in the archive, and what did they do here", which
+    starts from a name, so the order has to start from a name as well.
+    Ordering by the number of appearances would answer a question nobody
+    asked and would publish a ranking of volunteers that the association
+    never made: the first row would read as the most important person in
+    it. The year of the first appearance is no better, because a record
+    carries no joining date, only the events it is credited at.
+
+    The group key is the first letter of the id and not of the name, so
+    the names that begin with an accent file under the letter a reader
+    looks for: Àngel Fernández Ibáñez and Álvaro Durán Barata are both
+    under A, because their ids are angel-fernandez-ibanez and
+    alvaro-duran-barata. bin/check-content requires the id to match the
+    file name, and the file names are ASCII, so the fold is already done
+    and this template needs no transliteration of its own. The id orders
+    the rows inside a letter for the same reason.
+
+    The order is by the name as the site writes it, which is the given
+    name first: Marc Pous files under M. A person record carries one name
+    field and no family name, so there is nothing to sort by surname
+    with, and inventing a split ("the last word") breaks on a compound
+    surname, which most of the archive has.
+
+    The letter is an h2 with the letter as its id (.people_group_title in
+    people_index.scss, the heading of a group of rows, which is a letter
+    here and a board on the organizers pages), so /people/#M links to
+    a letter from anywhere, the way /events/#2019 and /talks/#2019 link
+    to a year. Each row carries its own id as well, the person id, so
+    /people/#marc-pous is a stable address for one row. The outline is
+    h1, h2, h3 with no level skipped: the hero prints the h1, a letter is
+    an h2, and the name of a row is an h3 (partials/person_row.html).
+
+    The bar of letters is partials/jump_bar.html, centred. Only the
+    letters that have a row are in it: a dead A to Z bar would send a
+    reader to a heading that is not on the page.
+*/ -}}
+{{- $groups := dict -}}
+{{- range $row := .rows -}}
+    {{- $groups = merge $groups (dict $row.letter (append $row (default slice (index $groups $row.letter)))) -}}
+{{- end -}}
+{{- $letters := slice -}}
+{{- range $letter, $rows := $groups -}}
+    {{- $letters = $letters | append (dict "letter" $letter "rows" (sort $rows "key")) -}}
+{{- end -}}
+{{- with $letters }}{{ $letters = sort . "letter" }}{{ end -}}
+
+{{- $jump := slice -}}
+{{- range $letters }}{{ $jump = $jump | append (dict "anchor" .letter "text" .letter) }}{{ end }}
+{{ partial "jump_bar.html" (dict "label" "Jump to a letter" "items" $jump "class" "jump_bar_centered") }}
+
+{{ range $letters }}
+<section class="people_group" aria-labelledby="{{ .letter }}">
+    <h2 class="people_group_title" id="{{ .letter }}">{{ .letter }}</h2>
+    <ul class="people_rows">
+        {{- range .rows }}
+        {{ partial "person_row.html" (dict "row" .) }}
+        {{- end }}
+    </ul>
+</section>
+{{ end }}

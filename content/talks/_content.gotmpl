@@ -72,6 +72,29 @@
     pydatabcn, other_events and meetups, each with its editions. A
     directory nested deeper logs a warning rather than losing its talks in
     silence.
+
+    One more page per type of talk. /talks/ lists every row and offers a
+    tab per type above the table (see partials/talks_tabs.html), and each
+    tab is a page of its own that lists only the rows of that type:
+
+        /talks/type/workshop/
+        /talks/type/lightning/
+
+    The filter is sub-pages and not JavaScript, so a reader with no script, a crawler, and a link in a message all
+    reach the same list. A page exists only for a type that at least one
+    talk of the archive carries: the vocabulary of partials/event_types.html
+    holds eleven types, and a coffee break is one of them, but no talk is
+    a coffee break, so /talks/type/coffee/ is not built and no tab names
+    it. The type of a talk is read here the way partials/listing_counts.html
+    and partials/event_type_icon.html read it, lower case and trimmed, so
+    the pages this adapter adds are the types those partials count. The
+    path segment is the token of the vocabulary and not the noun, because
+    the token is what the front matter writes and the noun may be
+    reworded; one directory for all of them, type/, so the segment can
+    never collide with the base name of an event file. The page carries
+    the token as params.filter, which is how every walker of the talks
+    section tells a listing from a talk (they skip a page with a filter),
+    and how layouts/talks/talk_type.html knows which rows to keep.
 */ -}}
 {{- $root := "content/events" -}}
 
@@ -93,6 +116,10 @@
         {{- $files = $files | append $here -}}
     {{- end -}}
 {{- end -}}
+
+{{- /* The types the talks of the archive carry, as a set, filled by the
+       loop below and read after it for the pages per type. */ -}}
+{{- $types := dict -}}
 
 {{- range $file := $files -}}
     {{- if ne (path.Ext $file) ".md" }}{{ continue }}{{ end -}}
@@ -119,6 +146,9 @@
                 {{- warnf "talks adapter: a talk of %q has no id, so it gets no page." $file -}}
                 {{- continue -}}
             {{- end -}}
+            {{- with $talk.type -}}
+                {{- $types = merge $types (dict (lower (trim (printf "%v" .) " ")) true) -}}
+            {{- end -}}
             {{- $params := dict "talk" $talk.id "event" $path -}}
             {{- with $talk.title_lang -}}
                 {{- $params = merge $params (dict "title_lang" .) -}}
@@ -131,4 +161,26 @@
                     "params" $params) -}}
         {{- end -}}
     {{- end -}}
+{{- end -}}
+
+{{- /* The page of each type that has a talk. The title is the plural noun
+       of the vocabulary with a capital, "Workshops", the words the tab
+       reads; a token the vocabulary does not hold gets no page, and a
+       warning, because no row would draw a marker for it either. The
+       tokens are sorted so that two builds add the pages in one order. */ -}}
+{{- $vocabulary := partialCached "event_types.html" "event_types" -}}
+{{- range $token, $_ := $types -}}
+    {{- $entry := index $vocabulary $token -}}
+    {{- if not $entry -}}
+        {{- warnf "talks adapter: type %q is not in partials/event_types.html, so it gets no page of its own." $token -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $.AddPage (dict
+            "kind" "page"
+            "path" (printf "type/%s" $token)
+            "title" (humanize $entry.many)
+            "layout" "talk_type"
+            "params" (dict
+                "filter" $token
+                "description" (printf "Every %s of every PyBCN event, with its speakers, its photo, its video, and its links." $entry.one))) -}}
 {{- end -}}

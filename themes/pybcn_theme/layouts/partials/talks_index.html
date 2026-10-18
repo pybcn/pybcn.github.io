@@ -1,0 +1,148 @@
+{{- /*
+    Every row of /talks/, resolved once per build.
+
+    Returns a slice of row dicts, one per talk page with a year to group
+    it under, in no particular order. A row carries what
+    partials/talks_table.html prints and what it groups by:
+
+        year              the year of the event, as an int
+        month, month_key  the month of the event as printed and as yyyymm
+        day, start_iso    the first day of the event, as printed and as
+                          yyyy-mm-dd for the time element
+        title, title_lang, url
+        type              the type token of the talk (talk, workshop, ...)
+                          or ""
+        speakers          the person ids of the record, a slice
+        credited_as       the credit of something that is not a person
+        card              the items of partials/count_card.html
+        event_title, event_url, event_emoji, event_type_label
+        month_group       "<year>|<yyyymm>", the key of the month group
+        event_group       "<year>|<event url>", the key of the event group
+        key               the sort key: newest day first, then the event,
+                          then the place of the talk in its programme
+
+    No argument is read: the data comes from site.RegularPages. Call it
+    through partialCached with a constant variant, so the 607 records are
+    resolved once per build and not once per page that lists them:
+
+        partialCached "talks_index.html" site "talks-index"
+
+    Why one walk and not one per page. /talks/ walked its own section and
+    resolved every row as it went, which was right while it was the one
+    page that listed talks. It has a sub-page per type now (see
+    content/talks/_content.gotmpl), six listings in all, and each one
+    resolving 607 records through partials/talk_record.html would be six
+    walks for one set of rows. Hugo's partialCached is an LRU of 1000
+    entries (talk_record.html says why that matters), so the walk is
+    cached under one key and the pages filter the slice it returns.
+
+    What is a row. A talk page is a page of the talks section that carries
+    the talk param the adapter writes; a page of that section with a
+    filter param is a listing and not a talk, and is skipped here as in
+    every walker of the section. A talk with no year, from its event or
+    from its own date, has no group to sit under and is left out with a
+    warning, which is the test partials/listing_counts.html applies, so
+    the rows and the counts agree.
+
+    The event of a row: its title, its URL, its marker, and its date in
+    the parts the three date columns print, from partials/event_date.html
+    and partials/event_type.html, both cached by event so 224 events are
+    resolved and not 607 rows.
+
+    Who gave it: the person ids of the record, which the table turns into
+    names and links through partials/person_page_link.html, or the credit
+    of something that is not a person (see partials/agenda_entry.html),
+    which prints as text.
+
+    What the talk has, for the card: the photos of the gallery of its day
+    that name it, its video links, and every other link of its record
+    under one mark, from partials/listing_counts.html, the one walk that
+    also feeds the counts of the tabs, so the card and the tabs cannot
+    disagree.
+*/ -}}
+{{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
+{{- $rows := slice -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if ne $pg.Section "talks" }}{{ continue }}{{ end -}}
+    {{- if $pg.Params.filter }}{{ continue }}{{ end -}}
+    {{- $record := partial "talk_record.html" $pg -}}
+    {{- $event := $record.event -}}
+    {{- $entry := $record.entry -}}
+    {{- $talk := $record.talk -}}
+
+    {{- /* The year of the event, with the date of the page as the fallback
+           for a programme whose event carries no year. */ -}}
+    {{- $year := 0 -}}
+    {{- with $event }}{{ with .Params.year }}{{ $year = int . }}{{ end }}{{ end -}}
+    {{- if and (not $year) (not $pg.Date.IsZero) }}{{ $year = $pg.Date.Year }}{{ end -}}
+    {{- if not $year -}}
+        {{- warnf "talks index: %q has no year to group it under." $pg.RelPermalink -}}
+        {{- continue -}}
+    {{- end -}}
+
+    {{- $event_title := "" -}}
+    {{- $event_url := "" -}}
+    {{- $event_emoji := "" -}}
+    {{- $event_type_label := "" -}}
+    {{- $date := dict "month" "" "month_key" "" "day" "" "start_iso" "" -}}
+    {{- $ordinal := 0 -}}
+    {{- with $event -}}
+        {{- $event_title = .Title -}}
+        {{- $event_url = .RelPermalink -}}
+        {{- /* The marker of the event, as /events/ draws it: the type from
+               partials/event_type.html, and the emoji and the label of
+               that type from data/event_emoji.yaml. */ -}}
+        {{- $event_type := partialCached "event_type.html" . .RelPermalink -}}
+        {{- $marker := default (index site.Data.event_emoji "*") (index site.Data.event_emoji $event_type) -}}
+        {{- $event_emoji = $marker.emoji -}}
+        {{- $event_type_label = $marker.label -}}
+        {{- $when := partialCached "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) .RelPermalink -}}
+        {{- with $when.start -}}
+            {{- $ordinal = int (time.Format "20060102" .) -}}
+            {{- $date = dict
+                "month" $when.month
+                "month_key" (time.Format "200601" .)
+                "day" $when.day
+                "start_iso" (time.Format "2006-01-02" .) -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- $speakers := slice -}}
+    {{- $credited_as := "" -}}
+    {{- with $talk -}}
+        {{- with .speakers }}{{ $speakers = . }}{{ end -}}
+        {{- if not $speakers }}{{ with .credited_as }}{{ $credited_as = . }}{{ end }}{{ end -}}
+    {{- end -}}
+
+    {{- $facts := index $counts.talk_rows $pg.RelPermalink -}}
+    {{- $card := slice -}}
+    {{- with $facts -}}
+        {{- $card = slice
+                (dict "kind" "photo" "count" .photos)
+                (dict "kind" "video" "count" .videos)
+                (dict "kind" "links" "count" .links) -}}
+    {{- end -}}
+
+    {{- /* The type as the counts key it: lower case and trimmed, the
+           normalisation of partials/event_type_icon.html. */ -}}
+    {{- $type := "" -}}
+    {{- with $entry.type }}{{ $type = lower (trim (printf "%v" .) " ") }}{{ end -}}
+
+    {{- $rows = $rows | append (merge $date (dict
+            "year" $year
+            "title" $pg.Title
+            "title_lang" (partial "title_lang.html" (dict "title_lang" $pg.Params.title_lang "title" $pg.Title))
+            "url" $pg.RelPermalink
+            "type" $type
+            "speakers" $speakers
+            "credited_as" $credited_as
+            "card" $card
+            "event_title" $event_title
+            "event_url" $event_url
+            "event_emoji" $event_emoji
+            "event_type_label" $event_type_label
+            "month_group" (printf "%d|%s" $year $date.month_key)
+            "event_group" (printf "%d|%s" $year $event_url)
+            "key" (printf "%08d %s %s %04d" (sub 99999999 $ordinal) $event_title $event_url $record.position))) -}}
+{{- end -}}
+{{- return $rows -}}

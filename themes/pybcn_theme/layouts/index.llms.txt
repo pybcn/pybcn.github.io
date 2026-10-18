@@ -32,7 +32,7 @@ This file is generated from the site content on every build.
 {{- end }}
 
 ## People
-Every person the archive credits has a page at {{ "people/" | absURL }}<person-id>/, with their roles, their talks, the photos of those talks, their events, and their links. All of them are listed at {{ "people/" | absURL }}, where each row links to the page and is itself addressable as {{ "people/" | absURL }}#<person-id>. The PyBCN organizers are listed with a photo and a bio at {{ "pybcn_association/organizers/" | absURL }}, the PyLadies BCN organizers at {{ "pyladies_bcn/organizers-and-speakers/" | absURL }}, and each event page lists its speakers.
+Every person the archive credits has a page at {{ "people/" | absURL }}<person-id>/, with their roles, their talks, the photos of those talks, their events, and their links. All of them are listed at {{ "people/" | absURL }}, where each row links to the page and is itself addressable as {{ "people/" | absURL }}#<person-id>, and the same rows filtered by one role are at {{ "people/role/" | absURL }}<role>/ (speaker, organizer, mentor, permanent-committee, and the rest; the tabs above the list name them). The people behind PyBCN are listed by group, the board, the committee, the collaborators, and the former board, at {{ "pybcn_association/organizers/" | absURL }}, the PyLadies BCN organizers at {{ "pyladies_bcn/organizers-and-speakers/" | absURL }}, and each event page lists its speakers.
 
 ## Sponsors
 The companies, organizations, and universities that supported an event are listed at {{ "sponsors/" | absURL }}. Each event page lists its own sponsors.

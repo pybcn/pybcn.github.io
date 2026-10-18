@@ -23,6 +23,15 @@
        them there instead). */ -}}
 {{ $gallery := partialCached "gallery_content.html" . .RelPermalink }}
 
+{{- /* Every block of the column is a link_anchor: the target of the
+       side index, which event.scss clears off the fixed navigation with
+       scroll-margin-top, and one block of the rhythm of the page, with
+       the air of $block-gap under it. The h2 of each block is the
+       section title of main.scss, the h2 of every other page; the blocks
+       were spaced by runs of br elements and their h2 took the blue band
+       of the h1 until 2026-10-17. The body of the page and the free text
+       sections are page_body, so an h2 or an h3 written in their markdown
+       takes the same scale. */ -}}
 <div class="container" id="event_page">
     <div class="row">
 
@@ -59,17 +68,61 @@
                    PyDay BCN 2016 "15 to 17 September 2016". Hacktoberfest
                    2018 carries no date and prints no line. */ -}}
             {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) -}}
+            {{- /* The record of the edition is what the site search indexes
+                   of this page: the day line below, marked
+                   data-pagefind-body, plus the h1 of the hero
+                   (partials/hero_header.html, which also writes the
+                   kind), plus the captions of the gallery, each at its
+                   figure (partials/photo_gallery.html). The sections of
+                   the page, the programme grid, the sponsors, and the
+                   people grids are out: a talk and a person have pages of
+                   their own, and a name indexed here as well would match
+                   twice. The venue is not printed on this page (the row of
+                   /events/ prints it), so it goes to the search as meta
+                   only, written inline from the front matter: a meta value
+                   is searched and returned with the result, so "Canòdrom"
+                   finds PyDay BCN 2025 with no line added to the page. The
+                   first day is the sort value for "newest first" and gives
+                   the year filter; an edition with no date (Hacktoberfest
+                   2018) has its year from the front matter and no sort
+                   value, and the newest-first order leaves it out. */ -}}
+            {{- $sort_date := "" -}}
+            {{- $year := "" -}}
+            {{- with $when.start -}}
+                {{- $sort_date = time.Format "2006-01-02" . -}}
+                {{- $year = time.Format "2006" . -}}
+            {{- end -}}
+            {{- if not $year }}{{ with .Params.year }}{{ $year = printf "%v" . }}{{ end }}{{ end -}}
+            <div class="event_record" data-pagefind-body{{ with $sort_date }} data-pagefind-sort="date:{{ . }}"{{ end }}{{ with $year }} data-pagefind-filter="year:{{ . }}"{{ end }}>
             {{- with $when.html }}
-            <p class="event_when">{{ . }}</p>
+            <p class="event_when" data-pagefind-meta="date">{{ . }}</p>
             {{- end }}
+            {{- /* How many people came, which is a count and not a
+                   registration: AGENTS.md keeps the two words apart, and
+                   the meetup pages say "Registrations" because an RSVP of
+                   Meetup is an intention. An edition sold its tickets
+                   elsewhere, so the only number it has is the one the
+                   association counted and published on the day. The front
+                   matter carries the figure and, in a comment, where it
+                   was read. A page with no attendees field prints no
+                   line. */ -}}
+            {{- with .Params.attendees }}
+            {{- $people := int . }}
+            {{- if gt $people 0 }}
+            <p class="event_attendance">{{ $people }} {{ cond (eq $people 1) "person" "people" }} attended</p>
+            {{- end }}
+            {{- end }}
+            {{- with .Params.venue }}
+            <span data-pagefind-meta="venue:{{ . }}"></span>
+            {{- end }}
+            </div>
             <div class="row" id="content">
                 {{ if .Params.content_columns }}
                     <div class="col col-md-{{.Params.content_columns}}">
                 {{ end }}
                 {{ if .Content }}
-                <div class="link_anchor" id="content_section">
+                <div class="link_anchor page_body" id="content_section">
                     {{ .Content }}
-                    <br/><br/>
                 </div>
                 {{ end }}
                 {{ if .Params.content_columns }}
@@ -80,10 +133,9 @@
             </div>
 
             {{ range $section := .Params.free_text_sections }}
-                <div class="link_anchor free_text_section" id="{{ $section.id }}">
-                    <h2 class="h1">{{ $section.title }}</h2>
+                <div class="link_anchor free_text_section page_body" id="{{ $section.id }}">
+                    <h2 class="section_title">{{ $section.title }}</h2>
                     {{ $section.content | markdownify }}
-                    <br/><br/><br/>
                 </div>
             {{ end }}
 
@@ -100,7 +152,7 @@
                  either one eventTimes and numTracks and its grid appears. */ -}}
             {{ if and .Params.agenda .Params.eventTimes }}
             <div class="link_anchor" id="agenda_section">
-                <h2 class="h1">Schedule</h2>
+                <h2 class="section_title">Schedule</h2>
                 {{/* event_url is the RelPermalink of this page, which is half the
                      key of partials/talk_pages_index.html: it is how a row of
                      the grid finds the page of its own talk. The grid takes a
@@ -130,14 +182,13 @@
                  gallery prints no Videos subsection on a page that has it
                  (partials/gallery_content.html). The page printed the same
                  29 talks twice, here and under "Talks & Videos (29)" in the
-                 gallery, until David Arcos asked for one list with both
-                 counts (2026-10-15). The count is the talks with a link of
+                 gallery, until they became one list with both counts.
+                 The count is the talks with a link of
                  type video, the ones whose row prints the Watch line. */ -}}
             {{ if and .Params.talks (not .Params.agenda) }}
             <div class="link_anchor" id="talks_section">
-                <h2 class="h1">Talks ({{ len .Params.talks }}){{ with $nvideos }} &amp; Videos ({{ . }}){{ end }}</h2>
+                <h2 class="section_title">Talks ({{ len .Params.talks }}){{ with $nvideos }} &amp; Videos ({{ . }}){{ end }}</h2>
                 {{ partial "talk_rows.html" . }}
-                <br/><br/><br/>
             </div>
             {{ end }}
 
@@ -158,15 +209,14 @@
                  it on any event page, so the page is ready for it. */}}
             {{ with .Params.session_videos }}
             <div class="link_anchor" id="recordings_section">
-                <h2 class="h1">Recordings ({{ len . }})</h2>
+                <h2 class="section_title">Recordings ({{ len . }})</h2>
                 {{ partial "session_videos.html" $ }}
-                <br/><br/><br/>
             </div>
             {{ end }}
 
             {{ if .Params.sponsor_levels }}
             <div class="link_anchor" id="sponsors_section">
-                <h2 class="h1">Sponsors</h2>
+                <h2 class="section_title">Sponsors</h2>
                 {{ if .Params.sponsors_text }}
                     <div class="row" id="sponsors_text">
                         <div class="col-12">
@@ -175,13 +225,12 @@
                     </div>
                 {{ end }}
                 {{ partial "sponsors-grid.html" (dict "levels" .Params.sponsor_levels "Site" .Site)}}
-                <br/><br/><br/>
             </div>
             {{ end }}
 
             {{ range $section := .Params.people_sections }}
                 <div class="link_anchor people_section" id="{{ $section.id }}">
-                    <h2 class="h1">{{ $section.title }}</h2>
+                    <h2 class="section_title">{{ $section.title }}</h2>
                     {{ partial "people-grid.html" (dict "levels" $section.levels "Site" $.Site "key" $section.id "section" $section.title) }}
                 </div>
             {{ end }}

@@ -44,11 +44,17 @@
     Drafts are skipped by name as well, as in appearances_index.html:
     site.RegularPages drops them in a normal build, but a server run with
     -D would index content/canary.md.
+
+    A page of the section with a filter param is a listing of one type
+    (content/talks/_content.gotmpl adds them) and not a talk, so it is
+    skipped before the warning below, as every walker of the section
+    skips it.
 */ -}}
 {{- $index := dict -}}
 {{- range $pg := site.RegularPages -}}
     {{- if $pg.Draft }}{{ continue }}{{ end -}}
     {{- if ne $pg.Section "talks" }}{{ continue }}{{ end -}}
+    {{- if $pg.Params.filter }}{{ continue }}{{ end -}}
     {{- $id := $pg.Params.talk -}}
     {{- if not $id -}}
         {{- warnf "talk_pages_index: %q is a talk page with no talk id, so no row can link to it." $pg.RelPermalink -}}

@@ -43,7 +43,7 @@
     "Mentor and Speaker at Hands-on Django", and a Talks list above it
     held one row per talk, with the same day on it: the two said the same
     thing twice, because a talk is something the person did at an event.
-    David Arcos asked for one table (2026-10-15). A talk the person gave
+    One table, then. A talk the person gave
     is a row of its own, "Speaker at <event>: <talk>", with the card of
     what that appearance left behind, a photograph or a video, from the
     talk record. The other roles of the person at the same event are one
@@ -82,8 +82,8 @@
     14 events": the roles held at an event, in the order of the
     association (partials/role_order.html), "at", and the number of
     events. It read "Events (14)" and the header of the page carried the
-    sentence; David Arcos asked for the sentence here and nothing in the
-    header (2026-10-15). The roles are the ones the rows of this table
+    sentence; the sentence is here and nothing is in the header. The
+    roles are the ones the rows of this table
     print, the labels of the pages with a year, and no other: Permanent
     Committee is held on the PyBCN page, which has no year, so it is a row
     of the Roles list above and not of this table, and a heading that
@@ -184,12 +184,32 @@
     {{- $year_groups = $year_groups | append (dict "year" $year "rows" (sort $rows "key") "key" (printf "%04d" (sub 9999 $year))) -}}
 {{- end -}}
 
+{{- /* The search. The site search indexes a person page as its name (the
+       h1, partials/hero_header.html) and its roles: the Roles list
+       below and the sentence that heads the Events table, both marked
+       data-pagefind-body, the sentence returned with the result as roles.
+       The table itself is not indexed: a talk has a page of its own, and
+       its title indexed here as well would match twice, once on the talk
+       and once on each of its speakers (the proposal of 2026-10-16
+       measured the person pages at 68,000 words of main text, most of
+       them copies of talk titles). The sort value for "newest first" on
+       /search/ is the day of the latest appearance, so a person sorts
+       with the last event they took part in; a person with no appearance
+       has no sort value, and that order leaves them out. */ -}}
+{{- $latest := "" -}}
+{{- range $url, $ev := $events -}}
+    {{- $when := partialCached "event_date.html" (dict "date" $ev.date "end_date" $ev.end_date) $url -}}
+    {{- with $when.start -}}
+        {{- $iso := time.Format "2006-01-02" . -}}
+        {{- if gt $iso $latest }}{{ $latest = $iso }}{{ end -}}
+    {{- end -}}
+{{- end -}}
 {{- with $roles -}}
-<section class="person_section" aria-labelledby="roles_heading">
-    <h2 id="roles_heading">Roles ({{ len . }})</h2>
+<section class="person_section" aria-labelledby="roles_heading" data-pagefind-body>
+    <h2 id="roles_heading" data-pagefind-ignore>Roles ({{ len . }})</h2>
     <ul class="appearances">
     {{- range sort . "key" }}
-        <li><span class="role_emoji" aria-hidden="true">{{ default (index site.Data.role_emoji "*") (index site.Data.role_emoji .label) }}</span><strong>{{ .label }}</strong> <em>at</em> {{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</li>
+        <li><span class="role_emoji" aria-hidden="true">{{ default (index site.Data.role_emoji "*") (index site.Data.role_emoji .label) }}</span><strong>{{ .label }}</strong> at {{ range $i, $it := .items }}{{ if $i }}, {{ end }}<a href="{{ $it.url }}">{{ $it.title }}</a>{{ end }}</li>
     {{- end }}
     </ul>
 </section>
@@ -204,9 +224,8 @@
 {{- end -}}
 {{- with $year_groups -}}
 <section class="person_section person_events" aria-labelledby="events_heading">
-    <h2 id="events_heading">{{ delimit (partial "role_order.html" $event_labels) ", " }} <em>at</em> {{ len $events }} {{ if eq (len $events) 1 }}event{{ else }}events{{ end }}</h2>
+    <h2 id="events_heading" data-pagefind-body data-pagefind-meta="roles"{{ with $latest }} data-pagefind-sort="date:{{ . }}"{{ end }}>{{ delimit (partial "role_order.html" $event_labels) ", " }} at {{ len $events }} {{ if eq (len $events) 1 }}event{{ else }}events{{ end }}</h2>
     <table class="listing_table person_event_table" role="table">
-        <caption class="listing_caption">Newest first, one row per appearance: a talk given, or a role held at the event. The year, the month, and the day print once, on the first row of their group.</caption>
         <thead role="rowgroup">
             <tr role="row">
                 <th scope="col" role="columnheader" class="listing_year_col">Year</th>
@@ -252,7 +271,7 @@
                     {{- /* The glyph of the first role, hidden: the role is
                            the text right after it. */ -}}
                     <span class="role_emoji" aria-hidden="true">{{ default (index site.Data.role_emoji "*") (index site.Data.role_emoji (index $labels 0)) }}</span>
-                    {{- range $li, $label := $labels }}{{ if $li }}{{ if eq $li (sub (len $labels) 1) }} <em>and</em> {{ else }}, {{ end }}{{ end }}<strong>{{ $label }}</strong>{{ end }} <em>at</em> <span class="event_emoji" role="img" aria-label="{{ $row.mark_label }}" title="{{ $row.mark_label }}">{{ $row.emoji }}</span><a href="{{ $row.event_url }}">{{ $row.event_title }}</a>
+                    {{- range $li, $label := $labels }}{{ if $li }}{{ if eq $li (sub (len $labels) 1) }} and {{ else }}, {{ end }}{{ end }}<strong>{{ $label }}</strong>{{ end }} at <span class="event_emoji" role="img" aria-label="{{ $row.mark_label }}" title="{{ $row.mark_label }}">{{ $row.emoji }}</span><a href="{{ $row.event_url }}">{{ $row.event_title }}</a>
                     {{- with $row.talk }}: {{ with .type }}<span class="talk_marker">{{ partial "event_type_icon.html" (dict "type" . "named" true) }}</span>{{ end }}<a href="{{ .url }}"{{ with .title_lang }} lang="{{ . }}"{{ end }}>{{ .title }}</a>{{ end -}}
                 </td>
                 <td class="listing_gallery" role="cell">{{ partial "count_card.html" (dict "items" $row.card) }}</td>

@@ -34,9 +34,8 @@
     attendedCount is zero on almost every record and nobody counted the
     room. The row of the box says it in words as well, behind the
     disclosure of the number: it used to be the paragraph of a Source
-    block at the end of the page, and David Arcos asked on 2026-10-14 for
-    the source to join the box and that paragraph to go ("el texto del
-    source al final, desaparece"), with its detail kept where a touch
+    block at the end of the page until 2026-10-14, when the source joined
+    the box and that paragraph went, with its detail kept where a touch
     screen can reach it.
 
     The blocks under the box, each left out when the page has nothing for
@@ -87,8 +86,29 @@
                    file carries a date today; a file with none still
                    prints the rest of the page. */ -}}
             {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date "weekday" true) -}}
+            {{- /* The record of the day is what the site search indexes of
+                   this page: the day and the box of facts, in the div
+                   below, marked data-pagefind-body, plus the h1
+                   (partials/hero_header.html, which also writes the
+                   kind). The talks, the recordings, and the credit lines of
+                   the gallery are out: a talk has a page of its own, and a
+                   name indexed here as well would match twice. The
+                   captions of the gallery are in, each at its figure (see
+                   partials/photo_gallery.html). The day is returned with
+                   the result as its date, and gives the year filter and
+                   the sort value for "newest first" on /search/; the venue
+                   is returned too; the group is a filter value and not a
+                   searchable word, and the source row is the same sentence
+                   on every page. */ -}}
+            {{- $sort_date := "" -}}
+            {{- $year_filter := "" -}}
+            {{- with $when.start -}}
+                {{- $sort_date = time.Format "2006-01-02" . -}}
+                {{- $year_filter = time.Format "year:2006" . -}}
+            {{- end -}}
+            <div class="meetup_record" data-pagefind-body{{ with $sort_date }} data-pagefind-sort="date:{{ . }}"{{ end }}>
             {{- with $when.html }}
-            <p class="meetup_when">{{ . }}</p>
+            <p class="meetup_when" data-pagefind-meta="date"{{ with $year_filter }} data-pagefind-filter="{{ . }}"{{ end }}>{{ . }}</p>
             {{- end }}
 
             {{- /* The box of facts, partials/facts_box.html: the place, the
@@ -114,12 +134,13 @@
             {{- $source := "" -}}
             {{- with .Params.meetup_url }}{{ $source = "The announcement of the day on Meetup" }}{{ end -}}
             {{ partial "facts_box.html" (dict "items" (slice
-                (dict "label" "Venue" "icon" "fa-map-marker-alt" "value" .Params.venue)
-                (dict "label" "Group" "icon" "fa-user-friends" "value" .Params.group)
+                (dict "label" "Venue" "icon" "fa-map-marker-alt" "value" .Params.venue "meta" "venue")
+                (dict "label" "Group" "icon" "fa-user-friends" "value" .Params.group "filter" "group" "ignore" true)
                 (dict "label" "Registrations" "icon" "fa-user-check" "value" $registrations
                       "note" "The people who said yes on Meetup. It is the only figure the record holds, so it is not a count of who came."
                       "note_label" "Who is counted")
-                (dict "label" "Source" "mark_url" .Params.meetup_url "value" $source "url" .Params.meetup_url))) }}
+                (dict "label" "Source" "mark_url" .Params.meetup_url "value" $source "url" .Params.meetup_url "ignore" true))) }}
+            </div>
 
             {{- with .Content }}
             <div class="meetup_content">{{ . }}</div>

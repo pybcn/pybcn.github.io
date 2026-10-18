@@ -70,6 +70,10 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
         justify-content: start;
         flex-direction: column;
         padding: 0.5rem 1rem;
+        // The column can now be narrower than the longest word in the title
+        // (minmax(0, 1fr) in agenda.html), so a long one has to break
+        // rather than push the grid wider than the screen. Issue #212.
+        overflow-wrap: break-word;
         /*
             The fallback for an entry with no colour class. White text on
             the CSS orange was 1.97:1. #A15C00 is 5.19:1 on white, so an
@@ -296,3 +300,53 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
 }
 
 i.gold { color: #FFD700 }
+
+
+/*
+    The schedule on a phone.
+
+    The grid has one column per track, each one wide enough for a title, so
+    on a 360px screen the page was 704px wide and the reader had to drag it
+    sideways to read anything, including the parts that are not the
+    schedule. That is issue #212, and it is the page most likely to be
+    opened on a phone: the schedule of the event you are standing at.
+
+    display: block makes every grid property on the container and on its
+    children inert, including the grid-template-areas that agenda.html
+    writes into the page body, so the whole generated block stops applying
+    without the template having to know about this. What is left is the
+    source order, which is the order of the agenda in the front matter,
+    which is the order of the day. Two talks in parallel come one after the
+    other, which is what a reader on a phone wants anyway.
+
+    The column of times is then wrong twice: it is all of the times before
+    any of the sessions, because the grid is what interleaved them, and it
+    is an empty 5rem column. It is hidden, and each session prints its own
+    hours instead, which agenda.html puts in .event_time for this.
+*/
+@media (max-width: 991.98px) {
+    .scheduleContainer {
+        display: block;
+
+        .time {
+            display: none;
+        }
+
+        .event {
+            margin-bottom: 0.4rem;
+        }
+    }
+}
+
+/*
+    The hours of a session, printed inside the block. The grid answers the
+    question with the row the block sits on, so this is for the phone only.
+*/
+.event_time {
+    display: none;
+
+    @media (max-width: 991.98px) {
+        display: block;
+        font-weight: 600;
+    }
+}

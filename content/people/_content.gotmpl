@@ -1,0 +1,157 @@
+{{- /*
+    One page per role, built from the pages that credit people.
+
+    /people/ lists every person the archive credits and offers a tab per
+    role above the list (see partials/people_tabs.html), and each tab is a
+    page of its own that lists only the people who hold that role:
+
+        /people/role/speaker/
+        /people/role/permanent-committee/
+
+    The filter is sub-pages and not JavaScript, as on /talks/, and each
+    one carries its emoji. A role is not
+    in the front matter of a person: AGENTS.md says never to store one
+    that can be computed, and partials/appearances_index.html computes
+    them at render time from the pages that list the person under a
+    heading and from the talks that credit the person. A content adapter
+    runs before the pages exist and cannot read that index (site.Pages is
+    not available yet, see content/talks/_content.gotmpl), so this one
+    reads the same front matter from disk and resolves the same headings
+    the same way: the level name or the section title of a people_sections
+    block, the level name of a people_levels block, and "Speakers" for the
+    speakers of a talks block, each through data/roles.yaml, which turns
+    "Speakers" into "Speaker". The set of labels this gives is the set the
+    index gives, because both read one rule from one table; the layout then
+    picks the rows of a label from the index, so the pages this adapter
+    adds and the rows those pages hold cannot name a role differently.
+
+    A page exists only for a label that at least one person holds: a
+    heading with no id under it, and a talks block with no speaker, add
+    nothing. A draft page is skipped as the index skips it, so a server
+    run with -D adds no role for the fixture of content/canary.md.
+
+    The path segment is the label through urlize, "Permanent Committee"
+    to permanent-committee and "Former Management Board (2018 - 2025)" to
+    former-management-board-2018-2025, under one directory, role/, so a
+    segment can never collide with a person id, which is firstname-surname.
+    The page carries the label as params.filter, which is how every walker
+    of the people section tells a listing from a person (a person has an
+    id, a listing has a filter), and how layouts/people/role.html knows
+    which rows to keep. No page of this section is a record: the layouts
+    that read the records skip a page with no id already.
+
+    The walk covers content/ and two levels of directories under it, which
+    is the shape of the tree: content/canary.md, content/<section>/<page>.md,
+    and content/events/<series>/<edition>.md. A directory nested deeper
+    logs a warning rather than losing its headings in silence. The front
+    matter is read as the talks adapter reads it, through
+    resources.FromString with a name so that transform.Unmarshal knows the
+    format; the name here is the path of the file under content/, which is
+    unique, where two sections both hold a job-offers.md.
+
+    One more page, Assistants, which no label gives: /people/role/assistants/
+    answers the question a reader of the other tabs asks next, who came,
+    and the answer is that the association never recorded it. The tab
+    exists to say so. It is the data policy of the
+    archive told as a joke: a programme, a board page, or a credit names
+    the people who spoke, organized, mentored, or collaborated, and an
+    attendee is on no such list. The one figure that exists is the count
+    of Meetup RSVPs, which the page of a meetup prints as registrations
+    and never as attendance (AGENTS.md: RSVPs are not attendance). The
+    page carries its text as content and the same filter param as the
+    others, so partials/people_tabs.html lists it from the pages like any
+    other view, with no count because there is no number to print, and
+    layouts/people/role.html prints the text where /people/ prints its
+    intro and no empty bar of letters under it.
+*/ -}}
+{{- $root := "content" -}}
+
+{{- /* The files to read: every markdown file of content/ and of the
+       directories two levels under it. */ -}}
+{{- $files := slice -}}
+{{- range $entry := os.ReadDir $root -}}
+    {{- $here := path.Join $root $entry.Name -}}
+    {{- if not $entry.IsDir -}}
+        {{- $files = $files | append $here -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- range $child := os.ReadDir $here -}}
+        {{- $there := path.Join $here $child.Name -}}
+        {{- if not $child.IsDir -}}
+            {{- $files = $files | append $there -}}
+            {{- continue -}}
+        {{- end -}}
+        {{- range $leaf := os.ReadDir $there -}}
+            {{- if $leaf.IsDir -}}
+                {{- warnf "people adapter: %q is nested deeper than this walk reads, so any role in it gets no page." (path.Join $there $leaf.Name) -}}
+            {{- else -}}
+                {{- $files = $files | append (path.Join $there $leaf.Name) -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* The labels at least one person holds, as a set. */ -}}
+{{- $labels := dict -}}
+{{- range $file := $files -}}
+    {{- if ne (path.Ext $file) ".md" }}{{ continue }}{{ end -}}
+    {{- $raw := os.ReadFile $file -}}
+    {{- if not (hasPrefix $raw "---") }}{{ continue }}{{ end -}}
+    {{- $front := strings.TrimPrefix "---" (index (split $raw "\n---") 0) -}}
+    {{- $name := printf "people-roles/%s.yaml" (strings.TrimSuffix ".md" (strings.TrimPrefix "content/" $file)) -}}
+    {{- $page := resources.FromString $name $front | transform.Unmarshal -}}
+    {{- if $page.draft }}{{ continue }}{{ end -}}
+    {{- /* The headings of the page that list at least one person. */ -}}
+    {{- $headings := slice -}}
+    {{- range $section := $page.people_sections -}}
+        {{- range $level := $section.levels -}}
+            {{- with $level.people }}{{ $headings = $headings | append (default $section.title $level.name) }}{{ end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- range $level := $page.people_levels -}}
+        {{- with $level.people }}{{ $headings = $headings | append $level.name }}{{ end -}}
+    {{- end -}}
+    {{- range $talk := $page.talks -}}
+        {{- with $talk.speakers }}{{ $headings = $headings | append "Speakers" }}{{ end -}}
+    {{- end -}}
+    {{- range $heading := $headings -}}
+        {{- if not $heading }}{{ continue }}{{ end -}}
+        {{- $label := default $heading (index site.Data.roles $heading) -}}
+        {{- $labels = merge $labels (dict $label true) -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* The page of each label, in the order of the labels, so two builds
+       add the pages in one order. The title is the label itself, the
+       words the row of a person prints and the tab reads. */ -}}
+{{- range $label, $_ := $labels -}}
+    {{- /* "Organizers (23)" and not "Organizer (23)": the heading names
+           what the page holds, which is people. A label that is a group
+           and not a role ("Permanent Committee", "Management Board
+           (2026)") is already the name of the thing and is left alone. */ -}}
+    {{- $title := $label -}}
+    {{- if not (or (strings.Contains $label " ") (strings.Contains $label "(")) -}}
+        {{- $title = pluralize $label -}}
+    {{- end -}}
+    {{- $.AddPage (dict
+            "kind" "page"
+            "path" (printf "role/%s" (urlize $label))
+            "title" $title
+            "layout" "role"
+            "params" (dict
+                "filter" $label
+                "description" (printf "Every person the archive credits as %s, with their roles, their events, and their links." $label))) -}}
+{{- end -}}
+
+{{- $assistants := `## We don't track that!
+
+The association has never recorded who came to an event. The archive holds the people who spoke, organized, mentored, or collaborated, because a programme, a board page, or a credit names them, and an attendee is on no such list. The one figure that exists is how many people said yes on Meetup, which the page of a meetup prints as registrations: a promise to come, not a seat filled.` -}}
+{{- $.AddPage (dict
+        "kind" "page"
+        "path" "role/assistants"
+        "title" "Assistants"
+        "layout" "role"
+        "content" (dict "mediaType" "text/markdown" "value" $assistants)
+        "params" (dict
+            "filter" "Assistants"
+            "description" "Who came to an event. The association never recorded it, so the archive holds the people who spoke, organized, mentored, or collaborated, and nobody else.")) -}}

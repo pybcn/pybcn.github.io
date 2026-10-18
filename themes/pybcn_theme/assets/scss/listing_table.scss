@@ -39,7 +39,7 @@
     .listing_caption {
         caption-side: top;
         padding: 0 0 0.6rem;
-        color: #51616e;
+        color: $text-grey;
         font-size: 0.9rem;
         text-align: left;
     }
@@ -82,20 +82,13 @@
         }
     }
 
-    // The venue, in italics, the way the columns were asked for, and the
-    // short name with the full string as its title. The dotted underline
-    // is the one a browser draws under an abbr with a title, and it says
-    // the same thing here: there is more on hover. Without it the hover is
-    // a secret.
+    // The venue, in italics, as the column is specified. The cell
+    // used to carry a hover with the string of the source and a dotted
+    // underline to announce it; both are gone, so there is nothing to
+    // mark.
     .event_venue_cell {
         font-style: italic;
-        color: #51616e;
-    }
-
-    .event_venue {
-        text-decoration: underline dotted;
-        text-underline-offset: 0.15em;
-        cursor: help;
+        color: $text-grey;
     }
 
     // The marker of a talk: the icon of its type, in the box of the
@@ -105,7 +98,7 @@
         display: inline-block;
         width: 1.75rem;
         margin-right: 0.35rem;
-        color: #51616e;
+        color: $text-grey;
         text-align: center;
         text-indent: 0;
         vertical-align: middle;
@@ -129,7 +122,7 @@
     // (partials/person_page_link.html) and read as the title link beside
     // them does: the link blue at rest, underlined under the pointer. They
     // were underlined at rest in the grey of the line, so they did not read
-    // as links and the pointer changed nothing (David Arcos, 2026-10-15).
+    // as links and the pointer changed nothing.
     // The "by" is italic and a lighter grey, $icon-grey, 4.68:1 on white,
     // and the names are upright: the slant is the second mark WCAG 1.4.1
     // asks of a link inside a line of text, in place of the underline, and
@@ -150,7 +143,7 @@
     }
 
     .listing_day {
-        color: #51616e;
+        color: $text-grey;
         white-space: nowrap;
     }
 
@@ -159,7 +152,7 @@
     .listing_year,
     .listing_month {
         font-weight: 600;
-        color: #51616e;
+        color: $text-grey;
     }
 }
 
@@ -274,7 +267,7 @@
         grid-area: year;
         margin: 0.6rem 0 0.6rem;
         padding-bottom: 0.3rem;
-        border-bottom: 1px solid #dde3e8;
+        border-bottom: 1px solid $rule-grey;
         font-size: 1.5rem;
         color: inherit;
     }
@@ -362,8 +355,8 @@
         // column. At 0.8rem and 0.02em it takes 48px.
         thead th {
             padding-bottom: 0.4rem;
-            border-bottom: 2px solid #dde3e8;
-            color: #51616e;
+            border-bottom: 2px solid $rule-grey;
+            color: $text-grey;
             font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -382,7 +375,7 @@
 
         tbody + tbody tr:first-child th,
         tbody + tbody tr:first-child td {
-            border-top: 1px solid #dde3e8;
+            border-top: 1px solid $rule-grey;
         }
 
         // Three narrow columns take their content width and the title

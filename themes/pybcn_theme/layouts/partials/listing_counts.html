@@ -69,7 +69,7 @@
     partials/event_type.html, the partial the row reads its marker from.
     A row of /talks/ is a talk page with a year to group it under, the
     year of its event or else the date of the page, which is the test of
-    layouts/talks/list.html, and its type is what partials/talk_record.html
+    partials/talks_index.html, and its type is what partials/talk_record.html
     resolves for it; that partial is resolved on each call (its header
     says why it is not cached). A talk with no type has a row and no
     marker, so it counts in the total and in no type. A row of /people/ is
@@ -120,6 +120,9 @@
                 "photos" (len $gallery.photos)
                 "videos" $day_videos)) -}}
     {{- else if eq $pg.Section "talks" -}}
+        {{- /* The listing of one type (content/talks/_content.gotmpl) is
+               a page of the section and not a row of it. */ -}}
+        {{- if $pg.Params.filter }}{{ continue }}{{ end -}}
         {{- $record := partial "talk_record.html" $pg -}}
         {{- $year := 0 -}}
         {{- with $record.event }}{{ with .Params.year }}{{ $year = int . }}{{ end }}{{ end -}}

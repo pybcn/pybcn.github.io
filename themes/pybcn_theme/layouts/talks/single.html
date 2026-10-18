@@ -16,9 +16,8 @@
     (bin/check-rendered fails a page that skips one).
 
     The video of the talk is played here, in a frame, because this page
-    is about that one talk. David Arcos decided it on 2026-10-14 ("que
-    meta el iframe de youtube nocookies"), after a first decision for a
-    click-to-load facade. The frame is partials/video_frame.html, the
+    is about that one talk. It has been a frame since 2026-10-14, after
+    a first try with a click-to-load facade. The frame is partials/video_frame.html, the
     youtube-nocookie.com player, and its header says what the frame asks
     of Google, where the privacy policy says so, and which other pages
     carry a player: the Recordings block of a day and the Videos block of
@@ -81,7 +80,7 @@
                     {{- if gt (len .) 1 }}{{ $credit_label = "Speakers" }}{{ end -}}
                 {{- end -}}
             {{- end -}}
-            {{- $items = $items | append (dict "label" $credit_label "icon" "fa-user" "values" $credit_links) -}}
+            {{- $items = $items | append (dict "label" $credit_label "icon" "fa-user" "values" $credit_links "meta" "speakers") -}}
 
             {{- /* The event, as the link to its page, and its date. The
                    date of the talk is the date of the event, read from the
@@ -92,12 +91,27 @@
                    archive carries no date, so the year of its front matter
                    is the fallback. The marker glyph is "where", the one the
                    venue of a meetup carries, and the calendar is "when". */ -}}
+            {{- /* The day is also what the search sorts and filters by:
+                   the first day as an ISO date for the newest-first order
+                   (data-pagefind-sort, on the record below), and the year
+                   as a filter value, on the row. One edition carries no
+                   date, so its talks have a year to filter by and no day
+                   to sort by, and the newest-first order leaves them out,
+                   which Pagefind does for a page with no sort value. */ -}}
+            {{- $sort_date := "" -}}
+            {{- $year := "" -}}
             {{- with $event -}}
-                {{- $items = $items | append (dict "label" "Event" "icon" "fa-map-marker-alt" "value" .Title "url" .RelPermalink) -}}
+                {{- $items = $items | append (dict "label" "Event" "icon" "fa-map-marker-alt" "value" .Title "url" .RelPermalink "meta" "event") -}}
                 {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) -}}
                 {{- $day := $when.html -}}
-                {{- if not $day }}{{ with .Params.year }}{{ $day = printf "%v" . }}{{ end }}{{ end -}}
-                {{- $items = $items | append (dict "label" "Date" "icon" "fa-calendar-day" "value" $day) -}}
+                {{- with $when.start -}}
+                    {{- $sort_date = time.Format "2006-01-02" . -}}
+                    {{- $year = time.Format "2006" . -}}
+                {{- end -}}
+                {{- if not $day }}{{ with .Params.year }}{{ $day = printf "%v" . }}{{ $year = $day }}{{ end }}{{ end -}}
+                {{- $year_filter := "" -}}
+                {{- with $year }}{{ $year_filter = printf "year:%s" . }}{{ end -}}
+                {{- $items = $items | append (dict "label" "Date" "icon" "fa-calendar-day" "value" $day "meta" "date" "filter" $year_filter) -}}
             {{- end -}}
 
             {{- /* The type, the language, the topic, and the length. The
@@ -108,15 +122,15 @@
                    prints. */ -}}
             {{- with $entry.type -}}
                 {{- with index (partialCached "event_types.html" "event_types") (lower (trim (printf "%v" .) " ")) -}}
-                    {{- $items = $items | append (dict "label" "Type" "icon" .icon "value" .label) -}}
+                    {{- $items = $items | append (dict "label" "Type" "icon" .icon "value" .label "ignore" true) -}}
                 {{- end -}}
             {{- end -}}
-            {{- $items = $items | append (dict "label" "Language" "icon" "fa-language" "value" $entry.language) -}}
+            {{- $items = $items | append (dict "label" "Language" "icon" "fa-language" "value" $entry.language "meta" "lang" "filter" "lang") -}}
             {{- $items = $items | append (dict "label" "Topic" "icon" "fa-tag" "value" $entry.topic) -}}
             {{- with $talk -}}
                 {{- with index . "duration_minutes" -}}
                     {{- if gt (int .) 0 -}}
-                        {{- $items = $items | append (dict "label" "Length" "icon" "fa-clock" "value" (printf "%d minutes" (int .))) -}}
+                        {{- $items = $items | append (dict "label" "Length" "icon" "fa-clock" "value" (printf "%d minutes" (int .)) "ignore" true) -}}
                     {{- end -}}
                 {{- end -}}
             {{- end -}}
@@ -137,8 +151,8 @@
                    through partials/link_mark.html: the X mark for a post
                    on X, the Meetup mark for an announcement, the generic
                    mark for the rest, because every link that leaves the
-                   site carries the mark of its destination (David Arcos,
-                   2026-10-14 and 2026-10-15). The mark sits on the dt, in
+                   site carries the mark of its destination. The mark
+                   sits on the dt, in
                    front of the label, where the row keeps its glyph; the
                    link is the dd. */ -}}
             {{- with $talk -}}
@@ -159,8 +173,23 @@
                     {{- $source = "The announcement of the day on Meetup" -}}
                 {{- end }}{{ end -}}
             {{- end -}}
-            {{- $items = $items | append (dict "label" "Source" "mark_url" $source_url "value" $source "url" $source_url) -}}
+            {{- $items = $items | append (dict "label" "Source" "mark_url" $source_url "value" $source "url" $source_url "ignore" true) -}}
 
+            {{- /* The record of the talk is what the site search indexes
+                   of this page: the box of facts and the description, in
+                   the div below, marked data-pagefind-body, plus the h1
+                   (partials/hero_header.html, which also writes the
+                   kind). The photos, the video, and the links under it are
+                   out: they repeat the title. In the box, the speakers,
+                   the event, the date, and the language are returned with
+                   the result (the meta key of each row), the year and the
+                   language are filter values, and the type, the length,
+                   and the source are ignored (the ignore key), the same
+                   words on every page, as is the heading of the
+                   description below. The sort value is the first day of
+                   the event, so "newest first" on /search/ orders the
+                   talks by the day they were given. */ -}}
+            <div class="talk_record" data-pagefind-body{{ with $sort_date }} data-pagefind-sort="date:{{ . }}"{{ end }}>
             {{ partial "facts_box.html" (dict "items" $items) }}
 
             {{- /* The description, as markdown and as a block: a one
@@ -202,18 +231,18 @@
                    it is marked as a quotation, the way the caption of a
                    gallery photo is (partials/photo_gallery.html), and
                    talks.scss gives it the rule down its left side that a
-                   quotation takes. David Arcos asked for it on 2026-10-14
-                   ("About this talk: estilo blockquote"). 424 of the 607
+                   quotation takes, since 2026-10-14. 424 of the 607
                    talk records carry a description, measured in the build
                    of that day. */ -}}
             {{- with $entry.description }}
             <section class="talk_description" aria-labelledby="about_heading">
-                <h2 id="about_heading">About this talk</h2>
+                <h2 id="about_heading" data-pagefind-ignore>About this talk</h2>
                 <blockquote class="talk_abstract">
                     {{ $.RenderString (dict "display" "block") (replaceRE "(?i)http://" "https://" .) }}
                 </blockquote>
             </section>
             {{- end }}
+            </div>
 
             {{- /* The photos of the talk, from the gallery of its day, each
                    linked to the figure it is in, in the order the gallery

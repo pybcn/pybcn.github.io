@@ -11,8 +11,7 @@
     Two subsections under the Gallery heading, Photos (N) and Talks & Videos
     (N). The second says both words because every row of it is a talk: the
     title links to the page of the talk, where the player is, and the link
-    beside it goes to YouTube. "Videos" alone read as a list of films
-    (David Arcos, 2026-10-15).
+    beside it goes to YouTube. "Videos" alone read as a list of films.
     what the day left behind, in two kinds. A subsection with nothing in
     it is not printed, and a page with neither has no gallery. Measured
     over the thirteen edition pages on 2026-10-15: eleven have photographs
@@ -23,11 +22,11 @@
     partials/gallery_content.html hands this template no video for a page
     with that block (its header has the decision, 2026-10-15).
     The videos reach this template through partials/gallery_content.html,
-    whose header has the decision (David Arcos, 2026-10-15: a recording is
+    whose header has the reason (a recording is
     material added after the day, like a photograph, so it belongs here
     and not under the schedule; the gallery was photographs only for one
     day, from 2026-10-14). The row of a talk keeps its own video link as
-    well, a mild redundancy David accepts: the row says this talk was
+    well, a mild redundancy on purpose: the row says this talk was
     filmed while you read the programme, and the Gallery lists the
     recordings of the day together. A video prints as the row of the
     Talks block of a meetup page (partials/talk_rows.html): the icon of
@@ -68,7 +67,7 @@
     the X mark in front. It names the account and not a person: the
     association published these, a member of it took them, and the account
     is the part the post proves. It read "Photo by @account" until
-    2026-10-14, and David Arcos asked for "Via": the account is where the
+    2026-10-14, and it reads "Via" since: the account is where the
     photograph came through, not who took it, and "by" said the second.
 
     Every photo is a figure with an id of its own, built by
@@ -105,6 +104,23 @@
     - The source line gives the account and no date. The day of the event is
       on the page itself, in its date, and a photo of it needs no second
       copy of that date under every figure.
+
+    The search. The captions are searchable: the Photos subsection is
+    marked data-pagefind-body, so Pagefind indexes it as part of the
+    record of the event page, and everything in it that is not a caption
+    is marked data-pagefind-ignore: the heading, the thread and album
+    links, the talk line under a caption (the talk has a page of its own,
+    and a name indexed here as well would match twice), and the credit
+    line. Pagefind records one result per page, so a caption cannot be a
+    result of its own, but it records every element with an id inside the
+    body with the position of its first word, and the id of each figure
+    is such an element. assets/js/search.js reads those positions against
+    the positions of the matched words, and draws a match inside a caption
+    as a Photo result that links to the figure. The body is the section
+    and not each figure, because Pagefind drops the id of an element that
+    is itself the body (measured on 1.5.2 with a fixture of three figures:
+    the first id was lost, the other two kept) and keeps the id of a
+    figure inside one.
 */ -}}
 {{- $page := . -}}
 {{- $gallery := partialCached "gallery_content.html" $page $page.RelPermalink -}}
@@ -124,11 +140,12 @@
            about three quarters of the viewport from the md breakpoint up,
            where the column is col-md-9, and the whole width below it. */ -}}
     {{- $sizes := "(min-width: 768px) 70vw, 100vw" -}}
-{{- /* The rule above the section says that the gallery is not part of the
-       programme above it: it is what the association published after the
-       day was over. Each photograph is a card of its own, on the white of
-       the page: the band of colour that held every card until 2026-10-14
-       is gone (David Arcos: "cada item tenga su propio recuadro"). See
+{{- /* The gallery is a block of the page like the ones above it, with
+       the section title of main.scss and the air of $block-gap, since
+       2026-10-17: the hr it opened with was a second rule over a title
+       that draws its own. Each photograph is a card of its own, on the
+       white of the page, in the frame of every card of the site: the band
+       of colour that held every card until 2026-10-14 is gone. See
        assets/scss/photo_gallery.scss.
 
        The section does not carry link_anchor, the class the other sections of
@@ -138,20 +155,19 @@
        the stylesheet moves the landing point of the anchor instead, without
        moving the box, and it works on single.html as well, where link_anchor
        has no rule behind it at all. */ -}}
-<hr class="gallery_rule"/>
 <section class="photo_gallery" id="gallery" aria-labelledby="gallery_heading">
-    <h2 class="h1" id="gallery_heading">Gallery</h2>
+    <h2 class="section_title" id="gallery_heading">Gallery</h2>
     {{- with $photos }}
-    <section class="gallery_photos" aria-labelledby="gallery_photos_heading">
-        <h3 class="h2" id="gallery_photos_heading">Photos ({{ len . }})</h3>
+    <section class="gallery_photos" aria-labelledby="gallery_photos_heading" data-pagefind-body>
+        <h3 class="sub_title" id="gallery_photos_heading" data-pagefind-ignore>Photos ({{ len . }})</h3>
     {{- /* The thread of the day, at the start of the photos and not under
            the last photo. The thread is where these photos were published,
            and a reader who wants the whole day on X should not have to walk
            33 figures to find out that it exists. The X mark in front, as on
            the credit of every photo below: every link to x.com on this site
-           carries it (David Arcos, 2026-10-14). */ -}}
+           carries it. */ -}}
     {{- with $gallery.thread }}
-    <p class="photo_thread"><a href="{{ . }}">{{ partial "link_mark.html" . }}The whole thread of the day on X</a></p>
+    <p class="photo_thread" data-pagefind-ignore><a href="{{ . }}">{{ partial "link_mark.html" . }}The whole thread of the day on X</a></p>
     {{- end }}
     {{- /* An album the association kept somewhere else. The gallery holds
            what PyBCN posted on the day, which is a selection; an album
@@ -159,7 +175,7 @@
            thread, and not in the body of the page above a gallery that
            contradicts it. */ -}}
     {{- with $.Params.photos.album }}
-    <p class="photo_album"><a href="{{ . }}">{{ partial "link_mark.html" . }}More photos of the day, in the album the association kept</a></p>
+    <p class="photo_album" data-pagefind-ignore><a href="{{ . }}">{{ partial "link_mark.html" . }}More photos of the day, in the album the association kept</a></p>
     {{- end }}
     {{- range . -}}
         {{- $photo := . -}}
@@ -218,9 +234,9 @@
                    the name. Most posts quote the title and credit a handle,
                    so of the 107 photos that name a talk, 84 printed no line
                    and 21 printed "by Héctor Canto" with the title hidden in
-                   an sr-only span, which is what David Arcos saw ("debería
-                   haber TALK_TITLE by AUTHOR (con ambos enlaces), pero solo
-                   sale by AUTHOR"). The caption is a quotation of the post,
+                   an sr-only span, so only the author showed. The title
+                   and the author both print now, each with its link. The
+                   caption is a quotation of the post,
                    and the line is the credit of this site, with the links
                    the post cannot give: the two say the same words for a
                    different reason, so the second is not a duplicate.
@@ -247,7 +263,7 @@
                 {{- with $talk.id -}}
                     {{- with index $talk_pages (printf "%s|%s" $page.RelPermalink .) }}{{ $talk_url = . }}{{ end -}}
                 {{- end }}
-            <p class="photo_talk">
+            <p class="photo_talk" data-pagefind-ignore>
                 {{- if $talk_url }}<a href="{{ $talk_url }}">{{ $talk.title }}</a>{{ else }}{{ $talk.title }}{{ end -}}
                 {{- with $talk.speakers }} by {{ range $si, $sid := . }}{{ if $si }}{{ if eq $si (sub (len $talk.speakers) 1) }} and {{ else }}, {{ end }}{{ end }}{{ partial "person_page_link.html" (dict "id" $sid "names" $names) }}{{ end }}{{ end -}}
             </p>
@@ -281,10 +297,8 @@
                    has had an id since the anchors came (see
                    partials/photo_anchor.html), and the page of a person
                    links to it, but a reader had no way to copy the address of
-                   one photograph short of reading the source. David Arcos
-                   asked for the visible link on 2026-10-14 ("cada foto
-                   debería tener un link a su anchor, tipo #1, #2, #3").
-                   The text is the number with its hash, which is what the
+                   one photograph short of reading the source. The link is
+                   visible since 2026-10-14. The text is the number with its hash, which is what the
                    address bar shows after the click, and the sr-only span
                    in front of it is what a screen reader needs to tell
                    the link from the credit beside it: the accessible name
@@ -292,7 +306,7 @@
                    (WCAG 2.5.3). The line is a flex row, so the number sits
                    at the right edge whether or not the photo has a source
                    to print on the left. */ -}}
-            <p class="photo_source">
+            <p class="photo_source" data-pagefind-ignore>
                 {{- if and $item.source $account -}}
                     <a href="{{ $item.source }}">{{ partial "link_mark.html" $item.source }}Via @{{ $account }}</a>
                 {{- end -}}
@@ -312,7 +326,7 @@
            has the one. */ -}}
     {{- with $videos }}
     <section class="gallery_videos" aria-labelledby="gallery_videos_heading">
-        <h3 class="h2" id="gallery_videos_heading">Talks &amp; Videos ({{ len . }})</h3>
+        <h3 class="sub_title" id="gallery_videos_heading">Talks &amp; Videos ({{ len . }})</h3>
         <ul class="talk_rows">
             {{- range $row := . }}
             <li class="talk_row">

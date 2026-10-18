@@ -5,4 +5,4 @@ menu: "main"
 weight: 3
 ---
 
-Everyone the archive credits, by name. A row holds the roles the person has held, the years they were here, how many talks they gave, and the pages that say so: the programme of a day, its photos, and the page of the board or the committee they sat on. The board and the committee of today are on [the organizers page](/pybcn_association/organizers/), with a photo and a bio each.
+Everyone the archive credits, by name. A row holds the roles the person has held, how many events credit them, and the pages that say so: the programme of a day, its photos, and the page of the board or the committee they sat on. The tabs above the list keep one role at a time. The board, the committee, and the collaborators of today are grouped on [the organizers page](/pybcn_association/organizers/).
