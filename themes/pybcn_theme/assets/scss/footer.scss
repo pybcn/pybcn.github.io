@@ -44,3 +44,94 @@ footer {
     }
 
 }
+
+
+// 8. The footer in four columns, the sub-list of the pages that Take part
+// also links, the accounts on one line beside the name of the association,
+// and the licence line.
+.site_footer {
+    .site_footer_col {
+        margin-bottom: 1.5rem;
+    }
+
+    .site_footer_heading {
+        margin-bottom: 0.5rem;
+        color: $yellow-pybcn;
+        font-weight: 700;
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+
+        li {
+            margin-bottom: 0.25rem;
+        }
+
+        a {
+            color: #ffffff;
+        }
+    }
+
+    .site_footer_sub {
+        margin: 0.25rem 0 0.35rem;
+        padding-left: 1rem;
+        border-left: 1px solid rgba(255, 255, 255, 0.25);
+
+        a {
+            color: rgba(255, 255, 255, 0.85);
+        }
+    }
+
+    .site_footer_bottom {
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .site_footer_name {
+        margin-bottom: 0;
+    }
+
+    .site_social {
+        white-space: nowrap;
+
+        a {
+            margin-right: 0.5rem;
+        }
+    }
+
+    .site_licence {
+        margin: 0.75rem 0 0;
+        // Centred: it is the line that closes the page and it belongs to
+        // the whole of it, not to the column it happens to sit under.
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .site_social {
+            margin-top: 0.75rem;
+            text-align: left;
+        }
+    }
+
+    // The live footer centres everything under 576px. A vertical list
+    // reads from a left edge, and so does its sub-list, so the columns
+    // stay left; the name and the accounts take the centre.
+    @media (max-width: 576px) {
+        .site_footer_col {
+            text-align: left;
+        }
+
+        .site_social {
+            text-align: center;
+        }
+    }
+}

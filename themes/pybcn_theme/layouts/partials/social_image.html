@@ -1,0 +1,89 @@
+{{- /*
+    The picture a link to this page shows when it is shared.
+
+    Argument: the page. Returns a dict of url, card, and alt, or an empty
+    dict when the page has no picture of its own.
+
+    Sharing any URL of this site used to show no picture and, on a person
+    page, the name of the association instead of the name of the person,
+    because a person record carries name and not title and the internal
+    Open Graph template fell back to the site. 607 talks, 281 events, and
+    373 people are worth a card each.
+
+    The order of preference, by kind:
+
+      person  the photograph of the record, square, so the small card is
+              the right shape and the face is not cropped to a letterbox
+      talk    the first photograph of the event gallery that names this
+              talk, 107 of the 235 do, and the hero of its event after
+              that
+      event   its hero, and the first photograph of its gallery after that
+
+    A page with none of those gets nothing from here, and head-meta.html
+    falls back to the logo of the association.
+
+    1200x630 is what every network crops to, and 1200x1200 for the square
+    card. The source of an imported photograph is capped at 1000px, so Fill
+    may scale one up a little; a card is a thumbnail and it is not worth a
+    second rule.
+*/ -}}
+{{- $out := dict -}}
+{{- $src := "" -}}
+{{- $square := false -}}
+{{- $alt := "" -}}
+
+{{- if eq .Section "people" -}}
+    {{- with .Params.photo -}}
+        {{- $src = printf "images/people/%s" . -}}
+        {{- $square = true -}}
+        {{- $alt = $.Params.name -}}
+    {{- end -}}
+{{- else -}}
+    {{- $event := . -}}
+    {{- $talk := "" -}}
+    {{- if eq .Section "talks" -}}
+        {{- $talk = .Params.talk -}}
+        {{- with .Params.event -}}{{- with site.GetPage . -}}{{- $event = . -}}{{- end -}}{{- end -}}
+    {{- end -}}
+    {{- /* A photograph that names this talk, then the hero, then the first
+           photograph of the day. */ -}}
+    {{- with $talk -}}
+        {{- $want := . -}}
+        {{- range (($event.Params.photos).items | default slice) -}}
+            {{- if and (not $src) (eq (.talk | default "") $want) -}}
+                {{- $src = printf "images/photos/%s" .file -}}
+                {{- $alt = .caption -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if not $src -}}
+        {{- with $event.Params.heroBackground -}}
+            {{- if hasPrefix . "/" -}}
+                {{- $src = strings.TrimPrefix "/" . -}}
+                {{- $alt = $event.Params.title -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if not $src -}}
+        {{- with (($event.Params.photos).items | default slice) -}}
+            {{- $first := index . 0 -}}
+            {{- $src = printf "images/photos/%s" $first.file -}}
+            {{- $alt = $first.caption -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- with $src -}}
+    {{- with resources.Get . -}}
+        {{- $img := "" -}}
+        {{- if $square -}}
+            {{- $img = .Fill "1200x1200 jpg q85 Center" -}}
+        {{- else -}}
+            {{- $img = .Fill "1200x630 jpg q85 Smart" -}}
+        {{- end -}}
+        {{- $out = dict "url" $img.Permalink "width" $img.Width "height" $img.Height
+                        "card" (cond $square "summary" "summary_large_image")
+                        "alt" ($alt | plainify | truncate 200) -}}
+    {{- end -}}
+{{- end -}}
+{{- return $out -}}

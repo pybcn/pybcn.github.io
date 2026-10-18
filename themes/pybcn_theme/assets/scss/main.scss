@@ -1,5 +1,13 @@
 $navbar-color: #FFFFFF;
 $blue-pybcn: #006c9b;
+
+// The same thing the meta tag of partials/head-meta.html says, where the
+// stylesheet can be read by a browser that ignores the tag. The site is
+// light, and a browser that darkens it by itself turns the white card of a
+// sponsor dark under a logo drawn in black.
+:root {
+    color-scheme: only light;
+}
 // The rest colour of an icon that lights up under the pointer: a social
 // glyph on a card and in a modal. 4.68:1 on white, above the 3:1 WCAG
 // 1.4.11 asks of a graphic that carries meaning.
@@ -10,6 +18,157 @@ $dark-grey: #343a40;
 $focus-ring: #0b0c0c;
 
 $primary: $blue-pybcn;
+
+// The vocabulary of the home page, shared with every other page since
+// 2026-10-17. home.scss declared these for /, and the rest of the site
+// agrees with it: one type scale, one card, one rhythm,
+// and one voice for secondary text. They live here, before every other
+// sheet, so a rule on any page reads the same figure the home page does.
+//
+// Contrast, measured with the WCAG relative luminance formula: $text-grey
+// on white is 6.39:1, $ink on white 13.56:1, $blue-pybcn on white 5.80:1,
+// all above the 4.5:1 of WCAG 1.4.3 for normal text.
+$blue-deep: #004d6f;
+$rule-grey: rgb(230, 230, 230);
+$text-grey: #51616e;
+$ink: rgb(41, 47, 51);
+$paper: rgb(245, 248, 250);
+$hover-blue: rgb(240, 250, 255);
+// The radius of every box that has one: the card, the pills of the bars,
+// the frame of a photograph.
+$card-radius: 4px;
+// The rhythm: the air between two blocks of a page, and the air between
+// the title of a block and what it holds. The figures of the home page.
+$block-gap: 3rem;
+$title-gap: 1.5rem;
+
+// The title of a block: an h2 at 27px, the normal weight, in the ink of
+// the site, with a line under it. The style of .home_title h2 on the home
+// page, which took it from .items-title; here as a mixin so the h2 of the
+// section of a talk, of a meetup, of a person, of an edition, and the
+// letter of /people/ read the same size with the same rule under them.
+// The level is the outline and the size is the style: an h2 is an h2
+// wherever it sits, which is what one type scale means.
+@mixin section_title {
+    margin-top: 0;
+    margin-bottom: $title-gap;
+    padding-top: 0;
+    // 12px between the text and the line: the 0.25rem of padding and the
+    // 0.5rem of margin the h2 of .home_title has above its wrapper's line.
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid $rule-grey;
+    background-color: transparent;
+    color: $ink;
+    font-family: Helvetica, Roboto, "Segoe UI", Calibri, sans-serif;
+    font-size: 27px;
+    font-weight: normal;
+    line-height: 1.2;
+    text-align: left;
+}
+
+// The title under a title: an h3 at the size and the weight of the title
+// of a card, in the ink. The Photos and Videos of a gallery, the levels of
+// a sponsor grid, the h3 of a page body.
+@mixin sub_title {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: $ink;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+// The frame: the border, the radius, and the white of a card, for a box
+// that is not a link. The facts box, the pills of the bars, the frame of
+// a photograph in a gallery.
+@mixin site_frame {
+    border: 1px solid $rule-grey;
+    border-radius: $card-radius;
+    background-color: #ffffff;
+}
+
+// The card: one frame for every box that is a link. White, the rule grey
+// as the border, the blue of the site and a shadow under the pointer, the
+// title underlined then. The picture or the icon at the left, the title
+// and one line of text at the right, so a card is three to seven times
+// wider than tall. The argument is the prefix of the three classes
+// inside it: home_card on the home page (home.scss), site_card everywhere
+// else.
+@mixin site_card($p) {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 100%;
+    padding: 0.75rem 1rem;
+    @include site_frame;
+    color: $ink;
+    text-decoration: none;
+    transition: border-color 0.15s linear, box-shadow 0.15s linear;
+
+    .#{$p}_body {
+        display: block;
+        min-width: 0;
+    }
+
+    .#{$p}_title {
+        display: block;
+        margin-bottom: 0.15rem;
+        color: $blue-pybcn;
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+
+    .#{$p}_text {
+        display: block;
+        // No margin: the text is a p on the card of a person, a span on
+        // the home page, and the two have to sit alike.
+        margin-bottom: 0;
+        color: $text-grey;
+        font-size: 0.9rem;
+        line-height: 1.35;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+        border-color: $blue-pybcn;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        text-decoration: none;
+
+        .#{$p}_title {
+            text-decoration: underline;
+        }
+    }
+}
+
+.section_title {
+    @include section_title;
+}
+
+.sub_title {
+    @include sub_title;
+}
+
+.site_card {
+    @include site_card(site_card);
+}
+
+// The headings written in the markdown of a page: the body of an edition
+// page and its free text sections (layouts/_default/event.html), and the
+// body of a page on layouts/_default/single.html, the association pages
+// among them. Bootstrap draws an h2 there at 2rem and an h3 at 1.75rem,
+// which is neither the h2 nor the h3 of any other block of the site.
+.page_body {
+    h2 {
+        @include section_title;
+    }
+
+    h3 {
+        @include sub_title;
+        margin-top: 1.5rem;
+    }
+}
 
 
 // Font Awesome 5.8.2 is older than the Twitter rename, so it carries no X
@@ -32,14 +191,32 @@ $primary: $blue-pybcn;
     mask-size: contain;
 }
 
+// The Bluesky butterfly, the same way as .icon_x above and for the same
+// reason: the vendored Font Awesome is version 5, which predates the icon
+// (fa-bluesky arrived in 6.6). The mark is Bluesky's; the path is the one
+// Simple Icons publishes, which is CC0, and it is used here to link to our
+// own account.
+.icon_bluesky {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    background-color: currentColor;
+    $bluesky-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026'/%3E%3C/svg%3E");
+    -webkit-mask: $bluesky-mark no-repeat center;
+    mask: $bluesky-mark no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
 // The mark of a link that leaves the site, printed by
 // partials/link_mark.html in front of the words of the link: the YouTube
 // mark, the GitHub mark, the X mark above, or the generic arrow. Grey at
 // rest, the $icon-grey of every icon of the site, and the colour of the
 // link under the pointer or the keyboard, which is the rule the social
 // glyphs of a person card follow. The YouTube mark took the blue of the
-// link around it until 2026-10-15 while every other icon was grey; David
-// Arcos asked for one colour. An inline-block, so the underline of the
+// link around it until 2026-10-15 while every other icon was grey. They
+// are one colour now. An inline-block, so the underline of the
 // link stops at the words and is not drawn through the glyph. The gap is
 // the one the credit of a gallery photo and the video line of a talk row
 // already set.
@@ -206,44 +383,6 @@ button:focus:not(:focus-visible),
     padding: 50px;
 }
 
-.objects_grid {
-    .row.level {
-        margin-bottom: 30px;
-    }
-
-    .level_name {
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
-
-        h2 {
-            overflow: hidden;
-            text-align: center;
-
-            &:before,
-            &:after {
-                background-color: #000;
-                content: "";
-                display: inline-block;
-                height: 1px;
-                position: relative;
-                vertical-align: middle;
-                width: 50%;
-            }
-
-            &:before {
-                right: 0.5em;
-                margin-left: -50%;
-            }
-            &:after {
-                left: 0.5em;
-                margin-right: -50%;
-            }
-        }
-    }
-}
-
-
 .bordered_col {
     border: 1px solid #000;
     padding: 30px;
@@ -270,6 +409,25 @@ button:focus:not(:focus-visible),
     text-decoration: underline;
 }
 
+// The voice of that paragraph is the one of the sentence under a title of
+// the home page (.home_title p): the muted grey, a step above the body
+// text. It was the black of the body at 1rem on /events/, /talks/,
+// /people/, and /sponsors/, and the muted grey on the home page, two
+// answers to one question. The description of the page, which
+// partials/hero_header.html prints right under the h1, is the same kind
+// of sentence and takes the same voice.
+.page_heading_text,
+.section_intro,
+.page-intro,
+.sponsors_intro {
+    color: $text-grey;
+    font-size: 1.05rem;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
 // The bar of links above a long index, one link per group: the letters of
 // /people/ and the years of /events/. It is the only way to reach the far
 // end of 169 or 279 rows without scrolling the lot. See
@@ -286,7 +444,7 @@ button:focus:not(:focus-visible),
     margin-bottom: 1.8rem;
 
     // Pinned under the fixed navigation bar as the page scrolls, from the
-    // lg breakpoint and not below it (David Arcos, 2026-10-15). Measured
+    // lg breakpoint and not below it. Measured
     // in Chromium: at 1280px the bar is one line of 29px and /people/
     // runs to 28107px, so a reader otherwise scrolls back up through 35
     // screens to jump to another letter. At 390px the bar is three lines
@@ -308,7 +466,7 @@ button:focus:not(:focus-visible),
         // at the top of the page: navbar.scss gives it the navbar_small class
         // on scroll and the logo drops to 40px. A bar pinned at 105 left a
         // 44px gap under the navigation through which whole rows showed,
-        // which is what David Arcos saw on 2026-10-15. Measured in Chromium:
+        // Measured in Chromium:
         // nav bottom 105px at scroll 0, 63px at 300, 61px from there on.
         position: sticky;
         top: 61px;
@@ -330,17 +488,87 @@ button:focus:not(:focus-visible),
         display: inline-block;
         min-width: 2rem;
         padding: 0.1rem 0.35rem;
-        border: 1px solid #dde3e8;
-        border-radius: 3px;
+        border: 1px solid $rule-grey;
+        border-radius: $card-radius;
         font-weight: 600;
         text-align: center;
     }
 
-    // /people/ centres its letters (David Arcos asked for it); /events/
+    // /people/ centres its letters; /events/
     // keeps its years at the left, over the first column of its table.
     // The class is the optional argument of partials/jump_bar.html.
     &.jump_bar_centered ul {
         justify-content: center;
+    }
+}
+
+// The tabs above a listing: one link per view of the list, the current
+// one filled. See layouts/partials/filter_tabs.html, which /talks/ and
+// /people/ draw it with, and which says why the tabs are links to pages
+// and not a script.
+//
+// The same pills as .jump_bar, a little taller, so the two bars read as
+// one family of controls: the tabs choose which rows the page holds, the
+// bar under them jumps inside those rows. The list wraps, with no script,
+// as the jump bar does: at 390px the six tabs of /talks/ take three lines
+// and the ten of /people/ four, and the document stays 390px wide.
+//
+// The current tab is the one with aria-current, painted in the blue of the
+// site with white text, which is the one pair of this stylesheet that is
+// already used for a selected control (.btn-primary). It stays a link, so
+// it keeps the focus ring of every link.
+//
+// The count sits in a lighter weight than the name, so the name is what
+// the eye reads first and the number is a fact beside it; the glyph is
+// upright and at line-height 1, as .marker_legend_glyph is, for the reason
+// listing_table.scss gives.
+.filter_tabs {
+    margin-bottom: 1rem;
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    a {
+        display: inline-block;
+        padding: 0.25rem 0.7rem;
+        border: 1px solid $rule-grey;
+        border-radius: $card-radius;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+
+        &[aria-current="page"] {
+            background: $blue-pybcn;
+            border-color: $blue-pybcn;
+            color: #ffffff;
+        }
+    }
+
+    .filter_tab_glyph {
+        display: inline-block;
+        margin-right: 0.3em;
+        font-size: 1.15em;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        vertical-align: middle;
+    }
+
+    .filter_tab_icon {
+        display: inline-block;
+        width: 1.3em;
+        margin-right: 0.2em;
+        text-align: center;
+    }
+
+    .filter_tab_count {
+        font-weight: normal;
     }
 }
 
@@ -356,7 +584,7 @@ button:focus:not(:focus-visible),
     padding-left: 0;
     margin-bottom: 1.2rem;
     list-style: none;
-    color: #51616e;
+    color: $text-grey;
     font-size: 0.9rem;
 
     li {
@@ -412,10 +640,10 @@ button:focus:not(:focus-visible),
     gap: 0 0.7rem;
     padding: 0.05rem 0.5rem;
     margin-bottom: 0;
-    border: 1px solid #dde3e8;
-    border-radius: 3px;
+    border: 1px solid $rule-grey;
+    border-radius: $card-radius;
     list-style: none;
-    color: #51616e;
+    color: $text-grey;
     font-size: 0.9rem;
     line-height: 1.5;
     white-space: nowrap;
@@ -443,6 +671,124 @@ button:focus:not(:focus-visible),
     a { font-weight: 600; }
     .section_index_desc {
         display: block;
-        color: #51616e;
+        color: $text-grey;
+    }
+}
+
+
+// The listing a single page belongs to, inside its h1.
+// See partials/page_parent.html.
+h1 .page_parent {
+    // The size of the heading it sits in. At 0.55em it read as a label
+    // stuck to the front of the title rather than as the first step of
+    // one line, and the two baselines did not meet. One line, one size.
+    font-size: 1em;
+
+    a {
+        // White on the blue band, like the heading it sits in. The
+        // underline is on the hover and the focus only: a permanent one
+        // under "People" at the size of the heading read as a mistake
+        // rather than as a link. What the link
+        // keeps is the pointer, the hover, the focus ring, and its place
+        // in the tab order, and a screen reader announces it as a link
+        // whatever it is painted like.
+        color: inherit;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    .page_parent_mark {
+        // No underline on the separator, which is not part of the link.
+        text-decoration: none;
+    }
+}
+
+
+// The width of the reading column follows the window.
+//
+// The Bootstrap container is a step function: 1140px from 1200px up, then
+// 960px, then 720px, then 540px. The window is continuous, so dragging it
+// narrower shrinks the margin smoothly and then throws it back out at every
+// step. Measured on a person page: the margin goes 390px at 1920, 230 at
+// 1600, 130 at 1400, 30 at 1200, and then back to 70 at 1100, 16 at 992,
+// and back to 90 at 900. That pumping is what reads as "the margin is
+// fixed and the content is not".
+//
+// The cap stays at 1140px, so nothing changes at 1200px and above, which
+// is where the photo gallery breaks out of the column and where the
+// measurements of the rest of this file were taken. Below it the container
+// simply fills the window less its padding.
+@media (max-width: 1199.98px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+
+// The assemblies of the association, on /pybcn_association/information/:
+// one row per year, the photograph at the left and the minutes at the
+// right. See layouts/shortcodes/assemblies.html.
+.assemblies {
+    margin: 1rem 0 2rem;
+    padding-left: 0;
+    list-style: none;
+
+    .assembly {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        padding: 0.75rem 0;
+        border-top: 1px solid $rule-grey;
+
+        &:last-child {
+            border-bottom: 1px solid $rule-grey;
+        }
+    }
+
+    // A year with no photograph keeps the text where the others have it,
+    // so the column of names does not step left and right down the list.
+    .assembly_bare .assembly_body {
+        margin-left: calc(150px + 1rem);
+    }
+
+    .assembly_photo {
+        flex: 0 0 auto;
+
+        img {
+            display: block;
+            width: 150px;
+            height: auto;
+            border-radius: $card-radius;
+        }
+    }
+
+    .assembly_minutes {
+        font-weight: 600;
+    }
+
+    .assembly_caption {
+        margin: 0.25rem 0 0;
+        color: $text-grey;
+    }
+
+    .assembly_source {
+        margin: 0.15rem 0 0;
+        font-size: 0.85rem;
+    }
+}
+
+// Under sm the photograph goes over the text, which is the only way a
+// 150px picture and a line of Catalan share a 390px screen.
+@media (max-width: 575.98px) {
+    .assemblies .assembly {
+        flex-direction: column;
+    }
+
+    .assemblies .assembly_bare .assembly_body {
+        margin-left: 0;
     }
 }

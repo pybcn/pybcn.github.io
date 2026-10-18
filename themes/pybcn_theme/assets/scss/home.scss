@@ -1,145 +1,466 @@
-#home_top_section {
-    margin-top: 50px;
-}
+// The home page. Every selector starts with home_, and the blocks are the
+// ones the proposal of 2026-10-16 arrived at:
+//
+//   1. the hero, the deep blue band with the h1 and the four Archive
+//      counts, each on one line
+//   2. About Python Barcelona, the dark band with the video
+//   3. the two Meetup groups
+//   4. the recent events, the table of /events/ cut to ten
+//   5. the photographs, the canonical photo of each event
+//   6. About us, the faces of the board and the committee
+//   7. Take part, the four ways in
+//   8. Our friends
+//
+// The navigation bar and the footer of this design are the bar and the
+// footer of the whole site now, so their rules live in navbar.scss and
+// footer.scss and not here.
+// The blocks of this page come from three proposals with three type scales
+// and three spacings. What makes them one page is here: one h1, one h2
+// style for every section (.home_title) with a colour variant for a dark
+// band, one card frame (.home_card) for the Meetup cards, the Take part
+// boxes, and the friends, with the same border, radius, and hover, and
+// one rhythm of 3rem between the sections.
+// The colours and the figures of this design ($blue-deep, $rule-grey,
+// $text-grey, $ink, $paper, $hover-blue, $card-radius, $block-gap,
+// $title-gap) are in main.scss since 2026-10-17, next to $blue-pybcn,
+// because every other page takes them from there now: the section title,
+// the card, and the frame are mixins of that file, and this sheet includes
+// them.
 
-.color_box {
 
-    height: 100%;
-    padding: 25px;
-    background-color: $blue-pybcn;
-    background-image: url("../images/backgrounds/logo_mini_white.png");
-    background-position: 140% 107%;
-    background-repeat: no-repeat;
-    background-size: 67%;
+// The title of every block: the heading in the style of .items-title, a
+// line under it, and an optional sentence that says what the block holds.
+// On a dark band the same title in white.
+.home_title {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid $rule-grey;
 
-
-    h1, .h1 {
-        color: white;
-        background-color: transparent;
-        text-align: center;
-        text-transform: uppercase;
-        font-size: 1.8rem;
-        margin: 0;
-        padding: 0;
+    // The section title of main.scss, with the line under it drawn by
+    // this wrapper and not by the h2, because the sentence under the h2
+    // sits inside the line here.
+    h2 {
+        @include section_title;
+        margin-bottom: 0.5rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.25rem;
+        border-bottom: 0;
     }
 
-    a.btn {
+    p {
+        margin-bottom: 0.9rem;
+        color: $text-grey;
+        font-size: 1.05rem;
+    }
+
+    &.home_title_dark {
+        border-bottom-color: rgba(255, 255, 255, 0.25);
+
+        h2 {
+            color: #ffffff;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
+}
+
+// The card: one frame for every box that is a link. White, the rule grey
+// of the site as the border, the blue of the site and a shadow on hover,
+// the title underlined then. The title and the text inside are the same
+// size in every block. The proportions are the ones of the tiles of the
+// hero (the second review: "más rectangulares, como las de events /
+// talks / people / sponsors"): the same 0.75rem over and under, the
+// picture or the icon no taller than two lines, the title on the top
+// edge, so a card is three to seven times wider than tall.
+// The card is the mixin of main.scss, with home_card as the prefix of its
+// three inner classes; .site_card is the same card on every other page.
+.home_card {
+    @include site_card(home_card);
+}
+
+// 1. The hero: the deep blue band of option 2 with the h1 and the four
+// counts, one line each. The h1 is white on the blue, not the blue band of
+// every other h1: the band is the whole section here. No buttons under
+// the tiles, so the band is short and the About block is one screen away
+// on a phone.
+.home_hero {
+    padding: 2.5rem 0;
+    background-color: $blue-deep;
+    background-image: linear-gradient(135deg, $blue-deep 0%, $blue-pybcn 100%);
+    color: #ffffff;
+
+    h1 {
+        margin-bottom: 0.75rem;
+        padding: 0;
+        background-color: transparent;
+        color: #ffffff;
+        font-size: 2.6rem;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .home_lead {
+        max-width: 44rem;
+        margin-bottom: 1.75rem;
+        font-size: 1.2rem;
+        line-height: 1.45;
+    }
+
+    // Four tiles in one row from lg, two by two from sm, one under the
+    // other on a phone. Each tile is one line: the glyph, the number in
+    // bold, the noun.
+    .home_stats {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+
+        @media (min-width: 576px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 992px) {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+    }
+
+    .home_stat {
+        display: flex;
+        align-items: baseline;
+        // Centred in the tile. Left aligned, the four tiles of one row
+        // put their numbers at four different distances from their own
+        // left edge, because "281 Events" and "371 People" are not the
+        // same width, and the row read as crooked.
+        justify-content: center;
+        gap: 0.6rem;
+        height: 100%;
+        padding: 0.75rem 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: #ffffff;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: background-color 0.15s linear, border-color 0.15s linear;
+
+        .home_stat_glyph {
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .home_stat_n {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .home_stat_label {
+            font-size: 1.1rem;
+        }
+
+        &:hover,
+        &:focus {
+            border-color: $yellow-pybcn;
+            background-color: rgba(0, 0, 0, 0.35);
+            text-decoration: none;
+
+            .home_stat_label {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        padding-top: 2rem;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .home_lead {
+            font-size: 1.1rem;
+        }
+
+        .home_stat .home_stat_n {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+// 2. About, on the dark band of option 3, right under the hero: the text
+// at the left, the player at the right. The links in the text take the
+// yellow, the one colour that reads on the dark grey beside white.
+.home_story {
+    padding: 2.5rem 0 3rem;
+    background-color: $dark-grey;
+    color: #ffffff;
+
+    .home_story_text {
+        font-size: 1.1rem;
+
+        .home_title {
+            margin-bottom: 1rem;
+
+            h2 {
+                padding-top: 0;
+            }
+        }
+
+        a {
+            color: $yellow-pybcn;
+            text-decoration: underline;
+        }
+    }
+
+    .home_video_link {
+        margin-bottom: 0;
+        font-size: 0.95rem;
+
+        a {
+            color: #ffffff;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .home_story_text {
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+// 3. The two Meetup groups on the paper band of option 2: the logo of the
+// group at the left (the image the live block uses as background), the
+// words at the right, the whole card the link.
+.home_meetups {
+    padding: 2.5rem 0 1rem;
+    background-color: $paper;
+
+    .home_group {
+        margin-bottom: 1.5rem;
+        height: calc(100% - 1.5rem);
+
+        // The logo is the height of the card text, two lines, and no
+        // taller: it is what made the card tall before.
+        .home_group_logo {
+            flex: 0 0 5.5rem;
+            height: 3.25rem;
+            background-repeat: no-repeat;
+            // Flush with the top edge of the card, not floating in the
+            // middle of it: the two marks are drawn to sit on a line and
+            // centred they read as sliding down the card.
+            background-position: left top;
+            background-size: contain;
+        }
+
+        &.home_group_pybcn .home_group_logo {
+            background-image: url("../images/backgrounds/pybcn_cut_transparent.webp");
+        }
+
+        &.home_group_pyladies .home_group_logo {
+            background-image: url("../images/backgrounds/pyladiesbcn_head_transparent.webp");
+        }
+
+    }
+}
+
+// 4. Recent events: the table of /events/, unchanged, and the button
+// under it.
+.home_latest {
+    margin-top: 3rem;
+
+    .home_more {
+        margin-top: 1rem;
+        text-align: center;
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+// 5. The photographs. The dark band of option 1, the carousel inside the
+// container. Every slide is capped at 560px tall and the photograph is
+// letterboxed inside it with object-fit, so a portrait and a landscape
+// take the same height and the page does not jump between slides. The
+// caption is the Bootstrap caption on a dark strip, the whole strip a link
+// to the gallery of the event.
+.home_photos {
+    margin-top: 3rem;
+    padding: 2rem 0 2.5rem;
+    background-color: $dark-grey;
+
+    .home_slide {
         width: 100%;
-        margin-top: 15px;
-        padding: 10px;
-        color: $blue-pybcn;
-        background-color: white;
-        border-color: $blue-pybcn;
-        font-weight: bold;
+        height: 560px;
+        object-fit: contain;
+        background-color: #000000;
+    }
+
+    .home_caption {
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 0.75rem 1rem;
+        background-color: rgba(0, 0, 0, 0.6);
         text-align: left;
 
-        &:hover {
-            background-color: $dark-grey;
-            color: white;
-        }
+        a {
+            color: #ffffff;
+            text-decoration: none;
 
-        i {
-            margin-right: 5px;
-        }
-    }
+            .h3 {
+                font-size: 1.3rem;
+                font-weight: 600;
+            }
 
-}
-#highlights {
-
-    margin: 50px 0;
-    padding: 50px;
-    background-color: $yellow-pybcn; /* $dark-grey; */
-
-    h3 {
-        color: white;
-        text-transform: uppercase;
-    }
-
-    h4 {
-        i {
-            margin-right: 10px;
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
         }
     }
 
-    .item {
-        background-color: white;
-        padding: 10px;
-
-        .btn-primary {
-            background-color: $dark-grey;
-        }
+    .carousel-indicators {
+        bottom: -2rem;
     }
 
+    @media (max-width: 767.98px) {
+        .home_slide {
+            height: 320px;
+        }
+
+        .home_caption .h3 {
+            font-size: 1.1rem;
+        }
+    }
 }
 
-.banner {
-    color: white;
-    background-color: $blue-pybcn;
-    background-image: url("/archives/pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 5px;
-    margin-top: 50px;
-    padding: 20px;
+// 6. Take part: the boxes of option 3, two to a row, the icon at the left
+// and the yellow edge.
+.home_us {
+    margin-top: 3rem;
 
-    h1, .h1 {
+    .home_boxes {
+        padding-left: 0;
+        list-style: none;
+
+        > li {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    .home_boxes > li {
+        margin-bottom: 1rem;
+    }
+
+    .home_box {
+        border-left: 5px solid $yellow-pybcn;
+
+        i {
+            flex: 0 0 2rem;
+            margin-top: 0.2rem;
+            color: $blue-pybcn;
+            font-size: 1.6rem;
+            text-align: center;
+        }
+    }
+}
+
+// 7. Our friends: four cards on one line from xl, two by two from sm,
+// one under the other on a phone. The logo is the height of two lines at
+// the left, the name and the line under it at its right.
+.home_friends {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+
+    .home_friends_list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
         margin: 0;
-        padding-top: 10px;
-        background-color: transparent;
-    }
-}
+        padding-left: 0;
+        list-style: none;
 
-@media (max-width: 768px) {
+        @media (min-width: 576px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
-    #highlights {
-        .item {
-            margin-bottom: 20px;
+        @media (min-width: 1200px) {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 
-    #meetup_events {
-        .events_list {
-            margin-bottom: 20px;
+    // The mark: 56px square, the height of the name and the line under
+    // it. The four marks drawn are square, so the slot is too.
+    .home_friend_logo {
+        flex: 0 0 3.5rem;
+        width: 3.5rem;
+        height: 3.5rem;
+        object-fit: contain;
+    }
+
+    .home_friend .home_card_title {
+        font-size: 1.1rem;
+    }
+}
+
+
+// 7b. About us: the faces of the people who run the association, in one
+// row of circles over the ways of taking part. The home page had no link
+// to the organizers page at all.
+.home_about_us {
+    margin-bottom: 3rem;
+
+    // The faces fill the row: a grid of equal tracks, as many as fit at
+    // 64px and the room shared between them, so eleven people are eleven
+    // circles of about 94px on the container and five on a phone. A
+    // fixed 64px left a third of the line empty.
+    .home_faces {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+        gap: 0.6rem;
+        margin: 0 0 0.9rem;
+        padding-left: 0;
+        list-style: none;
+
+        li {
+            line-height: 0;
+        }
+
+        a {
+            display: block;
         }
     }
 
-}
-
-@media (max-width: 576px) {
-
-    #home_top_section {
-        margin-top: 20px;
-    }
-
-    .home_carousel {
-
+    // The circle of every other listing of people, and the same hover:
+    // the face grows a little inside its own box. The file is 96px, and
+    // 192 for a 2x screen, which covers the widest the track can get.
+    .home_face,
+    .person_placeholder {
+        display: block;
         width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
-        padding-top: 15px;
+        height: auto;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform .2s linear;
+    }
 
-        .transparent_caption {
+    a:hover .home_face,
+    a:focus .home_face,
+    a:hover .person_placeholder,
+    a:focus .person_placeholder {
+        transform: scale(1.08);
+    }
 
-            margin-bottom: -6px;
-
-            h1, .h1 {
-                font-size: 1rem;
-                line-height: 1rem;
-                padding: 8px;
-            }
-
-            a.btn {
-                font-size: 0.7rem;
-                line-height: 0.7rem;
-                padding: .275rem .65rem
-            }
-        }
-        .carousel-indicators {
-            margin-bottom: 0;
-            bottom: 6px;
-        }
+    .home_about_us_more {
+        margin: 0;
+        font-weight: 600;
     }
 }

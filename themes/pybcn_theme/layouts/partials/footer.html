@@ -1,37 +1,102 @@
-{{ block "footer" . }}
-<footer class="py-4">
+{{- /*
+    The footer of the site.
+
+    The footer, in vertical lists:
+
+      - The Association, with the capital A.
+      - Contact us is here as "Contact PyBCN", in the How we behave
+        column, and nowhere in the header.
+      - "Our Github", the organisation on GitHub. It sits in The website,
+        the one column that is
+        about the site and its sources rather than about the pages of the
+        association.
+      - The three pages that Take part links as well (Membership,
+        Organize with us, Propose a talk) are a nested list under the page
+        of the association, so the repetition reads as a sub-list and not
+        as a second set.
+      - The accounts are one line, at the right of the name of the
+        association, under the four columns.
+      - The feed and the sitemap left that line. The Follow us column is
+        The website: plain text links to the search first (the second
+        review), then the feed, the sitemap, and the GitHub organisation,
+        no glyph.
+      - The last line is the legal name of the association and its short
+        name, from config.toml, so it is "Associació Python Barcelona
+        (PyBCN)" and not the English extended_name.
+
+    The licence line names the two licences LICENSING.md states and
+    links the file, as in the other options.
+*/ -}}
+{{- $rss := "" -}}
+{{- with site.Home.OutputFormats.Get "rss" }}{{ $rss = .RelPermalink }}{{ end -}}
+{{- $columns := slice
+    (dict "title" "The Association" "items" (slice
+        (dict "path" "/pybcn_association/information" "children" (slice
+            (dict "path" "/pybcn_association/membership")
+            (dict "path" "/pybcn_association/organize-with-us")
+            (dict "path" "/pybcn_association/propose-a-talk")))
+        (dict "path" "/pybcn_association/organizers")
+        (dict "path" "/pybcn_association/sponsor-us")
+        (dict "path" "/pybcn_association/promote-your-event")
+        (dict "path" "/pybcn_association/job-offers")))
+    (dict "title" "PyLadies BCN" "items" (slice
+        (dict "path" "/pyladies_bcn/about")
+        (dict "path" "/pyladies_bcn/meetups")
+        (dict "path" "/pyladies_bcn/organizers-and-speakers")
+        (dict "path" "/pyladies_bcn/call-for-proposals")
+        (dict "path" "/pyladies_bcn/sponsors")
+        (dict "path" "/pyladies_bcn/job-offers")
+        (dict "path" "/pyladies_bcn/contact-us")))
+    (dict "title" "How we behave" "items" (slice
+        (dict "path" "/pybcn_association/coc")
+        (dict "path" "/pybcn_association/legal-notice")
+        (dict "path" "/pybcn_association/privacy-policy")
+        (dict "path" "/contact" "name" "Contact PyBCN")))
+    (dict "title" "The website" "items" (slice
+        (dict "path" "/search")
+        (dict "name" "Feed" "url" $rss)
+        (dict "name" "Sitemap" "url" ("sitemap.xml" | relURL))
+        (dict "name" "Our Github" "url" "https://github.com/pybcn" "external" true)))
+-}}
+<footer class="py-4 site_footer">
     <div class="container">
-       <div class="row">
-            <div class="col-md-8">
+        <div class="row">
+            {{- range $columns }}
+            <div class="col-sm-6 col-lg-3 site_footer_col">
+                <p class="site_footer_heading">{{ .title }}</p>
+                <ul>
+                    {{- range .items }}
+                    <li>
+                        {{- partial "footer_link.html" . -}}
+                        {{- with .children }}
+                        <ul class="site_footer_sub">
+                            {{- range . }}
+                            <li>{{ partial "footer_link.html" . }}</li>
+                            {{- end }}
+                        </ul>
+                        {{- end }}
+                    </li>
+                    {{- end }}
+                </ul>
+            </div>
+            {{- end }}
+        </div>
+        <div class="row site_footer_bottom align-items-center">
+            <div class="col-md-7">
                 {{ $logo := resources.Get "images/favicon.png" }}
                 {{ $logo = partial "image_resize.html" (dict "img" $logo "width" 60) }}
-                {{/* The footer shows the icon at 30 px wide, so 60 px covers a 2x screen. */}}
-                {{/* alt is empty on purpose: the association name is next to it in text. */}}
-                <p class="h6"><img class="logo_icon" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" loading="lazy" decoding="async" alt=""> <strong>{{ $.Site.Params.short_name }}</strong> · {{ $.Site.Params.extended_name }}</p>
+                <p class="h6 site_footer_name"><img class="logo_icon" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" loading="lazy" decoding="async" alt=""> <strong>{{ site.Params.association.legal_name }}</strong> ({{ site.Params.short_name }})</p>
             </div>
-            <div class="col-md-4 social_links">
-                {{ range $.Site.Params.social_items }}
-                    <a href="{{ .link }}" target="_blank" aria-label="{{ $.Site.Params.short_name }} on {{ .name }}" title="{{ $.Site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
+            <div class="col-md-5 social_links site_social">
+                {{ range sort site.Params.social_items "weight" }}
+                    <a href="{{ .link }}" target="_blank" aria-label="{{ site.Params.short_name }} on {{ .name }}" title="{{ site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
                 {{ end }}
-                {{/* The feed and the sitemap are pages of this site, not accounts
-                     elsewhere, so they are not in social_items and do not open a
-                     new tab. They share the icon row so they get the same size,
-                     colour, and alignment as the icons next to them. */}}
-                {{ with site.Home.OutputFormats.Get "rss" }}
-                    <a href="{{ .RelPermalink }}" aria-label="RSS feed of {{ $.Site.Params.short_name }}" title="RSS feed of {{ $.Site.Params.short_name }}"><i class="fas fa-rss fa-2x" aria-hidden="true"></i></a>
-                {{ end }}
-                <a href="{{ "sitemap.xml" | relURL }}" aria-label="Sitemap of {{ $.Site.Params.short_name }}" title="Sitemap of {{ $.Site.Params.short_name }}"><i class="fas fa-sitemap fa-2x" aria-hidden="true"></i></a>
             </div>
         </div>
-        {{/* The legal pages are resolved through site.GetPage, so a moved or
-             renamed page fails the build instead of leaving a dead link. */}}
         <div class="row">
-            <div class="col-md-12 legal_links">
-                {{ with site.GetPage "/pybcn_association/legal-notice" }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ else }}{{ errorf "footer: the legal notice page is missing" }}{{ end }}
-                ·
-                {{ with site.GetPage "/pybcn_association/privacy-policy" }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ else }}{{ errorf "footer: the privacy policy page is missing" }}{{ end }}
+            <div class="col-md-12">
+                <p class="site_licence">The code of this site is under the <a href="https://github.com/pybcn/pybcn.github.io/blob/edition/LICENSE">MIT License</a> and its text under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>; the photographs and the logos are <a href="https://github.com/pybcn/pybcn.github.io/blob/edition/LICENSING.md">not licensed</a>. <a href="https://github.com/pybcn/pybcn.github.io">Source on GitHub</a>.</p>
             </div>
         </div>
     </div>
 </footer>
-{{ end }}

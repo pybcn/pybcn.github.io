@@ -1,0 +1,35 @@
+{{- /*
+    The listing a single page belongs to, inside its heading.
+
+    Argument: the page. Prints a span, or nothing.
+
+    A reader who lands on /people/david-arcos/ from a search or a shared
+    link has no way back to the list the page came from: the navigation
+    names the sections, but nothing on the page says this one is a person
+    and there are 370 more. The three archive listings are the parents:
+    /people/, /talks/, and /events/.
+
+    It sits inside the h1 and reads "People:" and then the name of the
+    person. The separator is a colon and not the angle
+    quote it was: with the trail at the size of the heading, "People >
+    the name" read as two headings with a character between them
+    (2026-10-16). It was a separate nav above the h1 first, which is the
+    textbook breadcrumb and keeps the heading to the name of the page, and
+    it looked wrong: the h1 is a full width blue band and the trail sat on
+    the white above it, attached to nothing.
+
+    The mark is aria-hidden, so the heading is announced as "People" and then the name, and not with the name of the
+    character.
+*/ -}}
+{{- $parents := dict "people" "/people/" "talks" "/talks/" "events" "/events/" -}}
+{{- /* A filter page of a listing prints no trail: its heading is the name
+       of the filter and the tabs under it lead back to the whole listing,
+       so "Talks: Workshops" would say the section twice and "Talks: Talks"
+       would stutter. */ -}}
+{{- if and (eq .Kind "page") (not .Params.filter) -}}
+    {{- with index $parents .Section -}}
+        {{- with site.GetPage . -}}
+<span class="page_parent" data-pagefind-ignore><a href="{{ .RelPermalink }}">{{ .Title }}</a><span class="page_parent_mark" aria-hidden="true">: </span></span>
+        {{- end -}}
+    {{- end -}}
+{{- end -}}

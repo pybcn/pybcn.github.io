@@ -1,9 +1,66 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="theme-color" content="#0070b0">
+{{- /*
+    The site is drawn for a light background and has no dark theme. A page
+    that says nothing about the schemes it supports is one that Chromium on
+    Android, and Brave with it, may darken by itself: it inverts the
+    backgrounds and leaves the artwork alone, so the white card of a
+    sponsor turns dark grey under a logo that is black on a transparent
+    background. 21 Buttons and Back Market read as empty boxes that way.
 
-{{ template "_internal/opengraph.html" . }}
-{{ template "_internal/twitter_cards.html" . }}
+    "only light" is the way to say that this page is light and is not to be
+    converted. It is not a refusal of dark mode: it is the truth until the
+    site has one, and the day it does this line changes to "light dark".
+*/ -}}
+<meta name="color-scheme" content="only light">
+
+{{- /*
+    The card a link to this page shows when it is shared.
+
+    Written here and not with _internal/opengraph.html, which this replaced,
+    for two reasons. A person record carries name and not title, so every
+    one of the 373 person pages shared as "PyBCN - The Barcelona Python
+    Association" instead of the name of the person. And the internal
+    template reads .Params.images, which no page of this site sets, so no
+    URL of the site ever showed a picture: the card was the small grey box
+    with the title in it.
+
+    The picture comes from partials/social_image.html, which prefers the
+    photograph of the person, the photograph of the talk, or the hero of
+    the event, in that order. A page with none of them falls back to the
+    logo of the association, so the card is never empty.
+*/ -}}
+{{- $title := or .Params.name .Title site.Title -}}
+{{- $description := or .Description .Summary site.Params.description -}}
+{{- $social := partial "social_image.html" . -}}
+{{- $card := "summary" -}}
+{{- $image := "" -}}
+{{- $alt := site.Title -}}
+{{- with $social.url -}}
+    {{- $image = . -}}
+    {{- $card = $social.card -}}
+    {{- $alt = $social.alt | default site.Title -}}
+{{- else -}}
+    {{- with resources.Get "images/logo.png" -}}
+        {{- $image = (.Fill "1200x630 png Center").Permalink -}}
+    {{- end -}}
+{{- end -}}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ $title }}">
+{{ with $description }}<meta property="og:description" content="{{ . | plainify | truncate 300 }}">{{ end }}
+<meta property="og:type" content="{{ cond (eq .Kind "page") "article" "website" }}">
+<meta property="og:locale" content="en_US">
+{{ with $image }}<meta property="og:image" content="{{ . }}">
+<meta property="og:image:alt" content="{{ $alt }}">{{ end }}
+{{ with $social.width }}<meta property="og:image:width" content="{{ . }}">
+<meta property="og:image:height" content="{{ $social.height }}">{{ end }}
+<meta name="twitter:card" content="{{ $card }}">
+<meta name="twitter:title" content="{{ $title }}">
+{{ with $description }}<meta name="twitter:description" content="{{ . | plainify | truncate 200 }}">{{ end }}
+{{ with $image }}<meta name="twitter:image" content="{{ . }}">
+<meta name="twitter:image:alt" content="{{ $alt }}">{{ end }}
 
 {{- with .Site.Params.google_verify_meta -}}
 <meta name="google-site-verification" content="{{ . }}" />

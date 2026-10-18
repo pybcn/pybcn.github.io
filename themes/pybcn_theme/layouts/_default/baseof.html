@@ -7,7 +7,13 @@
         {{ end }}
     </head>
 
-    <body class="scrollspy-area" data-spy="scroll" data-target="#index_sections" data-offset="180">
+{{- /* The offset of the scrollspy of an edition page (its side index,
+           #index_sections): a block is the current one once its top is
+           260px under the top of the window. It was 180 while every block
+           started 80px above its own first line (the padding trick of
+           .link_anchor, gone on 2026-10-17 for scroll-margin-top), so 260
+           is the same moment as before. */ -}}
+    <body class="scrollspy-area" data-spy="scroll" data-target="#index_sections" data-offset="260">
 
         <a class="skip_link" href="#main_content">Skip to main content</a>
 
@@ -16,7 +22,11 @@
         </header>
 
         <main id="main_content" tabindex="-1">
-	    {{ partial "hero_header.html" . }}
+	    {{- /* The heading of the page, unless the page draws its own: the
+	           home page is the one, and its h1 is inside its first block.
+	           See partials/hero_header.html, which was a band with a
+	           photograph behind it until 2026-10-17. */ -}}
+	    {{ if not .Params.no_page_heading }}{{ partial "hero_header.html" . }}{{ end }}
             {{ block "main" . }}
                 <!-- The part of the page that begins to differ between templates -->
             {{ end }}

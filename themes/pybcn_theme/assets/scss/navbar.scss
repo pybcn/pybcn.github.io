@@ -79,3 +79,11 @@
         @include transition(0.4s);
     }
 }
+
+
+// The navigation bar: title case, not capitals. The live rule is
+// `#mainNav li a { text-transform: uppercase }`, so this one has to be at
+// least as specific.
+#mainNav.site_nav li a {
+    text-transform: none;
+}

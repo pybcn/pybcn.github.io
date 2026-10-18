@@ -5,45 +5,69 @@
     it to the banner shape and converts it to WebP. A remote heroBackground
     is used as it is, because Hugo cannot process a remote file.
 */ -}}
-{{ if .Params.carousel_header }}
-    {{/* The carousel takes the place of the hero, so the page heading is
-         only for assistive technology. */}}
-    <h1 class="sr-only">{{ or .Params.name .Title }}</h1>
-    {{ partial "carousel.html" . }}
-{{ else }}
-    {{ if .Params.heroBackground }}
-{{- $background := .Params.heroBackground -}}
-{{- $url := $background | relURL -}}
-{{- if hasPrefix $background "/" -}}
-    {{- with resources.Get (strings.TrimPrefix "/" $background) -}}
-        {{- $url = (partial "image_hero.html" (dict "img" .)).RelPermalink -}}
-    {{- end -}}
-{{- end -}}
-<div id="hero" class="hero-image hero-image-setheight" style="background-image: url('{{ $url }}')">
-  <div class="container ">
-    <div class="hero-text">
-      <h1>{{ .Params.title }}</h1>
-      <p>{{ .Params.description }}</p>
-    </div>
-  </div>
-</div>
-    {{ else }}
+{{- /* The search. On a page the site search indexes, the h1 is part of
+       what is searched and carries the kind of the page:
+
+           <h1 data-pagefind-body data-pagefind-meta="kind:talk" data-pagefind-filter="kind:talk">
+
+       Pagefind indexes only the elements marked data-pagefind-body, and
+       the h1 is one of them on an indexed page, because Pagefind weighs a
+       word in an h1 seven times a word of the body: a person page is its
+       name and little else, and this is what ranks it above the talks
+       that credit the name. The rest of the record is marked in the
+       layout of each kind (layouts/talks/single.html,
+       layouts/_default/meetup.html and event.html,
+       partials/person_appearances.html, partials/photo_gallery.html), and
+       Pagefind merges every marked element of a page into one record.
+
+       The kind is written on the h1 and nowhere else: a meta key takes one
+       value per page, and every indexed page has exactly one h1, so this
+       is the one element every kind shares. The meta is what a result
+       shows as its label; the filter is what the kind selector of /search/
+       passes. The h1 is also what Pagefind reads as the title of the
+       result, with no attribute: it takes the first h1 of the page.
+       partials/search_kind.html is the one place that says which pages
+       are indexed. The attributes are written inline on both h1 tags
+       below and not returned by a partial: html/template refuses a string
+       inside a tag and prints ZgotmplZ in its place, which is what a
+       partial that returned them produced. */ -}}
+{{- $search_kind := partial "search_kind.html" . -}}
+{{- /* The heading of the page: one h1, in the column, with nothing
+       behind it.
+
+       What was here until 2026-10-17: a band the height of a third of the
+       screen with a photograph behind it, and on the home page a carousel
+       in its place. The photographs said
+       nothing about the page they stood over (thirteen events shared
+       seven of them, the association pages borrowed a PyDay), the band
+       pushed the first line of every page below the fold, and the pages
+       of the archive and the new home page were already drawing their own
+       heading.
+
+       A page with no_page_heading draws its own h1 and is not given one:
+       baseof.html does not call this partial for it. The home page is
+       the one.
+
+       Everything the h1 carried stays: the search attributes, the trail
+       of the listing it belongs to, the total of a listing, and the lang
+       of a title that is not in English. */ -}}
 {{- /* A page whose own title is not in English carries title_lang, and the
        h1 then gets a lang attribute, so a screen reader reads it with the
        right voice (WCAG 3.1.2 Language of Parts). The talk pages are what
        set it: 22 of the 607 titles of the archive are in Spanish or
-       Catalan. partials/title_lang.html is the same partial the agenda
-       grid and the modal of a session read for the same reason, and it
-       takes the field and the title, so a page passes its params rather
-       than itself. A page with no title_lang gets the h1 it had. */ -}}
+       Catalan. */ -}}
 {{- $title := or .Params.name .Title -}}
 {{- $title_lang := partial "title_lang.html" (dict "title_lang" .Params.title_lang "title" $title) -}}
 {{- /* The three listings of the archive carry their total in the h1,
        "Events (281)", counted from the pages this build holds by
        partials/listing_total.html, so the heading says how long the list
-       under it is and cannot say a number the rows do not add up to. Any
-       other page gets the h1 it had. */ -}}
+       under it is and cannot say a number the rows do not add up to. A
+       title that already ends in a parenthesis takes no second one. */ -}}
 {{- $total := partial "listing_total.html" . -}}
-<h1{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $title }}{{ with $total }} ({{ . }}){{ end }}</h1>
-    {{ end }}
-{{ end }}
+{{- if hasSuffix $title ")" }}{{ $total = 0 }}{{ end -}}
+<div class="container page_heading">
+    <h1{{ with $title_lang }} lang="{{ . }}"{{ end }}{{ with $search_kind }} data-pagefind-body data-pagefind-meta="kind:{{ . }}" data-pagefind-filter="kind:{{ . }}"{{ end }}>{{ partial "page_parent.html" . }}{{ $title }}{{ with $total }} ({{ . }}){{ end }}</h1>
+    {{- with .Params.description }}
+    <p class="page_heading_text">{{ . }}</p>
+    {{- end }}
+</div>
