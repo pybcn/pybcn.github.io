@@ -38,4 +38,19 @@ talks:
     language: es
     duration_minutes: 40
     description: "El uso de terminal y herramientas CLI es un mundo a veces desconocido y/o temido por algunos por tener una curva de aprendizaje más pronunciada que las herramientas gráficas, GUI. En esta charla se intentará explicar las ventajas de dominar el uso del terminal y del shell para ser más productivo."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/976884974145146881"
+  items:
+    - file: 2018-03-22-python-march-meetup/01-we-are-starting-our-meetup-at-the-travelperk-offic.webp
+      caption: "We are starting our meetup at the @travelperk offices with @toniher"
+      source: "https://x.com/PyBCN/status/976884974145146881"
+      time: "19:15"
+    - file: 2018-03-22-python-march-meetup/02-our-last-talk-today-by-edu2b.webp
+      caption: "Our last talk today, by @edu2b"
+      source: "https://x.com/PyBCN/status/976893710029000705"
+      time: "19:49"
 ---

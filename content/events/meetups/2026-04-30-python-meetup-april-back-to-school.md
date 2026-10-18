@@ -38,4 +38,15 @@ talks:
     language: en
     duration_minutes: 30
     description: "Apache Arrow and Apache Parquet are the de-facto standards for in-memory and file formats for columnar data. We use them on our data workflows daily, sometimes even without noticing. This talk will demystify these formats by going over the specifications and showing some real world examples of how the data actually looks on our systems."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/2049893503522554254"
+  items:
+    - file: 2026-04-30-python-meetup-april-back-to-school/01-first-talk-spec-driven-development-by-sergei-marty.webp
+      caption: "First talk \"Spec Driven Development\" by Sergei Martynov at @UniBarcelona"
+      source: "https://x.com/PyBCN/status/2049893503522554254"
+      time: "18:47"
 ---

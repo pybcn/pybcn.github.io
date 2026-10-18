@@ -38,4 +38,23 @@ talks:
     language: en
     duration_minutes: 20
     description: "JAX is an Open Source Python library created by Google and already adopted by DeepMind. JAX supports automatic differentiation and employs XLA, resulting in faster numerical computing than Numpy."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1595834308610379776"
+  items:
+    - file: 2022-11-24-python-november-meetup-jax-vs-numpy-microservices-and/01-today-we-are-enjoying-the-hospitality-of-thisisclo.webp
+      caption: "Today we are enjoying the hospitality of @ThisisCloudBlue for our monthly meetup"
+      source: "https://x.com/PyBCN/status/1595834308610379776"
+      time: "18:38"
+    - file: 2022-11-24-python-november-meetup-jax-vs-numpy-microservices-and/02-first-talk-we-have-ferran-jimenez-talking-about-ja.webp
+      caption: "First talk! We have Ferran Jimenez talking about JAX"
+      source: "https://x.com/PyBCN/status/1595836332068065280"
+      time: "18:46"
+    - file: 2022-11-24-python-november-meetup-jax-vs-numpy-microservices-and/03-and-now-we-have-pavel-lonkin-from-thisiscloudblue.webp
+      caption: "And now we have @pavel_lonkin from @ThisisCloudBlue"
+      source: "https://x.com/PyBCN/status/1595843153038229504"
+      time: "19:13"
 ---

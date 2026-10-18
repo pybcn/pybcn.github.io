@@ -31,4 +31,15 @@ talks:
     links:
       - type: site
         url: "https://en.wikipedia.org/wiki/Berkeley_sockets"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/832999756796461057"
+  items:
+    - file: 2017-02-18-february-dojo-understanding-sockets/01-session-about-sockets-by-jaume-mila-at-pybcn-febru.webp
+      caption: "Session about sockets by Jaume Mila at @pybcn February dojo"
+      source: "https://x.com/PyBCN/status/832999756796461057"
+      time: "18:06"
 ---

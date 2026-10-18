@@ -18,8 +18,7 @@
         Videos (N)   the video of each talk that has one, played here
         About this page   how the page is made and how to ask for a change
 
-    The order is the one David Arcos set on 2026-10-15: Bio, the social
-    links, Roles, Events, Photos, Videos. The Bio and the social links sit
+    The order is Bio, the social links, Roles, Events, Photos, Videos. The Bio and the social links sit
     beside the portrait, each under its heading, each only when the
     person has it. Every heading over a list of things carries the count.
 
@@ -63,14 +62,14 @@
     the only route (the GDPR right to rectification, and CONTRIBUTING.md
     already says a speaker edits their own file). The email is the
     association contact of config.toml. It was headed "Correct this page"
-    and read as a notice; David Arcos asked for plain words (2026-10-15).
+    and read as a notice, so it is plain words now.
 
     Why a page per person. The person files built no page from #202 until
     the Archive (see the cascade in config.toml, which has the history),
     because a page was a heading with nothing under it and nothing linked
     to it. Now 371 of the 377 records are credited by a talk or by a page
-    block, and David Arcos decided for a page with a URL per person, the
-    way the site has a page per event and a page per talk. The speaker
+    block, and each person has a page with a URL of its own, the way the
+    site has a page per event and a page per talk. The speaker
     name of every talk row of /talks/ links here through
     partials/person_page_link.html, and the row of /people/ does too.
 
@@ -87,9 +86,9 @@
     record, and then the social links under a "Social links" heading, as
     the mark of the host and the handle (partials/person_links.html). The
     header carried the sentence of the row of /people/ under the links,
-    "Permanent Committee, Organizer, Speaker, Mentor at 14 events"; David
-    Arcos asked for it gone from the header and for the Events heading to
-    carry it (2026-10-15), which partials/person_appearances.html does.
+    "Permanent Committee, Organizer, Speaker, Mentor at 14 events". It is
+    out of the header, and the Events heading carries it through
+    partials/person_appearances.html.
     The card of the header, "10 talks" and "14 events (2013 - 2025)", went
     earlier with the card of the row: the years were a tombstone, and the
     counts are on the headings now.
@@ -115,7 +114,7 @@
     the Photos block, and the Videos block. The Talks list this page had
     is gone: a talk is something the person did at an event, so it is a
     row of the Events table, and a list above the table said the same
-    thing twice (David Arcos, 2026-10-15).
+    thing twice.
 
     The outline is h1, h2 with no level skipped: the hero prints the h1
     and each block is an h2, which bin/check-rendered checks on every
@@ -257,8 +256,7 @@
                    layouts/index.llms.txt prints. The link carries the
                    GitHub mark of partials/link_mark.html like every other
                    link that leaves the site: it was the one external link
-                   with words and no mark on 373 pages (David Arcos,
-                   2026-10-15). */ -}}
+                   with words and no mark on 373 pages. */ -}}
             {{- with .File }}
             <section class="person_block person_correction" aria-labelledby="correction_heading">
                 <h2 id="correction_heading">About this page</h2>
