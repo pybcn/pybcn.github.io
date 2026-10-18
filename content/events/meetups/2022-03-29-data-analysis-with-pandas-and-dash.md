@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: Data Analysis with Pandas and Dash
+title: "PyLadies BCN Workshop, March 2022"
 date: 2022-03-29
 year: 2022
 venue: Canòdrom - Ateneu d'Innovació Digital i Democràtica

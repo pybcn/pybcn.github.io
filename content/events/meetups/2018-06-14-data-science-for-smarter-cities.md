@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Data science for smarter cities"
+title: "PyLadies BCN Workshop, June 2018"
 date: 2018-06-14
 year: 2018
 venue: "Worldsensing"

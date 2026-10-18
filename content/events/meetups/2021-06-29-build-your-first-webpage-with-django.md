@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Build your first webpage with Django"
+title: "PyLadies BCN Workshop, June 2021"
 date: 2021-06-29
 year: 2021
 # The export records this event as ONLINE, so it had no room.

@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Python for technical interviews. Tips & tricks"
+title: "PyLadies BCN Workshop, September 2022"
 date: 2022-09-28
 year: 2022
 venue: "Happy Scribe - Servicios de transcripcion"

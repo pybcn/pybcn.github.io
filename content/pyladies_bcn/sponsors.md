@@ -13,4 +13,4 @@ sponsor_levels:
       sponsors: [backmarket, canodrom, codeop, digitalfems, europython_society, holaluz, kiwi, letgo, marfeel, mundimoto, orpheus, psf, rover, tecnologas, travelperk, verse, ub, upf]
 ---
 
-Lorem ipsum
+These organizations have sponsored a PyLadies BCN activity: a workshop, a meetup, or the PyLadies track of a PyDay BCN. The whole list of the association is on the [Sponsors](/sponsors/) page.

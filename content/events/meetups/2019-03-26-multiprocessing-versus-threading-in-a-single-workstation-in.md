@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Multiprocessing versus threading in a single workstation in Python 2.x"
+title: "PyLadies BCN Workshop, March 2019"
 date: 2019-03-26
 year: 2019
 venue: "Universitat de Barcelona"

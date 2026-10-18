@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: Introduction to Computer Vision
+title: "PyLadies BCN Workshop, September 2018"
 date: 2018-09-25
 year: 2018
 venue: Kiwi.com

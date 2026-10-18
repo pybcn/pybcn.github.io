@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: Data, APIs & intro to web scraping
+title: "PyLadies BCN Workshop, February 2019"
 date: 2019-02-26
 year: 2019
 venue: Codely at Spaces22@ coworking, Carrer Pallars 193.

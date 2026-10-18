@@ -38,6 +38,6 @@ talks:
     type: talk
   - id: the-basics-and-customization-of-the-satchmo-project-remarks
     title: "The basics and customization of the Satchmo project: Remarks and Personal Experience"
-    speakers: [juan-gonzalez-vallinas]
+    speakers: [juan-ramon-gonzalez-vallinas]
     type: talk
 ---

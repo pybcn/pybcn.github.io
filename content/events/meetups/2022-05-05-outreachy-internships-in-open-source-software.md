@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Outreachy: internships in open source software"
+title: "PyLadies BCN Workshop, May 2022"
 date: 2022-05-05
 year: 2022
 venue: "Canòdrom - Ateneu d'Innovació Digital i Democràtica"

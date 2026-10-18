@@ -56,14 +56,14 @@ All the work groups must follow some rules:
 * [Internal Regulations](https://docs.google.com/document/d/1xd36jkdcT3s3zGjNrSMnGuuk5xgodAos2fLDyJMLE30/edit?usp=sharing)
 * [Code of Conduct](/pybcn_association/coc/)
 * [Founding Act](https://docs.google.com/document/d/1_fTbgT-Bw25aaGLb9O9vCMi1Gkxhb3FiY-S7yeZLq6k/edit?usp=sharing)
-* [Assamblea General Ordinària 2019](https://docs.google.com/document/d/1mJuuoymGJe4ayO5y08yN0bHBSqrPPyRZW2QLQSXXuYg/edit?usp=sharing)
-* [Assamblea General Ordinària 2020](https://docs.google.com/document/d/1yLR9p_vDKZPs0NlVMaKtrBMooqHdDyY0Lk5cPmcGs5I/edit?usp=sharing)
-* [Assamblea General Ordinària 2021](https://docs.google.com/document/d/1Qi0efxdC7T2bk2oVT2z6tTrrJ3UONwCK3Vnf3cL4KFA/edit?usp=sharing)
-* [Assamblea General Ordinària 2022](https://docs.google.com/document/d/13xiLuUGIzT8kyZWGTkA6T-dbUO7Y_Z6hlUjakkwlSGM/edit?usp=sharing)
-* [Assamblea General Ordinària 2023](https://docs.google.com/document/d/1CnJzGjz7COsc-45w5tEVu5gpDBv1mUozFh4eGXw8-GU/edit?usp=sharing)
-* [Assamblea General Ordinària 2024](https://docs.google.com/document/d/1IDYEQvStyM8YxQHIcmZbfE0SYePDGDavHssz3CG3d1E/edit?usp=share_link)
-* [Assamblea Extraordinària 2025](https://docs.google.com/document/d/12BHpSCe7yOdgdm7JiuzKxT_RNKyxHN18R9p0_1rCWl4/edit?usp=share_link)
-* [Assamblea General Ordinària 2026](https://docs.google.com/document/d/1Yx_4OMf3TkUDrI4MT3FD4NWm0y-3mSh32krX5F1RqMY/edit?usp=sharing)
+
+## Assemblies
+
+Once a year the association meets its members, renders its accounts, and
+writes down what was agreed. The minutes are below, newest first, with the
+photograph of the day where the association published one.
+
+{{< assemblies >}}
 
 ## Past Management Boards 
 * Management Board 2018 - 2025

@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Testing & Test-driven development (TDD) in Python"
+title: "PyLadies BCN Workshop, May 2015"
 date: 2015-05-14
 year: 2015
 venue: "UPF, Campus de la Comunicación - Poblenou"

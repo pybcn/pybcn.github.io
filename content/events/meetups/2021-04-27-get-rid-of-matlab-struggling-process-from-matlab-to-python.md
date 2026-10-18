@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Get rid of Matlab! (struggling process from Matlab to Python)"
+title: "PyLadies BCN Workshop, April 2021"
 date: 2021-04-27
 year: 2021
 # The export records this event as ONLINE, so it had no room.

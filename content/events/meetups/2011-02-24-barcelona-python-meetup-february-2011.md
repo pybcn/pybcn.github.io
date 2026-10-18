@@ -36,7 +36,7 @@ talks:
     duration_minutes: 15
   - id: statistics-and-plotting-with-python
     title: "Statistics and Plotting with Python"
-    speakers: [juan-gonzalez-vallinas]
+    speakers: [juan-ramon-gonzalez-vallinas]
     type: talk
     duration_minutes: 30
 ---

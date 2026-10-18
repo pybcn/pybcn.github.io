@@ -31,7 +31,7 @@ talks:
     duration_minutes: 40
   - id: python-for-data-analysis
     title: "Python for Data Analysis"
-    speakers: [juan-gonzales-vallinas]
+    speakers: [juan-ramon-gonzalez-vallinas]
     type: talk
     duration_minutes: 40
   - id: machine-learning-with-scikit-learn
@@ -39,4 +39,30 @@ talks:
     speakers: [christopher-bonnett]
     type: talk
     duration_minutes: 30
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/601436263019782144"
+  items:
+    - file: 2015-05-21-python-may-meetup/04-empezando-el-barcelona-python-meetup-de-mayo-pybcn.webp
+      caption: "Empezando el Barcelona Python Meetup de Mayo #pybcn"
+      source: "https://x.com/PyBCN/status/601435871280177152"
+      time: "19:14"
+    - file: 2015-05-21-python-may-meetup/01-python-decorators-by-guillermo-blasco-theblackboxi.webp
+      caption: "Python Decorators, by Guillermo Blasco (@theblackboxio) #pybcn"
+      source: "https://x.com/PyBCN/status/601436263019782144"
+      time: "19:15"
+      talk: python-decorators
+    - file: 2015-05-21-python-may-meetup/02-python-for-data-analysis-by-juan-gonzales-vallinas.webp
+      caption: "Python for Data Analysis, by Juan Gonzales-Vallinas #pybcn"
+      source: "https://x.com/PyBCN/status/601447469210214401"
+      time: "20:00"
+      talk: python-for-data-analysis
+    - file: 2015-05-21-python-may-meetup/03-machine-learning-with-scikit-learn-by-christopher.webp
+      caption: "Machine Learning with scikit-learn, by Christopher Bonnett (@cbonnett) #pybcn"
+      source: "https://x.com/PyBCN/status/601453857508438016"
+      time: "20:25"
+      talk: machine-learning-with-scikit-learn
 ---

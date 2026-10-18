@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: Introduction to Relational Databases with SQL and Python
+title: "PyLadies BCN Workshop, September 2019"
 date: 2019-09-30
 year: 2019
 venue: TravelPerk

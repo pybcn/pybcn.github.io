@@ -217,6 +217,12 @@ agenda:
 # A photo carries a talk only when its caption names that talk. The eight
 # that do are the eight sessions of the programme above, each announced as
 # it started. The other eight are the room, the welcome slides, and lunch.
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+canonical_photo: pyday-2018/03-full-room-the-100-tickets-were-over-in-less-than-t.jpg
+
 photos:
   date: 2018-11-24
   thread: "https://x.com/PyBCN/status/1066253610957324288"
@@ -296,6 +302,21 @@ photos:
 
 # The index of sections in the sidebar, like every other edition.
 layout: event
+
+# The sponsors of the day, with the two levels the site of 2018 published,
+# static/archives/pybcn.org/pyday-bcn-2018/. The page used to carry them as
+# the HTML of that frozen page pasted into its body: six img tags straight
+# from the archive, each with its own height written in a style attribute,
+# 150px for one logo and 80px for another. They read as a row of mismatched
+# pictures next to the cards of every other edition. As levels they go through partials/sponsors-grid.html and
+# take the same card as the rest.
+sponsor_levels:
+  - sponsors_per_line: 2
+    sponsors: [kiwi, onna]
+    name: Platinum
+  - sponsors_per_line: 4
+    sponsors: [kernel-analytics, travelperk, kschool, psf]
+    name: Gold
 ---
 <p>
 We are excited and glad to announce that we are organizing the second edition of PyDay in Barcelona!
@@ -496,12 +517,3 @@ Get the <a href="https://github.com/giffy" target="_blank">workshop materials</a
 <li>scikit-learn</li>
 <li>spacy (with Spanish model installed)</li>
 </ul>
-<h2>Sponsors</h2>
-<h2 class="h3">Platinum</h2>
-<p><img src="/archives/pybcn.org/pyday-bcn-2018/kiwicom.png" style="height: 150px; margin-right: 20px;" alt="Kiwicom logo">
-<img src="/archives/pybcn.org/pyday-bcn-2018/onna.png" style="height: 140px" alt="Onna logo"></p>
-<h2 class="h3">Gold</h2>
-<p><img src="/archives/pybcn.org/pyday-bcn-2018/kernel_analytics.png" height="80" style="margin-right: 20px; height: 80px; margin-bottom: 10px;" alt="Kernel Analytics logo">
-<img src="/archives/pybcn.org/pyday-bcn-2018/travelperk.png" style="height: 80px" alt="TravelPerk logo">
-<img src="/archives/pybcn.org/pyday-bcn-2018/kschool.png" style="height: 80px; margin-right: 20px" alt="KSchool logo">
-<img src="/archives/pybcn.org/pyday-bcn-2018/psf.png" style="height: 80px" alt="Python Software Foundation logo"></p>

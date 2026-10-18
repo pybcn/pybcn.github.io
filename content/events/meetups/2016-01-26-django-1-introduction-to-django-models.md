@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Django 1: Introduction to Django Models"
+title: "PyLadies BCN Workshop, January 2016"
 date: 2016-01-26
 year: 2016
 venue: "UPF, Campus de la Comunicación - Poblenou"

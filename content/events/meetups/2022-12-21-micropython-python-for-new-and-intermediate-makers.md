@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: 'Micropython: Python for new and intermediate makers'
+title: "PyLadies BCN Workshop, December 2022"
 date: 2022-12-21
 year: 2022
 venue: Canòdrom - Ateneu d'Innovació Digital i Democràtica
