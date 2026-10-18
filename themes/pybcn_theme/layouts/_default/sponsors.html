@@ -1,5 +1,36 @@
 {{ define "main" }}
 
-{{ partial "sponsors-grid.html" (dict "levels" .Params.sponsor_levels "Site" .Site)}}
+{{- /*
+    A grid of sponsor logos.
+
+    A page that declares sponsor_levels gets exactly those, in those levels:
+    that is content/pyladies_bcn/sponsors.md, which lists the sponsors of
+    PyLadies BCN, and every edition page.
+
+    A page that declares none gets every sponsor the site holds a record of,
+    sorted by name, 4 to the line. That is /sponsors/, which used to carry
+    the list by hand in its own front matter and had drifted: 25 sponsors
+    were on their edition page and not there, among them 8 of the 12 of
+    PyDay 2025, 15 of PyDay 2024, and 2 of PyDay 2023. Reading
+    content/sponsors/ means a new sponsor reaches the page by existing.
+
+    The list comes from partials/sponsor_ids.html, which is also what
+    partials/listing_total.html counts for the h1.
+*/ -}}
+{{- $levels := .Params.sponsor_levels -}}
+{{- if not $levels -}}
+    {{- /* No sponsors_per_line: the grid fits as many cards on a line as
+           the window allows. A number here would cap it, which is what a
+           named level of an edition page wants and this page does not. */ -}}
+    {{- $levels = slice (dict "sponsors" (partial "sponsor_ids.html" site)) -}}
+{{- end -}}
+
+{{- /* The body of the page, above the grid. It says what the grid is a list
+       of, which the logos cannot say by themselves: every one of them
+       supported an event of ours at some point, and none of them is a
+       current sponsor by being here. */ -}}
+{{ with .Content }}<div class="container sponsors_intro">{{ . }}</div>{{ end }}
+
+{{ partial "sponsors-grid.html" (dict "levels" $levels "Site" .Site) }}
 
 {{ end }}

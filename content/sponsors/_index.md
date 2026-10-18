@@ -6,53 +6,10 @@ weight: 5
 
 layout: "sponsors"
 heroBackground: /images/photos/sponsors-area-pyday-2019.jpg
-sponsor_levels:
-- sponsors_per_line: 4
-  sponsors:
-  - 21buttons
-  - backmarket
-  - bitphy
-  - bling
-  - bmat
-  - canodrom
-  - casadelmig
-  - cloudblue
-  - codelytv
-  - colorsensing
-  - digitalfems
-  - edgetier
-  - europython_society
-  - gesco
-  - holaluz
-  - hybridtheory
-  - iomed
-  - kiwi
-  - letgo
-  - marfeel
-  - mundimoto
-  - onna
-  - orpheus
-  - preply
-  - psf
-  - qida
-  - qustodio
-  - rover
-  - satellogic
-  - skyscanner
-  - tecnologas
-  - travelperk
-  - typeform
-  - ub
-  - upf
-  - verse
-  - veriff
-  - apsl
-  - coopdevs
-  - somenergia
-  - jobfluent
-  - pythones
-  - aimsun
-  - nuclia
-  - shimoku
-  - rakuten
 ---
+
+Every organization on this page has sponsored an event of ours at some point since 2007: a PyDay BCN, a PyDataBCN, a PyLadies BCN workshop, or a monthly meetup. Some gave money, some gave a room, some gave both. None of them is a current sponsor by being here, and the page is a thank you and not an endorsement.
+
+Thanks to all of them. Python Barcelona is possible thanks to the sponsors, and the best ones brought pizza 🍕 and beers 🍺.
+
+The sponsors of one edition, with their levels, are on the page of that edition.

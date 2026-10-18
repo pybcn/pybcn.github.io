@@ -1,0 +1,28 @@
+{{- /*
+    Every sponsor the site holds a record of, sorted by name.
+
+    Argument: the site. Returns a slice of ids.
+
+    Two callers read it and they have to agree: _default/sponsors.html
+    draws the grid from it, and partials/listing_total.html puts its length
+    in the h1. A heading that says a number the rows below do not add up to
+    is worse than no number, which is the rule the three listings of the
+    archive already follow.
+
+    The two association accounts are left out. They appear on an edition
+    page under the Organizers level, which is what they are: both of them
+    are us, and we did not sponsor ourselves.
+*/ -}}
+{{- $exclude := slice "pybcn" "pyladiesbcn" -}}
+{{- $keyed := slice -}}
+{{- range where .RegularPages "Section" "sponsors" -}}
+    {{- $id := .Params.id -}}
+    {{- if and $id (not (in $exclude $id)) -}}
+        {{- $keyed = $keyed | append (dict "key" (lower (.Params.name | default $id)) "id" $id) -}}
+    {{- end -}}
+{{- end -}}
+{{- $ids := slice -}}
+{{- range sort $keyed "key" -}}
+    {{- $ids = $ids | append .id -}}
+{{- end -}}
+{{- return $ids -}}
