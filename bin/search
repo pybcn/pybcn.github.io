@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# Build the search index of a built site with Pagefind.
+#
+#   bin/search <built-dir>      e.g. bin/search public
+#
+# Pagefind reads the pages Hugo wrote and writes <built-dir>/pagefind/: the
+# engine (pagefind.js and the WebAssembly), the metadata, the word index in
+# alphabetical chunks, one fragment per page, and the filter values. Run it
+# after Hugo, never before: it indexes what is on disk. CI runs it right
+# after "hugo --minify" (.github/workflows/pr.yml and gh-pages.yml).
+#
+# Only the pages under events/, talks/ and people/ are read. The frozen
+# mirrors under archives/ are copies of retired sites and would add 56 old
+# pages of dead links to the index; the association pages, the PyLadies
+# pages and the home are out of this first version. Within the pages read,
+# only the elements marked data-pagefind-body are indexed (the record of
+# each talk, event and person, and the photo captions), which is what
+# keeps the index near 400 KB instead of the 1.5 MB that whole pages would
+# make. The decision and the figures: the proposal of 2026-10-16.
+#
+# The dev server (bin/serve) runs no Pagefind, so /search/ says there that
+# the search is not available. To try it locally:
+#
+#   bin/hugo --minify -d public && bin/search public
+#
+# then serve public/ with any static server (Hugo's server rebuilds from
+# the sources and would not carry the index).
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+PAGEFIND_BIN="${ROOT}/bin/pagefind"
+
+if [ $# -ne 1 ]; then
+  echo "Usage: bin/search <built-dir>" >&2
+  exit 2
+fi
+SITE=$1
+
+if [ ! -d "${SITE}" ] || [ -z "$(find "${SITE}" -maxdepth 2 -name '*.html' -print -quit)" ]; then
+  echo "bin/search: ${SITE} holds no built site. Build first: bin/hugo --minify -d ${SITE}" >&2
+  exit 2
+fi
+
+if [ ! -x "${PAGEFIND_BIN}" ]; then
+  echo "bin/search: bin/pagefind is missing. Run bin/install-pagefind." >&2
+  exit 1
+fi
+
+"${PAGEFIND_BIN}" --site "${SITE}" --glob "{events,talks,people}/**/*.html"
+
+# Pagefind writes its three ready-made interfaces and a highlight script
+# next to the index, 527 KB in nine files measured on 1.5.2, and this site
+# uses none of them: assets/js/search.js talks to pagefind.js directly and
+# draws its own results. They are removed so that what is deployed under
+# /pagefind/ is what /search/ loads. wasm.unknown.pagefind is the engine
+# for a page with no lang attribute, and every page of this site has one.
+# pagefind-worker.js stays: pagefind.js loads it to search off the main
+# thread.
+rm -f "${SITE}"/pagefind/pagefind-component-ui.js "${SITE}"/pagefind/pagefind-component-ui.css \
+      "${SITE}"/pagefind/pagefind-ui.js "${SITE}"/pagefind/pagefind-ui.css \
+      "${SITE}"/pagefind/pagefind-modular-ui.js "${SITE}"/pagefind/pagefind-modular-ui.css \
+      "${SITE}"/pagefind/pagefind-highlight.js "${SITE}"/pagefind/wasm.unknown.pagefind
+
+# Pagefind exits 0 after indexing nothing, which would deploy a site whose
+# search answers every query with no result. The entry file is written only
+# when an index was.
+if [ ! -f "${SITE}/pagefind/pagefind-entry.json" ]; then
+  echo "bin/search: Pagefind wrote no index under ${SITE}/pagefind/." >&2
+  exit 1
+fi

@@ -1,0 +1,174 @@
+// The site search: the form of the navbar (partials/nav.html), and the box
+// and the results of /search/ and the 404 page (partials/search_form.html,
+// drawn by assets/js/search.js).
+
+.nav_search {
+    margin-left: 1rem;
+    // The form is one line. Without this the button dropped under the
+    // field as soon as the navigation was tight.
+    flex-wrap: nowrap;
+    // It takes the width the menu and the logo leave, and no more. Without
+    // the shrink the button ran off the right edge of a 1200px to 1500px
+    // window: 149px past it at 1200, which is every laptop.
+    flex: 0 1 auto;
+    min-width: 0;
+
+    input {
+        width: 10rem;
+    }
+
+    .nav_search_button {
+        color: $blue-pybcn;
+        border: 1px solid $blue-pybcn;
+        margin-left: 0.25rem;
+
+        &:hover,
+        &:focus {
+            color: white;
+            background-color: $blue-pybcn;
+        }
+    }
+}
+
+// The glyph that stands in for the box where the box does not fit. One of
+// the two is shown and never both: the navigation collapses at 1200px, so
+// under it the form rides inside the open menu, where there is room, and
+// between 1200px and 1500px only the glyph is on the bar.
+.nav_search_link {
+    display: none;
+    align-self: center;
+    margin-left: 1rem;
+    color: $blue-pybcn;
+
+    &:hover,
+    &:focus {
+        color: $yellow-pybcn;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1499.98px) {
+    .nav_search {
+        display: none;
+    }
+
+    .nav_search_link {
+        display: inline-block;
+    }
+}
+
+// The menu asks for its natural width before the search box gets the rest.
+// The box took 136px off it, and the items were still laid out on one row:
+// what broke was the text inside each one, so "The Association" and
+// "Contact us" each read on two lines.
+.navbar .navbar-nav .nav-link {
+    white-space: nowrap;
+}
+
+.search_form {
+    margin-bottom: 1.5rem;
+
+    label {
+        margin: 0;
+        font-weight: bold;
+    }
+}
+
+.search_query {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+        flex: 1 1 16rem;
+    }
+
+    .search_button {
+        color: white;
+        background-color: $blue-pybcn;
+        border-color: $blue-pybcn;
+    }
+}
+
+.search_filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-weight: normal;
+    }
+
+    select {
+        width: auto;
+    }
+}
+
+// The count of the results, in the muted voice of every secondary line
+// of the site; it was #555, a grey of this file alone.
+.search_status {
+    color: $text-grey;
+}
+
+// The results stand a block off the form, as the blocks of every page do;
+// the heading over them is the section title of main.scss.
+.search_results_section {
+    margin-top: $block-gap;
+}
+
+.search_results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+// One result under the other, a rule between them in the grey of every
+// rule of the site.
+.search_result {
+    border-top: 1px solid $rule-grey;
+    padding: 0.75rem 0;
+
+    p {
+        margin: 0;
+    }
+}
+
+.search_result_title {
+    font-weight: bold;
+}
+
+// The kind of the result, in front of its title: the one word that says
+// whether the link opens a talk, a day, a person, or a photograph. The
+// pill of the filter tabs and the count card (main.scss): the one border
+// and the one radius, the muted grey.
+.search_result_kind {
+    display: inline-block;
+    font-size: 0.75em;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $text-grey;
+    border: 1px solid $rule-grey;
+    border-radius: $card-radius;
+    padding: 0 0.4em;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.search_result_meta {
+    color: $text-grey;
+}
+
+.search_result_excerpt {
+    margin-top: 0.25rem !important;
+
+    mark {
+        padding: 0 0.1em;
+        background-color: #fff3a0;
+    }
+}

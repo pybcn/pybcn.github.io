@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# Install the pinned Pagefind binary into bin/pagefind.
+#
+# The version comes from .pagefind-version, which is the single source of
+# truth, the way .hugo-version is for Hugo. bin/pagefind is ignored by git.
+#
+# Pagefind builds the search index of the site after Hugo has built the
+# pages (see bin/search). It is the release binary from GitHub, not the npm
+# wrapper: the wrapper adds Node and a second registry to the build job for
+# the same file. The release publishes one SHA-256 per asset, in a file
+# named after it, and the download is verified against it before it is
+# unpacked. The plain build is enough: the extended build adds the Chinese,
+# Japanese and Korean segmenters and weighs 52 MB against 5.
+
+set -euo pipefail
+
+ROOT=$(cd "$(dirname "$0")/.." && pwd -P)
+
+PAGEFIND_VERSION=$(tr -d '[:space:]' < "${ROOT}/.pagefind-version")
+RELEASES="https://github.com/Pagefind/pagefind/releases/download"
+PAGEFIND_BIN="${ROOT}/bin/pagefind"
+
+# The download goes to a temporary directory. The EXIT trap removes it on
+# success and on failure, for the reason bin/install gives.
+workdir=""
+trap 'rm -rf "${workdir}"' EXIT
+
+function platform() {
+  local os arch
+  case "$(uname -s)" in
+    Linux)  os="unknown-linux-musl" ;;
+    Darwin) os="apple-darwin" ;;
+    *) echo "Unsupported OS: $(uname -s)." >&2
+       echo "Download Pagefind ${PAGEFIND_VERSION} yourself and put it at bin/pagefind." >&2
+       exit 1 ;;
+  esac
+  case "$(uname -m)" in
+    x86_64|amd64)  arch="x86_64" ;;
+    arm64|aarch64) arch="aarch64" ;;
+    *) echo "Unsupported architecture: $(uname -m)." >&2
+       exit 1 ;;
+  esac
+  echo "${arch}-${os}"
+}
+
+# Stock macOS ships shasum, not sha256sum. Both read the same checksum list.
+function sha256_check() {
+  if command -v sha256sum >/dev/null; then
+    sha256sum -c -
+  else
+    shasum -a 256 -c -
+  fi
+}
+
+function is_right_pagefind() {
+  [ -x "${PAGEFIND_BIN}" ] || return 1
+  "${PAGEFIND_BIN}" --version 2>/dev/null | grep -q "${PAGEFIND_VERSION}\$" || return 1
+}
+
+function install_pagefind() {
+  local target archive url
+  target=$(platform)
+  archive="pagefind-v${PAGEFIND_VERSION}-${target}.tar.gz"
+  url="${RELEASES}/v${PAGEFIND_VERSION}/${archive}"
+
+  workdir=$(mktemp -d)
+
+  echo "Downloading Pagefind ${PAGEFIND_VERSION} (${target})..."
+  curl -sSfL -o "${workdir}/${archive}" "${url}"
+  curl -sSfL -o "${workdir}/${archive}.sha256" "${url}.sha256"
+
+  # The published file holds the hash, with or without the file name after
+  # it. The first field is the hash either way, and the archive name is
+  # ours, so the line to check is built here.
+  echo -n "Verifying checksum... "
+  (cd "${workdir}" && printf '%s  %s\n' "$(cut -d' ' -f1 "${archive}.sha256")" "${archive}" | sha256_check >/dev/null)
+  echo "OK"
+
+  tar xzf "${workdir}/${archive}" -C "${workdir}" pagefind
+  mv "${workdir}/pagefind" "${PAGEFIND_BIN}"
+  chmod +x "${PAGEFIND_BIN}"
+}
+
+if is_right_pagefind; then
+  echo "Pagefind ${PAGEFIND_VERSION} is already installed."
+  exit 0
+fi
+
+install_pagefind
+is_right_pagefind || { echo "bin/pagefind does not report version ${PAGEFIND_VERSION}." >&2; exit 1; }
+echo "Using ${PAGEFIND_BIN} ($("${PAGEFIND_BIN}" --version))"

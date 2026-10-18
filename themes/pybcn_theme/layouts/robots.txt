@@ -2,3 +2,6 @@ Sitemap: {{ "sitemap.xml" | absURL }}
 
 User-agent: *
 Allow: /
+{{/* The search index (bin/search) is for the script of /search/, not a set
+     of pages: about 1,500 files that a crawler would fetch for nothing. */}}
+Disallow: /pagefind/

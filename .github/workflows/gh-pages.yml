@@ -45,6 +45,14 @@ jobs:
       - name: Build
         run: hugo --minify
 
+      - name: Build the search index
+        # Pagefind reads the pages Hugo wrote and writes public/pagefind/:
+        # the engine, the word index in chunks, one fragment per page. It
+        # runs after Hugo because it indexes what is on disk, and it is
+        # pinned the way Hugo is: bin/install-pagefind fetches the release
+        # named in .pagefind-version and checks its SHA-256.
+        run: bin/install-pagefind && bin/search public
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
         with:

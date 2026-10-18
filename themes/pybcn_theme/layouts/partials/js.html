@@ -19,3 +19,11 @@
 <!-- navbar -->
 {{ $navbar := resources.Get "js/navbar.js" | resources.Fingerprint }}
 <script defer src="{{ $navbar.Permalink }}" integrity="{{ $navbar.Data.Integrity }}" crossorigin="anonymous"></script>
+
+<!-- The site search, on the two pages that have a search box with results:
+     /search/ and the 404 page. No other page loads it; the form of the
+     navbar is a plain GET to /search/. -->
+{{ if or (eq .Layout "search") (eq .Kind "404") }}
+{{ $search := resources.Get "js/search.js" | resources.Fingerprint }}
+<script defer src="{{ $search.Permalink }}" integrity="{{ $search.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
