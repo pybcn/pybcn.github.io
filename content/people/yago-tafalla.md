@@ -2,8 +2,7 @@
 id: yago-tafalla
 name: "Yago Tafalla"
 
-photo: yago-tafalla.png
-
+photo: yago-tafalla.webp
 pybcn_position: "Treasurer"
 
 linkedin: https://www.linkedin.com/in/yagorafaeltafallasmit

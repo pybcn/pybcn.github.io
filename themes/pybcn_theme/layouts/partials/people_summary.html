@@ -32,7 +32,7 @@
     Photos come from assets/images/people/ and go through the Hugo image
     pipeline. The grid slot is 350 px wide at most, so one 400 px WebP
     serves it, with an 800 px variant for a 2x screen. A person with no
-    photo falls back to anon_member.png. image_square.html enlarges a small
+    photo falls back to anon_member.webp. image_square.html enlarges a small
     source to 400 px, where every slot has to be one size, and
     bin/check-content warns about the photos that are under 400 px.
 
@@ -54,7 +54,7 @@
     {{- $img = resources.Get (printf "images/people/%s" $photo) -}}
 {{- end -}}
 {{- if not $img -}}
-    {{- $img = resources.Get "images/anon_member.png" -}}
+    {{- $img = resources.Get "images/anon_member.webp" -}}
 {{- end -}}
 {{- $small := "" -}}{{- $large := "" -}}{{- $srcset := "" -}}
 {{- with $img -}}

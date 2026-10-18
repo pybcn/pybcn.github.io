@@ -2,8 +2,7 @@
 id: mauricio-volcanes
 name: "Mauricio Volcanes"
 
-photo: mauricio-volcanes.png
-
+photo: mauricio-volcanes.webp
 pybcn_position: "Communications"
 
 linkedin: https://www.linkedin.com/in/mauriciovolcanes

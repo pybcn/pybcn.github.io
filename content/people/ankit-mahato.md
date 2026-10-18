@@ -1,7 +1,7 @@
 ---
 id: ankit-mahato
 name: Ankit Mahato
-photo: ankit-mahato.png
+photo: ankit-mahato.webp
 
 twitter: https://x.com/ankitmahato
 linkedin: https://www.linkedin.com/in/ankitmahato

@@ -1,6 +1,6 @@
 ---
 id: claranet
 name: Claranet
-logo_image: claranet.png
+logo_image: claranet.webp
 site: https://www.claranet.es
 ---

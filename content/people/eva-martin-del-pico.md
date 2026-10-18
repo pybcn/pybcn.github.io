@@ -1,7 +1,7 @@
 ---
 id: eva-martin-del-pico
 name: "Eva Martín del Pico"
-photo: "eva-martin-del-pico.png"
+photo: "eva-martin-del-pico.webp"
 linkedin: "https://www.linkedin.com/in/eva-martín-del-pico-4095b988"
 github: "https://github.com/EvaMart"
 

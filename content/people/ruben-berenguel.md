@@ -1,7 +1,7 @@
 ---
 id: ruben-berenguel
 name: "Ruben Berenguel"
-photo: ruben-berenguel.png
+photo: ruben-berenguel.webp
 pybcn_position: Organizer
 
 twitter: "https://x.com/berenguel"

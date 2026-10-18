@@ -1,7 +1,7 @@
 ---
 id: ruben-afonso
 name: Ruben Afonso
-photo: ruben-afonso.png
+photo: ruben-afonso.webp
 photo_anchor: Bottom
 
 twitter: https://x.com/rubenafo

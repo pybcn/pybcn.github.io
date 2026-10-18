@@ -1,7 +1,7 @@
 ---
 id: dave-pitts
 name: "Dave Pitts"
-photo: "dave-pitts.png"
+photo: "dave-pitts.webp"
 github: https://github.com/dgapitts
 linkedin: https://www.linkedin.com/in/dave-pitts-533a7b5
 ---
