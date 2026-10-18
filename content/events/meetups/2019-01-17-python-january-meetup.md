@@ -45,4 +45,30 @@ talks:
     language: en
     duration_minutes: 30
     description: "There is a growing number of analytical applications offered by new firms and established software vendors. IT and Data departments have to decide between buying an external tool or developing one in-house. Either is costly. Glovo created a suitable analytical tool for leveraging the large amount of spatial data we collect using open-source tools, python libraries and frameworks. We were able to build a minimum viable product and a foundation for a spatial analytics framework without committing too much money or developer hours. This talk will take you through the process of designing and building the tool, and present the current architecture, with a demo."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1085962521322930181"
+  items:
+    - file: 2019-01-17-python-january-meetup/04-about-to-start-today-s-meetup.webp
+      caption: "About to start today's meetup!"
+      source: "https://x.com/PyBCN/status/1085962107647115270"
+      time: "19:08"
+    - file: 2019-01-17-python-january-meetup/01-django-gone-clean-by-jairovadillo-at-21buttonseng.webp
+      caption: "\"Django gone clean\" by @jairovadillo at @21ButtonsEng"
+      source: "https://x.com/PyBCN/status/1085962521322930181"
+      time: "19:10"
+      talk: django-gone-clean
+    - file: 2019-01-17-python-january-meetup/02-machine-learning-and-time-series-analysis-for-brai.webp
+      caption: "\"Machine Learning and Time Series Analysis for Brain Signals\" by Andrea Insabato"
+      source: "https://x.com/PyBCN/status/1085972411760234497"
+      time: "19:49"
+      talk: machine-learning-and-time-series-analysis-for-brain-signals
+    - file: 2019-01-17-python-january-meetup/03-building-glovo-s-own-spatial-analytics-tool-by-ale.webp
+      caption: "\"Building Glovo's own spatial analytics tool\" by Aleksey Martynyuk"
+      source: "https://x.com/PyBCN/status/1085985211039531009"
+      time: "20:40"
+      talk: building-glovo-s-own-spatial-analytics-tool
 ---

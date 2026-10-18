@@ -47,4 +47,25 @@ talks:
     language: en
     duration_minutes: 40
     description: "a visual and intuitive journey to understand how it stores knowledge and how it takes decisions."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/535503325022937088"
+  items:
+    - file: 2014-11-20-python-meetup-november/03-conda-and-bokeh-by-christine-doig-ch-doig-pybcn.webp
+      caption: "Conda and Bokeh, by Christine Doig (@ch_doig) #pybcn"
+      source: "https://x.com/PyBCN/status/535501261425364995"
+      time: "19:33"
+    - file: 2014-11-20-python-meetup-november/01-putting-python-inside-postgresql-by-brian-sutherla.webp
+      caption: "Putting Python inside PostgreSQL, by Brian Sutherland #pybcn"
+      source: "https://x.com/PyBCN/status/535503325022937088"
+      time: "19:41"
+      talk: putting-python-inside-postgresql
+    - file: 2014-11-20-python-meetup-november/02-inside-the-artificial-neural-network-by-xavier-arr.webp
+      caption: "Inside the Artificial Neural Network, by Xavier Arrufat #pybcn"
+      source: "https://x.com/PyBCN/status/535509138097188865"
+      time: "20:05"
+      talk: inside-the-artificial-neural-network
 ---

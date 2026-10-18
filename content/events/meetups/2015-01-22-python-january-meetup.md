@@ -39,4 +39,25 @@ talks:
     speakers: [ramon-navarro-bosch]
     type: talk
     duration_minutes: 40
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/558326161332518913"
+  items:
+    - file: 2015-01-22-python-january-meetup/01-an-introduction-to-sqlalchemy-and-orm-in-python-by.webp
+      caption: "An introduction to SQLAlchemy and ORM in Python, by Oriol Andrés (@Oriol_And) #pybcn"
+      source: "https://x.com/PyBCN/status/558326161332518913"
+      time: "19:11"
+      talk: an-introduction-to-sqlalchemy-and-orm-in-python
+    - file: 2015-01-22-python-january-meetup/02-how-to-open-a-bar-in-python-by-edward-van-kuik-ale.webp
+      caption: "How to open a bar in Python, by Edward van Kuik (@AlexanderBarCT) #pybcn"
+      source: "https://x.com/PyBCN/status/558333223806464001"
+      time: "19:39"
+      talk: how-to-open-a-bar-in-python
+    - file: 2015-01-22-python-january-meetup/03-continuous-integration-on-a-large-open-source-soft.webp
+      caption: "Continuous Integration on a large open source software: Plone, by Ramon Navarro Bosch (@bloodbare) #pybcn"
+      source: "https://x.com/PyBCN/status/558341847735869440"
+      time: "20:14"
 ---

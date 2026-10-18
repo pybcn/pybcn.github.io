@@ -38,4 +38,29 @@ talks:
     language: en
     duration_minutes: 30
     description: "In Skyscanner we operate hundreds of services and perform thousands of deploys a day. In this talk I'll try to cover what have we put in place to empower our team so we can focus on solving traveler problems."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1042824805202972672"
+  items:
+    - file: 2018-09-20-python-september-meetup/04-full-venue-at-today-s-meetup-thanks-skyscanner-for.webp
+      caption: "Full venue at today's Meetup. Thanks Skyscanner for hosting us! #pybcn"
+      source: "https://x.com/PyBCN/status/1042824484896616448"
+      time: "19:15"
+    - file: 2018-09-20-python-september-meetup/01-deep-learning-for-time-series-by-alexander-honchar.webp
+      caption: "Deep learning for time series, by Alexander Honchar (@alexrachnog) #pybcn"
+      source: "https://x.com/PyBCN/status/1042824805202972672"
+      time: "19:16"
+      talk: deep-learning-for-time-series
+    - file: 2018-09-20-python-september-meetup/02-classical-approaches.webp
+      caption: "Classical approaches..."
+      source: "https://x.com/PyBCN/status/1042827545819930624"
+      time: "19:27"
+    - file: 2018-09-20-python-september-meetup/03-microservices-at-scale-by-jordi-soucheiron-jordixo.webp
+      caption: "Microservices at scale, by Jordi Soucheiron (@jordixou) #pybcn Slides: https://docs.google.com/presentation/d/1rtTkhtdzJflTTZYJaJ_zJ3u56T8nVBNLTpA9wL8tVm4/edit"
+      source: "https://x.com/PyBCN/status/1042842561164062721"
+      time: "20:26"
+      talk: microservices-at-scale
 ---

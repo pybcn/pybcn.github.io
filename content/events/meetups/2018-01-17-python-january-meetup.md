@@ -38,4 +38,25 @@ talks:
     language: en
     duration_minutes: 30
     description: "Data analysis oriented comprative"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/953690942837534723"
+  items:
+    - file: 2018-01-17-python-january-meetup/03-thanks-to-bynder-for-hosting-the-barcelona-python.webp
+      caption: "Thanks to @bynder for hosting the Barcelona Python Meetup!"
+      source: "https://x.com/PyBCN/status/953690814495981569"
+      time: "19:09"
+    - file: 2018-01-17-python-january-meetup/01-exploring-generators-and-coroutines-by-mariano-ana.webp
+      caption: "Exploring generators and coroutines, by Mariano Anaya (@rmarianoa)"
+      source: "https://x.com/PyBCN/status/953690942837534723"
+      time: "19:10"
+      talk: exploring-generators-and-coroutines
+    - file: 2018-01-17-python-january-meetup/02-python-vs-julia-by-jordi-deu-pons-elbioc.webp
+      caption: "Python vs Julia, by Jordi Deu-Pons (@elbioc)"
+      source: "https://x.com/PyBCN/status/953703340046716928"
+      time: "19:59"
+      talk: python-vs-julia
 ---

@@ -37,4 +37,37 @@ talks:
     language: en
     duration_minutes: 30
     description: "We visited the stratosphere with a big helium-filled balloon and a long string of capsules that were ready to do some citizen science. The Koroliov 2 capsule featured a Raspberry Pi Zero running Linux and some sweet Python scripts that made the job easier."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/987032822899757056"
+  items:
+    - file: 2018-04-19-python-april-meetup/04-everything-is-ready-for-today-s-meetup.webp
+      caption: "Everything is ready for today's meetup!"
+      source: "https://x.com/PyBCN/status/987006834979598336"
+      time: "18:35"
+    - file: 2018-04-19-python-april-meetup/05-ttn-3-python-by-xose-perez-xoseperez-pybcn.webp
+      caption: "\"TTN <3 Python\" by Xose Pérez @xoseperez #pybcn"
+      source: "https://x.com/PyBCN/status/987014949636632578"
+      time: "19:07"
+      talk: ttn-3-python
+    - file: 2018-04-19-python-april-meetup/06-coverage-of-lora-networks-in-barcelona-europe-chec.webp
+      caption: "Coverage of LoRa networks in Barcelona & Europe. Check https://ttnmapper.org"
+      source: "https://x.com/PyBCN/status/987020397651595267"
+      time: "19:29"
+    - file: 2018-04-19-python-april-meetup/01-high-altitude-python-to-the-stratosphere-and-back.webp
+      caption: "\"High Altitude Python: to the stratosphere and back again\" by Juampe López (@jotape) #pybcn"
+      source: "https://x.com/PyBCN/status/987032822899757056"
+      time: "20:18"
+      talk: high-altitude-python
+    - file: 2018-04-19-python-april-meetup/02-the-traffic-controllers-tell-the-planes-that-there.webp
+      caption: "\"The traffic controllers tell the planes that there are some nerds playing with balloons\" - Juampe"
+      source: "https://x.com/PyBCN/status/987034514177318913"
+      time: "20:25"
+    - file: 2018-04-19-python-april-meetup/03-linux-and-python-are-a-safe-bet-for-embedded-proje.webp
+      caption: "\"Linux and Python are a safe bet for embedded projects\""
+      source: "https://x.com/PyBCN/status/987040626628849664"
+      time: "20:49"
 ---

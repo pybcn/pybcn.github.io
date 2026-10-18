@@ -40,4 +40,31 @@ talks:
     title: "Pybcn.org website powered by Nikola"
     speakers: [areski-belaid]
     type: talk
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/436564028190904320"
+  items:
+    - file: 2014-02-20-python-web-frameworks/01-pyramid-python-webframework-by-ramon-navarro-blood.webp
+      caption: "Pyramid Python WebFramework, by Ramon Navarro (@bloodbare) #pybcn"
+      source: "https://x.com/PyBCN/status/436564028190904320"
+      time: "19:12"
+      talk: pyramid-python-webframework
+    - file: 2014-02-20-python-web-frameworks/02-simple-webapps-with-nginx-uwsgi-emperor-bottle-by.webp
+      caption: "Simple webapps with nginx + uWSGI emperor + Bottle, by Jordi Soucheiron (@jordixou) #pybcn"
+      source: "https://x.com/PyBCN/status/436570487955918848"
+      time: "19:38"
+      talk: simple-webapps-with-nginx-uwsgi-emperor-bottle
+    - file: 2014-02-20-python-web-frameworks/03-rapid-web-development-with-web2py-by-giorgio-zoppi.webp
+      caption: "Rapid web development with Web2py, by Giorgio Zoppi (@jo_zoppi) #pybcn"
+      source: "https://x.com/PyBCN/status/436577595820630017"
+      time: "20:06"
+      talk: rapid-web-development-with-web2py
+    - file: 2014-02-20-python-web-frameworks/04-did-you-know-that-the-http-pybcn-org-website-power.webp
+      caption: "Did you know that the https://pybcn.org website powered by Nikola? by Areski Belaid (@areskib) #pybcn"
+      source: "https://x.com/PyBCN/status/436581795501719552"
+      time: "20:23"
+      talk: pybcn-org-website-powered-by-nikola
 ---

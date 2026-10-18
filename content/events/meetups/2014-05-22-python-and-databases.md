@@ -44,4 +44,24 @@ talks:
     speakers: [andres-correa-casablanca]
     type: talk
     duration_minutes: 20
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/469535749222961152"
+  items:
+    - file: 2014-05-22-python-and-databases/02-introduction-to-python-orm-sqlalchemy-by-jorge-med.webp
+      caption: "Introduction to python ORM SQLAlchemy, by Jorge Medina #pybcn"
+      source: "https://x.com/PyBCN/status/469527412104232960"
+      time: "19:17"
+    - file: 2014-05-22-python-and-databases/01-python-with-mysql-by-miquel-camprodon-pybcn.webp
+      caption: "Python with MySQL, by Miquel Camprodon #pybcn"
+      source: "https://x.com/PyBCN/status/469535749222961152"
+      time: "19:50"
+      talk: python-with-mysql
+    - file: 2014-05-22-python-and-databases/01-python-and-mongodb-by-javier-arias-javier-arilos-p.webp
+      caption: "Python and MongoDB, by Javier Arias (@javier_arilos) #pybcn"
+      source: "https://x.com/PyBCN/status/469544096076673024"
+      time: "20:23"
 ---

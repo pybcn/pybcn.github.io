@@ -41,4 +41,43 @@ talks:
     title: "Natural Language Processing with Python and NLTK"
     type: talk
     duration_minutes: 20
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/568472498829959168"
+  items:
+    - file: 2015-02-19-python-february-meetup/05-about-to-start-the-barcelona-python-meetup-pybcn.webp
+      caption: "About to start the Barcelona Python Meetup #pybcn"
+      source: "https://x.com/PyBCN/status/568471862310772736"
+      time: "19:07"
+    - file: 2015-02-19-python-february-meetup/01-high-performance-python-by-marc-garcia-mgarcia-pyb.webp
+      caption: "High Performance Python, by Marc Garcia (@__mgarcia__) #pybcn"
+      source: "https://x.com/PyBCN/status/568472498829959168"
+      time: "19:09"
+      talk: high-performance-python
+    - file: 2015-02-19-python-february-meetup/06-types-of-optimizations-pybcn.webp
+      caption: "Types of optimizations #pybcn"
+      source: "https://x.com/PyBCN/status/568475832362143745"
+      time: "19:22"
+    - file: 2015-02-19-python-february-meetup/07-python-optimization-takeaways-pybcn.webp
+      caption: "Python Optimization takeaways #pybcn"
+      source: "https://x.com/PyBCN/status/568483491006025729"
+      time: "19:53"
+    - file: 2015-02-19-python-february-meetup/02-natural-language-processing-with-python-and-nltk-b.webp
+      caption: "Natural Language Processing with Python and NLTK, by Lusy #pybcn"
+      source: "https://x.com/PyBCN/status/568488804119654401"
+      time: "20:14"
+      talk: natural-language-processing-with-python-and-nltk
+    - file: 2015-02-19-python-february-meetup/03-zipline-a-powerful-algorithmic-trading-simulator-b.webp
+      caption: "Zipline, a powerful algorithmic trading simulator, by Jesús Corrius (@jcorrius) #pybcn"
+      source: "https://x.com/PyBCN/status/568496278100951041"
+      time: "20:44"
+      talk: zipline-a-powerful-algorithmic-trading-simulator
+    - file: 2015-02-19-python-february-meetup/04-issue-certificates-with-python-to-build-a-trust-re.webp
+      caption: "Issue certificates with Python to build a trust relationship by Pau Freixes (@pfreixes) #pybcn"
+      source: "https://x.com/PyBCN/status/568498483696693248"
+      time: "20:52"
+      talk: issue-certificates-with-python-to-build-a-trust-relationship
 ---

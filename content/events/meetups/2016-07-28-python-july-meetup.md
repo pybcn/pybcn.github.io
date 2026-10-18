@@ -44,4 +44,22 @@ talks:
         url: "https://www.youtube.com/watch?v=S-8tyE62unI"
       - type: site
         url: "https://kinto.readthedocs.io"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/758711749356953600"
+  items:
+    - file: 2016-07-28-python-july-meetup/01-efficient-django-by-david-arcos-dzpm-pybcn.webp
+      caption: "Efficient Django by David Arcos (@DZPM) #pybcn"
+      source: "https://x.com/PyBCN/status/758711749356953600"
+      time: "19:12"
+      talk: efficient-django
+    - file: 2016-07-28-python-july-meetup/02-kinto-a-minimalist-json-storage-service-by-mathieu.webp
+      caption: "Kinto - A minimalist JSON storage service by Mathieu Leplatre (@leplatrem) #pybcn"
+      source: "https://x.com/PyBCN/status/758729659164921856"
+      time: "20:23"
+      talk: kinto-a-minimalist-json-storage-service
+
 ---

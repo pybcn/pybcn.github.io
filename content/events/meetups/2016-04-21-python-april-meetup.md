@@ -64,4 +64,37 @@ talks:
 session_videos:
   - title: "Lightning Talk Session"
     url: "https://www.youtube.com/watch?v=R3R9q5mf8Uw"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/723196695870377984"
+  items:
+    - file: 2016-04-21-python-april-meetup/01-ingesting-35-million-hotel-images-with-python-in-t.webp
+      caption: "Ingesting 35 Million Hotel Images With Python In The Cloud, by Alex Vinyals (@alevinval) #pybcn"
+      source: "https://x.com/PyBCN/status/723196695870377984"
+      time: "19:08"
+      talk: ingesting-35-million-hotel-images-with-python-in-the-cloud
+    - file: 2016-04-21-python-april-meetup/02-introduction-to-testing-and-py-test-by-ignasi-fosc.webp
+      caption: "Introduction to testing and py.test, by Ignasi Fosch (@ifosch) #pybcn"
+      source: "https://x.com/PyBCN/status/723203784336388096"
+      time: "19:36"
+      talk: introduction-to-testing-and-py-test
+    - file: 2016-04-21-python-april-meetup/03-bots-are-the-new-hype-long-life-to-slackbot-by-gab.webp
+      caption: "Bots are the new hype. Long life to slackbot, by Gabriel de Maeztu (@gabimaeztu) #pybcn #santi"
+      source: "https://x.com/PyBCN/status/723215165223755776"
+      time: "20:21"
+      talk: bots-are-the-new-hype-long-life-to-slackbot
+    - file: 2016-04-21-python-april-meetup/04-accloudtant-tool-for-managing-aws-costs-by-ignasi.webp
+      caption: "Accloudtant - tool for managing AWS costs, by Ignasi Fosch (@ifosch): https://github.com/ifosch/accloudtant #pybcn"
+      source: "https://x.com/PyBCN/status/723217460896382976"
+      time: "20:30"
+      talk: accloudtant-tool-for-managing-aws-costs
+    - file: 2016-04-21-python-april-meetup/05-comprehensions-in-5-min-by-jordi-soucheiron-jordix.webp
+      caption: "Comprehensions in 5 min, by Jordi Soucheiron (@jordixou) #pybcn"
+      source: "https://x.com/PyBCN/status/723219991227707392"
+      time: "20:40"
+      talk: comprehensions-in-5-min
+
 ---

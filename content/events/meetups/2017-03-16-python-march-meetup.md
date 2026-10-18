@@ -45,4 +45,25 @@ talks:
     language: en
     duration_minutes: 30
     description: "A small presentation on using celery as a fast option to build scalable bots in both platforms. Tips and tricks included!"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/842457421687738370"
+  items:
+    - file: 2017-03-16-python-march-meetup/02-data-visualisation-with-python-plotly-by-giovanni.webp
+      caption: "\"Data visualisation with Python & Plotly\", by Giovanni Perna #pybcn"
+      source: "https://x.com/PyBCN/status/842439670910857219"
+      time: "19:17"
+      talk: data-visualisation-with-python-plotly
+    - file: 2017-03-16-python-march-meetup/03-como-automatizamos-la-edicion-de-podcast-entredevy.webp
+      caption: "\"Cómo automatizamos la edición de podcast @EntreDevYOps\", by David Acacio (@david_acacio) #pybcn"
+      source: "https://x.com/PyBCN/status/842445808909881344"
+      time: "19:41"
+    - file: 2017-03-16-python-march-meetup/01-using-celery-for-bots-slack-and-telegram-by-xavier.webp
+      caption: "\"Using celery for bots (Slack and Telegram)\", by Xavier Orduña (@xorduna) #pybcn"
+      source: "https://x.com/PyBCN/status/842457421687738370"
+      time: "20:27"
+      talk: using-celery-for-bots-slack-and-telegram
 ---

@@ -44,4 +44,46 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=h_LXliq1Wik"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1839346960492589226"
+  items:
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/01-welcome-to-python-meetup-september-ai-goes-back-to.webp
+      caption: "Welcome to \"Python Meetup September: AI Goes Back To School\" Thanks @codurance_ES for hosting us!"
+      source: "https://x.com/PyBCN/status/1839346960492589226"
+      time: "18:51"
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/02-ragtime-an-approach-to-retrieval-augmented-generat.webp
+      caption: "\"Ragtime: An Approach to Retrieval-Augmented Generation\", by Javier Martinez Alcantara"
+      source: "https://x.com/PyBCN/status/1839348035287138621"
+      time: "18:55"
+      talk: ragtime-an-approach-to-retrieval-augmented-generation
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/03-what-is-retrieval-augmented-information.webp
+      caption: "What is \"Retrieval Augmented Information\"?"
+      source: "https://x.com/PyBCN/status/1839349547111490044"
+      time: "19:01"
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/04-wow-he-s-using-a-rag-to-figure-out-warhammer-rules.webp
+      caption: "Wow, he's using a RAG to figure out Warhammer rules 🙌"
+      source: "https://x.com/PyBCN/status/1839354553927639500"
+      time: "19:21"
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/05-from-text-to-actions-llms-as-the-new-software-cons.webp
+      caption: "\"From text to actions: LLMs as the new software consumers\", by Pol Alvarez Vecino"
+      source: "https://x.com/PyBCN/status/1839359574895407158"
+      time: "19:41"
+      talk: from-text-to-actions-llms-as-the-new-software-consumers
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/06-doing-http-actions.webp
+      caption: "Doing HTTP actions"
+      source: "https://x.com/PyBCN/status/1839361844865384827"
+      time: "19:50"
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/07-putting-everything-together-with-talk2apis.webp
+      caption: "Putting everything together with Talk2Apis"
+      source: "https://x.com/PyBCN/status/1839362903075598809"
+      time: "19:54"
+    - file: 2024-09-26-python-meetup-september-ai-goes-back-to-school/08-it-just-built-a-flask-app-with-html-js-frontend-in.webp
+      caption: "It just built a flask app with html+js frontend in replit, awesome!"
+      source: "https://x.com/PyBCN/status/1839365156167672042"
+      time: "20:03"
+
 ---

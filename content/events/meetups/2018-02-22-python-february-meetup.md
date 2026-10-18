@@ -44,4 +44,37 @@ talks:
     language: en
     duration_minutes: 40
     description: "These days, a number of frameworks to deploy FaaS based services have appeared. The purpose of this talk is to demonstrate that it is perfectly possible (and even in some cases even advisable) to deploy a manageable application without adding the additional complexity and risks that opinionated dependencies add to our software systems."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/966738901145661443"
+  items:
+    - file: 2018-02-22-python-february-meetup/03-about-to-start-today-s-meetup-pybcn.webp
+      caption: "About to start today's meetup! #PyBCN"
+      source: "https://x.com/PyBCN/status/966737392609656843"
+      time: "19:12"
+    - file: 2018-02-22-python-february-meetup/04-first-meetup-at-worldsensing-is-starting.webp
+      caption: "First meetup at @Worldsensing is starting"
+      source: "https://x.com/PyBCN/status/966738066948927488"
+      time: "19:14"
+    - file: 2018-02-22-python-february-meetup/01-using-python-for-everything-pyot-by-the-worldsensi.webp
+      caption: "\"Using Python for everything (PyoT)\", by the @Worldsensing team #PyBCN"
+      source: "https://x.com/PyBCN/status/966738901145661443"
+      time: "19:18"
+      talk: using-python-for-everything-pyot
+    - file: 2018-02-22-python-february-meetup/05-no-no-no-problem.webp
+      caption: "No ; No {} No Problem"
+      source: "https://x.com/PyBCN/status/966739895090864134"
+      time: "19:22"
+    - file: 2018-02-22-python-february-meetup/02-addressing-a-hard-graph-colouring-problem-in-pytho.webp
+      caption: "\"Addressing a hard graph colouring problem in Python\", by Joan Vilaltella (@joanvilaltella) #PyBCN"
+      source: "https://x.com/PyBCN/status/966745972289212422"
+      time: "19:46"
+      talk: addressing-a-hard-graph-colouring-problem-in-python
+    - file: 2018-02-22-python-february-meetup/06-do-we-need-a-serverless-framework-with-python-i-di.webp
+      caption: "\"Do we need a serverless framework? With Python, I did not\", by Cristóbal García (@xtblg) #PyBCN"
+      source: "https://x.com/PyBCN/status/966754057133215744"
+      time: "20:18"
 ---

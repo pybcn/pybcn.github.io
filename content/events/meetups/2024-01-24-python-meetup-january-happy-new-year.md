@@ -38,4 +38,45 @@ talks:
     language: es
     duration_minutes: 30
     description: "Tired about PDF paperwork? Join the PDF revolution as we see how PyPDF Python library changes how we work with PDF forms completion. We'll discover how to form-fill PDFs with a touch of Python magic. By the end, you'll be a PDF expert, eliminating manual data entry. Get ready to improve your data skills!"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1750224028298567970"
+  items:
+    - file: 2024-01-24-python-meetup-january-happy-new-year/08-welcome-to-the-python-barcelona-january-meetup-htt.webp
+      caption: "Welcome to the Python Barcelona January Meetup! https://www.meetup.com/python-barcelona/events/298506663/ Thanks @AdevintaSpain for hosting us"
+      source: "https://x.com/PyBCN/status/1750221307872989536"
+      time: "19:17"
+    - file: 2024-01-24-python-meetup-january-happy-new-year/01-launch-your-own-python-library-within-the-company.webp
+      caption: "\"Launch your own Python Library within the company\", by Julian Boronat"
+      source: "https://x.com/PyBCN/status/1750224028298567970"
+      time: "19:28"
+      talk: launch-your-own-python-library-within-the-company
+    - file: 2024-01-24-python-meetup-january-happy-new-year/02-live-demo-time-julian-is-creating-a-new-python-lib.webp
+      caption: "Live demo time! Julian is creating a new python library 🙌"
+      source: "https://x.com/PyBCN/status/1750229232976839079"
+      time: "19:49"
+    - file: 2024-01-24-python-meetup-january-happy-new-year/03-and-after-a-few-minutes-it-s-done-if-you-want-to-r.webp
+      caption: "And... after a few minutes, it's done! 🪄✨ If you want to reproduce, find the code here: https://github.com/boroju/backend-di--python-lib-template"
+      source: "https://x.com/PyBCN/status/1750231786418786713"
+      time: "19:59"
+    - file: 2024-01-24-python-meetup-january-happy-new-year/04-mastering-pdf-form-filling-with-pypdf-by-jordi-bos.webp
+      caption: "\"Mastering PDF Form-Filling with PyPDF\", by Jordi Bosch"
+      source: "https://x.com/PyBCN/status/1750234567355592749"
+      time: "20:10"
+      talk: mastering-pdf-form-filling-with-pypdf
+    - file: 2024-01-24-python-meetup-january-happy-new-year/05-wow-thanks-martinthoma-the-maintainer-of-pypdf.webp
+      caption: "Wow, thanks @_martinthoma, the maintainer of PyPDF! 👋👋"
+      source: "https://x.com/PyBCN/status/1750237454320222526"
+      time: "20:21"
+    - file: 2024-01-24-python-meetup-january-happy-new-year/06-today-i-learned-filigrana-watermark.webp
+      caption: "Today I Learned: \"Filigrana\" = \"Watermark\""
+      source: "https://x.com/PyBCN/status/1750242272493404178"
+      time: "20:40"
+    - file: 2024-01-24-python-meetup-january-happy-new-year/07-it-worked.webp
+      caption: "It worked! 👏"
+      source: "https://x.com/PyBCN/status/1750244302691737616"
+      time: "20:48"
 ---

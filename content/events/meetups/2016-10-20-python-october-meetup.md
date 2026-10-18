@@ -42,4 +42,30 @@ talks:
     type: talk
     duration_minutes: 25
     description: "Basic introduction to tornado."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/789152943681499136"
+  items:
+    - file: 2016-10-20-python-october-meetup/04-about-to-start-october-s-meetup-full-house-pybcn.webp
+      caption: "About to start October's meetup. Full house! #pybcn"
+      source: "https://x.com/PyBCN/status/789151624086298624"
+      time: "19:09"
+    - file: 2016-10-20-python-october-meetup/01-how-to-avoid-sql-with-dataset-pandas-and-blaze-by.webp
+      caption: "\"How to avoid SQL with dataset, pandas, and blaze\" by Gabriel de Maeztu (@gabimaeztu) #pybcn"
+      source: "https://x.com/PyBCN/status/789152943681499136"
+      time: "19:14"
+      talk: how-to-avoid-sql-with-dataset-pandas-and-blaze
+    - file: 2016-10-20-python-october-meetup/02-best-practices-for-a-python-project-by-enrique-sae.webp
+      caption: "\"Best practices for a Python project\" by Enrique Sáez #pybcn"
+      source: "https://x.com/PyBCN/status/789159836730679296"
+      time: "19:42"
+      talk: best-practices-for-a-python-project
+    - file: 2016-10-20-python-october-meetup/03-tornado-an-asynchronous-web-framework-and-network.webp
+      caption: "\"Tornado: An asynchronous web framework and network library\" by Jordi Soucheiron (@jordixou) #pybcn"
+      source: "https://x.com/PyBCN/status/789169711959330817"
+      time: "20:21"
+      talk: tornado-an-asynchronous-web-framework-and-network-library
 ---

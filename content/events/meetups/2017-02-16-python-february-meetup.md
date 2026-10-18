@@ -38,4 +38,26 @@ talks:
     language: en
     duration_minutes: 45
     description: "GraphQL is a query language for APIs developed by Facebook that overcomes many limitations of REST to make web app development more flexible and powerful. In this talk we will introduce its main features and show how to create an example GraphQL app with Graphene and Django."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/832290684031868929"
+  items:
+    - file: 2017-02-16-python-february-meetup/01-python-cryptography-101-by-giorgio-zoppi-jo-zoppi.webp
+      caption: "\"Python Cryptography 101\", by Giorgio Zoppi (@jo_zoppi) #pybcn"
+      source: "https://x.com/PyBCN/status/832290684031868929"
+      time: "19:08"
+      talk: python-cryptography-101
+    - file: 2017-02-16-python-february-meetup/02-modern-web-development-with-graphql-by-israel-saet.webp
+      caption: "\"Modern web development with GraphQL\", by Israel Saeta Pérez (@dukebody) #pybcn"
+      source: "https://x.com/PyBCN/status/832295162575482883"
+      time: "19:26"
+      talk: modern-web-development-with-graphql
+    - file: 2017-02-16-python-february-meetup/03-thanks-to-travelperk-for-providing-us-with-the-gre.webp
+      caption: "Thanks to @travelperk for providing us with the great venue, pizza and drinks! #pybcn"
+      source: "https://x.com/PyBCN/status/832308538496139264"
+      time: "20:19"
+
 ---

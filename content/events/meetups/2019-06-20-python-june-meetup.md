@@ -69,4 +69,31 @@ talks:
 session_videos:
   - title: "Kiwi Python Tour Intro"
     url: "https://www.youtube.com/watch?v=8H2PrNLEEYQ"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1141756308313563139"
+  items:
+    - file: 2019-06-20-python-june-meetup/01-welcome-to-python-june-meetup-pybcn-https-www-meet.webp
+      caption: "Welcome to Python June Meetup! #pybcn https://www.meetup.com/python-185/events/262097404/"
+      source: "https://x.com/PyBCN/status/1141756308313563139"
+      time: "19:14"
+    - file: 2019-06-20-python-june-meetup/02-pytest-recomendaciones-paquetes-basicos-para-testi.webp
+      caption: "Pytest: recomendaciones, paquetes básicos para testing en Python y Django - Andreu Vallbona (@avallbona)"
+      source: "https://x.com/PyBCN/status/1141758033338540032"
+      time: "19:21"
+      talk: pytest-recomendaciones-paquetes-basicos-para-testing-en
+    - file: 2019-06-20-python-june-meetup/03-automatize-reports-using-google-slides-api-by-vict.webp
+      caption: "Automatize reports using Google Slides API by Victor Perez (@vperezb)"
+      source: "https://x.com/PyBCN/status/1141770507597078528"
+      time: "20:11"
+      talk: automatize-reports-using-google-slides-api
+    - file: 2019-06-20-python-june-meetup/04-don-t-talk-scheme-make-service-integration-easier.webp
+      caption: "Don't talk, scheme! Make service integration easier with schemata, By Tin Marković"
+      source: "https://x.com/PyBCN/status/1141776488460705792"
+      time: "20:35"
+      talk: don-t-talk-scheme
+
 ---

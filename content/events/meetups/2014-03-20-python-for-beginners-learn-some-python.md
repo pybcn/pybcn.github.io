@@ -59,4 +59,44 @@ talks:
     title: "Where to find help for Python"
     speakers: [aleta-dunne]
     type: lightning
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/446736550618222592"
+  items:
+    - file: 2014-03-20-python-for-beginners-learn-some-python/06-introduction-to-python-by-pablo-enfedaque-vidal-pa.webp
+      caption: "Introduction to Python, by Pablo Enfedaque Vidal (@pablitoev56) #pybcn"
+      source: "https://x.com/PyBCN/status/446712242487443456"
+      time: "19:17"
+    - file: 2014-03-20-python-for-beginners-learn-some-python/07-mutables-vs-immutables-pybcn.webp
+      caption: "Mutables vs. immutables #pybcn"
+      source: "https://x.com/PyBCN/status/446724872958644224"
+      time: "20:08"
+    - file: 2014-03-20-python-for-beginners-learn-some-python/01-the-zen-of-python-by-david-arcos-dzpm-pybcn.webp
+      caption: "The Zen of Python, by David Arcos (@DZPM) #pybcn"
+      source: "https://x.com/PyBCN/status/446736550618222592"
+      time: "20:54"
+      talk: the-zen-of-python
+    - file: 2014-03-20-python-for-beginners-learn-some-python/02-virtualenv-and-pip-by-alex-maneu-zouave-pybcn.webp
+      caption: "Virtualenv and pip, by Alex Maneu (@zouave) #pybcn"
+      source: "https://x.com/PyBCN/status/446737043549601792"
+      time: "20:56"
+      talk: virtualenv-and-pip
+    - file: 2014-03-20-python-for-beginners-learn-some-python/03-list-comprehensions-by-jordi-gomez-bao-jgomezb79-p.webp
+      caption: "List comprehensions, by Jordi Gomez Bao (@jgomezb79) #pybcn"
+      source: "https://x.com/PyBCN/status/446739185815552000"
+      time: "21:04"
+      talk: list-comprehensions
+    - file: 2014-03-20-python-for-beginners-learn-some-python/04-metodos-magicos-en-python-by-nacho-gentile-nachoge.webp
+      caption: "Métodos mágicos en Python, by Nacho Gentile (@nachogentile) #pybcn"
+      source: "https://x.com/PyBCN/status/446742622154289152"
+      time: "21:18"
+      talk: metodos-magicos-en-python
+    - file: 2014-03-20-python-for-beginners-learn-some-python/05-where-to-find-help-for-python-by-aleta-dunne-dtibu.webp
+      caption: "Where to find help for Python, by Aleta Dunne (@dtiburon) #pybcn"
+      source: "https://x.com/PyBCN/status/446749040899010560"
+      time: "21:44"
+      talk: where-to-find-help-for-python
 ---

@@ -45,4 +45,25 @@ talks:
   links:
   - type: video
     url: https://www.youtube.com/watch?v=YFfnKTB362c
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/743490975662747648"
+  items:
+    - file: 2016-06-16-python-june-meetup/01-machine-learning-for-dummies-with-python-by-javier.webp
+      caption: "\"Machine Learning for Dummies with Python\", by Javier Arias Losada (@javier_arilos) #pybcn"
+      source: "https://x.com/PyBCN/status/743490975662747648"
+      time: "19:10"
+      talk: machine-learning-for-dummies-with-python
+    - file: 2016-06-16-python-june-meetup/03-how-to-solve-a-complex-problem-using-machine-learn.webp
+      caption: "How to solve a complex problem using Machine Learning #pybcn"
+      source: "https://x.com/PyBCN/status/743494244170600448"
+      time: "19:23"
+    - file: 2016-06-16-python-june-meetup/02-geodjango-use-case-mapping-farmer-fields-all-over.webp
+      caption: "\"GeoDjango Use Case: Mapping Farmer Fields all over Spain for @Agroptima\" by Domènec Castillo & John Powell #pybcn"
+      source: "https://x.com/PyBCN/status/743506225913073665"
+      time: "20:11"
+      talk: geodjango-use-case-mapping-farmer-fields-all-over-spain-for
 ---

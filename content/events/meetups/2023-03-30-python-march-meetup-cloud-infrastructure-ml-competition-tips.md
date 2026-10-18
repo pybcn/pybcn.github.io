@@ -38,4 +38,29 @@ talks:
     language: en
     duration_minutes: 30
     description: "How can we approach a Machine Learning competition with agility? What similarities & differences are there with respect to doing Machine Learning in production? By looking at the real experience of participating in a Kaggle competition, we will discuss how to structure work, and what techniques and tools are at the hand of a practicing Data Scientist to ensure making the most out of their time."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1641483654638497793"
+  items:
+    - file: 2023-03-30-python-march-meetup-cloud-infrastructure-ml-competition-tips/04-welcome-to-python-march-meetup-cloud-infrastructur.webp
+      caption: "Welcome to Python March Meetup: Cloud Infrastructure & ML Competition tips Great topics today!"
+      source: "https://x.com/PyBCN/status/1641481637589397508"
+      time: "18:44"
+    - file: 2023-03-30-python-march-meetup-cloud-infrastructure-ml-competition-tips/01-cloud-infrastructure-the-software-way-by-joan-garc.webp
+      caption: "\"Cloud Infrastructure, the Software Way\", by Joan García from @OcadoTechnology"
+      source: "https://x.com/PyBCN/status/1641483654638497793"
+      time: "18:52"
+      talk: cloud-infrastructure-the-software-way
+    - file: 2023-03-30-python-march-meetup-cloud-infrastructure-ml-competition-tips/02-the-archival-datathon-ml-competition-tips-by-alber.webp
+      caption: "\"The Archival Datathon: ML competition tips\", by Alberto Cámara (@b3r2s)"
+      source: "https://x.com/PyBCN/status/1641490711831883787"
+      time: "19:20"
+      talk: the-archival-datathon-ml-competition-tips
+    - file: 2023-03-30-python-march-meetup-cloud-infrastructure-ml-competition-tips/03-alberto-is-explaining-about-real-experience-of-par.webp
+      caption: "Alberto is explaining about real experience of participating in @AAC_GD's Kaggle competition, \"The Archival Problem\" https://x.com/AAC_GD/status/1640248471788613632"
+      source: "https://x.com/PyBCN/status/1641492377075429392"
+      time: "19:27"
 ---

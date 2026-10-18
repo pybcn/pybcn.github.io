@@ -43,4 +43,21 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=S1fZAascs04"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1121461493751529472"
+  items:
+    - file: 2019-04-25-python-april-meetup/01-building-a-validation-scheme-for-a-rest-api-using.webp
+      caption: "\"Building a validation scheme for a REST API using voluptuous\", by Alberto Cámara"
+      source: "https://x.com/PyBCN/status/1121461493751529472"
+      time: "19:10"
+      talk: building-a-validation-scheme-for-a-rest-api-using-voluptuous
+    - file: 2019-04-25-python-april-meetup/02-does-django-scale-by-david-arcos-dzpm.webp
+      caption: "\"Does Django scale?\" by David Arcos (@DZPM)"
+      source: "https://x.com/PyBCN/status/1121494160081608706"
+      time: "21:20"
+
 ---

@@ -71,7 +71,7 @@ Exit codes:
        touches private data
 
 Usage:
-    bin/import-x-photos --date YYYY-MM-DD [--until YYYY-MM-DD]
+    bin/import-x-photos --date YYYY-MM-DD [--until YYYY-MM-DD] [--ids FILE]
                         --export DIR --out DIR [--slug NAME]
                         [--event FILE] [--install] [--one-per-tweet]
                         [--drop PATTERN ...]
@@ -110,9 +110,11 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 # directory that makes a staged photo render.
 INSTALL_ROOT = ROOT / "themes" / "pybcn_theme" / "assets" / "images" / "photos"
 
-# The two accounts that posted from a PyDay: the association's own account
-# and the one of the member who live-tweeted several editions.
-ACCOUNTS = ("PyBCN", "DZPM")
+# The account of the association, and nothing else. A member who posts a
+# photograph of a meetup from their own account keeps it: the archive
+# publishes what the association published, so a personal archive is never
+# read, not even for the day of an event.
+ACCOUNTS = ("PyBCN",)
 
 # The photo times are reported in Barcelona local time, because that is the
 # order the day happened in and the only form a curator can place against a
@@ -396,14 +398,28 @@ def match_talk(caption, talks):
     return match_title(caption, [(talk["id"], talk["folded"]) for talk in talks])
 
 
-def collect(export_dir, start, end):
-    """Return the own tweets and the excluded retweets of a date range.
+def own_https(url):
+    """Return url with https for a link to the site of the association."""
+    return re.sub(r"\Ahttp://(www\.)?pybcn\.org", "https://pybcn.org", url)
 
-    A tweet counts when it carries at least one photo and its created_at,
-    read as UTC, falls on or between the two dates. Both accounts are
-    walked, and the result is sorted chronologically over the two of them
-    together, because the numbering has to follow the event and not the
-    account.
+
+def collect(export_dir, start, end, ids=None):
+    """Return the own tweets and the excluded retweets of a selection.
+
+    A tweet counts when it carries at least one photo and, by default, its
+    created_at read as UTC falls on or between the two dates. Both accounts
+    are walked, and the result is sorted chronologically over the two of
+    them together, because the numbering has to follow the event and not
+    the account.
+
+    With ids, the day stops deciding and the set does: a tweet counts when
+    its id is in it, whenever it was posted. The photographs of a day are
+    not all posted on that day. A thread that opens with "Welcome to
+    November's Python Meetup!" runs past midnight, the post that closes a
+    PyDay arrives two days later, and the association has posted a
+    photograph of an event weeks after it. What says which event a
+    photograph belongs to is the text of its thread, which a person reads;
+    this option is how that reading reaches the importer.
     """
     own, retweets = [], []
 
@@ -420,7 +436,10 @@ def collect(export_dir, start, end):
                 continue
 
             moment = parsedate_to_datetime(tweet["created_at"])
-            if not start <= moment.astimezone(datetime.timezone.utc).date() <= end:
+            if ids is not None:
+                if tweet["id_str"] not in ids:
+                    continue
+            elif not start <= moment.astimezone(datetime.timezone.utc).date() <= end:
                 continue
 
             full_text = tweet.get("full_text") or ""
@@ -441,7 +460,11 @@ def collect(export_dir, start, end):
                 # tweet reads as "https://t.co/..." in full_text. Removing the
                 # t.co links therefore removes real content, and entities.urls
                 # is the only place that still holds what it said.
-                "urls": {url["url"]: (url.get("expanded_url") or url["url"])
+                # An expanded URL of our own site comes out of the export
+                # as http:// on the posts of 2014, and bin/check-rendered
+                # refuses an insecure link on a built page. The scheme is
+                # the only thing this changes, and only for pybcn.org.
+                "urls": {url["url"]: own_https(url.get("expanded_url") or url["url"])
                          for url in (tweet.get("entities") or {}).get("urls", [])
                          if url.get("url")},
             }
@@ -871,6 +894,9 @@ def main():
     parser.add_argument("--out", required=True, help="the staging directory to write")
     parser.add_argument("--slug", help="the media directory name used in photos.yaml"
                                        " (default: the first date)")
+    parser.add_argument("--ids", help="a file of post ids, one per line, that says which"
+                                      " posts belong to this event; the dates stop"
+                                      " deciding when it is given")
     parser.add_argument("--event", help="the event file whose talks a caption is matched"
                                         " against")
     parser.add_argument("--install", action="store_true",
@@ -910,7 +936,23 @@ def main():
         except ValueError:
             event_path = event_file
 
-    own, retweets = collect(export_dir, start, end)
+    ids = None
+    if args.ids:
+        ids_file = pathlib.Path(args.ids).expanduser().resolve()
+        if not ids_file.is_file():
+            fail(f"no such --ids file: {ids_file}")
+        ids = {line.split("#")[0].strip() for line in
+               ids_file.read_text(encoding="utf-8").split("\n")}
+        ids = {i for i in ids if i}
+        if not ids:
+            fail(f"--ids file holds no post id: {ids_file}")
+
+    own, retweets = collect(export_dir, start, end, ids)
+    if ids:
+        found = {entry["id"] for entry in own}
+        for missing_id in sorted(ids - found):
+            print(f"warning: no post with photos and id {missing_id} in the export",
+                  file=sys.stderr)
     photos = enumerate_photos(own, talks)
     apply_filters(photos, args.one_per_tweet, patterns)
     staged, missing = stage(photos, out_dir)

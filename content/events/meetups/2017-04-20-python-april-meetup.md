@@ -38,4 +38,22 @@ talks:
     language: en
     duration_minutes: 30
     description: "Examples of usage of cProfiler, line profiler and memory profiler to detect performance problems on data analysis algorithms."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/855107420997201920"
+  items:
+    - file: 2017-04-20-python-april-meetup/01-python-performance-profiling-for-data-analysis-by.webp
+      caption: "\"Python performance profiling for data analysis\", by Jordi Deu-Pons (@elbioc) #pybcn"
+      source: "https://x.com/PyBCN/status/855107420997201920"
+      time: "19:14"
+      talk: python-performance-profiling-for-data-analysis
+    - file: 2017-04-20-python-april-meetup/02-when-your-dataframe-is-bigger-than-your-ram-what-s.webp
+      caption: "\"When your dataframe is bigger than your RAM what's next ?\" by Gabriel de Maeztu (@gabimaeztu) #pybcn"
+      source: "https://x.com/PyBCN/status/855116974610948096"
+      time: "19:52"
+      talk: when-your-dataframe-is-bigger-than-your-ram-what-s-next
+
 ---
