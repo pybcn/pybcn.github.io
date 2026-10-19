@@ -1,7 +1,7 @@
 ---
 id: oriol-abril-pla
 name: Oriol Abril Pla
-photo: oriol-abril-pla.png
+photo: oriol-abril-pla.webp
 linkedin: https://www.linkedin.com/in/oriol-abril-pla-1b9123180
 github: https://github.com/OriolAbril
 ---

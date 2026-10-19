@@ -59,4 +59,27 @@ talks:
   links:
   - type: video
     url: https://www.youtube.com/watch?v=qqse-zvnNn0
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1129338940014645248"
+  items:
+    - file: 2019-05-16-python-may-meetup/01-mocking-and-patching-pitfalls-by-edwin-jung.webp
+      caption: "\"Mocking and Patching Pitfalls\" by Edwin Jung"
+      source: "https://x.com/PyBCN/status/1129338940014645248"
+      time: "12:52"
+      talk: mocking-and-patching-pitfalls
+    - file: 2019-05-16-python-may-meetup/02-damegender-gender-detection-tool-experiments-with.webp
+      caption: "\"Damegender: gender detection tool experiments with NLTK and Scikit\" by David Arroyo Menéndez"
+      source: "https://x.com/PyBCN/status/1129338949950853120"
+      time: "12:52"
+      talk: damegender-gender-detection-tool-experiments-with-nltk-and
+    - file: 2019-05-16-python-may-meetup/03-chatops-101-with-python-and-opsdroid-by-angel-fern.webp
+      caption: "\"Chatops 101 with Python and Opsdroid\", by Àngel Fernández (@anxodio)"
+      source: "https://x.com/PyBCN/status/1129338964433879042"
+      time: "12:52"
+      talk: chatops-101-with-python-and-opsdroid
+
 ---

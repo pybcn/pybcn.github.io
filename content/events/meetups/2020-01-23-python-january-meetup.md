@@ -62,4 +62,35 @@ talks:
     url: https://www.youtube.com/watch?v=u-KDwDqMbCI
   - type: github
     url: https://github.com/alecthomas/injector
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1220410751074041858"
+  items:
+    - file: 2020-01-23-python-january-meetup/01-welcome-to-python-january-meetup-pybcn-https-www-m.webp
+      caption: "Welcome to Python January Meetup! #PyBCN https://www.meetup.com/python-185/events/267876301/"
+      source: "https://x.com/PyBCN/status/1220410751074041858"
+      time: "19:19"
+    - file: 2020-01-23-python-january-meetup/02-jazz-chord-generation-using-deep-learning-by-mateu.webp
+      caption: "\"Jazz chord generation using Deep Learning\" by Mateusz Dorobek"
+      source: "https://x.com/PyBCN/status/1220411066347401217"
+      time: "19:20"
+      talk: jazz-chord-generation-using-deep-learning
+    - file: 2020-01-23-python-january-meetup/03-using-pydantic-for-security-static-analysis-of-aws.webp
+      caption: "\"Using pydantic for security static analysis of AWS cloudformation files\" by Oscar Blanco (@oscarbc96)"
+      source: "https://x.com/PyBCN/status/1220419289460674560"
+      time: "19:53"
+      talk: using-pydantic-for-security-static-analysis-of-aws
+    - file: 2020-01-23-python-january-meetup/04-forbidden-toppings-on-pizza.webp
+      caption: "Forbidden toppings on pizza! ❌🍍"
+      source: "https://x.com/PyBCN/status/1220422619134074880"
+      time: "20:06"
+    - file: 2020-01-23-python-january-meetup/05-inversion-de-control-e-inyeccion-de-dependencias-t.webp
+      caption: "\"Inversión de control e Inyección de dependencias, Teoría y ejemplos usando `Injector`\" by Manuel Gomez & Daniel Albarral"
+      source: "https://x.com/PyBCN/status/1220427960240558081"
+      time: "20:27"
+      talk: inversion-de-control-e-inyeccion-de-dependencias-teoria-y
+
 ---

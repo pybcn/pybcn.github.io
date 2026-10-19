@@ -51,4 +51,29 @@ talks:
   language: en
   duration_minutes: 30
   description: Today's data systems and usage of data are all about distributed ecosystems of data, systems, people - modern business intelligence departments are driving data provisioning, data preparation, and data education as a top priority with the highest automation possible. Learn how we build kiwi.com's data provisioning architecture based on python-friendly solutions from scratch to serve analytics use cases and our lessons learned.
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/999701938169155584"
+  items:
+    - file: 2018-05-24-python-may-meetup/03-starting-may-s-meetup-pybcn.webp
+      caption: "Starting May's Meetup! #pybcn"
+      source: "https://x.com/PyBCN/status/999700473681727489"
+      time: "19:15"
+    - file: 2018-05-24-python-may-meetup/01-something-something-moving-data-by-lukas-kubis-unc.webp
+      caption: "\"Something, something, moving data...\" by Lukas Kubis (@uncannylukas) #pybcn"
+      source: "https://x.com/PyBCN/status/999701938169155584"
+      time: "19:21"
+      talk: something-something-moving-data
+    - file: 2018-05-24-python-may-meetup/02-telluric-manipulacion-interactiva-de-datos-geoespa.webp
+      caption: "telluric: manipulación interactiva de datos geoespaciales en Jupyter con Python by Juan Luis Cano (@astrojuanlu) https://github.com/satellogic/telluric/"
+      source: "https://x.com/PyBCN/status/999709118976929793"
+      time: "19:50"
+      talk: telluric-manipulacion-interactiva-de-datos-geoespaciales-en
+    - file: 2018-05-24-python-may-meetup/04-building-python-friendly-scalable-reliable-busines.webp
+      caption: "\"Building Python-friendly Scalable, Reliable Business Intelligence Platform\" by Miki Stencl (@michaelstencl) #pybcn"
+      source: "https://x.com/PyBCN/status/999717244878848001"
+      time: "20:22"
 ---

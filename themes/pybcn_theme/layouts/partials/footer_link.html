@@ -1,0 +1,19 @@
+{{- /*
+    One link of the footer (partials/footer.html).
+
+    Argument: a dict with either path, an internal page resolved through
+    site.GetPage so a moved page fails the build, or name and url, for
+    the feed, the sitemap, and the GitHub organisation. name overrides
+    the title of a page ("Contact PyBCN" for /contact). external marks a
+    link that leaves the site, which opens in a new tab as the accounts
+    of the social line do.
+*/ -}}
+{{- if .path -}}
+    {{- with site.GetPage .path -}}
+<a href="{{ .RelPermalink }}">{{ or $.name .Title }}</a>
+    {{- else -}}{{ errorf "footer: the page %q is missing" $.path }}{{ end -}}
+{{- else if .external -}}
+<a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>
+{{- else -}}
+<a href="{{ .url }}">{{ .name }}</a>
+{{- end -}}

@@ -76,6 +76,21 @@ sponsor_levels:
 # Photos published by PyBCN on the day, one per post so no two share a caption,
 # which is also the alt text. Imported with bin/import-x-photos, which excludes
 # anything the account only shared: that copyright belongs to somebody else.
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+#
+# This one is the full lecture hall of the Universitat de Barcelona, facing
+# the camera. It is not in the thread of @PyBCN: @PyLadiesBCN published it
+# on 2016-09-15 at 17:20 UTC, "And this is happing now in Barcelona
+# #PyDayBCN16 @pybcn", as the second of its two photographs,
+# https://x.com/PyLadiesBCN/status/776470703289802752/photo/2. It is the
+# canonical photo over people-pyday-2016.jpg, which is the cloister at
+# the door. Stored at 1600px wide, the size the other chosen pictures of
+# images/photos/ are kept at.
+canonical_photo: group-pyday-2016.jpg
+
 photos:
   thread: "https://x.com/PyBCN/status/776469200915337217"
   items:

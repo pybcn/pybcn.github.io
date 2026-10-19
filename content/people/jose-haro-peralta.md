@@ -1,7 +1,7 @@
 ---
 id: jose-haro-peralta
 name: Jose Haro Peralta
-photo: jose-haro-peralta.png
+photo: jose-haro-peralta.webp
 photo_anchor: Top
 
 twitter: https://x.com/JoseHaroPeralta

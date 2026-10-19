@@ -1,7 +1,7 @@
 ---
 id: ferran-fabregas
 name: "Ferran Fàbregas"
-photo: ferran-fabregas.png
+photo: ferran-fabregas.webp
 twitter: https://x.com/ferrithemaker
 linkedin: https://www.linkedin.com/in/ferran-fabregas-94a68525
 github: https://github.com/ferrithemaker

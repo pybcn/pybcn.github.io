@@ -45,4 +45,38 @@ talks:
     language: en
     duration_minutes: 25
     description: "Scala is the language showing fastest growth in the data science and engineering field. In an area where Python is king, what is so special about Scala? In this talk I'll introduce some of the concepts and ideas that make Scala compelling, and how they relate to how we work with Python."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/875402167921856512"
+  items:
+    - file: 2017-06-15-python-june-meetup/01-tiendeo-high-level-reporting-with-office-libraries.webp
+      caption: "\"@Tiendeo : high level reporting with office libraries and python\" by Antonio Escartin #pybcn"
+      source: "https://x.com/PyBCN/status/875402167921856512"
+      time: "19:18"
+      talk: tiendeo-high-level-reporting-with-office-libraries-and
+    - file: 2017-06-15-python-june-meetup/02-plenty-of-good-questions-for-antonio-pybcn.webp
+      caption: "Plenty of good questions for Antonio! #pybcn"
+      source: "https://x.com/PyBCN/status/875405763665166337"
+      time: "19:32"
+    - file: 2017-06-15-python-june-meetup/03-deep-learning-for-signal-processing-by-marius-miro.webp
+      caption: "\"Deep Learning for Signal Processing\", by Marius Miron #pybcn"
+      source: "https://x.com/PyBCN/status/875406243837378560"
+      time: "19:34"
+      talk: deep-learning-for-signal-processing
+    - file: 2017-06-15-python-june-meetup/04-snakes-ladders-a-taste-of-scala-for-pythonistas-by.webp
+      caption: "\"Snakes & ladders: A taste of Scala for pythonistas\", by Ruben Berenguel (@berenguel) #pybcn"
+      source: "https://x.com/PyBCN/status/875412321245569024"
+      time: "19:58"
+      talk: snakes-ladders-a-taste-of-scala-for-pythonistas
+    - file: 2017-06-15-python-june-meetup/05-learn-some-scala-and-come-back-to-python-berenguel.webp
+      caption: "Learn some scala, and come back to Python! - @berenguel #pybcn"
+      source: "https://x.com/PyBCN/status/875417577631207424"
+      time: "20:19"
+    - file: 2017-06-15-python-june-meetup/06-post-meetup-networking-while-enjoying-awesome-view.webp
+      caption: "Post-meetup networking, while enjoying awesome views. Thanks @Tiendeo for hosting us! #pybcn"
+      source: "https://x.com/PyBCN/status/875419053090906112"
+      time: "20:25"
 ---

@@ -1,0 +1,75 @@
+{{- /*
+    The communities this one links to as friends, with the mark of each.
+
+    Argument: none. Returns a slice of dicts:
+
+        name   what the link says
+        url    the home page of that community
+        text   one line on what it is
+        icon   the file under images/friends/, the mark of that site
+
+    The mark is the icon of the site itself. Two of the three sites
+    publish no favicon at
+    all: bcneng.org and pythongirona.cat answer 404 on every usual path
+    and declare no icon link, so what is kept here is the logo each one
+    draws on its own page, which is the mark a reader recognises anyway.
+    Python España does publish one, and that is the file used.
+
+    The file is in this repository and is never fetched from the other
+    site. A remote image on a page of ours would tell that site who read
+    the page, which is the same reason partials/sponsor_summary.html
+    refuses an external logo URL.
+
+        bcn-engineering.svg   their badge, from /images/bcneng_outline.svg
+        python-girona.webp     the pyGi sticker of /pygi.jpeg, cropped to
+                              the mark and scaled to 96px
+        python-espana.webp     their favicon, 1000px scaled to 96px
+        europython-society.webp
+                              the mark of the EuroPython Society, a copy of
+                              images/sponsors/europython_society.png
+                              (300px square), so the friends and the
+                              sponsors stay two separate sets of files
+        python-software-foundation.webp
+                              the wordmark of the Python Software
+                              Foundation, a copy of images/sponsors/psf.png
+                              (256x84). The wordmark and not the two-snake
+                              mark, because python-espana.webp is that mark
+                              already and two friends cannot share one
+                              picture
+
+    The two last ones are the EuroPython Society, and the Python
+    Software Foundation. The text of each is one
+    line of under fifty characters, so it is two lines at most on a card a
+    quarter of the container wide (the second review).
+
+    The mark takes the place of the generic external-link glyph of
+    partials/link_mark.html, which is one glyph per destination: the icon
+    of the site is that glyph, said better.
+*/ -}}
+{{- return slice
+    (dict
+        "name" "BCN Engineering"
+        "url" "https://bcneng.org/"
+        "text" "The software engineers of Barcelona, on Slack."
+        "icon" "images/friends/bcn-engineering.svg")
+    (dict
+        "name" "Python Girona"
+        "url" "https://pythongirona.cat/"
+        "text" "The Python user group of Girona."
+        "icon" "images/friends/python-girona.webp")
+    (dict
+        "name" "Python España"
+        "url" "https://es.python.org/"
+        "text" "The Spanish Python association, behind PyConES."
+        "icon" "images/friends/python-espana.webp")
+    (dict
+        "name" "EuroPython Society"
+        "url" "https://www.europython-society.org/"
+        "text" "The non-profit behind EuroPython."
+        "icon" "images/friends/europython-society.webp")
+    (dict
+        "name" "Python Software Foundation"
+        "url" "https://www.python.org/psf/"
+        "text" "The foundation behind Python."
+        "icon" "images/friends/python-software-foundation.webp")
+-}}

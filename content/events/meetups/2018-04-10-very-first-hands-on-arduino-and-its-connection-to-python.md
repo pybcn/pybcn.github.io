@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Very first hands on Arduino and its connection to Python through PySerial"
+title: "PyLadies BCN Workshop, April 2018"
 date: 2018-04-10
 year: 2018
 venue: "espai30"

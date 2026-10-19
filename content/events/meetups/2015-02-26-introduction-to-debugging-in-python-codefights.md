@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Introduction to debugging in Python (+ CodeFights!)"
+title: "PyLadies BCN Workshop, February 2015"
 date: 2015-02-26
 year: 2015
 venue: "UPF, Campus de la Comunicación - Poblenou"

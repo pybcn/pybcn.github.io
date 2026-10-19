@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Introduction to Tackling networks in Python"
+title: "PyLadies BCN Workshop, November 2019"
 date: 2019-11-20
 year: 2019
 venue: "Holaluz"
@@ -29,4 +29,15 @@ talks:
     speakers: [carolina-fernandez]
     type: workshop
     description: "Wondering how to create, manage and test a virtual network in your local environment? Different Python-based solutions allow you to do so in an easy way. During the workshop we will be able to define a network and its behaviour via Python, then play with it! Come, learn and practice how to access to remote computers from wherever you are and manage this kind of networks!"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1197083775844438018"
+  items:
+    - file: 2019-11-20-introduction-to-tackling-networks-in-python/01-we-have-the-pictures-of-the-event-will-post-them-s.webp
+      caption: "We have the pictures of the event! Will post them soon. This was the traditional group photo with all the assistants. Also, big thanks to out great photographers, @Mevoyaverpatos and @jmartinezvila! 👏👏👏"
+      source: "https://x.com/PyBCN/status/1197083775844438018"
+      time: "10:26"
 ---

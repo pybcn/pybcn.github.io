@@ -1,11 +1,20 @@
+{{- /*
+    The page GitHub Pages serves for an address that is not here. The words
+    of the address are the first query of the search box, so an old link to
+    a talk, a person, or a day finds the page that holds it now: the box and
+    the results are partials/search_form.html, which assets/js/search.js
+    drives (loaded by partials/js.html on this page and on /search/). The
+    list of the menu stays under it for a reader with no JavaScript.
+*/ -}}
 {{ define "main" }}
 
 <div class="container oov">
     <div class="row">
         <div class="col">
-            <h2>Page not found</h2>
             <p>This page is not here. The link may be old, or the address may have a typo.</p>
-            <p>Try one of these:</p>
+            <p>The words of the address are searched below; change them if nothing matches.</p>
+            {{ partial "search_form.html" (dict "path_query" true) }}
+            <p>Or try one of these:</p>
             <ul>
                 <li><a href="{{ "/" | relURL }}">Home page</a></li>
                 {{ range site.Menus.main }}

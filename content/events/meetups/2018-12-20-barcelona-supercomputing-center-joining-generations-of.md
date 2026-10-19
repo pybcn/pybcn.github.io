@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Barcelona Supercomputing Center + Joining Generations of Women in Tech"
+title: "PyLadies BCN Workshop, December 2018"
 date: 2018-12-20
 year: 2018
 venue: "Barcelona Supercomputing Center - Centro Nacional de Supercomputación"

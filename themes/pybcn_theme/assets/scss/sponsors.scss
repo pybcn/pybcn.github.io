@@ -1,29 +1,165 @@
-// Sponsors CSS
+// The sponsor grid: /sponsors/, /pyladies_bcn/sponsors/, and the level
+// blocks of every edition page. See partials/sponsors-grid.html.
+//
+// Three sizes are fixed and do not move with the window:
+//
+//   the card          180 x 110 px
+//   the box the logo  150 x 90 px
+//   sits in
+//   the gap           16 px
+//
+// What moves is how many cards fit on a line. A logo scaled by the
+// viewport is unreadable on a phone and enormous on a desktop, and with 71
+// of them on one page the eye reads any difference in size as a difference
+// in what the sponsor gave. They all gave something.
+//
+// Six to a line and not seven. The browser
+// counts the tracks of an auto-fit grid with the minimum of the track, so
+// the minimum is what decides the count: floor((W + gap) / (min + gap)).
+// At the 1140px of the container, 165px gives 6; the 132px it was gave 7.
+// The progression down the breakpoints is 6, 5, 4, 3, and 2, and one card
+// under 320px.
+//
+// The padding is 0.35rem and not the 0.75rem of a card with words, so the
+// logo takes the room instead of the card: most logos carry white space
+// of their own, and two margins read as one too many. A logo smaller than the box is never
+// scaled up: max-width and max-height cap a logo, they do not stretch it,
+// so izi at 70x70 stays at 70x70 and only the big ones grow.
+
+$sponsor-card-width: 180px;
+$sponsor-card-min: 165px;
+$sponsor-card-height: 110px;
+// The box of the logo fits inside the narrowest card the grid allows, not
+// inside the widest: a track is 1fr, so a card is 165px on a line that
+// holds six of 1140px and 180px where the line has room. 165 less the
+// padding and the border leaves 152, so the box is 150 and a logo never
+// spills over the padding on a narrow card.
+$sponsor-logo-width: 150px;
+$sponsor-logo-height: 90px;
+$sponsor-card-padding: 0.35rem;
+// The gap of the cards of the home page.
+$sponsor-gap: 1rem;
 
 #sponsors_grid {
-    .sponsor {
-        text-align: center;
+    // One level under the other, a block and a half apart on an edition
+    // page, where the levels sit under one Sponsors title. No band behind
+    // them: the cards sat on a light grey band until 2026-10-17, because
+    // white cards on white read as floating logos, and the frame of every
+    // card of the site (main.scss, the rule grey) is what tells them apart
+    // now, as it does the four friends of the home page.
+    .sponsors_level {
+        margin-bottom: 1.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // The name of a level, Gold or Silver: the sub title of main.scss, at
+    // the left edge of its cards. It is an h2 for the outline and reads
+    // as the title under the title of the block, which is what it is.
+    .level_name {
+        @include sub_title;
+    }
+
+    .sponsors_cards {
+        display: grid;
+        // As many cards as fit, each one the same width. The browser does
+        // the arithmetic, so there is no breakpoint to keep in step with
+        // the number of sponsors.
+        // The card may lose a few pixels of its own padding so that two
+        // of them fit on a 360px screen rather than one. The box the logo
+        // sits in does not move: 116px still fits inside the narrowest
+        // card this allows.
+        // 1fr and not the card width as the maximum: a track whose
+        // maximum is a definite length is what the browser counts with,
+        // so repeat(auto-fit, minmax(132px, 150px)) fitted one card on a
+        // 360px screen and not two. With 1fr it counts with the minimum
+        // and the card caps itself below.
+        grid-template-columns: repeat(auto-fit, minmax($sponsor-card-min, 1fr));
+        justify-items: center;
+        justify-content: center;
+        gap: $sponsor-gap;
+    }
+
+    // A named level says how many it wants on a line, which is how an
+    // edition page gives its Gold sponsors a line of their own. It is a
+    // cap and not a demand: a narrow window still fits what it fits.
+    // One rule per value instead of a custom property on the element:
+    // bin/check-rendered refuses an inline style that the stylesheet can
+    // carry, and the data asks for 2, 3 and 4. The loop goes to 8 so that
+    // a new value in a front matter gets its cap and does not lose it in
+    // silence.
+    @for $per-line from 1 through 8 {
+        .sponsors_cards_capped_#{$per-line} {
+            max-width: calc(
+                (#{$sponsor-card-width} + #{$sponsor-gap}) * #{$per-line} - #{$sponsor-gap}
+            );
+            margin: 0 auto;
+        }
+    }
+
+    .sponsor_card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: $sponsor-card-width;
+        height: $sponsor-card-height;
+        padding: $sponsor-card-padding;
+        // The frame of every card of the site (main.scss): the rule grey
+        // at rest, the blue of the site under the pointer or with the
+        // keyboard on the link inside.
+        @include site_frame;
+        position: relative;
+        transition: transform .2s linear, border-color 0.15s linear,
+                    box-shadow 0.15s linear;
+
+        &:hover,
+        &:focus-within {
+            border-color: $blue-pybcn;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+            // The card lifts, the way the face of a person card grows:
+            // The hover is a zoom on this grid. The
+            // whole card scales and not the logo inside it, because a
+            // logo that grows alone spills over the padding and crosses
+            // the white edge onto the band. 7px of growth against a gap
+            // of 12px, so it never touches its neighbour.
+            transform: scale(1.04);
+            z-index: 1;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
 
         .img-logo {
-            max-height: 150px;
-            max-width: 90%;
-            margin-bottom: 30px;
+            // The fixed box. Every logo is scaled to fit inside it and
+            // keeps its own shape, so a wide one and a square one take the
+            // same room.
+            max-width: $sponsor-logo-width;
+            max-height: $sponsor-logo-height;
+            object-fit: contain;
         }
 
         // Shown when a sponsor has no logo file.
         .sponsor-name {
-            display: inline-block;
-            max-width: 90%;
-            margin-bottom: 30px;
+            max-width: $sponsor-logo-width;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             line-height: 1.3;
-        }
-
-        &.col-md-12 {
-            .img-logo {
-                max-width: 70%;
-            }
+            text-align: center;
         }
     }
+}
+
+// The line above the grid that says what the grid is a list of, in the
+// voice of the sentence under a title (main.scss), a title gap over the
+// cards.
+.sponsors_intro {
+    margin-bottom: $title-gap;
 }

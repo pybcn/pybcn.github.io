@@ -34,4 +34,29 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=pOg3IbFEnlw"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1507051231600160772"
+  items:
+    - file: 2022-03-24-python-march-meetup-telegram-bots-from-idea-to-production/01-we-re-back-telegram-bots-from-idea-to-production-b.webp
+      caption: "We're back! \"Telegram bots - From idea to production\" by Ferran Jovell (@MrSwats)"
+      source: "https://x.com/PyBCN/status/1507051231600160772"
+      time: "18:46"
+      talk: telegram-bots-from-idea-to-production
+    - file: 2022-03-24-python-march-meetup-telegram-bots-from-idea-to-production/02-we-need-to-talk-to-the-bot-father.webp
+      caption: "\"We need to talk to the Bot Father\""
+      source: "https://x.com/PyBCN/status/1507053638841155587"
+      time: "18:56"
+    - file: 2022-03-24-python-march-meetup-telegram-bots-from-idea-to-production/03-nice-bots-mrswats.webp
+      caption: "Nice bots, @MrSwats!"
+      source: "https://x.com/PyBCN/status/1507059973494345732"
+      time: "19:21"
+    - file: 2022-03-24-python-march-meetup-telegram-bots-from-idea-to-production/04-pythin-bircilini-miitip.webp
+      caption: "\"pythin bircilini miitip\""
+      source: "https://x.com/PyBCN/status/1507060430065258499"
+      time: "19:23"
+
 ---

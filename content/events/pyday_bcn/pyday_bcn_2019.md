@@ -22,6 +22,31 @@ heroBackground: /images/photos/people-pyday-2019.jpg
 # are still on single.html and still have no index.
 layout: event
 
+# The sponsors of the day, with the five levels the site of 2019 published,
+# static/archives/pybcn.org/pyday-bcn-2019/. The page used to carry them as
+# the HTML of that frozen page pasted into its body: nineteen img tags
+# straight from the archive, each with its own width written in a style
+# attribute, from 350px for one logo to 70px for another, inside <center>
+# tags. They read as a wall of mismatched pictures next to the cards of
+# every other edition, as the page of 2018 did. As levels they go through
+# partials/sponsors-grid.html and take the same card as the rest.
+sponsor_levels:
+  - sponsors_per_line: 2
+    sponsors: [ub, psf]
+    name: Venue
+  - sponsors_per_line: 3
+    sponsors: [upcloud, kiwi, invisiblebits, chartboost, king, qustodio]
+    name: Platinum
+  - sponsors_per_line: 1
+    sponsors: [affectv]
+    name: Coffee Sponsor
+  - sponsors_per_line: 4
+    sponsors: [thoughtworks, bmat, holaluz, travelperk, elastic, verse, fundacion-ci]
+    name: Gold
+  - sponsors_per_line: 3
+    sponsors: [kschool, satellogic, blueliv]
+    name: Silver
+
 # The programme of this edition, read from the printed agenda that the live
 # thread on X photographed (tweet 1195637939285430272, the photo on this page).
 # The Google Calendar embed that held it is gone, and the Meetup description
@@ -37,8 +62,9 @@ layout: event
 talks:
   # The two keynotes. The printed sheets announce the opening one in all three
   # tracks and give it no title, and the closing one is not on them at all: the
-  # thread tweeted it at 20:03, well after the 18:30 the sheets end at. David
-  # Arcos supplied both titles, which is why they are plain and not quoted.
+  # thread tweeted it at 20:03, well after the 18:30 the sheets end at. Both
+  # titles come from the thread and not from a printed source, which is
+  # why they are plain and not quoted.
   - id: opening-keynote
     title: "Opening keynote"
     speakers: [laura-perez-mayos]
@@ -238,14 +264,18 @@ agenda:
     level: beginner
 
 # Photos published by PyBCN on the day. One per tweet, so no two share a
-# caption, and the caption is also the alt text. PyBCN organisers took them,
-# David Arcos all but the one he is standing in. The page credits the account
-# that published them, which is the part the post itself proves.
+# caption, and the caption is also the alt text. PyBCN organisers took them.
+# The page credits the account that published them, which is the part the
+# post itself proves.
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+canonical_photo: pyday-2019/21-finally-our-gratitude-to-the-python-barcelona-comm.jpg
+
 photos:
-  date: 2019-11-16
   thread: "https://x.com/PyBCN/status/1195623896537554944"
-  # The album the organisers kept at the time. It holds more of the day than
-  # the posts do, so the gallery links it instead of the body of the page.
+  date: 2019-11-16
   album: "https://drive.google.com/drive/folders/1kODXtBARnTbZmQwVW1Qx2EvBCDSqhZjX?usp=sharing"
   items:
     - file: pyday-2019/01-the-pydaybcn-just-started-keynote-by-our-president.jpg
@@ -310,6 +340,10 @@ photos:
       caption: "Thanks @codekiwicom for bringing churros con chocolate, and hot wine! 👏👏👏 #PyDay"
       source: "https://x.com/PyBCN/status/1195680425752051712"
       time: "13:30"
+    - file: pyday-2019/21-finally-our-gratitude-to-the-python-barcelona-comm.jpg
+      caption: "Finally, our gratitude to the Python Barcelona community! @PyBCN, @PyLadiesBCN, @DjangoGirlsBCN, and all our awesome organizers, coaches, speakers, volunteers and assistants! 👏👏👏"
+      source: "https://x.com/PyBCN/status/1197534799130497024"
+      time: "16:18"
     - file: pyday-2019/16-building-interactive-data-visualizations-with-plot.jpg
       caption: "\"Building Interactive Data Visualizations with Plotly and Dash\" by Anna Fedotova"
       source: "https://x.com/PyBCN/status/1195729247731630080"
@@ -334,10 +368,10 @@ photos:
       source: "https://x.com/PyBCN/status/1195779452829097984"
       time: "20:03"
       talk: closing-keynote
-    - file: pyday-2019/21-finally-our-gratitude-to-the-python-barcelona-comm.jpg
-      caption: "Finally, our gratitude to the Python Barcelona community! @PyBCN, @PyLadiesBCN, @DjangoGirlsBCN, and all our awesome organizers, coaches, speakers, volunteers and assistants! 👏👏👏"
-      source: "https://x.com/PyBCN/status/1197534799130497024"
-      time: "16:18"
+    - file: pyday_bcn_2019/22-thanks-to-all-the-sponsors-speakers-volunteers-coa.webp
+      caption: "Thanks to all the sponsors, speakers, volunteers, coaches, organizers and assistants! Without you, the #PyDayBCN would not be possible 👏 Remember to send proposals: https://pybcn.org/call-for-proposals/ And become a member: https://pybcn.org/association/become-a-member/ And follow @PyBCN! Thanks 👏👏"
+      source: "https://x.com/PyBCN/status/1195780662810304512"
+      time: "20:08"
 ---
 <p><img src="/archives/pybcn.org/pyday-bcn-2019/Foto%20de%20grup%20-%20small.jpg" style="width:100%" alt="The group photograph of PyDay BCN 2019, in the cloister of the Universitat de Barcelona" /></p>
 <h2>Archived content</h2>
@@ -357,36 +391,3 @@ photos:
 {{< google-embed kind="calendar" height="600"
     title="Agenda of PyDay BCN 2019"
     src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Europe%2FMadrid&mode=AGENDA&showNav=0&showDate=0&showTabs=0&showCalendars=0&showTz=1&src=eTEway53c19pdWMxYW00c2Y5c3V2NGtqcjV0YXZuYzEzY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23F09300&title=Agenda%20del%20evento&showTitle=0" >}}
-<h2>Sponsors</h2>
-<h3>Venue</h3>
-<center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/ub.jpg" style="width: 350px; margin: 20px 20px auto;" alt="Universitat de Barcelona logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/psf.png" style="width: 350px; margin: 20px 20px auto;" alt="Python Software Foundation logo">
-</center><h3>Platinum</h3>
-<center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/upcloud.png" style="width: 180px; margin: 20px 20px auto;" alt="UpCloud logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/kiwicom.png" style="width: 150px; margin: 20px 20px auto;" alt="Kiwi.com logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/invisiblebits.png" style="width: 180px; margin: 20px 20px auto;" alt="Invisible Bits logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/chartboost.png" style="width: 180px; margin: 20px 20px auto;" alt="Chartboost logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/king.png" style="width: 130px; margin: 20px 20px auto;" alt="King logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/qustodio.png" style="width: 190px; margin: 20px 20px auto;" alt="Qustodio logo">
-</center><h3>Coffee Sponsor</h3>
-<center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/affectv.png" style="width: 100px; margin: 20px 20px auto;" alt="Affectv logo">
-</center><h3>Gold</h3>
-<center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/thoughtworks.png" style="width: 150px; margin: 20px 0px auto;" alt="ThoughtWorks logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/bmat.png" style="width: 70px; margin: 20px 20px auto;" alt="BMAT logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/holaluz.png" style="width: 80px; margin: 20px 20px auto;" alt="Holaluz logo">
-<br />
-<img src="/archives/pybcn.org/pyday-bcn-2019/travelperk.png" style="width: 150px; margin: 20px 20px auto;" alt="TravelPerk logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/elastic.png" style="width: 110px; margin: 20px 10px auto;" alt="Elastic logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/verse.png" style="width: 110px; margin: 20px 20px auto;" alt="Verse logo">
-<br />
-<img src="/archives/pybcn.org/pyday-bcn-2019/fundacion-ci.jpg" style="width: 110px; margin: 20px 20px auto;" alt="Fundación Cibervoluntarios logo">
-</center><h3>Silver</h3>
-<center>
-<img src="/archives/pybcn.org/pyday-bcn-2019/kschool.png" style="width: 100px; margin: 20px 20px auto;" alt="KSchool logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/satellogic.png" style="width: 100px; margin: 20px 20px auto;" alt="Satellogic logo">
-<img src="/archives/pybcn.org/pyday-bcn-2019/blueliv.png" style="width: 100px; margin: 20px 20px auto;" alt="Blueliv logo">
-</center>

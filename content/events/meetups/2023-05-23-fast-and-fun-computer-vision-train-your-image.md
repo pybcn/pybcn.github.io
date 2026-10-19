@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Fast and Fun Computer Vision: Train Your Image Classification Model in Minutes!"
+title: "PyLadies BCN Workshop, May 2023"
 date: 2023-05-23
 year: 2023
 venue: "Canòdrom - Ateneu d'Innovació Digital i Democràtica"

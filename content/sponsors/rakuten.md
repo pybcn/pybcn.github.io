@@ -1,7 +1,7 @@
 ---
 id: rakuten
 name: Rakuten
-logo_image: RakutenTV.png
+logo_image: RakutenTV.webp
 site: https://www.rakuten.tv
 ---
 

@@ -23,7 +23,7 @@ The Management Board is responsible for this website. You can see who sits on it
 
 ## What this site is
 
-This is an informational site. It describes the association, its events, the people who organise them and speak at them, and how to join, propose a talk, or sponsor us. Nothing is sold through this site. The membership fee is paid on PayPal's own site, not here. Some pages embed a Google Form or a Google Calendar, and the page of a recorded talk embeds its video in a YouTube player (youtube-nocookie.com); those frames are served by Google.
+This is an informational site. It describes the association, its events, the people who organise them and speak at them, and how to join, propose a talk, or sponsor us. Nothing is sold through this site. The membership fee is paid on PayPal's own site, not here. Some pages embed a Google Form or a Google Calendar, and the page of a recorded talk, the page of a recorded session, the page of a speaker, and the home page embed video in a YouTube player (youtube-nocookie.com); those frames are served by Google.
 
 The site is a set of static pages, published from a public repository on GitHub and served by GitHub Pages. We keep no server of our own and we run no analytics. The [Privacy policy](/pybcn_association/privacy-policy/) says what personal data this involves.
 

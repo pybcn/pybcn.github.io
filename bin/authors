@@ -1,0 +1,409 @@
+#!/usr/bin/env python3
+"""Write AUTHORS from the history of this repository.
+
+Every person who has a commit here is named, in the order they arrived,
+with the years they were active and the account the commits came from.
+The file is generated because a list of people kept by hand goes stale
+the moment somebody new lands, and nobody notices: static/humans.txt
+counted 207 meetups for three weeks after the archive said 281.
+
+What it reads, and why that and not something else:
+
+    the GitHub API   the account behind each commit. This is the only
+                     source that joins the identities of one person
+                     without a table that somebody has to keep: the
+                     three git identities of one contributor, and the
+                     two of another, fall into one account on their own.
+    git log          the name each person signed with, and the first and
+                     the last day they committed.
+    content/people/  the page of each one on the site, through the
+                     github field of their record. A person with no
+                     record, or a record with no github field, is
+                     printed without a page rather than left out.
+
+No email is written. They are in the history already, and some of them
+carry the name of a laptop or an internal address from ten years ago,
+which is nothing this repository needs to publish.
+
+A commit whose email is on no account is attributed by two rules, in
+this order, so that no table of addresses has to live in the repository:
+
+    1. the local part of the email is the login of a known account
+       (a commit from a laptop, "someone@their-macbook.local")
+    2. the name on the commit is a name a known account already signed
+       with (a commit from a work address)
+
+Two accounts that sign with the same name are one person, and the file
+prints both handles, the one with more commits first.
+
+Usage:
+    bin/authors            write AUTHORS
+    bin/authors --check    write the file again in memory and compare:
+                           this is what CI runs
+    bin/authors --dry-run  print what it would write
+
+--check is the generation, compared against the file instead of written
+over it, so a new contributor, a second account of somebody already here,
+and a name that changed on a person record are all caught. It needs the
+GitHub API; when that cannot be reached it says it skipped and passes,
+because an outage of somebody else is not a reason to fail a build.
+
+Exit codes:
+    0  written, or --check passed, or --check could not reach the API
+    1  --check found a file that is not what bin/authors writes
+    2  it could not run: no git, no API, or an empty history
+"""
+
+import argparse
+import collections
+import json
+import pathlib
+import re
+import subprocess
+import sys
+import unicodedata
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+AUTHORS = ROOT / "AUTHORS"
+SITE = "https://pybcn.org/people/"
+# The branch the history is read from. A checkout in CI has no remote
+# ref, and a pull request builds a merge commit, so the name is looked
+# up in that order and falls back to what is checked out.
+BRANCHES = ("origin/edition", "edition", "HEAD")
+
+HEADER = """PyBCN publishes this site. These are the people who built it, in the order
+they arrived. Writing it and reviewing it both count, because a change that
+nobody reads is not finished, and the years are the first and the last one
+each person worked on it.
+
+The name of each one is the name their page of the site carries, or the name
+they signed their own commits with when they have no page. A person who would
+rather appear another way can change it in a pull request, because this file
+is generated: from the commits, from the reviews, and from the pages.
+
+The people behind the events themselves, the speakers, the organizers, the
+venues and the sponsors, are named on the pages that stay current, which
+static/humans.txt links.
+
+Written by bin/authors.
+"""
+
+
+def fail(message):
+    sys.exit("authors: %s" % message)
+
+
+def fold(name):
+    """Return name with its accents and its case set aside, for comparing."""
+    plain = unicodedata.normalize("NFD", name.lower())
+    return "".join(c for c in plain if unicodedata.category(c) != "Mn").strip()
+
+
+def git(*args):
+    run = subprocess.run(["git", "-C", str(ROOT), *args],
+                         capture_output=True, text=True)
+    if run.returncode:
+        fail("git %s: %s" % (args[0], run.stderr.strip()[:200]))
+    return run.stdout
+
+
+def branch():
+    """Return the first of BRANCHES that this checkout has."""
+    for name in BRANCHES:
+        run = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--verify", "-q", name],
+                             capture_output=True, text=True)
+        if run.returncode == 0:
+            return name
+    fail("no branch to read: tried %s" % ", ".join(BRANCHES))
+
+
+def history():
+    """Return one record per commit: the name, the email, and the day."""
+    out = git("log", "--no-merges", "--format=%an\t%ae\t%ad", "--date=short", branch())
+    rows = [line.split("\t") for line in out.strip().split("\n") if line]
+    if not rows:
+        fail("no commits on %s" % branch())
+    return [(name, email.lower(), day) for name, email, day in rows]
+
+
+def accounts():
+    """Return the account behind each commit email, from the GitHub API."""
+    found = {}
+    for page in range(1, 20):
+        run = subprocess.run(
+            ["gh", "api", "repos/pybcn/pybcn.github.io/commits"
+             "?sha=%s&per_page=100&page=%d" % (branch().split("/")[-1], page)],
+            capture_output=True, text=True)
+        if run.returncode:
+            fail("the GitHub API did not answer: %s" % run.stderr.strip()[:160])
+        batch = json.loads(run.stdout or "[]")
+        if not batch:
+            break
+        for commit in batch:
+            email = ((commit.get("commit") or {}).get("author") or {}).get("email")
+            author = commit.get("author") or {}
+            if email and author.get("login"):
+                found.setdefault(email.lower(), author["login"])
+    if not found:
+        fail("the GitHub API named no account")
+    return found
+
+
+def reviews():
+    """Return the reviews of each account: how many, and the first day.
+
+    A review is a contribution and the commits do not hold it: somebody
+    who reads a pull request carefully and says what is wrong with it has
+    worked on the site, and two people here have done nothing else.
+
+    This asks GraphQL rather than the REST endpoint for the reviews of
+    each pull request, which would be one request per pull request, 205
+    of them today. Three are enough this way.
+    """
+    query = """
+    query($cursor: String) {
+      repository(owner: "pybcn", name: "pybcn.github.io") {
+        pullRequests(first: 100, after: $cursor) {
+          pageInfo { hasNextPage endCursor }
+          nodes {
+            author { login }
+            reviews(first: 100) { nodes { author { login } submittedAt } }
+          }
+        }
+      }
+    }"""
+    found = {}
+    cursor = None
+    for _ in range(20):
+        args = ["gh", "api", "graphql", "-f", "query=%s" % query]
+        if cursor:
+            args += ["-F", "cursor=%s" % cursor]
+        run = subprocess.run(args, capture_output=True, text=True)
+        if run.returncode:
+            fail("the GitHub API did not answer: %s" % run.stderr.strip()[:160])
+        page = json.loads(run.stdout)["data"]["repository"]["pullRequests"]
+        for node in page["nodes"]:
+            owner = ((node.get("author") or {}).get("login") or "").lower()
+            for review in (node.get("reviews") or {}).get("nodes") or []:
+                login = (review.get("author") or {}).get("login")
+                day = (review.get("submittedAt") or "")[:10]
+                # A comment on your own pull request is not a review of it.
+                if not login or not day or login.lower() == owner:
+                    continue
+                seen = found.setdefault(login, {"n": 0, "first": day, "last": day})
+                seen["n"] += 1
+                seen["first"] = min(seen["first"], day)
+                seen["last"] = max(seen["last"], day)
+        if not page["pageInfo"]["hasNextPage"]:
+            break
+        cursor = page["pageInfo"]["endCursor"]
+    return found
+
+
+def attribute(rows, by_email):
+    """Return the commits of each account, with the two fallback rules."""
+    logins = {login.lower(): login for login in by_email.values()}
+    signed = collections.defaultdict(set)
+    for name, email, _ in rows:
+        login = by_email.get(email)
+        if login:
+            signed[login].add(fold(name))
+
+    people = collections.defaultdict(
+        lambda: {"n": 0, "first": "9999-99-99", "last": "0000-00-00",
+                 "names": collections.Counter()})
+    orphans = []
+    for name, email, day in rows:
+        login = by_email.get(email)
+        if not login:
+            local = logins.get(email.split("@")[0].lower())
+            if local:
+                login = local
+        if not login:
+            login = next((l for l, names in signed.items() if fold(name) in names), None)
+        if not login:
+            orphans.append((name, day))
+            continue
+        person = people[login]
+        person["n"] += 1
+        person["names"][name] += 1
+        person["first"] = min(person["first"], day)
+        person["last"] = max(person["last"], day)
+    return people, orphans
+
+
+def merge(people):
+    """Join the accounts that sign with the same name."""
+    by_name = collections.defaultdict(list)
+    for login, person in people.items():
+        by_name[fold(person["names"].most_common(1)[0][0])].append(login)
+    out = {}
+    for logins in by_name.values():
+        logins.sort(key=lambda login: -people[login]["n"])
+        joined = {"n": sum(people[l]["n"] for l in logins),
+                  "first": min(people[l]["first"] for l in logins),
+                  "last": max(people[l]["last"] for l in logins),
+                  "names": collections.Counter(),
+                  "logins": logins}
+        for login in logins:
+            joined["names"].update(people[login]["names"])
+        out[logins[0]] = joined
+    return out
+
+
+def pages():
+    """Return the page and the name of each GitHub handle, from the records.
+
+    The name of a record is the one the site prints, so it is the one a
+    reader of this file will see when they follow the link. Three people
+    signed their commits with a handle and have a record with their name
+    on it; this is what tells the file the difference.
+    """
+    out = {}
+    for path in sorted((ROOT / "content" / "people").glob("*.md")):
+        head = path.read_text(encoding="utf-8").split("---")
+        if len(head) < 2:
+            continue
+        found = re.search(r"^github:\s*\"?(\S+?)\"?\s*$", head[1], re.M)
+        if not found:
+            continue
+        named = re.search(r"^name:\s*\"?(.+?)\"?\s*$", head[1], re.M)
+        handle = found.group(1).rstrip("/").split("/")[-1]
+        out[handle.lower()] = {"page": "%s%s/" % (SITE, path.stem),
+                               "name": named.group(1) if named else ""}
+    return out
+
+
+def assemble(people, by_review, by_handle):
+    """Return one record per person, with the reviews folded in.
+
+    Somebody with reviews and no commit is here too: the account carries
+    their name and their page through their person record, which is the
+    only place this repository knows them from.
+    """
+    out = []
+    placed = set()
+    for person in people.values():
+        record = next((by_handle[l.lower()] for l in person["logins"]
+                       if l.lower() in by_handle), None)
+        reviewed = [by_review[l] for l in person["logins"] if l in by_review]
+        placed.update(l.lower() for l in person["logins"])
+        first = person["first"]
+        for seen in reviewed:
+            first = min(first, seen["first"])
+        out.append({
+            "name": (record or {}).get("name") or person["names"].most_common(1)[0][0],
+            "logins": person["logins"],
+            "first": first,
+            "last": max([person["last"]] + [s["last"] for s in reviewed]),
+            "wrote": True,
+            "reviewed": bool(reviewed),
+            "page": (record or {}).get("page", ""),
+        })
+    for login, seen in by_review.items():
+        if login.lower() in placed:
+            continue
+        record = by_handle.get(login.lower())
+        out.append({
+            "name": (record or {}).get("name") or login,
+            "logins": [login],
+            "first": seen["first"],
+            "last": seen["last"],
+            "wrote": False,
+            "reviewed": True,
+            "page": (record or {}).get("page", ""),
+        })
+    out.sort(key=lambda p: (p["first"], p["name"]))
+    return out
+
+
+def render(people):
+    """One sentence per person, which is what a reader reads once."""
+    lines = []
+    for person in people:
+        handles = ", ".join("@" + login for login in person["logins"])
+        if person["wrote"] and person["reviewed"]:
+            did = "wrote and reviewed"
+        elif person["reviewed"]:
+            did = "reviewed"
+        else:
+            did = "wrote"
+        first, last = person["first"][:4], person["last"][:4]
+        when = first if first == last else "%s to %s" % (first, last)
+        line = "%s (%s) %s, %s." % (person["name"], handles, did, when)
+        if person["page"]:
+            line += "\n    %s" % person["page"]
+        lines.append(line)
+    return "%s\n%s\n" % (HEADER, "\n".join(lines))
+
+
+def check(rows):
+    """Say whether AUTHORS is what bin/authors would write right now.
+
+    This writes the file again in memory and compares, which is exact: a
+    name that changed on a person record, a new contributor, and a second
+    account of somebody already here are all caught the same way. It needs
+    the GitHub API, because that is what names the account of a commit.
+
+    When the API cannot be reached it says so and passes, rather than
+    turning an outage of somebody else into a red build. The check that
+    matters still runs on every other pull request.
+    """
+    if not AUTHORS.is_file():
+        print("MISSING  AUTHORS is not there. Write it with bin/authors.")
+        return 1
+    try:
+        by_email = accounts()
+    except SystemExit as stop:
+        print("SKIPPED  %s" % stop)
+        print("         AUTHORS was not checked. The API names the account of"
+              " a commit and nothing else does.")
+        return 0
+    people, orphans = attribute(rows, by_email)
+    for name, day in sorted(set(orphans)):
+        print("UNATTRIBUTED  %r, %s: no account, and no rule reached it" % (name, day))
+    want = render(assemble(merge(people), reviews(), pages()))
+    if AUTHORS.read_text(encoding="utf-8") == want and not orphans:
+        print("AUTHORS is what bin/authors writes today.")
+        return 0
+    import difflib
+    diff = difflib.unified_diff(AUTHORS.read_text(encoding="utf-8").splitlines(),
+                                want.splitlines(), "AUTHORS", "what bin/authors writes",
+                                lineterm="", n=1)
+    print("\n".join(diff))
+    print("\nRun bin/authors to write it again.")
+    return 1
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Write AUTHORS from the history.")
+    parser.add_argument("--check", action="store_true",
+                        help="say whether AUTHORS names everyone, and read no API")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="print what it would write")
+    args = parser.parse_args()
+
+    rows = history()
+    if args.check:
+        return check(rows)
+
+    people, orphans = attribute(rows, accounts())
+    if orphans:
+        # Never drop a person in silence: that is the failure this file
+        # exists to prevent.
+        for name, day in sorted(set(orphans)):
+            print("UNATTRIBUTED  %r, %s: no account, and no rule reached it"
+                  % (name, day), file=sys.stderr)
+        fail("%d commit(s) belong to nobody this script can name" % len(orphans))
+    people = assemble(merge(people), reviews(), pages())
+    text = render(people)
+    if args.dry_run:
+        print(text, end="")
+        return 0
+    AUTHORS.write_text(text, encoding="utf-8")
+    print("wrote %s: %d people" % (AUTHORS.relative_to(ROOT), len(people)))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

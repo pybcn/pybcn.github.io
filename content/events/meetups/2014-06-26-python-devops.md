@@ -48,4 +48,23 @@ talks:
     links:
       - type: site
         url: "https://www.fabfile.org/"
+photos:
+  thread: "https://x.com/PyBCN/status/482210638417395712"
+  items:
+    - file: 2014-06-26-python-devops/01-openstack-by-xavier-queralt-xqueralt-pybcn.webp
+      caption: "OpenStack, by Xavier Queralt (@xqueralt) #pybcn"
+      source: "https://x.com/PyBCN/status/482210638417395712"
+      time: "19:15"
+    - file: 2014-06-26-python-devops/02-fabric-by-pablo-enfedaque-pablitoev56-pybcn.webp
+      caption: "Fabric, by Pablo Enfedaque (@pablitoev56) #pybcn"
+      source: "https://x.com/PyBCN/status/482216745785368577"
+      time: "19:40"
+    - file: 2014-06-26-python-devops/04-cuisine-by-daniel-mellado-pybcn.webp
+      caption: "Cuisine, by Daniel Mellado #pybcn"
+      source: "https://x.com/PyBCN/status/482228259485388800"
+      time: "20:25"
+    - file: 2014-06-26-python-devops/03-ansible-by-ignasi-fosch-ifosch-pybcn.webp
+      caption: "Ansible, by Ignasi Fosch (@ifosch) #pybcn"
+      source: "https://x.com/PyBCN/status/482230379924172800"
+      time: "20:34"
 ---

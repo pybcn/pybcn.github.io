@@ -52,4 +52,32 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=Nb4mJEn04rY"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/657245171701166080"
+  items:
+    - file: 2015-10-22-python-october-meetup/01-ofxpython-embedding-python-into-c-by-carles-f-juli.webp
+      caption: "\"ofxPython: embedding Python into C++\", by Carles F. Julià (@chaosct) #pybcn"
+      source: "https://x.com/PyBCN/status/657245171701166080"
+      time: "19:20"
+      talk: ofxpython-embedding-python-into-c
+    - file: 2015-10-22-python-october-meetup/02-web-crawling-with-notebook-and-selenium-by-silvia.webp
+      caption: "\"Web crawling with Notebook and Selenium\", by Silvia Puglisi (@nopressure) #pybcn"
+      source: "https://x.com/PyBCN/status/657257370347806720"
+      time: "20:09"
+      talk: web-crawling-with-notebook-and-selenium
+    - file: 2015-10-22-python-october-meetup/03-data-structures-beyond-dicts-and-lists-by-sergi-so.webp
+      caption: "\"Data structures beyond dicts and lists\", by Sergi Sorribas #pybcn"
+      source: "https://x.com/PyBCN/status/657260707470290944"
+      time: "20:22"
+      talk: data-structures-beyond-dicts-and-lists
+    - file: 2015-10-22-python-october-meetup/01-api-by-example-by-carles-barrobes-technomilk-pybcn.webp
+      caption: "\"Api By Example\", by Carles Barrobés (@technomilk) #pybcn"
+      source: "https://x.com/PyBCN/status/657242234404872193"
+      time: "19:08"
+      talk: api-by-example
+
 ---

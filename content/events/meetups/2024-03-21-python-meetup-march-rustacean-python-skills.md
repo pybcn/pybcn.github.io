@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: 'Python Meetup March: Rustacean Python Skills 🐍 🦀'
+title: 'Python Meetup March: Rustacean Python Skills'
 date: 2024-03-21
 year: 2024
 venue: Codurance

@@ -33,7 +33,6 @@
     {{- range $talk := .Params.talks }}
     {{- $url := "" -}}
     {{- with $talk.id }}{{ $url = index $pages (printf "%s|%s" $here .) }}{{ end -}}
-    {{- $speakers := partial "speaker_names.html" (dict "names" $names "ids" $talk.speakers) -}}
     {{- $title_lang := partial "title_lang.html" (dict "title_lang" $talk.title_lang "title" $talk.title) -}}
     {{- $video := "" -}}
     {{- range $link := $talk.links -}}
@@ -43,9 +42,20 @@
         <h3 class="talk_title">{{ with $talk.type }}<span class="talk_icon">{{ partial "event_type_icon.html" (dict "type" . "named" true) }}</span>{{ end }}
             {{- if $url }}<a href="{{ $url }}"{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $talk.title }}</a>
             {{- else }}<span{{ with $title_lang }} lang="{{ . }}"{{ end }}>{{ $talk.title }}</span>{{ end }}</h3>
-        {{- with $speakers }}
-        <p class="talk_meta">{{ delimit . ", " }}</p>
-        {{- end }}
+        {{- /* The speakers: the glyph of the role and each name as a link
+               to the page of that person, through
+               partials/person_page_link.html, which is the one place that
+               decides where a name goes. The page printed the names as
+               plain text, so the one listing that credits a talk to a
+               person was also the one that did not take a reader to them.
+               A credit that is not a person,
+               an id with no record, prints as text, as it does
+               everywhere else. */ -}}
+        {{- with $talk.speakers }}
+        <p class="talk_meta"><span class="talk_speaker_glyph" aria-hidden="true">{{ index site.Data.role_emoji "Speaker" }}</span>{{ range $i, $id := . }}{{ if $i }}, {{ end }}{{ partial "person_page_link.html" (dict "id" $id "names" $names) }}{{ end }}</p>
+        {{- else }}{{ with $talk.credited_as }}
+        <p class="talk_meta"><span class="talk_speaker_glyph" aria-hidden="true">{{ index site.Data.role_emoji "Speaker" }}</span>{{ . }}</p>
+        {{- end }}{{ end }}
         {{- with $video }}
         <p class="talk_video">{{ partial "video_link.html" (dict "url" .) }}</p>
         {{- end }}

@@ -1,7 +1,7 @@
 ---
 id: alex-molas
 name: Alex Molas
-photo: alex-molas.png
+photo: alex-molas.webp
 
 github: https://github.com/alexmolas
 twitter: https://x.com/molasalex

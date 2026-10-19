@@ -44,4 +44,37 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=JzX9WAv7PVM"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1174736672845705216"
+  items:
+    - file: 2019-09-19-python-september-meetup/05-welcome-to-python-barcelona-by-nataliasirera.webp
+      caption: "Welcome to Python Barcelona, by @nataliasirera"
+      source: "https://x.com/PyBCN/status/1174735529469984769"
+      time: "19:22"
+    - file: 2019-09-19-python-september-meetup/06-come-to-the-pydaybcn-send-proposals-join-us-at-the.webp
+      caption: "Come to the #PyDayBCN! Send proposals! Join us at the mentoring session! by @DZPM"
+      source: "https://x.com/PyBCN/status/1174736115816943616"
+      time: "19:24"
+    - file: 2019-09-19-python-september-meetup/01-data-quality-and-how-we-are-trying-to-break-the-80.webp
+      caption: "\"Data Quality and how we are trying to break the 80/20 cleaning rule\" by Ana Dorofei"
+      source: "https://x.com/PyBCN/status/1174736672845705216"
+      time: "19:27"
+      talk: data-quality-and-how-we-are-trying-to-break-the-80-20
+    - file: 2019-09-19-python-september-meetup/02-there-is-one-way-to-do-it-right-and-many-ways-to-m.webp
+      caption: "\"There is one way to do it right, and many ways to mess it up\" - Alberto Cámara"
+      source: "https://x.com/PyBCN/status/1174742270429585409"
+      time: "19:49"
+    - file: 2019-09-19-python-september-meetup/03-it-started-as-fiction-and-now-it-seems-to-be-scien.webp
+      caption: "\"It started as fiction, and now it seems to be science fiction. Let's see which word we keep\" - Sergi Ortiz"
+      source: "https://x.com/PyBCN/status/1174742700312137730"
+      time: "19:51"
+    - file: 2019-09-19-python-september-meetup/04-python-for-the-management-of-iot-platforms-at-worl.webp
+      caption: "\"Python for the management of IoT platforms at Worldsensing\" by Toni Martínez del Hoyo (@tonidelhoyo)"
+      source: "https://x.com/PyBCN/status/1174746936307593222"
+      time: "20:07"
+      talk: python-for-the-management-of-iot-platforms-at-worldsensing
 ---

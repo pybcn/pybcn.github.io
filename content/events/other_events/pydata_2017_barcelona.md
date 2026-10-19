@@ -741,6 +741,12 @@ talks:
   links:
   - type: slides
     url: https://github.com/jtorrents/pydata_bcn_NetworkX
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+canonical_photo: group-pydata-2017.jpg
+
 photos:
   thread: https://x.com/PyBCN/status/865470914107891717
   items:

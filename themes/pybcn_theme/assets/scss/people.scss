@@ -53,11 +53,18 @@
         // rule on .person_item still resolves.
         container-type: inline-size;
         container-name: person_card;
-        // One card a row on a phone, whatever the section asks for. This is
-        // what the old col-md-N classes did: md means the fraction applies
-        // from 768px up and the slot is full width below it. Four cards a
-        // row on a 390px screen is 63px of card.
-        width: 100%;
+        // Two cards a row on a phone, whatever the section asks for. One
+        // a row gives a 360px card with a 360px face on a 390px screen,
+        // which reads as a poster of one person and makes the board four
+        // screens long. Half of that is 175px, the size the card has on a
+        // tablet, and the whole board fits on one screen. Below 360px the
+        // slot goes full width, because two 140px cards leave no room for
+        // a name like "Alicia Morales Carrasco".
+        width: 50%;
+
+        @media (max-width: 359.98px) {
+            width: 100%;
+        }
     }
 
     // Between the md and lg breakpoints the row is too narrow for the count
@@ -104,11 +111,14 @@
 
             width: 100%;
 
-            border: 1px solid black;
-            // No padding on the card itself: the photo has to reach the
-            // border. The text and the icons below set their own side
-            // padding. A padding here used to frame the photo in 10px of
-            // white, which on a card this narrow is a ninth of its width.
+            // No frame. The photograph is a circle, and a square box drawn
+            // around a circle is the worst of the two: the corner of a box
+            // against the arc of a face is what makes a grid of them read
+            // badly. What tells one card from the next is the space between
+            // them and the name under each.
+            border: 0;
+            // No padding either: the photo is the width of the card, and
+            // the text and the icons below set their own side padding.
             padding: 0;
 
             // A column, so every card in a row is as tall as the tallest and
@@ -127,9 +137,9 @@
             // keeps the colours of the card: the name is black at rest and
             // the PyBCN blue under the pointer or the keyboard, which the
             // rules of the card below set on the h3, and the link must not
-            // paint it the link blue over them or underline it. The border
-            // of the card and the colour photo are the hover and the focus
-            // signal, so the whole card reads as the target, as it did.
+            // paint it the link blue over them or underline it. The colour
+            // photograph and the blue name are the hover and the focus
+            // signal, so the whole card reads as the target.
             .person_card_link {
                 display: block;
                 color: inherit;
@@ -146,6 +156,12 @@
                 position: relative;
                 // Keeps the zoom on hover inside the frame.
                 overflow: hidden;
+                // The circle of the rows of /people/ and of the page of a
+                // person, which this card borrows. It lives on the box that clips and not on
+                // the photograph: with the radius on the image, the square
+                // frame cuts the corners off the circle as it grows on
+                // hover.
+                border-radius: 50%;
 
                 // The photo is cropped to a square by the image pipeline, so
                 // the frame is square because its content is. This used to be
@@ -162,11 +178,12 @@
                     display: block;
                     width: 100%;
 
-                    // Grey only where the pointer can hover. A touch screen
-                    // has no hover, so the photos stayed grey for good.
-                    @media (hover: hover) {
-                        filter: grayscale(100%);
-                    }
+                    // In colour, at rest, as the rows of /people/ and the
+                    // portrait of a person page are. The photographs used to be grey until
+                    // the pointer was on them, which a touch screen never
+                    // undid, and a grid of grey faces reads as an archive
+                    // of people who left rather than as the board of this
+                    // year.
                 }
             }
 
@@ -309,12 +326,11 @@
                 }
             }
 
-            // The border follows the hover and the focus, so the card that
-            // the pointer or the keyboard is on is obvious at a glance.
-            &:hover,
-            &:focus-within {
-                border-color: $blue-pybcn;
-            }
+            // With no border to colour, the hover and the focus are the
+            // photograph in colour and the name in blue, which the rules
+            // below and above set. The card has no outline of its own to
+            // give.
+
 
             // Keyboard focus shows the colour photo too, because the card holds
             // two focusable triggers.
@@ -325,7 +341,6 @@
                         transform: scale(1.2);
                         -webkit-transition: -webkit-transform .2s linear;
                         transition: transform .2s linear;
-                        filter: none;
                     }
                 }
                 h3 {

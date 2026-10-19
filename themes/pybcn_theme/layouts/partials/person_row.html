@@ -1,0 +1,116 @@
+{{- /*
+    One row of a people listing: the avatar, then two lines beside it.
+
+        [photo]  Marc Pous  [in] [gh]
+                 🎤 Speaker at 3 events:  🐍 PyDay BCN 2022  🐍 PyDay BCN 2021  🐍 PyDay BCN 2020
+
+    Arguments:
+        row       a row of partials/people_index.html
+        position  optional, a post to print after the name on the first
+                  line, "President": the organizers page passes the role
+                  of the entry or the pybcn_position of the record, which
+                  is a fact of that page and of no other listing
+        anchor    optional, false to print the row with no id of its own:
+                  the organizers page can list one person in two groups,
+                  and two elements with one id is invalid HTML. By default
+                  the row carries the person id, so /people/#marc-pous is
+                  a stable address for one row.
+
+    The row is one person on two or three lines. Two lines because the avatar
+    is 48 px tall and one line of text is not; a person is not an event,
+    so the row is not the six-column table of /events/ and /talks/. It is
+    written once here and drawn by /people/, by the page of each role,
+    and by the organizers pages, so a change to the row reaches every
+    listing and the pages cannot drift.
+
+    The avatar: the photo, or the placeholder of
+    partials/person_placeholder.html when there is none, the initials of
+    the name on a colour derived from the name. One column either way, so
+    the names line up down the page. The link around the photo repeats
+    the name link beside it, so it is out of the tab order and hidden
+    from a screen reader (tabindex -1, aria-hidden): two links to one
+    page in a row would be read as two, and the name is the one with
+    words. It is there for a pointer and a finger. The photo is
+    decorative: the name is the heading right beside it, so an alt that
+    repeats it makes a screen reader say the name twice (axe reports that
+    as image-redundant-alt). The zoom is lazy and hidden until the avatar
+    is hovered or the name is focused, so a browser fetches it then and
+    not 128 times on load (see people_index.scss).
+
+    Line one: the name, which is the link to the page of the person, then
+    the post when the caller gives one, in the colour of the facts under a
+    row so the name stays what the eye reads first, then the social links
+    of the record as brand marks (partials/person_social_icons.html). The name
+    is an h3 at the size of the text around it: an h3 at its default size
+    would compete with the heading above it, and a row is a line of a
+    list and not a section of the page. The level is the outline and the
+    size is the style, as in events_index.html. Each listing puts the row
+    under an h2, so the outline is h1, h2, h3 with no level skipped
+    (bin/check-rendered fails a page that skips a level).
+
+    Line two: a sentence, then the pages that credit the person. The
+    sentence is the roles, each with the glyph of data/role_emoji.yaml in
+    front of it, the same glyph the Roles list of the person page draws,
+    then "at", in italics, then the number of
+    events, in bold, and a colon:
+
+        🎤 Speaker at 1 event:
+        🧭 Permanent Committee, 🧭 Organizer, 🎤 Speaker at 14 events:
+
+    The glyph is decorative here and not on the person page: the word
+    follows it on this line, so a reader of a screen reader would hear
+    the role twice. A person with roles and no event (a board member who
+    never spoke) prints the roles, "at", and the pages, and no count:
+    "Permanent Committee at 0 events" would say the person did nothing.
+    Then the pages, each with a marker: an event carries the emoji of its
+    type, a page with no year carries the glyph of the role, and the
+    marker is an image with the name of the type as its accessible name
+    and its hover, as on /events/. A person with many events wraps onto
+    more lines, which the request accepts.
+
+    A piece with no data behind it is left out rather than printed as
+    unknown: a person with neither a role nor an event gets no second
+    line, unless the record holds a pybcn_position, which is then the
+    line (people_index.html has the rule). The row is printed only when
+    there is one of the two to put on it. With an event count the colon
+    closes the sentence when pages follow it; with no count "at" leads
+    into the pages; and a sentence with no pages after it ends with
+    neither.
+*/ -}}
+{{- $row := .row -}}
+{{- $anchor := true -}}
+{{- if isset . "anchor" }}{{ $anchor = .anchor }}{{ end -}}
+<li class="person_row"{{ if $anchor }} id="{{ $row.id }}"{{ end }}>
+    <span class="person_mark">
+        {{- with $row.thumb }}
+        <a class="person_avatar" href="{{ $row.url }}" tabindex="-1" aria-hidden="true">
+            <img class="person_thumb" src="{{ .RelPermalink }}"{{ with $row.srcset }} srcset="{{ . }}"{{ end }} width="48" height="48" loading="lazy" decoding="async" alt="" />
+        </a>
+        {{- else }}
+        {{ partial "person_placeholder.html" (dict "name" $row.name) }}
+        {{- end }}
+    </span>
+    <div class="person_lines">
+        <div class="person_line">
+            <h3 class="person_name"><a href="{{ $row.url }}">{{ $row.name }}</a></h3>
+            {{- with $.position }}
+            <span class="person_position">{{ . }}</span>
+            {{- end }}
+            {{- partial "person_social_icons.html" $row.page }}
+        </div>
+        {{- if or $row.roles $row.pages }}
+        <div class="person_line row_facts">
+            {{- with $row.roles }}
+            <p class="person_meta">{{ range $i, $role := . }}{{ if $i }}, {{ end }}<span class="role_emoji" aria-hidden="true">{{ $role.emoji }}</span>{{ $role.label }}{{ end }}{{ if $row.events }} at <strong>{{ $row.events }}</strong> {{ if eq $row.events 1 }}event{{ else }}events{{ end }}{{ if $row.pages }}:{{ end }}{{ else if $row.pages }} at{{ end }}</p>
+            {{- end }}
+            {{- with $row.pages }}
+            <ul class="person_pages">
+                {{- range . }}
+                <li><span class="event_emoji" role="img" aria-label="{{ .mark_label }}" title="{{ .mark_label }}">{{ .emoji }}</span><a href="{{ .url }}">{{ .title }}</a></li>
+                {{- end }}
+            </ul>
+            {{- end }}
+        </div>
+        {{- end }}
+    </div>
+</li>

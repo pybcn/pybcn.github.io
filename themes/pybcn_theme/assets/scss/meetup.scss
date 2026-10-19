@@ -16,18 +16,18 @@
     // facts, so it is a step larger than the box below it.
     .meetup_when {
         font-size: 1.15rem;
-        color: #51616e;
+        color: $text-grey;
         margin-bottom: 1.2rem;
     }
 
-    // Each block of the page gets the same air under its heading, and the h2
-    // is the size of the h2 of the rest of the site.
+    // Each block of the page is a block of the home page: the section title
+    // of main.scss over it, with the title gap under the title, and the
+    // block gap under the block.
     section {
-        margin-bottom: 2rem;
+        margin-bottom: $block-gap;
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
+            @include section_title;
         }
     }
 }

@@ -34,4 +34,24 @@ talks:
     speakers: [brett-hartshorn]
     type: talk
     duration_minutes: 20
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/521712502686883840"
+  items:
+    - file: 2014-10-13-go-meetup-golang/02-today-we-will-have-speakers-talking-about-golang-p.webp
+      caption: "Today we will have speakers talking about Golang #pybcn"
+      source: "https://x.com/PyBCN/status/521709881435623424"
+      time: "19:11"
+    - file: 2014-10-13-go-meetup-golang/01-differences-and-common-aspects-of-go-by-francesc-c.webp
+      caption: "Differences and common aspects of Go, by Francesc Campoy (@francesc) #pybcn"
+      source: "https://x.com/PyBCN/status/521712502686883840"
+      time: "19:22"
+      talk: differences-and-common-aspects-of-go
+    - file: 2014-10-13-go-meetup-golang/03-gythonjs-translator-to-compile-a-subset-of-python.webp
+      caption: "GythonJS translator to compile a subset of Python to Go, by Brett Hartshorn #pybcn"
+      source: "https://x.com/PyBCN/status/521726869004365824"
+      time: "20:19"
 ---

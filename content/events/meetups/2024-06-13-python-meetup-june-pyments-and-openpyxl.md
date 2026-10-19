@@ -44,4 +44,34 @@ talks:
   description: 'Tired about complex VBA macros and functions? Join the Excel revolution as we see how OpenPYXL Python library changes how we work with spreadsheets. We''ll discover how to handle data with a touch of Python magic.
 
     By the end, you''ll be an Excel expert, easily automating tasks and managing complex data with a few clicks. Get ready to improve your data skills!'
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1801298830899523584"
+  items:
+    - file: 2024-06-13-python-meetup-june-pyments-and-openpyxl/01-welcome-to-the-python-meetup-june-pyments-and-open.webp
+      caption: "Welcome 👋 to the Python Meetup June: Pyments and OpenPyXL Thanks Gartner for hosting us!"
+      source: "https://x.com/PyBCN/status/1801298830899523584"
+      time: "19:01"
+    - file: 2024-06-13-python-meetup-june-pyments-and-openpyxl/02-pyments-how-to-design-payment-applications-in-pyth.webp
+      caption: "\"Pyments: How To Design Payment Applications In Python\", by Alvaro Duran"
+      source: "https://x.com/PyBCN/status/1801299520258486580"
+      time: "19:04"
+      talk: pyments-how-to-design-payment-applications-in-python
+    - file: 2024-06-13-python-meetup-june-pyments-and-openpyxl/03-good-reasons-against-outsourcing-their-payments.webp
+      caption: "Good reasons against outsourcing their payments!"
+      source: "https://x.com/PyBCN/status/1801308635601268853"
+      time: "19:40"
+    - file: 2024-06-13-python-meetup-june-pyments-and-openpyxl/04-mastering-excel-automation-with-openpyxl-by-jordi.webp
+      caption: "\"Mastering Excel Automation with OpenPYXL\", by Jordi Bosch"
+      source: "https://x.com/PyBCN/status/1801309052363833670"
+      time: "19:41"
+      talk: mastering-excel-automation-with-openpyxl
+    - file: 2024-06-13-python-meetup-june-pyments-and-openpyxl/05-they-tried-to-automate-excel-with-phpexcel-but-php.webp
+      caption: "They tried to automate excel with PHPExcel... but PHP didn't work (🤔)... so they moved to OpenPyXL!"
+      source: "https://x.com/PyBCN/status/1801309846479819137"
+      time: "19:45"
+
 ---

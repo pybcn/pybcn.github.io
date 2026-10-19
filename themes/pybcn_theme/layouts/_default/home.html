@@ -1,91 +1,310 @@
+{{- /*
+    The home page.
+
+    The blocks, in order: the hero
+    with the four counts of the Archive, About Python Barcelona with the
+    video, the two Meetup groups, the recent events, the photographs,
+    About us with the faces of the board and the committee, Take part, and
+    Our friends.
+
+    Every number is computed, from the partials the listings print their
+    own h1 from (listing_counts.html and sponsor_ids.html), so a page
+    added or removed moves the home page with it. The photographs are the canonical_photo each event names
+    in its front matter, through partials/canonical_photos.html, and never
+    heroBackground, which is not a photograph of its event: thirteen
+    events share seven images.
+
+    The stylesheet is themes/pybcn_theme/assets/scss/home.scss, where
+    every selector starts with home_. The bar and the footer of this
+    design are the bar and the footer of the whole site, so they are
+    partials/nav.html and partials/footer.html and not written here.
+*/ -}}
 {{ define "main" }}
+{{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
+{{- $sponsors_total := len (partial "sponsor_ids.html" site) -}}
+{{- $glyphs := site.Data.role_emoji -}}
+{{- $events := site.GetPage "/events" -}}
+{{- $rows := slice -}}
+{{- range $events.RegularPagesRecursive -}}
+    {{- if not .Params.year }}{{ continue }}{{ end -}}
+    {{- $rows = $rows | append (partial "event_row.html" .) -}}
+{{- end -}}
+{{- $rows = sort $rows "key" -}}
+{{- $first_year := (index $rows (sub (len $rows) 1)).year -}}
+{{- $slides := partial "canonical_photos.html" site -}}
 
-<div class="container" id="home_top_section">
-    <div class="row flex_box">
-        <div class="col-md-9">
-            <div class="row flex_box" id="meetup_events">
-	        {{ partial "meetup-events.html" (dict "list" .Params.meetupEvents "width" 6)}}
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="color_box">
-                <h2 class="h1">COLLABORATE</h2>
-                <a class="btn btn-info" href="pybcn_association/membership/"><i class="fas fa-sign-in-alt"></i> Become a member</a>
-                <a class="btn btn-info" href="pybcn_association/organize-with-us/"><i class="fas fa-calendar-day"></i> Organize with us</a>
-                <a class="btn btn-info" href="pybcn_association/propose-a-talk/"><i class="fas fa-comment"></i> Propose a talk</a>
-                <a class="btn btn-info" href="pybcn_association/sponsor-us/"><i class="fas fa-money-bill-wave"></i> Become a sponsor</a>
-                <a class="btn btn-info" href="pybcn_association/job-offers/"><i class="fas fa-scroll"></i> Share job offers</a>
-                <a class="btn btn-info" href="pybcn_association/promote-your-event/"><i class="fas fa-bullhorn"></i> Promote your event</a>
-            </div>
-        </div>
-    </div>
 
-    {{/* The banner shows the newest PyDay. The pages are named
-         pyday_bcn_<year>, so the highest file name is the newest edition.
-         Add the next edition to content/events/pyday_bcn/ and the banner
-         follows it. Do not hard code a year here. */}}
-    {{ with site.GetPage "/events/pyday_bcn" }}
-    {{ $latest := index (sort .Pages "File.ContentBaseName" "desc") 0 }}
-    <section class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="text-center rounded semitransparent">
-                        <h2 class="h1">{{ $latest.Title }}</h2>
-                        <h3>The annual gathering for the Python community in Barcelona!</h3>
-                        <h3 class="h4">Have a look at the <a class="blue_text" href="{{ $latest.RelPermalink }}">programme</a> and don't miss out!</h3>
-                    </div>
+
+            {{- $tiles := slice
+                (dict "path" "/events"   "total" $counts.events_total "glyph" (index $glyphs "Events"))
+                (dict "path" "/talks"    "total" $counts.talks_total  "glyph" (index $glyphs "Speaker"))
+                (dict "path" "/people"   "total" $counts.people_total "glyph" (index $glyphs "*"))
+                (dict "path" "/sponsors" "total" $sponsors_total      "glyph" (index $glyphs "Collaborator")) -}}
+            <section class="home_hero" aria-labelledby="home_hero_heading">
+                <div class="container">
+                    <h1 id="home_hero_heading">Python Barcelona, since {{ $first_year }}</h1>
+                    <p class="home_lead">The Python community of Barcelona: a meetup group since {{ $first_year }}, a non-profit association since 2018, and an archive of everything in between.</p>
+                    <ul class="home_stats">
+                        {{- range $tiles }}
+                        {{- $tile := . }}
+                        {{- with site.GetPage .path }}
+                        <li>
+                            <a class="home_stat" href="{{ .RelPermalink }}">
+                                <span class="home_stat_glyph" aria-hidden="true">{{ $tile.glyph }}</span>
+                                <span class="home_stat_n">{{ $tile.total }}</span>
+                                <span class="home_stat_label">{{ .Title }}</span>
+                            </a>
+                        </li>
+                        {{- else }}{{ errorf "home: the page %q is missing" $tile.path }}{{ end }}
+                        {{- end }}
+                    </ul>
                 </div>
-            </div>
-        </div>
-    </section>
-    {{ end }}
+            </section>
 
-</div>
-
-
-<section id="highlights">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="section-title">Highlights</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="item">
-                            <h4><i class="fas fa-user-friends"></i> Organizers</h4>
-                            <p class="text-muted">Get to know us!</p>
-                            <a class="btn btn-primary" href="pybcn_association/organizers">Read more</a>
+            <section class="home_story" aria-labelledby="home_story_heading">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 home_story_text">
+                            <div class="home_title home_title_dark">
+                                <h2 id="home_story_heading">About Python Barcelona</h2>
+                            </div>
+                            {{ .Content }}
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="item">
-                            <h4><i class="fas fa-info-circle"></i> Information</h4>
-                            <p class="text-muted">The PyBCN association</p>
-                            <a class="btn btn-primary" href="pybcn_association/information/">Read more</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="item">
-                            <h4><i class="fas fa-envelope"></i> Contact</h4>
-                            <p class="text-muted">Get in touch!</p>
-                            <a class="btn btn-primary" href="contact/">Read more</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="item">
-                            <h4><i class="fas fa-file-alt"></i> Code of Conduct</h4>
-                            <p class="text-muted">Because we care</p>
-                            <a class="btn btn-primary" href="pybcn_association/coc/">Read more</a>
+                        <div class="col-lg-7">
+                            {{- with .Params.about_video }}
+                            {{ partial "video_frame.html" (dict "url" .url "title" (printf "Video of %s" .title)) }}
+                            <p class="home_video_link">{{ partial "video_link.html" (dict "url" .url "title" .title) }}</p>
+                            {{- end }}
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
+            {{- /* One card per group, the whole card the link, the logo of
+                   the group at the left (the image the live block uses as
+                   background). No "Open the group on Meetup" line: the
+                   card is the link. The mark of partials/link_mark.html in
+                   front of the name says the card leaves the site, the
+                   block of option 5 that the second review (2026-10-16)
+                   picked over the one without it. */ -}}
+            {{- $groups := slice
+                (dict "name" "Python Barcelona" "id" "python-barcelona" "class" "home_group_pybcn" "text" "Monthly meetups, practice sessions, and coding dojos.")
+                (dict "name" "PyLadies BCN" "id" "pyladies-bcn" "class" "home_group_pyladies" "text" "Hands-on workshops, once a month.") -}}
+            <section class="home_meetups" aria-labelledby="home_meetups_heading">
+                <div class="container">
+                    <div class="home_title">
+                        <h2 id="home_meetups_heading">Next events</h2>
+                    </div>
+                    <div class="row">
+                        {{- range $groups }}
+                        <div class="col-md-6">
+                            <a class="home_card home_group {{ .class }}" href="https://www.meetup.com/{{ .id }}/" target="_blank" rel="noopener">
+                                <span class="home_group_logo" aria-hidden="true"></span>
+                                <span class="home_card_body">
+                                    <span class="home_card_title h3">{{ partial "link_mark.html" "https://www.meetup.com/" }}{{ .name }}</span>
+                                    <span class="home_card_text">{{ .text }}</span>
+                                </span>
+                            </a>
+                        </div>
+                        {{- end }}
+                    </div>
+                </div>
+            </section>
+
+            <section class="home_latest container" aria-labelledby="home_latest_heading">
+                <div class="home_title">
+                    <h2 id="home_latest_heading">Recent events</h2>
+                </div>
+                {{ partial "event_table.html" (dict "rows" (first 10 $rows)) }}
+                <p class="home_more"><a class="btn btn-primary" href="{{ $events.RelPermalink }}">See all {{ $events.Title }} ({{ $counts.events_total }})</a></p>
+            </section>
+
+            {{- /* The canonical photo of every event that names one, newest
+                   first, from partials/canonical_photos.html. Bootstrap 4
+                   carousel, as the live hero: no data-ride and interval
+                   false, so it does not move on its own. One indicator per
+                   slide. The caption is the title of the event and the
+                   link to its gallery; the year is not printed, the name
+                   of the event carries it. The caption of the photo itself
+                   is the alt, so the image is described and the sentence
+                   is not printed twice. */ -}}
+            {{- with $slides }}
+            <section class="home_photos" aria-labelledby="home_photos_heading">
+                <div class="container">
+                    <div class="home_title home_title_dark">
+                        <h2 id="home_photos_heading">Our favourite pictures from our favourite events</h2>
+                    </div>
+                    <div id="home_carousel" class="carousel slide home_carousel" data-interval="false">
+                        <ol class="carousel-indicators">
+                            {{- range $i, $slide := . }}
+                            <li data-target="#home_carousel" data-slide-to="{{ $i }}"{{ if eq $i 0 }} class="active"{{ end }}></li>
+                            {{- end }}
+                        </ol>
+                        <div class="carousel-inner">
+                            {{- range $i, $slide := . }}
+                            {{- with resources.Get (printf "images%s" $slide.photo) }}
+                            {{- $small := partial "image_resize.html" (dict "img" . "width" 600) -}}
+                            {{- $large := partial "image_resize.html" (dict "img" . "width" 1200) -}}
+                            <div class="carousel-item{{ if eq $i 0 }} active{{ end }}">
+                                <img class="d-block home_slide" src="{{ $large.RelPermalink }}"{{ if gt $large.Width $small.Width }} srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w" sizes="(min-width: 1200px) 1140px, 100vw"{{ end }} width="{{ $large.Width }}" height="{{ $large.Height }}" loading="lazy" decoding="async" alt="{{ $slide.alt }}"/>
+                                <div class="carousel-caption home_caption">
+                                    <a href="{{ $slide.link }}#gallery"><span class="h3">{{ $slide.caption }}</span></a>
+                                </div>
+                            </div>
+                            {{- else }}{{ errorf "home: the photo %q is missing" $slide.photo }}{{ end }}
+                            {{- end }}
+                        </div>
+                        <a class="carousel-control-prev" href="#home_carousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#home_carousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            {{- end }}
+
+            {{- /* About us: the faces of the people who run the
+                   association, linked to the page that lists them. The
+                   home page had no link to /organizers/ at all: the page is the
+                   present of the association and the four tiles above are
+                   its past, so it reads here, over the ways of taking
+                   part, and not inside the Archive.
+
+                   The people and their order are the ones of
+                   content/pybcn_association/organizers.md, read through
+                   its own front matter so the two pages cannot disagree.
+                   Only the two bodies that run the association, the board
+                   and the committee, which that file marks with
+                   home_faces: the collaborators and the former board are
+                   on the page the line below leads to. The file says which groups and not this
+                   layout, so the year in the name of the board can change
+                   without a template edit. The photograph is the
+                   square of partials/image_square.html at 64px, the one
+                   /people/ draws at 48 and the card of the organizers
+                   page at 400, so the pipeline writes one more size of a
+                   file it already has. Every face is lazy, because the
+                   block is far below the fold. A person with no
+                   photograph takes the initials of the rows of /people/,
+                   through partials/person_placeholder.html. */ -}}
+            {{- with site.GetPage "/pybcn_association/organizers" }}
+            {{- $organizers := slice -}}
+            {{- $seen := dict -}}
+            {{- range .Params.people_levels -}}
+                {{- if not .home_faces }}{{ continue }}{{ end -}}
+                {{- range .people -}}
+                    {{- $id := . -}}
+                    {{- if reflect.IsMap . }}{{ $id = .id }}{{ end -}}
+                    {{- /* One face per person, in the order of the page.
+                           Two of them sit in two groups there, the former
+                           president among the collaborators, and a face
+                           printed twice in one row reads as a mistake. */ -}}
+                    {{- if index $seen $id }}{{ continue }}{{ end -}}
+                    {{- $seen = merge $seen (dict $id true) -}}
+                    {{- with site.GetPage (printf "/people/%s" $id) -}}
+                        {{- $organizers = $organizers | append . -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+            <section class="home_about_us container" aria-labelledby="home_about_us_heading">
+                <div class="home_title">
+                    <h2 id="home_about_us_heading">About us</h2>
+                    <p>A non-profit run by volunteers. These are <a href="{{ .RelPermalink }}">the people behind it</a>.</p>
+                </div>
+                <ul class="home_faces">
+                    {{- range $organizers }}
+                    {{- $person := . }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">
+                            {{- with .Params.photo -}}
+                                {{- with resources.Get (printf "images/people/%s" .) -}}
+                                    {{- $face := partial "image_square.html" (dict "img" . "size" 96 "anchor" "Smart") -}}
+                                    {{- $face2x := partial "image_square.html" (dict "img" . "size" 192 "anchor" "Smart") -}}
+                                    <img class="home_face" src="{{ $face.RelPermalink }}" srcset="{{ $face.RelPermalink }} 1x, {{ $face2x.RelPermalink }} 2x" width="{{ $face.Width }}" height="{{ $face.Height }}" loading="lazy" decoding="async" alt="{{ $person.Params.name }}" />
+                                {{- end -}}
+                            {{- else -}}
+                                {{- partial "person_placeholder.html" (dict "name" .Params.name) -}}
+                            {{- end -}}
+                        </a>
+                    </li>
+                    {{- end }}
+                </ul>
+            </section>
+            {{- end }}
+
+            {{- /* The four calls to action, two to a row, the icon at the
+                   left. What the membership box says is what
+                   content/pybcn_association/membership.md says a member
+                   gets: the fee, a voice and a vote in the general
+                   assembly. The venues, the pizza, and the PyDay are paid
+                   by the sponsors, so no box says the fee pays them. */ -}}
+            {{- $boxes := slice
+                (dict "path" "/pybcn_association/membership"         "icon" "fa-sign-in-alt"  "text" "Join the association: 20 euros a year, and a voice and a vote in the general assembly.")
+                (dict "path" "/pybcn_association/organize-with-us"   "icon" "fa-calendar-day" "text" "Help us run a meetup, or ask us to help with yours.")
+                (dict "path" "/pybcn_association/propose-a-talk"     "icon" "fa-comment"      "text" "Twenty minutes on something you built, learnt, or broke.")
+                (dict "path" "/contact"                              "icon" "fa-envelope"     "text" "A question, an idea, a venue to offer: write to us.") -}}
+            <section class="home_us container" aria-labelledby="home_us_heading">
+                <div class="home_title">
+                    <h2 id="home_us_heading">Take part</h2>
+                </div>
+                <ul class="row home_boxes">
+                    {{- range $boxes }}
+                    {{- $box := . }}
+                    {{- with site.GetPage .path }}
+                    <li class="col-md-6">
+                        <a class="home_card home_box" href="{{ .RelPermalink }}">
+                            <i class="fas {{ $box.icon }}" aria-hidden="true"></i>
+                            <span class="home_card_body">
+                                <span class="home_card_title h3">{{ .Title }}</span>
+                                <span class="home_card_text">{{ $box.text }}</span>
+                            </span>
+                        </a>
+                    </li>
+                    {{- else }}{{ errorf "home: the page %q is missing" $box.path }}{{ end }}
+                    {{- end }}
+                </ul>
+            </section>
+
+            {{- /* The friends: the first four of partials/friends.html, so
+                   the line is exactly four from xl (the second review).
+                   The fifth, the Python Software Foundation, stays in the
+                   data and is not drawn. The logo is the height of two
+                   lines, 56px, with the name and the line under it at its
+                   right, the whole card the link. The mark is drawn here
+                   and not through a partial of its own: a raster is
+                   resized to 56px tall, and to
+                   112px for a 2x screen when the file has the pixels; an
+                   SVG goes through untouched. The four marks are square,
+                   so the slot is square too. */ -}}
+            {{- $friends := first 4 (partial "friends.html") -}}
+            <section class="home_friends container" aria-labelledby="home_friends_heading">
+                <div class="home_title">
+                    <h2 id="home_friends_heading">Our friends</h2>
+                </div>
+                <ul class="home_friends_list">
+                    {{- range $friends }}
+                    <li>
+                        <a class="home_card home_friend" href="{{ .url }}" target="_blank" rel="noopener">
+                            {{- with resources.Get .icon }}
+                            {{- if eq .MediaType.SubType "svg" }}
+                            <img class="home_friend_logo" src="{{ .RelPermalink }}" width="56" height="56" loading="lazy" decoding="async" alt="">
+                            {{- else }}
+                            {{- $small := .Resize "x56 webp q85" }}
+                            {{- $large := . }}
+                            {{- if gt .Height 112 }}{{ $large = .Resize "x112 webp q85" }}{{ end }}
+                            <img class="home_friend_logo" src="{{ $small.RelPermalink }}" srcset="{{ $small.RelPermalink }} 1x, {{ $large.RelPermalink }} 2x" width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="">
+                            {{- end }}
+                            {{- else }}{{ errorf "home: the mark %q is missing" .icon }}{{ end }}
+                            <span class="home_card_body">
+                                <span class="home_card_title h3">{{ .name }}</span>
+                                <span class="home_card_text">{{ .text }}</span>
+                            </span>
+                        </a>
+                    </li>
+                    {{- end }}
+                </ul>
+            </section>
 {{ end }}

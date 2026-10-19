@@ -1,0 +1,45 @@
+{{- /*
+    The general assemblies of the association: the minutes of each one, and
+    the photograph of the act when there is one.
+
+    Takes no argument. Reads data/assemblies.yaml, which is the list and the
+    one place to edit when a new assembly is held.
+
+    The minutes used to be eight more links at the end of "Association
+    documentation", between the statutes and the fiscal data, and nothing on
+    the page said that each one is a day the association met. They have a
+    section of their own now, with the photograph beside each: the minutes
+    are the record the law asks for, and the
+    photograph is the only thing that says what the day looked like, because
+    an assembly has no event page and no gallery.
+
+    A year with no photograph prints its line alone, which is three of the
+    eight. The credit is the line the photo gallery of an event prints, "Via
+    @PyBCN" through partials/link_mark.html, pointing at the post the
+    photograph comes from.
+*/ -}}
+<ul class="assemblies">
+    {{- range site.Data.assemblies }}
+    {{- $assembly := . -}}
+    <li class="assembly{{ if not .photo }} assembly_bare{{ end }}">
+        {{- with .photo }}
+            {{- /* $ is the page inside a shortcode, not the row of the
+                   range, so the row is held in $assembly above. */ -}}
+            {{- with resources.Get (printf "images/photos/%s" .) }}
+                {{- $small := .Resize "300x webp q82" -}}
+                {{- $large := .Resize "600x webp q82" -}}
+        <a class="assembly_photo" href="{{ $assembly.source }}"><img src="{{ $small.RelPermalink }}" srcset="{{ $small.RelPermalink }} 1x, {{ $large.RelPermalink }} 2x" width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="{{ $assembly.caption }}" /></a>
+            {{- end }}
+        {{- end }}
+        <div class="assembly_body">
+            <a class="assembly_minutes" href="{{ .minutes }}">{{ partial "link_mark.html" .minutes }}{{ .name }}</a>
+            {{- with .caption }}
+            <p class="assembly_caption">{{ . }}</p>
+            {{- end }}
+            {{- with .source }}
+            <p class="assembly_source"><a href="{{ . }}">{{ partial "link_mark.html" . }}Via @PyBCN</a></p>
+            {{- end }}
+        </div>
+    </li>
+    {{- end }}
+</ul>

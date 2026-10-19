@@ -1,0 +1,169 @@
+{{- /*
+    Every row of /people/, resolved once per build.
+
+    Returns a dict:
+
+        rows     a slice of row dicts, one per person record with an id
+                 and a name, in no particular order
+        by_id    the same rows, as a map from the person id to the row,
+                 for a page that lists people by id (the organizers pages)
+        labels   a map from a role label to the number of rows that hold
+                 it, "Speaker" to 358
+
+    A row carries what partials/person_row.html prints and what a listing
+    filters or groups by:
+
+        id, name, url     the record, and the page of the person
+        page              the page itself, for the social links
+        thumb, srcset     the 48 px avatar and its 2x candidate, or ""
+        zoom              the 400 px square the avatar zooms to, or ""
+        roles             the role marks of the second line, each a dict
+                          with label and emoji, in the order of the
+                          association
+        labels            the role labels the index gives the person, the
+                          set a role page filters on; empty for a record
+                          no page credits
+        events            how many pages with a year credit the person
+        pages             the pages that credit the person, roles first
+                          and then events newest first, each with title,
+                          url, emoji, and mark_label
+        letter            the first letter of the id, upper case
+        key               the sort key inside a letter, the id
+
+    No argument is read: the data comes from site.Pages and from
+    partials/appearances_index.html. Call it through partialCached with a
+    constant variant, so the 371 records are resolved once per build and
+    not once per page that lists them:
+
+        partialCached "people_index.html" site "people-index"
+
+    Why one walk and not one per page. /people/ resolved its rows as it
+    drew them, which was right while it was the one page that drew rows.
+    There is a page per role now (see content/people/_content.gotmpl),
+    and the organizers pages draw the same rows for their own groups
+    (layouts/_default/people.html), a dozen listings in all. Each one
+    resizing 128 photos and walking the appearances of 371 people would
+    be a dozen walks for one set of rows, so the walk is cached under one
+    key and the pages pick from the slice it returns.
+
+    What is a row. A page of the people section with an id and a name.
+    The section page itself has no id, and neither has a record with no
+    name: partials/people_names.html leaves the same two out for the same
+    reason. The page of one role, which the adapter adds with a filter
+    param, has no id either and is skipped by the same test.
+
+    The appearances of a person are split the way
+    partials/person_appearances.html splits them: a page with a year is
+    an event, a page with none is a role. Both are deduplicated by URL,
+    because one page can credit one person under two headings (an
+    organizer who also spoke), and the row names each page once. An
+    event carries the emoji of its type from data/event_emoji.yaml, the
+    glyph the row of /events/ carries for the same page, and a page with
+    no year (a board page) carries the glyph of the label from
+    data/role_emoji.yaml, the glyph the Roles list of the person page
+    uses; ord is the place of the heading in that page, which is the
+    order the organizers page lists its levels in, current board first.
+
+    The roles of the second line are the labels in the order of the
+    association, through partials/role_order.html, each with the glyph of
+    data/role_emoji.yaml in front of it. A record no page credits has no label, and falls back to
+    the pybcn_position of its own file, when it holds one: for a record
+    in that state nothing else says what the person did here. That
+    fallback is printed and not filtered on: the labels of the row stay
+    empty, so such a row is on /people/ and on the page of no role, which
+    is the fact (no page of the archive credits the person with one).
+
+    The avatar: 48 px shown, with a 96 px file for a 2x screen, cropped
+    square by the pipeline as every other person photo is. The 400 px
+    file is the zoom, which is fetched on hover or focus and not on load;
+    it is the square the page of the person builds for its portrait, the
+    same operation on the same source, so Hugo reuses the file it already
+    wrote. Every source is square (bin/check-content rejects one that is
+    not), so the square is the whole photograph.
+*/ -}}
+{{- $index := partialCached "appearances_index.html" site "appearances-index" -}}
+{{- $rows := slice -}}
+{{- $by_id := dict -}}
+{{- $counts := dict -}}
+{{- range $person := where site.Pages "Section" "people" -}}
+    {{- $id := $person.Params.id -}}
+    {{- if not $id }}{{ continue }}{{ end -}}
+    {{- if not $person.Params.name }}{{ continue }}{{ end -}}
+
+    {{- $labels := slice -}}
+    {{- $roles := slice -}}
+    {{- $events := slice -}}
+    {{- $seen := dict -}}
+    {{- range index $index $id -}}
+        {{- if not (in $labels .label) }}{{ $labels = $labels | append .label }}{{ end -}}
+        {{- if index $seen .url }}{{ continue }}{{ end -}}
+        {{- $seen = merge $seen (dict .url true) -}}
+        {{- if .year -}}
+            {{- /* 9999 minus the year, so an ascending sort reads newest
+                   first, as in events_index.html. */ -}}
+            {{- $marker := default (index site.Data.event_emoji "*") (index site.Data.event_emoji .type) -}}
+            {{- $events = $events | append (dict "title" .title "url" .url "year" .year "emoji" $marker.emoji "mark_label" $marker.label "key" (printf "%04d %s %s" (sub 9999 .year) .title .url)) -}}
+        {{- else -}}
+            {{- $glyph := default (index site.Data.role_emoji "*") (index site.Data.role_emoji .label) -}}
+            {{- $roles = $roles | append (dict "title" .title "url" .url "emoji" $glyph "mark_label" .label "key" (printf "%s %04d" .url .ord)) -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- range $labels -}}
+        {{- $counts = merge $counts (dict . (add 1 (int (default 0 (index $counts .))))) -}}
+    {{- end -}}
+
+    {{- $role_marks := slice -}}
+    {{- $role_labels := $labels -}}
+    {{- if $role_labels -}}
+        {{- $role_labels = partial "role_order.html" $role_labels -}}
+    {{- else -}}
+        {{- with $person.Params.pybcn_position }}{{ $role_labels = slice . }}{{ end -}}
+    {{- end -}}
+    {{- range $role_labels -}}
+        {{- $glyph := default (index site.Data.role_emoji "*") (index site.Data.role_emoji .) -}}
+        {{- $role_marks = $role_marks | append (dict "label" . "emoji" $glyph) -}}
+    {{- end -}}
+
+    {{- $thumb := "" -}}
+    {{- $srcset := "" -}}
+    {{- $zoom := "" -}}
+    {{- with $person.Params.photo -}}
+        {{- with resources.Get (printf "images/people/%s" .) -}}
+            {{- $anchor := default "Smart" $person.Params.photo_anchor -}}
+            {{- $thumb = partial "image_square.html" (dict "img" . "size" 48 "anchor" $anchor) -}}
+            {{- $retina := partial "image_square.html" (dict "img" . "size" 96 "anchor" $anchor) -}}
+            {{- if gt $retina.Width $thumb.Width -}}
+                {{- $srcset = printf "%s 1x, %s 2x" $thumb.RelPermalink $retina.RelPermalink -}}
+            {{- end -}}
+            {{- $zoom = partial "image_square.html" (dict "img" . "size" 400 "anchor" $anchor) -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- /* The pages of the row: the roles first, in the order their page
+           lists its levels, and then the events, newest first, the order
+           partials/person_appearances.html gives the two lists of the
+           page of the person. Each half is sorted only when it has a
+           row. */ -}}
+    {{- $pages := slice -}}
+    {{- with $roles }}{{ $pages = $pages | append (sort . "key") }}{{ end -}}
+    {{- with $events }}{{ $pages = $pages | append (sort . "key") }}{{ end -}}
+
+    {{- $row := dict
+            "id" $id
+            "name" $person.Params.name
+            "url" $person.RelPermalink
+            "thumb" $thumb
+            "srcset" $srcset
+            "zoom" $zoom
+            "page" $person
+            "roles" $role_marks
+            "labels" $labels
+            "events" (len $events)
+            "pages" $pages
+            "letter" (upper (substr $id 0 1))
+            "key" $id -}}
+    {{- $rows = $rows | append $row -}}
+    {{- $by_id = merge $by_id (dict $id $row) -}}
+{{- end -}}
+{{- return dict "rows" $rows "by_id" $by_id "labels" $counts -}}

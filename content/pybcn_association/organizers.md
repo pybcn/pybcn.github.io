@@ -18,10 +18,16 @@ people_levels:
     - people_per_line: 5
       people: [jordi-bosch, daniel-mesejo-leon, yago-tafalla, mauricio-volcanes, sergi-ramirez]
       name: Management Board (2026)
+      # The faces the home page shows, which are the two bodies that
+      # run the association.
+      home_faces: true
     - people_per_line: 6
       people: [alberto-camara, david-arcos, ignasi-fosch, natalia-padilla, alicia-morales-carrasco, ferran-jovell]
       name: Permanent Committee
-    - people_per_line: 4
+      home_faces: true
+    # Six on a line, so the eight read as the two rows of a group and not
+    # as two rows of four with a gap.
+    - people_per_line: 6
       people: [elisabeth-ortega-carrasco, josep-martinez-vila, loris-mularoni, laura-perez-mayos, nuria-pujol-vilanova, jose-riera-sanchez, ruben-berenguel, xavi-francisco-gilabert]
       name: Collaborators
     - people_per_line: 5

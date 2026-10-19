@@ -97,8 +97,18 @@ Edit the file on GitHub, or clone the repository and follow the steps below.
   [Person photos](README.md#person-photos).
 - **A sponsor**: run `bin/hugo new sponsors/my-sponsor.md` and fill the four
   fields listed in [How to add a new sponsor](README.md#how-to-add-a-new-sponsor).
-  The logo goes under `themes/pybcn_theme/assets/images/sponsors/`. Then list
-  the sponsor on the sponsors page, or on the event, that shows it.
+  The logo goes under `themes/pybcn_theme/assets/images/sponsors/`. The
+  [sponsors page](https://pybcn.org/sponsors/) reads the directory, so the
+  new file reaches it by existing; list the sponsor on its event as well, in
+  the `sponsor_levels` of that page, which is what gives it a level.
+- **A monthly meetup**, after it happened: run `bin/new-meetup --discover`
+  to see which ones have no page yet, then
+  `bin/new-meetup <the Meetup URL of the event>`. It writes the page from the
+  public event page: the title, the day, the venue, the number of
+  registrations, the source URL, and the group. It writes no talk, because the
+  announcement says them in prose: pass `--description` to print that prose,
+  and see [Import a meetup](README.md#import-a-meetup) for the rest of the
+  path, which is the same one the 268 pages of the archive came through.
 - **An event**: copy the previous edition under `content/events/`, for example
   `content/events/pyday_bcn/pyday_bcn_2025.md`, and edit it. The sections, the
   agenda and the people grids are described in

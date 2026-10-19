@@ -45,4 +45,42 @@ talks:
     language: en
     duration_minutes: 30
     description: "Geotracking is a tool developed by Tiendeo that measures the impact of digital campaings in the real world andallow companies to get a better picture of their customers. Based in python, Tiendeo Geotracking is an analysis tool that combines data from multiples sources (geolocation, product-based information) mixed with in-house developed algorithms in order to obtain valuable KPI'S from big data."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/910917280695033856"
+  items:
+    - file: 2017-09-21-python-september-meetup/07-about-to-start-september-s-python-meetup-at-tiende.webp
+      caption: "About to start September's Python Meetup at @Tiendeo!"
+      source: "https://x.com/PyBCN/status/910915174718164993"
+      time: "19:14"
+    - file: 2017-09-21-python-september-meetup/01-python-for-robotics-a-quick-introduction-to-rospy.webp
+      caption: "Python for robotics: a quick introduction to rospy, by @jotape #pybcn"
+      source: "https://x.com/PyBCN/status/910917280695033856"
+      time: "19:22"
+      talk: python-for-robotics-a-quick-introduction-to-rospy
+    - file: 2017-09-21-python-september-meetup/02-demo-face-detection-with-rospy.webp
+      caption: "Demo: face detection with rospy"
+      source: "https://x.com/PyBCN/status/910920907048222720"
+      time: "19:37"
+    - file: 2017-09-21-python-september-meetup/03-fun-with-python-and-c-by-jomsdev-pybcn.webp
+      caption: "Fun with Python and C++, by @jomsdev #pybcn"
+      source: "https://x.com/PyBCN/status/910923502923939841"
+      time: "19:47"
+      talk: fun-with-python-and-c
+    - file: 2017-09-21-python-september-meetup/04-live-demo.webp
+      caption: "Live demo!"
+      source: "https://x.com/PyBCN/status/910930108730499072"
+      time: "20:13"
+    - file: 2017-09-21-python-september-meetup/05-tiendeo-geotracking-from-online-to-store-by-ernest.webp
+      caption: "Tiendeo Geotracking: From Online to Store, by Ernest Carbonell from @Tiendeo #pybcn"
+      source: "https://x.com/PyBCN/status/910931864914939906"
+      time: "20:20"
+      talk: tiendeo-geotracking-from-online-to-store
+    - file: 2017-09-21-python-september-meetup/06-lets-manage-lots-of-pickles-rick.webp
+      caption: "Lets manage lots of pickles! #Rick"
+      source: "https://x.com/PyBCN/status/910935135859683333"
+      time: "20:33"
 ---

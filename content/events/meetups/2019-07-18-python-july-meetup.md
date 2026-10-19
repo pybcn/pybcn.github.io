@@ -42,4 +42,21 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=xOT4pg5jqVU"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1153265126415450113"
+  items:
+    - file: 2019-07-18-python-july-meetup/01-ml-against-fraud-catching-bad-guys-with-python-by.webp
+      caption: "ML Against Fraud: Catching Bad Guys with Python by Gabriel Oliveira-Barra (@nospotfer)"
+      source: "https://x.com/PyBCN/status/1153265126415450113"
+      time: "13:26"
+      talk: ml-against-fraud-catching-bad-guys-with-python
+    - file: 2019-07-18-python-july-meetup/02-python-on-ucontrollers-by-juan-biondi.webp
+      caption: "Python on uControllers by Juan Biondi"
+      source: "https://x.com/PyBCN/status/1153265590783696896"
+      time: "13:28"
+      talk: python-on-ucontrollers
 ---

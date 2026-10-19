@@ -22,30 +22,21 @@ $quote-rule: #ced4da;
 // is taller than it. Measured over the 276 photographs of the archive on
 // 2026-10-14: 228 of the 251 landscapes are 4:3 or wider and keep their
 // size, the 23 taller ones, 6 of them square to the pixel, come down to
-// 675px, and so do the 10 squares and the 15 portraits, which David Arcos
-// asked for ("limite de alto, para que las fotos verticales no salgan
-// demasiado grandes"). On a 390px phone the card is 358px wide and a
+// 675px, and so do the 10 squares and the 15 portraits, so a portrait
+// does not come out far taller than the card beside it. On a 390px phone the card is 358px wide and a
 // portrait 636px tall, under the cap, so nothing changes there. Measured
 // in Chromium on the first and the twenty-first photo of PyDay BCN 2022:
 // 900x506 and 379x675 at 1280px, 358x201 and 358x636 at 390px.
 $photo-max-height: 675px;
 
-// The rule above the gallery, and the air above that. The gallery is the last
-// section of an event page, after the sponsors and the people of the day, and
-// it holds what the association published once the day was over. The rule
-// and the gap are what say so to a reader who is scrolling: three sections
-// of a programme in a row, and then something that is not one.
-//
-// There is no band of colour behind the section any more. The gallery sat on
-// a light grey band, with every card on it, until David Arcos asked for a box
-// per item on 2026-10-14 ("ahora están todos en una caja gris"): each figure
-// is its own card, the border and the white body of the Bootstrap 4 card, on
-// the white of the page, and the air between the cards is what separates
-// them. The gap above and below the thread link is in .photo_thread.
-.gallery_rule {
-    margin-top: 4rem;
-    margin-bottom: 0;
-}
+// There is no band of colour behind the section, and no rule above it any
+// more. The gallery sat on a light grey band, with every card on it, until
+// 2026-10-14. Each figure is its own card, on the white of the page,
+// and the air between the cards is what separates them. The hr above the
+// section went on 2026-10-17: the title of the gallery is the section
+// title of main.scss, which draws its own rule, as every block of the
+// page does now, and a second rule over it read as a mistake. The gap
+// above and below the thread link is in .photo_thread.
 
 .photo_gallery {
     // The gallery is the last section and it is set apart from the
@@ -61,9 +52,19 @@ $photo-max-height: 675px;
     // of an imported photograph is capped at 1000px, and a column wider than
     // that would make a normal screen scale the picture up, which looks
     // worse than any saving is worth.
-    // 992px is the lg breakpoint of Bootstrap 4, written out because this
-    // file is compiled without the Bootstrap mixins in scope.
-    @media (min-width: 992px) {
+    // 1200px is the xl breakpoint of Bootstrap 4, written out because this
+    // file is compiled without the Bootstrap mixins in scope. It was 992,
+    // the lg one, and that was too early: margin-left 50% centres the
+    // section on its containing block, which is the col-md-9 of the page
+    // and not the window, so between 992px and 1200px the 902px section
+    // landed off centre and ran past the right edge of the screen. Measured
+    // on the live site, the event page was 1067px wide on a 992px screen
+    // and 1083px on a 1024px one, which is the same sideways drag issue
+    // #212 reports for the schedule, on a different element and at a
+    // different size. At 1200px the container is 1140px and the breakout
+    // has the room it was designed for. Below it the gallery stays in the
+    // reading column, which is what it does on a phone already.
+    @media (min-width: 1200px) {
         width: 902px;
         max-width: calc(100vw - 3rem);
         margin-left: 50%;
@@ -86,6 +87,9 @@ $photo-max-height: 675px;
         // grid, so a portrait photo and a landscape one sit in the same
         // column and keep their own shape.
         margin: 0 0 3rem;
+        // The frame of every card of the site over the one Bootstrap's
+        // .card draws: the rule grey and 4px, not rgba black and 0.25rem.
+        @include site_frame;
         // Every figure is a link target, #1 to #33, and the navigation bar
         // is fixed over the top 80px of the window.
         scroll-margin-top: 80px;
@@ -133,7 +137,7 @@ $photo-max-height: 675px;
     //
     // Italic, as a quotation is set in print, so the words of the post read
     // as a quotation even where the rule down the left is easy to miss, on
-    // a narrow window with the border of the card beside it. David Arcos
+    // a narrow window with the border of the card beside it. The gallery
     // asked on 2026-10-14 ("el blockquote, tal vez en cursiva?"). The talk
     // line under it went upright at the same time: two italic blocks one
     // after the other read as one, and the line under the caption is this
@@ -247,7 +251,12 @@ $photo-max-height: 675px;
     // was the photographs alone, for the one day of 2026-10-14.
     .gallery_photos,
     .gallery_videos {
-        margin-top: 1.5rem;
+        margin-top: 0;
+    }
+
+    // The second subsection stands a block off the first.
+    .gallery_photos + .gallery_videos {
+        margin-top: $block-gap;
     }
 
     // The rows of the videos take .talk_rows of talks.scss unchanged; the

@@ -1,0 +1,32 @@
+{{- /*
+    The page of one type of talk: /talks/type/workshop/, the rows of
+    /talks/ that carry that type, under the same tabs and in the same
+    table.
+
+    content/talks/_content.gotmpl adds one of these per type that at
+    least one talk carries, with the token as params.filter, and selects
+    this layout. The rows are the rows of partials/talks_index.html whose
+    type is that token, so the table here and the table of /talks/ print
+    the same row the same way, and the years, the rowspans, and the bar of
+    years are recomputed for the rows kept: the workshops page jumps to
+    the years that have a workshop and to no other.
+
+    The h1 reads "Talks: Workshops (172)": the parent listing from
+    partials/page_parent.html, the title the adapter gave the page, and
+    the count of partials/listing_total.html, which is the count the tab
+    of this page carries, both from partials/listing_counts.html.
+*/ -}}
+{{ define "main" }}
+<div class="container">
+
+    {{ partial "talks_tabs.html" . }}
+
+    {{- $filter := .Params.filter -}}
+    {{- $rows := slice -}}
+    {{- range partialCached "talks_index.html" site "talks-index" -}}
+        {{- if eq .type $filter }}{{ $rows = $rows | append . }}{{ end -}}
+    {{- end }}
+    {{ partial "talks_table.html" (dict "rows" $rows) }}
+
+</div>
+{{ end }}

@@ -44,4 +44,49 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=a8smnNogLQU"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1517184934225580033"
+  items:
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/09-full-attendance-at-pybcn-s-meetup-thanks-backmarke.webp
+      caption: "Full attendance at PyBCN's meetup! Thanks @backmarket for hosting us!"
+      source: "https://x.com/PyBCN/status/1517184573595164674"
+      time: "18:52"
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/01-shorter-feedback-loop-by-running-impacted-tests-on.webp
+      caption: "\"Shorter feedback loop by running impacted tests only\", by Mathieu Kniewallner (@mkniewallner)"
+      source: "https://x.com/PyBCN/status/1517184934225580033"
+      time: "18:54"
+      talk: shorter-feedback-loop-by-running-impacted-tests-only
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/02-pip-install-partialtesting-pytest-testmon.webp
+      caption: "# pip install partialtesting pytest-testmon"
+      source: "https://x.com/PyBCN/status/1517186918496325634"
+      time: "19:02"
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/03-current-limitations.webp
+      caption: "Current limitations:"
+      source: "https://x.com/PyBCN/status/1517190331451719681"
+      time: "19:15"
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/04-aprendizaje-a-traves-de-grafos-graph-neural-networ.webp
+      caption: "\"Aprendizaje a través de grafos: Graph Neural Networks (GNNs)\", by Camilo Chacón Sartori (@camilo_chacon_s)"
+      source: "https://x.com/PyBCN/status/1517193144126824450"
+      time: "19:26"
+      talk: aprendizaje-a-traves-de-grafos-graph-neural-networks
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/05-estructura-regular-vs-irregular.webp
+      caption: "Estructura regular vs irregular"
+      source: "https://x.com/PyBCN/status/1517196070769541122"
+      time: "19:38"
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/06-gnns.webp
+      caption: "GNNs:"
+      source: "https://x.com/PyBCN/status/1517197177046683649"
+      time: "19:42"
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/07-more-books-for-my-library.webp
+      caption: "More books for my library! 😅"
+      source: "https://x.com/PyBCN/status/1517201755238551563"
+      time: "20:01"
+    - file: 2022-04-21-python-april-meetup-shorter-testing-feedback-aprendizaje-a/08-finally-a-great-networking-we-missed-you-a-lot-tha.webp
+      caption: "Finally, a great networking 🍕🍻. We missed you a lot, thanks for attending!"
+      source: "https://x.com/PyBCN/status/1517222836770942977"
+      time: "21:24"
 ---

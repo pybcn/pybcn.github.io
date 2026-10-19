@@ -1,26 +1,45 @@
 {{- /*
-    A grid of sponsor logos, one row per level.
+    A grid of sponsor logos, one band per level.
 
-    The row ids carry the "sponsors" prefix so that they cannot collide with
-    the rows of a people grid on the same event page.
+    Every card is the same size and every logo sits in the same fixed box
+    inside it, so no sponsor reads as having paid for a bigger slot. What
+    responds to the width of the window is the number of cards on a line,
+    not the size of a logo: a logo that is scaled by the viewport is a logo
+    that is unreadable on a phone and enormous on a desktop.
+
+    The columns were Bootstrap ones, col-md-{12 / sponsors_per_line}, and
+    with a fixed card height inside them the cells overlapped and left
+    holes. The row is a CSS grid now and the cards are its items, so the
+    browser lays them out and nothing can overlap.
+
+    sponsors_per_line is the cap a named level asks for, which is what an
+    edition page uses to say that its two Gold sponsors are bigger news
+    than its eight Supporting ones. A level that asks for nothing, which is
+    /sponsors/, fills the line with as many cards as fit. The cap travels
+    as a class and not as an inline custom property, because
+    bin/check-rendered refuses an inline style the stylesheet could carry:
+    sponsors.scss writes one rule per value, and the data holds 2, 3 and 4.
+
+    The row ids carry the "sponsors" prefix so that they cannot collide
+    with the rows of a people grid on the same event page.
 */ -}}
-<div class="container objects_grid" id="sponsors_grid">
+<div class="container" id="sponsors_grid">
 
     {{ $pages := where .Site.Pages "Section" "sponsors" }}
     {{ range $idx, $level := .levels }}
-        <div class="row justify-content-md-center level" id="sponsors_level_{{$idx}}">
+        <div class="sponsors_level level" id="sponsors_level_{{$idx}}">
             {{ if $level.name }}
-                <div class="col-md-12 level_name">
-                    <h2>{{ $level.name }}</h2>
-                </div>
+                <h2 class="level_name">{{ $level.name }}</h2>
             {{ end }}
-            {{ range $sponsor := $level.sponsors }}
-                {{ range $page := where $pages ".Params.id" "eq" $sponsor }}
-                <div class="col-md-{{ div 12 (int $level.sponsors_per_line) }} sponsor my-auto">
-                    {{ partial "sponsor_summary.html" (dict "sponsor" $page) }}
-                </div>
+            <div class="sponsors_cards{{ with $level.sponsors_per_line }} sponsors_cards_capped_{{ . }}{{ end }}">
+                {{ range $sponsor := $level.sponsors }}
+                    {{ range $page := where $pages ".Params.id" "eq" $sponsor }}
+                    <div class="sponsor_card">
+                        {{ partial "sponsor_summary.html" (dict "sponsor" $page) }}
+                    </div>
+                    {{ end }}
                 {{ end }}
-            {{ end }}
+            </div>
         </div>
     {{ end }}
 

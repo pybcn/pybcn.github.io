@@ -1,0 +1,40 @@
+{{- /*
+    The kind a page has in the site search, or "" for a page the search
+    does not index.
+
+    Argument: the page. Returns one of talk, event, person, or "".
+
+    Pagefind indexes a page only where it finds data-pagefind-body, and
+    every attribute that says what a page is (the kind meta and filter
+    the results are labelled and filtered by) is written from this one
+    answer: partials/hero_header.html puts them on the h1, and the layouts
+    of the three kinds mark their record. So a page is one kind in one
+    place, and a kind that is added or taken out of the search is one
+    line here.
+
+    A talk page is a page of the talks section, which the content adapter
+    content/talks/_content.gotmpl adds. A person page is a page of the
+    people section. An event page is a page of the events section drawn by
+    layouts/_default/meetup.html (the cascade of content/events/meetups/
+    sets the layout) or by layouts/_default/event.html (the editions set
+    it in their front matter); the monthly events page and the section
+    listing are not events. The listings (/talks/, /people/, /events/) are
+    sections, not pages, and are out: they repeat what the pages say. So
+    is the page of one type of talk or of one role, a page of the talks or
+    the people section that a content adapter adds with a filter param:
+    it is a view of the listing and repeats the pages the same way.
+    The association pages, the PyLadies pages, and the home are out of
+    this first version (the proposal of 2026-10-16); each is one more
+    branch here when a reader needs them.
+*/ -}}
+{{- $kind := "" -}}
+{{- if and (eq .Kind "page") (not .Params.filter) -}}
+    {{- if eq .Section "talks" -}}
+        {{- $kind = "talk" -}}
+    {{- else if eq .Section "people" -}}
+        {{- $kind = "person" -}}
+    {{- else if and (eq .Section "events") (in (slice "meetup" "event") .Layout) -}}
+        {{- $kind = "event" -}}
+    {{- end -}}
+{{- end -}}
+{{- return $kind -}}

@@ -6,6 +6,13 @@ year: 2025
 date: 2025-11-29
 # The venue of this edition, from the room names and the hero image of this page: this edition sold tickets on Eventbrite and was never a Meetup event.
 venue: "Canòdrom"
+# How many people came. Not a registration: this edition sold its tickets
+# on Eventbrite, so there is no RSVP count, and the number is the one the
+# association counted and published the day after, in the post that closes
+# the thread of the day: "The #PyDayBCN 2025 was a success! 140
+# attendants, 16 workshops, many lightning talks, and hundreds of
+# coffees!", https://x.com/PyBCN/status/1995426809425613242.
+attendees: 140
 description: "For the community, by the community!"
 menu:
   main:
@@ -527,6 +534,12 @@ agenda:
 # Photos published by PyBCN on the day, one per post so no two share a caption,
 # which is also the alt text. Imported with bin/import-x-photos, which excludes
 # anything the account only shared: that copyright belongs to somebody else.
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+canonical_photo: pyday-2025/02-the-pydaybcn-2025-was-a-success-140-attendants-16.jpg
+
 photos:
   thread: "https://x.com/PyBCN/status/1994662616132673581"
   items:

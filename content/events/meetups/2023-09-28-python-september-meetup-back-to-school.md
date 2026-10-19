@@ -38,4 +38,37 @@ talks:
     language: en
     duration_minutes: 45
     description: "This presentation will explore the application of image generative algorithms in fashion design with a particular focus on their most valuable use cases and implementation at Mango. We will discuss the innovative ways in which these algorithms are transforming the fashion industry by generating diverse design elements such as photographic prints, vector and cartoon illustrations, fabric patterns, and textures. Additionally, we will delve into the art of prompt engineering, providing valuable insights into the creative process behind generating useful images. The presentation will shed light on the future of fashion design and the growing influence of artificial intelligence in this dynamic industry."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1707446292253745529"
+  items:
+    - file: 2023-09-28-python-september-meetup-back-to-school/06-during-the-intro-we-just-announced-a-new-pydaybcn.webp
+      caption: "During the intro, we just announced a new PyDayBCN. Looking for speakers, sponsors, etc. Will keep you updated!"
+      source: "https://x.com/PyBCN/status/1707445980931461366"
+      time: "19:23"
+    - file: 2023-09-28-python-september-meetup-back-to-school/01-the-two-language-problem-in-vectorized-python-expr.webp
+      caption: "\"The two language problem in vectorized python expressions\", by David Buchaca"
+      source: "https://x.com/PyBCN/status/1707446292253745529"
+      time: "19:24"
+      talk: the-two-language-problem-in-vectorized-python-expressions
+    - file: 2023-09-28-python-september-meetup-back-to-school/02-this-is-the-way.webp
+      caption: "This is the way"
+      source: "https://x.com/PyBCN/status/1707452439895421056"
+      time: "19:49"
+    - file: 2023-09-28-python-september-meetup-back-to-school/03-ai-image-generative-algorithm-in-fashion-design-by.webp
+      caption: "\"AI image generative algorithm in fashion design\", by Lucas Pastur"
+      source: "https://x.com/PyBCN/status/1707454034368454912"
+      time: "19:55"
+      talk: ai-image-generative-algorithm-in-fashion-design
+    - file: 2023-09-28-python-september-meetup-back-to-school/04-many-use-cases-in-fashion-design.webp
+      caption: "Many use cases in fashion design:"
+      source: "https://x.com/PyBCN/status/1707456945139880437"
+      time: "20:07"
+    - file: 2023-09-28-python-september-meetup-back-to-school/05-we-ve-seen-some-good-tips-on-prompt-engineering.webp
+      caption: "We've seen some good tips on prompt engineering"
+      source: "https://x.com/PyBCN/status/1707461285250580920"
+      time: "20:24"
 ---

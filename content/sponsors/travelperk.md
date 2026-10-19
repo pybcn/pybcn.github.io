@@ -1,7 +1,7 @@
 ---
 id: travelperk
 name: TravelPerk
-logo_image: travelperk.png
+logo_image: travelperk.webp
 site: https://www.travelperk.com
 ---
 

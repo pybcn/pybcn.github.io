@@ -703,6 +703,40 @@ def check_sources():
 SOURCE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
 
 
+def check_canonical_photo():
+    """Every event names one photo, and the file behind it exists.
+
+    canonical_photo is the one picture of a day: the group photo when the
+    day has one, and the picture that says most about it when it does not.
+    partials/canonical_photos.html collects them, newest first, and the
+    carousel of the home page is one slide per event that has one.
+
+    The template resolves the file with resources.Get and renders nothing
+    when it fails, so a typo costs a slide and says nothing.
+
+    An edition with a gallery and no canonical photo is a warning. A
+    monthly meetup is not: 64 of them gained a gallery when the posts of
+    their own day were imported, and the carousel of the home page shows
+    the editions, not every day the association has photographed. A meetup
+    that wants a slide names one and gets it.
+    """
+    missing = []
+    for path in sorted((CONTENT / "events").rglob("*.md")):
+        data = front_matter(path)
+        if data is None:
+            continue
+        name = data.get("canonical_photo")
+        if name:
+            gallery_file(path, f"canonical_photo '{name}'", str(name))
+        elif data.get("photos") and "meetups" not in path.parts:
+            missing.append(path)
+    for path in missing:
+        warn(path, "has a photo gallery and no 'canonical_photo'. The "
+                   "carousel of the home page shows one photo per event, "
+                   "and this one has none to show. Name the group photo of "
+                   "the day, or the picture that says most about it.")
+
+
 def check_logos(sponsors):
     """A sponsor whose declared logo file is missing renders a broken image, and
     the Hugo build does not notice. A sponsor with no logo_image at all is only
@@ -1573,6 +1607,7 @@ def main():
     sponsors = collect_ids("sponsors")
     check_photos(people)
     check_gallery(people)
+    check_canonical_photo()
     check_logos(sponsors)
     check_social(people, sponsors)
     check_sources()

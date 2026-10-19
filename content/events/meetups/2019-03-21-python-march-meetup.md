@@ -58,4 +58,31 @@ talks:
   links:
   - type: video
     url: https://www.youtube.com/watch?v=t2Z2yscYaQA
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1108794016521469952"
+  items:
+    - file: 2019-03-21-python-march-meetup/01-welcome-to-pybcn-march-meetup-houston-we-have-a-sn.webp
+      caption: "Welcome to PyBCN March Meetup! \"Houston, we have a snake: Python at @Satellogic\", by Albert Pujol and Juan Luis Cano (@astrojuanlu)"
+      source: "https://x.com/PyBCN/status/1108794016521469952"
+      time: "19:14"
+      talk: houston-we-have-a-snake-python-at-satellogic
+    - file: 2019-03-21-python-march-meetup/02-pyspark-on-kubernetes-avoiding-the-pain-of-yarn-by.webp
+      caption: "\"PySpark on Kubernetes -- Avoiding the pain of YARN\", by Holden Karau (@holdenkarau)"
+      source: "https://x.com/PyBCN/status/1108802526760058887"
+      time: "19:48"
+      talk: pyspark-on-kubernetes-avoiding-the-pain-of-yarn
+    - file: 2019-03-21-python-march-meetup/03-codificando-atomos-con-python-por-johanna-sanchez.webp
+      caption: "\"Codificando átomos con Python\", por Johanna Sanchez (@EllaQuimica) de @argenpython"
+      source: "https://x.com/PyBCN/status/1108810729375887360"
+      time: "20:20"
+      talk: codificando-atomos-con-python
+    - file: 2019-03-21-python-march-meetup/04-thanks-all-for-coming-and-satellogic-for-hosting-u.webp
+      caption: "Thanks all for coming, and @Satellogic for hosting us!"
+      source: "https://x.com/PyBCN/status/1108825216543797249"
+      time: "21:18"
+
 ---

@@ -41,4 +41,20 @@ talks:
     language: en
     duration_minutes: 45
     description: "EHR systems can have data from a variety of different sources including billing data, patient demographics, medical history, lab results, sensor data, prescriptions, clinical notes, medical images, etc. I will cover a couple of ML models that use this kind of data to cover different use cases and i'll talk about the multiple bias that the data might have."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1197582659465207808"
+  items:
+    - file: 2019-11-21-python-november-meetup/01-we-start-today-s-meetup-with-ismansiete-from-color.webp
+      caption: "We start today's meetup with @ismansiete from @ColorSensing"
+      source: "https://x.com/PyBCN/status/1197582659465207808"
+      time: "19:28"
+      talk: avoid-food-waste-with-qr-codes-and-computer-vision
+    - file: 2019-11-21-python-november-meetup/02-now-we-continue-with-gabimaeztu-from-iomed-ehr.webp
+      caption: "Now we continue with @gabimaeztu from @iomed_ehr"
+      source: "https://x.com/PyBCN/status/1197591648517197826"
+      time: "20:04"
 ---

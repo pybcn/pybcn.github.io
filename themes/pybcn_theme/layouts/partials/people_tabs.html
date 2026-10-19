@@ -1,0 +1,88 @@
+{{- /*
+    The tabs of the people listing: All, then one tab per role the
+    archive credits somebody with, each with its glyph and its count,
+    then any view with no rows behind it, through
+    partials/filter_tabs.html.
+
+        [ All 371 ] [ 📋 Management Board (2026) 4 ] [ 🧭 Permanent Committee 6 ] [ 🧭 Organizer 21 ] ... [ Assistants ]
+
+    Argument: the page being rendered, /people/ or the page of one role,
+    so that its tab is marked current.
+
+    The tabs are the ones of /talks/: All, and then each role with its
+    emoji. The counts
+    come from partials/people_index.html, the one walk that also builds
+    the rows, so a tab says how many rows the page behind it draws. The
+    pages come from content/people/_content.gotmpl, which adds one per
+    label that somebody holds, each carrying its label as params.filter.
+
+    The tabs are built from the labels that have rows, the biggest first:
+    Speakers, then Organizers, and down to the one Volunteer. The bar is
+    a way into the list and not a hierarchy of
+    the association, so what a reader needs first is the tab that holds
+    most of the people. Two labels of the same size fall back to the
+    order of the association, partials/role_order.html, which is the
+    order the roles of one person read in on their own row and stays as
+    it was. A label with rows and no page would be a defect in the
+    adapter or in the index; it warns and gets no tab, rather than a tab
+    that leads to a 404. The glyph is the one data/role_emoji.yaml gives
+    the label, the glyph the row prints before the same word.
+
+    After them, any page of the section with a filter that no row holds:
+    a view with no count, because there is no number to print. The one
+    such page is Assistants, which says that the association never
+    tracked who attended (see the adapter). It is listed from the pages
+    and not named here, so a second such view is one more page and no
+    edit to this bar.
+*/ -}}
+{{- $here := . -}}
+{{- $people := partialCached "people_index.html" site "people-index" -}}
+{{- $section := site.GetPage "/people" -}}
+{{- $items := slice (dict "url" $section.RelPermalink "text" "All" "count" (len $people.rows) "current" (eq $here.RelPermalink $section.RelPermalink)) -}}
+
+{{- /* The page of each label, from the pages the adapter added. */ -}}
+{{- $pages := dict -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if ne $pg.Section "people" }}{{ continue }}{{ end -}}
+    {{- with $pg.Params.filter }}{{ $pages = merge $pages (dict . $pg) }}{{ end -}}
+{{- end -}}
+
+{{- $labels := slice -}}
+{{- range $label, $_ := $people.labels }}{{ $labels = $labels | append $label }}{{ end -}}
+{{- /* The sort key: the count, descending, with the rank of the label in
+       the order of the association as the tie-break. 99999 less the count
+       sorts the big ones first with the ascending sort Hugo gives, and
+       the rank keeps two labels of one size in the order a person row
+       reads them. */ -}}
+{{- $ranked := slice -}}
+{{- range $rank, $label := partial "role_order.html" $labels -}}
+    {{- $pg := index $pages $label -}}
+    {{- if not $pg -}}
+        {{- warnf "people tabs: %d rows of /people/ hold the role %q, which has no page of its own." (index $people.labels $label) $label -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $count := int (index $people.labels $label) -}}
+    {{- $ranked = $ranked | append (dict
+            "url" $pg.RelPermalink
+            "text" $label
+            "count" $count
+            "emoji" (default (index site.Data.role_emoji "*") (index site.Data.role_emoji $label))
+            "current" (eq $here.RelPermalink $pg.RelPermalink)
+            "key" (printf "%05d %03d" (sub 99999 $count) $rank)) -}}
+{{- end -}}
+{{- with $ranked }}{{ $items = $items | append (sort . "key") }}{{ end -}}
+
+{{- /* The views with no rows, by title. */ -}}
+{{- $empty := slice -}}
+{{- range $label, $pg := $pages -}}
+    {{- if index $people.labels $label }}{{ continue }}{{ end -}}
+    {{- $empty = $empty | append (dict
+            "url" $pg.RelPermalink
+            "text" $label
+            "emoji" (default (index site.Data.role_emoji "*") (index site.Data.role_emoji $label))
+            "current" (eq $here.RelPermalink $pg.RelPermalink)
+            "key" $label) -}}
+{{- end -}}
+{{- with $empty }}{{ $items = $items | append (sort . "key") }}{{ end -}}
+
+{{- partial "filter_tabs.html" (dict "label" "Roles" "items" $items) -}}

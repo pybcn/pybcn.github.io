@@ -34,4 +34,34 @@ talks:
     speakers: [aitor-guevara]
     type: talk
     duration_minutes: 40
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/581173303932518400"
+  items:
+    - file: 2015-03-26-python-march-meetup/01-spark-ipython-by-guillermo-blasco-theblackboxio-at.webp
+      caption: "Spark + iPython, by Guillermo Blasco (@theblackboxio) at @itnig #pybcn"
+      source: "https://x.com/PyBCN/status/581156478972751873"
+      time: "19:11"
+      talk: spark-ipython
+    - file: 2015-03-26-python-march-meetup/02-spark-ipython-why-pybcn.webp
+      caption: "Spark + ipython, why? #pybcn"
+      source: "https://x.com/PyBCN/status/581158394972733440"
+      time: "19:18"
+      talk: spark-ipython
+    - file: 2015-03-26-python-march-meetup/03-networking-at-the-python-barcelona-meetup-at-itnig.webp
+      caption: "Networking at the Python Barcelona Meetup at @itnig, thanks to @EstrellaDammCat :) #pybcn"
+      source: "https://x.com/PyBCN/status/581172700883845120"
+      time: "20:15"
+    - file: 2015-03-26-python-march-meetup/01-concurrency-in-python-by-aitor-guevara-aitorciki-a.webp
+      caption: "Concurrency in Python, by Aitor Guevara (@aitorciki) at @itnig #pybcn"
+      source: "https://x.com/PyBCN/status/581173303932518400"
+      time: "20:18"
+      talk: concurrency-in-python
+    - file: 2015-03-26-python-march-meetup/04-finally-asyncio-for-python-3-aitorciki-at-itnig-py.webp
+      caption: "Finally, asyncio for Python 3 - @aitorciki at @itnig #pybcn"
+      source: "https://x.com/PyBCN/status/581183553096060928"
+      time: "20:58"
 ---

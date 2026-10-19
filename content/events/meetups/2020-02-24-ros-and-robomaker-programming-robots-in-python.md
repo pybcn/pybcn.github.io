@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "ROS and RoboMaker: programming robots in Python"
+title: "PyLadies BCN Workshop, February 2020"
 date: 2020-02-24
 year: 2020
 venue: "Marfeel"

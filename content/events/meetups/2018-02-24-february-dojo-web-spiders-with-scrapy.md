@@ -28,4 +28,15 @@ talks:
     title: "Web spiders with Scrapy"
     type: workshop
     description: "We will explain the Scrapy architecture and show an example of a simple web spider. Then, you will have a chance to write several web spiders to compare prices from different e-commerce sites. You will work in pairs and we will be by your side to help you learn."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/967329461426409472"
+  items:
+    - file: 2018-02-24-february-dojo-web-spiders-with-scrapy/01-workshop-in-scrapy-by-dimitri-herrero-at-pybcn-doj.webp
+      caption: "Workshop in scrapy by Dimitri Herrero at @pybcn Dojos"
+      source: "https://x.com/PyBCN/status/967329461426409472"
+      time: "10:24"
 ---

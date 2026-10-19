@@ -420,6 +420,12 @@ agenda:
 # Photos published by PyBCN on the day, one per post so no two share a caption,
 # which is also the alt text. Imported with bin/import-x-photos, which excludes
 # anything the account only shared: that copyright belongs to somebody else.
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+canonical_photo: pyday-2024/01-thanks-for-attending-the-pydaybcn-2024-see-you-nex.jpg
+
 photos:
   thread: "https://x.com/PyBCN/status/1855180142240272592"
   items:

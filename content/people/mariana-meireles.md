@@ -1,8 +1,7 @@
 ---
 id: mariana-meireles
 name: Mariana Meireles
-photo: mariana-meireles.png
-
+photo: mariana-meireles.webp
 twitter: https://x.com/mari_meir
 linkedin: https://www.linkedin.com/in/mariana-meireles
 github: https://github.com/marimeireles

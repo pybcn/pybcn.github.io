@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: Data & interactive plots
+title: "PyLadies BCN Workshop, January 2019"
 date: 2019-01-29
 year: 2019
 venue: Kiwi.com

@@ -15,6 +15,13 @@ heroBackground: /images/photos/django_pyladies_2022/header.jpg
 
 layout: event
 
+# The group that ran the day, which is what decides the marker of its row
+# on /events/ and on /talks/ (data/event_emoji.yaml through
+# partials/event_type.html). Without it the page took the "Other event"
+# glyph, because the rule reads this field and the title writes
+# "PyLadiesBCN" with no space.
+group: "PyLadies BCN"
+
 content_columns: 5
 
 carousel_columns: 7
@@ -219,6 +226,12 @@ agenda:
 # closing session of the 11th: the same room, the same screen, and the same
 # speaker as photo 1. The search ran to the 13th for them, and it found no
 # photo at all on the 12th, so no other event of that weekend is in this set.
+# The one photo of this day: the group photo when the day has one, and the
+# picture that says most about it when it does not. It is what the carousel
+# of the home page shows, one slide per event. See
+# partials/canonical_photos.html.
+canonical_photo: django-2022/09-thanks-for-attending-it-s-been-great.jpg
+
 photos:
   thread: "https://x.com/PyBCN/status/1535567826257420288"
   items:

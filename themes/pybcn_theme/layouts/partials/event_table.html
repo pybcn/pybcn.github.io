@@ -1,0 +1,100 @@
+{{- /*
+    The table of events: the rows of partials/event_row.html, grouped by
+    year and by month, the year and the month printed once per group.
+
+        Year  Month  Day  Title                      Venue      Gallery
+        2025  Nov    29   🐍 PyDay BCN (2025)        Canòdrom   [ 17 talks  20 photos ]
+              Jun    11   👥 Python Meetup June ...  Codurance  [ 2 talks ]
+        2024  Sep    26   👥 Python Meetup September Codurance  [ 2 talks  2 videos ]
+
+    Argument: a dict with rows, a list of the dicts event_row.html returns,
+    already sorted by their key, so newest first: /events/ passes every
+    event (layouts/_default/events_index.html), the home page the ten
+    newest (layouts/_default/home.html). One table for the two pages, so a
+    row reads the same on both and a change to a cell reaches both. The
+    header of events_index.html says why it is a table, how it reflows at
+    390px, and what each cell holds; the roles written on every element
+    and the aria-rowspan beside each rowspan are for that reflow, where
+    no table layout computes them for the tree.
+
+    The groups are cut from the sorted rows in one pass: a row whose year
+    differs from the row before it opens a year, and a row whose month_key
+    differs opens a month inside its year. The sort puts the rows of one
+    year and of one month together, so one pass is enough. The row with no
+    date has the empty month_key, sorts last in its year, and opens a month
+    of its own with no name, printed as an empty cell: a td and not a th,
+    because an empty header cell heads nothing (axe-core:
+    empty-table-header).
+
+    Each year is a th of scope rowgroup in its own tbody, and each month a
+    th of scope row, spanning its rows: a header cell with rowspan heads
+    every row it spans. The year carries its id, so /events/#2019 links to
+    a year from anywhere, which is what a person page needs to point at
+    the year somebody spoke, and the jump bar of /events/ reads the same
+    ids. The ids are printed on the home page as well, where nothing
+    points at them: a year appears once on a page, so they collide with
+    nothing there.
+*/ -}}
+{{- $groups := slice -}}
+{{- range $row := .rows -}}
+    {{- $n := len $groups -}}
+    {{- $last := dict -}}
+    {{- if $n }}{{ $last = index $groups (sub $n 1) }}{{ end -}}
+    {{- if and $n (eq $last.year $row.year) -}}
+        {{- $months := $last.months -}}
+        {{- $m := len $months -}}
+        {{- $open := index $months (sub $m 1) -}}
+        {{- if eq $open.month_key $row.month_key -}}
+            {{- $months = $months | first (sub $m 1) | append (dict "month" $open.month "month_key" $open.month_key "rows" ($open.rows | append $row)) -}}
+        {{- else -}}
+            {{- $months = $months | append (dict "month" $row.month "month_key" $row.month_key "rows" (slice $row)) -}}
+        {{- end -}}
+        {{- $groups = $groups | first (sub $n 1) | append (dict "year" $last.year "months" $months "count" (add $last.count 1)) -}}
+    {{- else -}}
+        {{- $groups = $groups | append (dict "year" $row.year "months" (slice (dict "month" $row.month "month_key" $row.month_key "rows" (slice $row))) "count" 1) -}}
+    {{- end -}}
+{{- end }}
+<table class="listing_table event_table" role="table">
+    {{- /* No caption. It said the order and how the year and the month
+           are grouped, which the first column of the table says by
+           itself, and it is out of every listing. */ -}}
+    <thead role="rowgroup">
+        <tr role="row">
+            <th scope="col" role="columnheader" class="listing_year_col">Year</th>
+            <th scope="col" role="columnheader" class="listing_month_col">Month</th>
+            <th scope="col" role="columnheader" class="listing_day_col">Day</th>
+            <th scope="col" role="columnheader" class="event_title_col">Title</th>
+            <th scope="col" role="columnheader" class="event_venue_col">Venue</th>
+            <th scope="col" role="columnheader" class="listing_gallery_col">Gallery</th>
+        </tr>
+    </thead>
+    {{- range $groups }}
+    {{- $year := . }}
+    <tbody class="listing_year_group" role="rowgroup">
+        {{- range $mi, $month := .months }}
+        {{- range $ri, $row := $month.rows }}
+        <tr class="listing_row" role="row">
+            {{- if and (not $mi) (not $ri) }}
+            <th class="listing_year" id="{{ $year.year }}" scope="rowgroup" role="rowheader" rowspan="{{ $year.count }}" aria-rowspan="{{ $year.count }}">{{ $year.year }}</th>
+            {{- end }}
+            {{- if not $ri }}
+            {{- with $month.month }}
+            <th class="listing_month" scope="row" role="rowheader" rowspan="{{ len $month.rows }}" aria-rowspan="{{ len $month.rows }}">{{ . }}</th>
+            {{- else }}
+            <td class="listing_month" role="cell" rowspan="{{ len $month.rows }}" aria-rowspan="{{ len $month.rows }}"></td>
+            {{- end }}
+            {{- end }}
+            <td class="listing_day" role="cell">
+                {{- with $row.day }}<time datetime="{{ $row.start_iso }}">{{ . }}</time>{{ end -}}
+            </td>
+            <td class="event_title" role="cell"><span class="event_emoji" role="img" aria-label="{{ $row.type_label }}" title="{{ $row.type_label }}">{{ $row.emoji }}</span><a href="{{ $row.url }}">{{ $row.title }}</a></td>
+            <td class="event_venue_cell" role="cell">
+                {{- with $row.venue }}{{ .text }}{{ end -}}
+            </td>
+            <td class="listing_gallery" role="cell">{{ partial "count_card.html" (dict "items" $row.card) }}</td>
+        </tr>
+        {{- end }}
+        {{- end }}
+    </tbody>
+    {{- end }}
+</table>

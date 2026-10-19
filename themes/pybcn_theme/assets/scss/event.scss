@@ -7,7 +7,20 @@
     // larger than the body text, because it is the first fact of the page.
     .event_when {
         font-size: 1.15rem;
-        color: #51616e;
+        color: $text-grey;
+        margin-bottom: 1.2rem;
+    }
+
+    // How many people came, under the day and reading as part of the same
+    // first fact, so the two lines do not pull apart. The day keeps the
+    // gap below both.
+    .event_when + .event_attendance {
+        margin-top: -1rem;
+    }
+
+    .event_attendance {
+        font-size: 1.15rem;
+        color: $text-grey;
         margin-bottom: 1.2rem;
     }
 
@@ -15,16 +28,37 @@
         top:100px;
     }
 
+    // The side index, in the frame of every box of the site: the one
+    // border and the one radius, which Bootstrap's list group draws in
+    // its own grey otherwise.
     .list-group-item {
+        border-color: $rule-grey;
+
         &.active {
             background-color: $blue-pybcn;
             border-color: $blue-pybcn;
         }
     }
 
+    // A block of the page: the target of the side index, and one step of
+    // the rhythm. scroll-margin-top clears the fixed navigation when the
+    // index jumps to it, the way .photo_gallery does; it was 80px of
+    // padding over 80px of negative margin, which started every block
+    // above its own first line and left the air between two blocks to
+    // runs of br elements in the template. The air is $block-gap now, the
+    // air between two blocks of the home page.
     .link_anchor {
-        padding-top: 80px;
-        margin-top: -80px;
+        scroll-margin-top: 80px;
+        margin-bottom: $block-gap;
+    }
+
+    // The sponsors of the edition sit in the container of their grid,
+    // which pads them 15px in from the column; the text of the block
+    // above them reads at the left edge of the column, so the padding
+    // goes.
+    #sponsors_grid {
+        padding-left: 0;
+        padding-right: 0;
     }
 
 }

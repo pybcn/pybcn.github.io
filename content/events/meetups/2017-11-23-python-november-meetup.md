@@ -45,4 +45,27 @@ talks:
     language: en
     duration_minutes: 30
     description: "In TravelPerk, we have achieved the continuous deployment of our current application stack. In this talk we will explain and show how we achieved it, the challenges we faced and the tools we have used. Also we will show possible alternatives to our current implementation."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/933759562452230149"
+  items:
+    - file: 2017-11-23-python-november-meetup/01-websockets-and-chatbots-by-cfenollosa-pybcn.webp
+      caption: "Websockets and chatbots, by @cfenollosa #pybcn"
+      source: "https://x.com/PyBCN/status/933759562452230149"
+      time: "19:10"
+      talk: websockets-and-chatbots
+    - file: 2017-11-23-python-november-meetup/02-cffi-interfacing-c-libraries-using-python-by-gerar.webp
+      caption: "cffi: Interfacing C libraries using Python, by Gerard Marull #pybcn"
+      source: "https://x.com/PyBCN/status/933768251255001088"
+      time: "19:44"
+      talk: cffi-interfacing-c-libraries-using-python
+    - file: 2017-11-23-python-november-meetup/03-continuous-deployment-of-web-applications-the-trav.webp
+      caption: "Continuous deployment of Web Applications: The @TravelPerk example, by Dave García #pybcn"
+      source: "https://x.com/PyBCN/status/933776911855210496"
+      time: "20:18"
+      talk: continuous-deployment-of-web-applications-the-travelperk
+
 ---

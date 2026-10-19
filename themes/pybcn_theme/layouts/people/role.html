@@ -1,0 +1,40 @@
+{{- /*
+    The page of one role: /people/role/speaker/, the rows of /people/ whose
+    person holds that role, under the same tabs and in the same letters.
+
+    content/people/_content.gotmpl adds one of these per label that at
+    least one person holds, with the label as params.filter, and selects
+    this layout. The rows are the rows of partials/people_index.html whose
+    labels hold that label, so the row here and the row of /people/ print
+    the same person the same way, and the letters and their bar are
+    recomputed for the rows kept: the page of the ten mentors jumps to
+    the letters that have a mentor and to no other.
+
+    The h1 reads "People: Speaker (358)": the parent listing from
+    partials/page_parent.html, the label, and the count of
+    partials/listing_total.html, which is the count the tab of this page
+    carries, both from the same index.
+
+    A page with content prints it above the list, where /people/ prints
+    its own intro: the Assistants page is all content and no rows, the
+    answer that the association never tracked who attended (see the
+    adapter), and it prints its paragraph and no empty letter bar.
+*/ -}}
+{{ define "main" }}
+<div class="container">
+
+    {{ partial "people_tabs.html" . }}
+
+    {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
+
+    {{- $filter := .Params.filter -}}
+    {{- $rows := slice -}}
+    {{- range (partialCached "people_index.html" site "people-index").rows -}}
+        {{- if in .labels $filter }}{{ $rows = $rows | append . }}{{ end -}}
+    {{- end }}
+    {{- with $rows }}
+    {{ partial "people_letters.html" (dict "rows" .) }}
+    {{- end }}
+
+</div>
+{{ end }}

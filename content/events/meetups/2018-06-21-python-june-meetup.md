@@ -46,4 +46,29 @@ talks:
         url: "https://www.youtube.com/watch?v=bqphJQnp3Hw"
       - type: site
         url: "https://headingnorthweb.wordpress.com/tag/en-us/"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1009846763178602496"
+  items:
+    - file: 2018-06-21-python-june-meetup/04-starting-june-s-python-meetup-at-dow-jones-thanks.webp
+      caption: "Starting June's Python Meetup at Dow Jones. Thanks foe coming! #PyBCN"
+      source: "https://x.com/PyBCN/status/1009845952885264384"
+      time: "19:10"
+    - file: 2018-06-21-python-june-meetup/01-how-does-that-pyspark-thing-work-and-why-arrow-mak.webp
+      caption: "How does that PySpark thing work? And why Arrow makes it faster? by Rubén Berenguel (@berenguel) #pybcn"
+      source: "https://x.com/PyBCN/status/1009846763178602496"
+      time: "19:13"
+      talk: how-does-that-pyspark-thing-work-and-why-arrow-makes-it
+    - file: 2018-06-21-python-june-meetup/02-frozen-python-satice-ice-dataloggers-by-oriol-sanc.webp
+      caption: "Frozen Python: satice ice dataloggers by Oriol Sánchez #PyBCN"
+      source: "https://x.com/PyBCN/status/1009858653292294145"
+      time: "20:00"
+      talk: frozen-python-satice-ice-dataloggers
+    - file: 2018-06-21-python-june-meetup/03-of-course-the-cpu-used-uses-python-and-linux-pybcn.webp
+      caption: "Of course, the CPU used uses Python and Linux #pybcn"
+      source: "https://x.com/PyBCN/status/1009860881331687424"
+      time: "20:09"
 ---

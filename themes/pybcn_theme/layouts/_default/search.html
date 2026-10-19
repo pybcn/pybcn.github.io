@@ -1,0 +1,29 @@
+{{- /*
+    The search page, /search/: the one page of the site that runs the site
+    search, with the 404 page. The box and the results are
+    partials/search_form.html, the script is assets/js/search.js, loaded by
+    partials/js.html on these two pages and no other: a content page ships
+    no script for the search, only the GET form of the navbar.
+
+    content/search.md is the page: its title is the h1 of the hero and its
+    body the line under it. It is built and not listed (list: never in its
+    front matter), so it is in no feed, no sitemap and no listing, and it
+    is reached from the navbar.
+
+    The index the page reads is written after Hugo, by bin/search, so the
+    dev server has no index and the page says so (the catch of the import
+    in the script). bin/hugo --minify -d public && bin/search public, then
+    any static server over public/, is how to try it locally.
+*/ -}}
+{{ define "main" }}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 main_column search_page">
+            {{ .Content }}
+            {{ partial "search_form.html" (dict "path_query" false) }}
+        </div>
+    </div>
+</div>
+
+{{ end }}

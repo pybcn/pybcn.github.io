@@ -9,18 +9,18 @@
 // The bar of letters above the list is .jump_bar in main.scss, which
 // /events/ draws as a bar of years from the same partial.
 
-.people_letter_group {
-    margin-bottom: 2.5rem;
+// A group of rows under its heading: a letter on /people/ and on the page
+// of a role (partials/people_letters.html), a board or a committee on the
+// organizers pages (layouts/_default/people.html).
+.people_group {
+    margin-bottom: $block-gap;
 
-    // The letter is an h2 and reads as a divider, not as a page title, so
-    // it is smaller than the h2 of the rest of the site and carries a rule
-    // under it. The level is the outline and the size is the style: the two
-    // are set apart here the way event.html sets them apart with h2.h1.
-    .people_letter {
-        font-size: 1.5rem;
-        border-bottom: 1px solid #dde3e8;
-        padding-bottom: 0.3rem;
-        margin-bottom: 1.2rem;
+    // The heading is the section title of main.scss, the h2 of every block
+    // of the site, with its rule under it: a letter is a block of this page
+    // the way a year is a band of /events/. It was 1.5rem with a rule of its
+    // own until 2026-10-17.
+    .people_group_title {
+        @include section_title;
     }
 }
 
@@ -49,7 +49,7 @@
         // and the rows below stay where they are. The circle lives here,
         // on the box that clips, and not on the photograph: with the radius
         // on the image the square frame cut the corners off the circle as
-        // it grew, which is what David Arcos saw on 2026-10-15.
+        // it grew.
         overflow: hidden;
         border-radius: 50%;
         display: flex;
@@ -91,9 +91,8 @@
     // The zoom is the one the cards of /pybcn_association/organizers/ have
     // had for years (people.scss): the photograph grows inside its own
     // frame, which is clipped, so nothing moves on the page and no row
-    // below is covered. David Arcos asked for that one on 2026-10-15,
-    // after a first try that hung a 240px copy of the picture under the
-    // avatar: it read as a popup rather than as a zoom.
+    // below is covered. A first try hung a 240px copy of the picture
+    // under the avatar and read as a popup rather than as a zoom.
     //
     // The keyboard gets it through the name link of the row, because the
     // avatar repeats that link and is out of the tab order. prefers
@@ -148,6 +147,20 @@
     .person_name {
         font-size: 1.05rem;
         font-weight: 600;
+        // A name with no space in it breaks where it has to: a 390px
+        // window gives the name about 300px, and one row of a -D build
+        // (the canary of bin/check-rendered) carried a name wider than
+        // that, which pushed the page to 460px.
+        overflow-wrap: anywhere;
+    }
+
+    // The post after the name on the organizers pages, "President", in the
+    // grey and the size of the sentence under it, so the name stays what
+    // the eye reads first (layouts/_default/people.html says when it is
+    // printed).
+    .person_position {
+        color: $text-grey;
+        font-size: 0.9rem;
     }
 
     // The sentence of the second line, "Speaker at 3 events:", in the grey
@@ -155,8 +168,20 @@
     // count are the markup of the row of the Events table of the person
     // page, so the two read alike; the count is in the colour of the text,
     // so the number stands out of the grey line.
+    // The glyph of a role, in front of the word it marks. Same box as the
+    // marker of a page below, so the two lines of a row hang alike.
+    .role_emoji {
+        display: inline-block;
+        margin-right: 0.25rem;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        vertical-align: -0.1em;
+    }
+
     .person_meta {
-        color: #51616e;
+        color: $text-grey;
         font-size: 0.9rem;
 
         strong {
@@ -224,12 +249,13 @@
     }
 }
 
-// The letter and the row are both link targets: /people/#M from the bar
-// above the list, and /people/#marc-pous from anywhere. The navbar is fixed
-// and 105px tall, so without this the target lands under it and the reader
-// sees the row before the one they asked for. listing_table.scss does the
-// same for a year.
-.people_letter,
+// The group heading and the row are both link targets: /people/#M from the
+// bar above the list, /organizers/#permanent-committee, and
+// /people/#marc-pous from anywhere. The navbar is fixed and 105px tall, so
+// without this the target lands under it and the reader sees the row
+// before the one they asked for. listing_table.scss does the same for a
+// year.
+.people_group_title,
 .person_row {
     scroll-margin-top: 65px;   // the shrunk navigation, 61px, plus a little
 

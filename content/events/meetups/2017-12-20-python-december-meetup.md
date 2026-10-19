@@ -40,4 +40,25 @@ talks:
   description: The use of Python for Astronomy has been rising in the last few years, and now there are more and more applications for Aerospace as well. In this talk we will describe orbit-predictor, a Python library to track Earth-orbiting artificial satellites open sourced this year by Satellogic, and poliastro, a community developed, open source Python library for interplanetary orbit computation and interactive visualization. The development of these libraries posed several interesting challenges aside from the algorithms themselves, such as the need of careful validation against external data from NASA and other sources, acceleration of some core parts using numba to replace FORTRAN code, and thoughtful design of the API to simplify physical unit and astronomical time scales handling on the user side. We will discuss the impact of these challenges on the development, highlight the strengths and limitations of Python for these specific applications and, of course, show some cool pictures of rockets.
   speakers:
   - juan-luis-cano-rodriguez
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/943545149052915712"
+  items:
+    - file: 2017-12-20-python-december-meetup/01-why-lazy-developers-write-beautiful-code-by-javier.webp
+      caption: "Why lazy developers write beautiful code?, by Javier Arias (@javier_arilos)"
+      source: "https://x.com/PyBCN/status/943545149052915712"
+      time: "19:14"
+      talk: why-lazy-developers-write-beautiful-code
+    - file: 2017-12-20-python-december-meetup/02-catching-asteroids-and-tracking-satellites-with-py.webp
+      caption: "Catching asteroids and tracking satellites with Python, by Juan Luis Cano (@astrojuanlu)"
+      source: "https://x.com/PyBCN/status/943559036171116549"
+      time: "20:09"
+      talk: catching-asteroids-and-tracking-satellites-with-python
+    - file: 2017-12-20-python-december-meetup/03-it-s-very-difficult-to-get-external-data-to-test-y.webp
+      caption: "\"It's very difficult to get external data to test your algorithm\" - @astrojuanlu"
+      source: "https://x.com/PyBCN/status/943564850998870016"
+      time: "20:32"
 ---

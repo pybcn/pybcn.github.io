@@ -47,3 +47,10 @@ Events: 📅
 Permanent Committee: 🧭
 Management Board (2026): 📋
 Former Management Board (2018 - 2025): 📋
+
+# Not a role and not a level: the tab of /people/ that answers "who came"
+# with the fact that the association never recorded it (see
+# content/people/_content.gotmpl). An empty chair, for the audience the
+# archive has no list of. U+1FA91 has emoji presentation by default, as
+# the rule above asks.
+Assistants: 🪑

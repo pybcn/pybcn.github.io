@@ -13,9 +13,8 @@
     and any label the list above does not name after them, in
     alphabetical order, so a role added later is printed rather than
     dropped. The line read "Mentor, Organizer, Permanent Committee,
-    Speaker", which is alphabetical, and David Arcos wants it by
-    importance in the association (2026-10-15): he gave Permanent
-    Committee, Organizer, Speaker, Mentor. The board sits above the
+    Speaker", which is alphabetical. The order here is by importance in
+    the association: Permanent Committee, Organizer, Speaker, Mentor. The board sits above the
     committee, and Collaborator between Organizer and Speaker because it
     is a formal role of the association rather than something a person
     did at one event.
@@ -24,9 +23,13 @@
     board label carries its term, "Management Board (2026)" and
     "Former Management Board (2018 - 2025)". A label that starts with
     "Former " sorts with the role it was: the word is a tense, not a
-    rank. The sort orders the labels and rewrites none, so a label with
-    a defect still shows the defect where a reader can see it. Two
-    labels of one rank keep the alphabetical order. The archive spelled
+    rank, and inside the rank the present comes before the past, so the
+    tabs of /people/ read "Management Board (2026)" before "Former
+    Management Board (2018 - 2025)" (it was alphabetical, which put the
+    former board first, 2026-10-16). The sort orders the labels and
+    rewrites none, so a label with a defect still shows the defect where
+    a reader can see it. Two labels of one rank and one tense keep the
+    alphabetical order. The archive spelled
     one role "Collaborators" on eight rows and "Collaborator" on one
     until data/roles.yaml mapped the heading to the singular
     (2026-10-15).
@@ -43,7 +46,8 @@
     {{- range $i, $role := $ranks -}}
         {{- if and (eq $rank (len $ranks)) (or (hasPrefix $label $role) (hasPrefix $label (printf "Former %s" $role))) }}{{ $rank = $i }}{{ end -}}
     {{- end -}}
-    {{- $keyed = $keyed | append (dict "label" $label "key" (printf "%03d %s" $rank $label)) -}}
+    {{- $tense := cond (hasPrefix $label "Former ") 1 0 -}}
+    {{- $keyed = $keyed | append (dict "label" $label "key" (printf "%03d %d %s" $rank $tense $label)) -}}
 {{- end -}}
 {{- $out := slice -}}
 {{- with $keyed }}{{ range sort . "key" }}{{ $out = $out | append .label }}{{ end }}{{ end -}}

@@ -1,0 +1,349 @@
+#!/usr/bin/env python3
+"""Write the page of one meetup from its Meetup URL.
+
+bin/import-meetups built 266 of the meetup pages of the archive out of the pybcn-archive
+export, which is a dump somebody has to take. That is the right tool for 19
+years of history and the wrong one for the meetup of last Tuesday: nobody
+should have to re-export the whole group, and nobody should have to remember
+the shape of the front matter either.
+
+Give this script the URL of a past meetup and it writes
+content/events/meetups/<date>-<slug>.md, with the same fields the import
+wrote, through the same function. The page it writes is complete as a page:
+the day, the venue, the registrations, the source, and the group.
+
+Where the fields come from. The public event page carries the whole event as
+JSON, in the __NEXT_DATA__ script tag Meetup's own front end reads, so there
+is no API key, no login, and one GET. The retired REST API is why the archive
+needed an export at all (see partials/meetup-events.html); this page is what
+replaced it. Every field is one field of that JSON, with canon() from
+bin/canon.py as the only transform.
+
+What it does not write:
+
+  The talks. The description announces them in prose, which no parser reads:
+  a model extracts them and bin/check-extraction compares every field against
+  the source. --description prints the description so that work can start,
+  and bin/prompts/extract-talks.md is the prompt. bin/import-talks writes the
+  block.
+
+  The description itself. It is the logistics of signing up, and an archive
+  records what happened and not how to register for something that is over.
+
+  A person page, or a venue in data/venues.yaml. The script reports a venue
+  it does not recognise and writes nothing else: a new venue is a short name
+  somebody chooses.
+
+  Anything about who came. The RSVP count is who said yes, it names nobody,
+  and no host name or attendee leaves this script.
+
+Exit codes:
+    0  the file was written, or --dry-run ran
+    1  the event is one this script refuses to write, and nothing was written
+    2  the script could not run: bad arguments, or the page did not answer
+
+--discover answers the other half of the question: which meetups are missing.
+It reads the past events page of both groups, which carries the ten most
+recent as JSON in the same script tag, and names the ones no page of
+content/events/meetups/ already records. A meetup a month means ten covers
+any gap worth catching; a longer gap is what the pybcn-archive export is
+for. It writes nothing and prints the command for each one.
+
+Usage:
+    bin/new-meetup https://www.meetup.com/python-barcelona/events/316366469/
+    bin/new-meetup URL --dry-run --description
+    bin/new-meetup --discover
+"""
+
+import argparse
+import importlib.util
+import json
+import pathlib
+import re
+import sys
+import urllib.error
+import urllib.request
+
+import yaml
+
+BIN = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(BIN))
+
+from canon import canon
+from slug import slugify
+
+
+def fail(message):
+    """Stop with exit 2: the script could not run.
+
+    sys.exit with a string exits 1, which this script uses for an event it
+    refuses to write. The two cases are different: one means fix the
+    arguments, the other means the event is not one of these.
+    """
+    print("new-meetup: %s" % message, file=sys.stderr)
+    sys.exit(2)
+
+
+def load_import_meetups():
+    """Return bin/import-meetups as a module.
+
+    The file has a hyphen in its name and no extension, so it is not
+    importable by name. Loading it by path is worth the five lines: the front
+    matter of a new page then comes from the same function as the 266 of the
+    archive, and the two cannot drift.
+    """
+    spec = importlib.util.spec_from_loader(
+        "import_meetups",
+        importlib.machinery.SourceFileLoader("import_meetups", str(BIN / "import-meetups")),
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+# https://www.meetup.com/<group>/events/<id>/
+EVENT_URL = re.compile(r"^https://www\.meetup\.com/([^/]+)/events/(\d+)/?")
+
+NEXT_DATA = re.compile(
+    r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', re.S)
+
+# An honest agent. The request is one GET of a public page, and a host that
+# wants to say no deserves to know who is asking.
+USER_AGENT = "pybcn-site/1.0 bin/new-meetup (+https://pybcn.org/)"
+
+
+def fetch(url):
+    """Return the event record and the group record of one event page."""
+    request = urllib.request.Request(
+        url, headers={"User-Agent": USER_AGENT, "Accept": "text/html"})
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            html = response.read().decode("utf-8", "replace")
+    except (urllib.error.URLError, TimeoutError) as error:
+        fail("%s did not answer: %s" % (url, error))
+    found = NEXT_DATA.search(html)
+    if not found:
+        fail("%s carries no __NEXT_DATA__, so the page changed shape" % url)
+    try:
+        state = json.loads(found.group(1))["props"]["pageProps"]["__APOLLO_STATE__"]
+    except (ValueError, KeyError) as error:
+        fail("the JSON of %s changed shape: %s" % (url, error))
+    events = [value for key, value in state.items() if key.startswith("Event:")]
+    if len(events) != 1:
+        fail("%s carries %d events, expected 1" % (url, len(events)))
+    return events[0], state
+
+
+def fetch_past(group_id):
+    """Return the past events of one group, newest first.
+
+    The page of past events carries the same __NEXT_DATA__ as the page of
+    one event, with the ten most recent in it. Ten and not all of them: the
+    page loads the rest on scroll, which needs a browser, and ten is more
+    than a year of a group that meets monthly.
+    """
+    url = "https://www.meetup.com/%s/events/?type=past" % group_id
+    request = urllib.request.Request(
+        url, headers={"User-Agent": USER_AGENT, "Accept": "text/html"})
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            html = response.read().decode("utf-8", "replace")
+    except (urllib.error.URLError, TimeoutError) as error:
+        fail("%s did not answer: %s" % (url, error))
+    found = NEXT_DATA.search(html)
+    if not found:
+        fail("%s carries no __NEXT_DATA__, so the page changed shape" % url)
+    try:
+        state = json.loads(found.group(1))["props"]["pageProps"]["__APOLLO_STATE__"]
+    except (ValueError, KeyError) as error:
+        fail("the JSON of %s changed shape: %s" % (url, error))
+    events = [v for k, v in state.items() if k.startswith("Event:")]
+    events.sort(key=lambda e: e.get("dateTime") or "", reverse=True)
+    return events
+
+
+def recorded_ids(out):
+    """Return the Meetup event id of every page already written."""
+    ids = set()
+    if not out.is_dir():
+        return ids
+    for path in out.glob("*.md"):
+        for found in re.finditer(r"/events/(\d+)/", path.read_text(encoding="utf-8")):
+            ids.add(found.group(1))
+    return ids
+
+
+def discover(import_meetups, out):
+    """Name the past meetups that no page records. Writes nothing."""
+    have = recorded_ids(out)
+    missing = []
+    for group_id in sorted(import_meetups.GROUPS):
+        for event in fetch_past(group_id):
+            if event.get("status") != "PAST":
+                continue
+            if import_meetups.BIG_EDITION.search(event.get("title") or ""):
+                continue
+            if event["id"] in have:
+                continue
+            missing.append((event["dateTime"][:10], event["title"], event["eventUrl"]))
+    print("%d pages in %s, %d of them with a Meetup id" % (
+        len(list(out.glob("*.md"))) if out.is_dir() else 0, out, len(have)))
+    if not missing:
+        print("nothing new: every past meetup of the last ten of each group has a page")
+        return 0
+    missing.sort(reverse=True)
+    print("%d past meetups have no page, newest first:" % len(missing))
+    for date, title, url in missing:
+        print("  %s  %s" % (date, title))
+        print("    bin/new-meetup %s --description" % url)
+    return 0
+
+
+def resolve(state, ref):
+    """Return the record a __ref points at, or an empty one."""
+    return state.get((ref or {}).get("__ref"), {})
+
+
+def as_export_record(event, state, group_id):
+    """Return the event in the shape bin/import-meetups reads.
+
+    The export and the page agree field for field, under different names:
+    the export nests the RSVP count as rsvps.yesCount and the page asks for
+    it by status. Translating here, once, means front_matter() stays the one
+    place that decides what a meetup page says.
+    """
+    yes = 0
+    for key, value in event.items():
+        if key.startswith("rsvps(") and '"YES"' in key:
+            yes = value.get("totalCount") or 0
+    return {
+        "id": event["id"],
+        "title": event["title"],
+        "dateTime": event["dateTime"],
+        "eventUrl": event.get("eventUrl") or "",
+        "eventType": event.get("eventType"),
+        "venue": {"name": resolve(state, event.get("venue")).get("name") or ""},
+        "rsvps": {"yesCount": yes},
+        "group_id": group_id,
+    }
+
+
+def known_venues(root):
+    """Return the venue strings data/venues.yaml already names."""
+    path = root / "data" / "venues.yaml"
+    if not path.is_file():
+        return None
+    names = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return set(names) or None
+
+
+def provenance(event, group_id):
+    """Return the comment lines of a page written from the live event page."""
+    return [
+        "# One monthly meetup, written by bin/new-meetup from the public Meetup",
+        "# event page of %s, event %s. Every field below is one" % (group_id, event["id"]),
+        "# field of that page: a correction goes to Meetup or to the script,",
+        "# never here.",
+        "# The Meetup description is the logistics of signing up and is not",
+        "# published, and the talks it announces arrive separately. See",
+        "# content/events/meetups/_index.md.",
+    ]
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Write the page of one past meetup from its Meetup URL.")
+    parser.add_argument("url", nargs="*", help="the URL of a past Meetup event")
+    parser.add_argument("--discover", action="store_true",
+                        help="name the past meetups that have no page, and write nothing")
+    parser.add_argument("--out", type=pathlib.Path, default=None,
+                        help="the directory to write in (default content/events/meetups)")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="print the file instead of writing it")
+    parser.add_argument("--description", action="store_true",
+                        help="print the Meetup description, to extract the talks from")
+    parser.add_argument("--force", action="store_true",
+                        help="write an upcoming event, or a large edition, anyway")
+    args = parser.parse_args()
+
+    import_meetups = load_import_meetups()
+    root = BIN.parent
+    out = args.out or root / "content" / "events" / "meetups"
+
+    if args.discover:
+        return discover(import_meetups, out)
+    if not args.url:
+        fail("give the URL of a past Meetup event, or --discover")
+
+    venues = known_venues(root)
+    written = []
+    # A URL that is skipped must not take the report of a URL already
+    # written with it: the loop goes on, and the exit code says at the end
+    # that one of them was skipped.
+    skipped = False
+
+    for url in args.url:
+        match = EVENT_URL.match(url)
+        if not match:
+            fail("%s is not a Meetup event URL" % url)
+        group_id, event_id = match.group(1), match.group(2)
+        if group_id not in import_meetups.GROUPS:
+            fail("%s is not a group of the association" % group_id)
+
+        event, state = fetch(url)
+        if event["id"] != event_id:
+            fail("%s answered with event %s" % (url, event["id"]))
+        if event.get("status") != "PAST" and not args.force:
+            print("SKIP  %s is %s, not PAST. The archive records what happened: run"
+                  % (url, (event.get("status") or "unknown").lower()))
+            print("      this after the day, when the registrations are final, or")
+            print("      pass --force.")
+            skipped = True
+            continue
+        if import_meetups.BIG_EDITION.search(event["title"]) and not args.force:
+            print("SKIP  %s says PyDay or PyData. The large editions have their own"
+                  % event["title"])
+            print("      pages under content/events/, so this would be a second page")
+            print("      for the same day. Pass --force if it is really a meetup.")
+            skipped = True
+            continue
+
+        record = as_export_record(event, state, group_id)
+        slug = slugify(record["title"])
+        date = record["dateTime"][:10]
+        name = "%s-%s.md" % (date, slug) if slug else "%s.md" % date
+        text = import_meetups.front_matter(
+            record, provenance(event, group_id), source="the event page")
+        path = out / name
+
+        if args.dry_run:
+            print("--- %s" % path)
+            print(text, end="")
+        else:
+            if path.exists():
+                print("SKIP  %s is already there. Delete it to write it again." % path)
+                skipped = True
+                continue
+            out.mkdir(parents=True, exist_ok=True)
+            path.write_text(text, encoding="utf-8")
+        written.append((path, record, event, state))
+
+    for path, record, event, state in written:
+        venue = record["venue"]["name"]
+        print("%s %s" % ("would write" if args.dry_run else "wrote", path))
+        print("  %s, %s, %d registrations"
+              % (record["dateTime"][:10], venue or "no venue", record["rsvps"]["yesCount"]))
+        if venue and venues is not None and canon(venue) not in venues:
+            print("  NEW VENUE  data/venues.yaml does not name %r. Add a short name" % venue)
+            print("             for it, or the listings print the whole string.")
+        if args.description:
+            print("  --- the description, to extract the talks from:")
+            print(canon(event.get("description") or "").strip())
+        print("  Next: extract the talks with bin/prompts/extract-talks.md, check them")
+        print("        with bin/check-extraction, and write them with bin/import-talks.")
+        print("        A video of the day arrives later, through bin/import-videos.")
+    return 1 if skipped else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

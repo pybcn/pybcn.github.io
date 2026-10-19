@@ -10,7 +10,9 @@
 
 <div class="container">
     <div class="row{{ if $narrow }} main_content{{ end }}">
-        <div class="{{ if $narrow }}col-md-9 main_column{{ else }}col{{ end }}">
+        {{- /* page_body: an h2 or an h3 written in the markdown takes the
+               scale of every other block of the site (main.scss). */ -}}
+        <div class="{{ if $narrow }}col-md-9 main_column{{ else }}col{{ end }} page_body">
 
             {{ .Content }}
 

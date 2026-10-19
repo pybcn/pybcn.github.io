@@ -157,7 +157,7 @@ case (section 2(b)(2) of the legal code).
 
 The PyBCN logo and its variants (`themes/pybcn_theme/assets/images/logo.png`,
 `themes/pybcn_theme/assets/images/favicon.png`, `static/favicon.ico`,
-`static/favicon.png`, and the files under `static/images/backgrounds/`)
+and the files under `static/images/backgrounds/`)
 identify the association. They are not covered by the content licence: use
 them to refer to PyBCN, not to suggest that PyBCN endorses something it has
 not seen. The PyLadies name and logo in that same folder are not the
@@ -174,8 +174,8 @@ with it:
 - `themes/pybcn_theme/static/vendor/font-awesome/webfonts/`: the Font Awesome
   fonts (SIL OFL 1.1).
 - `themes/pybcn_theme/assets/css/bootstrap.min.css`: Bootstrap 4.0.0 (MIT).
-- `themes/pybcn_theme/assets/images/anon_member.png`: the Font Awesome `user`
-  icon as a PNG (CC BY 4.0).
+- `themes/pybcn_theme/assets/images/anon_member.webp`: the Font Awesome `user`
+  icon as a WebP (CC BY 4.0).
 
 ### Archived sites
 

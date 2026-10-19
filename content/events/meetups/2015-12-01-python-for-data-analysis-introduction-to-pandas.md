@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: 'Python for data analysis: introduction to Pandas'
+title: "PyLadies BCN Workshop, December 2015"
 date: 2015-12-01
 year: 2015
 venue: UPF, Campus de la Comunicación - Poblenou

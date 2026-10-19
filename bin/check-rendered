@@ -511,6 +511,15 @@ ALLOWLIST = [
             "partials/video_frame.html): a recording of a session has no page of "
             "its own, so the page of its day is the page about it. Three meetups "
             "carry one. A listing or a programme grid prints a link and no frame"},
+    {"path": "index.html",
+     "kind": "iframe",
+     "prefix": "https://www.youtube-nocookie.com/embed/",
+     "why": "the player of the About PyBCN block of the home page "
+            "(layouts/_default/home.html, through partials/video_frame.html): the "
+            "presentation of the Barcelona community at PyConES 2020, the one video "
+            "of the channel that belongs to no event of the association, so no page "
+            "of the archive carries it and the home page does. The id is "
+            "about_video in content/_index.md; one frame on the page"},
     {"path": "people/",
      "kind": "iframe",
      "prefix": "https://www.youtube-nocookie.com/embed/",

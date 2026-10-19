@@ -1,7 +1,7 @@
 ---
 id: diego-giaquinta
 name: "Diego Giaquinta"
-photo: "diego-giaquinta.png"
+photo: "diego-giaquinta.webp"
 linkedin: "https://www.linkedin.com/in/diego-giaquinta"
 ---
 

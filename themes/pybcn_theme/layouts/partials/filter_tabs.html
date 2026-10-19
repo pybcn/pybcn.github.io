@@ -1,0 +1,56 @@
+{{- /*
+    The tabs above a listing: one link per view of the list, with the
+    current one marked.
+
+        [ All 607 ] [ 💬 Talks 398 ] [ 💻 Workshops 172 ] [ ⚡ Lightning talks 27 ] ...
+
+    Arguments:
+        label   the aria-label of the nav, "Talk types" or "Roles"
+        items   a slice of dicts, one per tab, in the order to print:
+                    url      the page the tab leads to
+                    text     what the tab reads, "Workshops"
+                    count    optional, how many rows that page lists;
+                             left out when it is not a number the page
+                             has (the Assistants tab of /people/)
+                    emoji    optional, the glyph in front of the text, or
+                    type     optional, the token of a talk type, for
+                             partials/event_type_icon.html
+                    current  true on the tab of the page being rendered
+
+    Why links and not a widget. The filter of /talks/ and /people/ is a
+    set of tabs that are sub-pages.
+    Each tab is a page with an address, so the filter works with no
+    script, a crawler indexes every view, and a reader can send one view
+    in a message. The markup is therefore a nav of links and not the ARIA
+    tabs pattern: that pattern is for panels switched inside one page,
+    and these tabs leave the page. The keyboard needs nothing added: a
+    link takes focus with Tab and follows with Enter.
+
+    The current tab is the link to the page itself, kept as a link and
+    marked with aria-current="page", which a screen reader announces as
+    "current page" and the stylesheet paints as the selected tab. It stays
+    a link and not a span so that the bar is the same list of the same
+    elements on every view, and a reader who tabs through it meets the
+    same stops on every page.
+
+    The glyph is decorative: the word beside it is its meaning, so it is
+    hidden from a screen reader, as in partials/marker_legend.html. The
+    count is part of the text of the link, so the tab is read as "Talks
+    398" and the number is one more fact about the page it leads to. Only
+    the views that exist are listed: the caller passes the tabs it has a
+    page for, so a tab never leads to a 404.
+*/ -}}
+{{- with .items }}
+<nav class="filter_tabs" aria-label="{{ $.label }}">
+    <ul>
+        {{- range . }}
+        <li><a href="{{ .url }}"{{ if .current }} aria-current="page"{{ end }}>
+            {{- with .emoji }}<span class="filter_tab_glyph" aria-hidden="true">{{ . }}</span>{{ end -}}
+            {{- with .type }}<span class="filter_tab_icon">{{ partial "event_type_icon.html" . }}</span>{{ end -}}
+            {{ .text }}
+            {{- if isset . "count" }} <span class="filter_tab_count">{{ .count }}</span>{{ end -}}
+        </a></li>
+        {{- end }}
+    </ul>
+</nav>
+{{- end }}

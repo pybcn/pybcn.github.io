@@ -1,67 +1,61 @@
-<!-- Navigation -->
-<nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
+{{- /*
+    The navigation bar of the site.
+
+    Four groups: The
+    Association (with the capital A), PyLadies BCN, Meetups, and Archive.
+    Contact is not in the bar: it is in the footer, and once is enough.
+    The search box stays.
+
+    What it replaces was the menu of config.toml, which read in the order
+    of the file and shouted every item in capitals: ABOUT PYBCN, EVENTS,
+    PYLADIES BCN, CONTACT US. The four groups above are written here
+    because they are the shape of the site and not of its configuration,
+    and a page that moves or is renamed fails the build here rather than
+    leaving a dead item in a menu nobody reads twice.
+
+    The id is mainNav, because assets/js/navbar.js shrinks the bar by
+    that id on scroll; the class site_nav is what navbar.scss holds on
+    to, to take the capitals off the words. Every internal
+    page is resolved through site.GetPage, so a renamed or moved page
+    fails the build instead of leaving a dead link.
+*/ -}}
+{{- $groups := slice
+    (dict "name" "The Association" "pages" (slice "/pybcn_association/information" "/pybcn_association/organizers" "/pybcn_association/membership" "/pybcn_association/organize-with-us" "/pybcn_association/propose-a-talk" "/pybcn_association/sponsor-us" "/pybcn_association/promote-your-event" "/pybcn_association/job-offers"))
+    (dict "name" "PyLadies BCN" "pages" (slice "/pyladies_bcn/about" "/pyladies_bcn/organizers-and-speakers" "/pyladies_bcn/call-for-proposals" "/pyladies_bcn/sponsors" "/pyladies_bcn/job-offers" "/pyladies_bcn/contact-us"))
+    (dict "name" "Meetups" "pages" (slice "/events/monthly_events" "/pyladies_bcn/meetups" "/events/pyday_bcn"))
+    (dict "name" "Archive" "pages" (slice "/events" "/talks" "/people" "/sponsors"))
+-}}
+<nav class="navbar navbar-light navbar-expand-xl fixed-top site_nav" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/">
             {{ $logo := resources.Get "images/logo.png" }}
             {{ $logo = partial "image_resize.html" (dict "img" $logo "width" 460) }}
-            {{/* The navbar caps the logo at 230 px wide, so 460 px covers a 2x screen. */}}
-            {{/* The logo is the only content of the home link, so it carries its name. */}}
-            <img id="logo" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" decoding="async" alt="{{ .Site.Params.short_name }} home">
+            <img id="logo" src="{{ $logo.RelPermalink }}" width="{{ $logo.Width }}" height="{{ $logo.Height }}" decoding="async" alt="{{ site.Params.short_name }} home">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-
             <ul class="navbar-nav ml-auto">
-
-                {{ $currentPage := . }}
-                {{ range .Site.Menus.main }}
-                  {{ if .HasChildren }}
-                    {{/* A section of the menu that opens a list of links, which
-                         is the disclosure pattern of the ARIA practices: a
-                         control that says whether it is open, and the content
-                         it shows. role="button" and aria-expanded carry that.
-
-                         Not an ARIA menu. aria-haspopup="true" means a menu,
-                         and the div under it used to name itself after the
-                         control with aria-labelledby, which the HTML validator
-                         rejects on a div with no role: three errors on each of
-                         the 247 pages. The way to make them valid is
-                         role="menu" on the div and role="menuitem" on each
-                         link, and that is a promise this does not keep. An
-                         ARIA menu owes the keyboard arrow keys between the
-                         items, a roving tabindex, and Escape to close, and
-                         Bootstrap 4 gives none of the three here. A reader who
-                         is told it is a menu and finds a list of links is
-                         worse off than one who was told nothing. Two
-                         attributes go instead of one arriving.
-
-                         The id went with the label: nothing else read it. */}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="{{ .URL }}" role="button" aria-expanded="false">{{ .Name }}</a>
-                        <div class="dropdown-menu">
-                            {{ range .Children }}
-                                {{ if .HasChildren }}
-                                    <a class="nav-link dropdown-toggle open-submenu {{ if $currentPage.HasMenuCurrent "main" . }}active{{ end }}" data-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ .Name }}</a>
-                                    <div class="submenu hidden">
-                                        {{ range .Children }}
-                                            <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" {{ if hasPrefix .URL "http" }}target="_blank"{{end}} href="{{ .URL | absURL }}">{{ .Name }} {{if hasPrefix .URL "http"}}<i class="fas fa-external-link-alt" aria-hidden="true"></i>{{end}}</a>
-                                        {{ end }}
-                                    </div>
-                                {{ else }}
-                                      <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
-                                {{ end }}
-                            {{ end }}
-                        </div>
-                    </li>
-                  {{ else }}
-                    <li class="nav-item">
-                      <a class="nav-link {{ if $currentPage.IsMenuCurrent "main" . }}active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
-                    </li>
-                  {{ end }}
-                {{ end }}
+                {{- range $groups }}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ .name }}</a>
+                    <div class="dropdown-menu">
+                        {{- range .pages }}
+                        {{- with site.GetPage . }}
+                        <a class="nav-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        {{- else }}{{ errorf "nav: the page %q is missing" . }}{{ end }}
+                        {{- end }}
+                    </div>
+                </li>
+                {{- end }}
             </ul>
+            <a class="nav_search_link" href="{{ "/search/" | relURL }}" aria-label="Search the archive" title="Search the archive"><i class="fas fa-search" aria-hidden="true"></i></a>
+            <form class="form-inline nav_search" action="{{ "/search/" | relURL }}" method="get" role="search">
+                <label class="sr-only" for="nav_search_q">Search the archive</label>
+                <input class="form-control form-control-sm" id="nav_search_q" type="search" name="q" placeholder="Search">
+                <button class="btn btn-sm nav_search_button" type="submit"><i class="fas fa-search" aria-hidden="true"></i><span class="sr-only">Search</span></button>
+            </form>
         </div>
     </div>
 </nav>

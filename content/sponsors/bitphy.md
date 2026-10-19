@@ -1,6 +1,6 @@
 ---
 id: bitphy
 name: BitPhy
-logo_image: bitphy.png
+logo_image: bitphy.webp
 site: https://www.bitphy.com
 ---

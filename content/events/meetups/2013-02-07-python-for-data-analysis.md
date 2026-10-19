@@ -26,7 +26,7 @@ group: "PyBCN"
 talks:
   - id: matplotlib
     title: "Matplotlib"
-    speakers: [juan-gonzalez-vallinas]
+    speakers: [juan-ramon-gonzalez-vallinas]
     type: talk
     duration_minutes: 10
   - id: quick-introduction-to-ipython

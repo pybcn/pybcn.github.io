@@ -46,4 +46,37 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=QmqrBAKSB6s"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1230569930065661952"
+  items:
+    - file: 2020-02-20-python-february-meetup/04-about-to-start-today-s-meetup-thanks-holaluzeng-fo.webp
+      caption: "About to start today's meetup. Thanks @HolaluzEng for hosting us!"
+      source: "https://x.com/PyBCN/status/1230558963164311552"
+      time: "19:24"
+    - file: 2020-02-20-python-february-meetup/05-automatically-intercepting-debugging-all-python-ht.webp
+      caption: "\"Automatically intercepting & debugging all Python HTTP(S)\" by Tim Perry (@pimterry)"
+      source: "https://x.com/PyBCN/status/1230559515424129026"
+      time: "19:27"
+      talk: automatically-intercepting-debugging-all-python-http-s
+    - file: 2020-02-20-python-february-meetup/06-it-s-magic.webp
+      caption: "It's #magic 🤷‍♂️"
+      source: "https://x.com/PyBCN/status/1230561043979522053"
+      time: "19:33"
+    - file: 2020-02-20-python-february-meetup/01-migracode-creating-a-migrant-tech-community-by-vin.webp
+      caption: "\"Migracode: Creating a Migrant-Tech Community\" by Vincent van Grondelle (@VsVangrondelle)"
+      source: "https://x.com/PyBCN/status/1230569930065661952"
+      time: "20:08"
+      talk: migracode-creating-a-migrant-tech-community
+    - file: 2020-02-20-python-february-meetup/02-how-can-you-volunteer-with-migracodebcn.webp
+      caption: "How can you volunteer with @MigracodeBCN?"
+      source: "https://x.com/PyBCN/status/1230571857277005824"
+      time: "20:16"
+    - file: 2020-02-20-python-february-meetup/03-thanks-holaluzeng-for-the-venue-and-the-pizzas.webp
+      caption: "Thanks @HolaluzEng for the venue and the pizzas! 👏👏"
+      source: "https://x.com/PyBCN/status/1230582036961906689"
+      time: "20:56"
 ---

@@ -39,4 +39,38 @@ talks:
     speakers: [petr-joachim]
     type: talk
     description: "In this session Petr will show you how to dig into code reviews on practical examples with explanations. How to approach them, what to look for and, finally, how to return feedback to the programmer who wrote the code? All of those questions will be covered."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/923603730792148992"
+  items:
+    - file: 2017-10-26-kiwi-com-python-meetup/04-hi-newcomers-check-https-pybcn-org-and-welcome-to.webp
+      caption: "Hi newcomers, check https://pybcn.org and welcome to PyBCN!"
+      source: "https://x.com/PyBCN/status/923593892406194176"
+      time: "18:55"
+    - file: 2017-10-26-kiwi-com-python-meetup/01-introduction-to-dronekit-creating-apps-for-uavs-wi.webp
+      caption: "Introduction to DroneKit: creating apps for UAVs with Python, by Dimitri Herrero"
+      source: "https://x.com/PyBCN/status/923603730792148992"
+      time: "19:34"
+      talk: introduction-to-dronekit-creating-apps-for-uavs-with-python
+    - file: 2017-10-26-kiwi-com-python-meetup/05-dronekit-demo-time.webp
+      caption: "Dronekit, demo time!"
+      source: "https://x.com/PyBCN/status/923608916730277889"
+      time: "19:55"
+    - file: 2017-10-26-kiwi-com-python-meetup/02-python-memory-management-by-robert-kuska.webp
+      caption: "Python Memory Management, by Robert Kuska"
+      source: "https://x.com/PyBCN/status/923613717614530561"
+      time: "20:14"
+      talk: python-memory-management
+    - file: 2017-10-26-kiwi-com-python-meetup/03-the-secret-art-of-code-reviews-by-petr-joachim.webp
+      caption: "The secret art of code reviews, by Petr Joachim"
+      source: "https://x.com/PyBCN/status/923623310604296192"
+      time: "20:52"
+      talk: secret-art-of-code-reviews
+    - file: 2017-10-26-kiwi-com-python-meetup/06-iveta-is-doing-a-quizz-and-giving-away-kiwi-com-vo.webp
+      caption: "Iveta is doing a quizz, and giving away Kiwi•com vouchers to the winners! Thanks!"
+      source: "https://x.com/PyBCN/status/923629733383950336"
+      time: "21:17"
 ---

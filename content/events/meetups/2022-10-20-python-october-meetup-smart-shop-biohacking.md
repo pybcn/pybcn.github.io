@@ -38,4 +38,37 @@ talks:
     language: en
     duration_minutes: 30
     description: "Would you like to become the fluorescent Mr. Burns? In this talk we will go through a brief introduction to biohacking and a very short class on genetics in order to understand perfectly and carry out an experiment to edit our own DNA with CRISPR (a copy-paste biological tool) and a Python script (that will design the genetic sequences needed for this tool) to biohack certain genes and become that man. All this will allow us to see the huge potential of the synergy between genetic engineering and Python, not only for funny examples like the one mentioned before but also in the clinical field for therapy."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1583137255924695042"
+  items:
+    - file: 2022-10-20-python-october-meetup-smart-shop-biohacking/06-thanks-ocadotechnology-for-hosting-the-python-barc.webp
+      caption: "Thanks @OcadoTechnology for hosting the Python Barcelona Meetup! @marc_maycas is introducing the speakers:"
+      source: "https://x.com/PyBCN/status/1583136573188902914"
+      time: "18:42"
+    - file: 2022-10-20-python-october-meetup-smart-shop-biohacking/01-smart-shop-populate-your-basket-with-one-click-by.webp
+      caption: "\"Smart Shop - Populate your basket with one click\", by Dennis Doerrich & Laurent Candillier"
+      source: "https://x.com/PyBCN/status/1583137255924695042"
+      time: "18:45"
+      talk: smart-shop-populate-your-basket-with-one-click
+    - file: 2022-10-20-python-october-meetup-smart-shop-biohacking/02-they-use-python-to-orchestrate-the-ml-pipelines.webp
+      caption: "They use Python to orchestrate the ML pipelines:"
+      source: "https://x.com/PyBCN/status/1583142036827688960"
+      time: "19:04"
+    - file: 2022-10-20-python-october-meetup-smart-shop-biohacking/03-biohacking-with-python-by-marina-moro-lopez-marina.webp
+      caption: "\"Biohacking with Python\", by Marina Moro López (@marinamorolopez)"
+      source: "https://x.com/PyBCN/status/1583146317240750081"
+      time: "19:21"
+      talk: biohacking-with-python
+    - file: 2022-10-20-python-october-meetup-smart-shop-biohacking/04-nice-bottle-hello-pyladiesbcn.webp
+      caption: "Nice bottle! Hello, @PyLadiesBCN! 👋"
+      source: "https://x.com/PyBCN/status/1583148444197482496"
+      time: "19:29"
+    - file: 2022-10-20-python-october-meetup-smart-shop-biohacking/05-doing-crispr-from-python-the-full-code-is-availabl.webp
+      caption: "Doing CRISPR from Python. The full code is available at @marinamorolopez's github:"
+      source: "https://x.com/PyBCN/status/1583148949015523328"
+      time: "19:31"
 ---

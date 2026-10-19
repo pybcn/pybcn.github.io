@@ -1,6 +1,6 @@
 ---
 id: qustodio
 name: Qustodio
-logo_image: qustodio.png
+logo_image: qustodio.webp
 site: https://www.qustodio.com
 ---

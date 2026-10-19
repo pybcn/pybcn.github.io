@@ -1,7 +1,7 @@
 ---
 id: francesco-faraone
 name: Francesco Faraone
-photo: francesco-faraone.png
+photo: francesco-faraone.webp
 photo_anchor: Bottom
 
 twitter: https://x.com/cicfaraone

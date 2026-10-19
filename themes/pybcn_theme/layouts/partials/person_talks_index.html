@@ -59,12 +59,16 @@
 
     Drafts are skipped by name as well, as in appearances_index.html:
     site.RegularPages drops them in a normal build, but a server run with
-    -D would index content/canary.md.
+    -D would index content/canary.md. So is a page of the section with a
+    filter param, the listing of one type that
+    content/talks/_content.gotmpl adds: it is not a talk and has no
+    record to resolve.
 */ -}}
 {{- $index := dict -}}
 {{- range $pg := site.RegularPages -}}
     {{- if $pg.Draft }}{{ continue }}{{ end -}}
     {{- if ne $pg.Section "talks" }}{{ continue }}{{ end -}}
+    {{- if $pg.Params.filter }}{{ continue }}{{ end -}}
     {{- $record := partial "talk_record.html" $pg -}}
     {{- $talk := $record.talk -}}
     {{- if not $talk }}{{ continue }}{{ end -}}

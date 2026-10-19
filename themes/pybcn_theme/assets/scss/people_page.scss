@@ -17,7 +17,7 @@
         flex-wrap: wrap;
         align-items: center;
         gap: 24px 32px;
-        margin-bottom: 1.6rem;
+        margin-bottom: $block-gap;
     }
 
     // A round frame at 240px: a portrait is what a person page opens with,
@@ -37,9 +37,8 @@
     // The zoom of the portrait: the photograph grows inside its own frame,
     // which is clipped, so nothing on the page moves. It is the zoom the
     // cards of /pybcn_association/organizers/ have had for years, in
-    // people.scss, and David Arcos asked for that one on 2026-10-15 after
-    // a first try hung a 400px copy of the picture under the portrait and
-    // read as a popup.
+    // people.scss, and this is the same one. A first try hung a 400px
+    // copy of the picture under the portrait and read as a popup.
     //
     // The portrait stays a link, so the keyboard has something to focus
     // and a touch screen, which has no hover, has somewhere to land: it
@@ -100,8 +99,8 @@
     // one link per line, each the mark of the host and the handle, in the
     // size of body text. No marker: the mark is the marker. They were one
     // line that wrapped: at 1280px three handles sat on the line and the
-    // site dropped under them, which read as misaligned, so David Arcos
-    // asked for one per line (2026-10-15), and the marks line up down the
+    // site dropped under them, which read as misaligned. One per line,
+    // and the marks line up down the
     // left. The handle of a site is a free URL, and one of them is 600px
     // of percent-encoded characters; it breaks where it has to.
     .person_links {
@@ -160,11 +159,10 @@
     // pages. Both kinds of block, the page's own and the three lists.
     .person_block,
     .person_section {
-        margin-bottom: 2rem;
+        margin-bottom: $block-gap;
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
+            @include section_title;
         }
     }
 
@@ -206,7 +204,7 @@
         }
 
         .talk_meta {
-            color: #51616e;
+            color: $text-grey;
             font-size: 0.9rem;
             margin-bottom: 0;
         }
@@ -217,7 +215,7 @@
     // line of a meetup page does. A link inside a sentence needs a second mark besides the
     // colour (WCAG 1.4.1), the rule meetup.scss and talks.scss apply.
     .person_correction p {
-        color: #51616e;
+        color: $text-grey;
         font-size: 0.9rem;
         margin-bottom: 0;
 
@@ -249,7 +247,7 @@
         }
 
         figcaption {
-            color: #51616e;
+            color: $text-grey;
             font-size: 0.9rem;
             margin-top: 0.3rem;
         }
@@ -402,7 +400,7 @@
     // three wrap. Here a card holds at most one photo and one video, of
     // one talk, so the 128px column stood mostly empty and the Event
     // column wrapped 128px short of the right edge every other block
-    // reaches, which David Arcos read as a narrower table (2026-10-15).
+    // reaches, which reads as a narrower table.
     // 1% is the trick of the three narrow columns of that stylesheet: the
     // column is as wide as its widest card. Measured on
     // /people/david-arcos/ at 1280px: the table 825px before and after,

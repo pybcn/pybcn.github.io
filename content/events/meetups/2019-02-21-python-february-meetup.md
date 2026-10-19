@@ -65,4 +65,25 @@ talks:
 session_videos:
   - title: "February 2019 Meetup"
     url: "https://www.youtube.com/watch?v=5lHomEoRndM"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1098646349124456449"
+  items:
+    - file: 2019-02-21-python-february-meetup/01-repository-templates-with-cookiecutter-by-hector-c.webp
+      caption: "Repository templates with Cookiecutter by Héctor Canto (@hectorcanto_dev)"
+      source: "https://x.com/PyBCN/status/1098646349124456449"
+      time: "19:11"
+      talk: repository-templates-with-cookiecutter
+    - file: 2019-02-21-python-february-meetup/02-recursive-generators-by-joan-vilaltella-joanvilalt.webp
+      caption: "Recursive generators by Joan Vilaltella, (@joanvilaltella)"
+      source: "https://x.com/PyBCN/status/1098656264207433729"
+      time: "19:50"
+      talk: recursive-generators
+    - file: 2019-02-21-python-february-meetup/03-pipenv-python-dev-workflow-for-humans-by-andreu-va.webp
+      caption: "Pipenv: Python Dev Workflow for Humans, by Andreu Vallbona (@avallbona)"
+      source: "https://x.com/PyBCN/status/1098667623976452098"
+      time: "20:35"
 ---

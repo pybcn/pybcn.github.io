@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Scalable Machine Learning in R and Python with H2O"
+title: "PyLadies BCN Workshop, December 2016"
 date: 2016-12-05
 year: 2016
 venue: "Edifici Històric UB (Aula B7)"

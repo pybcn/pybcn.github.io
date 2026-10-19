@@ -96,5 +96,5 @@ string. That makes the result consistent by construction, and it keeps letters a
 reach. `bin/check-extraction` compares what the model wrote against the normalized source, so a
 curly quote turned straight passes and a changed accent fails.
 
-Measurement and reasoning: `Personal/PyBCN/2026-10-11 Fase 3 - El Archive, propuesta de modelos`
-in David's vault, section "Qué modelo hace falta, medido".
+Which model: measured on the seven recorded extraction runs of
+`tests/extraction/`, which is what `bin/check-extraction --selftest` reads.

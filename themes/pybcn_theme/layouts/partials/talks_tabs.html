@@ -1,0 +1,54 @@
+{{- /*
+    The tabs of the talks listing: All, then one tab per type of talk the
+    archive holds, each with its icon and its count, through
+    partials/filter_tabs.html.
+
+    Argument: the page being rendered, /talks/ or the page of one type,
+    so that its tab is marked current.
+
+    This bar took the place of the legend of /talks/
+    (partials/marker_legend.html, which /events/ still draws): the legend
+    named each marker of the table with its count, and those entries are
+    the filter now, with an All in front. So the tab keeps what the
+    legend said, the icon, the name, and the count, and adds the link.
+
+    The counts come from partials/listing_counts.html, the one walk of
+    the site that also feeds the card of every row, so a tab says how
+    many rows the page behind it draws. The pages come from
+    content/talks/_content.gotmpl, which adds one per type that has a
+    talk, each carrying its token as params.filter; the tab is built
+    from the pages that exist and not from the vocabulary, so a type
+    with no talk, which has no page, has no tab, and a tab never leads
+    to a 404. A page the adapter added for which the counts hold no row
+    would be a defect in one of the two; it warns rather than printing a
+    tab that reads 0.
+
+    The order is the one the legend had: All first, then by count
+    descending, then by name, so two builds give one order and the
+    biggest group is the first tab after All.
+*/ -}}
+{{- $here := . -}}
+{{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
+{{- $vocabulary := partialCached "event_types.html" "event_types" -}}
+{{- $section := site.GetPage "/talks" -}}
+{{- $items := slice (dict "url" $section.RelPermalink "text" "All" "count" $counts.talks_total "current" (eq $here.RelPermalink $section.RelPermalink)) -}}
+{{- $typed := slice -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if ne $pg.Section "talks" }}{{ continue }}{{ end -}}
+    {{- $token := $pg.Params.filter -}}
+    {{- if not $token }}{{ continue }}{{ end -}}
+    {{- $count := int (default 0 (index $counts.talks $token)) -}}
+    {{- if not $count -}}
+        {{- warnf "talks tabs: %q is the page of type %q, which no row of /talks/ carries." $pg.RelPermalink $token -}}
+        {{- continue -}}
+    {{- end -}}
+    {{- $typed = $typed | append (dict
+            "url" $pg.RelPermalink
+            "text" $pg.Title
+            "count" $count
+            "type" $token
+            "current" (eq $here.RelPermalink $pg.RelPermalink)
+            "key" (printf "%06d %s" (sub 999999 $count) $pg.Title)) -}}
+{{- end -}}
+{{- with $typed }}{{ $items = $items | append (sort . "key") }}{{ end -}}
+{{- partial "filter_tabs.html" (dict "label" "Talk types" "items" $items) -}}

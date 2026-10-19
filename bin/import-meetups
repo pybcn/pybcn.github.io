@@ -140,21 +140,35 @@ def venue_of(event):
     return name, None
 
 
-def front_matter(event):
-    """Return the content file of one meetup record, front matter only.
-
-    No body. The Meetup description is the only prose the export carries and
-    it is not published, so a body would be invented text.
-    """
-    group_id = event["group_id"]
-    lines = [
-        "---",
-        "# One monthly meetup, imported from data/raw/meetup/%s/events.json in" % group_id,
+def export_provenance(event):
+    """Return the comment lines that say this file comes from the export."""
+    return [
+        "# One monthly meetup, imported from data/raw/meetup/%s/events.json in" % event["group_id"],
         "# the pybcn-archive export, which is not in this repository, event %s." % event["id"],
         "# bin/import-meetups writes this file from that record: a correction goes",
         "# to the export or to the script, never here. The Meetup description is",
         "# the logistics of signing up and is not published, and the talks it",
         "# announces arrive separately. See content/events/meetups/_index.md.",
+    ]
+
+
+def front_matter(event, provenance=None, source="the export"):
+    """Return the content file of one meetup record, front matter only.
+
+    No body. The Meetup description is the only prose the export carries and
+    it is not published, so a body would be invented text.
+
+    provenance replaces the comment lines that name where the record came
+    from. bin/new-meetup passes its own, because it reads one event off the
+    public event page and not out of the export. Everything below those
+    lines is the same in both, which is the point of sharing this function:
+    a page written months later looks like the 266 the import wrote.
+
+    source names what the fields were read from, for the one comment that
+    says so. It is "the export" here and "the event page" there.
+    """
+    group_id = event["group_id"]
+    lines = ["---"] + (provenance or export_provenance(event)) + [
         "title: %s" % yaml_string(canon(event["title"]).strip()),
         "date: %s" % event["dateTime"][:10],
         "year: %s" % event["dateTime"][:4],
@@ -169,7 +183,7 @@ def front_matter(event):
         lines.append("# source gives it, so the page says nothing rather than a guess.")
     attendance = (event.get("rsvps") or {}).get("yesCount") or 0
     lines.append("# Who said yes on Meetup, not who came: attendedCount is zero on almost")
-    lines.append("# every record, so this is the only figure the export gives. It names")
+    lines.append("# every record, so this is the only figure %s gives. It names" % source)
     lines.append("# nobody, which is what makes it publishable.")
     if attendance:
         lines.append("attendance: %d" % attendance)

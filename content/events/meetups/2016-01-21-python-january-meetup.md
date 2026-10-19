@@ -36,4 +36,25 @@ talks:
     title: "Tracking Django errors with rollbar"
     speakers: [antonio-barcia-garcia]
     type: talk
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/690235396987420676"
+  items:
+    - file: 2016-01-21-python-january-meetup/01-a-journey-to-using-an-encryption-standard-in-pytho.webp
+      caption: "\"A journey to using an encryption standard in python\" by Daniel Moreno #pybcn"
+      source: "https://x.com/PyBCN/status/690235396987420676"
+      time: "19:11"
+      talk: a-journey-to-using-an-encryption-standard-in-python
+    - file: 2016-01-21-python-january-meetup/03-recommendation-systems-in-python-by-biel-aparicio.webp
+      caption: "\"Recommendation Systems in Python\" by Biel Aparicio y David Arazo #pybcn"
+      source: "https://x.com/PyBCN/status/690241657896308736"
+      time: "19:36"
+    - file: 2016-01-21-python-january-meetup/02-tracking-django-errors-with-rollbar-by-antonio-bar.webp
+      caption: "\"Tracking Django errors with Rollbar\" by Antonio Barcia (@ygneo) #pybcn"
+      source: "https://x.com/PyBCN/status/690252231979966464"
+      time: "20:18"
+      talk: tracking-django-errors-with-rollbar
 ---

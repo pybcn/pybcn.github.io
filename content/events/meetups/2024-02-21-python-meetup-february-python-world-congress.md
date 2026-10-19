@@ -38,4 +38,40 @@ talks:
     language: en
     duration_minutes: 15
     description: "In 2017 Lucas LaRochelle created the webpage Queering The Map. Its purpose was to provide a safe space for queer people around the globe to share experiences anonymously, and link them to a physical space. The information of the page arises this question: How does race, gender, sexuality, citizenship, ability, and class affect the ways in which we relate to, move through, and create space?\n\nThis presentation aims to give some insights in the process of answering this question, respecting the anonymity of the community involved, through the analysis of the discourse of the shared experiences and its relationship with the physical space defined by each country."
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1760369660006965534"
+  items:
+    - file: 2024-02-21-python-meetup-february-python-world-congress/06-thanks-servizurich-for-hosting-us.webp
+      caption: "Thanks Servizurich for hosting us"
+      source: "https://x.com/PyBCN/status/1760368277266612664"
+      time: "19:17"
+    - file: 2024-02-21-python-meetup-february-python-world-congress/01-pytest-a-short-hike-by-itxaso-aizpurua.webp
+      caption: "\"Pytest, a short hike\", by Itxaso Aizpurua"
+      source: "https://x.com/PyBCN/status/1760369660006965534"
+      time: "19:23"
+      talk: pytest-a-short-hike
+    - file: 2024-02-21-python-meetup-february-python-world-congress/02-live-demo-with-cat-facts.webp
+      caption: "Live demo, with cat facts 😺"
+      source: "https://x.com/PyBCN/status/1760370131836776878"
+      time: "19:25"
+    - file: 2024-02-21-python-meetup-february-python-world-congress/03-fyi-we-re-recording-the-talks-go-check-our-youtube.webp
+      caption: "FYI we're recording the talks, go check our YouTube channel later: https://www.youtube.com/c/PythonBarcelona"
+      source: "https://x.com/PyBCN/status/1760373331193114667"
+      time: "19:38"
+    - file: 2024-02-21-python-meetup-february-python-world-congress/04-analysis-of-queering-the-map-by-marta-garcia.webp
+      caption: "Analysis of \"Queering The Map\", by Marta García"
+      source: "https://x.com/PyBCN/status/1760377376507056400"
+      time: "19:54"
+    - file: 2024-02-21-python-meetup-february-python-world-congress/05-today-s-meetup-is-surely-about-cats-if-you-also-lo.webp
+      caption: "Today's meetup is surely about cats! ❤️ if you also love Ellie 🐈"
+      source: "https://x.com/PyBCN/status/1760377864774471838"
+      time: "19:56"
+    - file: 2024-02-21-python-meetup-february-python-world-congress/07-photo.webp
+      caption: "A speaker at the lectern, beside a slide of a Streamlit app: Description branches into Web and Discourse, and both run down to Analysis"
+      source: "https://x.com/PyBCN/status/1760411826565623870"
+      time: "22:11"
 ---

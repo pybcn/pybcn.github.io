@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Introduction to Programming with Python"
+title: "PyLadies BCN Workshop, October 2019"
 date: 2019-10-23
 year: 2019
 venue: "Carrer de Tànger, 122"

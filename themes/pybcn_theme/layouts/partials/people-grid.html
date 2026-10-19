@@ -29,7 +29,10 @@
     Laura Pérez Mayos is an Organizer under Collaborators and the Former
     President under the old board. Before this, each role was a second
     person file with its own id, and the second one was credited with
-    none of the events the first one was in.
+    none of the events the first one was in. The organizers pages draw
+    the rows of /people/ since 2026-10-16 (layouts/_default/people.html)
+    and read the entry role the same way; this grid is the one an event
+    page draws for its speakers, and a speaker entry carries no role.
 
     With no entry role, the role is the one the heading of the grid gives,
     and only then the pybcn_position of the person file. The heading is the
@@ -48,7 +51,11 @@
     Before this, the card printed the pybcn_position under a speaker, which
     was empty for 118 of the 207 cards of the site (most speakers hold no
     position), and put the association role of an organizer who also spoke
-    under the Speakers heading, where it answered the wrong question.
+    under the Speakers heading, where it answered the wrong question. The
+    figures of this header are from the days /organizers/ drew this grid;
+    since 2026-10-16 that page is rows (see above), so the pybcn_position
+    fallback reaches a card only through an event page, where no level
+    name of the archive is an association level.
 
     The column width comes from a per_line_N class rather than from Bootstrap's
     col-md-N. Twelve columns divide by 1, 2, 3, 4, 6 and 12, so people_per_line
@@ -71,7 +78,7 @@
                widths and their rules came out four different lengths. */ -}}
         {{ if $level.name }}
             <div class="level_name">
-                <h2>{{ $level.name }}</h2>
+                <h2 class="sub_title">{{ $level.name }}</h2>
             </div>
         {{ end }}
         <div class="row level per_line_{{ int $level.people_per_line }}" id="{{ $key }}_level_{{ $idx }}">

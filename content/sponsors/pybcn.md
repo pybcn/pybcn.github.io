@@ -1,6 +1,6 @@
 ---
 id: pybcn
 name: PyBCN
-logo_image: pybcn.png
+logo_image: pybcn.webp
 site: https://pybcn.org
 ---

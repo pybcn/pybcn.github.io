@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Haz tu primera skill de Alexa con Python"
+title: "PyLadies BCN Workshop, January 2021"
 date: 2021-01-28
 year: 2021
 # The export records this event as ONLINE, so it had no room.

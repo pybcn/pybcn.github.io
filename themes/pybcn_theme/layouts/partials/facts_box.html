@@ -7,11 +7,10 @@
         [ (clock)    Length    30 minutes                      ]
         [ (link)     Source    The announcement of the day ... ]
 
-    David Arcos asked for it on the page of a talk, on 2026-10-14: the
-    facts in "un formato estándar, tipo una caja", one glyph per line, with
-    the credit, the event, the date, and the source in the same box, and
-    then the same box "para el resto de facts de todos los modelos donde
-    aplique". layouts/talks/single.html and layouts/_default/meetup.html
+    One standard box, on the page of a talk since 2026-10-14: one glyph
+    per line, with the credit, the event, the date, and the source in the
+    same box, and the same box for the facts of every other model that
+    has them. layouts/talks/single.html and layouts/_default/meetup.html
     print it; the rows of the three listings print their own line and the
     card of partials/count_card.html, and the header of a person page
     prints the role line and that card, which this box does not replace
@@ -58,6 +57,28 @@
                     may hold two and a screen reader lists them by name.
         lang        optional, the language of the value when it is not
                     English, printed on the dd (WCAG 3.1.2).
+        meta        optional, a Pagefind meta spec for the dd, "speakers"
+                    or "venue": the text of the value is returned with
+                    the search result under that key. See below.
+        filter      optional, a Pagefind filter spec for the dd, "lang"
+                    (the text of the value) or "year:2019" (inline).
+        ignore      optional, true to keep the row out of the search
+                    index: the type of a talk, its length, the record it
+                    was read from, which are the same words on every page.
+
+    The search. The box sits inside the element the layout marks as the
+    search body of the page (data-pagefind-body, see
+    partials/hero_header.html), so its values are what a reader
+    searches: the names of the speakers, the venue, the registrations.
+    Three things in it are not. The dt is the label, "Venue" on 281
+    pages, and is ignored; a row the caller marks ignore is ignored whole;
+    and the note behind the disclosure is a sentence this site wrote, the
+    same on every page that has it, and is ignored. A filter inside an
+    ignored row still applies, which is how the group of a meetup is a
+    filter value and not a searchable word. Pagefind joins the text of
+    adjacent elements with no space between a dt and a dd, so the label
+    would also stick to the value ("VenueCahootCoworking") if it were
+    indexed; ignoring it is what keeps the value a word.
 
     An item with no value is left out, so a caller may pass every fact it
     knows the name of and the box prints only the ones the record holds.
@@ -80,8 +101,8 @@
     partials/count_card.html at full width, in the colour of the facts,
     so the two read as the same kind of thing: a box of figures.
 
-    The icons are Font Awesome and not emoji. David wrote "un emoji por
-    línea". The site already keeps three vocabularies of glyph with one
+    The icons are Font Awesome and not emoji, one per line. The site
+    already keeps three vocabularies of glyph with one
     job each: an emoji is the type of an event (data/event_emoji.yaml,
     the rows of /events/ and /people/), a Font Awesome icon is a count
     (partials/count_card.html) or a type of session (the programme grid,
@@ -97,8 +118,8 @@
     its text, one line.
 
     The disclosure is a details element with a summary and no script.
-    David wrote "(que funcione en mobile!)": a title attribute is a hover,
-    which a touch screen does not have and a keyboard reaches
+    It has to work on a phone: a title attribute is a hover, which a
+    touch screen does not have and a keyboard reaches
     unreliably, so the note is one tap or one Enter away, the browser
     announces it as expanded or collapsed, and a page with no JavaScript
     still opens it. The sentence about the registrations of a meetup
@@ -114,9 +135,9 @@
 {{- with $rows }}
 <dl class="facts_box">
     {{- range $row := . }}
-    <div class="facts_row">
-        <dt>{{ with $row.mark_url }}{{ partial "link_mark.html" . }}{{ else }}{{ with $row.icon }}<i class="{{ if hasPrefix . "icon_" }}{{ . }}{{ else }}fas {{ . }}{{ end }}" aria-hidden="true"></i>{{ else }}<i class="facts_no_icon" aria-hidden="true"></i>{{ end }}{{ end }}{{ $row.label }}</dt>
-        <dd{{ with $row.lang }} lang="{{ . }}"{{ end }}>
+    <div class="facts_row"{{ if $row.ignore }} data-pagefind-ignore{{ end }}>
+        <dt data-pagefind-ignore>{{ with $row.mark_url }}{{ partial "link_mark.html" . }}{{ else }}{{ with $row.icon }}<i class="{{ if hasPrefix . "icon_" }}{{ . }}{{ else }}fas {{ . }}{{ end }}" aria-hidden="true"></i>{{ else }}<i class="facts_no_icon" aria-hidden="true"></i>{{ end }}{{ end }}{{ $row.label }}</dt>
+        <dd{{ with $row.lang }} lang="{{ . }}"{{ end }}{{ with $row.meta }} data-pagefind-meta="{{ . }}"{{ end }}{{ with $row.filter }} data-pagefind-filter="{{ . }}"{{ end }}>
             {{- /* A list of values is joined here and not by the caller:
                    delimit returns a string, which the template then
                    escapes, so an anchor joined that way prints as text. */ -}}
@@ -127,7 +148,7 @@
                 {{- with $row.url }}<a href="{{ . }}">{{ $row.value }}</a>{{ else }}{{ $row.value }}{{ end -}}
             {{- end }}
             {{- with $row.note }}
-            <details class="facts_note">
+            <details class="facts_note" data-pagefind-ignore>
                 <summary>{{ default "Details" $row.note_label }}</summary>
                 <p>{{ . }}</p>
             </details>

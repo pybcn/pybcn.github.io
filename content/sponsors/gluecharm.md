@@ -1,6 +1,6 @@
 ---
 id: gluecharm
 name: Gluecharm
-logo_image: gluecharm.png
+logo_image: gluecharm.webp
 site: https://gluecharm.com
 ---

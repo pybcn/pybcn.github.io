@@ -44,4 +44,23 @@ talks:
     links:
       - type: video
         url: "https://www.youtube.com/watch?v=prWA_rqKtVo"
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1019991293353758720"
+  items:
+    - file: 2018-07-19-python-july-meetup/01-we-are-already-here-at-travelperk-waiting-for-our.webp
+      caption: "We are already here at @travelperk waiting for our first speaker to start: @dukebody"
+      source: "https://x.com/PyBCN/status/1019991293353758720"
+      time: "19:04"
+    - file: 2018-07-19-python-july-meetup/02-now-it-s-gabimaeztu-s-turn-with-practical-nlp.webp
+      caption: "Now it's @gabimaeztu's turn with Practical NLP"
+      source: "https://x.com/PyBCN/status/1020005100528562177"
+      time: "19:59"
+    - file: 2018-07-19-python-july-meetup/03-today-we-had-a-nice-surprise-after-the-talks.webp
+      caption: "Today we had a nice surprise after the talks"
+      source: "https://x.com/PyBCN/status/1020029753980596224"
+      time: "21:36"
 ---

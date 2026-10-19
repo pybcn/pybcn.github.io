@@ -8,14 +8,14 @@
         2024  Sep    26   👥 Python Meetup September Codurance  [ 2 talks  2 videos ]
         2017  May    19   📊 PyData Barcelona 2017   UPC        [ 36 talks ]
 
-    Six columns, in the order David Arcos named them: the year, the month,
+    Six columns: the year, the month,
     the day, the title, the venue, and the gallery. The date comes first,
     split in three, because the page is a sequence of days and the reader
     runs down the date to find one. The year and the month print once, on
     the first row of their group, and span the rows below them, so a column
     of 281 repeated years is not printed. The day is on every row.
 
-    Why a table. The content is tabular: David named six columns, every row
+    Why a table. The content is tabular: six columns, every row
     holds the same six facts, and a reader compares rows down a column.
     A table gives that for free, and gives three things a grid of list
     items would have to carry by hand: a header cell that spans its group,
@@ -60,7 +60,7 @@
     The day column prints the first day only, "19", for those two as for
     every row: the column is where the reader runs down to find a day,
     and a range there made the column as wide as "19 to 21" on all 281
-    rows for the sake of two (David Arcos, 2026-10-15). The range stays
+    rows for the sake of two. The range stays
     on the page of the edition, through partials/event_date.html, which
     is where the dates of a day belong. The row is filed under the month
     it started, so an edition that crossed a month would sit under its
@@ -147,238 +147,62 @@
     No excerpt. The description of an edition that came from Meetup opens
     with the logistics of the day, so the first words of an automatic
     excerpt would be "Only register if you can attend".
+
+    Where the code is. The row is partials/event_row.html, which turns the
+    page of an event into the dict of one row, and the table is
+    partials/event_table.html, which groups a sorted list of those rows by
+    year and by month and prints it. Both moved out of this layout on
+    2026-10-16, when the home page started printing the ten newest rows
+    (layouts/_default/home.html): one row and one table for the two pages,
+    so the home page cannot print an event differently from this one. This
+    layout keeps what is its own: the intro, the jump bar, and the legend.
 */ -}}
 {{ define "main" }}
 <div class="container">
 
     {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
 
-    {{- /* The counts of the legend and of the card of every row, from one
-           cached walk of the site: see partials/listing_counts.html. */ -}}
+    {{- /* The counts of the legend, from one cached walk of the site: see
+           partials/listing_counts.html. The card of every row reads the
+           same walk, inside partials/event_row.html. */ -}}
     {{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
 
-    {{- $byYear := dict -}}
+    {{- /* One row per event, through partials/event_row.html, then sorted
+           by the key of the row, which reads newest first: the year, the
+           date, and then the title and the URL as the tiebreak. The same
+           rows, sorted the same way, are what the home page keeps the
+           first ten of. */ -}}
+    {{- $rows := slice -}}
     {{- range .RegularPagesRecursive -}}
         {{- if not .Params.year }}{{ continue }}{{ end -}}
-        {{- $year := int .Params.year -}}
-
-        {{- /* The type, from the folder, the title, and the group, through
-               the one partial that holds the rules. See the header of
-               data/event_emoji.yaml. */ -}}
-        {{- $type := partial "event_type.html" . -}}
-        {{- $marker := default (index site.Data.event_emoji "*") (index site.Data.event_emoji $type) -}}
-
-        {{- /* The date, in the parts the three date columns print, from
-               partials/event_date.html, which reads date and end_date. An
-               edition with no date leaves every part empty, and the row
-               prints empty cells. month_key is the month as yyyymm, the
-               key the rows of one year are grouped by: the name alone
-               would file "May 2017" and "May 2016" together if a year
-               ever held two, and it cannot, but the key costs nothing. */ -}}
-        {{- $when := partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date) -}}
-        {{- $iso := "2006-01-02" -}}
-        {{- $date := dict "month" "" "month_key" "" "day" "" "start_iso" "" -}}
-        {{- with $when.start -}}
-            {{- $date = dict
-                "month" $when.month
-                "month_key" (time.Format "200601" .)
-                "day" $when.day
-                "start_iso" (time.Format $iso .) -}}
-        {{- end -}}
-
-        {{- /* The venue: the short name from data/venues.yaml, with the
-               full string behind it, or the full string alone when the
-               table has no row for it. venue is the place, and it comes
-               from the Meetup export, which records one per event. It is
-               not rooms: that lists the rooms inside the venue, so its
-               first entry is the first column of the programme, which
-               printed "B6" where the reader expects "Universitat de
-               Barcelona". Each piece goes through the escaping of the
-               template and never through safeHTML: a venue is content,
-               and AGENTS.md says to assume any content field can inject
-               HTML. */ -}}
-        {{- $venue := dict -}}
-        {{- with .Params.venue -}}
-            {{- $short := index site.Data.venues . -}}
-            {{- /* The hover and the hidden full name are printed only when
-                   the full string says more than the short name. The two
-                   are compared with the case and the accents folded away:
-                   data/venues.yaml restores the accents the source lost
-                   ("Punt Multimedia" prints as "Punt Multimèdia") and the
-                   capitals ("21 buttons"), and a hover that shows the same
-                   name with one accent fewer says nothing (David Arcos,
-                   2026-10-15). Measured in the build of that day: 149 rows
-                   with a hover, 3 of them this kind. */ -}}
-            {{- $short_key := "" -}}
-            {{- with $short }}{{ $short_key = lower . }}{{ end -}}
-            {{- $full_key := lower . -}}
-            {{- range $from, $to := (dict "[àáâä]" "a" "[èéêë]" "e" "[ìíîï]" "i" "[òóôö]" "o" "[ùúûü]" "u" "ç" "c" "ñ" "n") -}}
-                {{- $short_key = replaceRE $from $to $short_key -}}
-                {{- $full_key = replaceRE $from $to $full_key -}}
-            {{- end -}}
-            {{- if and $short (ne $short_key $full_key) -}}
-                {{- $venue = dict "text" $short "full" . -}}
-            {{- else -}}
-                {{- $venue = dict "text" (default . $short) -}}
-            {{- end -}}
-        {{- end -}}
-
-        {{- /* What the day holds, for the card: the talks of its programme,
-               the photos its gallery renders, and the videos it prints. The card
-               leaves out a count of zero, so no row reads "0 photos", and
-               a day with nothing to count gets no card. */ -}}
-        {{- $facts := index $counts.event_rows .RelPermalink -}}
-        {{- $card := slice -}}
-        {{- with $facts -}}
-            {{- $card = slice
-                    (dict "kind" "talk" "count" .talks)
-                    (dict "kind" "photo" "count" .photos)
-                    (dict "kind" "video" "count" .videos) -}}
-        {{- end -}}
-
-        {{- $url := .RelPermalink -}}
-        {{- with .Params.menu }}{{ with .main }}{{ with .url }}{{ $url = . }}{{ end }}{{ end }}{{ end -}}
-
-        {{- /* Within one year the rows read newest first, by date, the way
-               the years themselves do, and the months fall out of that
-               order as runs of rows: the grouping below cuts a run where
-               the month changes. The order used to be the title and then
-               the URL, borrowed from person_appearances.html, and it
-               stopped being readable the moment a year held more than one
-               or two rows: with the 266 monthly meetups, 2026 read 30 Apr,
-               25 Feb, 30 Jun, 21 May, 16 Sep. A year of this list is a
-               sequence of days, and the day is on every row, so an order
-               that ignores it contradicts what the reader can see.
-
-               The key is 99999999 minus the date as yyyymmdd, so an
-               ascending sort reads newest first, the way the groups use
-               9999 minus the year. A row with no date gets the ordinal 0,
-               whose key is 99999999, and therefore sorts after every dated
-               row of its year. That is Hacktoberfest 2018, the one edition
-               of the archive that no source gives a day for: it keeps its
-               row, at the end of its year, rather than being guessed into
-               a place between two dated rows. The title and the URL stay
-               on the key as the tiebreak for two events on one day, so two
-               builds give one order. */ -}}
-        {{- $ordinal := 0 -}}
-        {{- with .Params.date }}{{ $ordinal = int (time.Format "20060102" .) }}{{ end -}}
-        {{- $row := merge $date (dict
-                "title" .Title
-                "url" $url
-                "emoji" $marker.emoji
-                "type_label" $marker.label
-                "venue" $venue
-                "card" $card
-                "key" (printf "%08d %s %s" (sub 99999999 $ordinal) .Title .RelPermalink)) -}}
-        {{- $key := string $year -}}
-        {{- $byYear = merge $byYear (dict $key (append $row (default slice (index $byYear $key)))) -}}
+        {{- $rows = $rows | append (partial "event_row.html" .) -}}
     {{- end -}}
-
-    {{- /* The groups: one per year, newest first, each holding its months,
-           newest first, each holding its rows. 9999 minus the year, so an
-           ascending sort reads newest first, the way
-           person_appearances.html orders the events of one person.
-
-           The months are cut from the sorted rows of the year: a row
-           whose month_key differs from the one before it opens a month.
-           The sort by date puts the rows of one month together, so one
-           pass is enough. The row with no date has the empty key, sorts
-           last, and opens a month of its own with no name. */ -}}
-    {{- $groups := slice -}}
-    {{- range $year, $rows := $byYear -}}
-        {{- $sorted := sort $rows "key" -}}
-        {{- $months := slice -}}
-        {{- $open := "" -}}
-        {{- range $i, $row := $sorted -}}
-            {{- if or (not $i) (ne $row.month_key $open) -}}
-                {{- $months = $months | append (dict "month" $row.month "rows" (slice $row)) -}}
-                {{- $open = $row.month_key -}}
-            {{- else -}}
-                {{- $last := index $months (sub (len $months) 1) -}}
-                {{- $months = $months | first (sub (len $months) 1) | append (dict "month" $last.month "rows" ($last.rows | append $row)) -}}
-            {{- end -}}
-        {{- end -}}
-        {{- $groups = $groups | append (dict "year" $year "months" $months "count" (len $sorted) "key" (printf "%04d" (sub 9999 (int $year)))) -}}
-    {{- end -}}
-
-    {{- $groups = sort $groups "key" -}}
+    {{- $rows = sort $rows "key" -}}
 
     {{- /* The years, as links to the groups below, through the bar
            partials/jump_bar.html draws for this page and for /people/. The
            far end of 281 rows under 20 years is many screens of scrolling
            away. Only the years that have a row are here, in the order the
-           groups are drawn, so the bar reads newest first the way the page
-           does. */}}
+           table draws them, so the bar reads newest first the way the page
+           does: a row whose year differs from the row before it opens a
+           year, which is the cut partials/event_table.html makes. */}}
     {{- $jump := slice -}}
-    {{- range $groups }}{{ $jump = $jump | append (dict "anchor" .year "text" .year) }}{{ end }}
+    {{- $open := "" -}}
+    {{- range $rows }}{{ if ne .year $open }}{{ $jump = $jump | append (dict "anchor" .year "text" .year) }}{{ $open = .year }}{{ end }}{{ end }}
     {{ partial "jump_bar.html" (dict "label" "Jump to a year" "items" $jump) }}
 
     {{- /* The legend: each marker the table draws, with how many rows carry
-           it, through partials/marker_legend.html. The counts are the
-           ones read above, which come from the type of every row through
-           the same partial the rows do, so the legend and the rows cannot
-           disagree. It sits between the bar and the table, right above
-           the rows it explains. */ -}}
+           it, through partials/marker_legend.html. The counts come from
+           the type of every row through the same partial the rows do, so
+           the legend and the rows cannot disagree. It sits between the bar
+           and the table, right above the rows it explains. */ -}}
     {{- $legend := slice -}}
     {{- range $token, $entry := site.Data.event_emoji -}}
         {{- $legend = $legend | append (dict "emoji" $entry.emoji "one" $entry.one "many" $entry.many "count" (int (default 0 (index $counts.events $token)))) -}}
     {{- end }}
     {{ partial "marker_legend.html" (dict "label" "Event types" "items" $legend) }}
 
-    <table class="listing_table event_table" role="table">
-        <caption class="listing_caption">Newest first. The year and the month print once, on the first row of their group.</caption>
-        <thead role="rowgroup">
-            <tr role="row">
-                <th scope="col" role="columnheader" class="listing_year_col">Year</th>
-                <th scope="col" role="columnheader" class="listing_month_col">Month</th>
-                <th scope="col" role="columnheader" class="listing_day_col">Day</th>
-                <th scope="col" role="columnheader" class="event_title_col">Title</th>
-                <th scope="col" role="columnheader" class="event_venue_col">Venue</th>
-                <th scope="col" role="columnheader" class="listing_gallery_col">Gallery</th>
-            </tr>
-        </thead>
-        {{- range $groups }}
-        {{- $year := . }}
-        <tbody class="listing_year_group" role="rowgroup">
-            {{- range $mi, $month := .months }}
-            {{- range $ri, $row := $month.rows }}
-            <tr class="listing_row" role="row">
-                {{- /* The year, on the first row of the year, spanning the
-                       lot; the month, on the first row of the month,
-                       spanning its own. Both as rowheader, and both with
-                       aria-rowspan as well as rowspan, for the reflow
-                       at 390px, where no table layout computes the span
-                       for the tree. */ -}}
-                {{- if and (not $mi) (not $ri) }}
-                <th class="listing_year" id="{{ $year.year }}" scope="rowgroup" role="rowheader" rowspan="{{ $year.count }}" aria-rowspan="{{ $year.count }}">{{ $year.year }}</th>
-                {{- end }}
-                {{- if not $ri }}
-                {{- with $month.month }}
-                <th class="listing_month" scope="row" role="rowheader" rowspan="{{ len $month.rows }}" aria-rowspan="{{ len $month.rows }}">{{ . }}</th>
-                {{- else }}
-                <td class="listing_month" role="cell" rowspan="{{ len $month.rows }}" aria-rowspan="{{ len $month.rows }}"></td>
-                {{- end }}
-                {{- end }}
-                <td class="listing_day" role="cell">
-                    {{- with $row.day }}<time datetime="{{ $row.start_iso }}">{{ . }}</time>{{ end -}}
-                </td>
-                <td class="event_title" role="cell"><span class="event_emoji" role="img" aria-label="{{ $row.type_label }}" title="{{ $row.type_label }}">{{ $row.emoji }}</span><a href="{{ $row.url }}">{{ $row.title }}</a></td>
-                <td class="event_venue_cell" role="cell">
-                    {{- with $row.venue -}}
-                        {{- with .full -}}
-                            <span class="event_venue" title="{{ . }}"><span aria-hidden="true">{{ $row.venue.text }}</span><span class="sr-only">{{ . }}</span></span>
-                        {{- else -}}
-                            {{ .text }}
-                        {{- end -}}
-                    {{- end -}}
-                </td>
-                <td class="listing_gallery" role="cell">{{ partial "count_card.html" (dict "items" $row.card) }}</td>
-            </tr>
-            {{- end }}
-            {{- end }}
-        </tbody>
-        {{- end }}
-    </table>
+    {{ partial "event_table.html" (dict "rows" $rows) }}
 
 </div>
 {{ end }}

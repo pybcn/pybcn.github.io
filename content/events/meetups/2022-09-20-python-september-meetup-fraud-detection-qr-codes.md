@@ -44,4 +44,22 @@ talks:
     However, QR Code can be aesthetically boring. Let us explore some cool libraries in Python to create more dynamic QR Codes, also, let us understand a bit how QR Codes work and how these fancy solutions still are compatible with smartphone QR Code readers.'
   speakers:
   - ismael-benito
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/1572275772542582784"
+  items:
+    - file: 2022-09-20-python-september-meetup-fraud-detection-qr-codes/01-september-pybcn-meetup-crunching-data-to-catch-fra.webp
+      caption: "September @PyBCN meetup 🤩 Crunching data to catch fraud detection, by @rivolaks from @Veriff"
+      source: "https://x.com/PyBCN/status/1572275772542582784"
+      time: "19:25"
+      talk: crunching-data-to-catch-fraud
+    - file: 2022-09-20-python-september-meetup-fraud-detection-qr-codes/02-and-now-qr-codes-let-us-make-some-gifs-with-ismans.webp
+      caption: "And now: QR Codes: let us make some GIFs, with @ismansiete 🤩"
+      source: "https://x.com/PyBCN/status/1572278881112965121"
+      time: "19:37"
+      talk: qr-codes-let-us-make-some-gifs
+
 ---

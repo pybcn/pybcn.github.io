@@ -36,4 +36,17 @@ talks:
     title: "Python descriptors in detail"
     speakers: [pablo-enfedaque-vidal]
     type: talk
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/669952673492373504"
+  items:
+    - file: 2015-11-26-python-november-meetup/01-now-is-xorduna-turn-using-telegram-as-an-interface.webp
+      caption: "Now is @xorduna turn! Using Telegram as an interface for an LED wall by Xavier Orduña. #pybcn"
+      source: "https://x.com/PyBCN/status/669952673492373504"
+      time: "19:55"
+      talk: using-telegram-as-an-interface-for-an-led-wall
+
 ---

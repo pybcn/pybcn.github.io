@@ -49,4 +49,27 @@ talks:
   description: On the Plone Community we have different efforts for 2020. One of them is switching from actual Zope Stack to a different backend that holds content in a ZODB, with modern technologies and python 3. Plone.server is an experiemental Framework to build Content based REST API services based on a asyncio loop and a object database called ZODB.
   speakers:
   - ramon-navarro-bosch
+# The photographs the association published of this day, one per post
+# so no two share a caption, which is also the alt text. The posts were
+# read out of the X export by the text of their thread, and imported
+# with bin/import-x-photos --ids.
+photos:
+  thread: "https://x.com/PyBCN/status/799313832703365121"
+  items:
+    - file: 2016-11-17-python-november-meetup/01-ajuntament-de-barcelona-inicia-el-desarrollo-de-su.webp
+      caption: "\"Ajuntament de Barcelona inicia el desarrollo de sus sistema core-business en Python/Django\", por Xavi Roca (@XaviRocaV) y Montse Comaposada"
+      source: "https://x.com/PyBCN/status/799313832703365121"
+      time: "19:10"
+      talk: ajuntament-de-barcelona-inicia-el-desarrollo-de-sus-sistema
+    - file: 2016-11-17-python-november-meetup/02-introduction-to-conda-by-ignasi-fosch-ifosch.webp
+      caption: "\"Introduction to Conda\", by Ignasi Fosch (@ifosch)"
+      source: "https://x.com/PyBCN/status/799322408410894336"
+      time: "19:44"
+      talk: introduction-to-conda
+    - file: 2016-11-17-python-november-meetup/03-plone-server-rest-api-async-framework-for-cms-by-r.webp
+      caption: "\"plone.server - REST API async framework for CMS\", by Ramon Navarro (@bloodbare)"
+      source: "https://x.com/PyBCN/status/799334257340588032"
+      time: "20:31"
+      talk: plone-server-rest-api-async-framework-for-cms
+
 ---

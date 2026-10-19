@@ -1,5 +1,6 @@
 .idea
 bin/hugo
+bin/pagefind
 public/**
 
 # Hugo build output and caches. resources/ covers the SCSS cache and the

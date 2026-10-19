@@ -2,7 +2,12 @@
 
 <style type="text/css">
 	.scheduleContainer {
-		grid-template-columns: 5rem repeat({{ .numTracks }}, 1fr);
+		{{/* minmax(0, 1fr) and not 1fr: a 1fr track will not shrink below
+		     the longest word of its content, so on a 992px screen the four
+		     columns of 2025 asked for 1067px and the page scrolled
+		     sideways. minmax(0, ...) lets the column shrink and the title
+		     wrap instead. Issue #212. */}}
+		grid-template-columns: 5rem repeat({{ .numTracks }}, minmax(0, 1fr));
 		grid-template-rows: repeat({{len .eventTimes}}, 1fr) !important;
 		grid-template-areas:
 			{{ $num := (int .numTracks) }}
@@ -69,6 +74,12 @@
 		       talk, spans every track, and was centred. */ -}}
 		{{- $banner := ge (int $event.track_length) $numTracks -}}
 		<div class="event {{ $event.color }}{{ if $banner }} middle{{ end }} start-{{ replace $event.start ":" "" }} end-{{ replace $event.end ":" "" }} length-{{ $event.track_length }}">
+
+			{{/* The hours of the session, for the phone. The grid says them
+			     with the row the block sits on, and the grid is off below
+			     992px, so .event_time in agenda.scss shows this there and
+			     hides it here. See issue #212. */}}
+			<span class="event_time">{{ $event.start }}{{ with $event.end }} to {{ . }}{{ end }}</span>
 
 			{{/* Two actions on one block, and each one does a different thing:
 			     the plus icon opens the detail of this session in place, and the
@@ -156,8 +167,7 @@
 			{{/* No video on the block. A player belongs on a page about one
 			     talk and a link belongs on a row, and a block of the grid is
 			     neither: the grid of PyDay BCN 2020 printed 20 video links, the
-			     one schedule of the site that printed any (David Arcos,
-			     2026-10-15). The videos of the day are the Videos block of the
+			     one schedule of the site that printed any. The videos of the day are the Videos block of the
 			     page, under the grid, one row per video, from
 			     partials/event_videos.html; the modal behind this block keeps
 			     the link, as the detail of one session. */}}

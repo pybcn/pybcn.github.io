@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Introducción a The Things Network"
+title: "PyLadies BCN Workshop, October 2018"
 date: 2018-10-23
 year: 2018
 venue: "Travelperk"

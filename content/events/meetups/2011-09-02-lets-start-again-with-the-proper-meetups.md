@@ -26,7 +26,7 @@ group: "PyBCN"
 talks:
   - id: launching-a-webstore-with-django-and-satchmo-a-personal
     title: "Launching a webstore with Django and Satchmo: A personal experience"
-    speakers: [juan-gonzalez-vallinas]
+    speakers: [juan-ramon-gonzalez-vallinas]
     type: talk
   - id: wok-title-pending
     title: "Wok (Title pending)"

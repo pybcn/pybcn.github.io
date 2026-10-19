@@ -5,7 +5,7 @@
 # to the export or to the script, never here. The Meetup description is
 # the logistics of signing up and is not published, and the talks it
 # announces arrive separately. See content/events/meetups/_index.md.
-title: "Introduction to Raspberry Pi Workshop - trial run"
+title: "PyLadies BCN Workshop, June 2014"
 date: 2014-06-10
 year: 2014
 venue: "UPF Music Technology Group"
