@@ -34,6 +34,12 @@ This file is generated from the site content on every build.
 ## People
 Every person the archive credits has a page at {{ "people/" | absURL }}<person-id>/, with their roles, their talks, the photos of those talks, their events, and their links. All of them are listed at {{ "people/" | absURL }}, where each row links to the page and is itself addressable as {{ "people/" | absURL }}#<person-id>, and the same rows filtered by one role are at {{ "people/role/" | absURL }}<role>/ (speaker, organizer, mentor, permanent-committee, and the rest; the tabs above the list name them). The people behind PyBCN are listed by group, the board, the committee, the collaborators, and the former board, at {{ "pybcn_association/organizers/" | absURL }}, the PyLadies BCN organizers at {{ "pyladies_bcn/organizers-and-speakers/" | absURL }}, and each event page lists its speakers.
 
+## Talks
+Every talk, workshop, lightning talk, keynote and panel the archive holds has a page at {{ "talks/" | absURL }}<event>/<talk>/, with its speakers, its description, its video when there is one, and the photographs of it. All of them are listed at {{ "talks/" | absURL }}, and the same rows filtered by one kind are at {{ "talks/type/" | absURL }}<type>/ (talk, workshop, lightning, keynote, panel). The photographs of a day are in the gallery at the end of the page of that day, and a photograph that shows a talk links to the page of that talk.
+
+## Search
+{{ "search/" | absURL }} searches the events, the talks and the people. The index is built from these pages when the site is built and is served from this site, so a search asks no other service. An address that does not exist lands on a page that searches the words of the address itself.
+
 ## Sponsors
 The companies, organizations, and universities that supported an event are listed at {{ "sponsors/" | absURL }}. Each event page lists its own sponsors.
 

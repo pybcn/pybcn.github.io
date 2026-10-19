@@ -8,19 +8,19 @@
     page, the name of the association instead of the name of the person,
     because a person record carries name and not title and the internal
     Open Graph template fell back to the site. 607 talks, 281 events, and
-    373 people are worth a card each.
+    371 people are worth a card each.
 
     The order of preference, by kind:
 
       person  the photograph of the record, square, so the small card is
               the right shape and the face is not cropped to a letterbox
       talk    the first photograph of the event gallery that names this
-              talk, 107 of the 235 do, and the hero of its event after
+              talk, 257 of the 530 do, and the hero of its event after
               that
       event   its hero, and the first photograph of its gallery after that
 
     A page with none of those gets nothing from here, and head-meta.html
-    falls back to the logo of the association.
+    falls back to images/social-card.png.
 
     1200x630 is what every network crops to, and 1200x1200 for the square
     card. The source of an imported photograph is capped at 1000px, so Fill

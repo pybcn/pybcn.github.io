@@ -12,7 +12,8 @@
     Video             Records the talks and publishes them on YouTube.
     Event groups      Formed for one event, such as a PyDay.
 
-    The people are named on their own pages, which stay current:
+    The people who built this site are in AUTHORS, in the repository.
+    The rest are named on their own pages, which stay current:
     Organizers        https://pybcn.org/pybcn_association/organizers/
     PyLadies BCN      https://pybcn.org/pyladies_bcn/organizers-and-speakers/
     Speakers          On the page of each event, https://pybcn.org/events/
@@ -20,7 +21,7 @@
 /* THANKS */
 
     Every speaker who prepared a talk or a workshop and gave it for free.
-    Every venue that opened its doors, about 70 of them over the years.
+    Every venue that opened its doors, 87 of them over the years.
     Every sponsor, listed at https://pybcn.org/sponsors/
     Every person who came, asked a question, and stayed for the pizza.
 
@@ -35,10 +36,19 @@
 
 /* NUMBERS */
 
-    Counted on 2026-09-30. They come from the Meetup group and they move.
+    From the archive on this site, which is built out of the sources it
+    cites, so these move when the archive does:
 
-    Meetups since November 2007     207
-    Venues used                     about 70
+    Events                          281
+    Talks and workshops             607
+    People the archive credits      370
+    Sponsors                        81
+    Venues used                     87
+    Photographs published           530
+
+    From the Meetup group, counted on 2026-09-30, because only Meetup
+    knows them:
+
     Members on Meetup               4672
     Average event rating            4.64, from 1295 ratings
 
@@ -48,4 +58,7 @@
     Source     https://github.com/pybcn/pybcn.github.io
     Standards  HTML5, CSS3
     Components Bootstrap, jQuery, Font Awesome, all served from this site
+    Search     Pagefind, https://pybcn.org/search/ The index is built with
+               the site and served from it: searching asks nobody else
     Language   English
+    Privacy    No page asks another site for anything to draw itself

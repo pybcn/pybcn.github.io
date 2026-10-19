@@ -20,7 +20,7 @@
 
     Written here and not with _internal/opengraph.html, which this replaced,
     for two reasons. A person record carries name and not title, so every
-    one of the 373 person pages shared as "PyBCN - The Barcelona Python
+    one of the 371 person pages shared as "PyBCN - The Barcelona Python
     Association" instead of the name of the person. And the internal
     template reads .Params.images, which no page of this site sets, so no
     URL of the site ever showed a picture: the card was the small grey box
@@ -28,8 +28,8 @@
 
     The picture comes from partials/social_image.html, which prefers the
     photograph of the person, the photograph of the talk, or the hero of
-    the event, in that order. A page with none of them falls back to the
-    logo of the association, so the card is never empty.
+    the event, in that order. A page with none of them falls back to
+    images/social-card.png, so the card is never empty.
 */ -}}
 {{- $title := or .Params.name .Title site.Title -}}
 {{- $description := or .Description .Summary site.Params.description -}}

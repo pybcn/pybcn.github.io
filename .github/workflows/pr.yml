@@ -55,6 +55,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0    # bin/authors --check reads the whole history
 
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
@@ -71,6 +73,19 @@ jobs:
 
       - name: Check content for dangerous raw HTML
         run: bin/check-html-safety
+
+      - name: Check that AUTHORS is what bin/authors writes
+        # The check writes the file again in memory and compares, so a new
+        # contributor, a second account of somebody already here, and a name
+        # that changed on a person record are all caught. It reads the
+        # GitHub API for the account of each commit and for the reviews,
+        # with the token the job already has; when the API cannot be reached
+        # it says it skipped and passes, because an outage of somebody else
+        # is not a broken build. The reviews come through GraphQL, three
+        # requests for the 205 pull requests, which is why it takes seconds.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bin/authors --check
 
       - name: Check the text normalizer
         run: python3 bin/canon.py --selftest

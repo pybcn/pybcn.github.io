@@ -2,6 +2,7 @@
 id: israel-saeta-perez
 name: "Israel Saeta Pérez"
 photo: israel-saeta-perez.jpg
+github: https://github.com/dukebody
 twitter: "https://x.com/dukebody"
 ---
 

@@ -538,6 +538,25 @@ at 1 GB. The cost is a one-time clone, not a recurring one, so the answer is
 not now. If it is ever done, the moment is an empty pull request queue and a
 day when everybody can re-clone together.
 
+## Who built it
+
+[AUTHORS](AUTHORS) names every person who has written or reviewed here, in
+the order they arrived, with the years they worked on it, the account they
+did it from, and their page on the site. Reviewing counts: a change nobody
+reads is not finished, and two of the people in the file have done nothing
+else. It is written by `bin/authors` out of the commits, the pull request
+reviews, and the person records, and never by hand: a list of people kept by
+hand goes stale the day somebody new lands and nobody notices.
+`bin/authors --check` writes the file again in memory and compares, so a new
+contributor, a second account of somebody already here, and a name edited on
+a person record are all caught. It runs in CI with the token the job already
+has, and says it skipped rather than failing when the API cannot be reached.
+A person who would rather appear another way changes it in a pull request.
+
+The people behind the events, the speakers, the organizers, the venues, and
+the sponsors, are named on the pages of the site, which stay current on
+their own. `static/humans.txt` points at both.
+
 ## Licence
 
 The code of the site (the templates, the stylesheets, the scripts, the
