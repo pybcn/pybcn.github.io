@@ -2,6 +2,12 @@
 title: "Welcome to PyBCN"
 description: "If you are in Barcelona and interested in Python, this is your page!"
 
+# /qr/ is the address that printed QR codes point to. It sends the reader
+# here today. To send the codes somewhere else, move this alias to that page:
+# the codes already printed do not change.
+aliases:
+  - /qr/
+
 layout: home
 
 # The page draws its own h1, in its first block, so
