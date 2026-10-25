@@ -104,11 +104,13 @@
     include the recording of a whole session, which belongs to no talk) is
     written there once for the three listings.
 
-    Reached through layout: events_index in content/events/_index.md, and not
-    through a layouts/events/list.html, because Page.Section of a nested
-    section is its top level: an events/list.html would also draw
-    /events/pyday_bcn/, /events/pydatabcn/ and /events/other_events/, which
-    are index pages of a series and want the fallback list they have.
+    Reached through layout: events_index in content/events/_index.md,
+    which Hugo looks up before layouts/events/list.html. That file draws
+    the index pages of the four series, /events/meetups/,
+    /events/pyday_bcn/, /events/pydatabcn/, and /events/other_events/,
+    with the same body as this one, cut to the events of the series (they
+    took the fallback list of titles until 2026-10-25). The two layouts
+    differ only in what partials/listing_total.html counts for their h1.
     monthly_events.md selects its own layout the same way.
 
     What is a row. A page under content/events/ that carries a year in its
@@ -154,55 +156,17 @@
     year and by month and prints it. Both moved out of this layout on
     2026-10-16, when the home page started printing the ten newest rows
     (layouts/_default/home.html): one row and one table for the two pages,
-    so the home page cannot print an event differently from this one. This
-    layout keeps what is its own: the intro, the jump bar, and the legend.
+    so the home page cannot print an event differently from this one. The
+    rest, the intro, the tabs of the series (partials/events_tabs.html,
+    All and the four series with their counts, as /talks/ and /people/
+    have), the jump bar, the legend, and the call to the table, is
+    partials/event_listing.html since 2026-10-25, shared with
+    layouts/events/list.html, so a series page cannot list its events
+    differently from this one either. This layout is the header above and
+    one call.
 */ -}}
 {{ define "main" }}
 <div class="container">
-
-    {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
-
-    {{- /* The counts of the legend, from one cached walk of the site: see
-           partials/listing_counts.html. The card of every row reads the
-           same walk, inside partials/event_row.html. */ -}}
-    {{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
-
-    {{- /* One row per event, through partials/event_row.html, then sorted
-           by the key of the row, which reads newest first: the year, the
-           date, and then the title and the URL as the tiebreak. The same
-           rows, sorted the same way, are what the home page keeps the
-           first ten of. */ -}}
-    {{- $rows := slice -}}
-    {{- range .RegularPagesRecursive -}}
-        {{- if not .Params.year }}{{ continue }}{{ end -}}
-        {{- $rows = $rows | append (partial "event_row.html" .) -}}
-    {{- end -}}
-    {{- $rows = sort $rows "key" -}}
-
-    {{- /* The years, as links to the groups below, through the bar
-           partials/jump_bar.html draws for this page and for /people/. The
-           far end of 281 rows under 20 years is many screens of scrolling
-           away. Only the years that have a row are here, in the order the
-           table draws them, so the bar reads newest first the way the page
-           does: a row whose year differs from the row before it opens a
-           year, which is the cut partials/event_table.html makes. */}}
-    {{- $jump := slice -}}
-    {{- $open := "" -}}
-    {{- range $rows }}{{ if ne .year $open }}{{ $jump = $jump | append (dict "anchor" .year "text" .year) }}{{ $open = .year }}{{ end }}{{ end }}
-    {{ partial "jump_bar.html" (dict "label" "Jump to a year" "items" $jump) }}
-
-    {{- /* The legend: each marker the table draws, with how many rows carry
-           it, through partials/marker_legend.html. The counts come from
-           the type of every row through the same partial the rows do, so
-           the legend and the rows cannot disagree. It sits between the bar
-           and the table, right above the rows it explains. */ -}}
-    {{- $legend := slice -}}
-    {{- range $token, $entry := site.Data.event_emoji -}}
-        {{- $legend = $legend | append (dict "emoji" $entry.emoji "one" $entry.one "many" $entry.many "count" (int (default 0 (index $counts.events $token)))) -}}
-    {{- end }}
-    {{ partial "marker_legend.html" (dict "label" "Event types" "items" $legend) }}
-
-    {{ partial "event_table.html" (dict "rows" $rows) }}
-
+    {{ partial "event_listing.html" . }}
 </div>
 {{ end }}

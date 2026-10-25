@@ -12,6 +12,8 @@
         url         where the row links: the page, or the url of its menu
                     entry when it declares one
         emoji       the glyph of the type, from data/event_emoji.yaml
+        type        the token of the type, a key of data/event_emoji.yaml,
+                    which the legend of a listing counts rows by
         type_label  the name of the type, the accessible name of the glyph
         venue       a dict with text, the short name, and full, the whole
                     string when it says more than the short name; empty
@@ -126,6 +128,7 @@
         "title" .Title
         "url" $url
         "emoji" $marker.emoji
+        "type" $type
         "type_label" $marker.label
         "venue" $venue
         "card" $card

@@ -503,15 +503,16 @@ button:focus:not(:focus-visible),
 }
 
 // The tabs above a listing: one link per view of the list, the current
-// one filled. See layouts/partials/filter_tabs.html, which /talks/ and
-// /people/ draw it with, and which says why the tabs are links to pages
-// and not a script.
+// one filled. See layouts/partials/filter_tabs.html, which /talks/,
+// /people/, and /events/ draw it with, and which says why the tabs are
+// links to pages and not a script.
 //
 // The same pills as .jump_bar, a little taller, so the two bars read as
 // one family of controls: the tabs choose which rows the page holds, the
 // bar under them jumps inside those rows. The list wraps, with no script,
-// as the jump bar does: at 390px the six tabs of /talks/ take three lines
-// and the ten of /people/ four, and the document stays 390px wide.
+// as the jump bar does: at 390px the six tabs of /talks/ take three lines,
+// the ten of /people/ four, and the five of /events/ three, and the
+// document stays 390px wide.
 //
 // The current tab is the one with aria-current, painted in the blue of the
 // site with white text, which is the one pair of this stylesheet that is

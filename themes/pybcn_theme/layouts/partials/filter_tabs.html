@@ -5,7 +5,8 @@
         [ All 607 ] [ 💬 Talks 398 ] [ 💻 Workshops 172 ] [ ⚡ Lightning talks 27 ] ...
 
     Arguments:
-        label   the aria-label of the nav, "Talk types" or "Roles"
+        label   the aria-label of the nav, "Talk types", "Roles", or
+                "Event series"
         items   a slice of dicts, one per tab, in the order to print:
                     url      the page the tab leads to
                     text     what the tab reads, "Workshops"
@@ -17,8 +18,8 @@
                              partials/event_type_icon.html
                     current  true on the tab of the page being rendered
 
-    Why links and not a widget. The filter of /talks/ and /people/ is a
-    set of tabs that are sub-pages.
+    Why links and not a widget. The filter of /talks/, /people/, and
+    /events/ is a set of tabs that are sub-pages.
     Each tab is a page with an address, so the filter works with no
     script, a crawler indexes every view, and a reader can send one view
     in a message. The markup is therefore a nav of links and not the ARIA
