@@ -61,4 +61,10 @@
     Search     Pagefind, https://pybcn.org/search/ The index is built with
                the site and served from it: searching asks nobody else
     Language   English
-    Privacy    No page asks another site for anything to draw itself
+    Privacy    Scripts, styles, fonts, and images are served from this site.
+               A page asks another site only for the YouTube player of a
+               recorded talk, the Google Form of the talk proposals, the
+               Google Calendar of PyDay BCN 2019, the PayPal button of the
+               membership page, and the Eventbrite button of PyDay BCN 2018.
+               The whole list:
+               https://pybcn.org/pybcn_association/privacy-policy/

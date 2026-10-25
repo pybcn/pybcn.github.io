@@ -30,10 +30,18 @@ The Management Board handles requests about personal data. We have no data prote
 
 The site has pages for the people who organise our events, speak at them, mentor at workshops, or collaborate with the association. Each page shows a name, a photograph, a short biography, the role in PyBCN or at an event, and links to the person's own profiles (GitHub, LinkedIn, Twitter, personal site).
 
-- **Where it comes from**: the person. Each one sent the photograph and wrote or approved the text for publication here. Someone who did not want a photograph did not send one, and the page shows a silhouette instead.
-- **Why we have it**: with the person's consent (GDPR article 6.1.a). You can withdraw it at any time, and we remove the page. Withdrawing consent does not affect what was published before.
+- **Where it comes from**: for most people, the person. They sent the photograph and wrote or approved the text for publication here. For speakers that the archive credits, the public announcements of our own Meetup events: the page then shows the name, the talks, and the events. A page with no photograph shows the initials of the name on a colour instead; the grid of organizers or speakers on an event page shows a silhouette.
+- **Why we have it**: for a page that the person sent, their consent (GDPR article 6.1.a). You can withdraw it at any time, and we remove the page. Withdrawing consent does not affect what was published before. For a page built from our announcements, our legitimate interest in keeping the history of the community (GDPR article 6.1.f). You can object to it, and we remove the page.
 - **How long we keep it**: until the person asks us to remove it, or until we take the page down ourselves because it is out of date.
 - **One thing to know**: the source of this site is a public Git repository on GitHub. When we remove a page, it disappears from the site and from the current version of the repository. The old text remains in the repository history, as with any Git project. Tell us if you also want it gone from there and we will work it out with you. Copies kept by search engines and web archives are outside our control.
+
+### Event photographs
+
+Some event pages show photographs from the posts of the association on X, with the caption they were posted with. Only photographs that the association published itself are on the site. They show the event in general: a speaker gave the talk in public and accepted that it was recorded, and the audience appears in the background and from a distance.
+
+- **Where it comes from**: the public posts of the association on X.
+- **Why we have it**: our legitimate interest in keeping the history of the community (GDPR article 6.1.f). You can object to a photograph in which you appear, and we remove it.
+- **How long we keep it**: until someone objects to it, or until we remove the gallery.
 
 ### Forms
 
@@ -72,7 +80,7 @@ Some pages embed a video in a frame from **youtube-nocookie.com**, the YouTube p
 
 ### Cookies
 
-This site sets no cookies of its own, and runs no analytics or tracking scripts. Your browser also loads a few images from unsplash.com (page headers) and paypalobjects.com (the PayPal button). Like any image host, those servers see your IP address and browser details.
+This site sets no cookies of its own, and runs no analytics or tracking scripts. Its scripts, styles, fonts, and images are served from this site, with two exceptions: the membership pages load the PayPal button from paypalobjects.com, and the page of PyDay BCN 2018 loads the Eventbrite ticket button from eventbrite.es. Like any image host, those servers see your IP address and browser details.
 
 ### Hosting
 
@@ -80,7 +88,7 @@ The site is served by [GitHub Pages](https://pages.github.com). GitHub may log t
 
 ## Who else sees your data
 
-Nobody buys or receives your data from us. The companies named above see it because we use their services: Google (forms, calendar, mailing lists, documents, and the YouTube player on the talk pages), PayPal (payments), and GitHub (hosting and the source repository). All three are based in the USA. Each publishes the safeguards it applies to data from the EU, and we rely on those.
+Nobody buys or receives your data from us. The companies named above see it because we use their services: Google (forms, calendar, mailing lists, documents, and the YouTube player on the talk pages), PayPal (payments), Eventbrite (the ticket button on the page of PyDay BCN 2018), and GitHub (hosting and the source repository). All four are based in the USA. Each publishes the safeguards it applies to data from the EU, and we rely on those.
 
 ## Your rights
 
@@ -101,4 +109,4 @@ If you think we handle your data wrongly, you can complain to the Spanish data p
 
 We may update this policy. Every change is visible in the [history of this page](https://github.com/pybcn/pybcn.github.io/commits/edition/content/pybcn_association/privacy-policy.md) on GitHub.
 
-Last updated: 2026-10-14
+Last updated: 2026-10-25
