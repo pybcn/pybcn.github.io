@@ -14,4 +14,4 @@ meetupEvents:
 weight: 3
 ---
 
-The next meetup is announced on Meetup, which is also where the association takes the registrations for it. The ones that already happened are on this site: [every monthly meetup since 2007](/events/meetups/), 266 of them, each with the day, the venue, the group that ran it, and the number of people who signed up.
+The next meetup is announced on Meetup, which is also where you RSVP for it. The ones that already happened are on this site: [every monthly meetup since 2007](/events/meetups/), 266 of them, each with the day, the venue, the group that ran it, and the number of RSVPs.

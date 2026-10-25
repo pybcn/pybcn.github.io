@@ -35,6 +35,13 @@
         margin-right: -$gutter / 2;
     }
 
+    // A level heading is a link target (people-grid.html gives it an id
+    // from its name), so it clears the fixed navigation when a link
+    // lands on it, as the year headers of a listing do (listing_table.scss).
+    .level_name {
+        scroll-margin-top: 80px;
+    }
+
     // Every card is the same width in every section, and so is the space
     // between them. The row caps its own width at the number of cards it is
     // asked for, and each slot is that fraction of the row. The cap is what

@@ -76,8 +76,15 @@
                asks for: inside the row the heading took that cap, so the
                four headings of /organizers/ were centred on four different
                widths and their rules came out four different lengths. */ -}}
+        {{- /* The heading carries an id from its name, "board-2026" for
+               "Board (2026)", so a link can land on one level: the Board
+               and Committee tile of the home page points at the first
+               home_faces level of the Who we are page this way. The key
+               is not in it, so the id reads as the name does; a page
+               that drew two levels of one name under two keys would
+               repeat an id, and no page does. */ -}}
         {{ if $level.name }}
-            <div class="level_name">
+            <div class="level_name" id="{{ anchorize $level.name }}">
                 <h2 class="sub_title">{{ $level.name }}</h2>
             </div>
         {{ end }}

@@ -19,7 +19,7 @@ This website, [pybcn.org](https://pybcn.org), is run by **Associació Python Bar
 
 {{< association-identity >}}
 
-The Management Board is responsible for this website. You can see who sits on it on the [Information](/pybcn_association/information/) page.
+The Board is responsible for this website. You can see who sits on it on the [Information](/pybcn_association/information/) page.
 
 ## What this site is
 
@@ -54,4 +54,4 @@ We may update this notice. Every change is visible in the [history of this page]
 
 Spanish law applies to this notice and to the use of this site. Any dispute goes to the courts of Barcelona, unless the law gives you the right to the courts of your own domicile.
 
-Last updated: 2026-10-14
+Last updated: 2026-10-25

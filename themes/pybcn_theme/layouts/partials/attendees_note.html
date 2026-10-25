@@ -1,0 +1,22 @@
+{{- /*
+    The text of the Attendees page, /people/role/attendees/.
+
+    The page has no rows: the association never recorded who came to an
+    event, and this is the place that says so, and the place that holds
+    the one figure there is, the Meetup RSVPs. The Meetup RSVPs tile of
+    the home page leads here and prints the same number, from the same
+    partial (partials/meetup_rsvps.html), so the tile and the page cannot
+    disagree. The figures are computed, and the sentence that explains
+    them is written here and nowhere else.
+
+    Printed by layouts/people/role.html for the page whose filter is
+    Attendees, where /people/ prints its intro. The page itself is added
+    by content/people/_content.gotmpl, which cannot compute the figure: a
+    content adapter runs before the pages exist.
+*/ -}}
+{{- $rsvps := partialCached "meetup_rsvps.html" site "meetup-rsvps" -}}
+<div class="section_intro">
+    <h2>We don't track that!</h2>
+    <p><strong>{{ lang.FormatNumberCustom 0 $rsvps.total }} Meetup RSVPs</strong> is the sum of the "RSVP: yes" answers on Meetup over the {{ $rsvps.counted }} meetups whose page records the figure, of {{ $rsvps.meetups }}. It is the number the home page prints.</p>
+    <p>An RSVP is a promise to come, not a seat filled: the people in the room on the day were more or fewer than that, and nobody counted them. The association never recorded who came, so nobody who only attended is named in this archive. It names the people who spoke, organized, mentored, or collaborated, because a programme, a board page, or a credit names them.</p>
+</div>

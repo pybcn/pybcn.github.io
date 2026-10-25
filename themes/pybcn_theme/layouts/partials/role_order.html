@@ -7,7 +7,7 @@
 
     Returns the same labels, sorted:
 
-        Management Board, Permanent Committee, Organizer, Collaborator,
+        Board, Permanent Committee, Event organizer, Collaborator,
         Speaker, Mentor, Volunteer
 
     and any label the list above does not name after them, in
@@ -20,12 +20,12 @@
     did at one event.
 
     The match is on the role and not on the whole label, by prefix: a
-    board label carries its term, "Management Board (2026)" and
-    "Former Management Board (2018 - 2025)". A label that starts with
+    board label carries its term, "Board (2026)" and
+    "Former Board (2018 - 2025)". A label that starts with
     "Former " sorts with the role it was: the word is a tense, not a
     rank, and inside the rank the present comes before the past, so the
-    tabs of /people/ read "Management Board (2026)" before "Former
-    Management Board (2018 - 2025)" (it was alphabetical, which put the
+    tabs of /people/ read "Board (2026)" before "Former
+    Board (2018 - 2025)" (it was alphabetical, which put the
     former board first, 2026-10-16). The sort orders the labels and
     rewrites none, so a label with a defect still shows the defect where
     a reader can see it. Two labels of one rank and one tense keep the
@@ -36,10 +36,10 @@
 
     Measured over the 378 rows of /people/ on 2026-10-15: Speaker 358,
     Organizer 21, Mentor 10, Collaborators 8, Permanent Committee 6,
-    Management Board (2026) 4, Former Management Board (2018 - 2025) 3,
+    Board (2026) 4, Former Board (2018 - 2025) 3,
     Volunteer 1, Collaborator 1.
 */ -}}
-{{- $ranks := slice "Management Board" "Permanent Committee" "Organizer" "Collaborator" "Speaker" "Mentor" "Volunteer" -}}
+{{- $ranks := slice "Board" "Permanent Committee" "Event organizer" "Collaborator" "Speaker" "Mentor" "Volunteer" -}}
 {{- $keyed := slice -}}
 {{- range $label := . -}}
     {{- $rank := len $ranks -}}

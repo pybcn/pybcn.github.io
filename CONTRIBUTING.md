@@ -105,7 +105,7 @@ Edit the file on GitHub, or clone the repository and follow the steps below.
   to see which ones have no page yet, then
   `bin/new-meetup <the Meetup URL of the event>`. It writes the page from the
   public event page: the title, the day, the venue, the number of
-  registrations, the source URL, and the group. It writes no talk, because the
+  RSVPs, the source URL, and the group. It writes no talk, because the
   announcement says them in prose: pass `--description` to print that prose,
   and see [Import a meetup](README.md#import-a-meetup) for the rest of the
   path, which is the same one the 268 pages of the archive came through.

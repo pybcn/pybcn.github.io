@@ -22,7 +22,7 @@ PyBCN is a volunteer association. This page says what personal data this website
 - **Email**: [pybcn@googlegroups.com](mailto:pybcn@googlegroups.com)
 - **Registered address**: Carrer de Concepció Arenal, 165, 08027 Barcelona
 
-The Management Board handles requests about personal data. We have no data protection officer: the law does not require one for an association of our size and activity.
+The Board handles requests about personal data. We have no data protection officer: the law does not require one for an association of our size and activity.
 
 ## What data this site involves, and why
 
@@ -65,7 +65,7 @@ The membership fee is paid on [PayPal](https://www.paypal.com)'s site through a 
 
 ### Email
 
-Our contact addresses, such as pybcn@googlegroups.com and pyladies-bcn@googlegroups.com, are Google Groups. A message you send there is stored in the group and read by the organizers who are members of that group. We use it to answer you and to follow up on what you asked (GDPR article 6.1.b and 6.1.f). The thread stays in the group archive; ask us and we delete it.
+Our contact addresses, such as pybcn@googlegroups.com and pyladies-bcn@googlegroups.com, are Google Groups. A message you send there is stored in the group and read by the organizers who belong to that group. We use it to answer you and to follow up on what you asked (GDPR article 6.1.b and 6.1.f). The thread stays in the group archive; ask us and we delete it.
 
 ### Embedded Google content
 

@@ -122,10 +122,18 @@
             grid-template-columns: repeat(2, 1fr);
         }
 
+        // Six tiles since the glossary of 2026-10-25 (they were four):
+        // two rows of three from 992px, where six on one row left
+        // "8,917 Meetup RSVPs" no room beside its glyph.
         @media (min-width: 992px) {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
         }
+
+        // Every row of tiles as tall as the tallest: the People tile
+        // carries a caption under its label, and without this its row
+        // was 16px taller than the row under it.
+        grid-auto-rows: 1fr;
     }
 
     .home_stat {
@@ -136,6 +144,12 @@
         // left edge, because "281 Events" and "371 People" are not the
         // same width, and the row read as crooked.
         justify-content: center;
+        // Wrapping is on so that align-content applies, which is what
+        // centres the glyph, the number, and the label in a tile taller
+        // than they are (see grid-auto-rows above). Nothing wraps at
+        // the widths measured, 390 to 1440px.
+        flex-wrap: wrap;
+        align-content: center;
         gap: 0.6rem;
         height: 100%;
         padding: 0.75rem 1.25rem;
@@ -161,6 +175,18 @@
 
         .home_stat_label {
             font-size: 1.1rem;
+        }
+
+        // The caption of the People tile, under its label, in the words
+        // the number counts. Smaller and allowed to wrap: the tile keeps
+        // nowrap for its number and its label, and a caption of four
+        // words would not fit beside them at 992px.
+        .home_stat_caption {
+            display: block;
+            font-size: 0.8rem;
+            line-height: 1.2;
+            white-space: normal;
+            opacity: 0.85;
         }
 
         &:hover,

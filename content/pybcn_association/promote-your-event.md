@@ -19,8 +19,8 @@ heroBackground: /images/photos/reg-desk-pyday-2019.jpg
 - It must be clearly stated **who is organizing the event**, and therefore who is responsible for it.
 
 ## What do you get
-- We'll forward your event information to our PyBCN meetup list, with more than 3K members.
-- We'll forward your event information to our PyLadiesBCN meetup list, with more than 600 members.
+- We'll forward your event information to our PyBCN Meetup group, with more than 3K people.
+- We'll forward your event information to our PyLadiesBCN Meetup group, with more than 600 people.
 - We'll mention your event in our social networks.
 
 ## How does it work?

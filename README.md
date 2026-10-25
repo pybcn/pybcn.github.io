@@ -298,7 +298,7 @@ function in `bin/import-meetups`: `title`, `date`, `year`, `venue`,
 `attendance`, `meetup_url`, and `group`. `attendance` is who said yes on
 Meetup, not who came.
 
-It refuses an event that is not `PAST`, because the registrations are not
+It refuses an event that is not `PAST`, because the RSVPs are not
 final and the archive records what happened, and an event whose title says
 PyDay or PyData, because the large editions have their own pages. `--force`
 overrides both. It refuses to overwrite a page that is already there.

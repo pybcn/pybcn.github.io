@@ -16,9 +16,12 @@
     carries, both from the same index.
 
     A page with content prints it above the list, where /people/ prints
-    its own intro: the Assistants page is all content and no rows, the
-    answer that the association never tracked who attended (see the
-    adapter), and it prints its paragraph and no empty letter bar.
+    its own intro. The Attendees page is all text and no rows, the answer
+    that the association never tracked who attended, with the one figure
+    there is, the Meetup RSVPs, computed at build time: the text is
+    partials/attendees_note.html (the adapter that adds the page cannot
+    count, see content/people/_content.gotmpl), and the page prints it
+    and no empty letter bar.
 */ -}}
 {{ define "main" }}
 <div class="container">
@@ -26,6 +29,9 @@
     {{ partial "people_tabs.html" . }}
 
     {{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
+    {{- if eq .Params.filter "Attendees" }}
+    {{ partial "attendees_note.html" . }}
+    {{- end }}
 
     {{- $filter := .Params.filter -}}
     {{- $rows := slice -}}

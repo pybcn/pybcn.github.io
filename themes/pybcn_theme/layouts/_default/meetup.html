@@ -20,17 +20,17 @@
 
     An almost empty page is the normal case here and not a failure. 266
     events came out of the export, and most of them will never hold more
-    than a day, a place, and a count of registrations. The page prints the
+    than a day, a place, and a count of RSVPs. The page prints the
     facts it has in the box of partials/facts_box.html and leaves out a
     fact with no data behind it, which is the rule
     layouts/_default/events_index.html and layouts/people/list.html already
     follow for a row of theirs: nothing reads "unknown" and nothing reads
     "0". A file with no venue (a few of the early meetups) or with no
-    registrations gets a shorter box rather than a row that says the field
+    RSVPs gets a shorter box rather than a row that says the field
     is missing.
 
     attendance is the yesCount of the Meetup RSVPs, so this page says
-    registrations and never attendance. AGENTS.md requires that, because
+    RSVPs and never attendance. AGENTS.md requires that, because
     attendedCount is zero on almost every record and nobody counted the
     room. The row of the box says it in words as well, behind the
     disclosure of the number: it used to be the paragraph of a Source
@@ -112,23 +112,23 @@
             {{- end }}
 
             {{- /* The box of facts, partials/facts_box.html: the place, the
-                   group, the registrations, and the record the page was
+                   group, the RSVPs, and the record the page was
                    read from, each row left out when the front matter does
                    not carry it, which the partial does for a row with no
                    value. The source is the last row because it is the
                    provenance of the page and not a part of the day. The
                    marker glyph of the venue is the one the event row of a
                    talk page carries: "where". The caveat on the
-                   registrations is the note of its row (AGENTS.md: RSVPs
+                   RSVPs is the note of its row (AGENTS.md: RSVPs
                    are not attendance), one tap away on a touch screen.
                    Every file carries a meetup_url today, the ones from the
                    export and the two written by hand alike; the guard is
                    for the file that does not. */ -}}
-            {{- $registrations := "" -}}
+            {{- $rsvps := "" -}}
             {{- with .Params.attendance -}}
                 {{- $signups := int . -}}
                 {{- if gt $signups 0 -}}
-                    {{- $registrations = printf "%d %s" $signups (cond (eq $signups 1) "person" "people") -}}
+                    {{- $rsvps = printf "%d %s" $signups (cond (eq $signups 1) "person" "people") -}}
                 {{- end -}}
             {{- end -}}
             {{- $source := "" -}}
@@ -136,7 +136,7 @@
             {{ partial "facts_box.html" (dict "items" (slice
                 (dict "label" "Venue" "icon" "fa-map-marker-alt" "value" .Params.venue "meta" "venue")
                 (dict "label" "Group" "icon" "fa-user-friends" "value" .Params.group "filter" "group" "ignore" true)
-                (dict "label" "Registrations" "icon" "fa-user-check" "value" $registrations
+                (dict "label" "RSVPs" "icon" "fa-user-check" "value" $rsvps
                       "note" "The people who said yes on Meetup. It is the only figure the record holds, so it is not a count of who came."
                       "note_label" "Who is counted")
                 (dict "label" "Source" "mark_url" .Params.meetup_url "value" $source "url" .Params.meetup_url "ignore" true))) }}

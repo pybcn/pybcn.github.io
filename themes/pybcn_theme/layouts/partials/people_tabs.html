@@ -4,13 +4,14 @@
     then any view with no rows behind it, through
     partials/filter_tabs.html.
 
-        [ All 371 ] [ 📋 Management Board (2026) 4 ] [ 🧭 Permanent Committee 6 ] [ 🧭 Organizer 21 ] ... [ Assistants ]
+        [ All 371 ] [ 🎤 Speakers 356 ] [ 🧭 Event organizers 23 ] ... [ 📋 Board (2026) 5 ] ... [ 🪑 Attendees ]
 
     Argument: the page being rendered, /people/ or the page of one role,
     so that its tab is marked current.
 
     The tabs are the ones of /talks/: All, and then each role with its
-    emoji. The counts
+    emoji, reading the title of its page ("Speakers", "Event organizers",
+    "Board (2026)") as the tabs of /talks/ read theirs. The counts
     come from partials/people_index.html, the one walk that also builds
     the rows, so a tab says how many rows the page behind it draws. The
     pages come from content/people/_content.gotmpl, which adds one per
@@ -30,7 +31,7 @@
 
     After them, any page of the section with a filter that no row holds:
     a view with no count, because there is no number to print. The one
-    such page is Assistants, which says that the association never
+    such page is Attendees, which says that the association never
     tracked who attended (see the adapter). It is listed from the pages
     and not named here, so a second such view is one more page and no
     edit to this bar.
@@ -64,7 +65,7 @@
     {{- $count := int (index $people.labels $label) -}}
     {{- $ranked = $ranked | append (dict
             "url" $pg.RelPermalink
-            "text" $label
+            "text" $pg.Title
             "count" $count
             "emoji" (default (index site.Data.role_emoji "*") (index site.Data.role_emoji $label))
             "current" (eq $here.RelPermalink $pg.RelPermalink)
@@ -78,7 +79,7 @@
     {{- if index $people.labels $label }}{{ continue }}{{ end -}}
     {{- $empty = $empty | append (dict
             "url" $pg.RelPermalink
-            "text" $label
+            "text" $pg.Title
             "emoji" (default (index site.Data.role_emoji "*") (index site.Data.role_emoji $label))
             "current" (eq $here.RelPermalink $pg.RelPermalink)
             "key" $label) -}}

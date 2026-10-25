@@ -11,7 +11,7 @@ heroBackground: /images/photos/group-pydata-2017.jpg
 
 ---
 
-After 10 years of experience organizing python-related events and more than 3000 members on Meetup, **Python Barcelona (PyBCN)** was officially registered as a non-profit association in 2018. PyBCN is a meeting point for all the Barcelona Python community, and we organize different monthly activities like [PyBCN and PyLadiesBCN meetups and practice sessions](../../events/monthly_events), along with some annual events like [PyDay BCN](../../events/pyday_bcn/pyday_bcn_2022) or [PyDataBCN](../../events/pydatabcn/pydatabcn_2023/).
+After 10 years of experience organizing python-related events and more than 3000 people in its Meetup group, **Python Barcelona (PyBCN)** was officially registered as a non-profit association in 2018. PyBCN is a meeting point for all the Barcelona Python community, and we organize different monthly activities like [PyBCN and PyLadiesBCN meetups and practice sessions](../../events/monthly_events), along with some annual events like [PyDay BCN](../../events/pyday_bcn/pyday_bcn_2022) or [PyDataBCN](../../events/pydatabcn/pydatabcn_2023/).
 
 
 Would you like to be a part of PyBCN? We are looking forward to hearing from you!
@@ -23,9 +23,9 @@ Would you like to be a part of PyBCN? We are looking forward to hearing from you
 
 
 ## How does PyBCN operate?
-We have a Management Board and a Permanent Committee to make decisions, and work groups  to drive all the association activity.
+We have a Board and a Permanent Committee to make decisions, and work groups  to drive all the association activity.
 
-* **Management Board**
+* **Board**
    * President: Jordi Bosch Alibau
    * Secretary: Daniel Mesejo Leon
    * Treasurer: Yago Tafalla
@@ -46,7 +46,7 @@ We have a Management Board and a Permanent Committee to make decisions, and work
 All the work groups must follow some rules:
    
   * Every work group must have Chair, who will be accountable for the work group work to the Permanent Committee.
-  * The Chair is chosen by the work group members, who must be member of the Permanent Committee.
+  * The Chair is chosen by the people in the work group, who must sit on the Permanent Committee.
   * At least two members of the Permanent Committee must be part of every work group.
   * Nobody can participate in more than three work groups.
   * There's no other requirement to be a member of any work group.
@@ -65,8 +65,8 @@ photograph of the day where the association published one.
 
 {{< assemblies >}}
 
-## Past Management Boards 
-* Management Board 2018 - 2025
+## Past Boards
+* Board 2018 - 2025
    * President: Laura Pérez-Mayos
    * Secretary: Natàlia Padilla
    * Treasurer: Mireia Álvarez

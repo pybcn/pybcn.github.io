@@ -16,7 +16,7 @@ description: ""
 # partials/meetup-events.html is a link to Meetup and not a list.
 #
 # What each file carries, and what it does not. The title, the day, the
-# venue, the registrations, the source URL, and the group are copies of one
+# venue, the RSVPs, the source URL, and the group are copies of one
 # field each, so they are as good as the export. The Meetup description is
 # not published: it is the door policy, "only register if you can attend",
 # the call for proposals, and a social media footer, and an archive records
@@ -62,7 +62,7 @@ cascade:
 
 # attendance is the yesCount of the Meetup RSVPs. It is who said yes, not
 # who came: attendedCount is zero on almost every record. A page has to
-# print it as registrations, the way AGENTS.md requires.
+# print it as RSVPs, the way AGENTS.md requires.
 ---
 
-Every meetup the association has run, from the first one in 2007. The programme of each one was read out of the Meetup announcement that published it, so 213 of these 268 pages carry the talks of the day as well as the day, the venue, and the number of registrations. The other 55 pages are the days whose announcement named no session: a study group, a coding dojo, a documentation sprint, a barbecue, a social gathering, or an early meetup whose announcement said only that there would be one.
+Every meetup the association has run, from the first one in 2007. The programme of each one was read out of the Meetup announcement that published it, so 213 of these 268 pages carry the talks of the day as well as the day, the venue, and the number of RSVPs. The other 55 pages are the days whose announcement named no session: a study group, a coding dojo, a documentation sprint, a barbecue, a social gathering, or an early meetup whose announcement said only that there would be one.

@@ -184,7 +184,7 @@ attribute, not a title. Hosting one meetup is not being an organizer.
 
 **RSVPs are not attendance.** `rsvps.attendedCount` is zero on 282 of the 285
 events of the export, so the only figure available is who said yes on Meetup.
-Render it as registrations. The figure was 205 of 207 while only the
+Render it as RSVPs. The figure was 205 of 207 while only the
 `python-barcelona` group was read; the import reads `pyladies-bcn` as well.
 
 **No personal data beyond what is already published.** Never render email

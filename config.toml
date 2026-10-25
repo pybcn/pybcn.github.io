@@ -111,7 +111,7 @@ unsafe=true
     # The values match the association's entry in the Registre d'Entitats de
     # la Generalitat de Catalunya, which is public open data:
     # https://analisi.transparenciacatalunya.cat/d/y6fz-g3ff
-    # Only the Management Board changes address, registry or registered_on:
+    # Only the Board changes address, registry or registered_on:
     # they describe the association as the register records it, not as
     # volunteers know it. The register names the register itself, not only
     # the number, because article 10 asks for the entry in the register and a
