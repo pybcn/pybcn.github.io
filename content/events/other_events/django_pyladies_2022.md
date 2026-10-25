@@ -47,7 +47,7 @@ free_text_sections:
 
     - title: When and where
       id: when_and_where
-      content: It is scheduled for **Saturday 11th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from  9:00pm to 18:30pm CET.
+      content: It is scheduled for **Saturday 11th June** in <a href="https://g.page/Canodrom?share" target="_blank" rel="noopener">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from  9:00pm to 18:30pm CET.
 
     - title: Important dates
       id: important_dates

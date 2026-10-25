@@ -322,7 +322,7 @@ sponsor_levels:
 We are excited and glad to announce that we are organizing the second edition of PyDay in Barcelona!
 </p>
 <p>
-PyDay Barcelona 2018 is going to take place on <b>November 24th</b> at <a href="https://goo.gl/maps/Ngk6PbN3FuB2" target="_blank">PuntMultimèdia (Espanya Industrial, Sants)</a>, full of FREE workshops, talks and contests for the local Python community and an opportunity to spread the word of its existence to other people that could be interested in Python.
+PyDay Barcelona 2018 is going to take place on <b>November 24th</b> at <a href="https://goo.gl/maps/Ngk6PbN3FuB2" target="_blank" rel="noopener">PuntMultimèdia (Espanya Industrial, Sants)</a>, full of FREE workshops, talks and contests for the local Python community and an opportunity to spread the word of its existence to other people that could be interested in Python.
 </p>
 <h2 class="h3">What is PyDay Barcelona 2018 about?</h2>
 <p>
@@ -330,7 +330,7 @@ PyDay Barcelona 2018 has the aim of expanding the local Python community. It wil
 </p>
 <h2 class="h3">Join the event</h2>
 <p>
-<a href="https://www.eventbrite.es/e/entradas-pyday-barcelona-2018-50585714233?ref=ebtnebtckt" target="_blank"><img src="https://www.eventbrite.es/custombutton?eid=50585714233" alt="Eventbrite - PyDay Barcelona 2018" /></a>
+<a href="https://www.eventbrite.es/e/entradas-pyday-barcelona-2018-50585714233?ref=ebtnebtckt" target="_blank" rel="noopener"><img src="https://www.eventbrite.es/custombutton?eid=50585714233" alt="Eventbrite - PyDay Barcelona 2018" /></a>
 </p>
 <h2 class="h3">Agenda</h2>
 <table>
@@ -415,7 +415,7 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 <ul>
 <li>We assume that you are familiar with python, have some basic knowledge about neural network.</li>
 <li>You will get the best experience if you bring a notebook with access to python (I'll use version 3.6) with numpy, pandas, jupyter, pytorch, matplotlib, pillow and opencv.</li>
-<li><a href="https://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html" target="_blank">Guide to install Pytorch</a>.</li>
+<li><a href="https://bartek-blog.github.io/python/pytorch/conda/2018/11/12/install-pytorch-with-conda.html" target="_blank" rel="noopener">Guide to install Pytorch</a>.</li>
 </ul>
 <h3>Data analysis with Jupyter Notebook, Pandas and Plotly</h3>
 <p><b>Speaker:</b> Natàlia Padilla (@nataliasirera) and Laura Pérez (@laura-perez-mayos) (@PyLadiesBCN)  <br/>
@@ -424,12 +424,12 @@ In this short workshop we give a quick and dirty introduction to pytorch. You wi
 <b>Level:</b> Beginner<br/>
 <b>Requirements:</b> a laptop + Jupyter + Pandas + Plotly +  an appetite for learning!<br/>
 <b>Installation:</b><br/>
-• Option 1: Install Anaconda <a href="https://www.anaconda.com/download/" target="_blank">anaconda.com/download</a><br/>
+• Option 1: Install Anaconda <a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">anaconda.com/download</a><br/>
 • Option 2: Execute on the terminal: pip install jupyter pandas plotly</p>
 <h3>Mirror, mirror on the wall, who is the fairest of them all? (Introduction to OpenCV)</h3>
 <p><b>Speaker:</b> Ismael Benito (@ismansiete)<br/>
 <b>Language:</b> English<br/>
-<b>Description:</b> An introduction to OpenCV for NumPy-Scipy-Matplotlib stack users. Starting with Anaconda pre-compiled versions, specially from Menpo project (<a href="https://anaconda.org/menpo/opencv3" target="_blank">https://anaconda.org/menpo/opencv3</a>). Covering inputs and outputs, from basic image handling, such as: 'imread', 'imshow', 'imwrite', etc; to video streams. Some basics in color treatment and thresholding techniques. Also, fundamentals of image warping and cropping. Finally, a small project to be able to find a specific object, for example a QR Code, in a scene and trimmed it.<br/>
+<b>Description:</b> An introduction to OpenCV for NumPy-Scipy-Matplotlib stack users. Starting with Anaconda pre-compiled versions, specially from Menpo project (<a href="https://anaconda.org/menpo/opencv3" target="_blank" rel="noopener">https://anaconda.org/menpo/opencv3</a>). Covering inputs and outputs, from basic image handling, such as: 'imread', 'imshow', 'imwrite', etc; to video streams. Some basics in color treatment and thresholding techniques. Also, fundamentals of image warping and cropping. Finally, a small project to be able to find a specific object, for example a QR Code, in a scene and trimmed it.<br/>
 <b>Level:</b> Intermediate<br/>
 <b>Requirements:</b>
 A laptop with a Miniconda/Anaconda distribution. You must create an environment:</p>
@@ -459,7 +459,7 @@ apt install -y libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-d
 <p><b>Speaker:</b> Jordi Guix<br/>
 <b>Language:</b> English<br/>
 <b>Description:</b> Learn how to access and manage big data with Python. How to access to DB, basic CRUD operations (Create, Read, Update, Delete) and overview of advance operations.<br/>
-Get the <a href="https://github.com/giffy" target="_blank">workshop materials</a>.</p>
+Get the <a href="https://github.com/giffy" target="_blank" rel="noopener">workshop materials</a>.</p>
 <ol>
 <li>Presentació   (5 min)</li>
 <li>Breu introducció de:  (10 - 15 min)<ul>
@@ -503,7 +503,7 @@ Get the <a href="https://github.com/giffy" target="_blank">workshop materials</a
 <ul>
 <li>Docker with elasticsearch, postgres and redis images</li>
 <li>Python packages: guillotina, guillotina_elasticsearch, guillotina_rediscache</li>
-<li><a href="https://github.com/guillotinaweb/guillotina_processing" target="_blank">https://github.com/guillotinaweb/guillotina_processing</a> repo downloaded and docker image built</li>
+<li><a href="https://github.com/guillotinaweb/guillotina_processing" target="_blank" rel="noopener">https://github.com/guillotinaweb/guillotina_processing</a> repo downloaded and docker image built</li>
 </ul>
 <h3>Organizando chistes con NLP</h3>
 <p><b>Speaker:</b> Julio Martínez (@liopic)<br/>

@@ -89,7 +89,7 @@
             </div>
             <div class="col-md-5 social_links site_social">
                 {{ range sort site.Params.social_items "weight" }}
-                    <a href="{{ .link }}" target="_blank" aria-label="{{ site.Params.short_name }} on {{ .name }}" title="{{ site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
+                    <a href="{{ .link }}" target="_blank" rel="noopener" aria-label="{{ site.Params.short_name }} on {{ .name }}" title="{{ site.Params.short_name }} on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
                 {{ end }}
             </div>
         </div>

@@ -37,7 +37,7 @@
                 {{ with $.event.room }}
                     <br/><br/><span class="event_topic"><i class="fas fa-terminal"></i>
                         {{ if or (in . "www") (in . "http") }}
-                            <a class="event_location" href="{{ . }}" target="_blank">{{ . }}</a><br/>
+                            <a class="event_location" href="{{ . }}" target="_blank" rel="noopener">{{ . }}</a><br/>
                         {{ else }}
                             {{ . }}<br/>
                         {{ end }}
