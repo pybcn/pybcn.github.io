@@ -31,7 +31,7 @@ What it does not write:
   records what happened and not how to register for something that is over.
 
   A person page, or a venue in data/venues.yaml. The script reports a venue
-  it does not recognise and writes nothing else: a new venue is a short name
+  it does not recognize and writes nothing else: a new venue is a short name
   somebody chooses.
 
   Anything about who came. The RSVP count is who said yes, it names nobody,

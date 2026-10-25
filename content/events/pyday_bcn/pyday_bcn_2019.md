@@ -47,7 +47,7 @@ sponsor_levels:
     sponsors: [kschool, satellogic, blueliv]
     name: Silver
 
-# The programme of this edition, read from the printed agenda that the live
+# The program of this edition, read from the printed agenda that the live
 # thread on X photographed (tweet 1195637939285430272, the photo on this page).
 # The Google Calendar embed that held it is gone, and the Meetup description
 # never carried it, so that photograph is the source. Titles are copied from
@@ -181,10 +181,10 @@ rooms:
 # corrects now lives.
 #
 # This page declares no eventTimes, so no grid is rendered from this list.
-# The programme a reader sees is the Google Calendar embed in the body, which
+# The program a reader sees is the Google Calendar embed in the body, which
 # is what the association published. The list is here because a photo of the
 # gallery joins to a talk by id, and because the nine photo days still to
-# import need one shape for a programme and not two.
+# import need one shape for a program and not two.
 agenda:
   # The sheets print the opening keynote in all three tracks at 9:30, so it is
   # one slot across the grid. The closing keynote has no slot: it is not on
@@ -264,7 +264,7 @@ agenda:
     level: beginner
 
 # Photos published by PyBCN on the day. One per tweet, so no two share a
-# caption, and the caption is also the alt text. PyBCN organisers took them.
+# caption, and the caption is also the alt text. PyBCN organizers took them.
 # The page credits the account that published them, which is the part the
 # post itself proves.
 # The one photo of this day: the group photo when the day has one, and the

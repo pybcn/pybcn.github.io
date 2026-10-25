@@ -25,8 +25,8 @@
     // Every row of cards starts on the same left edge as the heading above
     // it, which is the line the eye follows down the page. Three rules are
     // needed. The row caps its own width further down, so it must not be
-    // centred in the column. The cards of a row that does not fill must not
-    // be centred under the cards above them. And the half gutter each card
+    // centered in the column. The cards of a row that does not fill must not
+    // be centered under the cards above them. And the half gutter each card
     // carries on its left has to come back off the row, so the edge of the
     // first card, not the edge of its gutter, is what lands on the line.
     .row.level {
@@ -141,10 +141,10 @@
             // The photo, the name and the role are one link to the page of
             // the person (see people_summary.html). A block, so the two
             // boxes inside it stack as they did when each was a button. It
-            // keeps the colours of the card: the name is black at rest and
+            // keeps the colors of the card: the name is black at rest and
             // the PyBCN blue under the pointer or the keyboard, which the
             // rules of the card below set on the h3, and the link must not
-            // paint it the link blue over them or underline it. The colour
+            // paint it the link blue over them or underline it. The color
             // photograph and the blue name are the hover and the focus
             // signal, so the whole card reads as the target.
             .person_card_link {
@@ -185,7 +185,7 @@
                     display: block;
                     width: 100%;
 
-                    // In colour, at rest, as the rows of /people/ and the
+                    // In color, at rest, as the rows of /people/ and the
                     // portrait of a person page are. The photographs used to be grey until
                     // the pointer was on them, which a touch screen never
                     // undid, and a grid of grey faces reads as an archive
@@ -207,7 +207,7 @@
                 // The side padding keeps the text off the border now that
                 // the card has none.
                 padding: 5px 10px 0;
-                // Centred, like the icon row under it. The name and the role
+                // Centered, like the icon row under it. The name and the role
                 // used to sit on the left edge while the icons sat in the
                 // middle, so one card showed two alignments.
                 text-align: center;
@@ -217,7 +217,7 @@
                     // One size on every card. The size used to be a share of
                     // the card so a long name could stay on one line, but
                     // that made a long name visibly smaller than its
-                    // neighbours and read as a different heading level
+                    // neighbors and read as a different heading level
                     // rather than as the same name in less room.
                     font-size: 1.2em;
                     // 3px here against 7px over the icons. What a reader
@@ -247,7 +247,7 @@
                 p {
                     margin-bottom: 0;
                     // Italic sets the role apart from the name above it,
-                    // which is the same colour and only a little larger.
+                    // which is the same color and only a little larger.
                     font-style: italic;
                     // Smaller than the name, including a long name. At the
                     // inherited 16px the role was larger than any name that
@@ -333,13 +333,13 @@
                 }
             }
 
-            // With no border to colour, the hover and the focus are the
-            // photograph in colour and the name in blue, which the rules
+            // With no border to color, the hover and the focus are the
+            // photograph in color and the name in blue, which the rules
             // below and above set. The card has no outline of its own to
             // give.
 
 
-            // Keyboard focus shows the colour photo too, because the card holds
+            // Keyboard focus shows the color photo too, because the card holds
             // two focusable triggers.
             &:hover,
             &:focus-within {

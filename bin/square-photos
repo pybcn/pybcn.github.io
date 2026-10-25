@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Crop the person photos to a square, centred on the face.
+"""Crop the person photos to a square, centered on the face.
 
 The site serves every person photo as a square. Until now the square was cut
 at build time, which has two costs: the crop is chosen by a heuristic that
@@ -9,7 +9,7 @@ than anything the site ever serves, 38 MB of them.
 This cuts the square once, in the repository, so the crop is reviewable in a
 pull request like any other change, and the build only has to resize.
 
-The crop is centred on the face when OpenCV finds one, and on the upper middle
+The crop is centered on the face when OpenCV finds one, and on the upper middle
 when it does not, because a portrait that is taller than it is wide almost
 always has the head in the top half.
 
@@ -45,7 +45,7 @@ DEFAULT_SIDE = 800
 def load(path):
     """Open a photo with its EXIF rotation applied.
 
-    One photo in the set carries Orientation 5. A browser honours that tag and
+    One photo in the set carries Orientation 5. A browser honors that tag and
     shows the picture upright, so the site looked right while every tool that
     reads the pixels directly saw it on its side. Applying the rotation here
     and dropping the tag leaves one truth instead of two.
@@ -98,7 +98,7 @@ def find_face(path):
     return max(plausible or list(faces), key=lambda f: f[2] * f[3])
 
 
-# A square centred on a face near the edge does not fit, so the square has to
+# A square centered on a face near the edge does not fit, so the square has to
 # shrink. It does not shrink below this, because a tight crop of a head with no
 # shoulders looks like a mugshot next to the others in the grid.
 MIN_FACE_MULTIPLE = 3.5
@@ -136,7 +136,7 @@ def crop_box(width, height, face):
     else:
         centre_x = width / 2
         # The upper middle, not the middle: a portrait taller than it is wide
-        # has the head in the top half, and a centred crop cuts the forehead.
+        # has the head in the top half, and a centered crop cuts the forehead.
         centre_y = height / 2 if width >= height else height * 0.4
     left = round(centre_x - side / 2)
     top = round(centre_y - side / 2)

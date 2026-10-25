@@ -65,4 +65,4 @@ cascade:
 # print it as RSVPs, the way AGENTS.md requires.
 ---
 
-Every meetup the association has run, from the first one in 2007. The programme of each one was read out of the Meetup announcement that published it, so 213 of these 268 pages carry the talks of the day as well as the day, the venue, and the number of RSVPs. The other 55 pages are the days whose announcement named no session: a study group, a coding dojo, a documentation sprint, a barbecue, a social gathering, or an early meetup whose announcement said only that there would be one.
+Every meetup the association has run, from the first one in 2007. The program of each one was read out of the Meetup announcement that published it, so 213 of these 268 pages carry the talks of the day as well as the day, the venue, and the number of RSVPs. The other 55 pages are the days whose announcement named no session: a study group, a coding dojo, a documentation sprint, a barbecue, a social gathering, or an early meetup whose announcement said only that there would be one.

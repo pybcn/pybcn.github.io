@@ -4,7 +4,7 @@
 Catches the mistakes that a Hugo build does not: a person id that does not
 match its filename, a duplicate id, a page that lists a person or sponsor id
 with no page behind it, a declared photo with no file behind it, and a
-remote photo_url. It warns about a person photo with no colour in it.
+remote photo_url. It warns about a person photo with no color in it.
 
 For an event photo gallery it catches what the template drops in silence: a
 declared photo with no file, a photo with no caption, a photo that points at
@@ -42,7 +42,7 @@ import tomllib
 import yaml
 
 # Pillow is the library bin/square-photos needs, and pr.yml installs it for
-# this check. A machine without it still runs every other check: the colour
+# this check. A machine without it still runs every other check: the color
 # check reports once that it did not run, so the gap is visible and not an
 # error.
 try:
@@ -239,11 +239,11 @@ def check_photos(people):
 
         saturation = photo_saturation(found)
         if saturation is not None and saturation < PHOTO_MIN_SATURATION:
-            warn(path, f"photo '{photo}' is black and white (colour "
+            warn(path, f"photo '{photo}' is black and white (color "
                        f"{saturation:.1f}, under {PHOTO_MIN_SATURATION}). It "
                        f"looks like the others on a screen that greys them on "
                        f"hover, and grey on a phone and in the modal, where "
-                       f"the others are in colour. Ask for a colour photo.")
+                       f"the others are in color. Ask for a color photo.")
     report_small(small)
     if Image is None and people:
         note("Pillow is not installed, so the black and white photo check did "
@@ -258,21 +258,21 @@ PHOTO_MAX_BYTES = 1_000_000
 # Measured on the 130 photos of October 2026, ten score 0.01 or less and the
 # next one 9.5, so any value from 1 to 9 splits the two groups. 4 keeps the
 # grey group clear of JPEG chroma noise, which reached 0.01, and leaves the
-# muted colour photo nearest the line, at 9.5, more than twice that margin.
+# muted color photo nearest the line, at 9.5, more than twice that margin.
 PHOTO_MIN_SATURATION = 4
 
 
 def photo_saturation(path):
-    """Return the mean colour of a photo, or None when it cannot be measured.
+    """Return the mean color of a photo, or None when it cannot be measured.
 
     The person cards grey every photo with a CSS filter on a device that can
     hover, so a photo that is already black and white looks like the others
     there. On a phone and in the modal nothing greys them, and that photo is
-    the one grey face in a wall of colour. Only the person can fix it, with
+    the one grey face in a wall of color. Only the person can fix it, with
     another photo, so this is a warning and never an error.
 
     Two of the ten grey photos are stored as greyscale; the other eight are
-    RGB JPEGs with no colour in them, which no header can tell from a colour
+    RGB JPEGs with no color in them, which no header can tell from a color
     photo. So the pixels are read, through a 64px thumbnail: Pillow decodes a
     JPEG at a fraction of its size for that, and the 130 photos add about
     0.7 s to the run, 0.4 s to 1.1 s.
@@ -330,7 +330,7 @@ def check_gallery(people):
             continue
         talk_ids = talk_ids_of(path, data, people)
 
-        # Two models of a programme in one file. The migration to talks is
+        # Two models of a program in one file. The migration to talks is
         # closing this, and a file is expected to carry both while it runs,
         # so a warning: what it costs is a reader seeing the same session
         # twice, once from each.
@@ -358,7 +358,7 @@ def talk_ids_of(path, data, people):
     photo of it shows the title of the first, and so does every slot.
 
     This used to run from check_gallery only, which skips a page with no
-    photos block. Two of the ten files that carry a programme have one, so
+    photos block. Two of the ten files that carry a program have one, so
     the speaker ids of 21 talks were checked and the other 113 were not, and
     those 113 were exactly the ones that needed it: they credited a speaker
     as free text, which an id check cannot see at all. The walk now runs for
@@ -371,7 +371,7 @@ def talk_ids_of(path, data, people):
     talks = data.get("talks") or []
     if not talks:
         # Not kept: there is nothing to report twice, and a page with no
-        # programme would otherwise count towards the coverage figure below.
+        # program would otherwise count towards the coverage figure below.
         return set()
     talk_ids = set()
     unnamed = []
@@ -894,12 +894,12 @@ def check_agenda(people):
     The page carries the grid (agenda) apart from the content (talks),
     joined by a talk id, and that join fails in silence: a slot that names a
     talk the page does not define renders as an empty block, which looks
-    like a gap in the programme and not like a mistake.
+    like a gap in the program and not like a mistake.
 
-    The colour of a block is no longer checked here, because it is no longer
+    The color of a block is no longer checked here, because it is no longer
     in the content. partials/agenda_entry.html gives every room of an event
-    one colour of the palette agenda.scss defines. The old check demanded a
-    colour on every entry, which is how the archive ended up with 157 of
+    one color of the palette agenda.scss defines. The old check demanded a
+    color on every entry, which is how the archive ended up with 157 of
     them that meant nothing.
     """
     for path in sorted(CONTENT.rglob("*.md")):
@@ -929,7 +929,7 @@ def check_rooms(path, data):
         room_id = room.get("id")
         if not room_id:
             error(path, f"room {position} has no id. A slot of the agenda "
-                        f"names its room by id, and the colour of the block "
+                        f"names its room by id, and the color of the block "
                         f"comes from it.")
         elif room_id in found:
             error(path, f"room {position} repeats the id '{room_id}'. Two "
@@ -970,7 +970,7 @@ def check_talks(path, data, people):
         if talk.get("type") not in ENTRY_TYPES:
             error(path, f"talk '{title}' has type '{talk.get('type')}', which "
                         f"is not one of: {', '.join(sorted(ENTRY_TYPES))}")
-        # Optional: the printed programme of PyDay BCN 2018 gives no length
+        # Optional: the printed program of PyDay BCN 2018 gives no length
         # at all, so none of its talks stores one. A value that is there has
         # to be a number, because the end of the slot is computed from it.
         if "duration_minutes" in talk and not isinstance(talk["duration_minutes"], int):
@@ -1438,13 +1438,13 @@ def check_slot(path, position, slot, rooms, talks):
         known = ", ".join(sorted(talks)) or "none"
         error(path, f"{where} names talk '{talk}', which this page does not "
                     f"declare. The block renders empty, which reads as a gap "
-                    f"in the programme. Use one of: {known}.")
+                    f"in the program. Use one of: {known}.")
     if slot.get("speaker") is not None:
         error(path, f"{where} carries 'speaker' {slot['speaker']!r}, the "
                     f"free-text field that 'speakers' replaced. Nothing "
                     f"renders it. Use speakers, a list of ids of "
                     f"content/people/, or leave the slot with none: the "
-                    f"organising committee of an edition is not a person.")
+                    f"organizing committee of an edition is not a person.")
     if talk is None:
         if slot.get("type") not in ENTRY_TYPES:
             error(path, f"{where} holds no talk and has type "
@@ -1488,7 +1488,7 @@ def check_orphans(people, listed_people):
     credits the record, and the file carries no photo, no social link, no
     position, and no bio. The name is then the whole row, which is a
     published claim that this person was part of the association with
-    nothing behind it. Either the programme that names them is missing, and
+    nothing behind it. Either the program that names them is missing, and
     crediting the talk fixes the row, or the file is a leftover and goes.
 
     The uncredited records are reported together as one note, not one
@@ -1499,7 +1499,7 @@ def check_orphans(people, listed_people):
 
     listed_people is the set check_listings collected from the front matter
     keys and from the speakers of the talks, so only a real listing counts.
-    A page that carries a programme and no people_sections, PyData Barcelona
+    A page that carries a program and no people_sections, PyData Barcelona
     2017, PyDay BCN 2018, or PyDay BCN 2019, reaches its speakers through
     the talks alone. An earlier version searched the text of every page with
     a word-boundary regex, and a regex boundary sits between a letter and a

@@ -16,11 +16,11 @@
 // footer.scss and not here.
 // The blocks of this page come from three proposals with three type scales
 // and three spacings. What makes them one page is here: one h1, one h2
-// style for every section (.home_title) with a colour variant for a dark
+// style for every section (.home_title) with a color variant for a dark
 // band, one card frame (.home_card) for the Meetup cards, the Take part
 // boxes, and the friends, with the same border, radius, and hover, and
 // one rhythm of 3rem between the sections.
-// The colours and the figures of this design ($blue-deep, $rule-grey,
+// The colors and the figures of this design ($blue-deep, $rule-grey,
 // $text-grey, $ink, $paper, $hover-blue, $card-radius, $block-gap,
 // $title-gap) are in main.scss since 2026-10-17, next to $blue-pybcn,
 // because every other page takes them from there now: the section title,
@@ -139,13 +139,13 @@
     .home_stat {
         display: flex;
         align-items: baseline;
-        // Centred in the tile. Left aligned, the four tiles of one row
+        // Centered in the tile. Left aligned, the four tiles of one row
         // put their numbers at four different distances from their own
         // left edge, because "281 Events" and "371 People" are not the
         // same width, and the row read as crooked.
         justify-content: center;
         // Wrapping is on so that align-content applies, which is what
-        // centres the glyph, the number, and the label in a tile taller
+        // centers the glyph, the number, and the label in a tile taller
         // than they are (see grid-auto-rows above). Nothing wraps at
         // the widths measured, 390 to 1440px.
         flex-wrap: wrap;
@@ -220,7 +220,7 @@
 
 // 2. About, on the dark band of option 3, right under the hero: the text
 // at the left, the player at the right. The links in the text take the
-// yellow, the one colour that reads on the dark grey beside white.
+// yellow, the one color that reads on the dark grey beside white.
 .home_story {
     padding: 2.5rem 0 3rem;
     background-color: $dark-grey;
@@ -278,7 +278,7 @@
             background-repeat: no-repeat;
             // Flush with the top edge of the card, not floating in the
             // middle of it: the two marks are drawn to sit on a line and
-            // centred they read as sliding down the card.
+            // centered they read as sliding down the card.
             background-position: left top;
             background-size: contain;
         }

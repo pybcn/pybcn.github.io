@@ -7,9 +7,9 @@
         thread  the URL of the thread of the day, or ""
         photos  a slice of the photos the gallery renders, in page order
         videos  a slice of the recordings of the day, the rows of
-                partials/event_videos.html in programme order, on an
+                partials/event_videos.html in program order, on an
                 edition page (layouts/_default/event.html) whose
-                programme is a grid; an empty slice on every other page,
+                program is a grid; an empty slice on every other page,
                 and on an edition page that prints its talks as rows
 
     Each photo is a dict:
@@ -75,17 +75,17 @@
     became one list: the Talks heading reads
     "Talks (32) & Videos (29)" and the gallery of that page holds its
     photographs alone. The Videos subsection stays for a page whose
-    programme is a grid, PyDay BCN 2020 today, where the video of a slot
+    program is a grid, PyDay BCN 2020 today, where the video of a slot
     is in the block and its modal and no list of recordings exists. The
     link on the row of a slot stays as well, a mild redundancy on purpose:
     the block says this talk was filmed while you read the
-    programme, and the Gallery lists the recordings of the day together.
+    program, and the Gallery lists the recordings of the day together.
 
     Edition pages only, the pages with layout event. A meetup page
     (layouts/_default/meetup.html) prints its talks as rows with the Watch
     line on each, and the recording of a whole session, which belongs to
     no talk, under its own Recordings heading (partials/session_videos.html,
-    which an edition page prints under the programme too); its gallery is
+    which an edition page prints under the program too); its gallery is
     its photographs. partials/listing_counts.html counts the videos of a
     day from the front matter itself, not from here, so the row of /events/
     and this subsection agree by reading the same records.
@@ -123,7 +123,7 @@
                 "talk" $talk) -}}
     {{- end -}}
 {{- end -}}
-{{- /* The videos, on an edition page with a programme grid and no other:
+{{- /* The videos, on an edition page with a program grid and no other:
        see the header. A page with talks and no agenda prints its Talks
        block instead. The partial reads the talk pages and the person
        names through partialCached, so a second edition pays for neither

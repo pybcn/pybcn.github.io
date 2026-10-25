@@ -5,7 +5,7 @@
       slot    one entry of the agenda list of the page
       talks   the talks of the page, keyed by id
       rooms   the rooms of the page, keyed by id
-      colors  the colour of each room, keyed by room id
+      colors  the color of each room, keyed by room id
       people  the name of every person record, keyed by id
       event_url  the RelPermalink of the event page, or absent. It is half
                  the key of partials/talk_pages_index.html, so a caller
@@ -29,11 +29,11 @@
 
     What this partial computes rather than reads from the page:
 
-    - The colour. It used to be written on every entry, and it meant
-      nothing: across the eight editions 24 colour-and-room combinations
+    - The color. It used to be written on every entry, and it meant
+      nothing: across the eight editions 24 color-and-room combinations
       covered more than one room and only 20 mapped to a single room, and
-      the colour followed neither the type, nor the topic, nor the level.
-      Now every room of an event gets one colour of the palette below and
+      the color followed neither the type, nor the topic, nor the level.
+      Now every room of an event gets one color of the palette below and
       keeps it for the whole day, so a reader can follow a track down the
       grid. A slot with no room gets grey.
 
@@ -118,7 +118,7 @@
        is what fails the build for it; the page still reads.
 
        A slot with no talk reads its own speakers, and a slot that credits
-       no person carries none: the organising committee of an edition is not
+       no person carries none: the organizing committee of an edition is not
        a person and gets no record. */ -}}
 {{- $names := slice -}}
 {{- range $id := $source.speakers -}}
@@ -131,7 +131,7 @@
 {{- end -}}
 
 {{- /* credited_as is the credit of something that is not a person, so it has
-       no record to point at: the organising committee of an edition runs the
+       no record to point at: the organizing committee of an edition runs the
        registration, the breaks, and the closing. Moving speakers to person
        ids dropped those eight credits, because a committee cannot have a
        person record. A session never has both: speakers names people, and

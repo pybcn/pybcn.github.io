@@ -49,7 +49,7 @@
      feed. They are in the sitemap, where a page of the site belongs. */ -}}
 {{- $pages = where $pages "Section" "ne" "people" }}
 {{- /* The talk pages are not in the feed. There is one per talk of every
-     programme the association has published (bin/check-content prints the
+     program the association has published (bin/check-content prints the
      count), and they are built from the front matter of the events, which
      the feed already carries (see content/talks/_content.gotmpl). None of
      them is a publication: the date of a talk is the day it was given, as

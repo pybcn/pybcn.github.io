@@ -48,7 +48,7 @@ footer {
 
 // 8. The footer in four columns, the sub-list of the pages that Take part
 // also links, the accounts on one line beside the name of the association,
-// and the licence line.
+// and the license line.
 .site_footer {
     .site_footer_col {
         margin-bottom: 1.5rem;
@@ -103,7 +103,7 @@ footer {
 
     .site_licence {
         margin: 0.75rem 0 0;
-        // Centred: it is the line that closes the page and it belongs to
+        // Centered: it is the line that closes the page and it belongs to
         // the whole of it, not to the column it happens to sit under.
         text-align: center;
         color: rgba(255, 255, 255, 0.7);
@@ -122,9 +122,9 @@ footer {
         }
     }
 
-    // The live footer centres everything under 576px. A vertical list
+    // The live footer centers everything under 576px. A vertical list
     // reads from a left edge, and so does its sub-list, so the columns
-    // stay left; the name and the accounts take the centre.
+    // stay left; the name and the accounts take the center.
     @media (max-width: 576px) {
         .site_footer_col {
             text-align: left;

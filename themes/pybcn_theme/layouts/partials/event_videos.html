@@ -1,6 +1,6 @@
 {{- /*
     The videos of one edition page, as rows for the Videos subsection of
-    its gallery, in the order of the programme.
+    its gallery, in the order of the program.
 
     Argument: the event page.
 
@@ -21,7 +21,7 @@
 
     Why rows of their own. A player belongs on a page about one talk and
     a link belongs on a row. The grid of the
-    programme is neither: a block of the grid is a slot, at its hour and
+    program is neither: a block of the grid is a slot, at its hour and
     in its room, and the grid of PyDay BCN 2020 was the one schedule of
     the site that printed a video, 20 links on 20 blocks, while the page
     of every other edition printed none. The links left the grid and
@@ -35,15 +35,15 @@
     photographs, because a recording is material added after the day
     (the header of partials/gallery_content.html has the decision).
 
-    One row per video, in programme order. The agenda is walked first,
+    One row per video, in program order. The agenda is walked first,
     slot by slot: a slot with a talk takes the video of its talk, a slot
     with none takes its own (the Welcome Session is the one case, see
     partials/listing_counts.html), and a talk the grid places twice is
     printed once. Then the talks the agenda does not place, in the order
     of the talks block, so a video reaches the page whether or not the
-    programme has a slot for it; none is in that state today. A session
+    program has a slot for it; none is in that state today. A session
     with no video has no row: this is the list of what was recorded, not
-    a second programme. The first link of type video is the one, the rule
+    a second program. The first link of type video is the one, the rule
     of partials/agenda_entry.html; no session of the archive carries two.
 
     The one caller is partials/gallery_content.html, for every edition
@@ -52,7 +52,7 @@
     order of its talks block; its Talks block prints the Watch line on
     each row as well, and the Gallery lists the same 29 recordings
     together, a mild redundancy on purpose: the
-    row says this talk was filmed while you read the programme.
+    row says this talk was filmed while you read the program.
 */ -}}
 {{- $page := . -}}
 {{- $pages := partialCached "talk_pages_index.html" site "talk-pages-index" -}}

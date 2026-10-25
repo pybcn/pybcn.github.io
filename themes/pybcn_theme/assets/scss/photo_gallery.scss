@@ -29,7 +29,7 @@ $quote-rule: #ced4da;
 // 900x506 and 379x675 at 1280px, 358x201 and 358x636 at 390px.
 $photo-max-height: 675px;
 
-// There is no band of colour behind the section, and no rule above it any
+// There is no band of color behind the section, and no rule above it any
 // more. The gallery sat on a light grey band, with every card on it, until
 // 2026-10-14. Each figure is its own card, on the white of the page,
 // and the air between the cards is what separates them. The hr above the
@@ -40,7 +40,7 @@ $photo-max-height: 675px;
 
 .photo_gallery {
     // The gallery is the last section and it is set apart from the
-    // programme, so it does not have to sit inside the reading column the
+    // program, so it does not have to sit inside the reading column the
     // text uses. Breaking out of it gives a photograph 900px instead of
     // 775px, measured at the 1140px container of this theme: the section is
     // 902px, and the 1px border of the card on each side leaves 900 for the
@@ -54,10 +54,10 @@ $photo-max-height: 675px;
     // worse than any saving is worth.
     // 1200px is the xl breakpoint of Bootstrap 4, written out because this
     // file is compiled without the Bootstrap mixins in scope. It was 992,
-    // the lg one, and that was too early: margin-left 50% centres the
+    // the lg one, and that was too early: margin-left 50% centers the
     // section on its containing block, which is the col-md-9 of the page
     // and not the window, so between 992px and 1200px the 902px section
-    // landed off centre and ran past the right edge of the screen. Measured
+    // landed off center and ran past the right edge of the screen. Measured
     // on the live site, the event page was 1067px wide on a 992px screen
     // and 1083px on a 1024px one, which is the same sideways drag issue
     // #212 reports for the schedule, on a different element and at a
@@ -104,7 +104,7 @@ $photo-max-height: 675px;
             // The cap on the height: $photo-max-height, with the reason
             // beside it. The box of the image keeps the width of the card
             // (card-img-top sets width 100%), and the photograph is
-            // painted inside it at its own ratio, centred, so a portrait
+            // painted inside it at its own ratio, centered, so a portrait
             // shows at 380x675 on a white card instead of 900x1600 and a
             // landscape up to 4:3 is not touched. object-fit and not
             // width auto: with width auto a landscape whose source is
@@ -156,8 +156,8 @@ $photo-max-height: 675px;
 
         // The links of the post: a mention, a hashtag, or a URL the post
         // wrote. Underlined, because they sit inside a run of text where a
-        // colour alone is the only thing that would mark them, and WCAG
-        // 1.4.1 asks for more than colour. A mention and a hashtag carry
+        // color alone is the only thing that would mark them, and WCAG
+        // 1.4.1 asks for more than color. A mention and a hashtag carry
         // the X mark in front (partials/caption_links.html), smaller than
         // the mark of a credit line because it sits inside a sentence, and
         // the underline stops at it: .icon_x is an inline-block.
@@ -179,7 +179,7 @@ $photo-max-height: 675px;
         color: $dark-grey;
 
         // The line goes to the page of the talk. Same treatment as the
-        // credit below it: the colour of the line at rest with an
+        // credit below it: the color of the line at rest with an
         // underline, and the PyBCN blue under the pointer. The underline
         // is the second mark WCAG 1.4.1 asks for, and keeping the grey
         // stops two links in one figcaption from shouting at each other.
@@ -212,7 +212,7 @@ $photo-max-height: 675px;
         align-items: baseline;
 
         // The link to this figure: #3 for the third photo of the day. It
-        // takes the same colour and underline as the credit, and the
+        // takes the same color and underline as the credit, and the
         // margin pushes it to the right edge when there is no credit to
         // sit at the left.
         .photo_number {
@@ -223,7 +223,7 @@ $photo-max-height: 675px;
             color: $icon-grey;
             transition: color 0.15s linear;
             // Underlined, so the credit reads as a link before the pointer
-            // reaches it. Grey text in a grey line said nothing, and colour
+            // reaches it. Grey text in a grey line said nothing, and color
             // alone would not say it either: WCAG 1.4.1 asks for a second
             // mark, and this is the mark a link takes everywhere else.
             text-decoration: underline;

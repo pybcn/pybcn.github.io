@@ -22,7 +22,7 @@
     // announcement, with the rule down the left side that the caption of a
     // gallery photo takes (.photo_caption in photo_gallery.scss, which has
     // the reason for not using Bootstrap's .blockquote: it sets 1.25rem and
-    // would print the abstract larger than the page). The colour of the
+    // would print the abstract larger than the page). The color of the
     // body text stays, because the abstract is the body of this page.
     // Italic, as the caption is and as a quotation is set in print, so
     // the two blockquotes of the site read alike; it was upright and did
@@ -139,7 +139,7 @@
 
     // The video of the talk, under the names: the link
     // partials/video_link.html prints, with the YouTube mark in front.
-    // Underlined, because colour alone cannot mark a link in a run of
+    // Underlined, because color alone cannot mark a link in a run of
     // text (WCAG 1.4.1, the rule .photo_source already follows). The mark
     // is an inline-block, so the underline is not drawn through it.
     .talk_video {
@@ -201,7 +201,7 @@
     }
 }
 
-// A link inside a sentence needs a second mark besides the colour, which is
+// A link inside a sentence needs a second mark besides the color, which is
 // WCAG 1.4.1 and the rule this repository already applies to .photo_source.
 // axe reported this one as link-in-text-block.
 .talk_photo figcaption a,

@@ -288,7 +288,7 @@ STYLE_CHARS = re.compile(r"[\x20-\x7e\t\n\r]*")
 # attribute table plus the grid properties the agenda writes. A deny list was
 # tried first and missed eight ways to hide or move an element (overflow,
 # zoom, offset-path, all, a negative length written -.5em or inside calc(),
-# a zero font-size, a transparent colour, a rule inside @media), so the block
+# a zero font-size, a transparent color, a rule inside @media), so the block
 # is now accepted only for what it is known to need.
 #
 # Before the grammar runs, the whole block is refused when it holds an
@@ -510,7 +510,7 @@ ALLOWLIST = [
             "of the page of its meetup (partials/session_videos.html, through "
             "partials/video_frame.html): a recording of a session has no page of "
             "its own, so the page of its day is the page about it. Three meetups "
-            "carry one. A listing or a programme grid prints a link and no frame"},
+            "carry one. A listing or a program grid prints a link and no frame"},
     {"path": "index.html",
      "kind": "iframe",
      "prefix": "https://www.youtube-nocookie.com/embed/",
@@ -858,7 +858,7 @@ def scan(build, site_host):
 HEADING_EXEMPT = ("archives/",)
 
 HEADING = re.compile(r"<h([1-6])\b", re.I)
-# The detail modal of a programme block (partials/event_detail.html, opened
+# The detail modal of a program block (partials/event_detail.html, opened
 # from partials/agenda.html) holds its own h3, a heading inside a dialog that
 # is closed until a reader opens it. It is not part of the outline of the
 # page around it. The modal of a person card, which held an h3 and h4 tree,

@@ -29,7 +29,7 @@
 {{- /* The talks and the rooms of this page by id, so a slot of the agenda
        finds its own and nothing else. Same join as photo_gallery.html.
 
-       One colour per room as well, taken in the order the grid first names
+       One color per room as well, taken in the order the grid first names
        them and kept for the whole day. See agenda_entry.html. */ -}}
 {{- $talks := dict -}}
 {{- range $talk := .talks -}}
@@ -67,11 +67,11 @@
 		{{ $title_lang := partial "title_lang.html" $event }}
 		{{- /* A slot that spans every track is a banner: the registration, a
 		       break, the lunch, or a closing session that fills the room. Its
-		       text is centred. The retired "class: middle" said the same by
+		       text is centered. The retired "class: middle" said the same by
 		       hand, on 46 of the 54 rows that span the full width, so the
 		       other 8 sat left-aligned for no reason. Width is the rule, not
 		       whether the row holds a talk: the closing session of 2025 is a
-		       talk, spans every track, and was centred. */ -}}
+		       talk, spans every track, and was centered. */ -}}
 		{{- $banner := ge (int $event.track_length) $numTracks -}}
 		<div class="event {{ $event.color }}{{ if $banner }} middle{{ end }} start-{{ replace $event.start ":" "" }} end-{{ replace $event.end ":" "" }} length-{{ $event.track_length }}">
 

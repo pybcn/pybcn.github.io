@@ -12,7 +12,7 @@ menu:
 weight: 8
 heroBackground: /images/photos/people-pyday-2016.jpg
 
-# The programme of this edition, read from the page the association published
+# The program of this edition, read from the page the association published
 # for it, which this repository keeps frozen at
 # static/archives/pybcn.org/pyday-bcn-2018/index.html. Its Agenda table gives
 # the time, the track, and the speaker of every session, and its "Workshops
@@ -123,9 +123,9 @@ rooms:
 # reads them from here.
 #
 # This page declares no eventTimes, so no grid is rendered from this list. The
-# programme a reader sees is that same frozen table. The list is here because
+# program a reader sees is that same frozen table. The list is here because
 # a photo of the gallery joins to a talk by id, and because the nine photo
-# days still to import need one shape for a programme and not two.
+# days still to import need one shape for a program and not two.
 agenda:
   - start: "10:30"
     track_length: 1
@@ -215,7 +215,7 @@ agenda:
 # of a screen that says nothing about the day.
 #
 # A photo carries a talk only when its caption names that talk. The eight
-# that do are the eight sessions of the programme above, each announced as
+# that do are the eight sessions of the program above, each announced as
 # it started. The other eight are the room, the welcome slides, and lunch.
 # The one photo of this day: the group photo when the day has one, and the
 # picture that says most about it when it does not. It is what the carousel

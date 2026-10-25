@@ -17,7 +17,7 @@ description: "Hacktoberfest is an annual event across the world to encourage dev
 # No agenda, on purpose. The frozen page lists hours (a welcome talk and
 # breakfast at 10.00, project pitches at 10.15, a tutorial for beginners
 # at 10.30, and work from 10.45) but names no speaker and no talk. Writing
-# that as a programme would invent a grid the day did not have, so the
+# that as a program would invent a grid the day did not have, so the
 # frozen page keeps it and this one links there.
 people_sections:
   - title: Organizers

@@ -120,7 +120,7 @@ says how to install it when it is absent.
 **`unsafe=true` in `[markup.goldmark.renderer]`.** Raw HTML in front matter
 and page bodies renders unescaped. Two content files still carry it,
 `content/events/pyday_bcn/pyday_bcn_2018.md` and `pyday_bcn_2019.md`, which
-are pre-Hugo programmes pasted in as tables. So **assume any content field
+are pre-Hugo programs pasted in as tables. So **assume any content field
 can inject HTML**, and never add a field that reaches a template through
 `safeHTML`. `bin/check-html-safety` rejects dangerous markup in content and
 `bin/check-rendered` checks the built pages; both run on every pull request.
@@ -146,12 +146,12 @@ problem somebody else has to find.
 the talk and meetup records. Writing them into a person's front matter guarantees
 they will eventually contradict the data.
 
-**A programme is two lists, not one.** An event page carries `agenda` (the grid:
+**A program is two lists, not one.** An event page carries `agenda` (the grid:
 `start`, `track_length`, `room`, and either a `talk` id or its own `label` and
 `type`), `talks` (the content: `title`, `speaker`, `description`, `language`,
 `topic`, `duration_minutes`, `links`), and `rooms` (`id` and `name`). They are
 separate because one talk can take several slots, and because a photo of the
-gallery links to a talk by id, which a row of a grid cannot give it. The colour
+gallery links to a talk by id, which a row of a grid cannot give it. The color
 of a block and the end of a slot are computed, not stored: see
 `partials/agenda_entry.html`. **A time is always a quoted string.** YAML 1.1
 reads an unquoted `9:00` as the integer 540, sexagesimal, so Hugo renders it

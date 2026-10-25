@@ -19,7 +19,7 @@
         month_group       "<year>|<yyyymm>", the key of the month group
         event_group       "<year>|<event url>", the key of the event group
         key               the sort key: newest day first, then the event,
-                          then the place of the talk in its programme
+                          then the place of the talk in its program
 
     No argument is read: the data comes from site.RegularPages. Call it
     through partialCached with a constant variant, so the 607 records are
@@ -71,7 +71,7 @@
     {{- $talk := $record.talk -}}
 
     {{- /* The year of the event, with the date of the page as the fallback
-           for a programme whose event carries no year. */ -}}
+           for a program whose event carries no year. */ -}}
     {{- $year := 0 -}}
     {{- with $event }}{{ with .Params.year }}{{ $year = int . }}{{ end }}{{ end -}}
     {{- if and (not $year) (not $pg.Date.IsZero) }}{{ $year = $pg.Date.Year }}{{ end -}}
@@ -124,7 +124,7 @@
     {{- end -}}
 
     {{- /* The type as the counts key it: lower case and trimmed, the
-           normalisation of partials/event_type_icon.html. */ -}}
+           normalization of partials/event_type_icon.html. */ -}}
     {{- $type := "" -}}
     {{- with $entry.type }}{{ $type = lower (trim (printf "%v" .) " ") }}{{ end -}}
 

@@ -146,12 +146,12 @@
             <div class="meetup_content">{{ . }}</div>
             {{- end }}
 
-            {{- /* The programme, when the announcement of this meetup has
+            {{- /* The program, when the announcement of this meetup has
                    been read. The row is the row of the /talks/ index: the
                    icon of the type, the title as the link to the page of
                    the talk, who gave it, and the Watch line of its video:
                    the rows of partials/talk_rows.html, which the edition
-                   page with talks and no programme grid draws as well. */ -}}
+                   page with talks and no program grid draws as well. */ -}}
             {{- with .Params.talks }}
             <section class="meetup_talks" aria-labelledby="talks_heading">
                 <h2 id="talks_heading">Talks ({{ len . }})</h2>

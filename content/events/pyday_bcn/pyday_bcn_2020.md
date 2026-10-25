@@ -72,8 +72,8 @@ numTracks: 2
 eventTimes: ["16:00", "16:15", "16:30", "16:45", "17:00", "17:15", "17:30", "17:45", "18:00", "18:15", "18:30", "18:45", "19:00", "19:15", "19:30", "19:45", "20:00", "20:15", "20:30"]
 
 # The rooms of this edition, in the order the grid first names them. A room is
-# a record with an id because the colour of a block now comes from it: the
-# template gives every room of an event one colour of the agenda palette and
+# a record with an id because the color of a block now comes from it: the
+# template gives every room of an event one color of the agenda palette and
 # keeps it for the whole day. See partials/agenda_entry.html.
 rooms:
   - id: youtube-track1-and-track2

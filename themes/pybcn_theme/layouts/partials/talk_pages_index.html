@@ -1,6 +1,6 @@
 {{- /*
     The page of each talk, keyed by the event that gave it and the id of the
-    talk, so an event page can link a row of its programme or a photo of its
+    talk, so an event page can link a row of its program or a photo of its
     gallery to the talk itself.
 
     Returns a flat map. The key is "<event RelPermalink>|<talk id>" and the
@@ -13,7 +13,7 @@
 
         partialCached "talk_pages_index.html" site "talk-pages-index"
 
-    There are 607 talk pages, 10 programme grids with 138 rows that hold a
+    There are 607 talk pages, 10 program grids with 138 rows that hold a
     talk, and 107 gallery photos that name one. An index built per event
     page would walk the talk pages ten times, and one built per row 138.
 

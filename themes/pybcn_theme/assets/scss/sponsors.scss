@@ -124,7 +124,7 @@ $sponsor-gap: 1rem;
             // whole card scales and not the logo inside it, because a
             // logo that grows alone spills over the padding and crosses
             // the white edge onto the band. 7px of growth against a gap
-            // of 12px, so it never touches its neighbour.
+            // of 12px, so it never touches its neighbor.
             transform: scale(1.04);
             z-index: 1;
         }

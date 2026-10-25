@@ -13,7 +13,7 @@ config: "pyladies_first"
 **[About PyLadiesBCN!](/pyladies_bcn/about)**\
 Learn all about our mission
 
-**[Organisers and speakers!](/pyladies_bcn/organizers-and-speakers)**\
+**[Organizers and speakers!](/pyladies_bcn/organizers-and-speakers)**\
 The people that make it possible
 
 **[Upcoming meetups!](/pyladies_bcn/meetups)**\

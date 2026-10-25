@@ -114,7 +114,7 @@
     }
 
     // The placeholder of a person with no photo, at the size of the photo
-    // of a row. The colours and the letters are the shared rule at the end
+    // of a row. The colors and the letters are the shared rule at the end
     // of this file; the page of the person sets its own size in
     // people_page.scss.
     .person_initials {
@@ -166,7 +166,7 @@
     // The sentence of the second line, "Speaker at 3 events:", in the grey
     // and the size of the pages after it. The italic "at" and the bold
     // count are the markup of the row of the Events table of the person
-    // page, so the two read alike; the count is in the colour of the text,
+    // page, so the two read alike; the count is in the color of the text,
     // so the number stands out of the grey line.
     // The glyph of a role, in front of the word it marks. Same box as the
     // marker of a page below, so the two lines of a row hang alike.
@@ -268,10 +268,10 @@
     }
 }
 
-// The placeholder of a person with no photo: the initials on a colour from
+// The placeholder of a person with no photo: the initials on a color from
 // the name, drawn by partials/person_placeholder.html, which is the one
 // place to change it (its header says why). A round badge, white text, the
-// ten colours below: every one of them is at 5:1 or more under white (WCAG
+// ten colors below: every one of them is at 5:1 or more under white (WCAG
 // 1.4.3 asks 4.5:1), measured with the WCAG relative luminance formula when
 // they were chosen. Upright and at the normal weight of a heading, and
 // line-height 1 so the letters sit in the middle of the circle. The size is
