@@ -32,7 +32,6 @@
     images/social-card.png, so the card is never empty.
 */ -}}
 {{- $title := or .Params.name .Title site.Title -}}
-{{- $description := or .Description .Summary site.Params.description -}}
 {{- $social := partial "social_image.html" . -}}
 {{- $card := "summary" -}}
 {{- $image := "" -}}
@@ -52,10 +51,86 @@
         {{- $image = .Permalink -}}
     {{- end -}}
 {{- end -}}
+{{- /*
+    The meta description, the sentence a search engine shows under the
+    title of a result. No page had one until 2026-10-21: a result showed
+    whatever text the engine picked from the page, the bar and the first
+    row of a table included.
+
+    The source, in order. The description of the front matter when the
+    page sets one (17 of the 285 event pages, the listings, the
+    association pages, and the pages the two content adapters add). Else
+    a sentence built from the record the page already prints: for a talk, who gave it, at which event and on which
+    day, from partials/talk_record.html, the join the page of the talk
+    reads; for an event, its type (data/event_emoji.yaml through
+    partials/event_type.html), its date (partials/event_date.html), and
+    its venue, each part left out when the record lacks it; for a person,
+    the name and the roles the archive credits them with, from
+    partials/appearances_index.html in the order of
+    partials/role_order.html, the same roles the row of /people/ prints.
+    Else site.Params.description, one sentence about the community.
+
+    Not .Summary: the summary of a person page is the start of a bio,
+    and the summary of a page with raw HTML is a slice of a table.
+    og:description and twitter:description read the same sentence, so a
+    shared link says what a search result says.
+
+    The text goes through plainify and the escaping of the attribute
+    context, never through safeHTML: a title and a venue are content
+    (AGENTS.md). truncate keeps whole words and counts the ellipsis, so
+    the attribute is never longer than 160 characters.
+*/ -}}
+{{- $meta := "" -}}
+{{- /* .Params.description as well: the pages content/talks/_content.gotmpl
+       and content/people/_content.gotmpl add write their description under
+       params, where .Description does not look. */ -}}
+{{- if or .Description .Params.description -}}
+    {{- $meta = or .Description .Params.description -}}
+{{- else if and (eq .Section "talks") .Params.talk -}}
+    {{- $record := partial "talk_record.html" . -}}
+    {{- with $record.talk -}}
+        {{- $entry := $record.entry -}}
+        {{- $kind := "Talk" -}}
+        {{- with index (partial "event_types.html" .) $entry.type }}{{ $kind = .label }}{{ end -}}
+        {{- $meta = $kind -}}
+        {{- with $entry.speaker }}{{ $meta = printf "%s by %s" $meta . }}{{ end -}}
+        {{- with $record.event -}}
+            {{- $meta = printf "%s at %s" $meta .Title -}}
+            {{- with (partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date)).text -}}
+                {{- $meta = printf "%s, %s" $meta . -}}
+            {{- end -}}
+        {{- end -}}
+        {{- $meta = printf "%s." $meta -}}
+    {{- end -}}
+{{- else if and (eq .Section "events") .Params.year -}}
+    {{- $type := partial "event_type.html" . -}}
+    {{- $marker := default (index site.Data.event_emoji "*") (index site.Data.event_emoji $type) -}}
+    {{- $meta = $marker.label -}}
+    {{- with (partial "event_date.html" (dict "date" .Params.date "end_date" .Params.end_date)).text -}}
+        {{- $meta = printf "%s on %s" $meta . -}}
+    {{- end -}}
+    {{- with .Params.venue }}{{ $meta = printf "%s at %s" $meta . }}{{ end -}}
+    {{- $meta = printf "%s." $meta -}}
+{{- else if and (eq .Section "people") .Params.id .Params.name -}}
+    {{- $labels := slice -}}
+    {{- range index (partialCached "appearances_index.html" site "appearances-index") .Params.id -}}
+        {{- if not (in $labels .label) }}{{ $labels = $labels | append .label }}{{ end -}}
+    {{- end -}}
+    {{- with $labels -}}
+        {{- $roles := partial "role_order.html" . -}}
+        {{- /* The serial comma: "A and B", but "A, B, and C". */ -}}
+        {{- $last := cond (gt (len $roles) 2) ", and " " and " -}}
+        {{- $meta = printf "%s: %s at Python Barcelona." $.Params.name (delimit $roles ", " $last) -}}
+    {{- end -}}
+{{- end -}}
+{{- $meta = default site.Params.description $meta -}}
+{{- with $meta }}
+<meta name="description" content="{{ . | plainify | truncate 160 }}">
+{{- end }}
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:title" content="{{ $title }}">
-{{ with $description }}<meta property="og:description" content="{{ . | plainify | truncate 300 }}">{{ end }}
+{{ with $meta }}<meta property="og:description" content="{{ . | plainify | truncate 160 }}">{{ end }}
 <meta property="og:type" content="{{ cond (eq .Kind "page") "article" "website" }}">
 <meta property="og:locale" content="en_US">
 {{ with $image }}<meta property="og:image" content="{{ . }}">
@@ -64,7 +139,7 @@
 <meta property="og:image:height" content="{{ $social.height }}">{{ end }}
 <meta name="twitter:card" content="{{ $card }}">
 <meta name="twitter:title" content="{{ $title }}">
-{{ with $description }}<meta name="twitter:description" content="{{ . | plainify | truncate 200 }}">{{ end }}
+{{ with $meta }}<meta name="twitter:description" content="{{ . | plainify | truncate 160 }}">{{ end }}
 {{ with $image }}<meta name="twitter:image" content="{{ . }}">
 <meta name="twitter:image:alt" content="{{ $alt }}">{{ end }}
 

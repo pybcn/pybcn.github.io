@@ -96,6 +96,10 @@ unsafe=true
     main_contact_email = "pybcn@googlegroups.com"
     short_name = "PyBCN"
     extended_name = "The Barcelona Python Association"
+    # The sentence a search engine shows for a page that says nothing about
+    # itself: the meta description of partials/head-meta.html falls back to
+    # it. One line, under 160 characters.
+    description = "Python Barcelona (PyBCN) is the Python community of Barcelona: monthly meetups since 2007, PyLadies BCN workshops, and the annual PyDay BCN conference."
 
     # Who the association is in law. Spanish law 34/2002 (LSSI-CE) article 10
     # requires a site run by an association to publish its name, its address,
