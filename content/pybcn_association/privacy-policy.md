@@ -31,7 +31,7 @@ The Board handles requests about personal data. We have no data protection offic
 The site has pages for the people who organize our events, speak at them, mentor at workshops, or collaborate with the association. Each page shows a name, a photograph, a short biography, the role in PyBCN or at an event, and links to the person's own profiles (GitHub, LinkedIn, Twitter, personal site).
 
 - **Where it comes from**: for most people, the person. They sent the photograph and wrote or approved the text for publication here. For speakers that the archive credits, the public announcements of our own Meetup events: the page then shows the name, the talks, and the events. A page with no photograph shows the initials of the name on a color instead; the grid of organizers or speakers on an event page shows a silhouette.
-- **Why we have it**: for a page that the person sent, their consent (GDPR article 6.1.a). You can withdraw it at any time, and we remove the page. Withdrawing consent does not affect what was published before. For a page built from our announcements, our legitimate interest in keeping the history of the community (GDPR article 6.1.f). You can object to it, and we remove the page.
+- **Why we have it**: for a page that the person sent, their consent (GDPR article 6.1.a). You can withdraw it at any time, and we remove the page. Withdrawing consent does not affect what was published before. For a page built from our announcements, our legitimate interest in keeping the history of the community (GDPR article 6.1.f). You can object to it, and we remove the page (see [Your rights](#your-rights)).
 - **How long we keep it**: until the person asks us to remove it, or until we take the page down ourselves because it is out of date.
 - **One thing to know**: the source of this site is a public Git repository on GitHub. When we remove a page, it disappears from the site and from the current version of the repository. The old text remains in the repository history, as with any Git project. Tell us if you also want it gone from there and we will work it out with you. Copies kept by search engines and web archives are outside our control.
 
@@ -40,7 +40,7 @@ The site has pages for the people who organize our events, speak at them, mentor
 Some event pages show photographs from the posts of the association on X, with the caption they were posted with. Only photographs that the association published itself are on the site. They show the event in general: a speaker gave the talk in public and accepted that it was recorded, and the audience appears in the background and from a distance.
 
 - **Where it comes from**: the public posts of the association on X.
-- **Why we have it**: our legitimate interest in keeping the history of the community (GDPR article 6.1.f). You can object to a photograph in which you appear, and we remove it.
+- **Why we have it**: our legitimate interest in keeping the history of the community (GDPR article 6.1.f). You can object to a photograph in which you appear, and we remove it (see [Your rights](#your-rights)).
 - **How long we keep it**: until someone objects to it, or until we remove the gallery.
 
 ### Forms
