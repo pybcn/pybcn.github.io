@@ -125,7 +125,7 @@ def save(image, path, budget):
 
     Transparency is kept. A logo is a PNG with an alpha channel over whatever
     the page puts behind it, and flattening it to RGB would put a white box
-    around every logo on a coloured band.
+    around every logo on a colored band.
 
     A JPEG is re-encoded, and fewer pixels do not always mean fewer bytes: a
     source saved at a low quality, resized and written back at a high one,
@@ -175,7 +175,7 @@ def flatten_palette(image):
 def restore_palette(image, was_palette):
     """Put a flattened image back on a palette, if that is where it started.
 
-    A palette PNG packs a flat logo into a fraction of what full colour
+    A palette PNG packs a flat logo into a fraction of what full color
     needs: jobfluent.png is 10.8 KB on a palette and 38.3 KB in RGBA, for
     the same picture. Resizing has to happen off the palette, but there is
     no reason to leave it there.

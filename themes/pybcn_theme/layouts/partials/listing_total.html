@@ -6,10 +6,13 @@
     Three pages are a list of the whole archive: /events/, /talks/, and
     /people/. Their h1 carries the total, and this is where the page is
     told apart from the rest. /events/ is the one page that selects the
-    events_index layout; the series pages under it are sections of the
-    same section and keep the fallback list. /talks/ and /people/ are the
-    section page of a section that holds no other section, so the kind
-    and the section name are enough.
+    events_index layout. The index of a series under it (/events/meetups/
+    and the other three, layouts/events/list.html) is a section page of
+    the events section, and its h1 carries the rows of its own table,
+    "Monthly meetups (268)": the regular pages under it with a year,
+    which is the test partials/event_listing.html draws a row by. /talks/
+    and /people/ are the section page of a section that holds no other
+    section, so the kind and the section name are enough.
 
     The page of one type of talk, /talks/type/workshop/, is a view of the
     talks listing (content/talks/_content.gotmpl adds it, with the token
@@ -17,7 +20,7 @@
     Workshops (172)", the count its tab reads from the same map. The page
     of one role, /people/role/speaker/, is the same for the people
     listing (content/people/_content.gotmpl, partials/people_index.html):
-    "People: Speaker (358)". A view with no rows, Assistants, gets 0 and
+    "People: Speaker (358)". A view with no rows, Attendees, gets 0 and
     so no count in its h1, which is the fact.
 
     The totals come from partials/listing_counts.html, cached once per
@@ -28,6 +31,8 @@
 {{- $listing := "" -}}
 {{- if eq .Layout "events_index" -}}
     {{- $listing = "events_total" -}}
+{{- else if and (eq .Kind "section") (eq .Section "events") -}}
+    {{- range .RegularPagesRecursive }}{{ if .Params.year }}{{ $total = add $total 1 }}{{ end }}{{ end -}}
 {{- else if and (eq .Kind "section") (eq .Section "talks") -}}
     {{- $listing = "talks_total" -}}
 {{- else if and (eq .Kind "section") (eq .Section "people") -}}

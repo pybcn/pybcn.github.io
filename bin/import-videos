@@ -43,8 +43,8 @@ the export reads the day, the talk, and the speaker out of a video title,
 and three titles defeat it: a short name an uploader wrote for a long
 title ("PySpark and Arrow"), a live stream with no date in its title, and
 a live stream of a whole evening whose title names no talk. For each one a
-person read the programme of its day and wrote the facts by id in
-tools/parse_youtube.py of the pybcn-archive: the title the programme uses,
+person read the program of its day and wrote the facts by id in
+tools/parse_youtube.py of the pybcn-archive: the title the program uses,
 the event, whether the video is of one talk or of the whole session, and
 the reason. The record then carries "declared" in flags and in match, and
 declared_reason, with no candidates, because the person named the event
@@ -77,8 +77,8 @@ How a video finds its talk, and what stops a wrong match:
               does, the video goes on that talk, on the day of that other
               event: the month in a title is a label the uploader typed
               weeks after the day, and a title that matches one talk of
-              the whole archive is a fact of the programme, so the
-              programme wins. Measured on 2026-10-13, six of the 83 videos
+              the whole archive is a fact of the program, so the
+              program wins. Measured on 2026-10-13, six of the 83 videos
               are placed that way, and each one is named in its own group
               of the report, with the day the title claims and the event
               that announced the talk, so a human always sees them. The
@@ -225,7 +225,7 @@ def read_events(events_dir):
         # row of the grid, which is where the welcome of PyDay BCN 2020
         # holds one (see partials/agenda_entry.html). No video is ever
         # written there by this script, because a monthly meetup has no
-        # grid, but a video already in place has to be recognised wherever
+        # grid, but a video already in place has to be recognized wherever
         # it sits or a second copy of it would be written.
         for slot in data.get("agenda") or []:
             if not isinstance(slot, dict) or slot.get("talk"):
@@ -233,7 +233,7 @@ def read_events(events_dir):
             label = slot.get("label") or slot.get("type") or "a row of the grid"
             held.update({url: "the grid row '%s'" % label for url in videos_of(slot)})
         # The recording of a whole session, which this script writes on the
-        # event (see the docstring), has to be recognised on a second run.
+        # event (see the docstring), has to be recognized on a second run.
         for entry in data.get("session_videos") or []:
             if isinstance(entry, dict) and entry.get("url"):
                 held[entry["url"]] = "the session_videos block of the event"
@@ -297,11 +297,11 @@ def classify(video, events):
                     compare
       ambiguous     two talks of the day match, so neither is written
       off_day       no talk of the day matches, but exactly one talk of
-                    another day does, so the programme wins over the label
+                    another day does, so the program wins over the label
                     in the title and the page of that other day gets the
                     link
       other_day     no talk of the day matches, and talks of two other days
-                    do, so the programme cannot say which one and neither
+                    do, so the program cannot say which one and neither
                     is written
       no_talk       no talk anywhere matches this title
       out_of_scope  the export says this video belongs to no PyBCN event,
@@ -389,7 +389,7 @@ def classify_declared(video, events):
     """Return (state, detail) for a record a person declared in the export.
 
     The declaration names the event in meetup_id and the talk by the title
-    the programme uses (see the docstring). The record has no candidates,
+    the program uses (see the docstring). The record has no candidates,
     because the person chose and the grammar did not, so the tests are:
     meetup_id names a page of this tree, the day of that page agrees with
     the record, and, for a video of one talk, exactly one talk of that page
@@ -657,9 +657,9 @@ def report(groups, dry_run):
           % (plural(len(placed), "video"), plural(len(talks), "talk"),
              plural(len(pages), "page")))
     # Counted apart from the line above on purpose: a video placed on a day
-    # its title does not name is a decision the programme took over the
+    # its title does not name is a decision the program took over the
     # label, and a human has to be able to see every one of them.
-    print("%s placed where the programme announced the talk, "
+    print("%s placed where the program announced the talk, "
           "not on the day the title says" % plural(len(off_day), "video"))
     print("%s written on the event as the recording of a whole session"
           % plural(len(groups["session"]), "video"))
@@ -675,7 +675,7 @@ def report(groups, dry_run):
     for state, heading in (
             ("ambiguous", "left out, two talks of the day match one video"),
             ("other_video", "left out, the talk already carries another video"),
-            ("other_day", "left out, the day in the title and the programme disagree"),
+            ("other_day", "left out, the day in the title and the program disagree"),
             ("no_talk", "left out, no talk of the archive carries this title"),
             ("no_session", "left out, a session recording with no page to go to"),
             ("no_declared", "left out, a declared record that names no page or no talk of this tree"),

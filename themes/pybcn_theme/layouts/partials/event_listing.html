@@ -1,0 +1,63 @@
+{{- /*
+    The listing of the events under a page: the intro of the page, the
+    tabs of the series, the jump bar of its years, the legend of its
+    types, and the table of partials/event_table.html, newest first.
+
+    Argument: the page. /events/ passes itself (layouts/_default/
+    events_index.html) and so does the index of each series under it,
+    /events/meetups/, /events/pyday_bcn/, /events/pydatabcn/, and
+    /events/other_events/ (layouts/events/list.html), so a series reads
+    as the whole listing does, cut to its own events: the series pages
+    listed their editions by title until 2026-10-25, which put "Python
+    Meetup April" before "Python Meetup August" of another year.
+
+    What is a row. A regular page under the page that carries a year in
+    its front matter, which is the test of the whole listing (the header
+    of events_index.html says which five pages it keeps out and why). The
+    rows are the dicts of partials/event_row.html, sorted by their key,
+    which reads newest first; the home page builds the same rows and
+    keeps the ten newest (layouts/_default/home.html).
+
+    The tabs, through partials/events_tabs.html, are the same bar on
+    /events/ and on each series page, All and the four series with their
+    counts, the current one marked, as /talks/ and /people/ have above
+    their rows; they sit under the intro, as on those two, and above the
+    years and the legend, which are about the rows the tab chose.
+
+    The jump bar, through partials/jump_bar.html, names the years that
+    have a row, in the order the table draws them, and only when there
+    are two or more: a bar with one link leads nowhere the reader is not.
+    The legend, through partials/marker_legend.html, names each type the
+    rows carry with its count, counted from the rows themselves, so on
+    /events/ it says what partials/listing_counts.html says (the same
+    rule, the same type partial) and on a series page it says what that
+    page draws and nothing of the others.
+*/ -}}
+{{ with .Content }}<div class="section_intro">{{ . }}</div>{{ end }}
+
+{{ partial "events_tabs.html" . }}
+
+{{- $rows := slice -}}
+{{- $types := dict -}}
+{{- range .RegularPagesRecursive -}}
+    {{- if not .Params.year }}{{ continue }}{{ end -}}
+    {{- $row := partial "event_row.html" . -}}
+    {{- $rows = $rows | append $row -}}
+    {{- $types = merge $types (dict $row.type (add 1 (int (default 0 (index $types $row.type))))) -}}
+{{- end -}}
+{{- $rows = sort $rows "key" -}}
+
+{{- $jump := slice -}}
+{{- $open := "" -}}
+{{- range $rows }}{{ if ne .year $open }}{{ $jump = $jump | append (dict "anchor" .year "text" .year) }}{{ $open = .year }}{{ end }}{{ end }}
+{{- if gt (len $jump) 1 }}
+{{ partial "jump_bar.html" (dict "label" "Jump to a year" "items" $jump) }}
+{{- end }}
+
+{{- $legend := slice -}}
+{{- range $token, $entry := site.Data.event_emoji -}}
+    {{- $legend = $legend | append (dict "emoji" $entry.emoji "one" $entry.one "many" $entry.many "count" (int (default 0 (index $types $token)))) -}}
+{{- end }}
+{{ partial "marker_legend.html" (dict "label" "Event types" "items" $legend) }}
+
+{{ partial "event_table.html" (dict "rows" $rows) }}

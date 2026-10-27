@@ -10,7 +10,7 @@ the shape of the front matter either.
 Give this script the URL of a past meetup and it writes
 content/events/meetups/<date>-<slug>.md, with the same fields the import
 wrote, through the same function. The page it writes is complete as a page:
-the day, the venue, the registrations, the source, and the group.
+the day, the venue, the RSVPs, the source, and the group.
 
 Where the fields come from. The public event page carries the whole event as
 JSON, in the __NEXT_DATA__ script tag Meetup's own front end reads, so there
@@ -31,7 +31,7 @@ What it does not write:
   records what happened and not how to register for something that is over.
 
   A person page, or a venue in data/venues.yaml. The script reports a venue
-  it does not recognise and writes nothing else: a new venue is a short name
+  it does not recognize and writes nothing else: a new venue is a short name
   somebody chooses.
 
   Anything about who came. The RSVP count is who said yes, it names nobody,
@@ -296,7 +296,7 @@ def main():
         if event.get("status") != "PAST" and not args.force:
             print("SKIP  %s is %s, not PAST. The archive records what happened: run"
                   % (url, (event.get("status") or "unknown").lower()))
-            print("      this after the day, when the registrations are final, or")
+            print("      this after the day, when the RSVPs are final, or")
             print("      pass --force.")
             skipped = True
             continue
@@ -331,7 +331,7 @@ def main():
     for path, record, event, state in written:
         venue = record["venue"]["name"]
         print("%s %s" % ("would write" if args.dry_run else "wrote", path))
-        print("  %s, %s, %d registrations"
+        print("  %s, %s, %d RSVPs"
               % (record["dateTime"][:10], venue or "no venue", record["rsvps"]["yesCount"]))
         if venue and venues is not None and canon(venue) not in venues:
             print("  NEW VENUE  data/venues.yaml does not name %r. Add a short name" % venue)

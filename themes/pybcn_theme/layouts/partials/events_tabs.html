@@ -1,0 +1,73 @@
+{{- /*
+    The tabs of the events listing: All, then one tab per series under
+    /events/ that holds an event, each with its count, through
+    partials/filter_tabs.html.
+
+        [ All N ] [ Monthly meetups N ] [ PyDay BCN N ] [ PyDataBCN N ] [ Other events N ]
+
+    Argument: the page being rendered, /events/ or the index of one
+    series, so that its tab is marked current.
+
+    The tabs are the ones of /talks/ and /people/, with one difference:
+    a view of those two listings is a page a content adapter adds, and
+    a view of this one is a section that already exists,
+    content/events/meetups/, pyday_bcn/, pydatabcn/, and other_events/,
+    each drawn by layouts/events/list.html with the table of /events/
+    cut to its own events. So the tabs are read from the sections of
+    /events/ and not from a list written here: a fifth series is a
+    folder with an _index.md and gets its tab, and a section that holds
+    no event (no regular page with a year under it, which is the test
+    of a row in partials/event_listing.html) gets none, so a tab never
+    leads to an empty table. The text of a tab is the title of its
+    section page, as the tabs of /talks/ read theirs.
+
+    The counts are counted here, by the rule of the row, from the same
+    walk of site.RegularPages that partials/listing_counts.html makes
+    for the total of /events/: a page of the events section with a
+    year, filed under its CurrentSection, which for a page of a series
+    is the index of that series. So the count of a tab is the count
+    partials/listing_total.html prints in the h1 of the page it leads
+    to, "Monthly meetups (268)", both from the one test, and the four
+    add up to the All tab (268 + 9 + 1 + 3 = 281 on 2026-10-25). A page
+    of the events section with a year that sits in no series would
+    count in All and in no tab; none does today, and monthly_events.md,
+    the one regular page directly under /events/, has no year and is a
+    row of nothing.
+
+    The order is the order of the Events menu, the weight of each
+    section page (pyday_bcn 1, pydatabcn 2, other_events 4), with the
+    meetups first: content/events/meetups/_index.md has no menu entry
+    and no weight, which sorts as 0, and its header says why it is kept
+    out of the menu. That is also the tab that holds 268 of the 281
+    rows, the one a reader needs first, which is the rule of
+    partials/people_tabs.html. Two sections of one weight fall back to
+    their title. No glyph: the legend under the tabs names the types
+    the rows of the page carry (a series is not a type: the meetups
+    hold eleven of them, and other_events/ holds a PyDataBCN edition),
+    so a glyph on the tab would say one type for a page of several.
+*/ -}}
+{{- $here := . -}}
+{{- $section := site.GetPage "/events" -}}
+{{- $counts := dict -}}
+{{- $total := 0 -}}
+{{- range $pg := site.RegularPages -}}
+    {{- if ne $pg.Section "events" }}{{ continue }}{{ end -}}
+    {{- if not $pg.Params.year }}{{ continue }}{{ end -}}
+    {{- $total = add $total 1 -}}
+    {{- $key := $pg.CurrentSection.RelPermalink -}}
+    {{- $counts = merge $counts (dict $key (add 1 (int (default 0 (index $counts $key))))) -}}
+{{- end -}}
+{{- $items := slice (dict "url" $section.RelPermalink "text" "All" "count" $total "current" (eq $here.RelPermalink $section.RelPermalink)) -}}
+{{- $series := slice -}}
+{{- range $section.Sections -}}
+    {{- $count := int (default 0 (index $counts .RelPermalink)) -}}
+    {{- if not $count }}{{ continue }}{{ end -}}
+    {{- $series = $series | append (dict
+            "url" .RelPermalink
+            "text" .Title
+            "count" $count
+            "current" (eq $here.RelPermalink .RelPermalink)
+            "key" (printf "%03d %s" (int .Weight) .Title)) -}}
+{{- end -}}
+{{- with $series }}{{ $items = $items | append (sort . "key") }}{{ end -}}
+{{- partial "filter_tabs.html" (dict "label" "Event series" "items" $items) -}}

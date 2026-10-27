@@ -1,5 +1,5 @@
 {{- /*
-    One page per talk, built from the programme of every event.
+    One page per talk, built from the program of every event.
 
     The talks of this archive live in the front matter of the event that
     gave them, under the talks block, and that is where they stay: a talk
@@ -20,7 +20,7 @@
     partials/talk_record.html, which reads the talk out of the event page
     through site.GetPage. So the description, the speakers, the language,
     the links, and the photo have one source, the event front matter, and
-    cannot drift from what the programme grid and the gallery of that day
+    cannot drift from what the program grid and the gallery of that day
     print.
 
     Why the event is part of the path. A talk id is unique inside its
@@ -100,7 +100,7 @@
 
 {{- /* The files to read: the markdown of content/events/ and of each series
        under it. An _index.md is the container of a section and carries no
-       programme of its own. */ -}}
+       program of its own. */ -}}
 {{- $files := slice -}}
 {{- range $entry := os.ReadDir $root -}}
     {{- $here := path.Join $root $entry.Name -}}
@@ -135,7 +135,7 @@
         {{- $slug := path.BaseName $file -}}
         {{- /* The date of the event is the date of every talk of it. One
                edition of the section carries no date, Hacktoberfest 2018,
-               and it carries no talks either; a programme with no date
+               and it carries no talks either; a program with no date
                would still get its pages, dated by the build. */ -}}
         {{- $dates := dict -}}
         {{- with $event.date -}}

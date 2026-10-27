@@ -20,7 +20,7 @@
 #   2. The group. A page whose front matter carries group: "PyLadies BCN"
 #      is a pyladies, whatever its title says: a PyLadies dojo shows the
 #      PyLadies marker and not the dojo one, because the community that
-#      organised it is the more distinctive fact.
+#      organized it is the more distinctive fact.
 #   3. The kind, from a word of the title: dojo, practice session,
 #      barbecue, hacktoberfest or hackathon (one kind), sprint,
 #      coderetreat, and workshop last. Three titles carry two of those
@@ -49,7 +49,7 @@
 # community, and the glyph says so next to 👥. A martial arts uniform for
 # a coding dojo, which is a kata in the sense the word came with. Books
 # for a practice session, a laptop for a workshop (the icon the workshop
-# talks of a programme carry already, fa-laptop), meat on a bone for a
+# talks of a program carry already, fa-laptop), meat on a bone for a
 # barbecue, a wrench for a hackathon, a runner for a sprint, and a person
 # in lotus position for a coderetreat, which is a day of retreat.
 #

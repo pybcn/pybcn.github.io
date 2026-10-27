@@ -12,6 +12,8 @@
         url         where the row links: the page, or the url of its menu
                     entry when it declares one
         emoji       the glyph of the type, from data/event_emoji.yaml
+        type        the token of the type, a key of data/event_emoji.yaml,
+                    which the legend of a listing counts rows by
         type_label  the name of the type, the accessible name of the glyph
         venue       a dict with text, the short name, and full, the whole
                     string when it says more than the short name; empty
@@ -44,7 +46,7 @@
     front matter when the table has no row for it. venue is the place, and
     it comes from the Meetup export, which records one per event. It is not
     rooms: that lists the rooms inside the venue, so its first entry is the
-    first column of the programme, which printed "B6" where the reader
+    first column of the program, which printed "B6" where the reader
     expects "Universitat de Barcelona". It goes through the escaping of the
     template and never through safeHTML: a venue is content, and AGENTS.md
     says to assume any content field can inject HTML.
@@ -57,7 +59,7 @@
     data/venues.yaml is what decides
     how a venue reads, and the page of the event holds the whole record.
 
-    The card: what the day holds, the talks of its programme, the photos
+    The card: what the day holds, the talks of its program, the photos
     its gallery renders, and the videos it prints, from
     partials/listing_counts.html, the one walk of the site. The card
     leaves out a count of zero, so no row reads "0 photos", and a day with
@@ -126,6 +128,7 @@
         "title" .Title
         "url" $url
         "emoji" $marker.emoji
+        "type" $type
         "type_label" $marker.label
         "venue" $venue
         "card" $card

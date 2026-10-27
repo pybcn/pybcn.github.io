@@ -158,7 +158,7 @@ PEOPLE_DIR = pathlib.Path(__file__).resolve().parent.parent / "content" / "peopl
 # written. Two of the 44 are not even addresses ("twitter.com/mrswats",
 # "x.com@pol_avec"), which is a second reason for the same answer.
 #
-# 4 are a social account the extraction labelled site or github instead of
+# 4 are a social account the extraction labeled site or github instead of
 # speaker_profile. The label is wrong and the content is the same thing: a
 # GitHub profile is a path of one segment, github.com/<user>, and not a
 # repository, and a medium.com/@handle is a handle. The rule follows the
@@ -241,7 +241,7 @@ def yaml_string(value):
     """Return value as a double quoted YAML scalar, on one line.
 
     The same escaping bin/import-meetups writes, plus the newline: a talk
-    description holds paragraphs, and the published programmes write those
+    description holds paragraphs, and the published programs write those
     as \\n inside a one line scalar. Only the backslash, the double quote,
     the newline, and the tab need escaping inside double quotes.
     """

@@ -1,7 +1,7 @@
 """The comparison form of a title, for finding one title inside a text.
 
 Two imports of this archive have the same problem: a title written for a
-reader has to be recognised inside another string that carries it.
+reader has to be recognized inside another string that carries it.
 bin/import-x-photos reads a tweet caption that quotes the title of the talk
 it photographs, and bin/import-videos reads the title of a YouTube upload
 that names the talk it recorded. The rule lives here, once, because a second
@@ -24,7 +24,7 @@ fold() is the comparison form: prep() from canon.py, then lower case, the
 accents decomposed and dropped, and every mark replaced by a space. This is
 the one place in this repository that folds an accent on purpose, and it is
 safe only because nothing it returns is ever stored or published. A title
-printed with its own punctuation has to compare equal to the programme:
+printed with its own punctuation has to compare equal to the program:
 "Models de regressio bayesians," in a post and "Models de regressió
 bayesians" in the front matter are the same title.
 
@@ -132,7 +132,7 @@ _FOLD_CASES = [
     (None, ""),
 ]
 
-# One programme, folded once, as a caller passes it.
+# One program, folded once, as a caller passes it.
 _TALKS = [
     ("api-by-example", fold("API by example")),
     ("hacking-the-bcn-housing-market-scrapy",
@@ -156,7 +156,7 @@ _MATCH_CASES = [
     # Under the length guard, both ways: "comprehensions" alone is 14
     # characters, but the folded text here is 11 and never matches.
     ("Comprehensi", True, None, []),
-    # Nothing of the programme is in this text.
+    # Nothing of the program is in this text.
     ("PyDayBCN 2020 Track 1 - Retrying, a better way by C. Adell", True,
      None, []),
     ("", True, None, []),

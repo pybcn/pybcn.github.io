@@ -126,8 +126,8 @@ legend:
   - level: advanced
 
 # The rooms of this edition, in the order the grid first names them. A room is
-# a record with an id because the colour of a block now comes from it: the
-# template gives every room of an event one colour of the agenda palette and
+# a record with an id because the color of a block now comes from it: the
+# template gives every room of an event one color of the agenda palette and
 # keeps it for the whole day. See partials/agenda_entry.html.
 rooms:
   - id: room-b5
@@ -262,7 +262,7 @@ talks:
 # the integer 540.
 agenda:
   - start: "9:00"
-    credited_as: "PyDay BCN 2023 Organising Committee"
+    credited_as: "PyDay BCN 2023 organizers"
     track_length: 3
     room: room-b5
     type: group

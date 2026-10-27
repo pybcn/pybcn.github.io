@@ -1,0 +1,45 @@
+{{- /*
+    The Meetup RSVPs of the archive, summed once per build.
+
+    Returns a dict:
+
+        total     the sum of the attendance field over the meetup pages
+                  that carry it: the "RSVP: yes" answers on Meetup
+        counted   how many meetup pages carry the field
+        meetups   how many meetup pages there are, the rows of
+                  /events/meetups/
+
+    No argument is read: the pages are the regular pages of
+    content/events/meetups/, which is where the Meetup export wrote the
+    figure (bin/import-meetups, both groups, python-barcelona and
+    pyladies-bcn). Call it through partialCached with a constant variant:
+
+        partialCached "meetup_rsvps.html" site "meetup-rsvps"
+
+    Two pages print the figure, the Meetup RSVPs tile of the home page
+    (layouts/_default/home.html) and the Attendees page it leads to
+    (partials/attendees_note.html), and the rule of the site is that a
+    tile says the number of the page it links to, so the sum is computed
+    here and in neither of them.
+
+    What the figure is, and is not. The front matter key is attendance,
+    and the value is the yes count of Meetup, a promise to come and not a
+    seat filled: AGENTS.md says RSVPs are not attendance, and the two
+    pages say so in words. A meetup with no figure is a page the export
+    gave none for, or one written by hand; it counts as a meetup and adds
+    nothing to the sum.
+*/ -}}
+{{- $total := 0 -}}
+{{- $counted := 0 -}}
+{{- $meetups := 0 -}}
+{{- with site.GetPage "/events/meetups" -}}
+    {{- range .RegularPages -}}
+        {{- if not .Params.year }}{{ continue }}{{ end -}}
+        {{- $meetups = add $meetups 1 -}}
+        {{- with .Params.attendance -}}
+            {{- $total = add $total (int .) -}}
+            {{- $counted = add $counted 1 -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- return dict "total" $total "counted" $counted "meetups" $meetups -}}

@@ -7,7 +7,7 @@
 // div, so a row is one element in the markup, and the div is display:
 // contents so its dt and dd take the two cells of a row of the grid. The box
 // is the bordered pill of .count_card (main.scss) at full width, in the
-// colour of the facts, so the two read as one kind of thing: a box of
+// color of the facts, so the two read as one kind of thing: a box of
 // figures. At 390px the two columns still fit, because the longest label
 // takes about a third of the width and a long value wraps inside its cell.
 .facts_box {
@@ -47,7 +47,7 @@
         overflow-wrap: anywhere;
     }
 
-    // A link inside the box needs a second mark besides the colour, which
+    // A link inside the box needs a second mark besides the color, which
     // is WCAG 1.4.1 and the rule this repository applies to .photo_source
     // and to the caption of a talk photo. The credit row holds text between
     // two links ("A and B"), which is where axe reports link-in-text-block.

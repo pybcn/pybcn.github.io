@@ -1,5 +1,5 @@
 ---
-title: "Organizers"
+title: "Who we are"
 # The name the appearance list of a person modal calls this page by. The
 # line there reads "Permanent Committee at PyBCN", where the title would
 # read "Permanent Committee at Organizers" and repeat the role. See
@@ -17,7 +17,7 @@ heroBackground: /images/photos/reg-desk-pyday-2019.jpg
 people_levels:
     - people_per_line: 5
       people: [jordi-bosch, daniel-mesejo-leon, yago-tafalla, mauricio-volcanes, sergi-ramirez]
-      name: Management Board (2026)
+      name: Board (2026)
       # The faces the home page shows, which are the two bodies that
       # run the association.
       home_faces: true
@@ -31,7 +31,7 @@ people_levels:
       people: [elisabeth-ortega-carrasco, josep-martinez-vila, loris-mularoni, laura-perez-mayos, nuria-pujol-vilanova, jose-riera-sanchez, ruben-berenguel, xavi-francisco-gilabert]
       name: Collaborators
     - people_per_line: 5
-      name: Former Management Board (2018 - 2025)
+      name: Former Board (2018 - 2025)
       # An entry with a role shows that role on this page instead of the
       # pybcn_position of the person file. See people-grid.html.
       people:

@@ -4,7 +4,7 @@
 # of the event page through roles.yaml. For a roles row it is the label of
 # the row, which is a level name of an organizers page through roles.yaml,
 # and a level name that is not a role ("Permanent Committee",
-# "Management Board (2026)") is not here and takes the "*" entry. Right side: one emoji. A role that is not here takes the "*"
+# "Board (2026)") is not here and takes the "*" entry. Right side: one emoji. A role that is not here takes the "*"
 # entry, so a new role shows up with a neutral glyph rather than with
 # none, and the row does not change shape when it is added. The three
 # level names above are the live test of that fallback.
@@ -25,7 +25,7 @@
 Speaker: 🎤
 Mentor: 🎓
 Volunteer: 🙋
-Organizer: 🧭
+Event organizer: 🧭
 Collaborator: 🤝
 President: 🔑
 Former President: 🔑
@@ -45,12 +45,12 @@ Events: 📅
 # needs a row of its own, and until it has one its glyph is the neutral
 # one, not a wrong one.
 Permanent Committee: 🧭
-Management Board (2026): 📋
-Former Management Board (2018 - 2025): 📋
+Board (2026): 📋
+Former Board (2018 - 2025): 📋
 
 # Not a role and not a level: the tab of /people/ that answers "who came"
 # with the fact that the association never recorded it (see
 # content/people/_content.gotmpl). An empty chair, for the audience the
 # archive has no list of. U+1FA91 has emoji presentation by default, as
 # the rule above asks.
-Assistants: 🪑
+Attendees: 🪑

@@ -108,7 +108,7 @@ The pages of the archive were written from the Meetup export of both groups,
 the X exports of the association, the playlists of our channel, the records
 pyvideo keeps of PyData Barcelona 2017, and the frozen copies of the old site
 under `static/archives/`. Those sources, the tools that read them, and the
-reports of the import live in a separate repository of this organisation,
+reports of the import live in a separate repository of this organization,
 `pybcn/pybcn-archive`, which is **private**: a copy of a public page is not a
 secret, but 950 Meetup comments with the name of whoever wrote them, and the
 email addresses, the phone numbers, and the personal profiles that the event
@@ -229,7 +229,7 @@ About the creation of new sponsors, the `themes/pybcn_theme/archetypes/sponsors.
 
 Every person photo is a square, cut once in the repository rather than on each
 build. `bin/square-photos` does the cutting: it finds the face with OpenCV,
-crops the largest square it can centre on that face, and resizes to at most
+crops the largest square it can center on that face, and resizes to at most
 800px, which is what the 2x variant of a 400px grid slot needs. It never
 enlarges, because a 200px photo blown up to 800 is the same picture in four
 times the bytes.
@@ -298,7 +298,7 @@ function in `bin/import-meetups`: `title`, `date`, `year`, `venue`,
 `attendance`, `meetup_url`, and `group`. `attendance` is who said yes on
 Meetup, not who came.
 
-It refuses an event that is not `PAST`, because the registrations are not
+It refuses an event that is not `PAST`, because the RSVPs are not
 final and the archive records what happened, and an event whose title says
 PyDay or PyData, because the large editions have their own pages. `--force`
 overrides both. It refuses to overwrite a page that is already there.
@@ -388,8 +388,8 @@ Each event in the list can indicate:
 #### Experience levels
 
 `python_level` and `topic_level` take a token, never markup. The site renders
-each token as a badge with a coloured dot and the matching text label, so the
-level does not depend on colour alone:
+each token as a badge with a colored dot and the matching text label, so the
+level does not depend on color alone:
 
 | Token | Label | Dot |
 |---|---|---|
@@ -557,7 +557,7 @@ The people behind the events, the speakers, the organizers, the venues, and
 the sponsors, are named on the pages of the site, which stay current on
 their own. `static/humans.txt` points at both.
 
-## Licence
+## License
 
 The code of the site (the templates, the stylesheets, the scripts, the
 workflows, and the configuration) is under the [MIT License](LICENSE). The
@@ -568,5 +568,5 @@ photographs of people, the person pages, the sponsor logos, the association's
 own logos, the third-party libraries, and the archived sites are not licensed,
 each for a reason of its own. [LICENSING.md](LICENSING.md) lists every path
 and says why. The [code of conduct](CODE_OF_CONDUCT.md) was adapted from the
-PyLadies one, which is under CC BY-SA 3.0; that licence allows the adaptation
+PyLadies one, which is under CC BY-SA 3.0; that license allows the adaptation
 to move to 4.0, and LICENSING.md says how.

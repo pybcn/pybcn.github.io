@@ -8,7 +8,7 @@ $blue-pybcn: #006c9b;
 :root {
     color-scheme: only light;
 }
-// The rest colour of an icon that lights up under the pointer: a social
+// The rest color of an icon that lights up under the pointer: a social
 // glyph on a card and in a modal. 4.68:1 on white, above the 3:1 WCAG
 // 1.4.11 asks of a graphic that carries meaning.
 $icon-grey: #6c757d;
@@ -174,7 +174,7 @@ $title-gap: 1.5rem;
 // Font Awesome 5.8.2 is older than the Twitter rename, so it carries no X
 // mark. This draws the mark from the Font Awesome 6 Free path (CC BY 4.0) as
 // a CSS mask, which keeps one vendored icon set instead of two. The mask takes
-// its colour from `currentColor`, so the icon follows the same colour and
+// its color from `currentColor`, so the icon follows the same color and
 // hover rules as every Font Awesome glyph next to it.
 .icon_x {
     display: inline-block;
@@ -212,11 +212,11 @@ $title-gap: 1.5rem;
 // The mark of a link that leaves the site, printed by
 // partials/link_mark.html in front of the words of the link: the YouTube
 // mark, the GitHub mark, the X mark above, or the generic arrow. Grey at
-// rest, the $icon-grey of every icon of the site, and the colour of the
+// rest, the $icon-grey of every icon of the site, and the color of the
 // link under the pointer or the keyboard, which is the rule the social
 // glyphs of a person card follow. The YouTube mark took the blue of the
 // link around it until 2026-10-15 while every other icon was grey. They
-// are one colour now. An inline-block, so the underline of the
+// are one color now. An inline-block, so the underline of the
 // link stops at the words and is not drawn through the glyph. The gap is
 // the one the credit of a gallery photo and the video line of a talk row
 // already set.
@@ -400,7 +400,7 @@ button:focus:not(:focus-visible),
 // The paragraph a page opens with, above the list or the cards it is the
 // index of: .section_intro on /events/, /people/, /talks/ and
 // /events/meetups/, .page-intro on the two monthly meetup pages. A link
-// inside a sentence needs a second mark besides the colour, which is WCAG
+// inside a sentence needs a second mark besides the color, which is WCAG
 // 1.4.1 and the rule this repository already applies to .photo_source and
 // to the caption of a talk photo. axe reported this one as
 // link-in-text-block on 7 links over 4 pages.
@@ -494,7 +494,7 @@ button:focus:not(:focus-visible),
         text-align: center;
     }
 
-    // /people/ centres its letters; /events/
+    // /people/ centers its letters; /events/
     // keeps its years at the left, over the first column of its table.
     // The class is the optional argument of partials/jump_bar.html.
     &.jump_bar_centered ul {
@@ -503,15 +503,16 @@ button:focus:not(:focus-visible),
 }
 
 // The tabs above a listing: one link per view of the list, the current
-// one filled. See layouts/partials/filter_tabs.html, which /talks/ and
-// /people/ draw it with, and which says why the tabs are links to pages
-// and not a script.
+// one filled. See layouts/partials/filter_tabs.html, which /talks/,
+// /people/, and /events/ draw it with, and which says why the tabs are
+// links to pages and not a script.
 //
 // The same pills as .jump_bar, a little taller, so the two bars read as
 // one family of controls: the tabs choose which rows the page holds, the
 // bar under them jumps inside those rows. The list wraps, with no script,
-// as the jump bar does: at 390px the six tabs of /talks/ take three lines
-// and the ten of /people/ four, and the document stays 390px wide.
+// as the jump bar does: at 390px the six tabs of /talks/ take three lines,
+// the ten of /people/ four, and the five of /events/ three, and the
+// document stays 390px wide.
 //
 // The current tab is the one with aria-current, painted in the blue of the
 // site with white text, which is the one pair of this stylesheet that is
@@ -573,7 +574,7 @@ button:focus:not(:focus-visible),
 }
 
 // The legend above a long index: each marker the rows draw, with how many
-// rows carry it. One line that wraps, in the colour of the facts under a
+// rows carry it. One line that wraps, in the color of the facts under a
 // row, so it reads as information about the list and not as a row of it.
 // See layouts/partials/marker_legend.html, which /events/ and /talks/ draw
 // it with.
@@ -630,7 +631,7 @@ button:focus:not(:focus-visible),
 
 // The card of counts of a row: one icon and one number per kind of thing
 // the row holds. See layouts/partials/count_card.html, which the three
-// listings of the archive print it with. A bordered pill in the colour of
+// listings of the archive print it with. A bordered pill in the color of
 // the facts, with the border and the radius of a link of .jump_bar, so it
 // reads as a box of figures and not as a sentence. The items never wrap
 // inside the card: the card wraps as a whole, through .row_facts.

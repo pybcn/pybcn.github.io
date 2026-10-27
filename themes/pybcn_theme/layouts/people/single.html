@@ -80,7 +80,7 @@
     read off an event description. AGENTS.md has the rule.
 
     The header: the portrait, or the placeholder of the row of /people/
-    (partials/person_placeholder.html, the initials on a colour) when the
+    (partials/person_placeholder.html, the initials on a color) when the
     record has no photo, which is 250 of the 378 records. The page showed
     nothing there until 2026-10-15. Beside it the Bio, the body of the
     record, and then the social links under a "Social links" heading, as
@@ -144,7 +144,7 @@
 {{- end -}}
 
 {{- /* The photos and the videos of the talks, in the order of the talks:
-       newest day first, then the place in the programme of the day.
+       newest day first, then the place in the program of the day.
        Guarded by with: sort of a nil list is a build error, and 25 of the
        378 records are credited by no talk, so the list is nil on their
        pages. */ -}}
@@ -260,7 +260,7 @@
             {{- with .File }}
             <section class="person_block person_correction" aria-labelledby="correction_heading">
                 <h2 id="correction_heading">About this page</h2>
-                <p>This page is generated from the archive of past events. The events, the photos, and the videos come from the programmes of the days this person took part in; the name, the bio, and the links come from one file. To change or remove anything on it, <a href="https://github.com/pybcn/pybcn.github.io/edit/edition/content/{{ .Path }}">{{ partial "link_mark.html" "https://github.com/" }}edit that file on GitHub</a> and open a pull request, or write to <a href="mailto:{{ site.Params.main_contact_email }}">{{ site.Params.main_contact_email }}</a>.</p>
+                <p>This page is generated from the archive of past events. The events, the photos, and the videos come from the programs of the days this person took part in; the name, the bio, and the links come from one file. To change or remove anything on it, <a href="https://github.com/pybcn/pybcn.github.io/edit/edition/content/{{ .Path }}">{{ partial "link_mark.html" "https://github.com/" }}edit that file on GitHub</a> and open a pull request, or write to <a href="mailto:{{ site.Params.main_contact_email }}">{{ site.Params.main_contact_email }}</a>.</p>
             </section>
             {{- end }}
 

@@ -14,7 +14,7 @@ same text the site publishes at
 [pybcn.org/pybcn_association/coc/](https://pybcn.org/pybcn_association/coc/),
 which renders that file.
 
-## Licence
+## License
 
 The code of the site is under the [MIT License](LICENSE) and the content is
 under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
@@ -41,7 +41,7 @@ is edited there, and a change made on `master` is lost on the next deploy.
 
 **You do not need Git, GitHub, or any of the rest of this file.**
 
-If you have spoken at one of our events, or you organise with us, you may have
+If you have spoken at one of our events, or you organize with us, you may have
 a card on the [organizers page](https://pybcn.org/pybcn_association/organizers/)
 or on the page of the event. Clicking it opens what the site holds about you.
 To change any of it, or to have it removed, **send an email to
@@ -105,7 +105,7 @@ Edit the file on GitHub, or clone the repository and follow the steps below.
   to see which ones have no page yet, then
   `bin/new-meetup <the Meetup URL of the event>`. It writes the page from the
   public event page: the title, the day, the venue, the number of
-  registrations, the source URL, and the group. It writes no talk, because the
+  RSVPs, the source URL, and the group. It writes no talk, because the
   announcement says them in prose: pass `--description` to print that prose,
   and see [Import a meetup](README.md#import-a-meetup) for the rest of the
   path, which is the same one the 268 pages of the archive came through.
@@ -160,7 +160,7 @@ What each check is for:
 | Check | Fails when |
 |---|---|
 | Build the site | Hugo cannot build, or emits a warning |
-| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, a field is empty, or an `end_date` is not later than `date`. It warns, without failing, about a photo that is too small or has no colour |
+| `bin/check-content` | Front matter does not parse, a person `id` does not match its filename, an id is duplicated, a declared photo is missing, an event references a person or sponsor that does not exist, a social URL has the wrong shape, a field is empty, or an `end_date` is not later than `date`. It warns, without failing, about a photo that is too small or has no color |
 | `bin/check-html-safety` | Content carries raw HTML that turns a content change into script execution, a redirect, a credential prompt, or a page overlay. See [Content safety check](README.md#content-safety-check) |
 | `bin/check-rendered` | The built pages carry that same markup, which catches a template that produces it even when no content file does, or they link to anything over `http`. See [Rendered page check](README.md#rendered-page-check) |
 | `bin/canon.py --selftest` | The one normalization of imported text stops being idempotent, or changes what it strips |

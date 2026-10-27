@@ -35,7 +35,7 @@ heroBackground: /images/photos/people-pyday-2016.jpg
 # (measured 2026-10-14); check-content says a site that does not answer
 # over https is for its owner to fix, so the link stays. The venue level
 # follows the 2025 page, which lists Canòdrom among the organizers. This
-# edition has no programme: the archive holds none, and bin/check-content
+# edition has no program: the archive holds none, and bin/check-content
 # notes the gap.
 sponsors_text: |
   The sponsors and collaborators of the first PyDay, by the levels of the archived site of the edition. Also on the archived site:

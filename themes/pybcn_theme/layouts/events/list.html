@@ -1,0 +1,25 @@
+{{- /*
+    The index of a series of events: /events/meetups/, /events/pyday_bcn/,
+    /events/pydatabcn/, and /events/other_events/.
+
+    The same listing as /events/, cut to the events of the series: the
+    intro of the page, the tabs of the series (partials/events_tabs.html,
+    with this one marked current), the years, the legend, and the table
+    grouped by year and by month, newest first, through partials/event_listing.html,
+    which is where the two layouts share their one body. The h1 carries
+    the number of rows, "Monthly meetups (268)", from
+    partials/listing_total.html, the way "Events (281)" does.
+
+    Hugo picks this layout for the section pages nested under events/ by
+    their type, which is the top section. /events/ itself is not drawn
+    here: content/events/_index.md selects the events_index layout, which
+    Hugo looks up before this file. These four pages took the fallback
+    layouts/_default/list.html until 2026-10-25, a list of titles in
+    alphabetical order, which read "April" before "August" and 2016
+    beside 2025.
+*/ -}}
+{{ define "main" }}
+<div class="container">
+    {{ partial "event_listing.html" . }}
+</div>
+{{ end }}

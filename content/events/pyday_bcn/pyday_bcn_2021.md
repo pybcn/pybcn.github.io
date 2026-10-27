@@ -93,8 +93,8 @@ legend:
     - type: sponsor
 
 # The rooms of this edition, in the order the grid first names them. A room is
-# a record with an id because the colour of a block now comes from it: the
-# template gives every room of an event one colour of the agenda palette and
+# a record with an id because the color of a block now comes from it: the
+# template gives every room of an event one color of the agenda palette and
 # keeps it for the whole day. See partials/agenda_entry.html.
 rooms:
   - id: open-air-terrace
@@ -260,7 +260,7 @@ talks:
 # the integer 540.
 agenda:
   - start: "9:00"
-    credited_as: "PyDay BCN 2021 Organising Committee"
+    credited_as: "PyDay BCN 2021 organizers"
     track_length: 4
     room: open-air-terrace
     type: group
@@ -405,7 +405,7 @@ agenda:
     topic_level: beginner
     requirements: "Try to run Nautobot Lab (https://github.com/nautobot/nautobot-lab) in Docker, as we'll use it as support during the workshop."
   - start: "17:30"
-    credited_as: "PyDay BCN 2021 Organising Committee"
+    credited_as: "PyDay BCN 2021 organizers"
     track_length: 4
     room: all-rooms
     type: group

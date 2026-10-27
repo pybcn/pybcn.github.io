@@ -10,5 +10,5 @@ group: PyBCN
 # out of the monthly list matches any title that says PyData or PyDay, and this
 # one says PyData without being the conference: it is the session where the
 # association helped people write a proposal for it. Both groups listed the same
-# day, PyBCN with 19 registrations and PyLadies BCN with 3 more.
+# day, PyBCN with 19 RSVPs and PyLadies BCN with 3 more.
 ---

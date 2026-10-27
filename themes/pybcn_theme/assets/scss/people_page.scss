@@ -74,7 +74,7 @@
     }
 
     // The placeholder of a person with no photo, at the size of the
-    // portrait: the initials on a colour, the shared rule of
+    // portrait: the initials on a color, the shared rule of
     // people_index.scss, five times the size of the row.
     .person_initials {
         flex: 0 0 auto;
@@ -172,7 +172,7 @@
     // give their lists a disc and a 1.25em indent on top of their own.
 
     // The day under a video is a grey line with a link in it, and a link
-    // inside a line of the same colour needs a second mark (WCAG 1.4.1),
+    // inside a line of the same color needs a second mark (WCAG 1.4.1),
     // the rule talks.scss applies to a caption and meetup.scss to the
     // source line. axe reported link-in-text-block on every talk row.
     .talk_meta a {
@@ -213,7 +213,7 @@
     // The last block, how the page is made and how to correct it: smaller
     // than the content it follows, and it reads as a note, as the source
     // line of a meetup page does. A link inside a sentence needs a second mark besides the
-    // colour (WCAG 1.4.1), the rule meetup.scss and talks.scss apply.
+    // color (WCAG 1.4.1), the rule meetup.scss and talks.scss apply.
     .person_correction p {
         color: $text-grey;
         font-size: 0.9rem;
@@ -321,8 +321,8 @@
         // three is after the same page. focus-within does
         // the same for the keyboard, where the link is what
         // takes focus. The glyph drops its grey and comes
-        // back in colour, which is the only place on the
-        // page a role shows its own colour.
+        // back in color, which is the only place on the
+        // page a role shows its own color.
         li:hover,
         li:focus-within {
             .role_emoji {
@@ -372,7 +372,7 @@
         }
 
 
-        // A colour change, not a move, so there is nothing
+        // A color change, not a move, so there is nothing
         // for prefers-reduced-motion to turn off.
         .role_emoji,
         strong {
@@ -457,8 +457,8 @@
     //
     // Desaturated, so the glyph sits with the black icons
     // of Social Links rather than being the one spot of
-    // colour in the lists. grayscale and nothing else: a
-    // colour emoji is a shaded picture, and in grey it is
+    // color in the lists. grayscale and nothing else: a
+    // color emoji is a shaded picture, and in grey it is
     // a light one, which is what this list wants. The
     // marker labels the row; the text beside it is what
     // the reader is here for, and a grey mark does not
@@ -481,7 +481,7 @@
     // some platforms and never a style. line-height: 1
     // keeps the glyph from opening the line box of its
     // row further than its own height, and middle-aligned
-    // the text sits on the centre of the glyph instead of
+    // the text sits on the center of the glyph instead of
     // on its bottom edge.
     .role_emoji {
         display: inline-block;

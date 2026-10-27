@@ -3,9 +3,9 @@
 
     Content used to write raw <a href="..." target="_blank"> to open an
     external site in a new tab. Those were converted to plain markdown links,
-    so the behaviour has to come from here. The raw ones would still render,
+    so the behavior has to come from here. The raw ones would still render,
     because unsafe=true is set in [markup.goldmark.renderer] in config.toml
-    for the two pre-Hugo programmes pasted in as tables, but no new content
+    for the two pre-Hugo programs pasted in as tables, but no new content
     writes an anchor of its own.
 
     An external link gets target="_blank" and rel="noopener noreferrer".
@@ -13,7 +13,7 @@
     window.opener handle to this one, which is a reverse tabnabbing path.
 
     A relative link, an anchor, a mailto: link and a link back to this site
-    keep the default behaviour and open in the same tab.
+    keep the default behavior and open in the same tab.
 */ -}}
 {{- $url := urls.Parse .Destination -}}
 {{- $external := and $url.Host (ne $url.Host (urls.Parse .Page.Site.BaseURL).Host) -}}

@@ -19,7 +19,7 @@
        YouTube with 20 videos and no photograph, so its gallery is the
        Talks & Videos subsection alone (the header of
        partials/gallery_content.html says why the videos are there and
-       not under the programme, and why a page with a Talks block prints
+       not under the program, and why a page with a Talks block prints
        them there instead). */ -}}
 {{ $gallery := partialCached "gallery_content.html" . .RelPermalink }}
 
@@ -74,7 +74,7 @@
                    (partials/hero_header.html, which also writes the
                    kind), plus the captions of the gallery, each at its
                    figure (partials/photo_gallery.html). The sections of
-                   the page, the programme grid, the sponsors, and the
+                   the page, the program grid, the sponsors, and the
                    people grids are out: a talk and a person have pages of
                    their own, and a name indexed here as well would match
                    twice. The venue is not printed on this page (the row of
@@ -99,7 +99,7 @@
             {{- end }}
             {{- /* How many people came, which is a count and not a
                    registration: AGENTS.md keeps the two words apart, and
-                   the meetup pages say "Registrations" because an RSVP of
+                   the meetup pages say "RSVPs" because an RSVP of
                    Meetup is an intention. An edition sold its tickets
                    elsewhere, so the only number it has is the one the
                    association counted and published on the day. The front
@@ -144,10 +144,10 @@
                  the CSS grid, so a page with an agenda and no eventTimes has
                  no grid to draw: it would emit grid-template-rows: repeat(0)
                  and stack every block of the day on one line. The two pre-Hugo
-                 programmes, PyDay BCN 2018 and 2019, are in that state on
+                 programs, PyDay BCN 2018 and 2019, are in that state on
                  purpose. They carry agenda, talks and rooms because a photo of
                  the gallery joins to a talk by id, and they publish the
-                 programme the association froze in their own body: the pasted
+                 program the association froze in their own body: the pasted
                  agenda table of 2018 and the calendar embed of 2019. Give
                  either one eventTimes and numTracks and its grid appears. */ -}}
             {{ if and .Params.agenda .Params.eventTimes }}
@@ -162,7 +162,7 @@
             </div>
             {{ end }}
 
-            {{/* The talks of an edition that has them and has no programme
+            {{/* The talks of an edition that has them and has no program
                  grid, as rows, where the grid would be: the rows of
                  partials/talk_rows.html, the ones a meetup page draws, so
                  the two read alike. Each row links to the page of its talk,
@@ -172,9 +172,9 @@
                  no record of the room or the hour of any of them, so no
                  grid to draw. The gate is the absence of agenda and not of
                  eventTimes: PyDay BCN 2018 and 2019 carry an agenda with no
-                 eventTimes on purpose (see above) and publish the programme
+                 eventTimes on purpose (see above) and publish the program
                  in their body, and a list of rows under it would print the
-                 programme twice.
+                 program twice.
 
                  The heading carries both counts, "Talks (32) & Videos
                  (29)": each row prints the video of its talk, so this block
@@ -192,7 +192,7 @@
             </div>
             {{ end }}
 
-            {{/* The videos of a day with a programme grid are not here:
+            {{/* The videos of a day with a program grid are not here:
                  they are the Talks & Videos subsection of the gallery at
                  the end of the page, with the photographs
                  (partials/photo_gallery.html). A Videos block sat here,
@@ -202,7 +202,7 @@
                  the gallery of a page with the Talks block above. */}}
 
             {{/* The recordings of a whole session, which belong to the day and
-                 to no talk, right after the programme: see
+                 to no talk, right after the program: see
                  partials/session_videos.html. No edition carries the block
                  today (the three that do are meetups, on
                  layouts/_default/meetup.html); bin/import-videos may write
@@ -238,9 +238,9 @@
             {{/* The gallery is last, after the sponsors and the people of the
                  day. It is what the day left behind, the photographs the
                  association published and the recordings, and the rest of
-                 the page is the day itself: the programme, who paid for it,
+                 the page is the day itself: the program, who paid for it,
                  and who ran it. It used to sit between the schedule and the
-                 sponsors, which read as part of the programme. */}}
+                 sponsors, which read as part of the program. */}}
             {{ partial "photo_gallery.html" . }}
 
         </div>

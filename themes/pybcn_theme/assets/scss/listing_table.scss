@@ -34,7 +34,7 @@
     margin-bottom: 2rem;
     border-collapse: collapse;
 
-    // The caption reads as a note about the table, in the colour and the
+    // The caption reads as a note about the table, in the color and the
     // size of the facts, above the header row where a reader looks first.
     .listing_caption {
         caption-side: top;
@@ -93,7 +93,7 @@
 
     // The marker of a talk: the icon of its type, in the box of the
     // event emoji above, so the titles of the two tables hang by the
-    // same 2.1rem. The icon is text, so it takes the colour of the facts.
+    // same 2.1rem. The icon is text, so it takes the color of the facts.
     .talk_marker {
         display: inline-block;
         width: 1.75rem;
@@ -136,7 +136,7 @@
         }
     }
 
-    // The event, in the weight of the month and the colour of the text:
+    // The event, in the weight of the month and the color of the text:
     // it is a group header, and it is a link.
     .talk_event_cell {
         font-weight: 600;
@@ -147,7 +147,7 @@
         white-space: nowrap;
     }
 
-    // The two header cells of a group, in the colour of the facts: they
+    // The two header cells of a group, in the color of the facts: they
     // are labels in a margin and not titles.
     .listing_year,
     .listing_month {

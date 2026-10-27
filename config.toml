@@ -60,7 +60,7 @@ timeout = "300s"
 # thomas-alisi (bin/check-content names them in a note). They get a page
 # all the same, with the photo, the bio, the position, or the links their
 # file carries, and the two-classes argument of #201 is the reason: taking
-# the page away from the six whose programme has not been credited yet
+# the page away from the six whose program has not been credited yet
 # would sort the people of the archive into the ones with a page and the
 # ones without, on a fact about the import and not about them. The
 # figure that used to be the point here, that 240 of the 378 records hold
@@ -96,6 +96,10 @@ unsafe=true
     main_contact_email = "pybcn@googlegroups.com"
     short_name = "PyBCN"
     extended_name = "The Barcelona Python Association"
+    # The sentence a search engine shows for a page that says nothing about
+    # itself: the meta description of partials/head-meta.html falls back to
+    # it. One line, under 160 characters.
+    description = "Python Barcelona (PyBCN) is the Python community of Barcelona: monthly meetups since 2007, PyLadies BCN workshops, and the annual PyDay BCN conference."
 
     # Who the association is in law. Spanish law 34/2002 (LSSI-CE) article 10
     # requires a site run by an association to publish its name, its address,
@@ -107,7 +111,7 @@ unsafe=true
     # The values match the association's entry in the Registre d'Entitats de
     # la Generalitat de Catalunya, which is public open data:
     # https://analisi.transparenciacatalunya.cat/d/y6fz-g3ff
-    # Only the Management Board changes address, registry or registered_on:
+    # Only the Board changes address, registry or registered_on:
     # they describe the association as the register records it, not as
     # volunteers know it. The register names the register itself, not only
     # the number, because article 10 asks for the entry in the register and a

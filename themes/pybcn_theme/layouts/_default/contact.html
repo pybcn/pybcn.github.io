@@ -10,7 +10,7 @@
                 <p>
                     <a href="mailto:{{ $.Site.Params.main_contact_email }}" aria-label="Email PyBCN at {{ $.Site.Params.main_contact_email }}"><i class="fa fa-2x fa-envelope" aria-hidden="true"></i></a>
                     {{ range sort $.Site.Params.social_items "weight" }}
-                        <a href="{{ .link }}" target="_blank" aria-label="PyBCN on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
+                        <a href="{{ .link }}" target="_blank" rel="noopener" aria-label="PyBCN on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
                     {{ end }}
                 </p><br/>
                 {{ end }}
@@ -19,7 +19,7 @@
                 <p>
                     <a href="mailto:{{ $.Site.Params.main_contact_email_pyladies }}" aria-label="Email PyLadiesBCN at {{ $.Site.Params.main_contact_email_pyladies }}"><i class="fa fa-2x fa-envelope" aria-hidden="true"></i></a>
                     {{ range sort $.Site.Params.social_items_pyladies "weight" }}
-                        <a href="{{ .link }}" target="_blank" aria-label="PyLadiesBCN on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
+                        <a href="{{ .link }}" target="_blank" rel="noopener" aria-label="PyLadiesBCN on {{ .name }}"><i class="{{ .icon }}" aria-hidden="true"></i></a>
                     {{ end }}
                 </p>
             </div>

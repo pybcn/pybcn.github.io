@@ -75,9 +75,9 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
         // rather than push the grid wider than the screen. Issue #212.
         overflow-wrap: break-word;
         /*
-            The fallback for an entry with no colour class. White text on
+            The fallback for an entry with no color class. White text on
             the CSS orange was 1.97:1. #A15C00 is 5.19:1 on white, so an
-            entry that omits its colour stays readable. bin/check-content
+            entry that omits its color stays readable. bin/check-content
             reports such an entry, so nothing should reach this fallback.
         */
         background-color: #A15C00;
@@ -105,8 +105,8 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
         /*
             The title of a row that holds a talk goes to the page of that
             talk. Underlined, so it reads as a link before the pointer
-            reaches it: colour alone cannot say it here, because the whole
-            block is one colour and the title takes the same white or dark
+            reaches it: color alone cannot say it here, because the whole
+            block is one color and the title takes the same white or dark
             text as the rest of it. WCAG 1.4.1 asks for a second mark, and
             the underline is the mark a link takes everywhere else on this
             site (see .photo_source in photo_gallery.scss).
@@ -157,7 +157,7 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
             text and so needs 4.5:1 against its background. White on the old
             yellow was 1.81:1 and on the old orange 2.63:1.
 
-            Yellow and orange keep their brand colour and take dark text
+            Yellow and orange keep their brand color and take dark text
             instead, which reads better than any darkened version would:
             8.51:1 and 5.87:1. Blue and pink work with neither white nor dark
             text as they were, so they are darkened just enough for white to
@@ -264,13 +264,13 @@ $blockTimes15: 700,715,730,745,800,815,830,845,900,915,930,945,1000,1015,1030,10
  * meaning, the dot is a redundant cue (WCAG 1.4.1 Use of Color).
  *
  * The badge draws its own light background, so dot contrast does not depend
- * on the colour of the agenda cell behind it. Contrast of each dot against
+ * on the color of the agenda cell behind it. Contrast of each dot against
  * the #FFFFFF badge, against the 3:1 floor of WCAG 1.4.11 Non-text Contrast:
  *   beginner     #2E7D32  5.1:1
  *   intermediate #A15C00  5.2:1
  *   advanced     #CE1836  5.5:1
  * The #404040 border keeps the badge outline at 3:1 or better against every
- * cell colour, the lightest of which is the #FF7900 orange at 3.9:1.
+ * cell color, the lightest of which is the #FF7900 orange at 3.9:1.
  *
  * The second selector repeats the first so that it outranks
  * ".scheduleContainer .event span", which sets display block and width 100%.

@@ -10,7 +10,7 @@
 
         event   the event page, or "" when the path resolves to nothing
         talk    the talk record, as the front matter of that event writes it
-        position  the place of the talk in the programme of that event,
+        position  the place of the talk in the program of that event,
                 counted from 1, which is the order the index at /talks/
                 lists the talks of one day in
         entry   what partials/agenda_entry.html resolves for that record:
@@ -50,7 +50,7 @@
     site.Pages, so the pages are added with the two ids above and the data
     is joined here, at render time, out of the event front matter. That is
     the decision this archive already took for the talks: the event owns its
-    programme, and a page of one talk is a view of it.
+    program, and a page of one talk is a view of it.
 
     Why agenda_entry.html and not a second join. That partial is where the
     archive resolves a talk already: it turns the speaker ids into the names
@@ -63,7 +63,7 @@
     It takes a slot of an agenda, because that is what the grid has. A talk
     page has no slot: it is the talk, wherever the grid put it. So the slot
     passed in names the talk and a start of "0:00", and the start, the end,
-    the room, and the colour of the answer are not read. The fields a slot
+    the room, and the color of the answer are not read. The fields a slot
     owns rather than the talk, python_level, topic_level, requirements, and
     sponsor, come back empty for the same reason, and this page does not
     print them: they describe a session of a day, and the row of the grid

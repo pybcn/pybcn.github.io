@@ -2,23 +2,24 @@
     The tabs above a listing: one link per view of the list, with the
     current one marked.
 
-        [ All 607 ] [ 💬 Talks 398 ] [ 💻 Workshops 172 ] [ ⚡ Lightning talks 27 ] ...
+        [ All N ] [ 💬 Talks N ] [ 💻 Workshops N ] [ ⚡ Lightning talks N ] ...
 
     Arguments:
-        label   the aria-label of the nav, "Talk types" or "Roles"
+        label   the aria-label of the nav, "Talk types", "Roles", or
+                "Event series"
         items   a slice of dicts, one per tab, in the order to print:
                     url      the page the tab leads to
                     text     what the tab reads, "Workshops"
                     count    optional, how many rows that page lists;
                              left out when it is not a number the page
-                             has (the Assistants tab of /people/)
+                             has (the Attendees tab of /people/)
                     emoji    optional, the glyph in front of the text, or
                     type     optional, the token of a talk type, for
                              partials/event_type_icon.html
                     current  true on the tab of the page being rendered
 
-    Why links and not a widget. The filter of /talks/ and /people/ is a
-    set of tabs that are sub-pages.
+    Why links and not a widget. The filter of /talks/, /people/, and
+    /events/ is a set of tabs that are sub-pages.
     Each tab is a page with an address, so the filter works with no
     script, a crawler indexes every view, and a reader can send one view
     in a message. The markup is therefore a nav of links and not the ARIA

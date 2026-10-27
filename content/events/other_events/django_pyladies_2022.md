@@ -47,7 +47,7 @@ free_text_sections:
 
     - title: When and where
       id: when_and_where
-      content: It is scheduled for **Saturday 11th June** in <a href="https://g.page/Canodrom?share" target="_blank">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from  9:00pm to 18:30pm CET.
+      content: It is scheduled for **Saturday 11th June** in <a href="https://g.page/Canodrom?share" target="_blank" rel="noopener">Canòdrom - Ateneu d'Innovació Digital i Democràtica</a>, from  9:00pm to 18:30pm CET.
 
     - title: Important dates
       id: important_dates
@@ -137,8 +137,8 @@ numTracks: 1
 eventTimes: ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"]
 
 # The rooms of this edition, in the order the grid first names them. A room is
-# a record with an id because the colour of a block now comes from it: the
-# template gives every room of an event one colour of the agenda palette and
+# a record with an id because the color of a block now comes from it: the
+# template gives every room of an event one color of the agenda palette and
 # keeps it for the whole day. See partials/agenda_entry.html.
 rooms:
   - id: room-actes

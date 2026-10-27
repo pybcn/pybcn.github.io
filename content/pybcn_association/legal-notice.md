@@ -13,17 +13,17 @@ heroBackground: /images/photos/reg-desk-pyday-2019.jpg
 
 ---
 
-This website, [pybcn.org](https://pybcn.org), is run by **Associació Python Barcelona** (PyBCN), a non-profit association of volunteers who organise Python meetups and events in Barcelona.
+This website, [pybcn.org](https://pybcn.org), is run by **Associació Python Barcelona** (PyBCN), a non-profit association of volunteers who organize Python meetups and events in Barcelona.
 
 ## Who we are
 
 {{< association-identity >}}
 
-The Management Board is responsible for this website. You can see who sits on it on the [Information](/pybcn_association/information/) page.
+The Board is responsible for this website. You can see who sits on it on the [Information](/pybcn_association/information/) page.
 
 ## What this site is
 
-This is an informational site. It describes the association, its events, the people who organise them and speak at them, and how to join, propose a talk, or sponsor us. Nothing is sold through this site. The membership fee is paid on PayPal's own site, not here. Some pages embed a Google Form or a Google Calendar, and the page of a recorded talk, the page of a recorded session, the page of a speaker, and the home page embed video in a YouTube player (youtube-nocookie.com); those frames are served by Google.
+This is an informational site. It describes the association, its events, the people who organize them and speak at them, and how to join, propose a talk, or sponsor us. Nothing is sold through this site. The membership fee is paid on PayPal's own site, not here. Some pages embed a Google Form or a Google Calendar, and the page of a recorded talk, the page of a recorded session, the page of a speaker, and the home page embed video in a YouTube player (youtube-nocookie.com); those frames are served by Google.
 
 The site is a set of static pages, published from a public repository on GitHub and served by GitHub Pages. We keep no server of our own and we run no analytics. The [Privacy policy](/pybcn_association/privacy-policy/) says what personal data this involves.
 
@@ -31,8 +31,8 @@ The site is a set of static pages, published from a public repository on GitHub 
 
 - The text on this site is written by volunteers and belongs to the association. You can quote it with a link to the page. Ask us before you reuse more than that.
 - The photographs and biographies on the people pages belong to the people shown. Do not reuse them without their permission.
-- The logos of sponsors and partner organisations belong to their owners.
-- The site code is in a [public repository](https://github.com/pybcn/pybcn.github.io) on GitHub. The theme is free software under the MIT licence.
+- The logos of sponsors and partner organizations belong to their owners.
+- The site code is in a [public repository](https://github.com/pybcn/pybcn.github.io) on GitHub. The theme is free software under the MIT license.
 
 ## Links to other sites
 
@@ -54,4 +54,4 @@ We may update this notice. Every change is visible in the [history of this page]
 
 Spanish law applies to this notice and to the use of this site. Any dispute goes to the courts of Barcelona, unless the law gives you the right to the courts of your own domicile.
 
-Last updated: 2026-10-14
+Last updated: 2026-10-25

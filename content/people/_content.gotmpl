@@ -31,9 +31,16 @@
     run with -D adds no role for the fixture of content/canary.md.
 
     The path segment is the label through urlize, "Permanent Committee"
-    to permanent-committee and "Former Management Board (2018 - 2025)" to
-    former-management-board-2018-2025, under one directory, role/, so a
-    segment can never collide with a person id, which is firstname-surname.
+    to permanent-committee and "Mentor" to mentor, under one directory,
+    role/, so a segment can never collide with a person id, which is
+    firstname-surname. Three labels keep the segment of the words they
+    replaced (the table $segments below): the board is "Board (2026)" and
+    "Former Board (2018 - 2025)" since the glossary of 2026-10-25 and was
+    "Management Board" before, and the people who organized an event are
+    "Event organizer" and were "Organizer". Their pages stay at
+    management-board-2026, former-management-board-2018-2025, and
+    organizer, because a published release links the first one and
+    nothing is gained by moving the others.
     The page carries the label as params.filter, which is how every walker
     of the people section tells a listing from a person (a person has an
     id, a listing has a filter), and how layouts/people/role.html knows
@@ -49,20 +56,25 @@
     format; the name here is the path of the file under content/, which is
     unique, where two sections both hold a job-offers.md.
 
-    One more page, Assistants, which no label gives: /people/role/assistants/
+    One more page, Attendees, which no label gives: /people/role/attendees/
     answers the question a reader of the other tabs asks next, who came,
     and the answer is that the association never recorded it. The tab
-    exists to say so. It is the data policy of the
-    archive told as a joke: a programme, a board page, or a credit names
+    exists to say so. It was /people/role/assistants/ until the glossary
+    of 2026-10-25 (an assistant is a helper in English, the word was a
+    calque of the Catalan assistent), and the old address is an alias. It is the data policy of the
+    archive told as a joke: a program, a board page, or a credit names
     the people who spoke, organized, mentored, or collaborated, and an
-    attendee is on no such list. The one figure that exists is the count
-    of Meetup RSVPs, which the page of a meetup prints as registrations
-    and never as attendance (AGENTS.md: RSVPs are not attendance). The
-    page carries its text as content and the same filter param as the
-    others, so partials/people_tabs.html lists it from the pages like any
-    other view, with no count because there is no number to print, and
-    layouts/people/role.html prints the text where /people/ prints its
-    intro and no empty bar of letters under it.
+    attendee is on no such list. The one figure that exists is the sum
+    of the Meetup RSVPs, which the page of a meetup prints as RSVPs and
+    never as attendance (AGENTS.md: RSVPs are not attendance), and the
+    page prints that sum and says what it is. The text is not here: an
+    adapter runs before the pages exist and cannot add the figure up, so
+    the page carries the same filter param as the others and no content,
+    partials/people_tabs.html lists it from the pages like any other
+    view, with no count because it holds no people, and
+    layouts/people/role.html prints partials/attendees_note.html where
+    /people/ prints its intro and no empty bar of letters under it. The
+    Meetup RSVPs tile of the home page leads here with the same sum.
 */ -}}
 {{- $root := "content" -}}
 
@@ -121,21 +133,30 @@
     {{- end -}}
 {{- end -}}
 
+{{- /* The labels whose page keeps the path segment of the words they
+       replaced. See the header. */ -}}
+{{- $segments := dict
+        "Board (2026)" "management-board-2026"
+        "Former Board (2018 - 2025)" "former-management-board-2018-2025"
+        "Event organizer" "organizer" -}}
+
 {{- /* The page of each label, in the order of the labels, so two builds
        add the pages in one order. The title is the label itself, the
-       words the row of a person prints and the tab reads. */ -}}
+       words the row of a person prints, and the tab reads the title. */ -}}
 {{- range $label, $_ := $labels -}}
-    {{- /* "Organizers (23)" and not "Organizer (23)": the heading names
+    {{- /* "Speakers (356)" and not "Speaker (356)": the heading names
            what the page holds, which is people. A label that is a group
-           and not a role ("Permanent Committee", "Management Board
-           (2026)") is already the name of the thing and is left alone. */ -}}
+           and not a role ("Permanent Committee", "Board (2026)") is
+           already the name of the thing and is left alone; the test is
+           a parenthesis or the word Committee, because a role can be two
+           words ("Event organizer", whose page is "Event organizers"). */ -}}
     {{- $title := $label -}}
-    {{- if not (or (strings.Contains $label " ") (strings.Contains $label "(")) -}}
+    {{- if not (or (strings.Contains $label "Committee") (strings.Contains $label "(")) -}}
         {{- $title = pluralize $label -}}
     {{- end -}}
     {{- $.AddPage (dict
             "kind" "page"
-            "path" (printf "role/%s" (urlize $label))
+            "path" (printf "role/%s" (default (urlize $label) (index $segments $label)))
             "title" $title
             "layout" "role"
             "params" (dict
@@ -143,15 +164,12 @@
                 "description" (printf "Every person the archive credits as %s, with their roles, their events, and their links." $label))) -}}
 {{- end -}}
 
-{{- $assistants := `## We don't track that!
-
-The association has never recorded who came to an event. The archive holds the people who spoke, organized, mentored, or collaborated, because a programme, a board page, or a credit names them, and an attendee is on no such list. The one figure that exists is how many people said yes on Meetup, which the page of a meetup prints as registrations: a promise to come, not a seat filled.` -}}
 {{- $.AddPage (dict
         "kind" "page"
-        "path" "role/assistants"
-        "title" "Assistants"
+        "path" "role/attendees"
+        "title" "Attendees"
         "layout" "role"
-        "content" (dict "mediaType" "text/markdown" "value" $assistants)
+        "aliases" (slice "/people/role/assistants/")
         "params" (dict
-            "filter" "Assistants"
-            "description" "Who came to an event. The association never recorded it, so the archive holds the people who spoke, organized, mentored, or collaborated, and nobody else.")) -}}
+            "filter" "Attendees"
+            "description" "Who came to an event. The association never recorded it, so the archive holds the people who spoke, organized, mentored, or collaborated, and nobody else. The one figure is the Meetup RSVPs.")) -}}

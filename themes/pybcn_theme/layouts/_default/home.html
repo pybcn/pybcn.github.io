@@ -2,7 +2,7 @@
     The home page.
 
     The blocks, in order: the hero
-    with the four counts of the Archive, About Python Barcelona with the
+    with the six counts of the Archive, About Python Barcelona with the
     video, the two Meetup groups, the recent events, the photographs,
     About us with the faces of the board and the committee, Take part, and
     Our friends.
@@ -23,6 +23,43 @@
 {{- $counts := partialCached "listing_counts.html" site "listing-counts" -}}
 {{- $sponsors_total := len (partial "sponsor_ids.html" site) -}}
 {{- $glyphs := site.Data.role_emoji -}}
+{{- /* The rule of the tiles: the number of a tile is the number of the
+       page it leads to, counted by the partial that page counts with,
+       so a reader who follows a tile finds the figure again in the
+       heading or the text of the page. Events, Talks, and People are the
+       totals of the h1 of the three listings (partials/listing_total.html
+       reads the same map), Sponsors is the h1 of /sponsors/, the RSVPs
+       are the sum the Attendees page prints (partials/meetup_rsvps.html),
+       and the board and the committee are the people the Who we are page
+       lists under its two home_faces levels, which the faces of About us
+       below draw from the same front matter. */ -}}
+{{- /* The board and the committee: the ids under the levels of
+       content/pybcn_association/organizers.md that carry home_faces, the
+       two bodies that run the association today (the former board and
+       the collaborators are not in the count), each person once, so a
+       person on both bodies is one. The link lands on the heading of the
+       first of those levels, which partials/people-grid.html gives an id
+       from its name. */ -}}
+{{- $who := site.GetPage "/pybcn_association/organizers" -}}
+{{- $board_ids := dict -}}
+{{- $board_anchor := "" -}}
+{{- range $who.Params.people_levels -}}
+    {{- if not .home_faces }}{{ continue }}{{ end -}}
+    {{- if not $board_anchor }}{{ $board_anchor = printf "#%s" (anchorize .name) }}{{ end -}}
+    {{- range .people -}}
+        {{- $id := . -}}
+        {{- if reflect.IsMap . }}{{ $id = .id }}{{ end -}}
+        {{- $board_ids = merge $board_ids (dict $id true) -}}
+    {{- end -}}
+{{- end -}}
+{{- $board_total := len $board_ids -}}
+{{- /* The RSVPs: the sum of the attendance field over the pages of
+       content/events/meetups/, which is the yes count of Meetup and not
+       who came (AGENTS.md: RSVPs are not attendance). The label says
+       Meetup, because the figure is Meetup's and covers no PyDay. The
+       tile leads to the Attendees page, which prints the same sum and
+       says what it is. */ -}}
+{{- $rsvps_total := (partialCached "meetup_rsvps.html" site "meetup-rsvps").total -}}
 {{- $events := site.GetPage "/events" -}}
 {{- $rows := slice -}}
 {{- range $events.RegularPagesRecursive -}}
@@ -35,11 +72,27 @@
 
 
 
+            {{- /* Six tiles. The label is the title of the page the tile
+                   leads to, except where that title would say something
+                   else: the board and the committee are two levels of the
+                   Who we are page, so the tile names them and lands on
+                   their heading, and the RSVPs are a sum the Attendees
+                   page prints, so the tile names the sum. The People
+                   tile carries a caption, so the number under the word
+                   is not read as the people who run the association,
+                   which is the tile beside it. A number is printed with
+                   a thousands separator, so 8917 reads as 8,917 next to
+                   607. The glyphs are the ones of data/role_emoji.yaml,
+                   as on /people/, except the speech balloon of the
+                   talks: a talk type has a Font Awesome icon and no emoji
+                   (partials/event_types.html). */ -}}
             {{- $tiles := slice
-                (dict "path" "/events"   "total" $counts.events_total "glyph" (index $glyphs "Events"))
-                (dict "path" "/talks"    "total" $counts.talks_total  "glyph" (index $glyphs "Speaker"))
-                (dict "path" "/people"   "total" $counts.people_total "glyph" (index $glyphs "*"))
-                (dict "path" "/sponsors" "total" $sponsors_total      "glyph" (index $glyphs "Collaborator")) -}}
+                (dict "path" "/events"                      "total" $counts.events_total "glyph" (index $glyphs "Events"))
+                (dict "path" "/talks"                       "total" $counts.talks_total  "glyph" "💬")
+                (dict "path" "/people"                      "total" $counts.people_total "glyph" (index $glyphs "*") "caption" "Speakers, organizers, and others")
+                (dict "path" "/pybcn_association/organizers" "total" $board_total        "glyph" (index $glyphs "Board (2026)") "label" "Board and Committee" "anchor" $board_anchor)
+                (dict "path" "/people/role/attendees"       "total" $rsvps_total         "glyph" (index $glyphs "Attendees") "label" "Meetup RSVPs")
+                (dict "path" "/sponsors"                    "total" $sponsors_total      "glyph" (index $glyphs "Collaborator")) -}}
             <section class="home_hero" aria-labelledby="home_hero_heading">
                 <div class="container">
                     <h1 id="home_hero_heading">Python Barcelona, since {{ $first_year }}</h1>
@@ -49,10 +102,10 @@
                         {{- $tile := . }}
                         {{- with site.GetPage .path }}
                         <li>
-                            <a class="home_stat" href="{{ .RelPermalink }}">
+                            <a class="home_stat" href="{{ .RelPermalink }}{{ $tile.anchor }}">
                                 <span class="home_stat_glyph" aria-hidden="true">{{ $tile.glyph }}</span>
-                                <span class="home_stat_n">{{ $tile.total }}</span>
-                                <span class="home_stat_label">{{ .Title }}</span>
+                                <span class="home_stat_n">{{ lang.FormatNumberCustom 0 $tile.total }}</span>
+                                <span class="home_stat_label">{{ default .Title $tile.label }}{{ with $tile.caption }}<span class="home_stat_caption">{{ . }}</span>{{ end }}</span>
                             </a>
                         </li>
                         {{- else }}{{ errorf "home: the page %q is missing" $tile.path }}{{ end }}
@@ -132,7 +185,7 @@
             <section class="home_photos" aria-labelledby="home_photos_heading">
                 <div class="container">
                     <div class="home_title home_title_dark">
-                        <h2 id="home_photos_heading">Our favourite pictures from our favourite events</h2>
+                        <h2 id="home_photos_heading">Our favorite pictures from our favorite events</h2>
                     </div>
                     <div id="home_carousel" class="carousel slide home_carousel" data-interval="false">
                         <ol class="carousel-indicators">
@@ -170,7 +223,7 @@
             {{- /* About us: the faces of the people who run the
                    association, linked to the page that lists them. The
                    home page had no link to /organizers/ at all: the page is the
-                   present of the association and the four tiles above are
+                   present of the association and the six tiles above are
                    its past, so it reads here, over the ways of taking
                    part, and not inside the Archive.
 
@@ -244,7 +297,7 @@
             {{- $boxes := slice
                 (dict "path" "/pybcn_association/membership"         "icon" "fa-sign-in-alt"  "text" "Join the association: 20 euros a year, and a voice and a vote in the general assembly.")
                 (dict "path" "/pybcn_association/organize-with-us"   "icon" "fa-calendar-day" "text" "Help us run a meetup, or ask us to help with yours.")
-                (dict "path" "/pybcn_association/propose-a-talk"     "icon" "fa-comment"      "text" "Twenty minutes on something you built, learnt, or broke.")
+                (dict "path" "/pybcn_association/propose-a-talk"     "icon" "fa-comment"      "text" "Twenty minutes on something you built, learned, or broke.")
                 (dict "path" "/contact"                              "icon" "fa-envelope"     "text" "A question, an idea, a venue to offer: write to us.") -}}
             <section class="home_us container" aria-labelledby="home_us_heading">
                 <div class="home_title">

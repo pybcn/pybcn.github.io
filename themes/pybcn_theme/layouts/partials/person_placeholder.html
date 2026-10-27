@@ -1,9 +1,9 @@
 {{- /*
     The mark of a person with no photo: the initials of the name on a
-    colour derived from the name. In the 48 px slot of a row of /people/,
+    color derived from the name. In the 48 px slot of a row of /people/,
     and at 240 px where the portrait of the page of the person would be.
 
-        [ DA ]   on one of ten colours, always the same one for one name
+        [ DA ]   on one of ten colors, always the same one for one name
 
     Argument: a dict with
         name    the name of the person, as the record writes it (required)
@@ -13,20 +13,20 @@
     else draws it, so a different placeholder (a pattern drawn by CSS, a
     figure, a glyph) is a change to this file and to its block of
     people_index.scss, and to no layout. The size is the caller's: the
-    colours and the letters are the shared rule of people_index.scss, the
+    colors and the letters are the shared rule of people_index.scss, the
     48 px of the row sit under .people_rows there, and the 240 px of the
     page under .person_page in people_page.scss. The page showed nothing
     where the portrait goes until 2026-10-15, and the placeholder of the
-    row is drawn there now: the initials on a colour.
+    row is drawn there now: the initials on a color.
 
-    Why initials and a colour. 250 of the 378 records carry no photo. The
+    Why initials and a color. 250 of the 378 records carry no photo. The
     row used to print the emoji of the first role of the person there
     (data/role_emoji.yaml), which put 🎤 on some 230 rows in a column: a
     marker that nearly every row shares marks nothing, and it read as an
     icon of the site and not as a stand-in for a face. The initials are
     the one fact about the person the row already has, and they differ
     from row to row, so a reader who scans the column can tell the rows
-    apart; the colour does the same for a reader who does not read the
+    apart; the color does the same for a reader who does not read the
     letters. No image is requested for them, which the anonymous
     silhouette of the grid (anon_member.webp) would have cost 250 times.
 
@@ -36,13 +36,13 @@
     archive is built. A name of one word gives one letter. The letters are
     cut by rune, not by byte, so an accented initial stays one letter.
 
-    The colour. One of ten, picked by the FNV-1a hash of the name modulo
-    ten, so one name gets one colour on every build and on every page
+    The color. One of ten, picked by the FNV-1a hash of the name modulo
+    ten, so one name gets one color on every build and on every page
     that may draw it, and two builds cannot disagree. The ten are set in
     people_index.scss, every one of them at 5:1 or more under white text
     (WCAG 1.4.3 asks 4.5:1 for text of this size), and the class carries
     the index, hue_0 to hue_9: no inline style, which bin/check-rendered
-    inspects, and no colour value in the markup.
+    inspects, and no color value in the markup.
 
     Hidden from a screen reader, as the photo it stands in for is: the
     name is the heading right beside it, and the initials said aloud

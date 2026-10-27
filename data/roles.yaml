@@ -19,8 +19,8 @@
 # 2016. Unmapped, it printed "Collaborators at PyBCN" on the page of one
 # person, a plural for one.
 Speakers: Speaker
-Organizers: Organizer
+Organizers: Event organizer
 Collaborators: Collaborator
 Mentors: Mentor
 Volunteers: Volunteer
-PyLadiesBCN Organizers: Organizer
+PyLadiesBCN Organizers: Event organizer
