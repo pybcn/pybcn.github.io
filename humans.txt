@@ -1,0 +1,70 @@
+/* TEAM */
+
+    Python Barcelona (PyBCN) is run by its own members. Decisions are made by
+    a Management Board and a Permanent Committee. The work is done by work
+    groups, and anybody who joins the association can join a work group:
+
+    Meetup            Organizes, prepares and runs the monthly PyBCN meetup.
+    PyLadies          Runs the monthly PyLadies BCN workshops and activities.
+    Practice Sessions Runs the monthly PyBCN workshops and coding dojos.
+    Communication     The channels, the content, and the sponsor contact.
+    Web               This site and the process that publishes it.
+    Video             Records the talks and publishes them on YouTube.
+    Event groups      Formed for one event, such as a PyDay.
+
+    The people who built this site are in AUTHORS, in the repository.
+    The rest are named on their own pages, which stay current:
+    Organizers        https://pybcn.org/pybcn_association/organizers/
+    PyLadies BCN      https://pybcn.org/pyladies_bcn/organizers-and-speakers/
+    Speakers          On the page of each event, https://pybcn.org/events/
+
+/* THANKS */
+
+    Every speaker who prepared a talk or a workshop and gave it for free.
+    Every venue that opened its doors, 87 of them over the years.
+    Every sponsor, listed at https://pybcn.org/sponsors/
+    Every person who came, asked a question, and stayed for the pizza.
+
+/* THE ASSOCIATION */
+
+    Name       Associacio Python Barcelona (PyBCN)
+    Form       Non-profit association, registered in 2018
+    Meeting    Barcelona, Catalonia, Spain
+    Contact    pybcn@googlegroups.com
+    Conduct    https://pybcn.org/coc/
+    Join       https://pybcn.org/pybcn_association/membership/
+
+/* NUMBERS */
+
+    From the archive on this site, which is built out of the sources it
+    cites, so these move when the archive does:
+
+    Events                          281
+    Talks and workshops             607
+    People the archive credits      370
+    Sponsors                        81
+    Venues used                     87
+    Photographs published           530
+
+    From the Meetup group, counted on 2026-09-30, because only Meetup
+    knows them:
+
+    Members on Meetup               4672
+    Average event rating            4.64, from 1295 ratings
+
+/* SITE */
+
+    Generator  Hugo
+    Source     https://github.com/pybcn/pybcn.github.io
+    Standards  HTML5, CSS3
+    Components Bootstrap, jQuery, Font Awesome, all served from this site
+    Search     Pagefind, https://pybcn.org/search/ The index is built with
+               the site and served from it: searching asks nobody else
+    Language   English
+    Privacy    Scripts, styles, fonts, and images are served from this site.
+               A page asks another site only for the YouTube player of a
+               recorded talk, the Google Form of the talk proposals, the
+               Google Calendar of PyDay BCN 2019, the PayPal button of the
+               membership page, and the Eventbrite button of PyDay BCN 2018.
+               The whole list:
+               https://pybcn.org/pybcn_association/privacy-policy/
