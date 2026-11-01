@@ -5,7 +5,7 @@ photo: alicia-morales-carrasco.jpg
 # Smart cropped below the face on this portrait.
 photo_anchor: Top
 
-pybcn_position: Organizer
+pybcn_position: PyLadies organizer
 
 twitter: https://x.com/amoralca16
 github: https://github.com/amoralca16
