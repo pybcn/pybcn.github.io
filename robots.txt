@@ -1,0 +1,6 @@
+Sitemap: https://pybcn.org/sitemap.xml
+
+User-agent: *
+Allow: /
+
+Disallow: /pagefind/
