@@ -1,0 +1,32 @@
+{{- /*
+    friend: one card of partials/friends.html, drawn as on the home page.
+
+    Usage: {{< friend "BCN Engineering" >}}
+
+    The argument is the name of the friend, as partials/friends.html
+    writes it. The card has the classes of the home page, so it looks
+    the same and needs no new CSS. It has no list around it, so it takes
+    the width of its column: put it in a grid-col. The div keeps the
+    card at the height of its text (the card is height: 100%). The mark is 56px from
+    its attributes. Only an SVG mark is drawn as is; a raster mark is
+    resized to 56px tall, as on the home page.
+*/ -}}
+{{- $name := .Get 0 -}}
+{{- $friend := index (where (partial "friends.html") "name" $name) 0 -}}
+{{- if not $friend -}}{{ errorf "friend: no friend named %q in partials/friends.html (%s)" $name .Position }}{{- end -}}
+<div class="mb-3">
+    <a class="home_card home_friend" href="{{ $friend.url }}" target="_blank" rel="noopener">
+        {{- with resources.Get $friend.icon }}
+        {{- if eq .MediaType.SubType "svg" }}
+        <img class="home_friend_logo" src="{{ .RelPermalink }}" width="56" height="56" loading="lazy" decoding="async" alt="">
+        {{- else }}
+        {{- $small := .Resize "x56 webp q85" }}
+        <img class="home_friend_logo" src="{{ $small.RelPermalink }}" width="{{ $small.Width }}" height="{{ $small.Height }}" loading="lazy" decoding="async" alt="">
+        {{- end }}
+        {{- else }}{{ errorf "friend: the mark %q is missing" $friend.icon }}{{ end }}
+        <span class="home_card_body">
+            <span class="home_card_title h3">{{ $friend.name }}</span>
+            <span class="home_card_text">{{ $friend.text }}</span>
+        </span>
+    </a>
+</div>
