@@ -13,8 +13,8 @@ heroBackground: /images/photos/organize-with-us.jpg
 **[Become a PyBCN sponsor](/pybcn_association/sponsor-us)**\
 Help us to organize our next event
 
-**[Share your job offers](/pybcn_association/job-offers)**\
-Reach our >3K mailing list subscribers
+**[Job offers](/pybcn_association/job-offers)**\
+Where to post them
 
 **[Organize a Python-related event](/pybcn_association/promote-your-event)**\
 Happy to help :)
